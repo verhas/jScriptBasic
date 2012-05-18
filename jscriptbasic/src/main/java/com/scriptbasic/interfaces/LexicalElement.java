@@ -31,6 +31,13 @@ public interface LexicalElement {
 	public int lineNumber();
 
 	/**
+	 * Get the position where the lexical element starts on the line.
+	 * 
+	 * @return
+	 */
+	public int position();
+	
+	/**
 	 * Get the type of the lexical element.
 	 * 
 	 * @return
@@ -49,4 +56,10 @@ public interface LexicalElement {
 	public Long longValue() throws IllegalArgumentException;
 
 	public Double doubleValue() throws IllegalArgumentException;
+	
+	public static final int TYPE_STRING = 0;
+	public static final int TYPE_DOUBLE = 1;
+	public static final int TYPE_LONG = 2;
+	public static final int TYPE_IDENTIFIER = 3;
+	public static final int TYPE_SYMBOL = 4;
 }

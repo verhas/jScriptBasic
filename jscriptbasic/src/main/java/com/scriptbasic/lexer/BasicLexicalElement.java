@@ -5,6 +5,7 @@ import com.scriptbasic.interfaces.LexicalElement;
 public class BasicLexicalElement implements LexicalElement {
 	private String fileName;
 	private int lineNumber;
+	private int position;
 	private int type;
 	private String lexeme;
 
@@ -24,6 +25,14 @@ public class BasicLexicalElement implements LexicalElement {
 		this.fileName = fileName;
 	}
 
+	public int position() {
+		return this.position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
+
 	public String get() {
 		return lexeme;
 	}
@@ -41,19 +50,25 @@ public class BasicLexicalElement implements LexicalElement {
 	}
 
 	private String stringValue;
-	private long longValue;
+	private Long longValue;
 	private Double doubleValue;
-	
+
 	public void setStringValue(String stringValue) {
 		this.stringValue = stringValue;
+		this.doubleValue = null;
+		this.longValue = null;
 	}
 
 	public void setLongValue(long longValue) {
+		this.doubleValue = null;
+		this.stringValue = null;
 		this.longValue = longValue;
 	}
 
 	public void setDoubleValue(Double doubleValue) {
 		this.doubleValue = doubleValue;
+		this.stringValue = null;
+		this.longValue = null;
 	}
 
 	public String stringValue() throws IllegalArgumentException {

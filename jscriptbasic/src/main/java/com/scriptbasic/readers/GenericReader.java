@@ -5,23 +5,21 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 import com.scriptbasic.interfaces.Reader;
+import com.scriptbasic.interfaces.SourceProvider;
+import com.scriptbasic.utility.CharacterCheck;
 
 public class GenericReader implements Reader {
 
 	private java.io.Reader sourceReader;
-	private Reader parent = null;
 	private String sourceFileName = null;
 	private int lineNumber = 0;
 	private int position = 0;
+	private SourceProvider sourceProvider = null;
 
 	private Integer lastChar = null;
 
 	public void set(java.io.Reader sourceReader) {
 		this.sourceReader = sourceReader;
-	}
-
-	public void set(Reader parent) {
-		this.parent = parent;
 	}
 
 	public void set(String sourceFileName) {
@@ -40,10 +38,6 @@ public class GenericReader implements Reader {
 		return position;
 	}
 
-	public Reader getParent() {
-		return parent;
-	}
-
 	Deque<Integer> charsAhead = new LinkedList<Integer>();
 
 	/**
@@ -53,28 +47,43 @@ public class GenericReader implements Reader {
 	 * character is pushed back
 	 */
 	public void pushBack(Integer ch) {
-		charsAhead.addFirst(ch);
-		position--;
+		if (ch != null) {
+			charsAhead.addFirst(ch);
+			position--;
+		}
 	}
 
 	public Integer get() {
 		Integer nextChar;
 		if (!charsAhead.isEmpty()) {
+			position++;
 			return charsAhead.removeFirst();
 		}
 
 		try {
 			nextChar = sourceReader.read();
+			if (nextChar == -1) {
+				nextChar = null;
+			}
 		} catch (IOException e) {
 			return null;
 		}
-		if (lastChar != null
-				&& Character.getType(lastChar) == Character.LINE_SEPARATOR) {
+		if (lastChar != null && CharacterCheck.isNewLine(lastChar)) {
 			position = 0;
 			lineNumber++;
 		}
+		position++;
 		lastChar = nextChar;
 		return lastChar;
+	}
+
+	public void setSourceProvider(SourceProvider sourceProvider) {
+		this.sourceProvider = sourceProvider;
+	}
+
+	@Override
+	public SourceProvider getSourceProvider() {
+		return sourceProvider;
 	}
 
 }
