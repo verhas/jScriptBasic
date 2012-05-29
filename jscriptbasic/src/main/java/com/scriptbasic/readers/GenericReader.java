@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.interfaces.SourceProvider;
-import com.scriptbasic.utility.CharacterCheck;
+import com.scriptbasic.utility.CharUtils;
 
 public class GenericReader implements Reader {
 
@@ -50,6 +50,8 @@ public class GenericReader implements Reader {
 		if (ch != null) {
 			charsAhead.addFirst(ch);
 			position--;
+		}else{
+		    Integer z = null;//TODO delete this, needed only to debug, have something here as a breakpoint
 		}
 	}
 
@@ -68,7 +70,7 @@ public class GenericReader implements Reader {
 		} catch (IOException e) {
 			return null;
 		}
-		if (lastChar != null && CharacterCheck.isNewLine(lastChar)) {
+		if (lastChar != null && CharUtils.isNewLine(lastChar)) {
 			position = 0;
 			lineNumber++;
 		}

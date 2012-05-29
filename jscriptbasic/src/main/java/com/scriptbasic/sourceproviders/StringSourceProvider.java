@@ -1,0 +1,53 @@
+package com.scriptbasic.sourceproviders;
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.scriptbasic.interfaces.Reader;
+import com.scriptbasic.readers.GenericReader;
+
+/**
+ * This implementation provides the source from strings.
+ * 
+ * @author Peter Verhas
+ * 
+ */
+public class StringSourceProvider extends
+        SingleIncludeNonRelativeSourceProvider {
+
+    private Map<String, String> sourceMap = new HashMap<String, String>();
+
+    /**
+     * Add a new source to the set of available sources.
+     * 
+     * @param fileName
+     *            the name of the source. This name can be used in include
+     *            statements in other BASIC sources and also this can be used to
+     *            get the reader from the provider.
+     * @param sourceCode
+     *            The actual code of the source program.
+     */
+    public void addSource(String fileName, String sourceCode) {
+        sourceMap.put(fileName, sourceCode);
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * This implementation returns a {@see GenericReader}.
+     */
+    @Override
+    public Reader getSource(String sourceName) throws IOException {
+        if (!sourceMap.containsKey(sourceName)) {
+            throw new IOException("The source '" + sourceName
+                    + "' was not set.");
+        }
+        GenericReader reader = new GenericReader();
+        reader.set(sourceName);
+        reader.setSourceProvider(this);
+        reader.set(new StringReader(sourceMap.get(sourceName)));
+        return reader;
+    }
+}

@@ -1,5 +1,6 @@
 package com.scriptbasic.interfaces;
 
+
 /**
  * Source code reader. This class is almost works as the usual
  * {@code java.io.Reader} and the implementation {@see GenericReader} actually
@@ -16,45 +17,45 @@ package com.scriptbasic.interfaces;
  */
 public interface Reader {
 
-	public void set(String sourceFileName);
+    public void set(String sourceFileName);
 
-	public String fileName();
+    public String fileName();
 
-	public int lineNumber();
+    public int lineNumber();
 
-	public int position();
+    public int position();
 
-	/**
-	 * Readers should support lexical analyzers offering the possibility to push
-	 * some characters back to the input stream, when a lexical analyzer can not
-	 * decide its selection only consuming extra characters.
-	 * <p>
-	 * Some of the readers may limit the operation of this push back
-	 * functionality not supporting tracking line numbers, position and file
-	 * name when this method is used.
-	 * <p>
-	 * Lexical analyzers should push back the characters that were read from the
-	 * reader the backward order as they were read. (Read last pushed back
-	 * first.)
-	 * <p>
-	 * Implementation should ignore {@code null} parameter.
-	 * 
-	 * @param ch
-	 *            the character to push back
-	 */
-	public void pushBack(Integer ch);
+    /**
+     * Readers should support lexical analyzers offering the possibility to push
+     * some characters back to the input stream, when a lexical analyzer can not
+     * decide its selection only consuming extra characters.
+     * <p>
+     * Some of the readers may limit the operation of this push back
+     * functionality not supporting tracking line numbers, position and file
+     * name when this method is used.
+     * <p>
+     * Lexical analyzers should push back the characters that were read from the
+     * reader the backward order as they were read. (Read last pushed back
+     * first.)
+     * <p>
+     * Implementation should ignore {@code null} parameter.
+     * 
+     * @param ch
+     *            the character to push back
+     */
+    public void pushBack(Integer ch);
 
-	/**
-	 * Get the next character from the input stream.
-	 * 
-	 * @return
-	 */
-	public Integer get();
+    /**
+     * Get the next character from the input stream.
+     * 
+     * @return
+     */
+    public Integer get();
 
-	/**
-	 * Get the source provider that provided this reader.
-	 * 
-	 * @return the source provider object.
-	 */
-	public SourceProvider getSourceProvider();
+    /**
+     * Get the source provider that provided this reader.
+     * 
+     * @return the source provider object.
+     */
+    public SourceProvider getSourceProvider();
 }

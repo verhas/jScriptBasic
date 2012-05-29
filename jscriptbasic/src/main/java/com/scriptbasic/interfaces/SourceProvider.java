@@ -1,5 +1,7 @@
 package com.scriptbasic.interfaces;
 
+import java.io.IOException;
+
 /**
  * A source provider gives a reader for a source given its name.
  * <p>
@@ -20,25 +22,26 @@ package com.scriptbasic.interfaces;
  * 
  */
 public interface SourceProvider {
-	/**
-	 * Get a reader to a source when there is no referencing source. This is the
-	 * main source.
-	 * 
-	 * @param sourceName
-	 *            the name of the source
-	 * @return reader reading the source file.
-	 */
-	public Reader get(String sourceName);
+    /**
+     * Get a reader to a source when there is no referencing source. This is the
+     * main source.
+     * 
+     * @param sourceName
+     *            the name of the source
+     * @return reader reading the source file.
+     */
+    public Reader get(String sourceName) throws IOException;
 
-	/**
-	 * Get a reader to a source specifying the source that references this
-	 * source.
-	 * 
-	 * @param sourceName
-	 *            the name of the source to get the reader to.
-	 * @param referencingSource
-	 *            the name of the source that is referencing the source to read.
-	 * @return
-	 */
-	public Reader get(String sourceName, String referencingSource);
+    /**
+     * Get a reader to a source specifying the source that references this
+     * source.
+     * 
+     * @param sourceName
+     *            the name of the source to get the reader to.
+     * @param referencingSource
+     *            the name of the source that is referencing the source to read.
+     * @return
+     */
+    public Reader get(String sourceName, String referencingSource)
+            throws IOException;
 }

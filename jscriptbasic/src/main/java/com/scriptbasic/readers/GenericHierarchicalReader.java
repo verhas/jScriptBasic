@@ -7,57 +7,59 @@ import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.interfaces.SourceProvider;
 
 public class GenericHierarchicalReader implements HierarchicalReader {
-	private Reader reader;
+    private Reader reader;
 
-	private Stack<Reader> readerStack = new Stack<Reader>();
-	
-	/**
-	 * Include a new reader into the chain and start to use that child reader so
-	 * long as long exhausts.
-	 * 
-	 * @param reader
-	 */
-	public void include(Reader reader) {
-		readerStack.push(this.reader);
-		this.reader = reader;
-	}
+    private Stack<Reader> readerStack = new Stack<Reader>();
 
-	public void set(String sourceFileName) {
-		reader.set(sourceFileName);
-	}
+    /**
+     * Include a new reader into the chain and start to use that child reader so
+     * long as long exhausts.
+     * 
+     * @param reader
+     */
+    public void include(Reader reader) {
+        if (this.reader != null) {
+            readerStack.push(this.reader);
+        }
+        this.reader = reader;
+    }
 
-	public String fileName() {
-		return reader.fileName();
-	}
+    public void set(String sourceFileName) {
+        reader.set(sourceFileName);
+    }
 
-	public int lineNumber() {
-		return reader.lineNumber();
-	}
+    public String fileName() {
+        return reader.fileName();
+    }
 
-	public int position() {
-		return reader.position();
-	}
+    public int lineNumber() {
+        return reader.lineNumber();
+    }
 
-	public void pushBack(Integer ch) {
-		reader.pushBack(ch);
-	}
+    public int position() {
+        return reader.position();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * This version implements hierarchical reading. When a source finishes, it
-	 * returns to the parent reader and continues reading from there.
-	 */
-	public Integer get() {
-		Integer ch = reader.get();
-		while (ch == null && !readerStack.isEmpty()) {
-			reader = readerStack.pop();
-			ch = reader.get();
-		}
-		return ch;
-	}
+    public void pushBack(Integer ch) {
+        reader.pushBack(ch);
+    }
 
-	public SourceProvider getSourceProvider() {
-		return reader.getSourceProvider();
-	}
+    /**
+     * {@inheritDoc}
+     * 
+     * This version implements hierarchical reading. When a source finishes, it
+     * returns to the parent reader and continues reading from there.
+     */
+    public Integer get() {
+        Integer ch = reader.get();
+        while (ch == null && !readerStack.isEmpty()) {
+            reader = readerStack.pop();
+            ch = reader.get();
+        }
+        return ch;
+    }
+
+    public SourceProvider getSourceProvider() {
+        return reader.getSourceProvider();
+    }
 }

@@ -1,6 +1,5 @@
 package com.scriptbasic.interfaces;
 
-
 /**
  * A generic lexical analyzer that reads the characters from a reader and
  * returns the LexicalElements one after the other.
@@ -12,18 +11,26 @@ package com.scriptbasic.interfaces;
  * 
  */
 public interface LexicalAnalyzer {
-	/**
-	 * Set the reader from where the lexical analyzer has to read the input.
-	 * 
-	 * @param reader
-	 */
-	public void set(Reader reader);
+    /**
+     * Set the reader from where the lexical analyzer has to read the input.
+     * 
+     * @param reader
+     */
+    public void set(Reader reader);
 
-	/**
-	 * Get the next lexical element from the input stream. If there are no more
-	 * lexical elements then return {@code null}
-	 * 
-	 * @return
-	 */
-	public LexicalElement get() throws LexicalException;
+    /**
+     * Get the next lexical element from the input stream. If there are no more
+     * lexical elements then return {@code null}
+     * 
+     * @return
+     */
+    public LexicalElement get() throws LexicalException;
+
+    /**
+     * Register a lexical element analyzer. The lexical element analyzers are
+     * consulted in the order they are registered to match a lexeme.
+     * 
+     * @param lea
+     */
+    public void registerElementAnalyzer(LexicalElementAnalyzer lea);
 }
