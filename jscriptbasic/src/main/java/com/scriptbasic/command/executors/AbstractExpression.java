@@ -1,5 +1,7 @@
 package com.scriptbasic.command.executors;
 
-public abstract class AbstractExpression extends AbstractValue {
+import com.scriptbasic.interfaces.Expression;
+
+public abstract class AbstractExpression extends AbstractValue implements Expression {
 
 }

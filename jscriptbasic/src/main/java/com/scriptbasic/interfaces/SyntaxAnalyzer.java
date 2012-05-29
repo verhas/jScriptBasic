@@ -17,6 +17,13 @@ public interface SyntaxAnalyzer {
     public void setLexicalAnalyzer(LexicalAnalyzer la);
 
     /**
+     * Get the lexical analyzer that the syntax analyzer is using.
+     * 
+     * @return
+     */
+    public LexicalAnalyzer getLexicalAnalyzer();
+
+    /**
      * Perform the syntax analysis.
      * 
      * @throws SyntaxException

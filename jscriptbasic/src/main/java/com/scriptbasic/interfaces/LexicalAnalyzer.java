@@ -27,6 +27,14 @@ public interface LexicalAnalyzer {
     public LexicalElement get() throws LexicalException;
 
     /**
+     * Peek at the next lexical element and do not remove it from the input
+     * stream. Consecutive calls to {@code peek()} without calling {@see #get()}
+     * will return the same lexical element. Calling {@see #get()} will return
+     * the same lexical element as the last call to {@code peek()}.
+     */
+    public LexicalElement peek() throws LexicalException;
+
+    /**
      * Register a lexical element analyzer. The lexical element analyzers are
      * consulted in the order they are registered to match a lexeme.
      * 

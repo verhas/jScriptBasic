@@ -45,19 +45,29 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
         lexicalElementQueue = new LinkedList<LexicalElement>();
     }
 
+    private LexicalElement peekElement = null;
+
+    public LexicalElement get() throws LexicalException {
+        LexicalElement le = null;
+        le = peek();
+        peekElement = null;
+        return le;
+    }
+
     /**
      * {@inheritDoc}
      */
-    public LexicalElement get() throws LexicalException {
-        if (!lexicalElementQueueIterator.hasNext()) {
-            readTheNextLine();
-            resetLine();
+    public LexicalElement peek() throws LexicalException {
+        if (peekElement == null) {
+            if (!lexicalElementQueueIterator.hasNext()) {
+                readTheNextLine();
+                resetLine();
+            }
+            if (!lexicalElementQueue.isEmpty()) {
+                peekElement = lexicalElementQueueIterator.next();
+            }
         }
-        LexicalElement le = null;
-        if (!lexicalElementQueue.isEmpty()) {
-            le = lexicalElementQueueIterator.next();
-        }
-        return le;
+        return peekElement;
     }
 
     private Integer skipWhiteSpaces(Integer ch) {
