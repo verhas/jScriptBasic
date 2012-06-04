@@ -9,7 +9,7 @@ import com.scriptbasic.interfaces.SourceProvider;
 public class GenericHierarchicalReader implements HierarchicalReader {
     private Reader reader;
 
-    private Stack<Reader> readerStack = new Stack<Reader>();
+    private final Stack<Reader> readerStack = new Stack<Reader>();
 
     /**
      * Include a new reader into the chain and start to use that child reader so
@@ -17,30 +17,36 @@ public class GenericHierarchicalReader implements HierarchicalReader {
      * 
      * @param reader
      */
-    public void include(Reader reader) {
+    @Override
+    public void include(final Reader reader) {
         if (this.reader != null) {
             readerStack.push(this.reader);
         }
         this.reader = reader;
     }
 
-    public void set(String sourceFileName) {
+    @Override
+    public void set(final String sourceFileName) {
         reader.set(sourceFileName);
     }
 
+    @Override
     public String fileName() {
         return reader.fileName();
     }
 
+    @Override
     public int lineNumber() {
         return reader.lineNumber();
     }
 
+    @Override
     public int position() {
         return reader.position();
     }
 
-    public void pushBack(Integer ch) {
+    @Override
+    public void pushBack(final Integer ch) {
         reader.pushBack(ch);
     }
 
@@ -50,6 +56,7 @@ public class GenericHierarchicalReader implements HierarchicalReader {
      * This version implements hierarchical reading. When a source finishes, it
      * returns to the parent reader and continues reading from there.
      */
+    @Override
     public Integer get() {
         Integer ch = reader.get();
         while (ch == null && !readerStack.isEmpty()) {
@@ -59,6 +66,7 @@ public class GenericHierarchicalReader implements HierarchicalReader {
         return ch;
     }
 
+    @Override
     public SourceProvider getSourceProvider() {
         return reader.getSourceProvider();
     }

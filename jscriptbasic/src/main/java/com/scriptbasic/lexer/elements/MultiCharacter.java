@@ -20,19 +20,19 @@ public class MultiCharacter extends AbstractElementAnalyzer {
                     .stripComments(new RegexpCommentFilter("^\\w.*"))
                     .getArray();
             maxOperatorLength = 0;
-            for (String s : operators) {
+            for (final String s : operators) {
                 if (s.length() > maxOperatorLength) {
                     maxOperatorLength = s.length();
                 }
             }
-        } catch (IOException e) {
+        } catch (final IOException e) {
             operators = null;
         }
     }
 
-    private void readAhead(StringBuilder sb, int charsToReadAhead) {
+    private void readAhead(final StringBuilder sb, int charsToReadAhead) {
         while (charsToReadAhead > 0) {
-            Integer ch = getReader().get();
+            final Integer ch = getReader().get();
             if (ch == null || Character.isWhitespace(ch)) {
                 getReader().pushBack(ch);
                 break;
@@ -42,10 +42,10 @@ public class MultiCharacter extends AbstractElementAnalyzer {
         }
     }
 
-    private void pushBack(StringBuilder sb, int charsToPushBack) {
+    private void pushBack(final StringBuilder sb, int charsToPushBack) {
         int pos = sb.length() - 1;
         while (charsToPushBack > 0) {
-            getReader().pushBack((Integer) (int) sb.charAt(pos));
+            getReader().pushBack((int) sb.charAt(pos));
             pos--;
             charsToPushBack--;
         }
@@ -54,10 +54,10 @@ public class MultiCharacter extends AbstractElementAnalyzer {
     @Override
     public LexicalElement read() throws LexicalException {
         BasicLexicalElement le = null;
-        StringBuilder sb = new StringBuilder(maxOperatorLength);
+        final StringBuilder sb = new StringBuilder(maxOperatorLength);
         readAhead(sb, maxOperatorLength);
-        String s = sb.toString();
-        for (String operator : operators) {
+        final String s = sb.toString();
+        for (final String operator : operators) {
             if (s.startsWith(operator)) {
                 pushBack(sb, s.length() - operator.length());
                 le = BasicLexialElementFactory.create(getReader(),

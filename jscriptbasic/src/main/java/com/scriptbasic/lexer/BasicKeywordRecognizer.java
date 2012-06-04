@@ -15,7 +15,7 @@ public class BasicKeywordRecognizer implements KeywordRecognizer {
             keywords = new TextFileResource(BasicKeywordRecognizer.class,
                     "keywords.txt").stripSpaces().stripEmptyLines()
                     .stripComments(new RegexpCommentFilter("^#.*")).getSet();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             keywords = null;
         }
     }
@@ -24,12 +24,12 @@ public class BasicKeywordRecognizer implements KeywordRecognizer {
         return keywords;
     }
 
-    public static void setKeywords(Set<String> kwords) {
+    public static void setKeywords(final Set<String> kwords) {
         keywords = kwords;
     }
 
     @Override
-    public boolean isRecognized(String identifier) {
+    public boolean isRecognized(final String identifier) {
         return keywords.contains(identifier.toLowerCase());
     }
 

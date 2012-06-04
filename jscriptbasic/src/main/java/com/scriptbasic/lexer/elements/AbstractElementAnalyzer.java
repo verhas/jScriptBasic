@@ -14,7 +14,7 @@ public abstract class AbstractElementAnalyzer implements LexicalElementAnalyzer 
     }
 
     @Override
-    public void setReader(Reader reader) {
+    public void setReader(final Reader reader) {
         this.reader = reader;
     }
 

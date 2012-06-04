@@ -1,5 +1,6 @@
 package com.scriptbasic.lexer;
 
+import static com.scriptbasic.lexer.LexTestHelper.BOOL;
 import static com.scriptbasic.lexer.LexTestHelper.DOUBLE;
 import static com.scriptbasic.lexer.LexTestHelper.ID;
 import static com.scriptbasic.lexer.LexTestHelper.LONG;
@@ -128,6 +129,15 @@ public class TestBasicLexicalAnalyzer extends TestCase {
                 createStringReading("13.8E-2"));
     }
 
+    public void testBooleans() throws LexicalException{
+        assertLexicals(new LexicalElement[] { BOOL(true), BOOL(false) }, createStringReading("true false"));
+        assertLexicals(new LexicalElement[] { BOOL("TRUE"), BOOL("FALSE") }, createStringReading("TRUE FALSE"));
+        assertLexicals(new LexicalElement[] { BOOL("True"), BOOL("False") }, createStringReading("True False"));
+        assertLexicals(new LexicalElement[] { BOOL("tRUe"), BOOL("fALse") }, createStringReading("tRUe fALse"));
+        assertLexicals(new LexicalElement[] { BOOL("trUe"), BOOL("faLse") }, createStringReading("trUe faLse"));
+        assertLexicals(new LexicalElement[] { BOOL("TrUe"), BOOL("fAlSe") }, createStringReading("TrUe fAlSe"));
+    }
+    
     public void testFloatAndSomething() throws LexicalException {
         assertLexicals(new LexicalElement[] { DOUBLE("13.2"), ID("e"),
                 SYMBOL("+") }, createStringReading("13.2e+"));

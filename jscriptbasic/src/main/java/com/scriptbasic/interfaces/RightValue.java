@@ -9,8 +9,10 @@ public interface RightValue {
 
     public Boolean isString();
 
-    //TODO is this OK?
+    public Boolean isBoolean();
+
+    // TODO is this OK?
     public Boolean isArray();
-    
+
     public Boolean isJavaObject();
 }

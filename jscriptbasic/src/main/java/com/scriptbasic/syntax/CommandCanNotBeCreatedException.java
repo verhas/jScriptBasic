@@ -4,8 +4,10 @@ import com.scriptbasic.interfaces.SyntaxException;
 
 public class CommandCanNotBeCreatedException extends SyntaxException {
 
-    public CommandCanNotBeCreatedException(String commandKeyword,
-            Exception e) {
+    private static final long serialVersionUID = -7523742170361842550L;
+
+    public CommandCanNotBeCreatedException(final String commandKeyword,
+            final Exception e) {
         super(commandKeyword, e);
     }
 

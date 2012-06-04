@@ -15,15 +15,15 @@ public abstract class SyntaxException extends Exception {
         super();
     }
 
-    public SyntaxException(String arg0, Throwable arg1) {
+    public SyntaxException(final String arg0, final Throwable arg1) {
         super(arg0, arg1);
     }
 
-    public SyntaxException(String arg0) {
+    public SyntaxException(final String arg0) {
         super(arg0);
     }
 
-    public SyntaxException(Throwable arg0) {
+    public SyntaxException(final Throwable arg0) {
         super(arg0);
     }
 
@@ -31,7 +31,7 @@ public abstract class SyntaxException extends Exception {
     private int lineNumber;
     private int position;
 
-    public void setLocation(LexicalElement le) {
+    public void setLocation(final LexicalElement le) {
         fileName = le.fileName();
         lineNumber = le.lineNumber();
         position = le.position();

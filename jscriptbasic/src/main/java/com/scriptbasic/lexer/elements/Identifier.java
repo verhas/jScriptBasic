@@ -11,7 +11,7 @@ public class Identifier extends AbstractElementAnalyzer {
     private static final int IDENTIFIER_STRINGBUILDER_INITIAL_CAPACITY = 32;
     private KeywordRecognizer keywordRecognizer = null;
 
-    public void setKeywordRecognizer(KeywordRecognizer keywordRecognizer) {
+    public void setKeywordRecognizer(final KeywordRecognizer keywordRecognizer) {
         this.keywordRecognizer = keywordRecognizer;
     }
 
@@ -19,16 +19,16 @@ public class Identifier extends AbstractElementAnalyzer {
     public LexicalElement read() throws LexicalException {
         Integer ch = getReader().get();
         if (Character.isUnicodeIdentifierStart(ch)) {
-            StringBuilder identifier = new StringBuilder(
+            final StringBuilder identifier = new StringBuilder(
                     IDENTIFIER_STRINGBUILDER_INITIAL_CAPACITY);
             while (ch != null && Character.isUnicodeIdentifierPart(ch)) {
                 identifier.appendCodePoint(ch);
                 ch = getReader().get();
             }
             getReader().pushBack(ch);
-            String s = identifier.toString();
+            final String s = identifier.toString();
 
-            BasicLexicalElement le = BasicLexialElementFactory
+            final BasicLexicalElement le = BasicLexialElementFactory
                     .create(getReader(),
                             keywordRecognizer.isRecognized(s) ? LexicalElement.TYPE_SYMBOL
                                     : LexicalElement.TYPE_IDENTIFIER);

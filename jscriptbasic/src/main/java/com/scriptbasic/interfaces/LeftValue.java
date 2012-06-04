@@ -7,6 +7,6 @@ package com.scriptbasic.interfaces;
  * @author Peter Verhas
  * 
  */
-public interface LeftValue {
+public interface LeftValue extends Value {
 
 }

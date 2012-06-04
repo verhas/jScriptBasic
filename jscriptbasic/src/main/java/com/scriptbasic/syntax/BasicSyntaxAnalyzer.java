@@ -11,10 +11,12 @@ import com.scriptbasic.syntax.commandanalyzers.BasicCommandFactory;
 public class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
     private LexicalAnalyzer lexicalAnalyzer;
 
+    @Override
     public LexicalAnalyzer getLexicalAnalyzer() {
         return lexicalAnalyzer;
     }
 
+    @Override
     public void setLexicalAnalyzer(final LexicalAnalyzer lexicalAnalyzer) {
         this.lexicalAnalyzer = lexicalAnalyzer;
     }
@@ -37,7 +39,7 @@ public class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
     @Override
     public void analyze() throws SyntaxException, LexicalException {
         lexicalElement = lexicalAnalyzer.get();
-        BasicCommandFactory basicCommandFactory = new BasicCommandFactory();
+        final BasicCommandFactory basicCommandFactory = new BasicCommandFactory();
         basicCommandFactory.setSyntaxAnalyzer(this);
         while (lexicalElement != null) {
             if (lexicalElement.isSymbol()) {

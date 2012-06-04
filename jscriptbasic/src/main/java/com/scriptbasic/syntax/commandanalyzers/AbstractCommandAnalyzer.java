@@ -6,6 +6,7 @@ import com.scriptbasic.syntax.AbstractAnalyzer;
 
 public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer implements CommandAnalyzer {
 
+    @Override
     public abstract Command getCommand();
 
 }

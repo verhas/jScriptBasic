@@ -4,14 +4,14 @@ import java.util.regex.Pattern;
 
 public class RegexpCommentFilter implements CommentFilter {
 
-    private String regexp;
+    private final String regexp;
 
-    public RegexpCommentFilter(String regexp) {
+    public RegexpCommentFilter(final String regexp) {
         this.regexp = regexp;
     }
 
     @Override
-    public Boolean isComment(String line) {
+    public Boolean isComment(final String line) {
         return Pattern.matches(regexp, line);
     }
 

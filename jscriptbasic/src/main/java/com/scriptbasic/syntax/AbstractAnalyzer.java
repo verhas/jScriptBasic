@@ -11,7 +11,7 @@ public abstract class AbstractAnalyzer implements Analyzer {
         return syntaxAnalyzer;
     }
 
-    public void setSyntaxAnalyzer(SyntaxAnalyzer sa) {
+    public void setSyntaxAnalyzer(final SyntaxAnalyzer sa) {
         syntaxAnalyzer = sa;
     }
 

@@ -1,6 +1,6 @@
 package com.scriptbasic.syntax.expression;
 
-import com.scriptbasic.command.executors.AbstractValue;
+import com.scriptbasic.executors.AbstractValue;
 import com.scriptbasic.interfaces.Analyzer;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.SyntaxException;

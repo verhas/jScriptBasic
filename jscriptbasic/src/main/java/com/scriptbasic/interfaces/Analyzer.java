@@ -1,5 +1,5 @@
 package com.scriptbasic.interfaces;
 
 public interface Analyzer {
-    public Expression analyze() throws SyntaxException;
+    public ProgramNode analyze() throws SyntaxException;
 }

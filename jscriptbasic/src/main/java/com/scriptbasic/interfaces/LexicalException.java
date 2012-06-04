@@ -15,15 +15,15 @@ public abstract class LexicalException extends Exception {
         super();
     }
 
-    public LexicalException(String arg0, Throwable arg1) {
+    public LexicalException(final String arg0, final Throwable arg1) {
         super(arg0, arg1);
     }
 
-    public LexicalException(String arg0) {
+    public LexicalException(final String arg0) {
         super(arg0);
     }
 
-    public LexicalException(Throwable arg0) {
+    public LexicalException(final Throwable arg0) {
         super(arg0);
     }
 

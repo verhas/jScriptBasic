@@ -18,17 +18,18 @@ import com.scriptbasic.utility.CharUtils;
 public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     private Reader reader;
 
-    private Deque<LexicalElementAnalyzer> analyzerQueue = new LinkedList<LexicalElementAnalyzer>();
+    private final Deque<LexicalElementAnalyzer> analyzerQueue = new LinkedList<LexicalElementAnalyzer>();
 
-    public void set(Reader reader) {
+    @Override
+    public void set(final Reader reader) {
         this.reader = reader;
-        for (LexicalElementAnalyzer lea : analyzerQueue) {
+        for (final LexicalElementAnalyzer lea : analyzerQueue) {
             lea.setReader(reader);
         }
     }
 
     @Override
-    public void registerElementAnalyzer(LexicalElementAnalyzer lea) {
+    public void registerElementAnalyzer(final LexicalElementAnalyzer lea) {
         analyzerQueue.add(lea);
     }
 
@@ -47,6 +48,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
 
     private LexicalElement peekElement = null;
 
+    @Override
     public LexicalElement get() throws LexicalException {
         LexicalElement le = null;
         le = peek();
@@ -57,6 +59,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     /**
      * {@inheritDoc}
      */
+    @Override
     public LexicalElement peek() throws LexicalException {
         if (peekElement == null) {
             if (!lexicalElementQueueIterator.hasNext()) {
@@ -78,12 +81,12 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
         return ch;
     }
 
-    private boolean stringIsIncludeOrImport(String s) {
+    private boolean stringIsIncludeOrImport(final String s) {
         return s.equalsIgnoreCase("INCLUDE") || s.equalsIgnoreCase("IMPORT");
 
     }
 
-    private boolean isIncludeOrImport(LexicalElement le) {
+    private boolean isIncludeOrImport(final LexicalElement le) {
         return (le.isSymbol() || le.isIdentifier())
                 && stringIsIncludeOrImport(le.get());
     }
@@ -98,7 +101,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
             lineEndFound = CharUtils.isNewLine(ch);
             if (ch != null) {
                 reader.pushBack(ch);
-                for (LexicalElementAnalyzer lea : analyzerQueue) {
+                for (final LexicalElementAnalyzer lea : analyzerQueue) {
                     le = lea.read();
                     if (le != null) {
                         lexicalElementQueue.add(le);
@@ -115,22 +118,22 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
 
     private void processSourceInclude() throws LexicalException {
         resetLine();
-        GenericHierarchicalReader hreader = (GenericHierarchicalReader) reader;
+        final GenericHierarchicalReader hreader = (GenericHierarchicalReader) reader;
         if (!lexicalElementQueue.isEmpty()) {
             LexicalElement le = lexicalElementQueueIterator.next();
             if (isIncludeOrImport(le)) {
                 le = lexicalElementQueueIterator.next();
                 if (le.isString()) {
                     // TODO check that there are no extra chars on the line
-                    SourceProvider sp = hreader.getSourceProvider();
+                    final SourceProvider sp = hreader.getSourceProvider();
                     Reader childReader = null;
                     try {
                         childReader = sp.get(le.stringValue(),
                                 hreader.fileName());
-                    } catch (IllegalArgumentException e) {
+                    } catch (final IllegalArgumentException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
-                    } catch (IOException e) {
+                    } catch (final IOException e) {
                         throw new BasicLexicalException(
                                 "Can not open included file '"
                                         + le.stringValue() + "'", e);

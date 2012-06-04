@@ -15,12 +15,12 @@ import com.scriptbasic.interfaces.RightValue;
 public abstract class AbstractBinaryFullCircuitOperator extends
         AbstractBinaryOperator {
 
-    protected abstract RightValue evaluateOnValues(RightValue leftOperand,
+    protected abstract RightValue evaluateOn(RightValue leftOperand,
             RightValue rightOperand) throws BasicRuntimeException;
 
     @Override
     public final RightValue evaluate() throws BasicRuntimeException {
-        return evaluateOnValues(getLeftOperand().evaluate(), getRightOperand()
+        return evaluateOn(getLeftOperand().evaluate(), getRightOperand()
                 .evaluate());
     }
 

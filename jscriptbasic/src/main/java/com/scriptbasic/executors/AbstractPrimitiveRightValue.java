@@ -21,4 +21,6 @@ public abstract class AbstractPrimitiveRightValue<T> extends AbstractRightValue
         return this;
     }
 
+    protected abstract T convertRightValue(RightValue arv)
+            throws BasicRuntimeException;
 }

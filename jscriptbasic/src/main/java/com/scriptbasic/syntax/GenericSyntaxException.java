@@ -10,15 +10,15 @@ public class GenericSyntaxException extends SyntaxException {
         super();
     }
 
-    public GenericSyntaxException(String arg0, Throwable arg1) {
+    public GenericSyntaxException(final String arg0, final Throwable arg1) {
         super(arg0, arg1);
     }
 
-    public GenericSyntaxException(Throwable arg0) {
+    public GenericSyntaxException(final Throwable arg0) {
         super(arg0);
     }
 
-    public GenericSyntaxException(String s) {
+    public GenericSyntaxException(final String s) {
         super(s);
     }
 

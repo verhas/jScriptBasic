@@ -20,12 +20,12 @@ public class FileSourceProvider extends
     private static final String ps = System.getProperty("path.separator");
 
     @Override
-    public Reader getSource(String sourceName) throws IOException {
-        for (String path : getSourcePath()) {
-            String sourceFileName = path + ps + sourceName;
-            File sourceFile = new File(sourceFileName);
+    public Reader getSource(final String sourceName) throws IOException {
+        for (final String path : getSourcePath()) {
+            final String sourceFileName = path + ps + sourceName;
+            final File sourceFile = new File(sourceFileName);
             if (sourceFile.exists()) {
-                GenericReader reader = new GenericReader();
+                final GenericReader reader = new GenericReader();
                 reader.set(sourceFileName);
                 reader.setSourceProvider(this);
                 reader.set(new FileReader(sourceFile));

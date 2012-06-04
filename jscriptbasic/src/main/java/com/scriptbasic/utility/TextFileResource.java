@@ -11,10 +11,10 @@ import java.util.Set;
 public class TextFileResource {
     ArrayList<String> lines = null;
 
-    public TextFileResource(Class<? extends Object> loadingClass,
-            String fileName) throws IOException {
-        InputStream is = loadingClass.getResourceAsStream(fileName);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+    public TextFileResource(final Class<? extends Object> loadingClass,
+            final String fileName) throws IOException {
+        final InputStream is = loadingClass.getResourceAsStream(fileName);
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         String line = reader.readLine();
         lines = new ArrayList<String>();
         while (line != null) {
@@ -30,9 +30,9 @@ public class TextFileResource {
         return this;
     }
 
-    public TextFileResource stripComments(CommentFilter filter) {
-        ArrayList<String> newLines = new ArrayList<String>();
-        for (String line : lines) {
+    public TextFileResource stripComments(final CommentFilter filter) {
+        final ArrayList<String> newLines = new ArrayList<String>();
+        for (final String line : lines) {
             if (!filter.isComment(line)) {
                 newLines.add(line);
             }
@@ -55,8 +55,8 @@ public class TextFileResource {
 
     public Set<String> getSet() {
         if (lines != null) {
-            Set<String> lineSet = new HashSet<String>();
-            for (String op : lines) {
+            final Set<String> lineSet = new HashSet<String>();
+            for (final String op : lines) {
                 lineSet.add(op);
             }
             return lineSet;

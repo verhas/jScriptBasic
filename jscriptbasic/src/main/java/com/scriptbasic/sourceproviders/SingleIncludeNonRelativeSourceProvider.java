@@ -25,18 +25,18 @@ public abstract class SingleIncludeNonRelativeSourceProvider extends
     protected abstract Reader getSource(String sourceName) throws IOException;
 
     @Override
-    protected Reader getSource(String sourceName, String referencingSource)
+    protected Reader getSource(final String sourceName, final String referencingSource)
             throws IOException {
         return getSource(sourceName);
     }
 
     @Override
-    protected String getKeyName(String sourceName) {
+    protected String getKeyName(final String sourceName) {
         return sourceName;
     }
 
     @Override
-    protected String getKeyName(String sourceName, String referencingSource) {
+    protected String getKeyName(final String sourceName, final String referencingSource) {
         return getKeyName(sourceName);
     }
 

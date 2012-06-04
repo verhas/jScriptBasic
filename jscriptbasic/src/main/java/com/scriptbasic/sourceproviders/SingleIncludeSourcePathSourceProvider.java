@@ -41,12 +41,12 @@ public abstract class SingleIncludeSourcePathSourceProvider extends
      * 
      * @param singleInclude
      */
-    public void setSingleInclude(SingleIncludeChecker singleInclude) {
+    public void setSingleInclude(final SingleIncludeChecker singleInclude) {
         this.singleInclude = singleInclude;
     }
 
     @Override
-    public final Reader get(String sourceName) throws IOException {
+    public final Reader get(final String sourceName) throws IOException {
         if (singleInclude == null) {
             return null;
         } else {
@@ -56,7 +56,7 @@ public abstract class SingleIncludeSourcePathSourceProvider extends
     }
 
     @Override
-    public final Reader get(String sourceName, String referencingSource)
+    public final Reader get(final String sourceName, final String referencingSource)
             throws IOException {
         if (singleInclude == null) {
             return null;

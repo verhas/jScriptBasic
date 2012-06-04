@@ -14,13 +14,13 @@ import com.scriptbasic.interfaces.SingleIncludeChecker;
  * @author Peter Verhas
  */
 public class BasicSingleIncludeChecker implements SingleIncludeChecker {
-    private Set<String> keySet = new HashSet<String>();
+    private final Set<String> keySet = new HashSet<String>();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void check(String key) throws IOException {
+    public void check(final String key) throws IOException {
         if (keySet.contains(key)) {
             throw new IOException("File '" + key + "' was included twice");
         }

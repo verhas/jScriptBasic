@@ -7,6 +7,6 @@ package com.scriptbasic.interfaces;
  * @author Peter Verhas
  * 
  */
-public interface Expression {
+public interface Expression extends Evaluator, ProgramNode {
 
 }

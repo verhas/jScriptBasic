@@ -8,9 +8,9 @@ import com.scriptbasic.interfaces.Program;
 
 public class BasicProgram implements Program {
 
-    private ArrayList<Command> commandAnalyzers = new ArrayList<Command>();
+    private final ArrayList<Command> commandAnalyzers = new ArrayList<Command>();
     
-    public void addCommand(Command command){
+    public void addCommand(final Command command){
         commandAnalyzers.add(command);
     }
     
@@ -27,7 +27,7 @@ public class BasicProgram implements Program {
     }
 
     @Override
-    public Command getCommand(Integer programCounter) {
+    public Command getCommand(final Integer programCounter) {
         
         return null;
     }

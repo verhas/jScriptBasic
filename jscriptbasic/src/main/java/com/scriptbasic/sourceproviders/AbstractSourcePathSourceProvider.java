@@ -15,11 +15,13 @@ public abstract class AbstractSourcePathSourceProvider extends
         AbstractSourceProvider implements SourcePathProvider, SourceProvider {
     private SourcePath sourcePath;
 
+    @Override
     public SourcePath getSourcePath() {
         return this.sourcePath;
     }
 
-    public void setSourcePath(SourcePath sourcePath) {
+    @Override
+    public void setSourcePath(final SourcePath sourcePath) {
         this.sourcePath = sourcePath;
     }
 

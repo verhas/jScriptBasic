@@ -19,15 +19,15 @@ public class BasicLexialElementFactory {
 	 * 
 	 * @return a new and initialized lexical element object
 	 */
-	public static BasicLexicalElement create(Reader reader) {
-		BasicLexicalElement le = new BasicLexicalElement();
+	public static BasicLexicalElement create(final Reader reader) {
+		final BasicLexicalElement le = new BasicLexicalElement();
 		le.setFileName(reader.fileName());
 		le.setLineNumber(reader.lineNumber());
 		le.setPosition(reader.position());
 		return le;
 	}
-	public static BasicLexicalElement create(Reader reader,int type) {
-		BasicLexicalElement le = create(reader);
+	public static BasicLexicalElement create(final Reader reader,final int type) {
+		final BasicLexicalElement le = create(reader);
 		le.setType(type);
 		return le;
 	}

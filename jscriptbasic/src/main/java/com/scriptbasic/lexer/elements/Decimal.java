@@ -36,15 +36,15 @@ public class Decimal extends AbstractElementAnalyzer {
 
         Integer ch = getReader().get();
         getReader().pushBack(ch);
-        if (Character.isDigit(ch)) {
-            BasicLexicalElement le = BasicLexialElementFactory
+        if (ch != null && Character.isDigit(ch)) {
+            final BasicLexicalElement le = BasicLexialElementFactory
                     .create(getReader());
-            StringBuilder digits = new StringBuilder(
+            final StringBuilder digits = new StringBuilder(
                     DECIMAL_NUMBER_STRINGBUILDER_INITIAL_CAPACITY);
             processDigits(digits);
             ch = getReader().get();
             boolean floatFormat;
-            if (ch.equals((Integer) (int) '.')) {
+            if (ch.equals((int) '.')) {
                 ch = getReader().get();
                 if (ch != null && Character.isDigit(ch)) {
                     floatFormat = true;
@@ -55,13 +55,13 @@ public class Decimal extends AbstractElementAnalyzer {
                 } else {
                     floatFormat = false;
                     getReader().pushBack(ch);
-                    getReader().pushBack((Integer) (int) '.');
+                    getReader().pushBack((int) '.');
                 }
             } else {
                 getReader().pushBack(ch);
                 floatFormat = processExponent(digits);
             }
-            String s = digits.toString();
+            final String s = digits.toString();
             le.setLexeme(s);
             if (floatFormat) {
                 le.setType(LexicalElement.TYPE_DOUBLE);
@@ -88,18 +88,14 @@ public class Decimal extends AbstractElementAnalyzer {
      * 
      * @return true if there was an exponent part
      */
-    private boolean processExponent(StringBuilder exponentCharacters) {
+    private boolean processExponent(final StringBuilder exponentCharacters) {
         boolean thereWasExponentPart = true;
         Integer ch = getReader().get();
-        if (ch != null
-                && (ch.equals((Integer) (int) 'e') || ch
-                        .equals((Integer) (int) 'E'))) {
-            Integer expChar = ch; // only to preserve the case: 'E' or 'e'
+        if (ch != null && (ch.equals((int) 'e') || ch.equals((int) 'E'))) {
+            final Integer expChar = ch; // only to preserve the case: 'E' or 'e'
             ch = getReader().get();
-            if (ch != null
-                    && (ch.equals((Integer) (int) '-') || ch
-                            .equals((Integer) (int) '+'))) {
-                Integer signChar = ch;
+            if (ch != null && (ch.equals((int) '-') || ch.equals((int) '+'))) {
+                final Integer signChar = ch;
                 ch = getReader().get();
                 if (ch != null && Character.isDigit(ch)) {
                     exponentCharacters.appendCodePoint(expChar);
@@ -137,7 +133,7 @@ public class Decimal extends AbstractElementAnalyzer {
      * @param ch
      *            the first digit already fetched
      */
-    private void processDigits(StringBuilder digits) {
+    private void processDigits(final StringBuilder digits) {
         Integer ch = getReader().get();
         while (ch != null && Character.isDigit(ch)) {
             digits.appendCodePoint(ch);

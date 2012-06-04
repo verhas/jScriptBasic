@@ -65,11 +65,19 @@ public interface LexicalElement {
 
     public Double doubleValue() throws IllegalArgumentException;
 
+    public Boolean booleanValue() throws IllegalArgumentException;
+
     public Boolean isString();
 
     public Boolean isDouble();
 
     public Boolean isLong();
+
+    public Boolean isBoolean();
+
+    public Boolean isNumeric();
+
+    public Boolean isLiteralConstant();
 
     public Boolean isIdentifier();
 
@@ -80,6 +88,7 @@ public interface LexicalElement {
     public static final int TYPE_STRING = 0;
     public static final int TYPE_DOUBLE = 1;
     public static final int TYPE_LONG = 2;
-    public static final int TYPE_IDENTIFIER = 3;
-    public static final int TYPE_SYMBOL = 4;
+    public static final int TYPE_BOOLEAN = 3;
+    public static final int TYPE_IDENTIFIER = 4;
+    public static final int TYPE_SYMBOL = 5;
 }

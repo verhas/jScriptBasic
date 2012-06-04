@@ -1,5 +1,7 @@
 package com.scriptbasic.executors;
 
+import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.interfaces.RightValue;
 
 public class BasicDoubleValue extends AbstractNumericRightValue<Double> {
 
@@ -7,5 +9,44 @@ public class BasicDoubleValue extends AbstractNumericRightValue<Double> {
         setValue(d);
     }
 
+    private BasicDoubleValue() {
+    }
 
+    private static BasicDoubleValue singleton = new BasicDoubleValue();
+
+    public static Double convert(RightValue rv) throws BasicRuntimeException {
+        return singleton.convertRightValue(rv);
+    }
+    
+    @Override
+    protected Double convertRightValue(RightValue rv) throws BasicRuntimeException {
+        if (rv.isBoolean()) {
+            return ((BasicBooleanValue) rv).getValue() ? 1.0 : 0.0;
+        }
+        if (rv.isString()) {
+            String s = ((BasicStringValue) rv).getValue();
+            if (s == null) {
+                return null;
+            }
+            return Double.parseDouble(s);
+        }
+        if (rv.isLong()) {
+            Long l = ((BasicLongValue) rv).getValue();
+            if (l == null) {
+                return null;
+            }
+            return l.doubleValue();
+        }
+        if (rv.isDouble()) {
+            return ((BasicDoubleValue) rv).getValue();
+        }
+        if (rv.isJavaObject()) {
+            Object o = ((BasicJavaObjectValue) rv).getValue();
+            if (o instanceof Double) {
+                return (Double) o;
+            }
+            //TODO elaborate the conversion with other object classes, like Long, String...
+        }
+        throw new BasicRuntimeException("Can not convert value to double");
+    }
 }

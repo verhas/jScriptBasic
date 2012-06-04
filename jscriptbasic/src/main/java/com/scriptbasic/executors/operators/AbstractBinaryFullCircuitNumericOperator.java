@@ -19,12 +19,18 @@ public abstract class AbstractBinaryFullCircuitNumericOperator<T extends Number>
     protected abstract RightValue operateOnLongLong(Long a, Long b)
             throws BasicRuntimeException;
 
+    protected RightValue operateOnValues(final RightValue leftOperand,
+            final RightValue rightOperand) throws BasicRuntimeException {
+        throw new BasicRuntimeException(operatorName()
+                + " operator applied to non numeric argument");
+    }
+
     protected abstract String operatorName();
 
     @SuppressWarnings("unchecked")
     @Override
-    protected final RightValue evaluateOnValues(RightValue leftOperand,
-            RightValue rightOperand) throws BasicRuntimeException {
+    protected final RightValue evaluateOn(final RightValue leftOperand,
+            final RightValue rightOperand) throws BasicRuntimeException {
         Number a, b;
         RightValue result = null;
         if (leftOperand.isNumeric() && rightOperand.isNumeric()) {
@@ -45,8 +51,7 @@ public abstract class AbstractBinaryFullCircuitNumericOperator<T extends Number>
             }
             return result;
         } else {
-            throw new BasicRuntimeException(operatorName()
-                    + " operator applied to non numeric argument");
+            return operateOnValues(leftOperand, rightOperand);
         }
     }
 

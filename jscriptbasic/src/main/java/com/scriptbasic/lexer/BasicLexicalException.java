@@ -11,15 +11,15 @@ public class BasicLexicalException extends LexicalException {
 		super();
 	}
 
-	public BasicLexicalException(String arg0, Throwable arg1) {
+	public BasicLexicalException(final String arg0, final Throwable arg1) {
 		super(arg0, arg1);
 	}
 
-	public BasicLexicalException(String arg0) {
+	public BasicLexicalException(final String arg0) {
 		super(arg0);
 	}
 
-	public BasicLexicalException(Throwable arg0) {
+	public BasicLexicalException(final Throwable arg0) {
 		super(arg0);
 	}
 
@@ -27,7 +27,7 @@ public class BasicLexicalException extends LexicalException {
 	private int lineNumber;
 	private int position;
 
-	public void setPosition(Reader reader) {
+	public void setPosition(final Reader reader) {
 		fileName = reader.fileName();
 		lineNumber = reader.lineNumber();
 		position = reader.position();

@@ -2,9 +2,7 @@ package com.scriptbasic.syntax.expression;
 
 import java.util.Map;
 
-import com.scriptbasic.command.executors.AbstractOperator;
-import com.scriptbasic.command.executors.AbstractValue;
-import com.scriptbasic.command.executors.BasicExpression;
+import com.scriptbasic.executors.operators.AbstractBinaryOperator;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.LexicalException;
@@ -13,17 +11,12 @@ import com.scriptbasic.syntax.AbstractAnalyzer;
 import com.scriptbasic.syntax.GenericSyntaxException;
 
 public abstract class AbstractExpressionAnalyzer extends AbstractAnalyzer {
-    private BasicExpression expression;
-
-    public AbstractValue getResult() {
-        return expression;
-    }
 
     protected abstract Integer getMaximumPriority();
 
     protected abstract TagAnalyzer getTagAnalyzer();
 
-    protected abstract Map<String,Class<? extends AbstractOperator>> getOperatorMap(
+    protected abstract Map<String, Class<? extends AbstractBinaryOperator>> getOperatorMap(
             Integer priority);
 
     @Override
@@ -40,32 +33,34 @@ public abstract class AbstractExpressionAnalyzer extends AbstractAnalyzer {
      * @return
      * @throws SyntaxException
      */
-    private Expression analyze(Integer priority) throws SyntaxException {
+    private Expression analyze(final Integer priority) throws SyntaxException {
         Expression expression = null;
-        if (priority == 1) {
+        if (priority == 0) {
             expression = getTagAnalyzer().analyze();
         } else {
-            Expression leftOperand = analyze(priority - 1);
+            final Expression leftOperand = analyze(priority - 1);
             try {
-                LexicalElement le = getSyntaxAnalyzer().getLexicalAnalyzer()
-                        .peek();
-                if (le.isSymbol()) {
-                    Map<String, Class<? extends AbstractOperator>> map = getOperatorMap(priority);
-                    if (map.containsKey(le.get())) {
-                        getSyntaxAnalyzer().getLexicalAnalyzer().get();
-                        Expression rightOperand = analyze(priority - 1);
-                        AbstractOperator operator = map.get(le.get()).newInstance();
-                        operator.setLeftOperand(leftOperand);
-                        operator.setRightOperand(rightOperand);
-                        expression = operator;
-                    }
+                final LexicalElement le = getSyntaxAnalyzer()
+                        .getLexicalAnalyzer().peek();
+                final Map<String, Class<? extends AbstractBinaryOperator>> map = getOperatorMap(priority);
+                if (le != null && le.isSymbol() && map.containsKey(le.get())) {
+                    getSyntaxAnalyzer().getLexicalAnalyzer().get();
+                    final Expression rightOperand = analyze(priority - 1);
+                    final AbstractBinaryOperator operator = map.get(le.get())
+                            .newInstance();
+                    operator.setLeftOperand(leftOperand);
+                    operator.setRightOperand(rightOperand);
+                    expression = operator;
+
+                }else{
+                    expression = leftOperand;
                 }
-            } catch (LexicalException e) {
+            } catch (final LexicalException e) {
                 throw new GenericSyntaxException(e);
-            } catch (InstantiationException e) {
+            } catch (final InstantiationException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            } catch (IllegalAccessException e) {
+            } catch (final IllegalAccessException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }

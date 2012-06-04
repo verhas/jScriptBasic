@@ -1,51 +1,55 @@
 package com.scriptbasic.lexer;
 
-import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.utility.CharUtils;
 
-public class BasicLexicalElement implements LexicalElement {
+public class BasicLexicalElement extends AbstractLexicalElement {
     private String fileName;
     private int lineNumber;
     private int position;
     private int type;
     private String lexeme;
 
-    public void setLexeme(String lexeme) {
+    public void setLexeme(final String lexeme) {
         this.lexeme = lexeme;
     }
 
-    public void setType(int type) {
+    public void setType(final int type) {
         this.type = type;
     }
 
-    public void setLineNumber(int lineNumber) {
+    public void setLineNumber(final int lineNumber) {
         this.lineNumber = lineNumber;
     }
 
-    public void setFileName(String fileName) {
+    public void setFileName(final String fileName) {
         this.fileName = fileName;
     }
 
+    @Override
     public int position() {
         return this.position;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(final int position) {
         this.position = position;
     }
 
+    @Override
     public String get() {
         return lexeme;
     }
 
+    @Override
     public String fileName() {
         return this.fileName;
     }
 
+    @Override
     public int lineNumber() {
         return this.lineNumber;
     }
 
+    @Override
     public int type() {
         return this.type;
     }
@@ -53,35 +57,58 @@ public class BasicLexicalElement implements LexicalElement {
     private String stringValue;
     private Long longValue;
     private Double doubleValue;
+    private Boolean booleanValue;
 
-    public void setStringValue(String stringValue) {
-        this.stringValue = stringValue;
+    private void resetValues() {
+        this.stringValue = null;
         this.doubleValue = null;
         this.longValue = null;
+        this.booleanValue = null;
     }
 
-    public void setLongValue(long longValue) {
-        this.doubleValue = null;
-        this.stringValue = null;
+    public void setStringValue(final String stringValue) {
+        resetValues();
+        this.stringValue = stringValue;
+    }
+
+    public void setLongValue(final long longValue) {
+        resetValues();
         this.longValue = longValue;
     }
 
-    public void setDoubleValue(Double doubleValue) {
+    public void setDoubleValue(final Double doubleValue) {
+        resetValues();
         this.doubleValue = doubleValue;
-        this.stringValue = null;
-        this.longValue = null;
     }
 
+    public void setBooleanValue(final Boolean booleanValue) {
+        resetValues();
+        this.booleanValue = booleanValue;
+    }
+
+    @Override
     public String stringValue() throws IllegalArgumentException {
         return this.stringValue;
     }
 
+    @Override
     public Long longValue() throws IllegalArgumentException {
         return this.longValue;
     }
 
+    @Override
     public Double doubleValue() throws IllegalArgumentException {
         return this.doubleValue;
+    }
+
+    @Override
+    public Boolean booleanValue() throws IllegalArgumentException {
+        return this.booleanValue;
+    }
+
+    @Override
+    public Boolean isBoolean() {
+        return type() == TYPE_BOOLEAN;
     }
 
     @Override

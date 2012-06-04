@@ -15,11 +15,13 @@ import com.scriptbasic.interfaces.SourcePath;
 public class BasicSourcePath implements SourcePath {
     private Deque<String> sourcePath = new LinkedList<String>();
 
-    public void setSourcePath(Deque<String> sourcePath) {
+    @Override
+    public void setSourcePath(final Deque<String> sourcePath) {
         this.sourcePath = sourcePath;
     }
 
-    public void add(String path) {
+    @Override
+    public void add(final String path) {
         sourcePath.add(path);
     }
 

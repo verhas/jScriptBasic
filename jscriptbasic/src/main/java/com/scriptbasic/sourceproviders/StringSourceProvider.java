@@ -17,7 +17,7 @@ import com.scriptbasic.readers.GenericReader;
 public class StringSourceProvider extends
         SingleIncludeNonRelativeSourceProvider {
 
-    private Map<String, String> sourceMap = new HashMap<String, String>();
+    private final Map<String, String> sourceMap = new HashMap<String, String>();
 
     /**
      * Add a new source to the set of available sources.
@@ -29,7 +29,7 @@ public class StringSourceProvider extends
      * @param sourceCode
      *            The actual code of the source program.
      */
-    public void addSource(String fileName, String sourceCode) {
+    public void addSource(final String fileName, final String sourceCode) {
         sourceMap.put(fileName, sourceCode);
     }
 
@@ -39,12 +39,12 @@ public class StringSourceProvider extends
      * This implementation returns a {@see GenericReader}.
      */
     @Override
-    public Reader getSource(String sourceName) throws IOException {
+    public Reader getSource(final String sourceName) throws IOException {
         if (!sourceMap.containsKey(sourceName)) {
             throw new IOException("The source '" + sourceName
                     + "' was not set.");
         }
-        GenericReader reader = new GenericReader();
+        final GenericReader reader = new GenericReader();
         reader.set(sourceName);
         reader.setSourceProvider(this);
         reader.set(new StringReader(sourceMap.get(sourceName)));

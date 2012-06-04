@@ -8,13 +8,14 @@ import com.scriptbasic.interfaces.RightValue;
 public class MultiplyOperator extends
         AbstractBinaryFullCircuitHalfDoubleOperator {
 
-    protected RightValue operateOnDoubleDouble(Double a, Double b)
+    @Override
+    protected RightValue operateOnDoubleDouble(final Double a, final Double b)
             throws BasicRuntimeException {
         return new BasicDoubleValue(a * b);
     }
 
     @Override
-    protected RightValue operateOnLongLong(Long a, Long b)
+    protected RightValue operateOnLongLong(final Long a, final Long b)
             throws BasicRuntimeException {
         return new BasicLongValue(a * b);
     }

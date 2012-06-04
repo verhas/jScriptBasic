@@ -17,7 +17,7 @@ public class BasicCommandFactory implements CommandFactory {
 
     BasicSyntaxAnalyzer syntaxAnalyzer;
 
-    public void setSyntaxAnalyzer(BasicSyntaxAnalyzer basicSyntaxAnalyzer) {
+    public void setSyntaxAnalyzer(final BasicSyntaxAnalyzer basicSyntaxAnalyzer) {
         syntaxAnalyzer = basicSyntaxAnalyzer;
 
     }
@@ -33,7 +33,7 @@ public class BasicCommandFactory implements CommandFactory {
     }
 
     @Override
-    public Command create(String commandKeyword) throws SyntaxException {
+    public Command create(final String commandKeyword) throws SyntaxException {
         if (commandKeyword == null) {
             return create();
         } else {
@@ -42,28 +42,28 @@ public class BasicCommandFactory implements CommandFactory {
     }
 
     private Command create() throws SyntaxException {
-        for (CommandAnalyzer commandAnalyzer : classList) {
+        for (final CommandAnalyzer commandAnalyzer : classList) {
             commandAnalyzer.analyze();
-            Command command = commandAnalyzer.getCommand();
+            final Command command = commandAnalyzer.getCommand();
             if (command != null) {
                 return command;
             }
         }
-        SyntaxException se = new GenericSyntaxException(
+        final SyntaxException se = new GenericSyntaxException(
                 "Generic syntax exception");
         se.setLocation(syntaxAnalyzer.getLexicalElement());
         throw se;
     }
 
-    private Command createFromStartingSymbol(String commandKeyword)
+    private Command createFromStartingSymbol(final String commandKeyword)
             throws SyntaxException {
         if (!classMap.containsKey(commandKeyword)) {
-            SyntaxException se = new KeywordNotImplemented(commandKeyword);
+            final SyntaxException se = new KeywordNotImplemented(commandKeyword);
             se.setLocation(syntaxAnalyzer.getLexicalElement());
             throw se;
         }
 
-        CommandAnalyzer commandAnalyzer = classMap.get(commandKeyword);
+        final CommandAnalyzer commandAnalyzer = classMap.get(commandKeyword);
         commandAnalyzer.setSyntaxAnalyzer(syntaxAnalyzer);
         commandAnalyzer.analyze();
         return commandAnalyzer.getCommand();

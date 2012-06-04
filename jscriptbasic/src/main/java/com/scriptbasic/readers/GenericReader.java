@@ -18,23 +18,27 @@ public class GenericReader implements Reader {
 
 	private Integer lastChar = null;
 
-	public void set(java.io.Reader sourceReader) {
+	public void set(final java.io.Reader sourceReader) {
 		this.sourceReader = sourceReader;
 	}
 
-	public void set(String sourceFileName) {
+	@Override
+    public void set(final String sourceFileName) {
 		this.sourceFileName = sourceFileName;
 	}
 
-	public String fileName() {
+	@Override
+    public String fileName() {
 		return sourceFileName;
 	}
 
-	public int lineNumber() {
+	@Override
+    public int lineNumber() {
 		return lineNumber;
 	}
 
-	public int position() {
+	@Override
+    public int position() {
 		return position;
 	}
 
@@ -46,16 +50,18 @@ public class GenericReader implements Reader {
 	 * This implementation will not track the position properly when a new line
 	 * character is pushed back
 	 */
-	public void pushBack(Integer ch) {
+	@Override
+    public void pushBack(final Integer ch) {
 		if (ch != null) {
 			charsAhead.addFirst(ch);
 			position--;
 		}else{
-		    Integer z = null;//TODO delete this, needed only to debug, have something here as a breakpoint
+		    final Integer z = null;//TODO delete this, needed only to debug, have something here as a breakpoint
 		}
 	}
 
-	public Integer get() {
+	@Override
+    public Integer get() {
 		Integer nextChar;
 		if (!charsAhead.isEmpty()) {
 			position++;
@@ -67,7 +73,7 @@ public class GenericReader implements Reader {
 			if (nextChar == -1) {
 				nextChar = null;
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			return null;
 		}
 		if (lastChar != null && CharUtils.isNewLine(lastChar)) {
@@ -79,7 +85,7 @@ public class GenericReader implements Reader {
 		return lastChar;
 	}
 
-	public void setSourceProvider(SourceProvider sourceProvider) {
+	public void setSourceProvider(final SourceProvider sourceProvider) {
 		this.sourceProvider = sourceProvider;
 	}
 

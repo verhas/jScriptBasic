@@ -7,13 +7,13 @@ public abstract class AbstractBinaryFullCircuitHalfDoubleOperator extends
         AbstractBinaryFullCircuitNumericOperator<Double> {
 
     @Override
-    protected final RightValue operateOnDoubleLong(Double a, Long b)
+    protected final RightValue operateOnDoubleLong(final Double a, final Long b)
             throws BasicRuntimeException {
         return operateOnDoubleDouble(a.doubleValue(), b.doubleValue());
     }
 
     @Override
-    protected final RightValue operateOnLongDouble(Long a, Double b)
+    protected final RightValue operateOnLongDouble(final Long a, final Double b)
             throws BasicRuntimeException {
         return operateOnDoubleDouble(a.doubleValue(), b.doubleValue());
     }

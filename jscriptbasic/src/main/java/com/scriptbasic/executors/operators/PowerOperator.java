@@ -6,7 +6,8 @@ import com.scriptbasic.interfaces.RightValue;
 
 public class PowerOperator extends AbstractBinaryFullCircuitFullDoubleOperator {
 
-    protected RightValue operateOnDoubleDouble(Double a, Double b)
+    @Override
+    protected RightValue operateOnDoubleDouble(final Double a, final Double b)
             throws BasicRuntimeException {
         return new BasicDoubleValue(Math.pow(a, b));
     }

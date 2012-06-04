@@ -15,18 +15,24 @@ import com.scriptbasic.sourceproviders.StringSourceProvider;
 
 public class LexTestHelper {
     static TestLE ID(final String name) {
-        return new TestLE(name, LexicalElement.TYPE_IDENTIFIER, null, null,
-                null);
+        return new TestLE(name, LexicalElement.TYPE_IDENTIFIER);
     }
 
     static TestLE LONG(final String s) {
         Long l = Long.parseLong(s);
-        return new TestLE(s, LexicalElement.TYPE_LONG, null, l, null);
+        return new TestLE(s, l);
     }
 
     static TestLE DOUBLE(final String s) {
         Double d = Double.parseDouble(s);
-        return new TestLE(s, LexicalElement.TYPE_DOUBLE, d, null, null);
+        return new TestLE(s, d);
+    }
+
+    static TestLE BOOL(final Boolean b) {
+        return new TestLE(b.toString(), b);
+    }
+    static TestLE BOOL(final String b) {
+        return new TestLE(b, Boolean.parseBoolean(b));
     }
 
     static final StringBuilder apo = new StringBuilder("\"");
@@ -60,8 +66,7 @@ public class LexTestHelper {
     }
 
     static TestLE SSTRING(String s, String lexeme) {
-        return new TestLE("\"" + lexeme + "\"", LexicalElement.TYPE_STRING,
-                null, null, s);
+        return new TestLE("\"" + lexeme + "\"", s);
     }
 
     static TestLE MSTRING(String s) {
@@ -70,8 +75,7 @@ public class LexTestHelper {
     }
 
     static TestLE MSTRING(String s, String lexeme) {
-        return new TestLE("\"\"\"" + lexeme + "\"\"\"",
-                LexicalElement.TYPE_STRING, null, null, s);
+        return new TestLE("\"\"\"" + lexeme + "\"\"\"", s);
     }
 
     static TestLE VSTRING(String s, String lexeme, boolean multiline) {
@@ -87,7 +91,7 @@ public class LexTestHelper {
     }
 
     static TestLE SYMBOL(String s) {
-        return new TestLE(s, LexicalElement.TYPE_SYMBOL, null, null, null);
+        return new TestLE(s, LexicalElement.TYPE_SYMBOL);
     }
 
     static void assertLexicals(LexicalElement[] lea, LexicalAnalyzer la)
@@ -121,7 +125,7 @@ public class LexTestHelper {
         }
     }
 
-    static LexicalAnalyzer createStringReading(String s) {
+    public static LexicalAnalyzer createStringReading(String s) {
         java.io.Reader r = new StringReader(s);
         GenericReader reader = new GenericReader();
         reader.set(r);

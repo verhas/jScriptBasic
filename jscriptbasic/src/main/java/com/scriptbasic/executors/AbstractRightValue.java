@@ -9,6 +9,7 @@ public abstract class AbstractRightValue extends AbstractValue implements
     public final Boolean isNumeric() {
         return isLong() || isDouble();
     }
+
     @Override
     public final Boolean isLong() {
         return this instanceof BasicLongValue;
@@ -17,6 +18,11 @@ public abstract class AbstractRightValue extends AbstractValue implements
     @Override
     public final Boolean isDouble() {
         return this instanceof BasicDoubleValue;
+    }
+
+    @Override
+    public final Boolean isBoolean() {
+        return this instanceof BasicBooleanValue;
     }
 
     @Override

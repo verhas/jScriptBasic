@@ -11,8 +11,8 @@ public class BasicString extends AbstractElementAnalyzer {
     @Override
     public LexicalElement read() throws LexicalException {
         BasicLexicalElement le = null;
-        Integer ch = getReader().get();
-        if (ch.equals((Integer) (int) '"')) {
+        final Integer ch = getReader().get();
+        if (ch != null && ch.equals((int) '"')) {
             if (isTripleQuote()) {
                 le = readMultiLineString();
             } else {
@@ -26,8 +26,8 @@ public class BasicString extends AbstractElementAnalyzer {
 
     private boolean isTripleQuote() {
         boolean itIs = false;
-        Integer second = getReader().get();
-        Integer third = getReader().get();
+        final Integer second = getReader().get();
+        final Integer third = getReader().get();
         if (((Integer) (int) '"').equals(second)
                 && ((Integer) (int) '"').equals(third)) {
             itIs = true;
@@ -41,13 +41,13 @@ public class BasicString extends AbstractElementAnalyzer {
     private static final int SINGLE_LINE_STRINGBUILDER_INITIAL_CAPACITY = 100;
     private static final int MULTI_LINE_STRINGBUILDER_INITIAL_CAPACITY = 1000;
 
-    private boolean isStringTerminated(Integer ch, boolean multiLine)
+    private boolean isStringTerminated(final Integer ch, final boolean multiLine)
             throws UnterminatedStringException {
         boolean terminated = false;
         if (ch == null) {
             throw new UnterminatedStringException(getReader());
         }
-        if (ch.equals((Integer) (int) '"')) {
+        if (ch.equals((int) '"')) {
             if (multiLine) {
                 terminated = isTripleQuote();
             } else {
@@ -89,7 +89,7 @@ public class BasicString extends AbstractElementAnalyzer {
         return ch;
     }
 
-    private void appendSeparator(StringBuilder sb, boolean multiLine) {
+    private void appendSeparator(final StringBuilder sb, final boolean multiLine) {
         sb.append(multiLine ? "\"\"\"" : "\"");
     }
 
@@ -100,20 +100,20 @@ public class BasicString extends AbstractElementAnalyzer {
      * @param multiLine
      * @return
      */
-    private BasicLexicalElement readString(int stringBufferInitialSize,
-            boolean multiLine) throws UnterminatedStringException {
+    private BasicLexicalElement readString(final int stringBufferInitialSize,
+            final boolean multiLine) throws UnterminatedStringException {
 
-        StringBuilder string = new StringBuilder(stringBufferInitialSize);
-        StringBuilder lexeme = new StringBuilder(stringBufferInitialSize);
+        final StringBuilder string = new StringBuilder(stringBufferInitialSize);
+        final StringBuilder lexeme = new StringBuilder(stringBufferInitialSize);
         appendSeparator(lexeme, multiLine);
 
-        BasicLexicalElement le = BasicLexialElementFactory.create(getReader(),
-                LexicalElement.TYPE_STRING);
+        final BasicLexicalElement le = BasicLexialElementFactory.create(
+                getReader(), LexicalElement.TYPE_STRING);
 
         Integer ch = getReader().get();
         while (!isStringTerminated(ch, multiLine)) {
             lexeme.appendCodePoint(ch);
-            if (ch.equals((Integer) (int) '\\')) {
+            if (ch.equals((int) '\\')) {
                 ch = getReader().get();
                 lexeme.appendCodePoint(ch);
                 ch = convertEscapedChar(ch);
