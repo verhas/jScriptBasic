@@ -7,6 +7,7 @@ public interface CommandFactory {
      * @param commandKeyword
      *            the command keyword lexeme
      * @return the created command
+     * @throws LexicalException 
      */
-    public Command create(String commandKeyword) throws SyntaxException;
+    public AnalysisResult create(String commandKeyword) throws SyntaxException, LexicalException;
 }

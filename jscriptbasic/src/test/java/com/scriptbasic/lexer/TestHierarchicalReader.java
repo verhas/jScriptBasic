@@ -16,7 +16,7 @@ import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.LexicalException;
 
 public class TestHierarchicalReader extends TestCase {
-    public TestHierarchicalReader(String testName) {
+    public TestHierarchicalReader(final String testName) {
         super(testName);
     }
 
@@ -36,13 +36,13 @@ public class TestHierarchicalReader extends TestCase {
                     "main", "identifier\ninclude \"nonexistent\"\n\"string\"",
                     "sub1", "<<<\n" }));
             assertTrue("Code should not get here", false);
-        } catch (LexicalException lex) {
+        } catch (final LexicalException lex) {
             // OK
         }
     }
 
-    private void addX(ArrayList<LexicalElement> lexes, ArrayList<String> files,
-            int level) {
+    private void addX(final ArrayList<LexicalElement> lexes,
+            final ArrayList<String> files, final int level) {
         files.add("file" + level);
         if (level == 0) {
             files.add("file" + level + "\nend\n");
@@ -62,8 +62,8 @@ public class TestHierarchicalReader extends TestCase {
     }
 
     public void testMultiInclude() throws LexicalException, IOException {
-        ArrayList<LexicalElement> lexes = new ArrayList<LexicalElement>();
-        ArrayList<String> files = new ArrayList<String>();
+        final ArrayList<LexicalElement> lexes = new ArrayList<LexicalElement>();
+        final ArrayList<String> files = new ArrayList<String>();
         final int level = 20;
         addX(lexes, files, level);
         assertLexicals(
@@ -72,8 +72,8 @@ public class TestHierarchicalReader extends TestCase {
     }
 
     public void testCircularReference() throws LexicalException, IOException {
-        ArrayList<LexicalElement> lexes = new ArrayList<LexicalElement>();
-        ArrayList<String> files = new ArrayList<String>();
+        final ArrayList<LexicalElement> lexes = new ArrayList<LexicalElement>();
+        final ArrayList<String> files = new ArrayList<String>();
         files.add("foo");
         files.add("include \"bar\"\n");
         files.add("bar");
@@ -84,7 +84,7 @@ public class TestHierarchicalReader extends TestCase {
                     createStringArrayReading(files.toArray(new String[files
                             .size()])));
             assertTrue("Circular reference did not throw error", false);
-        } catch (LexicalException lex) {
+        } catch (final LexicalException lex) {
             // this is ok
         }
     }

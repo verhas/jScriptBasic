@@ -10,88 +10,87 @@ import com.scriptbasic.utility.CharUtils;
 
 public class GenericReader implements Reader {
 
-	private java.io.Reader sourceReader;
-	private String sourceFileName = null;
-	private int lineNumber = 0;
-	private int position = 0;
-	private SourceProvider sourceProvider = null;
+    private java.io.Reader sourceReader;
+    private String sourceFileName = null;
+    private int lineNumber = 0;
+    private int position = 0;
+    private SourceProvider sourceProvider = null;
 
-	private Integer lastChar = null;
+    private Integer lastChar = null;
 
-	public void set(final java.io.Reader sourceReader) {
-		this.sourceReader = sourceReader;
-	}
+    public void set(final java.io.Reader sourceReader) {
+        this.sourceReader = sourceReader;
+    }
 
-	@Override
+    @Override
     public void set(final String sourceFileName) {
-		this.sourceFileName = sourceFileName;
-	}
+        this.sourceFileName = sourceFileName;
+    }
 
-	@Override
+    @Override
     public String fileName() {
-		return sourceFileName;
-	}
+        return this.sourceFileName;
+    }
 
-	@Override
+    @Override
     public int lineNumber() {
-		return lineNumber;
-	}
+        return this.lineNumber;
+    }
 
-	@Override
+    @Override
     public int position() {
-		return position;
-	}
+        return this.position;
+    }
 
-	Deque<Integer> charsAhead = new LinkedList<Integer>();
+    Deque<Integer> charsAhead = new LinkedList<Integer>();
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * This implementation will not track the position properly when a new line
-	 * character is pushed back
-	 */
-	@Override
+    /**
+     * {@inheritDoc}
+     * 
+     * This implementation will not track the position properly when a new line
+     * character is pushed back
+     */
+    @Override
     public void pushBack(final Integer ch) {
-		if (ch != null) {
-			charsAhead.addFirst(ch);
-			position--;
-		}else{
-		    final Integer z = null;//TODO delete this, needed only to debug, have something here as a breakpoint
-		}
-	}
+        if (ch != null) {
+            this.charsAhead.addFirst(ch);
+            this.position--;
+        } else {
+        }
+    }
 
-	@Override
+    @Override
     public Integer get() {
-		Integer nextChar;
-		if (!charsAhead.isEmpty()) {
-			position++;
-			return charsAhead.removeFirst();
-		}
+        Integer nextChar;
+        if (!this.charsAhead.isEmpty()) {
+            this.position++;
+            return this.charsAhead.removeFirst();
+        }
 
-		try {
-			nextChar = sourceReader.read();
-			if (nextChar == -1) {
-				nextChar = null;
-			}
-		} catch (final IOException e) {
-			return null;
-		}
-		if (lastChar != null && CharUtils.isNewLine(lastChar)) {
-			position = 0;
-			lineNumber++;
-		}
-		position++;
-		lastChar = nextChar;
-		return lastChar;
-	}
+        try {
+            nextChar = this.sourceReader.read();
+            if (nextChar == -1) {
+                nextChar = null;
+            }
+        } catch (final IOException e) {
+            return null;
+        }
+        if (this.lastChar != null && CharUtils.isNewLine(this.lastChar)) {
+            this.position = 0;
+            this.lineNumber++;
+        }
+        this.position++;
+        this.lastChar = nextChar;
+        return this.lastChar;
+    }
 
-	public void setSourceProvider(final SourceProvider sourceProvider) {
-		this.sourceProvider = sourceProvider;
-	}
+    public void setSourceProvider(final SourceProvider sourceProvider) {
+        this.sourceProvider = sourceProvider;
+    }
 
-	@Override
-	public SourceProvider getSourceProvider() {
-		return sourceProvider;
-	}
+    @Override
+    public SourceProvider getSourceProvider() {
+        return this.sourceProvider;
+    }
 
 }

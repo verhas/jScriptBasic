@@ -3,32 +3,35 @@ package com.scriptbasic.syntax;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.Program;
+import com.scriptbasic.interfaces.AnalysisResult;
 
 public class BasicProgram implements Program {
 
-    private final ArrayList<Command> commandAnalyzers = new ArrayList<Command>();
-    
-    public void addCommand(final Command command){
-        commandAnalyzers.add(command);
+    private BasicProgram() {
     }
-    
+
+    private final ArrayList<AnalysisResult> commandAnalyzers = new ArrayList<AnalysisResult>();
+
+    public void addCommand(final AnalysisResult analysisResult) {
+        this.commandAnalyzers.add(analysisResult);
+    }
+
     @Override
-    public Command getStartCommand() {
-        
+    public AnalysisResult getStartCommand() {
+
         return null;
     }
 
     @Override
-    public Collection<Command> getCommands() {
-        
+    public Collection<AnalysisResult> getCommands() {
+
         return null;
     }
 
     @Override
-    public Command getCommand(final Integer programCounter) {
-        
+    public AnalysisResult getCommand(final Integer programCounter) {
+
         return null;
     }
 

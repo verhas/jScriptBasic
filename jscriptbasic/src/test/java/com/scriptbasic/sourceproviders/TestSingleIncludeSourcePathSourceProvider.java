@@ -2,12 +2,12 @@ package com.scriptbasic.sourceproviders;
 
 import java.io.IOException;
 
-import com.scriptbasic.interfaces.Reader;
-
 import junit.framework.TestCase;
 
+import com.scriptbasic.interfaces.Reader;
+
 public class TestSingleIncludeSourcePathSourceProvider extends TestCase {
-    public TestSingleIncludeSourcePathSourceProvider(String testName) {
+    public TestSingleIncludeSourcePathSourceProvider(final String testName) {
         super(testName);
     }
 
@@ -15,35 +15,36 @@ public class TestSingleIncludeSourcePathSourceProvider extends TestCase {
             SingleIncludeSourcePathSourceProvider {
 
         @Override
-        protected Reader getSource(String sourceName) throws IOException {
+        protected Reader getSource(final String sourceName) throws IOException {
             return null;
         }
 
         @Override
-        protected Reader getSource(String sourceName, String referencingSource)
-                throws IOException {
+        protected Reader getSource(final String sourceName,
+                final String referencingSource) throws IOException {
             return null;
         }
 
         @Override
-        protected String getKeyName(String sourceName) {
+        protected String getKeyName(final String sourceName) {
             return null;
         }
 
         @Override
-        protected String getKeyName(String sourceName, String referencingSource) {
+        protected String getKeyName(final String sourceName,
+                final String referencingSource) {
             return null;
         }
 
     }
 
     public void testFSPFileNotFound() throws IOException {
-        TestedSingleIncludeSourcePathSourceProvider tsispsp = new TestedSingleIncludeSourcePathSourceProvider();
+        final TestedSingleIncludeSourcePathSourceProvider tsispsp = new TestedSingleIncludeSourcePathSourceProvider();
         tsispsp.setSingleInclude(null);
         tsispsp.getSingleInclude();
         tsispsp.get("habakukk");
-        tsispsp.get("habakukk","kakukk");
+        tsispsp.get("habakukk", "kakukk");
         tsispsp.setSingleInclude(new BasicSingleIncludeChecker());
-        tsispsp.get("habakukk","kakukk");
+        tsispsp.get("habakukk", "kakukk");
     }
 }

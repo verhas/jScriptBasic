@@ -6,34 +6,15 @@ package com.scriptbasic.interfaces;
  * @author Peter Verhas
  * 
  */
-public interface SyntaxAnalyzer {
-    /**
-     * Set the lexical analyzer that provides the stream of the lexical
-     * elements.
-     * 
-     * @param la
-     *            the lexical analyzer.
-     */
-    public void setLexicalAnalyzer(LexicalAnalyzer la);
-
-    /**
-     * Get the lexical analyzer that the syntax analyzer is using.
-     * 
-     * @return
-     */
-    public LexicalAnalyzer getLexicalAnalyzer();
+public interface SyntaxAnalyzer extends FactoryManaged {
 
     /**
      * Perform the syntax analysis.
      * 
+     * @return
+     * 
      * @throws SyntaxException
      */
-    public void analyze() throws SyntaxException, LexicalException;
+    public Program analyze() throws SyntaxException, LexicalException;
 
-    /**
-     * Get the program that was created during syntax analysis.
-     * 
-     * @return the executable object.
-     */
-    public Program getProgram();
 }

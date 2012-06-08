@@ -8,7 +8,8 @@ public class ConstAwareIdentifier extends Identifier {
 
     @Override
     public LexicalElement read() throws LexicalException {
-        BasicLexicalElement lexicalElement = (BasicLexicalElement) super.read();
+        final BasicLexicalElement lexicalElement = (BasicLexicalElement) super
+                .read();
         if (lexicalElement != null) {
             Boolean value = null;
             if ("true".equalsIgnoreCase(lexicalElement.get())) {

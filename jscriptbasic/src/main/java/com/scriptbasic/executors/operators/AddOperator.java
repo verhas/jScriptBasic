@@ -12,35 +12,37 @@ public class AddOperator extends AbstractBinaryFullCircuitHalfDoubleOperator {
     @Override
     protected RightValue operateOnDoubleDouble(final Double a, final Double b)
             throws BasicRuntimeException {
-        return new BasicDoubleValue(a+b);
+        return new BasicDoubleValue(a + b);
     }
 
     @Override
     protected RightValue operateOnLongLong(final Long a, final Long b)
             throws BasicRuntimeException {
-        return new BasicLongValue(a+b);
+        return new BasicLongValue(a + b);
     }
 
-    private String getString(final RightValue op) throws BasicRuntimeException{
-        if( op.isString()){
-            return((BasicStringValue)op).getValue();
+    private String getString(final RightValue op) throws BasicRuntimeException {
+        if (op.isString()) {
+            return ((BasicStringValue) op).getValue();
         }
-        if( op.isDouble() ){
-            return ((BasicDoubleValue)op).getValue().toString();
+        if (op.isDouble()) {
+            return ((BasicDoubleValue) op).getValue().toString();
         }
-        if( op.isLong()){
-            return ((BasicLongValue)op).getValue().toString();
+        if (op.isLong()) {
+            return ((BasicLongValue) op).getValue().toString();
         }
-        if( op.isJavaObject() ){
-            return ((BasicJavaObjectValue)op).getValue().toString();
+        if (op.isJavaObject()) {
+            return ((BasicJavaObjectValue) op).getValue().toString();
         }
-        throw new BasicRuntimeException("Argument can not be converted to string");
+        throw new BasicRuntimeException(
+                "Argument can not be converted to string");
     }
-    
+
     @Override
     protected RightValue operateOnValues(final RightValue leftOperand,
             final RightValue rightOperand) throws BasicRuntimeException {
-        return new BasicStringValue(getString(leftOperand)+getString(rightOperand));
+        return new BasicStringValue(getString(leftOperand)
+                + getString(rightOperand));
     }
 
     @Override

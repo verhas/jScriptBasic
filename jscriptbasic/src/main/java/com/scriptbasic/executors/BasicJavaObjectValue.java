@@ -5,17 +5,7 @@ import com.scriptbasic.interfaces.RightValue;
 
 public class BasicJavaObjectValue extends AbstractPrimitiveRightValue<Object> {
 
-    private BasicJavaObjectValue() {
-    }
-
-    private static BasicJavaObjectValue singleton = new BasicJavaObjectValue();
-
-    public static Object convert(RightValue rv) throws BasicRuntimeException {
-        return singleton.convertRightValue(rv);
-    }
-
-    @Override
-    protected Object convertRightValue(RightValue arv)
+    public static Object convert(final RightValue arv)
             throws BasicRuntimeException {
         if (arv.isJavaObject()) {
             return ((BasicJavaObjectValue) arv).getValue();

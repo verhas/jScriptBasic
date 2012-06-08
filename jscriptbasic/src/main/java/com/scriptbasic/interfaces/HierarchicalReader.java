@@ -1,6 +1,5 @@
 package com.scriptbasic.interfaces;
 
-
 /**
  * A hierarchical reader can include sources into the string of characters read
  * returned by another reader. Implementation usually do not directly read any
@@ -11,7 +10,7 @@ package com.scriptbasic.interfaces;
  * <p>
  * 
  * <pre>
- * Reader reader = someSourceProvider.get("some source name");
+ * Reader reader = someSourceProvider.get(&quot;some source name&quot;);
  * 
  * HierarchicalReader hierarchicalReader = new SomeHierarchicalReader();
  * hierarchicalReader(reader);

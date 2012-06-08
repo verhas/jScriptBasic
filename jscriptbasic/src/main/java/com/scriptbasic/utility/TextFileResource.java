@@ -14,17 +14,18 @@ public class TextFileResource {
     public TextFileResource(final Class<? extends Object> loadingClass,
             final String fileName) throws IOException {
         final InputStream is = loadingClass.getResourceAsStream(fileName);
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(
+                is));
         String line = reader.readLine();
-        lines = new ArrayList<String>();
+        this.lines = new ArrayList<String>();
         while (line != null) {
-            lines.add(line);
+            this.lines.add(line);
             line = reader.readLine();
         }
     }
 
     public TextFileResource stripSpaces() {
-        for (String line : lines) {
+        for (String line : this.lines) {
             line = line.replaceAll("\\s*", "");
         }
         return this;
@@ -32,12 +33,12 @@ public class TextFileResource {
 
     public TextFileResource stripComments(final CommentFilter filter) {
         final ArrayList<String> newLines = new ArrayList<String>();
-        for (final String line : lines) {
+        for (final String line : this.lines) {
             if (!filter.isComment(line)) {
                 newLines.add(line);
             }
         }
-        lines = newLines;
+        this.lines = newLines;
         return this;
     }
 
@@ -46,17 +47,17 @@ public class TextFileResource {
     }
 
     public String[] getArray() {
-        if (lines != null) {
-            return lines.toArray(new String[lines.size()]);
+        if (this.lines != null) {
+            return this.lines.toArray(new String[this.lines.size()]);
         } else {
             return null;
         }
     }
 
     public Set<String> getSet() {
-        if (lines != null) {
+        if (this.lines != null) {
             final Set<String> lineSet = new HashSet<String>();
-            for (final String op : lines) {
+            for (final String op : this.lines) {
                 lineSet.add(op);
             }
             return lineSet;

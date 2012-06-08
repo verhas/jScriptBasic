@@ -9,7 +9,7 @@ public abstract class AbstractPrimitiveRightValue<T> extends AbstractRightValue
     protected T value;
 
     public T getValue() {
-        return value;
+        return this.value;
     }
 
     public void setValue(final T value) {
@@ -21,6 +21,4 @@ public abstract class AbstractPrimitiveRightValue<T> extends AbstractRightValue
         return this;
     }
 
-    protected abstract T convertRightValue(RightValue arv)
-            throws BasicRuntimeException;
 }

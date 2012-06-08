@@ -27,7 +27,7 @@ public abstract class SingleIncludeSourcePathSourceProvider extends
      * @return the actual value of the single include checker
      */
     public SingleIncludeChecker getSingleInclude() {
-        return singleInclude;
+        return this.singleInclude;
     }
 
     /**
@@ -47,21 +47,21 @@ public abstract class SingleIncludeSourcePathSourceProvider extends
 
     @Override
     public final Reader get(final String sourceName) throws IOException {
-        if (singleInclude == null) {
+        if (this.singleInclude == null) {
             return null;
         } else {
-            singleInclude.check(getKeyName(sourceName));
+            this.singleInclude.check(getKeyName(sourceName));
             return getSource(sourceName);
         }
     }
 
     @Override
-    public final Reader get(final String sourceName, final String referencingSource)
-            throws IOException {
-        if (singleInclude == null) {
+    public final Reader get(final String sourceName,
+            final String referencingSource) throws IOException {
+        if (this.singleInclude == null) {
             return null;
         } else {
-            singleInclude.check(getKeyName(sourceName, referencingSource));
+            this.singleInclude.check(getKeyName(sourceName, referencingSource));
             return getSource(sourceName, referencingSource);
         }
     }

@@ -30,7 +30,7 @@ public class StringSourceProvider extends
      *            The actual code of the source program.
      */
     public void addSource(final String fileName, final String sourceCode) {
-        sourceMap.put(fileName, sourceCode);
+        this.sourceMap.put(fileName, sourceCode);
     }
 
     /**
@@ -40,14 +40,14 @@ public class StringSourceProvider extends
      */
     @Override
     public Reader getSource(final String sourceName) throws IOException {
-        if (!sourceMap.containsKey(sourceName)) {
+        if (!this.sourceMap.containsKey(sourceName)) {
             throw new IOException("The source '" + sourceName
                     + "' was not set.");
         }
         final GenericReader reader = new GenericReader();
         reader.set(sourceName);
         reader.setSourceProvider(this);
-        reader.set(new StringReader(sourceMap.get(sourceName)));
+        reader.set(new StringReader(this.sourceMap.get(sourceName)));
         return reader;
     }
 }

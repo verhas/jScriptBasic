@@ -26,8 +26,8 @@ public abstract class SingleIncludeSourcePathNonRelativeSourceProvider extends
     protected abstract Reader getSource(String sourceName) throws IOException;
 
     @Override
-    protected Reader getSource(final String sourceName, final String referencingSource)
-            throws IOException {
+    protected Reader getSource(final String sourceName,
+            final String referencingSource) throws IOException {
         return getSource(sourceName);
     }
 
@@ -37,7 +37,8 @@ public abstract class SingleIncludeSourcePathNonRelativeSourceProvider extends
     }
 
     @Override
-    protected String getKeyName(final String sourceName, final String referencingSource) {
+    protected String getKeyName(final String sourceName,
+            final String referencingSource) {
         return getKeyName(sourceName);
     }
 

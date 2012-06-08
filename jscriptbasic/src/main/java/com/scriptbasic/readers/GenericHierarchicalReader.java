@@ -20,34 +20,34 @@ public class GenericHierarchicalReader implements HierarchicalReader {
     @Override
     public void include(final Reader reader) {
         if (this.reader != null) {
-            readerStack.push(this.reader);
+            this.readerStack.push(this.reader);
         }
         this.reader = reader;
     }
 
     @Override
     public void set(final String sourceFileName) {
-        reader.set(sourceFileName);
+        this.reader.set(sourceFileName);
     }
 
     @Override
     public String fileName() {
-        return reader.fileName();
+        return this.reader.fileName();
     }
 
     @Override
     public int lineNumber() {
-        return reader.lineNumber();
+        return this.reader.lineNumber();
     }
 
     @Override
     public int position() {
-        return reader.position();
+        return this.reader.position();
     }
 
     @Override
     public void pushBack(final Integer ch) {
-        reader.pushBack(ch);
+        this.reader.pushBack(ch);
     }
 
     /**
@@ -58,16 +58,16 @@ public class GenericHierarchicalReader implements HierarchicalReader {
      */
     @Override
     public Integer get() {
-        Integer ch = reader.get();
-        while (ch == null && !readerStack.isEmpty()) {
-            reader = readerStack.pop();
-            ch = reader.get();
+        Integer ch = this.reader.get();
+        while (ch == null && !this.readerStack.isEmpty()) {
+            this.reader = this.readerStack.pop();
+            ch = this.reader.get();
         }
         return ch;
     }
 
     @Override
     public SourceProvider getSourceProvider() {
-        return reader.getSourceProvider();
+        return this.reader.getSourceProvider();
     }
 }

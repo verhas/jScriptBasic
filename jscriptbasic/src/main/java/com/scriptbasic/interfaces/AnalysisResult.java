@@ -11,6 +11,6 @@ package com.scriptbasic.interfaces;
  * @author Peter Verhas
  * @date May 31, 2012
  */
-public interface ProgramNode {
+public interface AnalysisResult {
 
 }

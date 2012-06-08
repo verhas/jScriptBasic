@@ -4,11 +4,11 @@ import com.scriptbasic.interfaces.ExpressionList;
 
 public abstract class AbstractIdentifieredExpressionListedExpression extends
         AbstractIdentifieredExpression {
-    
+
     private ExpressionList expressionList;
 
     public ExpressionList getExpressionList() {
-        return expressionList;
+        return this.expressionList;
     }
 
     public void setExpressionList(final ExpressionList expressionList) {

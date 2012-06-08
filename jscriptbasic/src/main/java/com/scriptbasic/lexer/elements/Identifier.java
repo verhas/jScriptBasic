@@ -30,7 +30,7 @@ public class Identifier extends AbstractElementAnalyzer {
 
             final BasicLexicalElement le = BasicLexialElementFactory
                     .create(getReader(),
-                            keywordRecognizer.isRecognized(s) ? LexicalElement.TYPE_SYMBOL
+                            this.keywordRecognizer.isRecognized(s) ? LexicalElement.TYPE_SYMBOL
                                     : LexicalElement.TYPE_IDENTIFIER);
             le.setLexeme(s);
             le.setStringValue(s);

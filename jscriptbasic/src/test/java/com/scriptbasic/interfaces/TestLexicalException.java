@@ -5,7 +5,7 @@ import java.io.IOException;
 import junit.framework.TestCase;
 
 public class TestLexicalException extends TestCase {
-    public TestLexicalException(String testName) {
+    public TestLexicalException(final String testName) {
         super(testName);
     }
 
@@ -29,7 +29,7 @@ public class TestLexicalException extends TestCase {
                 return 0;
             }
 
-            public TestedLexicalException(Throwable arg0) {
+            public TestedLexicalException(final Throwable arg0) {
                 super(arg0);
             }
 

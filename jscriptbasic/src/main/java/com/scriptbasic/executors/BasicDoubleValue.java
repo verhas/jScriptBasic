@@ -9,29 +9,20 @@ public class BasicDoubleValue extends AbstractNumericRightValue<Double> {
         setValue(d);
     }
 
-    private BasicDoubleValue() {
-    }
-
-    private static BasicDoubleValue singleton = new BasicDoubleValue();
-
-    public static Double convert(RightValue rv) throws BasicRuntimeException {
-        return singleton.convertRightValue(rv);
-    }
-    
-    @Override
-    protected Double convertRightValue(RightValue rv) throws BasicRuntimeException {
+    public static Double convert(final RightValue rv)
+            throws BasicRuntimeException {
         if (rv.isBoolean()) {
             return ((BasicBooleanValue) rv).getValue() ? 1.0 : 0.0;
         }
         if (rv.isString()) {
-            String s = ((BasicStringValue) rv).getValue();
+            final String s = ((BasicStringValue) rv).getValue();
             if (s == null) {
                 return null;
             }
             return Double.parseDouble(s);
         }
         if (rv.isLong()) {
-            Long l = ((BasicLongValue) rv).getValue();
+            final Long l = ((BasicLongValue) rv).getValue();
             if (l == null) {
                 return null;
             }
@@ -41,11 +32,12 @@ public class BasicDoubleValue extends AbstractNumericRightValue<Double> {
             return ((BasicDoubleValue) rv).getValue();
         }
         if (rv.isJavaObject()) {
-            Object o = ((BasicJavaObjectValue) rv).getValue();
+            final Object o = ((BasicJavaObjectValue) rv).getValue();
             if (o instanceof Double) {
                 return (Double) o;
             }
-            //TODO elaborate the conversion with other object classes, like Long, String...
+            // TODO elaborate the conversion with other object classes, like
+            // Long, String...
         }
         throw new BasicRuntimeException("Can not convert value to double");
     }

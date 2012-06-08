@@ -4,7 +4,7 @@ import com.scriptbasic.interfaces.Expression;
 
 public abstract class AbstractUnaryOperator extends AbstractOperator {
     public Expression getOperand() {
-        return operand;
+        return this.operand;
     }
 
     public void setOperand(final Expression operand) {
@@ -12,6 +12,5 @@ public abstract class AbstractUnaryOperator extends AbstractOperator {
     }
 
     private Expression operand;
-    
 
 }

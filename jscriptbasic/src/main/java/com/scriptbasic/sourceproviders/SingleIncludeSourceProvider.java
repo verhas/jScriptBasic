@@ -23,7 +23,7 @@ public abstract class SingleIncludeSourceProvider extends
     private SingleIncludeChecker singleInclude = new BasicSingleIncludeChecker();
 
     public SingleIncludeChecker getSingleInclude() {
-        return singleInclude;
+        return this.singleInclude;
     }
 
     public void setSingleInclude(final SingleIncludeChecker singleInclude) {
@@ -32,14 +32,14 @@ public abstract class SingleIncludeSourceProvider extends
 
     @Override
     public final Reader get(final String sourceName) throws IOException {
-        singleInclude.check(getKeyName(sourceName));
+        this.singleInclude.check(getKeyName(sourceName));
         return getSource(sourceName);
     }
 
     @Override
-    public final Reader get(final String sourceName, final String referencingSource)
-            throws IOException {
-        singleInclude.check(getKeyName(sourceName, referencingSource));
+    public final Reader get(final String sourceName,
+            final String referencingSource) throws IOException {
+        this.singleInclude.check(getKeyName(sourceName, referencingSource));
         return getSource(sourceName, referencingSource);
     }
 

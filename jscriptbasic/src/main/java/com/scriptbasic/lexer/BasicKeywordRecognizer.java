@@ -20,7 +20,7 @@ public class BasicKeywordRecognizer implements KeywordRecognizer {
         }
     }
 
-    public Set<String> getKeywords() {
+    public static Set<String> getKeywords() {
         return keywords;
     }
 

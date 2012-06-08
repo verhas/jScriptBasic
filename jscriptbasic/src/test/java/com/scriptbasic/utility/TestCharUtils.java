@@ -5,12 +5,12 @@ import java.io.IOException;
 import junit.framework.TestCase;
 
 public class TestCharUtils extends TestCase {
-    public TestCharUtils(String testName) {
+    public TestCharUtils(final String testName) {
         super(testName);
     }
 
     public void test() throws IOException {
-        assertTrue(CharUtils.isNewLine((Integer) (int) '\n'));
+        assertTrue(CharUtils.isNewLine((int) '\n'));
         for (int i = 0; i < 10; i++) {
             assertFalse(CharUtils.isNewLine(i));
         }
@@ -18,9 +18,7 @@ public class TestCharUtils extends TestCase {
             assertFalse(CharUtils.isNewLine(i));
         }
         assertFalse(CharUtils.isNewLine(null));
-        assertTrue(CharUtils
-                .isNewLine((Integer) (int) Character.LINE_SEPARATOR));
-        assertTrue(CharUtils
-                .isNewLine((Integer) (int) Character.PARAGRAPH_SEPARATOR));
+        assertTrue(CharUtils.isNewLine((int) Character.LINE_SEPARATOR));
+        assertTrue(CharUtils.isNewLine((int) Character.PARAGRAPH_SEPARATOR));
     }
 }

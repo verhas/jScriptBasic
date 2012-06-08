@@ -19,7 +19,4 @@ package com.scriptbasic.interfaces;
  */
 public interface CommandAnalyzer extends Analyzer {
 
-    public void setSyntaxAnalyzer(SyntaxAnalyzer sa);
-
-    public Command getCommand();
 }

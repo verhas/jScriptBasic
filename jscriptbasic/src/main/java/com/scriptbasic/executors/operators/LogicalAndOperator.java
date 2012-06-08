@@ -12,7 +12,8 @@ public class LogicalAndOperator extends AbstractShortCircuitBinaryOperator {
             final Expression rightOperand) throws BasicRuntimeException {
         final BasicBooleanValue bbv = new BasicBooleanValue(false);
         if (BasicBooleanValue.convert(leftOperand)) {
-            return new BasicBooleanValue(BasicBooleanValue.convert(rightOperand.evaluate()));
+            return new BasicBooleanValue(BasicBooleanValue.convert(rightOperand
+                    .evaluate()));
         } else {
             return bbv;
         }

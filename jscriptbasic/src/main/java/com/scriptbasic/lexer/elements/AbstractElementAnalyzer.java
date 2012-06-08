@@ -8,9 +8,9 @@ import com.scriptbasic.interfaces.Reader;
 public abstract class AbstractElementAnalyzer implements LexicalElementAnalyzer {
 
     private Reader reader;
-    
+
     public Reader getReader() {
-        return reader;
+        return this.reader;
     }
 
     @Override

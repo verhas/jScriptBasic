@@ -29,8 +29,8 @@ public class GreaterOrEqualOperator extends AbstractCompareOperator {
     }
 
     @Override
-    protected Boolean compareTo(final BasicJavaObjectValue f, final RightValue op)
-            throws BasicRuntimeException {
+    protected Boolean compareTo(final BasicJavaObjectValue f,
+            final RightValue op) throws BasicRuntimeException {
         return compareJavaObjectTo(f, op) >= 0;
     }
 

@@ -52,13 +52,13 @@ public abstract class AbstractCompareOperator extends
         return null;
     }
 
-    protected int compareJavaObjectTo(final BasicJavaObjectValue f, final RightValue op)
-            throws BasicRuntimeException {
+    protected int compareJavaObjectTo(final BasicJavaObjectValue f,
+            final RightValue op) throws BasicRuntimeException {
         final Object o = BasicJavaObjectValue.convert(op);
         if (f.getValue() instanceof Comparable<?> && o instanceof Comparable<?>) {
             @SuppressWarnings("unchecked")
-            final
-            Comparable<Comparable<?>> a = (Comparable<Comparable<?>>) f.getValue();
+            final Comparable<Comparable<?>> a = (Comparable<Comparable<?>>) f
+                    .getValue();
             final Comparable<?> b = (Comparable<?>) o;
             return a.compareTo(b);
         }

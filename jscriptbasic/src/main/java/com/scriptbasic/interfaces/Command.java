@@ -1,5 +1,5 @@
 package com.scriptbasic.interfaces;
 
-public interface Command {
+public interface Command extends AnalysisResult {
 
 }

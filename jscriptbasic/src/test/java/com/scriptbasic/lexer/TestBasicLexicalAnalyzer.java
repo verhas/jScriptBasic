@@ -17,11 +17,11 @@ import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.LexicalException;
 
 public class TestBasicLexicalAnalyzer extends TestCase {
-    public TestBasicLexicalAnalyzer(String testName) {
+    public TestBasicLexicalAnalyzer(final String testName) {
         super(testName);
     }
 
-    private void keywordtest(String s) throws LexicalException {
+    private void keywordtest(final String s) throws LexicalException {
         assertLexicals(new LexicalElement[] { SYMBOL(s) },
                 createStringReading(s));
     }
@@ -110,6 +110,11 @@ public class TestBasicLexicalAnalyzer extends TestCase {
                 createStringReading("\n"));
     }
 
+    public void testIntegerNumber() throws LexicalException {
+        assertLexicals(new LexicalElement[] { LONG("12") },
+                createStringReading("12"));
+    }
+
     public void testFloatNumber() throws LexicalException {
         assertLexicals(new LexicalElement[] { DOUBLE("13e3") },
                 createStringReading("13e3"));
@@ -129,15 +134,21 @@ public class TestBasicLexicalAnalyzer extends TestCase {
                 createStringReading("13.8E-2"));
     }
 
-    public void testBooleans() throws LexicalException{
-        assertLexicals(new LexicalElement[] { BOOL(true), BOOL(false) }, createStringReading("true false"));
-        assertLexicals(new LexicalElement[] { BOOL("TRUE"), BOOL("FALSE") }, createStringReading("TRUE FALSE"));
-        assertLexicals(new LexicalElement[] { BOOL("True"), BOOL("False") }, createStringReading("True False"));
-        assertLexicals(new LexicalElement[] { BOOL("tRUe"), BOOL("fALse") }, createStringReading("tRUe fALse"));
-        assertLexicals(new LexicalElement[] { BOOL("trUe"), BOOL("faLse") }, createStringReading("trUe faLse"));
-        assertLexicals(new LexicalElement[] { BOOL("TrUe"), BOOL("fAlSe") }, createStringReading("TrUe fAlSe"));
+    public void testBooleans() throws LexicalException {
+        assertLexicals(new LexicalElement[] { BOOL(true), BOOL(false) },
+                createStringReading("true false"));
+        assertLexicals(new LexicalElement[] { BOOL("TRUE"), BOOL("FALSE") },
+                createStringReading("TRUE FALSE"));
+        assertLexicals(new LexicalElement[] { BOOL("True"), BOOL("False") },
+                createStringReading("True False"));
+        assertLexicals(new LexicalElement[] { BOOL("tRUe"), BOOL("fALse") },
+                createStringReading("tRUe fALse"));
+        assertLexicals(new LexicalElement[] { BOOL("trUe"), BOOL("faLse") },
+                createStringReading("trUe faLse"));
+        assertLexicals(new LexicalElement[] { BOOL("TrUe"), BOOL("fAlSe") },
+                createStringReading("TrUe fAlSe"));
     }
-    
+
     public void testFloatAndSomething() throws LexicalException {
         assertLexicals(new LexicalElement[] { DOUBLE("13.2"), ID("e"),
                 SYMBOL("+") }, createStringReading("13.2e+"));
@@ -158,7 +169,7 @@ public class TestBasicLexicalAnalyzer extends TestCase {
             assertLexicals(
                     new LexicalElement[] { SSTRING("justAnything, should not check it, if it fails the test fails") },
                     createStringReading("\""));
-        } catch (UnterminatedStringException use) {
+        } catch (final UnterminatedStringException use) {
             // this is what we expect
         }
     }

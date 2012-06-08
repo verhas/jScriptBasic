@@ -12,12 +12,12 @@ public class GenericExpressionList implements ExpressionList {
     List<Expression> expressionList = new LinkedList<Expression>();
 
     public void add(final Expression expression) {
-        expressionList.add(expression);
+        this.expressionList.add(expression);
     }
 
     @Override
     public Iterator<Expression> iterator() {
-        return expressionList.iterator();
+        return this.expressionList.iterator();
     }
 
 }

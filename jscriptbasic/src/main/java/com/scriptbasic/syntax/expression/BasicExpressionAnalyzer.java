@@ -24,6 +24,9 @@ import com.scriptbasic.executors.operators.PowerOperator;
 
 public class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
 
+    private BasicExpressionAnalyzer() {
+    }
+
     private final static Integer maximumPriority = 6;
 
     private static ArrayList<Map<String, Class<? extends AbstractBinaryOperator>>> operatorMapArray = new ArrayList<Map<String, Class<? extends AbstractBinaryOperator>>>(
@@ -58,7 +61,8 @@ public class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
         opMap.put("%", ModuloOperator.class);
         opMap.put("div", IntegerDivideOperator.class);
         opMap = getStaticOperatorMap(4);
-        opMap.put("+", AddOperator.class); // numeric and also concatenation of strings
+        opMap.put("+", AddOperator.class); // numeric and also concatenation of
+                                           // strings
         opMap.put("-", MinusOperator.class);
         opMap = getStaticOperatorMap(5);
         // LIKE operator is NOT implemented in jScriptBasic, use Java methods
@@ -77,13 +81,6 @@ public class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
     @Override
     protected Integer getMaximumPriority() {
         return maximumPriority;
-    }
-
-    private final TagAnalyzer tagAnalyzer = new TagAnalyzer(this);
-
-    @Override
-    protected TagAnalyzer getTagAnalyzer() {
-        return tagAnalyzer;
     }
 
     @Override

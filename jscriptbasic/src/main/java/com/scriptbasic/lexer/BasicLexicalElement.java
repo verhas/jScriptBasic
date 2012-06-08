@@ -36,7 +36,7 @@ public class BasicLexicalElement extends AbstractLexicalElement {
 
     @Override
     public String get() {
-        return lexeme;
+        return this.lexeme;
     }
 
     @Override

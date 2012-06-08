@@ -5,8 +5,7 @@ import com.scriptbasic.executors.BasicLongValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.RightValue;
 
-public class MinusOperator extends
-        AbstractBinaryFullCircuitHalfDoubleOperator {
+public class MinusOperator extends AbstractBinaryFullCircuitHalfDoubleOperator {
 
     @Override
     protected RightValue operateOnDoubleDouble(final Double a, final Double b)

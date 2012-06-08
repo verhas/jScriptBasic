@@ -14,7 +14,8 @@ public class LogicalOrOperator extends AbstractShortCircuitBinaryOperator {
         if (BasicBooleanValue.convert(leftOperand)) {
             return bbv;
         } else {
-            return new BasicBooleanValue(BasicBooleanValue.convert(rightOperand.evaluate()));
+            return new BasicBooleanValue(BasicBooleanValue.convert(rightOperand
+                    .evaluate()));
         }
     }
 }

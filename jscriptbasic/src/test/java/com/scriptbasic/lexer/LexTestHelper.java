@@ -3,8 +3,9 @@ package com.scriptbasic.lexer;
 import java.io.IOException;
 import java.io.StringReader;
 
-import junit.framework.TestCase;
+import junit.framework.Assert;
 
+import com.scriptbasic.factories.FactoryFactory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.LexicalException;
@@ -19,18 +20,19 @@ public class LexTestHelper {
     }
 
     static TestLE LONG(final String s) {
-        Long l = Long.parseLong(s);
+        final Long l = Long.parseLong(s);
         return new TestLE(s, l);
     }
 
     static TestLE DOUBLE(final String s) {
-        Double d = Double.parseDouble(s);
+        final Double d = Double.parseDouble(s);
         return new TestLE(s, d);
     }
 
     static TestLE BOOL(final Boolean b) {
         return new TestLE(b.toString(), b);
     }
+
     static TestLE BOOL(final String b) {
         return new TestLE(b, Boolean.parseBoolean(b));
     }
@@ -60,29 +62,30 @@ public class LexTestHelper {
         return s;
     }
 
-    static TestLE SSTRING(String s) {
-        String lexeme = sstring2Lexeme(s);
+    static TestLE SSTRING(final String s) {
+        final String lexeme = sstring2Lexeme(s);
         return SSTRING(s, lexeme);
     }
 
-    static TestLE SSTRING(String s, String lexeme) {
+    static TestLE SSTRING(final String s, final String lexeme) {
         return new TestLE("\"" + lexeme + "\"", s);
     }
 
-    static TestLE MSTRING(String s) {
-        String lexeme = string2Lexeme(s);
+    static TestLE MSTRING(final String s) {
+        final String lexeme = string2Lexeme(s);
         return MSTRING(s, lexeme);
     }
 
-    static TestLE MSTRING(String s, String lexeme) {
+    static TestLE MSTRING(final String s, final String lexeme) {
         return new TestLE("\"\"\"" + lexeme + "\"\"\"", s);
     }
 
-    static TestLE VSTRING(String s, String lexeme, boolean multiline) {
+    static TestLE VSTRING(final String s, final String lexeme,
+            final boolean multiline) {
         return multiline ? MSTRING(s, lexeme) : SSTRING(s, lexeme);
     }
 
-    static TestLE VSTRING(String s, boolean multiline) {
+    static TestLE VSTRING(final String s, final boolean multiline) {
         return multiline ? MSTRING(s) : SSTRING(s);
     }
 
@@ -90,32 +93,33 @@ public class LexTestHelper {
         return SYMBOL("\n");
     }
 
-    static TestLE SYMBOL(String s) {
+    static TestLE SYMBOL(final String s) {
         return new TestLE(s, LexicalElement.TYPE_SYMBOL);
     }
 
-    static void assertLexicals(LexicalElement[] lea, LexicalAnalyzer la)
-            throws LexicalException {
-        for (LexicalElement le : lea) {
-            LexicalElement le1 = la.get();
-            TestCase.assertNotNull(
+    static void assertLexicals(final LexicalElement[] lea,
+            final LexicalAnalyzer la) throws LexicalException {
+        for (final LexicalElement le : lea) {
+            final LexicalElement le1 = la.get();
+            Assert.assertNotNull(
                     "there are not enough lexical elements, expecting "
                             + le.get(), le1);
-            TestCase.assertEquals("different types of lexemes " + le.get()
+            Assert.assertEquals("different types of lexemes " + le.get()
                     + " vs " + le1.get(), le.type(), le1.type());
-            TestCase.assertEquals("different lexemes " + le.get() + " vs "
-                    + le1.get(), le.get(), le1.get());
+            Assert.assertEquals(
+                    "different lexemes " + le.get() + " vs " + le1.get(),
+                    le.get(), le1.get());
             switch (le.type()) {
             case LexicalElement.TYPE_DOUBLE:
-                TestCase.assertEquals("different double values",
+                Assert.assertEquals("different double values",
                         le.doubleValue(), le1.doubleValue());
                 break;
             case LexicalElement.TYPE_LONG:
-                TestCase.assertEquals("different long values", le.longValue(),
+                Assert.assertEquals("different long values", le.longValue(),
                         le1.longValue());
                 break;
             case LexicalElement.TYPE_STRING:
-                TestCase.assertEquals("different string values",
+                Assert.assertEquals("different string values",
                         le.stringValue(), le1.stringValue());
                 break;
             case LexicalElement.TYPE_SYMBOL:
@@ -125,26 +129,30 @@ public class LexTestHelper {
         }
     }
 
-    public static LexicalAnalyzer createStringReading(String s) {
-        java.io.Reader r = new StringReader(s);
-        GenericReader reader = new GenericReader();
+    public static LexicalAnalyzer createStringReading(final String s) {
+        final java.io.Reader r = new StringReader(s);
+        final GenericReader reader = new GenericReader();
         reader.set(r);
         reader.setSourceProvider(null);
         reader.set((String) null);
-        LexicalAnalyzer la = new ScriptBasicLexicalAnalyzer();
+        FactoryFactory.getFactory().create(LexicalAnalyzer.class,
+                ScriptBasicLexicalAnalyzer.class);
+        final LexicalAnalyzer la = (LexicalAnalyzer)FactoryFactory.getFactory().get(
+                LexicalAnalyzer.class);
         la.set(reader);
         return la;
     }
 
-    static LexicalAnalyzer createMStringReading(String s) {
+    static LexicalAnalyzer createMStringReading(final String s) {
         return createStringReading("\"\"\"" + s + "\"\"\"");
     }
 
-    static LexicalAnalyzer createSStringReading(String s) {
+    static LexicalAnalyzer createSStringReading(final String s) {
         return createStringReading("\"" + s + "\"");
     }
 
-    static LexicalAnalyzer createVStringReading(String s, boolean multiline) {
+    static LexicalAnalyzer createVStringReading(final String s,
+            final boolean multiline) {
         if (multiline) {
             return createMStringReading(s);
         } else {
@@ -152,23 +160,25 @@ public class LexTestHelper {
         }
     }
 
-    static LexicalAnalyzer createStringArrayReading(String[] s)
+    static LexicalAnalyzer createStringArrayReading(final String[] s)
             throws IOException {
-        TestCase.assertTrue(
-                "there has to be at least one file name and content",
+        Assert.assertTrue("there has to be at least one file name and content",
                 s.length >= 2);
-        StringSourceProvider ssp = new StringSourceProvider();
+        final StringSourceProvider ssp = new StringSourceProvider();
         for (int i = 0; i < s.length; i++) {
             ssp.addSource(s[i], s[i + 1]);
             i++;
         }
 
-        Reader reader = ssp.get(s[0]);
+        final Reader reader = ssp.get(s[0]);
 
-        GenericHierarchicalReader hreader = new GenericHierarchicalReader();
+        final GenericHierarchicalReader hreader = new GenericHierarchicalReader();
         hreader.include(reader);
 
-        LexicalAnalyzer la = new ScriptBasicLexicalAnalyzer();
+        FactoryFactory.getFactory().create(LexicalAnalyzer.class,
+                ScriptBasicLexicalAnalyzer.class);
+        final LexicalAnalyzer la = (LexicalAnalyzer)FactoryFactory.getFactory().get(
+                LexicalAnalyzer.class);
         la.set(hreader);
         return la;
     }

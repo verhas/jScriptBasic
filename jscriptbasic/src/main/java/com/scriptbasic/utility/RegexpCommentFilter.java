@@ -12,7 +12,7 @@ public class RegexpCommentFilter implements CommentFilter {
 
     @Override
     public Boolean isComment(final String line) {
-        return Pattern.matches(regexp, line);
+        return Pattern.matches(this.regexp, line);
     }
 
 }

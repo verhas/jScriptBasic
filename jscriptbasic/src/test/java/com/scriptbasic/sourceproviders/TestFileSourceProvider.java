@@ -4,12 +4,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import com.scriptbasic.interfaces.Reader;
-
 import junit.framework.TestCase;
 
+import com.scriptbasic.interfaces.Reader;
+
 public class TestFileSourceProvider extends TestCase {
-    public TestFileSourceProvider(String testName) {
+    public TestFileSourceProvider(final String testName) {
         super(testName);
     }
 
@@ -20,20 +20,20 @@ public class TestFileSourceProvider extends TestCase {
 
     public void testFSP() throws IOException {
         // create the test file
-        File file = new File(tempDir + ps + testFileName);
-        FileWriter fw = new FileWriter(file);
+        final File file = new File(tempDir + ps + testFileName);
+        final FileWriter fw = new FileWriter(file);
         fw.write(testStringToFile);
         fw.close();
 
         // get the test file
-        FileSourceProvider fsp = new FileSourceProvider();
+        final FileSourceProvider fsp = new FileSourceProvider();
         fsp.setSourcePath(new BasicSourcePath());
         fsp.getSourcePath().add(tempDir + ps + "abrakadabra");
         fsp.getSourcePath().add(tempDir);
-        Reader r = fsp.get(testFileName);
+        final Reader r = fsp.get(testFileName);
         for (int i = 0; i < testStringToFile.length(); i++) {
-            Integer chExpected = (Integer) (int) testStringToFile.charAt(i);
-            Integer chActual = r.get();
+            final Integer chExpected = (int) testStringToFile.charAt(i);
+            final Integer chActual = r.get();
             assertEquals("different characters at position " + i, chExpected,
                     chActual);
         }
@@ -41,12 +41,12 @@ public class TestFileSourceProvider extends TestCase {
     }
 
     public void testFSPFileNotFound() {
-        FileSourceProvider fsp = new FileSourceProvider();
+        final FileSourceProvider fsp = new FileSourceProvider();
         fsp.setSourcePath(new BasicSourcePath());
         try {
             fsp.get(testFileName);
             assertTrue("No exception was thrown", false);
-        } catch (IOException ioex) {
+        } catch (final IOException ioex) {
             // this is ok
         }
     }

@@ -32,20 +32,20 @@ public abstract class SyntaxException extends Exception {
     private int position;
 
     public void setLocation(final LexicalElement le) {
-        fileName = le.fileName();
-        lineNumber = le.lineNumber();
-        position = le.position();
+        this.fileName = le.fileName();
+        this.lineNumber = le.lineNumber();
+        this.position = le.position();
     }
 
     public String fileName() {
-        return fileName;
+        return this.fileName;
     }
 
     public int lineNumber() {
-        return lineNumber;
+        return this.lineNumber;
     }
 
     public int position() {
-        return position;
+        return this.position;
     }
 }

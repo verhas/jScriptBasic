@@ -1,5 +1,7 @@
 package com.scriptbasic.syntax;
 
+import static com.scriptbasic.utility.FactoryUtilities.getLexicalAnalyzer;
+
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.LexicalException;
@@ -9,27 +11,15 @@ import com.scriptbasic.interfaces.SyntaxException;
 import com.scriptbasic.syntax.commandanalyzers.BasicCommandFactory;
 
 public class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
-    private LexicalAnalyzer lexicalAnalyzer;
 
-    @Override
-    public LexicalAnalyzer getLexicalAnalyzer() {
-        return lexicalAnalyzer;
-    }
-
-    @Override
-    public void setLexicalAnalyzer(final LexicalAnalyzer lexicalAnalyzer) {
-        this.lexicalAnalyzer = lexicalAnalyzer;
-    }
-
-    public void setProgram(final BasicProgram program) {
-        this.program = program;
+    private BasicSyntaxAnalyzer(){
     }
 
     private BasicProgram program;
     private LexicalElement lexicalElement;
 
     public LexicalElement getLexicalElement() {
-        return lexicalElement;
+        return this.lexicalElement;
     }
 
     public void setLexicalElement(final LexicalElement lexicalElement) {
@@ -37,24 +27,20 @@ public class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
     }
 
     @Override
-    public void analyze() throws SyntaxException, LexicalException {
-        lexicalElement = lexicalAnalyzer.get();
+    public Program analyze() throws SyntaxException, LexicalException {
+        LexicalAnalyzer lexicalAnalyzer = getLexicalAnalyzer();
+        this.lexicalElement = lexicalAnalyzer.get();
         final BasicCommandFactory basicCommandFactory = new BasicCommandFactory();
         basicCommandFactory.setSyntaxAnalyzer(this);
-        while (lexicalElement != null) {
-            if (lexicalElement.isSymbol()) {
-                program.addCommand(basicCommandFactory.create(lexicalElement
-                        .get()));
+        while (this.lexicalElement != null) {
+            if (this.lexicalElement.isSymbol()) {
+                this.program.addCommand(basicCommandFactory
+                        .create(this.lexicalElement.get()));
             } else {
-                program.addCommand(basicCommandFactory.create(null));
+                this.program.addCommand(basicCommandFactory.create(null));
             }
-            lexicalElement = lexicalAnalyzer.get();
+            this.lexicalElement = lexicalAnalyzer.get();
         }
+        return this.program;
     }
-
-    @Override
-    public Program getProgram() {
-        return program;
-    }
-
 }

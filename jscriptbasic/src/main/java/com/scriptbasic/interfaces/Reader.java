@@ -1,6 +1,5 @@
 package com.scriptbasic.interfaces;
 
-
 /**
  * Source code reader. This class is almost works as the usual
  * {@code java.io.Reader} and the implementation {@see GenericReader} actually

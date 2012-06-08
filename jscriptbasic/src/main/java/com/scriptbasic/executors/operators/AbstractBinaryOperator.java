@@ -7,7 +7,7 @@ public abstract class AbstractBinaryOperator extends AbstractOperator {
     private Expression rightOperand;
 
     public Expression getLeftOperand() {
-        return leftOperand;
+        return this.leftOperand;
     }
 
     public void setLeftOperand(final Expression leftOperand) {
@@ -15,7 +15,7 @@ public abstract class AbstractBinaryOperator extends AbstractOperator {
     }
 
     public Expression getRightOperand() {
-        return rightOperand;
+        return this.rightOperand;
     }
 
     public void setRightOperand(final Expression rightOperand) {

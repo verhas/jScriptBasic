@@ -44,7 +44,7 @@ public class Decimal extends AbstractElementAnalyzer {
             processDigits(digits);
             ch = getReader().get();
             boolean floatFormat;
-            if (ch.equals((int) '.')) {
+            if (((Integer) (int) '.').equals(ch)) {
                 ch = getReader().get();
                 if (ch != null && Character.isDigit(ch)) {
                     floatFormat = true;

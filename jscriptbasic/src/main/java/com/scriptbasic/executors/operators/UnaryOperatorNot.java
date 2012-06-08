@@ -9,7 +9,7 @@ public class UnaryOperatorNot extends AbstractUnaryOperator {
     @Override
     public RightValue evaluate() throws BasicRuntimeException {
         new BasicBooleanValue(false);
-        return new BasicBooleanValue(
-                !BasicBooleanValue.convert(getOperand().evaluate()));
+        return new BasicBooleanValue(!BasicBooleanValue.convert(getOperand()
+                .evaluate()));
     }
 }

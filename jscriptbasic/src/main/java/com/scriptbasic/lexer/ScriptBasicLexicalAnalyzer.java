@@ -8,8 +8,8 @@ import com.scriptbasic.lexer.elements.Identifier;
 import com.scriptbasic.lexer.elements.MultiCharacter;
 import com.scriptbasic.lexer.elements.OneCharacter;
 
-public class ScriptBasicLexicalAnalyzer extends BasicLexicalAnalyzer {
-    public ScriptBasicLexicalAnalyzer() {
+public final class ScriptBasicLexicalAnalyzer extends BasicLexicalAnalyzer {
+    private ScriptBasicLexicalAnalyzer() {
         final Identifier identifier = new ConstAwareIdentifier();
         final KeywordRecognizer keywordRecognizer = new BasicKeywordRecognizer();
         identifier.setKeywordRecognizer(keywordRecognizer);

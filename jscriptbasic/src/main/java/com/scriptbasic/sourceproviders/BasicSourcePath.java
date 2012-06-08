@@ -22,11 +22,11 @@ public class BasicSourcePath implements SourcePath {
 
     @Override
     public void add(final String path) {
-        sourcePath.add(path);
+        this.sourcePath.add(path);
     }
 
     @Override
     public Iterator<String> iterator() {
-        return sourcePath.iterator();
+        return this.sourcePath.iterator();
     }
 }

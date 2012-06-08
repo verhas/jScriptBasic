@@ -2,12 +2,16 @@ package com.scriptbasic.syntax.expression;
 
 import static com.scriptbasic.syntax.expression.LexFacade.get;
 import static com.scriptbasic.syntax.expression.LexFacade.peek;
+import static com.scriptbasic.utility.FactoryUtilities.getExpressionListAnalyzer;
+import static com.scriptbasic.utility.FactoryUtilities.getLexicalAnalyzer;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.AbstractPrimitiveRightValue;
 import com.scriptbasic.executors.ArrayElementAccess;
+import com.scriptbasic.executors.BasicBooleanValue;
 import com.scriptbasic.executors.BasicDoubleValue;
 import com.scriptbasic.executors.BasicLongValue;
 import com.scriptbasic.executors.BasicStringValue;
@@ -20,10 +24,11 @@ import com.scriptbasic.executors.operators.UnaryOperatorPlus;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.SyntaxAnalyzer;
 import com.scriptbasic.interfaces.SyntaxException;
+import com.scriptbasic.interfaces.TagAnalyzer;
 import com.scriptbasic.syntax.AbstractAnalyzer;
 import com.scriptbasic.syntax.GenericSyntaxException;
+import com.scriptbasic.utility.FactoryUtilities;
 
 /**
  * Analyze a tag. A tag is the most primitive part of an expression that does
@@ -45,24 +50,9 @@ import com.scriptbasic.syntax.GenericSyntaxException;
  * @author Peter Verhas
  * 
  */
-public class TagAnalyzer extends AbstractAnalyzer {
-    private BasicExpressionAnalyzer expressionAnalyzer = null;
-
-    @Override
-    public SyntaxAnalyzer getSyntaxAnalyzer() {
-        return this.expressionAnalyzer.getSyntaxAnalyzer();
-    }
-
-    public TagAnalyzer(final BasicExpressionAnalyzer expressionAnalyzer) {
-        this.expressionAnalyzer = expressionAnalyzer;
-    }
-
-    private final ExpresionListAnalyzer expressionListAnalyzer = new ExpresionListAnalyzer(
-            this);
-
-    public BasicExpressionAnalyzer getExpressionAnalyzer() {
-        return expressionAnalyzer;
-    }
+public class BasicTagAnalyzer extends AbstractAnalyzer implements TagAnalyzer {
+    private BasicTagAnalyzer() {
+    };
 
     private static Map<String, Class<? extends AbstractUnaryOperator>> unaryOperatorMap = new HashMap<String, Class<? extends AbstractUnaryOperator>>();
     static {
@@ -73,9 +63,8 @@ public class TagAnalyzer extends AbstractAnalyzer {
 
     @Override
     public Expression analyze() throws SyntaxException {
-        final LexicalAnalyzer lexicalAnalyzer = getSyntaxAnalyzer()
-                .getLexicalAnalyzer();
-        LexicalElement lexicalElement = peek(lexicalAnalyzer);
+        final LexicalAnalyzer lexicalAnalyzer = getLexicalAnalyzer();
+        final LexicalElement lexicalElement = peek(lexicalAnalyzer);
         if (lexicalElement != null) {
             if (isUnaryOperator(lexicalElement)) {
                 return newUnaryOperator(lexicalAnalyzer);
@@ -112,10 +101,16 @@ public class TagAnalyzer extends AbstractAnalyzer {
     private Expression newFunctionCall(final LexicalAnalyzer lexicalAnalyzer,
             final LexicalElement identifierElement) throws SyntaxException {
         final FunctionCall functionCall = new FunctionCall();
+        get(lexicalAnalyzer);
         functionCall.setVariableName(identifierElement.get());
-        functionCall.setExpressionList(expressionListAnalyzer.analyze());
-        final LexicalElement lexicalElement = peek(lexicalAnalyzer);
+        LexicalElement lexicalElement = peek(lexicalAnalyzer);
+        if (!isClosingParenthese(lexicalElement)) {
+            functionCall.setExpressionList(getExpressionListAnalyzer()
+                    .analyze());
+            lexicalElement = peek(lexicalAnalyzer);
+        }
         if (isClosingParenthese(lexicalElement)) {
+            get(lexicalAnalyzer);
             return functionCall;
         } else {
             throw new GenericSyntaxException(
@@ -125,11 +120,14 @@ public class TagAnalyzer extends AbstractAnalyzer {
 
     private Expression newArray(final LexicalAnalyzer lexicalAnalyzer,
             final LexicalElement identifierElement) throws SyntaxException {
+        get(lexicalAnalyzer);
         final ArrayElementAccess arrayElementAccess = new ArrayElementAccess();
         arrayElementAccess.setVariableName(identifierElement.get());
-        arrayElementAccess.setExpressionList(expressionListAnalyzer.analyze());
+        arrayElementAccess.setExpressionList(getExpressionListAnalyzer()
+                .analyze());
         final LexicalElement lexicalElement = peek(lexicalAnalyzer);
         if (isClosingBracket(lexicalElement)) {
+            get(lexicalAnalyzer);
             return arrayElementAccess;
         } else {
             throw new GenericSyntaxException(
@@ -141,7 +139,8 @@ public class TagAnalyzer extends AbstractAnalyzer {
     private Expression newSubExpression(final LexicalAnalyzer lexicalAnalyzer)
             throws SyntaxException {
         get(lexicalAnalyzer);
-        final Expression expression = expressionAnalyzer.analyze();
+        final Expression expression = FactoryUtilities.getExpressionAnalyzer()
+                .analyze();
         final LexicalElement lexicalElement = peek(lexicalAnalyzer);
         if (isClosingParenthese(lexicalElement)) {
             get(lexicalAnalyzer);
@@ -169,16 +168,15 @@ public class TagAnalyzer extends AbstractAnalyzer {
             final LexicalAnalyzer lexicalAnalyzer) throws SyntaxException {
         final LexicalElement lexicalElement = get(lexicalAnalyzer);
         if (lexicalElement.isDouble()) {
-            get(lexicalAnalyzer);
             return new BasicDoubleValue(lexicalElement.doubleValue());
         } else if (lexicalElement.isLong()) {
-            get(lexicalAnalyzer);
             return new BasicLongValue(lexicalElement.longValue());
         } else if (lexicalElement.isString()) {
-            get(lexicalAnalyzer);
             return new BasicStringValue(lexicalElement.stringValue());
+        } else if (lexicalElement.isBoolean()) {
+            return new BasicBooleanValue(lexicalElement.booleanValue());
         }
-        throw new InternalError("Lexical element type=" + lexicalElement.type()
+        throw new BasicInterpreterInternalError("Lexical element type=" + lexicalElement.type()
                 + " lexeme=\"" + lexicalElement.get() + "\"");
     }
 

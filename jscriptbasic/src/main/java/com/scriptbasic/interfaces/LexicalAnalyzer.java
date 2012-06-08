@@ -10,7 +10,7 @@ package com.scriptbasic.interfaces;
  * @author Peter Verhas
  * 
  */
-public interface LexicalAnalyzer {
+public interface LexicalAnalyzer extends FactoryManaged {
     /**
      * Set the reader from where the lexical analyzer has to read the input.
      * 

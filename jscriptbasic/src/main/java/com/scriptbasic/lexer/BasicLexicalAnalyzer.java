@@ -18,32 +18,35 @@ import com.scriptbasic.utility.CharUtils;
 public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     private Reader reader;
 
+    protected BasicLexicalAnalyzer() {
+    }
+
     private final Deque<LexicalElementAnalyzer> analyzerQueue = new LinkedList<LexicalElementAnalyzer>();
 
     @Override
     public void set(final Reader reader) {
         this.reader = reader;
-        for (final LexicalElementAnalyzer lea : analyzerQueue) {
+        for (final LexicalElementAnalyzer lea : this.analyzerQueue) {
             lea.setReader(reader);
         }
     }
 
     @Override
     public void registerElementAnalyzer(final LexicalElementAnalyzer lea) {
-        analyzerQueue.add(lea);
+        this.analyzerQueue.add(lea);
     }
 
     Deque<LexicalElement> lexicalElementQueue = new LinkedList<LexicalElement>();
-    Iterator<LexicalElement> lexicalElementQueueIterator = lexicalElementQueue
+    Iterator<LexicalElement> lexicalElementQueueIterator = this.lexicalElementQueue
             .iterator();
 
     @Override
     public void resetLine() {
-        lexicalElementQueueIterator = lexicalElementQueue.iterator();
+        this.lexicalElementQueueIterator = this.lexicalElementQueue.iterator();
     }
 
     private void emptyLexicalElementQueue() {
-        lexicalElementQueue = new LinkedList<LexicalElement>();
+        this.lexicalElementQueue = new LinkedList<LexicalElement>();
     }
 
     private LexicalElement peekElement = null;
@@ -52,7 +55,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     public LexicalElement get() throws LexicalException {
         LexicalElement le = null;
         le = peek();
-        peekElement = null;
+        this.peekElement = null;
         return le;
     }
 
@@ -61,22 +64,22 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
      */
     @Override
     public LexicalElement peek() throws LexicalException {
-        if (peekElement == null) {
-            if (!lexicalElementQueueIterator.hasNext()) {
+        if (this.peekElement == null) {
+            if (!this.lexicalElementQueueIterator.hasNext()) {
                 readTheNextLine();
                 resetLine();
             }
-            if (!lexicalElementQueue.isEmpty()) {
-                peekElement = lexicalElementQueueIterator.next();
+            if (!this.lexicalElementQueue.isEmpty()) {
+                this.peekElement = this.lexicalElementQueueIterator.next();
             }
         }
-        return peekElement;
+        return this.peekElement;
     }
 
     private Integer skipWhiteSpaces(Integer ch) {
         while (ch != null && Character.isWhitespace(ch)
                 && !CharUtils.isNewLine(ch)) {
-            ch = reader.get();
+            ch = this.reader.get();
         }
         return ch;
     }
@@ -95,34 +98,35 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
         Boolean lineEndFound = false;
         emptyLexicalElementQueue();
         Integer ch;
-        for (ch = reader.get(); ch != null && !lineEndFound; ch = reader.get()) {
+        for (ch = this.reader.get(); ch != null && !lineEndFound; ch = this.reader
+                .get()) {
             LexicalElement le = null;
             ch = skipWhiteSpaces(ch);
             lineEndFound = CharUtils.isNewLine(ch);
             if (ch != null) {
-                reader.pushBack(ch);
-                for (final LexicalElementAnalyzer lea : analyzerQueue) {
+                this.reader.pushBack(ch);
+                for (final LexicalElementAnalyzer lea : this.analyzerQueue) {
                     le = lea.read();
                     if (le != null) {
-                        lexicalElementQueue.add(le);
+                        this.lexicalElementQueue.add(le);
                         break;
                     }
                 }
             }
         }
-        reader.pushBack(ch);
-        if (reader instanceof HierarchicalReader) {
+        this.reader.pushBack(ch);
+        if (this.reader instanceof HierarchicalReader) {
             processSourceInclude();
         }
     }
 
     private void processSourceInclude() throws LexicalException {
         resetLine();
-        final GenericHierarchicalReader hreader = (GenericHierarchicalReader) reader;
-        if (!lexicalElementQueue.isEmpty()) {
-            LexicalElement le = lexicalElementQueueIterator.next();
+        final GenericHierarchicalReader hreader = (GenericHierarchicalReader) this.reader;
+        if (!this.lexicalElementQueue.isEmpty()) {
+            LexicalElement le = this.lexicalElementQueueIterator.next();
             if (isIncludeOrImport(le)) {
-                le = lexicalElementQueueIterator.next();
+                le = this.lexicalElementQueueIterator.next();
                 if (le.isString()) {
                     // TODO check that there are no extra chars on the line
                     final SourceProvider sp = hreader.getSourceProvider();

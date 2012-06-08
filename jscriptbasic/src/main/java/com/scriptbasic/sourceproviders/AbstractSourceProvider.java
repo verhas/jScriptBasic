@@ -6,9 +6,11 @@ import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.interfaces.SourceProvider;
 
 /**
- * An abstract source provider to be extended by the source provider implementations.
+ * An abstract source provider to be extended by the source provider
+ * implementations.
+ * 
  * @author Peter Verhas
- *
+ * 
  */
 public abstract class AbstractSourceProvider implements SourceProvider {
 
