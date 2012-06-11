@@ -14,9 +14,9 @@ public class CommandAnalyzerWhile extends AbstractCommandAnalyzer {
     @Override
     public Command analyze() throws SyntaxException, LexicalException {
         CommandWhile node = new CommandWhile();
-        Expression condition = FactoryUtilities.getExpressionAnalyzer()
+        Expression condition = FactoryUtilities.getExpressionAnalyzer(factory)
                 .analyze();
-        LexicalElement lexicalElement = FactoryUtilities.getLexicalAnalyzer()
+        LexicalElement lexicalElement = FactoryUtilities.getLexicalAnalyzer(factory)
                 .get();
         if (!lexicalElement.isLineTerminator()) {
             SyntaxExceptionUtility

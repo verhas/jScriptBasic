@@ -28,13 +28,13 @@ public abstract class AbstractFactory implements Factory {
     public <T extends FactoryManaged> void create(Class<T> interf4ce,
             Class<? extends T> klass) {
         assertInterface(interf4ce);
-        assertImplements(interf4ce, klass);
         assertPattern(klass);
         try {
             Constructor<? extends T> constructor = klass.getDeclaredConstructor();
             constructor.setAccessible(true);
             T object = (T) constructor.newInstance();
             set(interf4ce, object);
+            object.setFactory(this);
         } catch (Exception e) {
             throw new BasicInterpreterInternalError("Can not instantiate " + klass);
         }
@@ -50,14 +50,6 @@ public abstract class AbstractFactory implements Factory {
         if (Modifier.isPublic(constructor.getModifiers())) {
             throw new BasicInterpreterInternalError("The class " + klass
                     + " has public constructor");
-        }
-    }
-
-    protected void assertImplements(Class<? extends FactoryManaged> interf4ce,
-            Class<? extends FactoryManaged> cl4ss) {
-        if (!interf4ce.isAssignableFrom(cl4ss)) {
-            throw new BasicInterpreterInternalError("The class " + cl4ss
-                    + " is not implementing " + interf4ce);
         }
     }
 

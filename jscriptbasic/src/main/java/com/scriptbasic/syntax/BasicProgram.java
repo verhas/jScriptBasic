@@ -3,10 +3,20 @@ package com.scriptbasic.syntax;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.scriptbasic.interfaces.Program;
 import com.scriptbasic.interfaces.AnalysisResult;
+import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.interfaces.Program;
 
 public class BasicProgram implements Program {
+    private Factory factory;
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
 
     private BasicProgram() {
     }

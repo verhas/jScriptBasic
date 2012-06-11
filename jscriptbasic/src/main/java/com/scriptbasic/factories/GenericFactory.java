@@ -12,24 +12,17 @@ import com.scriptbasic.interfaces.FactoryManaged;
  * @author Peter Verhas
  * @date Jun 8, 2012
  */
-public class ThreadLocalFactory extends AbstractFactory {
+public class GenericFactory extends AbstractFactory {
 
     private static Map<Class<? extends FactoryManaged>, FactoryManaged> newMap() {
         return new HashMap<Class<? extends FactoryManaged>, FactoryManaged>();
     }
 
-    private static ThreadLocal<Map<Class<? extends FactoryManaged>, FactoryManaged>> analyzerMap = new ThreadLocal<Map<Class<? extends FactoryManaged>, FactoryManaged>>() {
-
-        @Override
-        protected Map<Class<? extends FactoryManaged>, FactoryManaged> initialValue() {
-            return newMap();
-        }
-
-    };
+    private Map<Class<? extends FactoryManaged>, FactoryManaged> analyzerMap = newMap();
 
     @Override
     public void clean() {
-        analyzerMap.set(newMap());
+        analyzerMap=newMap();
     }
 
     /**
@@ -37,7 +30,7 @@ public class ThreadLocalFactory extends AbstractFactory {
      * objects.
      */
     <T extends FactoryManaged> void set(Class<T> klass, T analyzer) {
-        analyzerMap.get().put(klass, analyzer);
+        analyzerMap.put(klass, analyzer);
     }
 
     @SuppressWarnings("unchecked")
@@ -45,7 +38,7 @@ public class ThreadLocalFactory extends AbstractFactory {
     public <T extends FactoryManaged> T get(Class<T> klass) {
         assertInterface(klass);
         // TODO how to alter it to avoid this unchecked cast
-        return (T) analyzerMap.get().get(klass);
+        return (T) analyzerMap.get(klass);
     }
 
 }

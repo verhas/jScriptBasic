@@ -1,11 +1,9 @@
 package com.scriptbasic.factorytest;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import junit.framework.TestCase;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
-import com.scriptbasic.factories.ThreadLocalFactory;
+import com.scriptbasic.factories.GenericFactory;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.FactoryManaged;
 import com.scriptbasic.syntax.BasicSyntaxAnalyzer;
@@ -13,12 +11,21 @@ import com.scriptbasic.syntax.BasicSyntaxAnalyzer;
 public class TestFactories extends TestCase {
 
     private static class classWithPublicConstructor implements FactoryManaged {
+
+        public void setFactory(Factory factory) {
+        }
+
         @SuppressWarnings("unused")
         public classWithPublicConstructor() {
         }
     }
 
     private static class classWithManyConstructor implements FactoryManaged {
+
+        public void setFactory(Factory factory) {
+
+        }
+
         private classWithManyConstructor() {
         }
 
@@ -27,7 +34,7 @@ public class TestFactories extends TestCase {
     }
 
     public void testFactories() throws Exception {
-        Factory factory = new ThreadLocalFactory();
+        Factory factory = new GenericFactory();
         factory.create(FactoryManaged.class, BasicSyntaxAnalyzer.class);
         Object object = factory.get(FactoryManaged.class);
         assertTrue(object instanceof BasicSyntaxAnalyzer);
@@ -51,67 +58,6 @@ public class TestFactories extends TestCase {
         } catch (BasicInterpreterInternalError e) {
             assertTrue(e.toString().indexOf("has too many constructors") >= 0);
         }
-    }
-
-    private static class TestThread implements Runnable {
-        private static AtomicInteger count = new AtomicInteger(0);
-
-        private static boolean success = true;
-
-        public static boolean isSuccess() {
-            return success;
-        }
-
-        private static Factory factory = new ThreadLocalFactory();
-
-        private void syncPoint(int x) {
-            Integer j = count.addAndGet(1);
-            while (j < x) {
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    throw new Error("Test thread was interrupted");
-                }
-                j = count.get();
-            }
-        }
-
-        private Integer threadIndex;
-
-        public TestThread(Integer threadIndex) {
-            this.threadIndex = threadIndex;
-        }
-
-        @Override
-        public void run() {
-            syncPoint(2);
-            if (threadIndex == 1) {
-                factory.create(FactoryManaged.class, BasicSyntaxAnalyzer.class);
-                syncPoint(3);
-                syncPoint(5);
-                FactoryManaged object = factory.get(FactoryManaged.class);
-                if (object == null) {
-                    success = false;
-                }
-            } else {
-                syncPoint(4);
-                FactoryManaged object = factory.get(FactoryManaged.class);
-                if (object != null) {
-                    success = false;
-                }
-            }
-        }
-
-    }
-
-    public void testThreads() throws Exception {
-        Thread t1 = new Thread(new TestThread(1));
-        Thread t2 = new Thread(new TestThread(2));
-        t1.start();
-        t2.start();
-        t1.join();
-        t2.join();
-        assertTrue(TestThread.isSuccess());
     }
 
 }

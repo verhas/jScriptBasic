@@ -1,7 +1,6 @@
 package com.scriptbasic.syntax;
 
-import static com.scriptbasic.utility.FactoryUtilities.getLexicalAnalyzer;
-
+import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.LexicalException;
@@ -9,10 +8,20 @@ import com.scriptbasic.interfaces.Program;
 import com.scriptbasic.interfaces.SyntaxAnalyzer;
 import com.scriptbasic.interfaces.SyntaxException;
 import com.scriptbasic.syntax.commandanalyzers.BasicCommandFactory;
+import com.scriptbasic.utility.FactoryUtilities;
 
 public class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
+    private Factory factory;
 
-    private BasicSyntaxAnalyzer(){
+    public Factory getFactory() {
+        return factory;
+    }
+
+    public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
+
+    private BasicSyntaxAnalyzer() {
     }
 
     private BasicProgram program;
@@ -28,7 +37,8 @@ public class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
 
     @Override
     public Program analyze() throws SyntaxException, LexicalException {
-        LexicalAnalyzer lexicalAnalyzer = getLexicalAnalyzer();
+        LexicalAnalyzer lexicalAnalyzer = FactoryUtilities
+                .getLexicalAnalyzer(factory);
         this.lexicalElement = lexicalAnalyzer.get();
         final BasicCommandFactory basicCommandFactory = new BasicCommandFactory();
         basicCommandFactory.setSyntaxAnalyzer(this);

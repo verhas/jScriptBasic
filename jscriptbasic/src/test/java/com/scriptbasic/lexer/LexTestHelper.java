@@ -6,6 +6,7 @@ import java.io.StringReader;
 import junit.framework.Assert;
 
 import com.scriptbasic.factories.FactoryFactory;
+import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.LexicalException;
@@ -13,6 +14,7 @@ import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.readers.GenericHierarchicalReader;
 import com.scriptbasic.readers.GenericReader;
 import com.scriptbasic.sourceproviders.StringSourceProvider;
+import com.scriptbasic.utility.FactoryUtilities;
 
 public class LexTestHelper {
     static TestLE ID(final String name) {
@@ -129,34 +131,31 @@ public class LexTestHelper {
         }
     }
 
-    public static LexicalAnalyzer createStringReading(final String s) {
+    public static LexicalAnalyzer createStringReading(final Factory factory,final String s) {
         final java.io.Reader r = new StringReader(s);
         final GenericReader reader = new GenericReader();
         reader.set(r);
         reader.setSourceProvider(null);
         reader.set((String) null);
-        FactoryFactory.getFactory().create(LexicalAnalyzer.class,
-                ScriptBasicLexicalAnalyzer.class);
-        final LexicalAnalyzer la = (LexicalAnalyzer)FactoryFactory.getFactory().get(
-                LexicalAnalyzer.class);
+        final LexicalAnalyzer la = FactoryUtilities.getLexicalAnalyzer(factory);
         la.set(reader);
         return la;
     }
 
-    static LexicalAnalyzer createMStringReading(final String s) {
-        return createStringReading("\"\"\"" + s + "\"\"\"");
+    static LexicalAnalyzer createMStringReading(final Factory factory,final String s) {
+        return createStringReading(factory,"\"\"\"" + s + "\"\"\"");
     }
 
-    static LexicalAnalyzer createSStringReading(final String s) {
-        return createStringReading("\"" + s + "\"");
+    static LexicalAnalyzer createSStringReading(final Factory factory,final String s) {
+        return createStringReading(factory,"\"" + s + "\"");
     }
 
-    static LexicalAnalyzer createVStringReading(final String s,
+    static LexicalAnalyzer createVStringReading(final Factory factory,final String s,
             final boolean multiline) {
         if (multiline) {
-            return createMStringReading(s);
+            return createMStringReading(factory,s);
         } else {
-            return createSStringReading(s);
+            return createSStringReading(factory,s);
         }
     }
 

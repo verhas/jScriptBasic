@@ -8,7 +8,7 @@ package com.scriptbasic.interfaces;
  * @author Peter Verhas
  * @date June 8, 2012
  */
-public interface NestedStructureHouseKeeper {
+public interface NestedStructureHouseKeeper extends FactoryManaged {
 
     /**
      * Push a nested structure object on the housekeeping stack.
@@ -18,8 +18,8 @@ public interface NestedStructureHouseKeeper {
      * @param klass
      *            is the class that we will expect when we pop this element off
      */
-    public <T extends NestedStructure> void push(Class<? extends T> klass,
-            T element);
+    public void push(Class<?> klass,
+            NestedStructure element);
 
     /**
      * Push a nested structure object on the housekeeping stack. This version of
@@ -55,7 +55,6 @@ public interface NestedStructureHouseKeeper {
      *             when the top element of the stack is not the type that we
      *             expect
      */
-    public <T extends NestedStructure> T pop(Class<T> expectedClass)
+    public NestedStructure pop(Class<?> expectedClass)
             throws SyntaxException;
-
 }

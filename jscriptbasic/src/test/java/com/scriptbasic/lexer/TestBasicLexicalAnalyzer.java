@@ -9,14 +9,17 @@ import static com.scriptbasic.lexer.LexTestHelper.SSTRING;
 import static com.scriptbasic.lexer.LexTestHelper.SYMBOL;
 import static com.scriptbasic.lexer.LexTestHelper.VSTRING;
 import static com.scriptbasic.lexer.LexTestHelper.assertLexicals;
-import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
-import static com.scriptbasic.lexer.LexTestHelper.createVStringReading;
 import junit.framework.TestCase;
 
+import com.scriptbasic.factories.FactoryFactory;
+import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.LexicalException;
 
 public class TestBasicLexicalAnalyzer extends TestCase {
+    private Factory factory = FactoryFactory.getFactory();
+
     public TestBasicLexicalAnalyzer(final String testName) {
         super(testName);
     }
@@ -24,6 +27,14 @@ public class TestBasicLexicalAnalyzer extends TestCase {
     private void keywordtest(final String s) throws LexicalException {
         assertLexicals(new LexicalElement[] { SYMBOL(s) },
                 createStringReading(s));
+    }
+
+    private LexicalAnalyzer createVStringReading(String s, boolean multiline) {
+        return LexTestHelper.createVStringReading(factory, s, multiline);
+    }
+
+    private LexicalAnalyzer createStringReading(String s) {
+        return LexTestHelper.createStringReading(factory, s);
     }
 
     public void testKeywords() throws LexicalException {

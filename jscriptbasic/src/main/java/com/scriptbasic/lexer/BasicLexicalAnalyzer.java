@@ -5,6 +5,11 @@ import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.scriptbasic.errors.BasicInterpreterInternalError;
+import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.HierarchicalReader;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.LexicalElementAnalyzer;
@@ -16,15 +21,32 @@ import com.scriptbasic.readers.GenericHierarchicalReader;
 import com.scriptbasic.utility.CharUtils;
 
 public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
+    private Logger log = LoggerFactory.getLogger(BasicLexicalAnalyzer.class);
     private Reader reader;
+    protected Factory factory;
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
 
     protected BasicLexicalAnalyzer() {
+        log.debug("constructor created " + this);
     }
 
     private final Deque<LexicalElementAnalyzer> analyzerQueue = new LinkedList<LexicalElementAnalyzer>();
 
     @Override
     public void set(final Reader reader) {
+        log.debug("reader was set to " + reader);
+        if(this.analyzerQueue == null ){
+            log.error("analyzerQueue is still empty when setting reader "+reader);
+            log.error("all analyzers have to be registered be setting the reader");
+            throw new BasicInterpreterInternalError("LexicalElementAnalyzer queue was not intialized");
+        }
         this.reader = reader;
         for (final LexicalElementAnalyzer lea : this.analyzerQueue) {
             lea.setReader(reader);
@@ -33,6 +55,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
 
     @Override
     public void registerElementAnalyzer(final LexicalElementAnalyzer lea) {
+        log.debug("lexical element analyzer " + lea + " was registered");
         this.analyzerQueue.add(lea);
     }
 

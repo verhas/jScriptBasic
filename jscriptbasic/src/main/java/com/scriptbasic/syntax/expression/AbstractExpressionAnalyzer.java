@@ -1,12 +1,11 @@
 package com.scriptbasic.syntax.expression;
 
-import static com.scriptbasic.utility.FactoryUtilities.getLexicalAnalyzer;
-
 import java.util.Map;
 
 import com.scriptbasic.executors.operators.AbstractBinaryOperator;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.ExpressionAnalyzer;
+import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.LexicalException;
 import com.scriptbasic.interfaces.SyntaxException;
@@ -16,6 +15,11 @@ import com.scriptbasic.utility.FactoryUtilities;
 
 public abstract class AbstractExpressionAnalyzer extends AbstractAnalyzer
         implements ExpressionAnalyzer {
+
+
+    public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
 
     protected abstract Integer getMaximumPriority();
 
@@ -28,11 +32,11 @@ public abstract class AbstractExpressionAnalyzer extends AbstractAnalyzer
     }
 
     private LexicalElement peekAtOperatorLexeme() throws LexicalException {
-        return getLexicalAnalyzer().peek();
+        return FactoryUtilities.getLexicalAnalyzer(factory).peek();
     }
 
     private LexicalElement consumeTheOperatorLexeme() throws LexicalException {
-        return getLexicalAnalyzer().get();
+        return FactoryUtilities.getLexicalAnalyzer(factory).get();
     }
 
     private boolean isOperatorWithPriority(final LexicalElement le,
@@ -89,7 +93,7 @@ public abstract class AbstractExpressionAnalyzer extends AbstractAnalyzer
      */
     private Expression analyze(final Integer priority) throws SyntaxException {
         if (priority == 0) {
-            return FactoryUtilities.getTagAnalyzer().analyze();
+            return FactoryUtilities.getTagAnalyzer(factory).analyze();
         } else {
             return analyzeWithPositivePriority(priority);
         }

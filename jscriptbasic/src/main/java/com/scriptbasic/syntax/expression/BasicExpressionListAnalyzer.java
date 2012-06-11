@@ -2,19 +2,28 @@ package com.scriptbasic.syntax.expression;
 
 import static com.scriptbasic.syntax.expression.LexFacade.get;
 import static com.scriptbasic.syntax.expression.LexFacade.peek;
-import static com.scriptbasic.utility.FactoryUtilities.getExpressionAnalyzer;
-import static com.scriptbasic.utility.FactoryUtilities.getLexicalAnalyzer;
 
 import com.scriptbasic.executors.GenericExpressionList;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.ExpressionList;
 import com.scriptbasic.interfaces.ExpressionListAnalyzer;
+import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.SyntaxException;
 import com.scriptbasic.syntax.AbstractAnalyzer;
+import com.scriptbasic.utility.FactoryUtilities;
 
 public class BasicExpressionListAnalyzer extends AbstractAnalyzer implements
         ExpressionListAnalyzer {
+    private Factory factory;
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
 
     private BasicExpressionListAnalyzer() {
     }
@@ -22,14 +31,14 @@ public class BasicExpressionListAnalyzer extends AbstractAnalyzer implements
     @Override
     public ExpressionList analyze() throws SyntaxException {
         final GenericExpressionList expressionList = new GenericExpressionList();
-        Expression expression = getExpressionAnalyzer().analyze();
+        Expression expression = FactoryUtilities.getExpressionAnalyzer(factory).analyze();
         expressionList.add(expression);
-        LexicalElement lexicalElement = peek(getLexicalAnalyzer());
+        LexicalElement lexicalElement = peek(FactoryUtilities.getLexicalAnalyzer(factory));
         while (isComma(lexicalElement)) {
-            get(getLexicalAnalyzer());
-            expression = getExpressionAnalyzer().analyze();
+            get(FactoryUtilities.getLexicalAnalyzer(factory));
+            expression = FactoryUtilities.getExpressionAnalyzer(factory).analyze();
             expressionList.add(expression);
-            lexicalElement = peek(getLexicalAnalyzer());
+            lexicalElement = peek(FactoryUtilities.getLexicalAnalyzer(factory));
         }
         return expressionList;
     }

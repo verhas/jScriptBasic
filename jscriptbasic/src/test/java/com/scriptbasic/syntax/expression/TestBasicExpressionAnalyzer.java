@@ -16,23 +16,28 @@ import static com.scriptbasic.syntax.expression.ExpressionBuilder.unaryMinus;
 import static com.scriptbasic.syntax.expression.ExpressionBuilder.variable;
 import junit.framework.TestCase;
 
+import com.scriptbasic.factories.BasicFactory;
 import com.scriptbasic.interfaces.Expression;
+import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.SyntaxException;
+import com.scriptbasic.syntax.GenericSyntaxException;
 import com.scriptbasic.utility.FactoryUtilities;
 
 public class TestBasicExpressionAnalyzer extends TestCase {
 
     private static final Expression[] nullExpression = null;
+    private static Factory factory = new BasicFactory();
 
     private Expression compile(final String s) throws SyntaxException {
-        final LexicalAnalyzer la = createStringReading(s);
+        factory.clean();
+        final LexicalAnalyzer la = createStringReading(factory,s);
         final BasicExpressionAnalyzer bea = (BasicExpressionAnalyzer) FactoryUtilities
-                .getExpressionAnalyzer();
+                .getExpressionAnalyzer(factory);
         final Expression e = bea.analyze();
         if (LexFacade.peek(la) != null) {
-            throw new RuntimeException(
-                    "There are extra lexemes after the expression :"
+            throw new GenericSyntaxException(
+                    "There are extra lexemes after the expression: "
                             + LexFacade.peek(la).get());
         }
         return e;
@@ -117,7 +122,7 @@ public class TestBasicExpressionAnalyzer extends TestCase {
             try {
                 compile(s);
                 assertTrue(false);
-            } catch (final Exception e) {
+            } catch (final SyntaxException e) {
             }
         }
     }
