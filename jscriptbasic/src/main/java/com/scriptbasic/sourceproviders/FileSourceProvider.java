@@ -17,12 +17,12 @@ import com.scriptbasic.readers.GenericReader;
  */
 public class FileSourceProvider extends
         SingleIncludeSourcePathNonRelativeSourceProvider {
-    private static final String ps = System.getProperty("path.separator");
+    private static final String PATH_SEPARATOR = System.getProperty("path.separator");
 
     @Override
     public Reader getSource(final String sourceName) throws IOException {
         for (final String path : getSourcePath()) {
-            final String sourceFileName = path + ps + sourceName;
+            final String sourceFileName = path + PATH_SEPARATOR + sourceName;
             final File sourceFile = new File(sourceFileName);
             if (sourceFile.exists()) {
                 final GenericReader reader = new GenericReader();

@@ -9,7 +9,7 @@ package com.scriptbasic.interfaces;
  * 
  */
 public interface SourcePathProvider {
-    public SourcePath getSourcePath();
+    SourcePath getSourcePath();
 
-    public void setSourcePath(SourcePath sourcePath);
+    void setSourcePath(SourcePath sourcePath);
 }

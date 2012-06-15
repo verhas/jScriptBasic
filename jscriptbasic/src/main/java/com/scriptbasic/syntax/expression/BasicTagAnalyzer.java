@@ -23,7 +23,6 @@ import com.scriptbasic.executors.rightvalues.BasicStringValue;
 import com.scriptbasic.executors.rightvalues.FunctionCall;
 import com.scriptbasic.executors.rightvalues.VariableAccess;
 import com.scriptbasic.interfaces.Expression;
-import com.scriptbasic.interfaces.ExpressionList;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
@@ -51,7 +50,7 @@ import com.scriptbasic.utility.FactoryUtilities;
  * @author Peter Verhas
  * 
  */
-public class BasicTagAnalyzer extends AbstractAnalyzer<Expression> implements TagAnalyzer {
+public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression> implements TagAnalyzer {
 	private BasicTagAnalyzer() {
 	}
 
@@ -109,7 +108,7 @@ public class BasicTagAnalyzer extends AbstractAnalyzer<Expression> implements Ta
 	private static Expression newVariableAccess(
 			final LexicalElement identifierElement) {
 		final VariableAccess variableAccessNode = new VariableAccess();
-		variableAccessNode.setVariableName(identifierElement.get());
+		variableAccessNode.setVariableName(identifierElement.getLexeme());
 		return variableAccessNode;
 	}
 
@@ -117,10 +116,10 @@ public class BasicTagAnalyzer extends AbstractAnalyzer<Expression> implements Ta
 			final LexicalElement identifierElement) throws AnalysisException {
 		final FunctionCall functionCall = new FunctionCall();
 		get(lexicalAnalyzer);
-		functionCall.setVariableName(identifierElement.get());
+		functionCall.setVariableName(identifierElement.getLexeme());
 		LexicalElement lexicalElement = peek(lexicalAnalyzer);
 		if (!isClosingParenthese(lexicalElement)) {
-			functionCall.setExpressionList((ExpressionList) FactoryUtilities
+			functionCall.setExpressionList(FactoryUtilities
 					.getExpressionListAnalyzer(factory).analyze());
 			lexicalElement = peek(lexicalAnalyzer);
 		}
@@ -137,8 +136,8 @@ public class BasicTagAnalyzer extends AbstractAnalyzer<Expression> implements Ta
 			final LexicalElement identifierElement) throws AnalysisException {
 		get(lexicalAnalyzer);
 		final ArrayElementAccess arrayElementAccess = new ArrayElementAccess();
-		arrayElementAccess.setVariableName(identifierElement.get());
-		arrayElementAccess.setExpressionList((ExpressionList) FactoryUtilities
+		arrayElementAccess.setVariableName(identifierElement.getLexeme());
+		arrayElementAccess.setExpressionList(FactoryUtilities
 				.getExpressionListAnalyzer(factory).analyze());
 		final LexicalElement lexicalElement = peek(lexicalAnalyzer);
 		if (isClosingBracket(lexicalElement)) {
@@ -171,7 +170,7 @@ public class BasicTagAnalyzer extends AbstractAnalyzer<Expression> implements Ta
 		final LexicalElement lexicalElement = get(lexicalAnalyzer);
 		AbstractUnaryOperator operator;
 		try {
-			operator = unaryOperatorMap.get(lexicalElement.get()).newInstance();
+			operator = unaryOperatorMap.get(lexicalElement.getLexeme()).newInstance();
 		} catch (final Exception e) {
 			throw new GenericSyntaxException(e);
 		}
@@ -192,14 +191,14 @@ public class BasicTagAnalyzer extends AbstractAnalyzer<Expression> implements Ta
 			return new BasicBooleanValue(lexicalElement.booleanValue());
 		}
 		throw new BasicInterpreterInternalError("Lexical element type="
-				+ lexicalElement.type() + " lexeme=\"" + lexicalElement.get()
+				+ lexicalElement.getType() + " lexeme=\"" + lexicalElement.getLexeme()
 				+ "\"");
 	}
 
 	private static boolean isParenthese(final LexicalElement lexicalElement,
 			final String ch) {
 		if (lexicalElement != null && lexicalElement.isSymbol()) {
-			return ch.equals(lexicalElement.get());
+			return ch.equals(lexicalElement.getLexeme());
 		} else {
 			return false;
 		}
@@ -225,6 +224,6 @@ public class BasicTagAnalyzer extends AbstractAnalyzer<Expression> implements Ta
 
 	private static boolean isUnaryOperator(final LexicalElement lexicalElement) {
 		return lexicalElement.isSymbol()
-				&& unaryOperatorMap.containsKey(lexicalElement.get());
+				&& unaryOperatorMap.containsKey(lexicalElement.getLexeme());
 	}
 }

@@ -1,7 +1,6 @@
 package com.scriptbasic.interfaces;
 
 import com.scriptbasic.exceptions.AnalysisException;
-import com.scriptbasic.exceptions.SyntaxException;
 
 /**
  * A syntax analyzer analyzes a program source using the result of the lexical
@@ -19,6 +18,6 @@ public interface SyntaxAnalyzer extends FactoryManaged {
      * 
      * @throws SyntaxException
      */
-    public Program analyze() throws AnalysisException;
+    BuildableProgram analyze() throws AnalysisException;
 
 }

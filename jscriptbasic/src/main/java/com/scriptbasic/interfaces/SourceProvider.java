@@ -30,7 +30,7 @@ public interface SourceProvider {
      *            the name of the source
      * @return reader reading the source file.
      */
-    public Reader get(String sourceName) throws IOException;
+    Reader get(String sourceName) throws IOException;
 
     /**
      * Get a reader to a source specifying the source that references this
@@ -42,6 +42,6 @@ public interface SourceProvider {
      *            the name of the source that is referencing the source to read.
      * @return
      */
-    public Reader get(String sourceName, String referencingSource)
+    Reader get(String sourceName, String referencingSource)
             throws IOException;
 }

@@ -37,18 +37,18 @@ public class GenericHierarchicalReader implements HierarchicalReader {
     }
 
     @Override
-    public String fileName() {
-        return this.reader.fileName();
+    public String getFileName() {
+        return this.reader.getFileName();
     }
 
     @Override
-    public int lineNumber() {
-        return this.reader.lineNumber();
+    public int getLineNumber() {
+        return this.reader.getLineNumber();
     }
 
     @Override
-    public int position() {
-        return this.reader.position();
+    public int getPosition() {
+        return this.reader.getPosition();
     }
 
     @Override

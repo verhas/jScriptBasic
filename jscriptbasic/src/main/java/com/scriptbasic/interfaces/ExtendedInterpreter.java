@@ -16,13 +16,13 @@ public interface ExtendedInterpreter extends Interpreter {
      * 
      * @return the actual command pointer
      */
-    public Integer getProgramCounter();
+    Integer getProgramCounter();
 
     /**
      * 
      * @return the program that the interpreter is executing.
      */
-    public Program getProgram();
+    BuildableProgram getProgram();
 
     /**
      * Tell the new value of the program counter the Interpreter has to use
@@ -33,7 +33,7 @@ public interface ExtendedInterpreter extends Interpreter {
      * @param newProgramCounter
      *            the new value for the program counter to set.
      */
-    public void delayedSetProgramCounter(Integer newProgramCounter);
+    void delayedSetProgramCounter(Integer newProgramCounter);
 
     /**
      * Since the Command objects should not contain runtime information there is
@@ -53,5 +53,5 @@ public interface ExtendedInterpreter extends Interpreter {
      * 
      * @return the map
      */
-    public Map<String, Object> getMap();
+    Map<String, Object> getMap();
 }

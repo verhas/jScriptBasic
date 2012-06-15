@@ -12,7 +12,7 @@ import com.scriptbasic.interfaces.HierarchicalReader;
 import com.scriptbasic.interfaces.LeftValueAnalyzer;
 import com.scriptbasic.interfaces.LeftValueListAnalyzer;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.interfaces.Program;
+import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.interfaces.SyntaxAnalyzer;
 import com.scriptbasic.interfaces.TagAnalyzer;
@@ -51,7 +51,7 @@ public class BasicFactory extends GenericFactory {
 				BasicExpressionAnalyzer.class);
 		classMapping.put(ExpressionListAnalyzer.class,
 				BasicExpressionListAnalyzer.class);
-		classMapping.put(Program.class, BasicProgram.class);
+		classMapping.put(BuildableProgram.class, BasicProgram.class);
 		classMapping.put(TagAnalyzer.class, BasicTagAnalyzer.class);
 		classMapping.put(LexicalAnalyzer.class,
 				ScriptBasicLexicalAnalyzer.class);

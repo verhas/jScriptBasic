@@ -42,7 +42,7 @@ public class TestBasicLeftValueAnalyzer extends TestCase {
 		if (LexFacade.peek(la) != null) {
 			throw new GenericSyntaxException(
 					"There are extra lexemes after the expression: "
-							+ LexFacade.peek(la).get());
+							+ LexFacade.peek(la).getLexeme());
 		}
 		return e;
 	}
@@ -158,7 +158,7 @@ public class TestBasicLeftValueAnalyzer extends TestCase {
 		if (LexFacade.peek(la) != null) {
 			throw new GenericSyntaxException(
 					"There are extra lexemes after the expression: "
-							+ LexFacade.peek(la).get());
+							+ LexFacade.peek(la).getLexeme());
 		}
 		return e;
 	}

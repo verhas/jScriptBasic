@@ -20,7 +20,7 @@ import com.scriptbasic.interfaces.Reader;
  * 
  */
 public abstract class SingleIncludeSourcePathNonRelativeSourceProvider extends
-        SingleIncludeSourcePathSourceProvider {
+        AbstractSingleIncludeSourcePathSourceProvider {
 
     @Override
     protected abstract Reader getSource(String sourceName) throws IOException;

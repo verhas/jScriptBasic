@@ -3,11 +3,11 @@ package com.scriptbasic.syntax;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.scriptbasic.interfaces.AnalysisResult;
+import com.scriptbasic.interfaces.BuildableProgram;
+import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.interfaces.Program;
 
-public class BasicProgram implements Program {
+public final class BasicProgram implements BuildableProgram {
     private Factory factory;
 
     public Factory getFactory() {
@@ -15,33 +15,31 @@ public class BasicProgram implements Program {
     }
 
     @Override
-	public void setFactory(Factory factory) {
+    public void setFactory(Factory factory) {
         this.factory = factory;
     }
 
     private BasicProgram() {
     }
 
-    private final ArrayList<AnalysisResult> commandAnalyzers = new ArrayList<AnalysisResult>();
+    private final ArrayList<Command> commands = new ArrayList<Command>();
 
-    public void addCommand(final AnalysisResult analysisResult) {
-        this.commandAnalyzers.add(analysisResult);
+    public void addCommand(final Command command) {
+        this.commands.add(command);
     }
 
     @Override
-    public AnalysisResult getStartCommand() {
-
+    public Command getStartCommand() {
         return null;
     }
 
     @Override
-    public Collection<AnalysisResult> getCommands() {
-
-        return null;
+    public Collection<Command> getCommands() {
+        return commands;
     }
 
     @Override
-    public AnalysisResult getCommand(final Integer programCounter) {
+    public Command getCommand(final Integer programCounter) {
 
         return null;
     }

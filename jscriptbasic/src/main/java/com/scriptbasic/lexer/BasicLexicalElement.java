@@ -26,7 +26,7 @@ public class BasicLexicalElement extends AbstractLexicalElement {
     }
 
     @Override
-    public int position() {
+    public int getPosition() {
         return this.position;
     }
 
@@ -35,22 +35,22 @@ public class BasicLexicalElement extends AbstractLexicalElement {
     }
 
     @Override
-    public String get() {
+    public String getLexeme() {
         return this.lexeme;
     }
 
     @Override
-    public String fileName() {
+    public String getFileName() {
         return this.fileName;
     }
 
     @Override
-    public int lineNumber() {
+    public int getLineNumber() {
         return this.lineNumber;
     }
 
     @Override
-    public int type() {
+    public int getType() {
         return this.type;
     }
 
@@ -108,32 +108,32 @@ public class BasicLexicalElement extends AbstractLexicalElement {
 
     @Override
     public Boolean isBoolean() {
-        return type() == TYPE_BOOLEAN;
+        return getType() == TYPE_BOOLEAN;
     }
 
     @Override
     public Boolean isString() {
-        return type() == TYPE_STRING;
+        return getType() == TYPE_STRING;
     }
 
     @Override
     public Boolean isDouble() {
-        return type() == TYPE_DOUBLE;
+        return getType() == TYPE_DOUBLE;
     }
 
     @Override
     public Boolean isLong() {
-        return type() == TYPE_LONG;
+        return getType() == TYPE_LONG;
     }
 
     @Override
     public Boolean isIdentifier() {
-        return type() == TYPE_IDENTIFIER;
+        return getType() == TYPE_IDENTIFIER;
     }
 
     @Override
     public Boolean isSymbol() {
-        return type() == TYPE_SYMBOL;
+        return getType() == TYPE_SYMBOL;
     }
 
     @Override
@@ -164,8 +164,8 @@ public class BasicLexicalElement extends AbstractLexicalElement {
 
     @Override
     public Boolean isLineTerminator() {
-        return type() == TYPE_SYMBOL && get().length() == 1
-                && CharUtils.isNewLine(get().codePointAt(0));
+        return getType() == TYPE_SYMBOL && getLexeme().length() == 1
+                && CharUtils.isNewLine(getLexeme().codePointAt(0));
     }
 
 }

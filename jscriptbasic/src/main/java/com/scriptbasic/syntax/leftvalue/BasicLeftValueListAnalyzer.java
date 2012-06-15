@@ -10,13 +10,14 @@ import com.scriptbasic.interfaces.LeftValueListAnalyzer;
 import com.scriptbasic.syntax.AbstractGenericListAnalyzer;
 import com.scriptbasic.utility.FactoryUtilities;
 
-public class BasicLeftValueListAnalyzer
+public final class BasicLeftValueListAnalyzer
 		extends
 		AbstractGenericListAnalyzer<LeftValueList, GenericLeftValueList, LeftValue, LeftValueAnalyzer>
 		implements LeftValueListAnalyzer {
 	private Factory factory;
 
 	private BasicLeftValueListAnalyzer() {
+	    super();
 	}
 
 	@Override
@@ -25,7 +26,7 @@ public class BasicLeftValueListAnalyzer
 	}
 
 	@Override
-	public void setFactory(Factory factory) {
+	public void setFactory(final Factory factory) {
 		this.factory = factory;
 	}
 

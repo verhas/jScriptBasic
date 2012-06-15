@@ -6,7 +6,7 @@ package com.scriptbasic.interfaces;
  * @author Peter Verhas
  * 
  */
-public interface LexicalElement {
+public interface LexicalElement extends SourceLocationBound {
 
     /**
      * Get the original representation of the lexical element the way it was
@@ -14,35 +14,14 @@ public interface LexicalElement {
      * 
      * @return the lexical element as string
      */
-    public String get();
-
-    /**
-     * Get the name of the file where the lexical element is.
-     * 
-     * @return
-     */
-    public String fileName();
-
-    /**
-     * Get the line number where the lexical element is in the file.
-     * 
-     * @return
-     */
-    public int lineNumber();
-
-    /**
-     * Get the position where the lexical element starts on the line.
-     * 
-     * @return
-     */
-    public int position();
+    String getLexeme();
 
     /**
      * Get the type of the lexical element.
      * 
      * @return
      */
-    public int type();
+    int getType();
 
     /**
      * Get the string value of the lexical element. This method should be called
@@ -51,7 +30,7 @@ public interface LexicalElement {
      * 
      * @return
      */
-    public String stringValue() throws IllegalArgumentException;
+    String stringValue() throws IllegalArgumentException;
 
     /**
      * Get the long value of the element. This method should only be called when
@@ -61,34 +40,34 @@ public interface LexicalElement {
      * @return
      * @throws IllegalArgumentException
      */
-    public Long longValue() throws IllegalArgumentException;
+    Long longValue() throws IllegalArgumentException;
 
-    public Double doubleValue() throws IllegalArgumentException;
+    Double doubleValue() throws IllegalArgumentException;
 
-    public Boolean booleanValue() throws IllegalArgumentException;
+    Boolean booleanValue() throws IllegalArgumentException;
 
-    public Boolean isString();
+    Boolean isString();
 
-    public Boolean isDouble();
+    Boolean isDouble();
 
-    public Boolean isLong();
+    Boolean isLong();
 
-    public Boolean isBoolean();
+    Boolean isBoolean();
 
-    public Boolean isNumeric();
+    Boolean isNumeric();
 
-    public Boolean isLiteralConstant();
+    Boolean isLiteralConstant();
 
-    public Boolean isIdentifier();
+    Boolean isIdentifier();
 
-    public Boolean isSymbol();
+    Boolean isSymbol();
 
-    public Boolean isLineTerminator();
+    Boolean isLineTerminator();
 
-    public static final int TYPE_STRING = 0;
-    public static final int TYPE_DOUBLE = 1;
-    public static final int TYPE_LONG = 2;
-    public static final int TYPE_BOOLEAN = 3;
-    public static final int TYPE_IDENTIFIER = 4;
-    public static final int TYPE_SYMBOL = 5;
+    int TYPE_STRING = 0;
+    int TYPE_DOUBLE = 1;
+    int TYPE_LONG = 2;
+    int TYPE_BOOLEAN = 3;
+    int TYPE_IDENTIFIER = 4;
+    int TYPE_SYMBOL = 5;
 }

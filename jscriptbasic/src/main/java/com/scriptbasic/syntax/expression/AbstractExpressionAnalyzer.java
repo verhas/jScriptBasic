@@ -50,12 +50,12 @@ public abstract class AbstractExpressionAnalyzer extends AbstractAnalyzer<Expres
 	private boolean isOperatorWithPriority(final LexicalElement le,
 			final Integer priority) {
 		return le != null && le.isSymbol()
-				&& getOperatorMap(priority).containsKey(le.get());
+				&& getOperatorMap(priority).containsKey(le.getLexeme());
 	}
 
 	private Class<? extends AbstractBinaryOperator> getOperatorClass(
 			final LexicalElement le, final Integer priority) {
-		return getOperatorMap(priority).get(le.get());
+		return getOperatorMap(priority).get(le.getLexeme());
 	}
 
 	private Expression analyzeWithPositivePriority(final Integer priority)

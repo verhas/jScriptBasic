@@ -6,5 +6,5 @@ public interface Executor {
      * 
      * @param interpreter
      */
-    public void execute(ExtendedInterpreter interpreter);
+    void execute(ExtendedInterpreter interpreter);
 }

@@ -13,8 +13,8 @@ import com.scriptbasic.interfaces.NestedStructure;
 public class GenericNestedStructureHouseKeeper extends
         AbstractNestedStructureHouseKeeper {
     @Override
-    public <T extends NestedStructure> T pop(
-            Class<T> expectedClass) throws SyntaxException {
+    public <T extends NestedStructure> T pop(final Class<T> expectedClass)
+            throws SyntaxException {
         if (isStackIsHealthy()) {
             return super.pop(expectedClass);
         } else {

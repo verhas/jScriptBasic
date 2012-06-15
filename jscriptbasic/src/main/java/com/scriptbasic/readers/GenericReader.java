@@ -32,17 +32,17 @@ public class GenericReader implements Reader {
     }
 
     @Override
-    public String fileName() {
+    public String getFileName() {
         return this.sourceFileName;
     }
 
     @Override
-    public int lineNumber() {
+    public int getLineNumber() {
         return this.lineNumber;
     }
 
     @Override
-    public int position() {
+    public int getPosition() {
         return this.position;
     }
 

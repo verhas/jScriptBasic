@@ -8,7 +8,8 @@ package com.scriptbasic.syntax.leftvalue;
  * @date June 13, 2012
  * 
  */
-public class BasicLeftValueAnalyzer extends AbstractLeftValueAnalyzer {
+public final class BasicLeftValueAnalyzer extends AbstractLeftValueAnalyzer {
 	private BasicLeftValueAnalyzer() {
+	    super();
 	}
 }

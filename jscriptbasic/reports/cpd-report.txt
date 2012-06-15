@@ -1,0 +1,771 @@
+Found a 23 line (72 tokens) duplication in the following files: 
+Starting at line 23 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/sourceproviders/SingleIncludeSourcePathNonRelativeSourceProvider.java
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/sourceproviders/SingleIncludeNonRelativeSourceProvider.java
+
+        AbstractSingleIncludeSourceProvider {
+
+    @Override
+    protected abstract Reader getSource(String sourceName) throws IOException;
+
+    @Override
+    protected Reader getSource(final String sourceName,
+            final String referencingSource) throws IOException {
+        return getSource(sourceName);
+    }
+
+    @Override
+    protected String getKeyName(final String sourceName) {
+        return sourceName;
+    }
+
+    @Override
+    protected String getKeyName(final String sourceName,
+            final String referencingSource) {
+        return getKeyName(sourceName);
+    }
+
+}
+=====================================================================
+Found a 29 line (49 tokens) duplication in the following files: 
+Starting at line 21 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/sourceproviders/AbstractSingleIncludeSourceProvider.java
+Starting at line 21 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/sourceproviders/AbstractSingleIncludeSourcePathSourceProvider.java
+
+        AbstractSourcePathSourceProvider {
+
+    private SingleIncludeChecker singleInclude = new BasicSingleIncludeChecker();
+
+    /**
+     * 
+     * @return the actual value of the single include checker
+     */
+    public SingleIncludeChecker getSingleInclude() {
+        return this.singleInclude;
+    }
+
+    /**
+     * This setter can be called if the BasicSingleIncludeChecker as
+     * implementation is not appropriate. The default constructor will create
+     * one such object but later dependency injection can insert any object
+     * implementing the SingleIncludeChecker interface.
+     * <p>
+     * This method allows configuration of these source providers in a DI
+     * container.
+     * 
+     * @param singleInclude
+     */
+    public void setSingleInclude(final SingleIncludeChecker singleInclude) {
+        this.singleInclude = singleInclude;
+    }
+
+    @Override
+    public final Reader get(final String sourceName) throws IOException {
+=====================================================================
+Found a 9 line (48 tokens) duplication in the following files: 
+Starting at line 34 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/NotEqualOperator.java
+Starting at line 34 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LessThanOperator.java
+Starting at line 34 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LessOrEqualOperator.java
+Starting at line 34 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/GreaterThanOperator.java
+Starting at line 34 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/GreaterOrEqualOperator.java
+
+        return compareJavaObjectTo(f, op) >= 0;
+    }
+
+    @Override
+    protected Boolean compareTo(final BasicBooleanValue f, final RightValue op)
+            throws BasicRuntimeException {
+        final int a = f.getValue() ? 1 : 0;
+        final int b = BasicBooleanValue.convert(op) ? 1 : 0;
+        return a >= b;
+=====================================================================
+Found a 12 line (44 tokens) duplication in the following files: 
+Starting at line 44 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/sourceproviders/AbstractSingleIncludeSourceProvider.java
+Starting at line 71 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/sourceproviders/AbstractSingleIncludeSourcePathSourceProvider.java
+
+    }
+
+    protected abstract Reader getSource(String sourceName) throws IOException;
+
+    protected abstract Reader getSource(String sourceName,
+            String referencingSource) throws IOException;
+
+    protected abstract String getKeyName(String sourceName);
+
+    protected abstract String getKeyName(String sourceName,
+            String referencingSource);
+}
+=====================================================================
+Found a 5 line (43 tokens) duplication in the following files: 
+Starting at line 23 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/test/java/com/scriptbasic/lexer/TestHierarchicalReader.java
+Starting at line 32 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/test/java/com/scriptbasic/lexer/TestHierarchicalReader.java
+
+        try {
+            assertLexicals(new LexicalElement[] { ID("identifier"),
+                    SYMBOL("\n"), SYMBOL("<<<"), SYMBOL("\n"),
+                    SSTRING("string") }, createStringArrayReading(new String[] {
+                    "main", "identifier\ninclude \"nonexistent\"\n\"string\"",
+=====================================================================
+Found a 7 line (40 tokens) duplication in the following files: 
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/NotEqualOperator.java
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LessThanOperator.java
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LessOrEqualOperator.java
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/GreaterThanOperator.java
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/GreaterOrEqualOperator.java
+
+        return f.getValue() >= BasicLongValue.convert(op);
+    }
+
+    @Override
+    protected Boolean compareTo(final BasicStringValue f, final RightValue op)
+            throws BasicRuntimeException {
+        return f.getValue().compareTo(BasicStringValue.convert(op)) >= 0;
+=====================================================================
+Found a 10 line (40 tokens) duplication in the following files: 
+Starting at line 41 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/test/java/com/scriptbasic/syntax/leftvalue/TestBasicLeftValueAnalyzer.java
+Starting at line 39 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/test/java/com/scriptbasic/syntax/expression/TestBasicExpressionAnalyzer.java
+
+        final Expression e = bea.analyze();
+        if (LexFacade.peek(la) != null) {
+            throw new GenericSyntaxException(
+                    "There are extra lexemes after the expression: "
+                            + LexFacade.peek(la).get());
+        }
+        return e;
+    }
+
+    private static void testAppleMultiplyBypeach(final String s) throws Exception {
+=====================================================================
+Found a 8 line (39 tokens) duplication in the following files: 
+Starting at line 41 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/test/java/com/scriptbasic/syntax/leftvalue/TestBasicLeftValueAnalyzer.java
+Starting at line 157 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/test/java/com/scriptbasic/syntax/leftvalue/TestBasicLeftValueAnalyzer.java
+
+		final GenericLeftValueList e = (GenericLeftValueList) lva.analyze();
+		if (LexFacade.peek(la) != null) {
+			throw new GenericSyntaxException(
+					"There are extra lexemes after the expression: "
+							+ LexFacade.peek(la).get());
+		}
+		return e;
+	}
+=====================================================================
+Found a 8 line (37 tokens) duplication in the following files: 
+Starting at line 157 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/test/java/com/scriptbasic/syntax/leftvalue/TestBasicLeftValueAnalyzer.java
+Starting at line 39 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/test/java/com/scriptbasic/syntax/expression/TestBasicExpressionAnalyzer.java
+
+        final Expression e = bea.analyze();
+        if (LexFacade.peek(la) != null) {
+            throw new GenericSyntaxException(
+                    "There are extra lexemes after the expression: "
+                            + LexFacade.peek(la).get());
+        }
+        return e;
+    }
+=====================================================================
+Found a 7 line (35 tokens) duplication in the following files: 
+Starting at line 16 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/rightvalues/BasicLongValue.java
+Starting at line 16 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/rightvalues/BasicDoubleValue.java
+
+        }
+        if (rv.isString()) {
+            final String s = ((BasicStringValue) rv).getValue();
+            if (s == null) {
+                return null;
+            }
+            return Double.parseDouble(s);
+=====================================================================
+Found a 3 line (35 tokens) duplication in the following files: 
+Starting at line 69 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/test/java/com/scriptbasic/lexer/TestHierarchicalReader.java
+Starting at line 83 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/test/java/com/scriptbasic/lexer/TestHierarchicalReader.java
+
+            assertLexicals(lexes.toArray(new LexicalElement[lexes.size()]),
+                    createStringArrayReading(files.toArray(new String[files
+                            .size()])));
+=====================================================================
+Found a 3 line (35 tokens) duplication in the following files: 
+Starting at line 64 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/test/java/com/scriptbasic/lexer/TestHierarchicalReader.java
+Starting at line 74 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/test/java/com/scriptbasic/lexer/TestHierarchicalReader.java
+
+    public void testCircularReference() throws LexicalException, IOException {
+        final ArrayList<LexicalElement> lexes = new ArrayList<LexicalElement>();
+        final ArrayList<String> files = new ArrayList<String>();
+=====================================================================
+Found a 7 line (30 tokens) duplication in the following files: 
+Starting at line 16 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/NotEqualOperator.java
+Starting at line 16 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LessThanOperator.java
+Starting at line 16 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LessOrEqualOperator.java
+Starting at line 16 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/GreaterThanOperator.java
+Starting at line 16 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/GreaterOrEqualOperator.java
+
+        return f.getValue() >= BasicDoubleValue.convert(op);
+    }
+
+    @Override
+    protected Boolean compareTo(final BasicLongValue f, final RightValue op)
+            throws BasicRuntimeException {
+        return f.getValue() >= BasicLongValue.convert(op);
+=====================================================================
+Found a 5 line (30 tokens) duplication in the following files: 
+Starting at line 28 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/rightvalues/BasicLongValue.java
+Starting at line 32 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/rightvalues/BasicDoubleValue.java
+
+            return ((BasicDoubleValue) rv).getValue();
+        }
+        if (rv.isJavaObject()) {
+            final Object o = ((BasicJavaObjectValue) rv).getValue();
+            if (o instanceof Double) {
+=====================================================================
+Found a 4 line (30 tokens) duplication in the following files: 
+Starting at line 12 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/rightvalues/BasicLongValue.java
+Starting at line 12 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/rightvalues/BasicDoubleValue.java
+
+    public static Double convert(final RightValue rv)
+            throws BasicRuntimeException {
+        if (rv.isBoolean()) {
+            return ((BasicBooleanValue) rv).getValue() ? 1.0 : 0.0;
+=====================================================================
+Found a 6 line (30 tokens) duplication in the following files: 
+Starting at line 49 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/sourceproviders/AbstractSingleIncludeSourcePathSourceProvider.java
+Starting at line 62 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/sourceproviders/AbstractSingleIncludeSourcePathSourceProvider.java
+
+            final String referencingSource) throws IOException {
+        Reader reader;
+        if (this.singleInclude == null) {
+            reader = null;
+        } else {
+            this.singleInclude.check(getKeyName(sourceName, referencingSource));
+=====================================================================
+Found a 13 line (30 tokens) duplication in the following files: 
+Starting at line 14 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/BasicSyntaxAnalyzer.java
+Starting at line 10 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/BasicProgram.java
+
+public class BasicProgram implements Program {
+    private Factory factory;
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    @Override
+	public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
+
+    private BasicProgram() {
+=====================================================================
+Found a 11 line (30 tokens) duplication in the following files: 
+Starting at line 58 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/expression/BasicTagAnalyzer.java
+Starting at line 20 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/expression/AbstractExpressionAnalyzer.java
+
+	private Factory factory;
+
+	@Override
+	public Factory getFactory() {
+		return factory;
+	}
+
+	@Override
+	public void setFactory(Factory factory) {
+		this.factory = factory;
+	}
+=====================================================================
+Found a 13 line (30 tokens) duplication in the following files: 
+Starting at line 31 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/leftvalue/AbstractLeftValueAnalyzer.java
+Starting at line 14 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/BasicSyntaxAnalyzer.java
+
+public class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
+    private Factory factory;
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    @Override
+	public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
+
+    private BasicSyntaxAnalyzer() {
+=====================================================================
+Found a 4 line (29 tokens) duplication in the following files: 
+Starting at line 12 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/rightvalues/BasicLongValue.java
+Starting at line 11 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/rightvalues/BasicBooleanValue.java
+
+    public static Boolean convert(final RightValue rv)
+            throws BasicRuntimeException {
+        if (rv.isBoolean()) {
+            return ((BasicBooleanValue) rv).getValue();
+=====================================================================
+Found a 4 line (28 tokens) duplication in the following files: 
+Starting at line 29 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/rightvalues/BasicLongValue.java
+Starting at line 27 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/rightvalues/BasicBooleanValue.java
+
+        }
+        if (rv.isJavaObject()) {
+            final Object o = ((BasicJavaObjectValue) rv).getValue();
+            if (o instanceof Boolean) {
+=====================================================================
+Found a 10 line (28 tokens) duplication in the following files: 
+Starting at line 15 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/BasicSyntaxAnalyzer.java
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/AbstractNestedStructureHouseKeeper.java
+
+    private Factory factory;
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    @Override
+	public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
+=====================================================================
+Found a 12 line (28 tokens) duplication in the following files: 
+Starting at line 21 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/commandanalyzers/BasicCommandFactory.java
+Starting at line 15 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/BasicSyntaxAnalyzer.java
+
+    private Factory factory;
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    @Override
+	public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
+
+    private BasicSyntaxAnalyzer() {
+=====================================================================
+Found a 11 line (28 tokens) duplication in the following files: 
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/expression/BasicExpressionListAnalyzer.java
+Starting at line 24 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/AbstractNestedStructureHouseKeeper.java
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    @Override
+	public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
+
+    @Override
+    public void push(NestedStructure element) {
+=====================================================================
+Found a 12 line (28 tokens) duplication in the following files: 
+Starting at line 32 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/leftvalue/AbstractLeftValueAnalyzer.java
+Starting at line 21 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/commandanalyzers/BasicCommandFactory.java
+
+	Factory factory;
+
+	public Factory getFactory() {
+		return factory;
+	}
+
+	@Override
+	public void setFactory(Factory factory) {
+		this.factory = factory;
+	}
+
+	private Map<String, CommandAnalyzer> classMap = new HashMap<String, CommandAnalyzer>();
+=====================================================================
+Found a 10 line (28 tokens) duplication in the following files: 
+Starting at line 32 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/leftvalue/AbstractLeftValueAnalyzer.java
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/AbstractNestedStructureHouseKeeper.java
+
+    private Factory factory;
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    @Override
+	public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
+=====================================================================
+Found a 6 line (27 tokens) duplication in the following files: 
+Starting at line 8 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LogicalOrOperator.java
+Starting at line 8 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LogicalAndOperator.java
+
+public class LogicalAndOperator extends AbstractShortCircuitBinaryOperator {
+
+    @Override
+    protected RightValue evaluateOn(final RightValue leftOperand,
+            final Expression rightOperand) throws BasicRuntimeException {
+        final BasicBooleanValue bbv = new BasicBooleanValue(false);
+=====================================================================
+Found a 10 line (27 tokens) duplication in the following files: 
+Starting at line 21 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/commandanalyzers/BasicCommandFactory.java
+Starting at line 27 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/lexer/BasicLexicalAnalyzer.java
+
+    protected Factory factory;
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    @Override
+	public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
+=====================================================================
+Found a 9 line (27 tokens) duplication in the following files: 
+Starting at line 60 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/expression/BasicTagAnalyzer.java
+Starting at line 21 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/expression/BasicExpressionListAnalyzer.java
+
+	@Override
+	public Factory getFactory() {
+		return factory;
+	}
+
+	@Override
+	public void setFactory(Factory factory) {
+		this.factory = factory;
+	}
+=====================================================================
+Found a 10 line (27 tokens) duplication in the following files: 
+Starting at line 32 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/leftvalue/AbstractLeftValueAnalyzer.java
+Starting at line 27 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/lexer/BasicLexicalAnalyzer.java
+
+    protected Factory factory;
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    @Override
+	public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
+=====================================================================
+Found a 7 line (26 tokens) duplication in the following files: 
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/GreaterOrEqualOperator.java
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/EqualsOperator.java
+
+        return f.getValue().equals(BasicLongValue.convert(op));
+    }
+
+    @Override
+    protected Boolean compareTo(final BasicStringValue f, final RightValue op)
+            throws BasicRuntimeException {
+        return f.getValue().equals(BasicStringValue.convert(op));
+=====================================================================
+Found a 6 line (26 tokens) duplication in the following files: 
+Starting at line 11 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/GreaterOrEqualOperator.java
+Starting at line 11 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/EqualsOperator.java
+
+public class EqualsOperator extends AbstractCompareOperator {
+
+    @Override
+    protected Boolean compareTo(final BasicDoubleValue f, final RightValue op)
+            throws BasicRuntimeException {
+        return f.getValue().equals(BasicDoubleValue.convert(op));
+=====================================================================
+Found a 7 line (26 tokens) duplication in the following files: 
+Starting at line 28 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/GreaterThanOperator.java
+Starting at line 28 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/GreaterOrEqualOperator.java
+
+        return f.getValue().compareTo(BasicStringValue.convert(op)) >= 0;
+    }
+
+    @Override
+    protected Boolean compareTo(final BasicJavaObjectValue f,
+            final RightValue op) throws BasicRuntimeException {
+        return compareJavaObjectTo(f, op) >= 0;
+=====================================================================
+Found a 7 line (26 tokens) duplication in the following files: 
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/GreaterThanOperator.java
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/EqualsOperator.java
+
+        return f.getValue().equals(BasicLongValue.convert(op));
+    }
+
+    @Override
+    protected Boolean compareTo(final BasicStringValue f, final RightValue op)
+            throws BasicRuntimeException {
+        return f.getValue().equals(BasicStringValue.convert(op));
+=====================================================================
+Found a 6 line (26 tokens) duplication in the following files: 
+Starting at line 11 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/GreaterThanOperator.java
+Starting at line 11 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/GreaterOrEqualOperator.java
+
+public class GreaterOrEqualOperator extends AbstractCompareOperator {
+
+    @Override
+    protected Boolean compareTo(final BasicDoubleValue f, final RightValue op)
+            throws BasicRuntimeException {
+        return f.getValue() >= BasicDoubleValue.convert(op);
+=====================================================================
+Found a 7 line (26 tokens) duplication in the following files: 
+Starting at line 28 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LessOrEqualOperator.java
+Starting at line 28 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/GreaterThanOperator.java
+
+        return f.getValue().compareTo(BasicStringValue.convert(op)) > 0;
+    }
+
+    @Override
+    protected Boolean compareTo(final BasicJavaObjectValue f,
+            final RightValue op) throws BasicRuntimeException {
+        return compareJavaObjectTo(f, op) > 0;
+=====================================================================
+Found a 7 line (26 tokens) duplication in the following files: 
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LessOrEqualOperator.java
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/EqualsOperator.java
+
+        return f.getValue().equals(BasicLongValue.convert(op));
+    }
+
+    @Override
+    protected Boolean compareTo(final BasicStringValue f, final RightValue op)
+            throws BasicRuntimeException {
+        return f.getValue().equals(BasicStringValue.convert(op));
+=====================================================================
+Found a 6 line (26 tokens) duplication in the following files: 
+Starting at line 11 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LessOrEqualOperator.java
+Starting at line 11 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/GreaterThanOperator.java
+
+public class GreaterThanOperator extends AbstractCompareOperator {
+
+    @Override
+    protected Boolean compareTo(final BasicDoubleValue f, final RightValue op)
+            throws BasicRuntimeException {
+        return f.getValue() > BasicDoubleValue.convert(op);
+=====================================================================
+Found a 7 line (26 tokens) duplication in the following files: 
+Starting at line 28 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LessThanOperator.java
+Starting at line 28 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LessOrEqualOperator.java
+
+        return f.getValue().compareTo(BasicStringValue.convert(op)) <= 0;
+    }
+
+    @Override
+    protected Boolean compareTo(final BasicJavaObjectValue f,
+            final RightValue op) throws BasicRuntimeException {
+        return compareJavaObjectTo(f, op) <= 0;
+=====================================================================
+Found a 7 line (26 tokens) duplication in the following files: 
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LessThanOperator.java
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/EqualsOperator.java
+
+        return f.getValue().equals(BasicLongValue.convert(op));
+    }
+
+    @Override
+    protected Boolean compareTo(final BasicStringValue f, final RightValue op)
+            throws BasicRuntimeException {
+        return f.getValue().equals(BasicStringValue.convert(op));
+=====================================================================
+Found a 6 line (26 tokens) duplication in the following files: 
+Starting at line 11 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LessThanOperator.java
+Starting at line 11 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LessOrEqualOperator.java
+
+public class LessOrEqualOperator extends AbstractCompareOperator {
+
+    @Override
+    protected Boolean compareTo(final BasicDoubleValue f, final RightValue op)
+            throws BasicRuntimeException {
+        return f.getValue() <= BasicDoubleValue.convert(op);
+=====================================================================
+Found a 7 line (26 tokens) duplication in the following files: 
+Starting at line 28 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/NotEqualOperator.java
+Starting at line 28 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LessThanOperator.java
+
+        return f.getValue().compareTo(BasicStringValue.convert(op)) < 0;
+    }
+
+    @Override
+    protected Boolean compareTo(final BasicJavaObjectValue f,
+            final RightValue op) throws BasicRuntimeException {
+        return compareJavaObjectTo(f, op) < 0;
+=====================================================================
+Found a 7 line (26 tokens) duplication in the following files: 
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/NotEqualOperator.java
+Starting at line 22 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/EqualsOperator.java
+
+        return f.getValue().equals(BasicLongValue.convert(op));
+    }
+
+    @Override
+    protected Boolean compareTo(final BasicStringValue f, final RightValue op)
+            throws BasicRuntimeException {
+        return f.getValue().equals(BasicStringValue.convert(op));
+=====================================================================
+Found a 6 line (26 tokens) duplication in the following files: 
+Starting at line 11 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/NotEqualOperator.java
+Starting at line 11 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LessThanOperator.java
+
+public class LessThanOperator extends AbstractCompareOperator {
+
+    @Override
+    protected Boolean compareTo(final BasicDoubleValue f, final RightValue op)
+            throws BasicRuntimeException {
+        return f.getValue() < BasicDoubleValue.convert(op);
+=====================================================================
+Found a 10 line (26 tokens) duplication in the following files: 
+Starting at line 23 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/expression/AbstractExpressionAnalyzer.java
+Starting at line 29 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/lexer/BasicLexicalAnalyzer.java
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    @Override
+	public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
+
+    protected BasicLexicalAnalyzer() {
+=====================================================================
+Found a 10 line (26 tokens) duplication in the following files: 
+Starting at line 34 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/leftvalue/AbstractLeftValueAnalyzer.java
+Starting at line 61 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/expression/BasicTagAnalyzer.java
+
+	public Factory getFactory() {
+		return factory;
+	}
+
+	@Override
+	public void setFactory(Factory factory) {
+		this.factory = factory;
+	}
+
+	private static Map<String, Class<? extends AbstractUnaryOperator>> unaryOperatorMap = new HashMap<String, Class<? extends AbstractUnaryOperator>>();
+=====================================================================
+Found a 5 line (26 tokens) duplication in the following files: 
+Starting at line 39 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/test/java/com/scriptbasic/factorytest/TestFactories.java
+Starting at line 26 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/factories/AbstractFactory.java
+
+public abstract class AbstractFactory implements Factory {
+
+	@Override
+	public <T extends FactoryManaged> void create(Class<T> interf4ce,
+			Class<? extends T> klass) {
+=====================================================================
+Found a 4 line (25 tokens) duplication in the following files: 
+Starting at line 10 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/AbstractBinaryFullCircuitHalfDoubleOperator.java
+Starting at line 10 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/AbstractBinaryFullCircuitFullDoubleOperator.java
+
+    protected final RightValue operateOnLongLong(final Long a, final Long b)
+            throws BasicRuntimeException {
+        return operateOnDoubleDouble(a.doubleValue(), b.doubleValue());
+    }
+=====================================================================
+Found a 6 line (25 tokens) duplication in the following files: 
+Starting at line 8 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/DivideOperator.java
+Starting at line 10 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/AddOperator.java
+
+public class AddOperator extends AbstractBinaryFullCircuitHalfDoubleOperator {
+
+    @Override
+    protected RightValue operateOnDoubleDouble(final Double a, final Double b)
+            throws BasicRuntimeException {
+        return new BasicDoubleValue(a + b);
+=====================================================================
+Found a 7 line (25 tokens) duplication in the following files: 
+Starting at line 16 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/LessThanOperator.java
+Starting at line 16 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/EqualsOperator.java
+
+        return f.getValue().equals(BasicDoubleValue.convert(op));
+    }
+
+    @Override
+    protected Boolean compareTo(final BasicLongValue f, final RightValue op)
+            throws BasicRuntimeException {
+        return f.getValue().equals(BasicLongValue.convert(op));
+=====================================================================
+Found a 7 line (25 tokens) duplication in the following files: 
+Starting at line 13 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/MinusOperator.java
+Starting at line 15 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/AddOperator.java
+
+        return new BasicDoubleValue(a + b);
+    }
+
+    @Override
+    protected RightValue operateOnLongLong(final Long a, final Long b)
+            throws BasicRuntimeException {
+        return new BasicLongValue(a + b);
+=====================================================================
+Found a 6 line (25 tokens) duplication in the following files: 
+Starting at line 8 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/MinusOperator.java
+Starting at line 8 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/DivideOperator.java
+
+public class DivideOperator extends AbstractBinaryFullCircuitHalfDoubleOperator {
+
+    @Override
+    protected RightValue operateOnDoubleDouble(final Double a, final Double b)
+            throws BasicRuntimeException {
+        return new BasicDoubleValue(a / b);
+=====================================================================
+Found a 7 line (25 tokens) duplication in the following files: 
+Starting at line 14 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/MultiplyOperator.java
+Starting at line 14 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/ModuloOperator.java
+Starting at line 13 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/MinusOperator.java
+
+        return new BasicDoubleValue(a - b);
+    }
+
+    @Override
+    protected RightValue operateOnLongLong(final Long a, final Long b)
+            throws BasicRuntimeException {
+        return new BasicLongValue(a - b);
+=====================================================================
+Found a 6 line (25 tokens) duplication in the following files: 
+Starting at line 8 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/MultiplyOperator.java
+Starting at line 8 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/MinusOperator.java
+
+public class MinusOperator extends AbstractBinaryFullCircuitHalfDoubleOperator {
+
+    @Override
+    protected RightValue operateOnDoubleDouble(final Double a, final Double b)
+            throws BasicRuntimeException {
+        return new BasicDoubleValue(a - b);
+=====================================================================
+Found a 7 line (25 tokens) duplication in the following files: 
+Starting at line 16 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/NotEqualOperator.java
+Starting at line 16 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/executors/operators/EqualsOperator.java
+
+        return f.getValue().equals(BasicDoubleValue.convert(op));
+    }
+
+    @Override
+    protected Boolean compareTo(final BasicLongValue f, final RightValue op)
+            throws BasicRuntimeException {
+        return f.getValue().equals(BasicLongValue.convert(op));
+=====================================================================
+Found a 11 line (25 tokens) duplication in the following files: 
+Starting at line 7 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/commandanalyzers/commands/CommandAnalyzerLet.java
+Starting at line 7 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/commandanalyzers/commands/CommandAnalyzerCall.java
+
+public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
+
+    @Override
+    public Command analyze() throws SyntaxException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String getName() {
+        return "CALL";
+=====================================================================
+Found a 8 line (25 tokens) duplication in the following files: 
+Starting at line 34 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/leftvalue/AbstractLeftValueAnalyzer.java
+Starting at line 23 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/main/java/com/scriptbasic/syntax/expression/AbstractExpressionAnalyzer.java
+
+	public Factory getFactory() {
+		return factory;
+	}
+
+	@Override
+	public void setFactory(Factory factory) {
+		this.factory = factory;
+	}
+=====================================================================
+Found a 4 line (25 tokens) duplication in the following files: 
+Starting at line 35 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/test/java/com/scriptbasic/syntax/leftvalue/TestBasicLeftValueAnalyzer.java
+Starting at line 34 of /Users/verhasp/projects/jScriptBasic/jscriptbasic/src/test/java/com/scriptbasic/syntax/expression/TestBasicExpressionAnalyzer.java
+
+	private static Expression compile(final String s) throws AnalysisException {
+        factory.clean();
+        final LexicalAnalyzer la = createStringReading(factory,s);
+        final BasicExpressionAnalyzer bea = (BasicExpressionAnalyzer) FactoryUtilities

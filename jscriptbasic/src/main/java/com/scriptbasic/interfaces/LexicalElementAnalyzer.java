@@ -21,7 +21,7 @@ public interface LexicalElementAnalyzer {
      * 
      * @param reader
      */
-    public void setReader(Reader reader);
+    void setReader(Reader reader);
 
     /**
      * Reads a lexeme and returns the created lexical element.
@@ -37,5 +37,5 @@ public interface LexicalElementAnalyzer {
      * @return the created lexeme or {@code null}
      * @throws LexicalException
      */
-    public LexicalElement read() throws LexicalException;
+    LexicalElement read() throws LexicalException;
 }

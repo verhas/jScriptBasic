@@ -23,5 +23,5 @@ public interface SingleIncludeChecker {
      * @throws IOException
      *             if the file was already included.
      */
-    public void check(String key) throws IOException;
+    void check(String key) throws IOException;
 }

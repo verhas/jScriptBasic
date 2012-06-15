@@ -47,12 +47,12 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
 		ExpressionListAnalyzer expressionListAnalyzer = FactoryUtilities
 				.getExpressionListAnalyzer(getFactory());
 
-		ExpressionList indexList = (ExpressionList) expressionListAnalyzer
+		ExpressionList indexList = expressionListAnalyzer
 				.analyze();
 		lvm.setIndexList(indexList);
 		LexicalElement lexicalElement = lexicalAnalyzer.peek();
 		if (lexicalElement != null && lexicalElement.isSymbol()
-				&& "]".equals(lexicalElement.get())) {
+				&& "]".equals(lexicalElement.getLexeme())) {
 			lexicalAnalyzer.get();
 			return lvm;
 		}
@@ -68,7 +68,7 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
 		LexicalElement lexicalElement = lexicalAnalyzer.peek();
 		if (lexicalElement != null && lexicalElement.isIdentifier()) {
 			lexicalAnalyzer.get();
-			lvm.setFieldName(lexicalElement.get());
+			lvm.setFieldName(lexicalElement.getLexeme());
 			return lvm;
 		}
 		throw new GenericSyntaxException(
@@ -78,18 +78,18 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
 	private static boolean isModifierStart(LexicalElement lexicalElement) {
 		return lexicalElement != null
 				&& lexicalElement.isSymbol()
-				&& ("[".equals(lexicalElement.get()) || "."
-						.equals(lexicalElement.get()));
+				&& ("[".equals(lexicalElement.getLexeme()) || "."
+						.equals(lexicalElement.getLexeme()));
 	}
 
 	private static boolean isArrayAccessStart(LexicalElement lexicalElement) {
 		return lexicalElement != null && lexicalElement.isSymbol()
-				&& "[".equals(lexicalElement.get());
+				&& "[".equals(lexicalElement.getLexeme());
 	}
 
 	private static boolean isFieldAccessStart(LexicalElement lexicalElement) {
 		return lexicalElement != null && lexicalElement.isSymbol()
-				&& ".".equals(lexicalElement.get());
+				&& ".".equals(lexicalElement.getLexeme());
 	}
 
 	@Override
@@ -101,7 +101,7 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
 		if (lexicalElement.isIdentifier()) {
 			lexicalAnalyzer.get();
 			leftValue = new BasicLeftValue();
-			leftValue.setId(lexicalElement.get());
+			leftValue.setId(lexicalElement.getLexeme());
 			lexicalElement = lexicalAnalyzer.peek();
 			while (isModifierStart(lexicalElement)) {
 				LeftValueModifier lvm = null;

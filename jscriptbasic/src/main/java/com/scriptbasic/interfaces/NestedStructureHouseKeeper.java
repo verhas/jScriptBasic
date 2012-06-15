@@ -20,7 +20,7 @@ public interface NestedStructureHouseKeeper extends FactoryManaged {
      * @param klass
      *            is the class that we will expect when we pop this element off
      */
-    public void push(Class<?> klass, NestedStructure element);
+    void push(Class<?> klass, NestedStructure element);
 
     /**
      * Push a nested structure object on the housekeeping stack. This version of
@@ -29,7 +29,7 @@ public interface NestedStructureHouseKeeper extends FactoryManaged {
      * @param element
      *            to push on the stack.
      */
-    public void push(NestedStructure element);
+    void push(NestedStructure element);
 
     /**
      * Pops one element from the stack.
@@ -54,6 +54,6 @@ public interface NestedStructureHouseKeeper extends FactoryManaged {
      *             when the top element of the stack is not the type that we
      *             expect
      */
-    public <T extends NestedStructure> T pop(
+    <T extends NestedStructure> T pop(
             Class<T> expectedClass) throws SyntaxException;
 }

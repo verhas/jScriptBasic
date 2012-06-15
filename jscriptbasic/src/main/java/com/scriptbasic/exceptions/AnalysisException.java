@@ -45,9 +45,9 @@ public abstract class AnalysisException extends Exception {
 	}
 
 	public void setLocation(final LexicalElement le) {
-        this.fileName = le.fileName();
-        this.lineNumber = le.lineNumber();
-        this.position = le.position();
+        this.fileName = le.getFileName();
+        this.lineNumber = le.getLineNumber();
+        this.position = le.getPosition();
     }
 
     public String getFileName() {

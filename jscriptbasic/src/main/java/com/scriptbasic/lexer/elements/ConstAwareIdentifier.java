@@ -12,9 +12,9 @@ public class ConstAwareIdentifier extends Identifier {
                 .read();
         if (lexicalElement != null) {
             Boolean value = null;
-            if ("true".equalsIgnoreCase(lexicalElement.get())) {
+            if ("true".equalsIgnoreCase(lexicalElement.getLexeme())) {
                 value = true;
-            } else if ("false".equalsIgnoreCase(lexicalElement.get())) {
+            } else if ("false".equalsIgnoreCase(lexicalElement.getLexeme())) {
                 value = false;
             }
             if (value != null) {

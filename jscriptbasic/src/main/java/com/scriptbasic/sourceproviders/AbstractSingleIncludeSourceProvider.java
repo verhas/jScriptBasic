@@ -17,7 +17,7 @@ import com.scriptbasic.interfaces.SingleIncludeChecker;
  * @author Peter Verhas
  * 
  */
-public abstract class SingleIncludeSourceProvider extends
+public abstract class AbstractSingleIncludeSourceProvider extends
         AbstractSourceProvider {
 
     private SingleIncludeChecker singleInclude = new BasicSingleIncludeChecker();

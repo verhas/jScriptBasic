@@ -65,7 +65,7 @@ public abstract class AbstractGenericListAnalyzer<T extends GenericList<Z>, K ex
 
 	private static boolean isComma(final LexicalElement lexicalElement) {
 		return lexicalElement != null && lexicalElement.isSymbol()
-				&& ",".equals(lexicalElement.get());
+				&& ",".equals(lexicalElement.getLexeme());
 	}
 
 }

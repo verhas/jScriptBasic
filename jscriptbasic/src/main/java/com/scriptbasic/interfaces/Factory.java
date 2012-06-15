@@ -33,7 +33,7 @@ public interface Factory {
      *            the class that represents the interface. An instance of this
      *            class will be created by the factory.
      */
-    public <T extends FactoryManaged> void create(Class<T> interf4ce,
+    <T extends FactoryManaged> void create(Class<T> interf4ce,
             Class<? extends T> cl4ss);
 
     /**
@@ -47,7 +47,7 @@ public interface Factory {
      *            BasicInterpreterInternalError}.
      * @return the instance implementing the interface.
      */
-    public <T extends FactoryManaged> T get(Class<T> klass);
+    <T extends FactoryManaged> T get(Class<T> klass);
 
     /**
      * Clean the factory. Remove all references to the objects that were created
@@ -57,5 +57,5 @@ public interface Factory {
      * this is important to call this method to release the objects before the
      * thread finishes.
      */
-    public void clean();
+    void clean();
 }

@@ -14,15 +14,9 @@ package com.scriptbasic.interfaces;
  * @author Peter Verhas
  * 
  */
-public interface Reader extends FactoryManaged {
+public interface Reader extends FactoryManaged, SourceLocationBound {
 
-    public void set(String sourceFileName);
-
-    public String fileName();
-
-    public int lineNumber();
-
-    public int position();
+    void set(String sourceFileName);
 
     /**
      * Readers should support lexical analyzers offering the possibility to push
@@ -39,22 +33,22 @@ public interface Reader extends FactoryManaged {
      * <p>
      * Implementation should ignore {@code null} parameter.
      * 
-     * @param ch
+     * @param character
      *            the character to push back
      */
-    public void pushBack(Integer ch);
+    void pushBack(Integer character);
 
     /**
      * Get the next character from the input stream.
      * 
      * @return
      */
-    public Integer get();
+    Integer get();
 
     /**
      * Get the source provider that provided this reader.
      * 
      * @return the source provider object.
      */
-    public SourceProvider getSourceProvider();
+    SourceProvider getSourceProvider();
 }

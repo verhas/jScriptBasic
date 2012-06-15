@@ -22,9 +22,9 @@ public class BasicLexialElementFactory {
      */
     public static BasicLexicalElement create(final Reader reader) {
         final BasicLexicalElement le = new BasicLexicalElement();
-        le.setFileName(reader.fileName());
-        le.setLineNumber(reader.lineNumber());
-        le.setPosition(reader.position());
+        le.setFileName(reader.getFileName());
+        le.setLineNumber(reader.getLineNumber());
+        le.setPosition(reader.getPosition());
         return le;
     }
 

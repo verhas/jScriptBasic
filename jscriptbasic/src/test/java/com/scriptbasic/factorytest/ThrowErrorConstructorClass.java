@@ -3,7 +3,7 @@ package com.scriptbasic.factorytest;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.interfaces.Factory;
 
-public class ThrowErrorConstructorClass implements
+public final class ThrowErrorConstructorClass implements
         ThrowErrorConstructorInterface {
 
     private ThrowErrorConstructorClass() {

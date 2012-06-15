@@ -10,7 +10,7 @@ import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.syntax.AbstractGenericListAnalyzer;
 import com.scriptbasic.utility.FactoryUtilities;
 
-public class BasicExpressionListAnalyzer
+public final class BasicExpressionListAnalyzer
 		extends
 		AbstractGenericListAnalyzer<ExpressionList, GenericExpressionList, Expression, ExpressionAnalyzer> implements ExpressionListAnalyzer {
 	private Factory factory;

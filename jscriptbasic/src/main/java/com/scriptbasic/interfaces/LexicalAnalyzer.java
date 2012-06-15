@@ -18,7 +18,7 @@ public interface LexicalAnalyzer extends FactoryManaged {
      * 
      * @param reader
      */
-    public void set(Reader reader);
+    void set(Reader reader);
 
     /**
      * Get the next lexical element from the input stream. If there are no more
@@ -26,7 +26,7 @@ public interface LexicalAnalyzer extends FactoryManaged {
      * 
      * @return
      */
-    public LexicalElement get() throws LexicalException;
+    LexicalElement get() throws LexicalException;
 
     /**
      * Peek at the next lexical element and do not remove it from the input
@@ -34,7 +34,7 @@ public interface LexicalAnalyzer extends FactoryManaged {
      * will return the same lexical element. Calling {@see #get()} will return
      * the same lexical element as the last call to {@code peek()}.
      */
-    public LexicalElement peek() throws LexicalException;
+    LexicalElement peek() throws LexicalException;
 
     /**
      * Register a lexical element analyzer. The lexical element analyzers are
@@ -42,5 +42,5 @@ public interface LexicalAnalyzer extends FactoryManaged {
      * 
      * @param lea
      */
-    public void registerElementAnalyzer(LexicalElementAnalyzer lea);
+    void registerElementAnalyzer(LexicalElementAnalyzer lea);
 }

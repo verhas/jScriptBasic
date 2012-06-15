@@ -12,7 +12,7 @@ public class TestSingleIncludeSourcePathSourceProvider extends TestCase {
     }
 
     private class TestedSingleIncludeSourcePathSourceProvider extends
-            SingleIncludeSourcePathSourceProvider {
+            AbstractSingleIncludeSourcePathSourceProvider {
 
         @Override
         protected Reader getSource(final String sourceName) throws IOException {

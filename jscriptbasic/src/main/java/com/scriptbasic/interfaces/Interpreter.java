@@ -10,14 +10,14 @@ public interface Interpreter {
     /**
      * Set the program to execute.
      * 
-     * @param program
+     * @param buildableProgram
      */
-    public void setProgram(Program program);
+    void setProgram(BuildableProgram buildableProgram);
 
     /**
      * Execute the program.
      */
-    public void execute();
+    void execute();
 
     /**
      * Set the value of the global variable.
@@ -27,7 +27,7 @@ public interface Interpreter {
      * @param value
      *            the value to be set
      */
-    public void setVariable(String name, Object value);
+    void setVariable(String name, Object value);
 
     /**
      * Get the value of a global variable.
@@ -36,7 +36,7 @@ public interface Interpreter {
      *            the name of the variable
      * @return the value of the variable
      */
-    public Object getVariable(String name);
+    Object getVariable(String name);
 
     /**
      * Call a function defined by the program passing the objects as arguments.
@@ -48,5 +48,5 @@ public interface Interpreter {
      * @return the returned object, or {@code null} if the function does not
      *         return value
      */
-    public Object call(String functionName, Object[] arguments);
+    Object call(String functionName, Object[] arguments);
 }

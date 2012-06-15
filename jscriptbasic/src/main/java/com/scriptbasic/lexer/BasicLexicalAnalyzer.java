@@ -111,7 +111,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
 
     private static boolean isIncludeOrImport(final LexicalElement le) {
         return (le.isSymbol() || le.isIdentifier())
-                && stringIsIncludeOrImport(le.get());
+                && stringIsIncludeOrImport(le.getLexeme());
     }
 
     private void readTheNextLine() throws LexicalException {
@@ -162,7 +162,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
                     Reader childReader = null;
                     try {
                         childReader = sp.get(le.stringValue(),
-                                hreader.fileName());
+                                hreader.getFileName());
                     } catch (final IllegalArgumentException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();

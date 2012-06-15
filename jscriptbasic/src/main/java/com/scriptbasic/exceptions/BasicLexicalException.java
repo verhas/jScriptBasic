@@ -27,9 +27,9 @@ public class BasicLexicalException extends LexicalException {
     private int position;
 
     public void setPosition(final Reader reader) {
-        this.fileName = reader.fileName();
-        this.lineNumber = reader.lineNumber();
-        this.position = reader.position();
+        this.fileName = reader.getFileName();
+        this.lineNumber = reader.getLineNumber();
+        this.position = reader.getPosition();
     }
 
     @Override

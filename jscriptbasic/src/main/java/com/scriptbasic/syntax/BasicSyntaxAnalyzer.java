@@ -7,11 +7,11 @@ import com.scriptbasic.interfaces.CommandFactory;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.Program;
+import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.SyntaxAnalyzer;
 import com.scriptbasic.utility.FactoryUtilities;
 
-public class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
+public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
     private Factory factory;
 
     public Factory getFactory() {
@@ -19,14 +19,13 @@ public class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
     }
 
     @Override
-	public void setFactory(Factory factory) {
+    public void setFactory(final Factory factory) {
         this.factory = factory;
     }
 
     private BasicSyntaxAnalyzer() {
     }
 
-    private BasicProgram program;
     private LexicalElement lexicalElement;
 
     public LexicalElement getLexicalElement() {
@@ -38,22 +37,24 @@ public class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
     }
 
     @Override
-    public Program analyze() throws AnalysisException {
+    public BuildableProgram analyze() throws AnalysisException {
         try {
+            BuildableProgram buildableProgram = FactoryUtilities.getProgram(getFactory());
             LexicalAnalyzer lexicalAnalyzer = FactoryUtilities
                     .getLexicalAnalyzer(getFactory());
             this.lexicalElement = lexicalAnalyzer.get();
-            final CommandFactory commandFactory = FactoryUtilities.getCommandFactory(getFactory());
+            final CommandFactory commandFactory = FactoryUtilities
+                    .getCommandFactory(getFactory());
             while (this.lexicalElement != null) {
                 if (this.lexicalElement.isSymbol()) {
-                    this.program.addCommand(commandFactory
-                            .create(this.lexicalElement.get()));
+                    buildableProgram.addCommand(commandFactory
+                            .create(this.lexicalElement.getLexeme()));
                 } else {
-                    this.program.addCommand(commandFactory.create(null));
+                    buildableProgram.addCommand(commandFactory.create(null));
                 }
                 this.lexicalElement = lexicalAnalyzer.get();
             }
-            return this.program;
+            return buildableProgram;
         } catch (CommandFactoryException e) {
             throw new GenericSyntaxException(e.getMessage(), lexicalElement);
         }

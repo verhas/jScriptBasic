@@ -8,5 +8,6 @@ package com.scriptbasic.interfaces;
  * 
  */
 public interface LeftValue extends Value, AnalysisResult {
-    public void setValue(RightValue rightValue) throws Exception;
+    //TODO make the exception less broad later when the actual code is ready
+    void setValue(RightValue rightValue) throws Exception;
 }

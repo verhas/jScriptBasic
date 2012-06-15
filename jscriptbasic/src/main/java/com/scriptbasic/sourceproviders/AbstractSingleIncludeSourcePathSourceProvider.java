@@ -17,7 +17,7 @@ import com.scriptbasic.interfaces.SingleIncludeChecker;
  * @author Peter Verhas
  * 
  */
-public abstract class SingleIncludeSourcePathSourceProvider extends
+public abstract class AbstractSingleIncludeSourcePathSourceProvider extends
         AbstractSourcePathSourceProvider {
 
     private SingleIncludeChecker singleInclude = new BasicSingleIncludeChecker();
@@ -47,23 +47,27 @@ public abstract class SingleIncludeSourcePathSourceProvider extends
 
     @Override
     public final Reader get(final String sourceName) throws IOException {
+        Reader reader;
         if (this.singleInclude == null) {
-            return null;
+            reader = null;
         } else {
             this.singleInclude.check(getKeyName(sourceName));
-            return getSource(sourceName);
+            reader = getSource(sourceName);
         }
+        return reader;
     }
 
     @Override
     public final Reader get(final String sourceName,
             final String referencingSource) throws IOException {
+        Reader reader;
         if (this.singleInclude == null) {
-            return null;
+            reader = null;
         } else {
             this.singleInclude.check(getKeyName(sourceName, referencingSource));
-            return getSource(sourceName, referencingSource);
+            reader = getSource(sourceName, referencingSource);
         }
+        return reader;
     }
 
     protected abstract Reader getSource(String sourceName) throws IOException;

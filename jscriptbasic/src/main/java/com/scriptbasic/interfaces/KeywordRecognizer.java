@@ -20,5 +20,5 @@ public interface KeywordRecognizer {
      * @return {@code true} if and only if the identifier string is a reserved
      *         keyword
      */
-    public boolean isRecognized(String identifier);
+    boolean isRecognized(String identifier);
 }

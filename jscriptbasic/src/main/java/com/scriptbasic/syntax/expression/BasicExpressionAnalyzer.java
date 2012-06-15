@@ -22,17 +22,17 @@ import com.scriptbasic.executors.operators.NotEqualOperator;
 import com.scriptbasic.executors.operators.ObjectFieldAccessOperator;
 import com.scriptbasic.executors.operators.PowerOperator;
 
-public class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
+public final class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
 
     private BasicExpressionAnalyzer() {
     }
 
-    private final static Integer maximumPriority = 6;
+    private final static Integer MAXIMUM_PRIORITY = 6;
 
     private static ArrayList<Map<String, Class<? extends AbstractBinaryOperator>>> operatorMapArray = new ArrayList<Map<String, Class<? extends AbstractBinaryOperator>>>(
-            maximumPriority + 1);
+            MAXIMUM_PRIORITY + 1);
     static {
-        for (Integer i = 0; i <= maximumPriority; i++) {
+        for (Integer i = 0; i <= MAXIMUM_PRIORITY; i++) {
             operatorMapArray.add(null);
         }
     }
@@ -80,7 +80,7 @@ public class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
 
     @Override
     protected Integer getMaximumPriority() {
-        return maximumPriority;
+        return MAXIMUM_PRIORITY;
     }
 
     @Override

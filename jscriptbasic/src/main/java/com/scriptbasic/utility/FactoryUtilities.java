@@ -13,7 +13,7 @@ import com.scriptbasic.interfaces.LeftValueAnalyzer;
 import com.scriptbasic.interfaces.LeftValueListAnalyzer;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.NestedStructureHouseKeeper;
-import com.scriptbasic.interfaces.Program;
+import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.SyntaxAnalyzer;
 import com.scriptbasic.interfaces.TagAnalyzer;
 
@@ -47,8 +47,8 @@ public class FactoryUtilities {
 		return get(factory, LexicalAnalyzer.class);
 	}
 
-	public static Program getProgram(Factory factory) {
-		return get(factory, Program.class);
+	public static BuildableProgram getProgram(Factory factory) {
+		return get(factory, BuildableProgram.class);
 	}
 
 	public static SyntaxAnalyzer getSyntaxAnalyzer(Factory factory) {

@@ -105,13 +105,13 @@ public class LexTestHelper {
             final LexicalElement le1 = la.get();
             Assert.assertNotNull(
                     "there are not enough lexical elements, expecting "
-                            + le.get(), le1);
-            Assert.assertEquals("different types of lexemes " + le.get()
-                    + " vs " + le1.get(), le.type(), le1.type());
+                            + le.getLexeme(), le1);
+            Assert.assertEquals("different types of lexemes " + le.getLexeme()
+                    + " vs " + le1.getLexeme(), le.getType(), le1.getType());
             Assert.assertEquals(
-                    "different lexemes " + le.get() + " vs " + le1.get(),
-                    le.get(), le1.get());
-            switch (le.type()) {
+                    "different lexemes " + le.getLexeme() + " vs " + le1.getLexeme(),
+                    le.getLexeme(), le1.getLexeme());
+            switch (le.getType()) {
             case LexicalElement.TYPE_DOUBLE:
                 Assert.assertEquals("different double values",
                         le.doubleValue(), le1.doubleValue());
@@ -176,7 +176,7 @@ public class LexTestHelper {
 
         FactoryFactory.getFactory().create(LexicalAnalyzer.class,
                 ScriptBasicLexicalAnalyzer.class);
-        final LexicalAnalyzer la = (LexicalAnalyzer)FactoryFactory.getFactory().get(
+        final LexicalAnalyzer la = FactoryFactory.getFactory().get(
                 LexicalAnalyzer.class);
         la.set(hreader);
         return la;

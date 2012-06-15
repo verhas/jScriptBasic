@@ -14,7 +14,7 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
     private Factory factory;
 
     @Override
-	public Factory getFactory() {
+    public Factory getFactory() {
         return factory;
     }
 
@@ -23,10 +23,18 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
     }
 
     abstract protected String getName();
-    
-    protected void assertThereAreNoSuperflouosCharactersOnTheLine() throws AnalysisException {
-        LexicalElement le = FactoryUtilities.getLexicalAnalyzer(factory)
-        .get();
+
+    /**
+     * Checks that there are no extra characters on a program line when the line
+     * analyzer thinks that it has finished analyzing the line. If there are
+     * some extra characters on the line then throws syntax error exception.
+     * 
+     * @throws AnalysisException
+     *             when there are extra character on the actual line
+     */
+    protected void assertThereAreNoSuperflouosCharactersOnTheLine()
+            throws AnalysisException {
+        LexicalElement le = FactoryUtilities.getLexicalAnalyzer(factory).get();
         if (!le.isLineTerminator()) {
             SyntaxExceptionUtility.throwSyntaxException(
                     "There are extra characters following the expression after the '"

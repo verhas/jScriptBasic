@@ -15,6 +15,7 @@ public class TestFactories extends TestCase {
 
     private static class classWithPublicConstructor implements FactoryManaged {
 
+        @Override
         public void setFactory(Factory factory) {
         }
 
@@ -25,6 +26,7 @@ public class TestFactories extends TestCase {
 
     private static class classWithManyConstructor implements FactoryManaged {
 
+        @Override
         public void setFactory(Factory factory) {
 
         }

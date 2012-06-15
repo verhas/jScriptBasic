@@ -12,5 +12,12 @@ import com.scriptbasic.exceptions.AnalysisException;
  * @param <T>
  */
 public interface Analyzer<T extends AnalysisResult> {
-	public T analyze() throws AnalysisException;
+    
+    /**
+     * 
+     * @return the analysis result.
+     * 
+     * @throws AnalysisException
+     */
+	T analyze() throws AnalysisException;
 }

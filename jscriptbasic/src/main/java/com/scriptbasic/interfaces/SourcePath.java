@@ -19,12 +19,12 @@ public interface SourcePath extends Iterable<String> {
      * 
      * @param sourcePath
      */
-    public void setSourcePath(Deque<String> sourcePath);
+    void setSourcePath(Deque<String> sourcePath);
 
     /**
      * Add an element to the source path, to the end of the list.
      * 
      * @param path
      */
-    public void add(String path);
+    void add(String path);
 }
