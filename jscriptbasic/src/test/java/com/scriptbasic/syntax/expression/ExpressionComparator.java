@@ -7,9 +7,9 @@ import java.util.Iterator;
 
 import com.scriptbasic.executors.AbstractIdentifieredExpression;
 import com.scriptbasic.executors.AbstractIdentifieredExpressionListedExpression;
-import com.scriptbasic.executors.AbstractPrimitiveRightValue;
 import com.scriptbasic.executors.operators.AbstractBinaryOperator;
 import com.scriptbasic.executors.operators.AbstractUnaryOperator;
+import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.ExpressionList;
 
@@ -26,7 +26,7 @@ public class ExpressionComparator {
         assertEqual(a.getOperand(), b.getOperand());
     }
 
-    private static void assertEqual(final ExpressionList a,
+    public static void assertEqual(final ExpressionList a,
             final ExpressionList b) {
         if (a == null && b == null) {
             return;

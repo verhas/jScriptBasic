@@ -1,10 +1,10 @@
 package com.scriptbasic.lexer.elements;
 
+import com.scriptbasic.exceptions.LexicalException;
+import com.scriptbasic.exceptions.UnterminatedStringException;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.LexicalException;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
 import com.scriptbasic.lexer.BasicLexicalElement;
-import com.scriptbasic.lexer.UnterminatedStringException;
 
 public class BasicString extends AbstractElementAnalyzer {
 
@@ -72,24 +72,24 @@ public class BasicString extends AbstractElementAnalyzer {
      * 
      * @return the converted character.
      */
-    private Integer convertEscapedChar(Integer ch) {
+    private static Integer convertEscapedChar(Integer ch) {
         if (ch != null) {
             switch (ch) {
             case 'n':
-                ch = '\n';
+                ch = (int)'\n';
                 break;
             case 't':
-                ch = '\t';
+                ch = (int)'\t';
                 break;
             case 'r':
-                ch = '\r';
+                ch = (int)'\r';
                 break;
             }
         }
         return ch;
     }
 
-    private void appendSeparator(final StringBuilder sb, final boolean multiLine) {
+    private static void appendSeparator(final StringBuilder sb, final boolean multiLine) {
         sb.append(multiLine ? "\"\"\"" : "\"");
     }
 

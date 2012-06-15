@@ -1,25 +1,25 @@
 package com.scriptbasic.syntax;
 
-import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.errors.BasicInterpreterInternalError;
+import com.scriptbasic.exceptions.SyntaxException;
+import com.scriptbasic.interfaces.NestedStructure;
 
-
+/**
+ * This version just does not nothing special to recover from error.
+ * 
+ * @author Peter Verhas
+ * @date June 11, 2012
+ */
 public class GenericNestedStructureHouseKeeper extends
         AbstractNestedStructureHouseKeeper {
-    private Factory factory;
-
-    public Factory getFactory() {
-        return factory;
-    }
-
-    public void setFactory(Factory factory) {
-        this.factory = factory;
-    }
-
     @Override
-    protected Structure seekFrameError(Class<?> expectedType) {
-        // TODO Auto-generated method stub
-        return null;
+    public <T extends NestedStructure> T pop(
+            Class<T> expectedClass) throws SyntaxException {
+        if (isStackIsHealthy()) {
+            return super.pop(expectedClass);
+        } else {
+            throw new BasicInterpreterInternalError(
+                    "No nested structure class error recovery is implemented");
+        }
     }
-
-
 }

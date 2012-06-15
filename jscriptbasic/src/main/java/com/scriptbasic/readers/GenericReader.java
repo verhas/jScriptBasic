@@ -4,11 +4,15 @@ import java.io.IOException;
 import java.util.Deque;
 import java.util.LinkedList;
 
+import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.interfaces.SourceProvider;
 import com.scriptbasic.utility.CharUtils;
 
 public class GenericReader implements Reader {
+    @Override
+	public void setFactory(Factory factory) {
+    }
 
     private java.io.Reader sourceReader;
     private String sourceFileName = null;

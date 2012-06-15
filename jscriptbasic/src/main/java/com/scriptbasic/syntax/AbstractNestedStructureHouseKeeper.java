@@ -2,12 +2,33 @@ package com.scriptbasic.syntax;
 
 import java.util.Stack;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.exceptions.LexicalException;
+import com.scriptbasic.exceptions.SyntaxException;
+import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.interfaces.LexicalAnalyzer;
+import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.NestedStructure;
 import com.scriptbasic.interfaces.NestedStructureHouseKeeper;
-import com.scriptbasic.interfaces.SyntaxException;
 
 public abstract class AbstractNestedStructureHouseKeeper implements
         NestedStructureHouseKeeper {
+    private static Logger log = LoggerFactory
+            .getLogger(AbstractNestedStructureHouseKeeper.class);
+
+    private Factory factory;
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    @Override
+	public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
 
     @Override
     public void push(NestedStructure element) {
@@ -37,6 +58,12 @@ public abstract class AbstractNestedStructureHouseKeeper implements
 
     private Stack<Structure> stack = new Stack<Structure>();
 
+    private boolean stackIsHealthy = true;
+
+    protected boolean isStackIsHealthy() {
+        return stackIsHealthy;
+    }
+
     @Override
     public void push(Class<?> klass, NestedStructure element) {
         Structure stackFrame = new Structure();
@@ -45,17 +72,29 @@ public abstract class AbstractNestedStructureHouseKeeper implements
         stack.push(stackFrame);
     }
 
-    protected abstract Structure seekFrameError(Class<?> expectedClass);
-
+    @SuppressWarnings("unchecked")
     @Override
-    public NestedStructure pop(Class<?> expectedClass) throws SyntaxException {
+    public <T extends NestedStructure> T pop(
+            Class<T> expectedClass) throws SyntaxException {
         Structure stackFrame = stack.peek();
         if (!expectedClass.equals(stackFrame.getElementType())) {
-            stackFrame = seekFrameError(expectedClass);
+            stackIsHealthy = false;
+            SyntaxException se = new GenericSyntaxException(
+                    "Bad nested structures");
+            LexicalAnalyzer la = factory.get(LexicalAnalyzer.class);
+            LexicalElement le;
+            try {
+                le = la.peek();
+                se.setLocation(le);
+            } catch (LexicalException e) {
+                log.error(
+                        "There was an error when trying to fetch the current source location",
+                        e);
+            }
+            throw se;
         } else {
             stack.pop();
         }
-        return stackFrame.getPushedElement();
+        return (T)(stackFrame == null ? null : stackFrame.getPushedElement());
     }
-
 }

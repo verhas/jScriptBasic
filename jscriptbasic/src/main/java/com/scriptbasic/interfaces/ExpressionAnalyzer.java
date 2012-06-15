@@ -1,5 +1,9 @@
 package com.scriptbasic.interfaces;
 
-public interface ExpressionAnalyzer extends FactoryManaged {
-    public Expression analyze() throws SyntaxException;
+import com.scriptbasic.exceptions.AnalysisException;
+
+public interface ExpressionAnalyzer extends FactoryManaged,
+		Analyzer<Expression> {
+	@Override
+	public Expression analyze() throws AnalysisException;
 }

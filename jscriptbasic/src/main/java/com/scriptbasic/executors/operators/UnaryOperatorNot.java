@@ -1,7 +1,7 @@
 package com.scriptbasic.executors.operators;
 
-import com.scriptbasic.executors.BasicBooleanValue;
-import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.exceptions.BasicRuntimeException;
+import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
 import com.scriptbasic.interfaces.RightValue;
 
 public class UnaryOperatorNot extends AbstractUnaryOperator {

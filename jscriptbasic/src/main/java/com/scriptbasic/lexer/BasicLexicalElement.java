@@ -137,6 +137,32 @@ public class BasicLexicalElement extends AbstractLexicalElement {
     }
 
     @Override
+    public String toString() {
+        String s = "";
+        switch (type) {
+        case TYPE_BOOLEAN:
+            s += "Boolean(" + booleanValue + ")";
+            break;
+        case TYPE_DOUBLE:
+            s += "Double(" + doubleValue + ")";
+            break;
+        case TYPE_LONG:
+            s += "Long(" + longValue + ")";
+            break;
+        case TYPE_STRING:
+            s += "String(\"" + stringValue + "\")";
+            break;
+        case TYPE_IDENTIFIER:
+            s += "'" + lexeme + "'";
+            break;
+        case TYPE_SYMBOL:
+            s += lexeme;
+            break;
+        }
+        return s;
+    }
+
+    @Override
     public Boolean isLineTerminator() {
         return type() == TYPE_SYMBOL && get().length() == 1
                 && CharUtils.isNewLine(get().codePointAt(0));

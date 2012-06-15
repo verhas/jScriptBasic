@@ -9,11 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
+import com.scriptbasic.exceptions.BasicLexicalException;
+import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.HierarchicalReader;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.LexicalElementAnalyzer;
-import com.scriptbasic.interfaces.LexicalException;
 import com.scriptbasic.interfaces.LineOrientedLexicalAnalyzer;
 import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.interfaces.SourceProvider;
@@ -29,7 +30,8 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
         return factory;
     }
 
-    public void setFactory(Factory factory) {
+    @Override
+	public void setFactory(Factory factory) {
         this.factory = factory;
     }
 
@@ -41,12 +43,6 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
 
     @Override
     public void set(final Reader reader) {
-        log.debug("reader was set to " + reader);
-        if(this.analyzerQueue == null ){
-            log.error("analyzerQueue is still empty when setting reader "+reader);
-            log.error("all analyzers have to be registered be setting the reader");
-            throw new BasicInterpreterInternalError("LexicalElementAnalyzer queue was not intialized");
-        }
         this.reader = reader;
         for (final LexicalElementAnalyzer lea : this.analyzerQueue) {
             lea.setReader(reader);
@@ -56,6 +52,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     @Override
     public void registerElementAnalyzer(final LexicalElementAnalyzer lea) {
         log.debug("lexical element analyzer " + lea + " was registered");
+        lea.setReader(reader);
         this.analyzerQueue.add(lea);
     }
 
@@ -107,12 +104,12 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
         return ch;
     }
 
-    private boolean stringIsIncludeOrImport(final String s) {
+    private static boolean stringIsIncludeOrImport(final String s) {
         return s.equalsIgnoreCase("INCLUDE") || s.equalsIgnoreCase("IMPORT");
 
     }
 
-    private boolean isIncludeOrImport(final LexicalElement le) {
+    private static boolean isIncludeOrImport(final LexicalElement le) {
         return (le.isSymbol() || le.isIdentifier())
                 && stringIsIncludeOrImport(le.get());
     }
@@ -128,12 +125,21 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
             lineEndFound = CharUtils.isNewLine(ch);
             if (ch != null) {
                 this.reader.pushBack(ch);
+                boolean analyzed = false;
                 for (final LexicalElementAnalyzer lea : this.analyzerQueue) {
                     le = lea.read();
                     if (le != null) {
+                        analyzed = true;
+                        log.debug(lea + " could analyze the characters");
+                        log.debug("the result is: " + le.toString());
                         this.lexicalElementQueue.add(le);
                         break;
                     }
+                }
+                if (!analyzed) {
+                    log.error("None of the lexical analyzers could analyze the line");
+                    throw new BasicInterpreterInternalError(
+                            "no lexical element analyzer could analyze the input");
                 }
             }
         }

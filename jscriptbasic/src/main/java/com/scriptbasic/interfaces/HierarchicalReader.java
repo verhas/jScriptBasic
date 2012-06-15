@@ -13,7 +13,7 @@ package com.scriptbasic.interfaces;
  * Reader reader = someSourceProvider.get(&quot;some source name&quot;);
  * 
  * HierarchicalReader hierarchicalReader = new SomeHierarchicalReader();
- * hierarchicalReader(reader);
+ * hierarchicalReader.include(reader);
  * 
  * LexicalAnalyzer lexicalAnalyzer = new ScriptBasicLexicalAnalyzer();
  * la.set(hierarchicalReader);

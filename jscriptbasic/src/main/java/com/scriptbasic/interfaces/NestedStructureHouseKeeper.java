@@ -1,5 +1,7 @@
 package com.scriptbasic.interfaces;
 
+import com.scriptbasic.exceptions.SyntaxException;
+
 /**
  * Object implementing this interface keep track of the programming structures
  * that can be nested into each other. For example loops, functions and
@@ -18,8 +20,7 @@ public interface NestedStructureHouseKeeper extends FactoryManaged {
      * @param klass
      *            is the class that we will expect when we pop this element off
      */
-    public void push(Class<?> klass,
-            NestedStructure element);
+    public void push(Class<?> klass, NestedStructure element);
 
     /**
      * Push a nested structure object on the housekeeping stack. This version of
@@ -47,14 +48,12 @@ public interface NestedStructureHouseKeeper extends FactoryManaged {
      * error as possible following the first one.
      * 
      * @param <T>
-     *            type of the element
-     * @param expectedClass
-     *            the class of the top element that we try to pop off.
+     *            expected type of the element
      * @return the top element
      * @throws SyntaxException
      *             when the top element of the stack is not the type that we
      *             expect
      */
-    public NestedStructure pop(Class<?> expectedClass)
-            throws SyntaxException;
+    public <T extends NestedStructure> T pop(
+            Class<T> expectedClass) throws SyntaxException;
 }

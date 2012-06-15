@@ -1,8 +1,8 @@
 package com.scriptbasic.executors.operators;
 
-import com.scriptbasic.executors.BasicDoubleValue;
-import com.scriptbasic.executors.BasicLongValue;
-import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.exceptions.BasicRuntimeException;
+import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
+import com.scriptbasic.executors.rightvalues.BasicLongValue;
 import com.scriptbasic.interfaces.RightValue;
 
 public class MinusOperator extends AbstractBinaryFullCircuitHalfDoubleOperator {

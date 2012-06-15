@@ -1,7 +1,7 @@
 package com.scriptbasic;
 
+import com.scriptbasic.exceptions.BasicLexicalException;
 import com.scriptbasic.lexer.BasicKeywordRecognizer;
-import com.scriptbasic.lexer.BasicLexicalException;
 
 import junit.framework.TestCase;
 
@@ -17,9 +17,9 @@ import junit.framework.TestCase;
 public class TestToExtendCoverage extends TestCase {
     public void testCover() {
         BasicLexicalException bela = new BasicLexicalException();
-        bela.fileName();
-        bela.lineNumber();
-        bela.position();
+        bela.getFileName();
+        bela.getLineNumber();
+        bela.getPosition();
         new BasicLexicalException("");
         new BasicLexicalException((Throwable) null);
         new BasicLexicalException("", null);

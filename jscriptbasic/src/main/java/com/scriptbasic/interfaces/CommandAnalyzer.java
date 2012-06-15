@@ -4,7 +4,7 @@ package com.scriptbasic.interfaces;
  * The implementing classes contain the execution code of the different program
  * commands, like 'for', 'if' and so on.
  * <p>
- * These objects are multitones, do not contain any runtime data, since many
+ * These objects are multitons, do not contain any runtime data, since many
  * interpreters may execute the same program at the same time. The code also has
  * to be thread safe.
  * <p>
@@ -17,6 +17,6 @@ package com.scriptbasic.interfaces;
  * @author Peter Verhas
  * 
  */
-public interface CommandAnalyzer extends Analyzer {
+public interface CommandAnalyzer<T extends AnalysisResult> extends Analyzer<T> {
 
 }

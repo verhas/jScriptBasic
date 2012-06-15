@@ -1,5 +1,7 @@
 package com.scriptbasic.interfaces;
 
+import com.scriptbasic.exceptions.LexicalException;
+
 /**
  * A Lexical Element Analyzer analyzes the characters coming from a reader and
  * create a LexicalElement from it. If it can not create a lexical element then

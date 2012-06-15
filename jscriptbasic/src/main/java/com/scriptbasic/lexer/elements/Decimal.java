@@ -1,7 +1,7 @@
 package com.scriptbasic.lexer.elements;
 
+import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.LexicalException;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
 import com.scriptbasic.lexer.BasicLexicalElement;
 

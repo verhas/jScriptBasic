@@ -11,11 +11,12 @@ import static com.scriptbasic.lexer.LexTestHelper.VSTRING;
 import static com.scriptbasic.lexer.LexTestHelper.assertLexicals;
 import junit.framework.TestCase;
 
+import com.scriptbasic.exceptions.LexicalException;
+import com.scriptbasic.exceptions.UnterminatedStringException;
 import com.scriptbasic.factories.FactoryFactory;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.LexicalException;
 
 public class TestBasicLexicalAnalyzer extends TestCase {
     private Factory factory = FactoryFactory.getFactory();
@@ -187,10 +188,10 @@ public class TestBasicLexicalAnalyzer extends TestCase {
 
     public void testSpaceSeparated() throws LexicalException {
         assertLexicals(
-                new LexicalElement[] { ID("alma"), LONG("123"), ID("körte"),
+                new LexicalElement[] { ID("alma"), LONG("123"), ID("k√∂rte"),
                         SYMBOL("<<"), SYMBOL(">="), SYMBOL("<<"),
                         DOUBLE("12.3"), DOUBLE("13e3"), DOUBLE("12.3e2"),
                         SSTRING("habakukk"), SYMBOL("<") },
-                createStringReading("alma 123 körte << >= << 12.3 13e3 12.3e2 \"habakukk\" <"));
+                createStringReading("alma 123 k√∂rte << >= << 12.3 13e3 12.3e2 \"habakukk\" <"));
     }
 }

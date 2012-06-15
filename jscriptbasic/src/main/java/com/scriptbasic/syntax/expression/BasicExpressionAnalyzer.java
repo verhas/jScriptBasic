@@ -88,4 +88,5 @@ public class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
             final Integer priority) {
         return getStaticOperatorMap(priority);
     }
+
 }

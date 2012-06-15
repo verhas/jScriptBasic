@@ -29,7 +29,8 @@ public class GenericFactory extends AbstractFactory {
      * This method is used by the {@see AbstractFactory} to store created
      * objects.
      */
-    <T extends FactoryManaged> void set(Class<T> klass, T analyzer) {
+    @Override
+	<T extends FactoryManaged> void set(Class<T> klass, T analyzer) {
         analyzerMap.put(klass, analyzer);
     }
 

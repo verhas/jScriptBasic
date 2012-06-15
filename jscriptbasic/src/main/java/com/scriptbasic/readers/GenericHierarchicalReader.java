@@ -2,11 +2,17 @@ package com.scriptbasic.readers;
 
 import java.util.Stack;
 
+import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.HierarchicalReader;
 import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.interfaces.SourceProvider;
 
 public class GenericHierarchicalReader implements HierarchicalReader {
+
+    @Override
+	public void setFactory(Factory factory) {
+    }
+
     private Reader reader;
 
     private final Stack<Reader> readerStack = new Stack<Reader>();

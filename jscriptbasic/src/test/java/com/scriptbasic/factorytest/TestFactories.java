@@ -3,10 +3,13 @@ package com.scriptbasic.factorytest;
 import junit.framework.TestCase;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
+import com.scriptbasic.factories.BasicFactory;
 import com.scriptbasic.factories.GenericFactory;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.FactoryManaged;
+import com.scriptbasic.readers.GenericHierarchicalReader;
 import com.scriptbasic.syntax.BasicSyntaxAnalyzer;
+import com.scriptbasic.utility.FactoryUtilities;
 
 public class TestFactories extends TestCase {
 
@@ -30,6 +33,32 @@ public class TestFactories extends TestCase {
         }
 
         private classWithManyConstructor(int a) {
+        }
+    }
+
+    private static class NullFactory implements Factory {
+
+        @Override
+        public <T extends FactoryManaged> void create(Class<T> interf4ce,
+                Class<? extends T> cl4ss) {
+        }
+
+        @Override
+        public <T extends FactoryManaged> T get(Class<T> klass) {
+            return null;
+        }
+
+        @Override
+        public void clean() {
+        }
+
+    }
+
+    private static class BadFactory extends NullFactory {
+        @SuppressWarnings("unchecked")
+		@Override
+        public <T extends FactoryManaged> T get(Class<T> klass) {
+            return (T) new GenericHierarchicalReader();
         }
     }
 
@@ -58,6 +87,37 @@ public class TestFactories extends TestCase {
         } catch (BasicInterpreterInternalError e) {
             assertTrue(e.toString().indexOf("has too many constructors") >= 0);
         }
-    }
 
+        try {
+            BasicFactory bf = new BasicFactory();
+            bf.get(NothingImplementsThis.class);
+            assertTrue("Could instantiate " + NothingImplementsThis.class,
+                    false);
+        } catch (BasicInterpreterInternalError e) {
+            // OK
+        }
+        try {
+            BasicFactory bf = new BasicFactory();
+            bf.create(ThrowErrorConstructorInterface.class,
+                    ThrowErrorConstructorClass.class);
+            bf.get(ThrowErrorConstructorInterface.class);
+            assertTrue("Could instantiate " + ThrowErrorConstructorClass.class,
+                    false);
+        } catch (BasicInterpreterInternalError e) {
+            // OK
+        }
+
+        try {
+            FactoryUtilities.getExpressionAnalyzer(new NullFactory());
+            assertTrue("NullFactory could load ExpressionAnalyzer instance",
+                    false);
+        } catch (BasicInterpreterInternalError e) {
+        }
+        try {
+            FactoryUtilities.getSyntaxAnalyzer(new BadFactory());
+            assertTrue("BadFactory could load getSyntaxAnalyzer instance",
+                    false);
+        } catch (BasicInterpreterInternalError e) {
+        }
+    }
 }

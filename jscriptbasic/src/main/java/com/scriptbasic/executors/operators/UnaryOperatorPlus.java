@@ -1,6 +1,6 @@
 package com.scriptbasic.executors.operators;
 
-import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.exceptions.BasicRuntimeException;
 import com.scriptbasic.interfaces.RightValue;
 
 public class UnaryOperatorPlus extends AbstractUnaryOperator {

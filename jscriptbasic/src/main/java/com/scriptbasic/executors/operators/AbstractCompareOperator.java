@@ -1,11 +1,11 @@
 package com.scriptbasic.executors.operators;
 
-import com.scriptbasic.executors.BasicBooleanValue;
-import com.scriptbasic.executors.BasicDoubleValue;
-import com.scriptbasic.executors.BasicJavaObjectValue;
-import com.scriptbasic.executors.BasicLongValue;
-import com.scriptbasic.executors.BasicStringValue;
-import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.exceptions.BasicRuntimeException;
+import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
+import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
+import com.scriptbasic.executors.rightvalues.BasicJavaObjectValue;
+import com.scriptbasic.executors.rightvalues.BasicLongValue;
+import com.scriptbasic.executors.rightvalues.BasicStringValue;
 import com.scriptbasic.interfaces.RightValue;
 
 public abstract class AbstractCompareOperator extends
@@ -52,7 +52,7 @@ public abstract class AbstractCompareOperator extends
         return null;
     }
 
-    protected int compareJavaObjectTo(final BasicJavaObjectValue f,
+    protected static int compareJavaObjectTo(final BasicJavaObjectValue f,
             final RightValue op) throws BasicRuntimeException {
         final Object o = BasicJavaObjectValue.convert(op);
         if (f.getValue() instanceof Comparable<?> && o instanceof Comparable<?>) {

@@ -1,5 +1,7 @@
 package com.scriptbasic.interfaces;
 
-public interface Analyzer {
-    public AnalysisResult analyze() throws SyntaxException, LexicalException;
+import com.scriptbasic.exceptions.AnalysisException;
+
+public interface Analyzer <T extends AnalysisResult>{
+    public T analyze() throws AnalysisException;
 }

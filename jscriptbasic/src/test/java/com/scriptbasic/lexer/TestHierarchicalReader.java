@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 import junit.framework.TestCase;
 
+import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.LexicalException;
 
 public class TestHierarchicalReader extends TestCase {
     public TestHierarchicalReader(final String testName) {

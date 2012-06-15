@@ -5,29 +5,36 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.scriptbasic.exceptions.AnalysisException;
+import com.scriptbasic.exceptions.CommandFactoryException;
+import com.scriptbasic.exceptions.KeywordNotImplementedException;
+import com.scriptbasic.interfaces.AnalysisResult;
 import com.scriptbasic.interfaces.CommandAnalyzer;
 import com.scriptbasic.interfaces.CommandFactory;
-import com.scriptbasic.interfaces.LexicalException;
-import com.scriptbasic.interfaces.AnalysisResult;
-import com.scriptbasic.interfaces.SyntaxException;
-import com.scriptbasic.syntax.BasicSyntaxAnalyzer;
-import com.scriptbasic.syntax.GenericSyntaxException;
-import com.scriptbasic.syntax.KeywordNotImplemented;
+import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.syntax.commandanalyzers.commands.CommandAnalyzerCall;
+import com.scriptbasic.syntax.commandanalyzers.commands.CommandAnalyzerLet;
+import com.scriptbasic.syntax.commandanalyzers.commands.CommandAnalyzerWend;
+import com.scriptbasic.syntax.commandanalyzers.commands.CommandAnalyzerWhile;
 
 public class BasicCommandFactory implements CommandFactory {
+    Factory factory;
 
-    BasicSyntaxAnalyzer syntaxAnalyzer;
-
-    public void setSyntaxAnalyzer(final BasicSyntaxAnalyzer basicSyntaxAnalyzer) {
-        this.syntaxAnalyzer = basicSyntaxAnalyzer;
-
+    public Factory getFactory() {
+        return factory;
     }
 
-    private Map<String, CommandAnalyzer> classMap = new HashMap<String, CommandAnalyzer>();
-    private List<CommandAnalyzer> classList = new LinkedList<CommandAnalyzer>();
+    @Override
+	public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
 
-    public BasicCommandFactory() {
+    private Map<String, CommandAnalyzer<?>> classMap = new HashMap<String, CommandAnalyzer<?>>();
+    private List<CommandAnalyzer<?>> classList = new LinkedList<CommandAnalyzer<?>>();
+
+    private BasicCommandFactory() {
         classMap.put("while", new CommandAnalyzerWhile());
+        classMap.put("wend", new CommandAnalyzerWend());
 
         classList.add(new CommandAnalyzerLet());
         classList.add(new CommandAnalyzerCall());
@@ -35,7 +42,7 @@ public class BasicCommandFactory implements CommandFactory {
 
     @Override
     public AnalysisResult create(final String commandKeyword)
-            throws SyntaxException, LexicalException {
+            throws AnalysisException, CommandFactoryException {
         if (commandKeyword == null) {
             return create();
         } else {
@@ -43,29 +50,25 @@ public class BasicCommandFactory implements CommandFactory {
         }
     }
 
-    private AnalysisResult create() throws SyntaxException,LexicalException {
-        for (final CommandAnalyzer commandAnalyzer : classList) {
+    private AnalysisResult create() throws AnalysisException,
+            CommandFactoryException {
+        for (final CommandAnalyzer<?> commandAnalyzer : classList) {
 
             final AnalysisResult analysisResult = commandAnalyzer.analyze();
             if (analysisResult != null) {
                 return analysisResult;
             }
         }
-        final SyntaxException se = new GenericSyntaxException(
-                "Generic syntax exception");
-        se.setLocation(this.syntaxAnalyzer.getLexicalElement());
-        throw se;
+        throw new CommandFactoryException("The line could not be analyzed");
     }
 
     private AnalysisResult createFromStartingSymbol(final String commandKeyword)
-            throws SyntaxException, LexicalException {
+            throws AnalysisException {
         if (!classMap.containsKey(commandKeyword)) {
-            final SyntaxException se = new KeywordNotImplemented(commandKeyword);
-            se.setLocation(this.syntaxAnalyzer.getLexicalElement());
-            throw se;
+            throw new KeywordNotImplementedException(commandKeyword);
         }
 
-        final CommandAnalyzer commandAnalyzer = classMap.get(commandKeyword);
+        final CommandAnalyzer<?> commandAnalyzer = classMap.get(commandKeyword);
         return commandAnalyzer.analyze();
     }
 }

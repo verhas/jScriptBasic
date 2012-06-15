@@ -1,14 +1,7 @@
 package com.scriptbasic.syntax.expression;
 
 import com.scriptbasic.executors.AbstractIdentifieredExpressionListedExpression;
-import com.scriptbasic.executors.ArrayElementAccess;
-import com.scriptbasic.executors.BasicBooleanValue;
-import com.scriptbasic.executors.BasicDoubleValue;
-import com.scriptbasic.executors.BasicLongValue;
-import com.scriptbasic.executors.BasicStringValue;
-import com.scriptbasic.executors.FunctionCall;
 import com.scriptbasic.executors.GenericExpressionList;
-import com.scriptbasic.executors.VariableAccess;
 import com.scriptbasic.executors.operators.AbstractBinaryOperator;
 import com.scriptbasic.executors.operators.AbstractUnaryOperator;
 import com.scriptbasic.executors.operators.AddOperator;
@@ -17,7 +10,15 @@ import com.scriptbasic.executors.operators.ObjectFieldAccessOperator;
 import com.scriptbasic.executors.operators.UnaryOperatorMinus;
 import com.scriptbasic.executors.operators.UnaryOperatorNot;
 import com.scriptbasic.executors.operators.UnaryOperatorPlus;
+import com.scriptbasic.executors.rightvalues.ArrayElementAccess;
+import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
+import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
+import com.scriptbasic.executors.rightvalues.BasicLongValue;
+import com.scriptbasic.executors.rightvalues.BasicStringValue;
+import com.scriptbasic.executors.rightvalues.FunctionCall;
+import com.scriptbasic.executors.rightvalues.VariableAccess;
 import com.scriptbasic.interfaces.Expression;
+import com.scriptbasic.interfaces.ExpressionList;
 
 public class ExpressionBuilder {
 
@@ -91,6 +92,14 @@ public class ExpressionBuilder {
         return funOrArray(new ArrayElementAccess(), name, indices);
     }
 
+    public static ExpressionList LIST(Expression ...expressions ){
+    	final GenericExpressionList expressionList =  new GenericExpressionList();
+    	for( Expression expression : expressions ){
+    		expressionList.add(expression);
+    	}
+    	return expressionList;
+    }
+    
     public static Expression BOOL(final Boolean b) {
         return new BasicBooleanValue(b);
     }

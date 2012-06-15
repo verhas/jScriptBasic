@@ -2,6 +2,8 @@ package com.scriptbasic.interfaces;
 
 import java.io.IOException;
 
+import com.scriptbasic.exceptions.LexicalException;
+
 import junit.framework.TestCase;
 
 public class TestLexicalException extends TestCase {
@@ -15,17 +17,17 @@ public class TestLexicalException extends TestCase {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public String fileName() {
+            public String getFileName() {
                 return null;
             }
 
             @Override
-            public int lineNumber() {
+            public int getLineNumber() {
                 return 0;
             }
 
             @Override
-            public int position() {
+            public int getPosition() {
                 return 0;
             }
 

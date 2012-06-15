@@ -5,11 +5,11 @@ import java.io.StringReader;
 
 import junit.framework.Assert;
 
+import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.factories.FactoryFactory;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.LexicalException;
 import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.readers.GenericHierarchicalReader;
 import com.scriptbasic.readers.GenericReader;

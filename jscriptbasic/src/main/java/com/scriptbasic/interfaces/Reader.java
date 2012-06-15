@@ -14,7 +14,7 @@ package com.scriptbasic.interfaces;
  * @author Peter Verhas
  * 
  */
-public interface Reader {
+public interface Reader extends FactoryManaged {
 
     public void set(String sourceFileName);
 

@@ -14,7 +14,8 @@ public class BasicProgram implements Program {
         return factory;
     }
 
-    public void setFactory(Factory factory) {
+    @Override
+	public void setFactory(Factory factory) {
         this.factory = factory;
     }
 

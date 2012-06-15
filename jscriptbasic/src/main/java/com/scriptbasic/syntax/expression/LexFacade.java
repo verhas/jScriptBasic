@@ -1,10 +1,10 @@
 package com.scriptbasic.syntax.expression;
 
+import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.exceptions.LexicalException;
+import com.scriptbasic.exceptions.SyntaxException;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.LexicalException;
-import com.scriptbasic.interfaces.SyntaxException;
-import com.scriptbasic.syntax.GenericSyntaxException;
 
 public class LexFacade {
     public static LexicalElement peek(final LexicalAnalyzer lexicalAnalyzer)

@@ -1,5 +1,7 @@
 package com.scriptbasic.interfaces;
 
+import com.scriptbasic.exceptions.LexicalException;
+
 /**
  * A generic lexical analyzer that reads the characters from a reader and
  * returns the LexicalElements one after the other.

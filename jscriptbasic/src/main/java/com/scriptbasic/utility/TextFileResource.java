@@ -8,12 +8,19 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class TextFileResource {
+    private static Logger log = LoggerFactory.getLogger(TextFileResource.class);
     ArrayList<String> lines = null;
 
     public TextFileResource(final Class<? extends Object> loadingClass,
             final String fileName) throws IOException {
         final InputStream is = loadingClass.getResourceAsStream(fileName);
+        if (is == null) {
+            log.error("The file '" + fileName + "' can not be opened.");
+        }
         final BufferedReader reader = new BufferedReader(new InputStreamReader(
                 is));
         String line = reader.readLine();

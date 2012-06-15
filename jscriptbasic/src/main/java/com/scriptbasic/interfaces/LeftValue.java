@@ -7,6 +7,6 @@ package com.scriptbasic.interfaces;
  * @author Peter Verhas
  * 
  */
-public interface LeftValue extends Value {
-
+public interface LeftValue extends Value, AnalysisResult {
+    public void setValue(RightValue rightValue) throws Exception;
 }
