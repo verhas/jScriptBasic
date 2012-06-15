@@ -1,6 +1,7 @@
 package com.scriptbasic.syntax.commandanalyzers;
 
 import com.scriptbasic.exceptions.AnalysisException;
+import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.CommandAnalyzer;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalElement;
@@ -8,7 +9,7 @@ import com.scriptbasic.syntax.AbstractAnalyzer;
 import com.scriptbasic.utility.FactoryUtilities;
 import com.scriptbasic.utility.SyntaxExceptionUtility;
 
-public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer
+public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
         implements CommandAnalyzer {
     private Factory factory;
 
