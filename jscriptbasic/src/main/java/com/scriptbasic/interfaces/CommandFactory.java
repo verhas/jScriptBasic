@@ -34,13 +34,12 @@ public interface CommandFactory extends FactoryManaged {
      * Register a new command analyzer that the factory will use to analyze a
      * line. The analyzer will be used to analyze a line if the line starts with
      * the {@code keyword}.
-     * 
-     * @param keyword
+     * @param keywords
      *            the keyword the line should start when this command is to be
      *            analyzed or {@code null} if this analyzer analyzes a line that
      *            does not start with a specific keyword
      * @param analyzer
      *            the command analyzer for the specific keyword
      */
-    void registerCommandAnalyzer(String keyword, CommandAnalyzer analyzer);
+    void registerCommandAnalyzer(String keywords, CommandAnalyzer analyzer);
 }

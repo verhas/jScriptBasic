@@ -15,6 +15,7 @@ import junit.framework.TestCase;
  * @date Jun 8, 2012
  */
 public class TestToExtendCoverage extends TestCase {
+    @SuppressWarnings("static-method")
     public void testCover() {
         BasicLexicalException bela = new BasicLexicalException();
         bela.getFileName();

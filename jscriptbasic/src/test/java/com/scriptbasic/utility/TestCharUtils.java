@@ -9,6 +9,7 @@ public class TestCharUtils extends TestCase {
         super(testName);
     }
 
+    @SuppressWarnings("static-method")
     public void test() throws IOException {
         assertTrue(CharUtils.isNewLine((int) '\n'));
         for (int i = 0; i < 10; i++) {

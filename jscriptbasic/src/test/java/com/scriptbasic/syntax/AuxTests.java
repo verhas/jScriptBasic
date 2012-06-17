@@ -13,6 +13,7 @@ import com.scriptbasic.utility.SyntaxExceptionUtility;
 
 public class AuxTests extends TestCase {
 
+    @SuppressWarnings("static-method")
     public void testExceptions() {
         new SyntaxExceptionUtility();
         new FactoryUtilities();

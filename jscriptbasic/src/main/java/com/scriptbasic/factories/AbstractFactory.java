@@ -2,6 +2,7 @@ package com.scriptbasic.factories;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.interfaces.Factory;
@@ -25,54 +26,61 @@ import com.scriptbasic.interfaces.FactoryManaged;
 @SuppressWarnings("javadoc")
 public abstract class AbstractFactory implements Factory {
 
-	@Override
-	public <T extends FactoryManaged> void create(Class<T> interf4ce,
-			Class<? extends T> klass) {
-		assertInterface(interf4ce);
-		assertPattern(klass);
-		try {
-			Constructor<? extends T> constructor = klass
-					.getDeclaredConstructor();
-			constructor.setAccessible(true);
-			T object = constructor.newInstance();
-			set(interf4ce, object);
-			object.setFactory(this);
-		} catch (Exception e) {
-			throw new BasicInterpreterInternalError("Can not instantiate "
-					+ klass);
-		}
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T extends FactoryManaged> void create(Class<T> interf4ce,
+            Class<? extends T> klass) {
+        assertInterface(interf4ce);
+        assertPattern(klass);
+        try {
+            Constructor<? extends T> constructor = (Constructor<? extends T>) klass
+                    .getDeclaredConstructors()[0];
+            constructor.setAccessible(true);
+            Class<?>[] parameterTypes = constructor.getParameterTypes();
+            T object;
+            if (parameterTypes.length == 0) {
+                object = constructor.newInstance();
+            } else {
+                object = constructor.newInstance(new Object[] { this });
+            }
+            set(interf4ce, object);
+            object.setFactory(this);
+        } catch (Exception e) {
+            throw new BasicInterpreterInternalError("Can not instantiate "
+                    + klass);
+        }
+    }
 
-	protected static void assertPattern(Class<? extends FactoryManaged> klass) {
-		Constructor<?>[] constructors = klass.getDeclaredConstructors();
-		if (constructors.length != 1) {
-			throw new BasicInterpreterInternalError("The class " + klass
-					+ " has too many constructors");
-		}
-		Constructor<?> constructor = constructors[0];
-		if (Modifier.isPublic(constructor.getModifiers())) {
-			throw new BasicInterpreterInternalError("The class " + klass
-					+ " has public constructor");
-		}
-	}
+    protected static void assertPattern(Class<? extends FactoryManaged> klass) {
+        Constructor<?>[] constructors = klass.getDeclaredConstructors();
+        if (constructors.length != 1) {
+            throw new BasicInterpreterInternalError("The class " + klass
+                    + " has too many constructors");
+        }
+        Constructor<?> constructor = constructors[0];
+        if (Modifier.isPublic(constructor.getModifiers())) {
+            throw new BasicInterpreterInternalError("The class " + klass
+                    + " has public constructor");
+        }
+    }
 
-	protected static void assertInterface(Class<? extends FactoryManaged> klass) {
-		if (!klass.isInterface()) {
-			throw new BasicInterpreterInternalError("The class " + klass
-					+ " is not an interface.");
-		}
-	}
+    protected static void assertInterface(Class<? extends FactoryManaged> klass) {
+        if (!klass.isInterface()) {
+            throw new BasicInterpreterInternalError("The class " + klass
+                    + " is not an interface.");
+        }
+    }
 
-	/**
-	 * Concrete implementation of this abstract method should store the object
-	 * {@code object} associated with the class {@code interf4ce}. Since the
-	 * storage of the objects is implementation dependent and different
-	 * implementation of the interface {@see Factory} store the objects and the
-	 * classes different ways this method is abstract here.
-	 * 
-	 * @param interf4ce
-	 * @param object
-	 */
-	abstract <T extends FactoryManaged> void set(Class<T> interf4ce, T object);
+    /**
+     * Concrete implementation of this abstract method should store the object
+     * {@code object} associated with the class {@code interf4ce}. Since the
+     * storage of the objects is implementation dependent and different
+     * implementation of the interface {@see Factory} store the objects and the
+     * classes different ways this method is abstract here.
+     * 
+     * @param interf4ce
+     * @param object
+     */
+    abstract <T extends FactoryManaged> void set(Class<T> interf4ce, T object);
 
 }

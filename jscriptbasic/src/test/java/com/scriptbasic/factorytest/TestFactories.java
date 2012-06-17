@@ -64,6 +64,7 @@ public class TestFactories extends TestCase {
         }
     }
 
+    @SuppressWarnings("static-method")
     public void testFactories() throws Exception {
         Factory factory = new GenericFactory();
         factory.create(FactoryManaged.class, BasicSyntaxAnalyzer.class);

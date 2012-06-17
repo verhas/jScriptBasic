@@ -1,20 +1,11 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 
-public class CommandWhile extends AbstractCommand {
-    private Command wendNode;
-
-    public Command getWendNode() {
-        return wendNode;
-    }
-
-    public void setWendNode(Command wendNode) {
-        this.wendNode = wendNode;
-    }
-
+public class CommandIf extends AbstractCommand implements IfOrElse {
+    private CommandElse elseNode;
+    private CommandEndIf endIfNode;
     private Expression condition;
 
     public Expression getCondition() {
@@ -23,6 +14,22 @@ public class CommandWhile extends AbstractCommand {
 
     public void setCondition(Expression condition) {
         this.condition = condition;
+    }
+
+    public CommandElse getElseNode() {
+        return elseNode;
+    }
+
+    public void setElseNode(CommandElse elseNode) {
+        this.elseNode = elseNode;
+    }
+
+    public CommandEndIf getEndIfNode() {
+        return endIfNode;
+    }
+
+    public void setEndIfNode(CommandEndIf endIfNode) {
+        this.endIfNode = endIfNode;
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.scriptbasic.interfaces.LeftValueAnalyzer;
 import com.scriptbasic.interfaces.LeftValueListAnalyzer;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.BuildableProgram;
+import com.scriptbasic.interfaces.NestedStructureHouseKeeper;
 import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.interfaces.SyntaxAnalyzer;
 import com.scriptbasic.interfaces.TagAnalyzer;
@@ -21,6 +22,7 @@ import com.scriptbasic.readers.GenericHierarchicalReader;
 import com.scriptbasic.readers.GenericReader;
 import com.scriptbasic.syntax.BasicProgram;
 import com.scriptbasic.syntax.BasicSyntaxAnalyzer;
+import com.scriptbasic.syntax.GenericNestedStructureHouseKeeper;
 import com.scriptbasic.syntax.commandanalyzers.BasicCommandFactory;
 import com.scriptbasic.syntax.expression.BasicExpressionAnalyzer;
 import com.scriptbasic.syntax.expression.BasicExpressionListAnalyzer;
@@ -61,6 +63,7 @@ public class BasicFactory extends GenericFactory {
 		classMapping.put(CommandFactory.class, BasicCommandFactory.class);
 		classMapping.put(LeftValueAnalyzer.class, BasicLeftValueAnalyzer.class);
 		classMapping.put(LeftValueListAnalyzer.class, BasicLeftValueListAnalyzer.class);
+		classMapping.put(NestedStructureHouseKeeper.class, GenericNestedStructureHouseKeeper.class);
 	}
 
 	/**

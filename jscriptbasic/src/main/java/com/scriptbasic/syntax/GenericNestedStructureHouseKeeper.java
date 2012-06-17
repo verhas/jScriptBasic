@@ -12,6 +12,10 @@ import com.scriptbasic.interfaces.NestedStructure;
  */
 public class GenericNestedStructureHouseKeeper extends
         AbstractNestedStructureHouseKeeper {
+
+    private GenericNestedStructureHouseKeeper() {
+    }
+
     @Override
     public <T extends NestedStructure> T pop(final Class<T> expectedClass)
             throws SyntaxException {

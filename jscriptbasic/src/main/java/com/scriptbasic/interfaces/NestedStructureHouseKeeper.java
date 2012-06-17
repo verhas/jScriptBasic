@@ -54,6 +54,6 @@ public interface NestedStructureHouseKeeper extends FactoryManaged {
      *             when the top element of the stack is not the type that we
      *             expect
      */
-    <T extends NestedStructure> T pop(
-            Class<T> expectedClass) throws SyntaxException;
+    <T extends NestedStructure> T pop(Class<T> expectedClass)
+            throws SyntaxException;
 }

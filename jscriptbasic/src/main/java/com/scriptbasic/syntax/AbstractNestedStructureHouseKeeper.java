@@ -26,7 +26,7 @@ public abstract class AbstractNestedStructureHouseKeeper implements
     }
 
     @Override
-	public void setFactory(Factory factory) {
+    public void setFactory(Factory factory) {
         this.factory = factory;
     }
 
@@ -74,10 +74,10 @@ public abstract class AbstractNestedStructureHouseKeeper implements
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends NestedStructure> T pop(
-            Class<T> expectedClass) throws SyntaxException {
+    public <T extends NestedStructure> T pop(Class<T> expectedClass)
+            throws SyntaxException {
         Structure stackFrame = stack.peek();
-        if (!expectedClass.equals(stackFrame.getElementType())) {
+        if (!expectedClass.isAssignableFrom(stackFrame.getElementType())) {
             stackIsHealthy = false;
             SyntaxException se = new GenericSyntaxException(
                     "Bad nested structures");
@@ -95,6 +95,6 @@ public abstract class AbstractNestedStructureHouseKeeper implements
         } else {
             stack.pop();
         }
-        return (T)(stackFrame == null ? null : stackFrame.getPushedElement());
+        return (T) (stackFrame == null ? null : stackFrame.getPushedElement());
     }
 }

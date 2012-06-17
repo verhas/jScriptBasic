@@ -20,6 +20,7 @@ public class TestHierarchicalReader extends TestCase {
         super(testName);
     }
 
+    @SuppressWarnings("static-method")
     public void testOneInclude() throws LexicalException, IOException {
         assertLexicals(new LexicalElement[] { ID("identifier"), SYMBOL("\n"),
                 SYMBOL("<<<"), SYMBOL("\n"), SSTRING("string") },
@@ -28,6 +29,7 @@ public class TestHierarchicalReader extends TestCase {
                         "<<<\n" }));
     }
 
+    @SuppressWarnings("static-method")
     public void testFileNotFound() throws LexicalException, IOException {
         try {
             assertLexicals(new LexicalElement[] { ID("identifier"),
@@ -71,6 +73,7 @@ public class TestHierarchicalReader extends TestCase {
                 createStringArrayReading(files.toArray(new String[files.size()])));
     }
 
+    @SuppressWarnings("static-method")
     public void testCircularReference() throws LexicalException, IOException {
         final ArrayList<LexicalElement> lexes = new ArrayList<LexicalElement>();
         final ArrayList<String> files = new ArrayList<String>();

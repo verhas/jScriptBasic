@@ -3,6 +3,8 @@ end
 next
 let
 if
+endif
+then
 while
 wend
 else

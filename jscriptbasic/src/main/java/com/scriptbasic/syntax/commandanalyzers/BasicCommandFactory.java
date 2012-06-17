@@ -8,6 +8,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.exceptions.AnalysisException;
 import com.scriptbasic.exceptions.CommandFactoryException;
 import com.scriptbasic.exceptions.KeywordNotImplementedException;
@@ -16,12 +17,13 @@ import com.scriptbasic.interfaces.CommandAnalyzer;
 import com.scriptbasic.interfaces.CommandFactory;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.syntax.commandanalyzers.commands.CommandAnalyzerCall;
+import com.scriptbasic.syntax.commandanalyzers.commands.CommandAnalyzerElse;
+import com.scriptbasic.syntax.commandanalyzers.commands.CommandAnalyzerEndIf;
+import com.scriptbasic.syntax.commandanalyzers.commands.CommandAnalyzerIf;
 import com.scriptbasic.syntax.commandanalyzers.commands.CommandAnalyzerLet;
 import com.scriptbasic.syntax.commandanalyzers.commands.CommandAnalyzerWend;
 import com.scriptbasic.syntax.commandanalyzers.commands.CommandAnalyzerWhile;
 
-//TODO extend the code to handle the case when there are more than one commands that start with a specific 
-// keyword, for example END FUNCTION, END IF
 public final class BasicCommandFactory implements CommandFactory {
     private static Logger log = LoggerFactory
             .getLogger(BasicCommandFactory.class);
@@ -53,16 +55,27 @@ public final class BasicCommandFactory implements CommandFactory {
         } else {
             classMap.put(keyword, analyzer);
         }
+        if (analyzer instanceof AbstractCommandAnalyzer) {
+            if (getFactory() == null) {
+                throw new BasicInterpreterInternalError(
+                        "BasicCommandFactory's factory is null, not initialized yet");
+            }
+            ((AbstractCommandAnalyzer) analyzer).setFactory(getFactory());
+        }
     }
 
     private void registerCommandAnalyzer(CommandAnalyzer analyzer) {
         registerCommandAnalyzer(null, analyzer);
     }
 
-    private BasicCommandFactory() {
+    private BasicCommandFactory(Factory factory) {
+        this.factory = factory;
         registerCommandAnalyzer("while", new CommandAnalyzerWhile());
         registerCommandAnalyzer("wend", new CommandAnalyzerWend());
-
+        registerCommandAnalyzer("if", new CommandAnalyzerIf());
+        registerCommandAnalyzer("else", new CommandAnalyzerElse());
+        registerCommandAnalyzer("endif", new CommandAnalyzerEndIf());
+        
         registerCommandAnalyzer(new CommandAnalyzerLet());
         registerCommandAnalyzer(new CommandAnalyzerCall());
     }
@@ -97,11 +110,13 @@ public final class BasicCommandFactory implements CommandFactory {
 
     private Command createFromStartingSymbol(final String commandKeyword)
             throws AnalysisException {
-        if (!classMap.containsKey(commandKeyword)) {
+        final String loverCaseCommandKeyword = commandKeyword.toLowerCase();
+        if (!classMap.containsKey(loverCaseCommandKeyword)) {
             throw new KeywordNotImplementedException(commandKeyword);
         }
 
-        final CommandAnalyzer commandAnalyzer = classMap.get(commandKeyword);
+        final CommandAnalyzer commandAnalyzer = classMap
+                .get(loverCaseCommandKeyword);
         return commandAnalyzer.analyze();
     }
 

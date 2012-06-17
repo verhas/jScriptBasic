@@ -11,6 +11,7 @@ public class TestLexicalException extends TestCase {
         super(testName);
     }
 
+    @SuppressWarnings("static-method")
     public void test() throws IOException {
         class TestedLexicalException extends LexicalException {
 

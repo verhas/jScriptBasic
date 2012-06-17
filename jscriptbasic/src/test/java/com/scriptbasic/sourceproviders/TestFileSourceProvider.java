@@ -18,6 +18,7 @@ public class TestFileSourceProvider extends TestCase {
     private static final String testFileName = "testFileName";
     private static final String testStringToFile = "hallo hallo";
 
+    @SuppressWarnings("static-method")
     public void testFSP() throws IOException {
         // create the test file
         final File file = new File(tempDir + ps + testFileName);
@@ -40,6 +41,7 @@ public class TestFileSourceProvider extends TestCase {
         file.delete();
     }
 
+    @SuppressWarnings("static-method")
     public void testFSPFileNotFound() {
         final FileSourceProvider fsp = new FileSourceProvider();
         fsp.setSourcePath(new BasicSourcePath());
