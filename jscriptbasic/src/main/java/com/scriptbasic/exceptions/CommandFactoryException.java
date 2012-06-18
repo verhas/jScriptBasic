@@ -1,6 +1,8 @@
 package com.scriptbasic.exceptions;
 
-public class CommandFactoryException extends Exception {
+import com.scriptbasic.interfaces.AnalysisException;
+
+public class CommandFactoryException extends AnalysisException {
 
     /**
      * 

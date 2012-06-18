@@ -1,6 +1,5 @@
 package com.scriptbasic.interfaces;
 
-import com.scriptbasic.exceptions.BasicRuntimeException;
 /**
  * Evaluator evaluates something (probably an {@code Expression} and result a value.
  * @author Peter Verhas

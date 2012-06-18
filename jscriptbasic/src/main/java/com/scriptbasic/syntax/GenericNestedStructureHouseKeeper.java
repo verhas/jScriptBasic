@@ -1,7 +1,7 @@
 package com.scriptbasic.syntax;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
-import com.scriptbasic.exceptions.SyntaxException;
+import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.NestedStructure;
 
 /**
@@ -18,7 +18,7 @@ public class GenericNestedStructureHouseKeeper extends
 
     @Override
     public <T extends NestedStructure> T pop(final Class<T> expectedClass)
-            throws SyntaxException {
+            throws AnalysisException {
         if (isStackIsHealthy()) {
             return super.pop(expectedClass);
         } else {

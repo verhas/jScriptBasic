@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.exceptions.BasicLexicalException;
-import com.scriptbasic.exceptions.LexicalException;
+import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.HierarchicalReader;
 import com.scriptbasic.interfaces.LexicalElement;
@@ -31,7 +31,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     }
 
     @Override
-	public void setFactory(Factory factory) {
+    public void setFactory(Factory factory) {
         this.factory = factory;
     }
 
@@ -72,7 +72,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     private LexicalElement peekElement = null;
 
     @Override
-    public LexicalElement get() throws LexicalException {
+    public LexicalElement get() throws AnalysisException {
         LexicalElement le = null;
         le = peek();
         this.peekElement = null;
@@ -83,7 +83,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
      * {@inheritDoc}
      */
     @Override
-    public LexicalElement peek() throws LexicalException {
+    public LexicalElement peek() throws AnalysisException {
         if (this.peekElement == null) {
             if (!this.lexicalElementQueueIterator.hasNext()) {
                 readTheNextLine();
@@ -114,7 +114,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
                 && stringIsIncludeOrImport(le.getLexeme());
     }
 
-    private void readTheNextLine() throws LexicalException {
+    private void readTheNextLine() throws AnalysisException {
         Boolean lineEndFound = false;
         emptyLexicalElementQueue();
         Integer ch;
@@ -149,7 +149,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
         }
     }
 
-    private void processSourceInclude() throws LexicalException {
+    private void processSourceInclude() throws AnalysisException {
         resetLine();
         final GenericHierarchicalReader hreader = (GenericHierarchicalReader) this.reader;
         if (!this.lexicalElementQueue.isEmpty()) {

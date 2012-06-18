@@ -7,7 +7,7 @@ package com.scriptbasic.exceptions;
  * @author Peter Verhas
  * 
  */
-public abstract class LexicalException extends AnalysisException {
+public abstract class LexicalException extends GeneralAnalysisException {
 
     public LexicalException() {
         super();

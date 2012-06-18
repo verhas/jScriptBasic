@@ -16,13 +16,14 @@ import static com.scriptbasic.syntax.expression.ExpressionBuilder.unaryMinus;
 import static com.scriptbasic.syntax.expression.ExpressionBuilder.variable;
 import junit.framework.TestCase;
 
-import com.scriptbasic.exceptions.AnalysisException;
 import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.exceptions.SyntaxException;
 import com.scriptbasic.factories.BasicFactory;
+import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
+import com.scriptbasic.syntax.LexFacade;
 import com.scriptbasic.utility.FactoryUtilities;
 
 @SuppressWarnings("static-method")
@@ -31,9 +32,9 @@ public class TestBasicExpressionAnalyzer extends TestCase {
     private static final Expression[] nullExpression = null;
     private static Factory factory = new BasicFactory();
 
-	private static Expression compile(final String s) throws AnalysisException {
+    private static Expression compile(final String s) throws AnalysisException {
         factory.clean();
-        final LexicalAnalyzer la = createStringReading(factory,s);
+        final LexicalAnalyzer la = createStringReading(factory, s);
         final BasicExpressionAnalyzer bea = (BasicExpressionAnalyzer) FactoryUtilities
                 .getExpressionAnalyzer(factory);
         final Expression e = bea.analyze();
@@ -45,7 +46,8 @@ public class TestBasicExpressionAnalyzer extends TestCase {
         return e;
     }
 
-    private static void testAppleMultiplyBypeach(final String s) throws Exception {
+    private static void testAppleMultiplyBypeach(final String s)
+            throws Exception {
         ExpressionComparator.assertEqual(compile(s),
                 multiply(variable("apple"), variable("peach")));
     }
@@ -58,7 +60,7 @@ public class TestBasicExpressionAnalyzer extends TestCase {
         testAppleMultiplyBypeach("apple *( peach)");
     }
 
-	public void testCorrectExpressions() throws Exception {
+    public void testCorrectExpressions() throws Exception {
         new ExpressionBuilder(); // just for the coverage
 
         ExpressionComparator.assertEqual(compile("-not 3"),

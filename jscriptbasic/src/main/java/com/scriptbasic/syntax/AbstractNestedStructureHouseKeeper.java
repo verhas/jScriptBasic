@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.exceptions.SyntaxException;
+import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
@@ -75,7 +76,7 @@ public abstract class AbstractNestedStructureHouseKeeper implements
     @SuppressWarnings("unchecked")
     @Override
     public <T extends NestedStructure> T pop(Class<T> expectedClass)
-            throws SyntaxException {
+            throws AnalysisException {
         Structure stackFrame = stack.peek();
         if (!expectedClass.isAssignableFrom(stackFrame.getElementType())) {
             stackIsHealthy = false;

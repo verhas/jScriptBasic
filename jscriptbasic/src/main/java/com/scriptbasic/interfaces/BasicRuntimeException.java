@@ -1,4 +1,4 @@
-package com.scriptbasic.exceptions;
+package com.scriptbasic.interfaces;
 
 public class BasicRuntimeException extends Exception {
 

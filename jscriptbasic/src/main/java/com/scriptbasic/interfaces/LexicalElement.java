@@ -62,6 +62,18 @@ public interface LexicalElement extends SourceLocationBound {
 
     Boolean isSymbol();
 
+    /**
+     * Return true if the lexical element is a symbol and the lexeme matches the
+     * the actual symbol.
+     * 
+     * @param lexeme
+     *            to match by the lexical element. The parameter must not ne
+     *            {@code null}.
+     * @return true if the lexical element is a symbol and the lexeme matches
+     *         the parameter {@code lexeme}.
+     */
+    Boolean isSymbol(String lexeme);
+
     Boolean isLineTerminator();
 
     int TYPE_STRING = 0;

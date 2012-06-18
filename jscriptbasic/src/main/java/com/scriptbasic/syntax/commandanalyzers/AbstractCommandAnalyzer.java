@@ -1,7 +1,7 @@
 package com.scriptbasic.syntax.commandanalyzers;
 
-import com.scriptbasic.exceptions.AnalysisException;
 import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.CommandAnalyzer;
 import com.scriptbasic.interfaces.Expression;
@@ -28,17 +28,16 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
 
     abstract protected String getName();
 
-    protected Expression analyzeExpression() throws AnalysisException{
-        return FactoryUtilities.getExpressionAnalyzer(
-                getFactory()).analyze();
+    protected Expression analyzeExpression() throws AnalysisException {
+        return FactoryUtilities.getExpressionAnalyzer(getFactory()).analyze();
     }
-    
-    protected void pushNodeOnTheAnalysisStack(NestedStructure node){
+
+    protected void pushNodeOnTheAnalysisStack(NestedStructure node) {
         NestedStructureHouseKeeper nshk = FactoryUtilities
                 .getNestedStructureHouseKeeper(getFactory());
         nshk.push(node);
     }
-    
+
     /**
      * Ensures that the appropriate keyword is on the line. Also it eats up that
      * keyword.
@@ -51,8 +50,7 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
     protected void assertKeyWord(String keyword) throws AnalysisException {
         LexicalElement lexicalElement = FactoryUtilities.getLexicalAnalyzer(
                 getFactory()).get();
-        if (lexicalElement == null || !lexicalElement.isSymbol()
-                || !keyword.equalsIgnoreCase(lexicalElement.getLexeme())) {
+        if (lexicalElement == null || !lexicalElement.isSymbol(keyword)) {
             throw new GenericSyntaxException("There is no '" + keyword
                     + "' after the '" + getName() + "'", lexicalElement);
         }
@@ -62,12 +60,13 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
      * Checks that there are no extra characters on a program line when the line
      * analyzer thinks that it has finished analyzing the line. If there are
      * some extra characters on the line then throws syntax error exception.
+     * Otherwise it simply steps the lexical analyzer iterator over the EOL
+     * symbol.
      * 
      * @throws AnalysisException
      *             when there are extra character on the actual line
      */
-    protected void assertThereAreNoSuperflouosCharactersOnTheLine()
-            throws AnalysisException {
+    protected void consumeEndOfLine() throws AnalysisException {
         LexicalElement le = FactoryUtilities.getLexicalAnalyzer(factory).get();
         if (le != null && !le.isLineTerminator()) {
             SyntaxExceptionUtility.throwSyntaxException(

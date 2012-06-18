@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import junit.framework.TestCase;
 
-import com.scriptbasic.exceptions.LexicalException;
+import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.LexicalElement;
 
 public class TestHierarchicalReader extends TestCase {
@@ -21,7 +21,7 @@ public class TestHierarchicalReader extends TestCase {
     }
 
     @SuppressWarnings("static-method")
-    public void testOneInclude() throws LexicalException, IOException {
+    public void testOneInclude() throws AnalysisException, IOException {
         assertLexicals(new LexicalElement[] { ID("identifier"), SYMBOL("\n"),
                 SYMBOL("<<<"), SYMBOL("\n"), SSTRING("string") },
                 createStringArrayReading(new String[] { "main",
@@ -30,7 +30,7 @@ public class TestHierarchicalReader extends TestCase {
     }
 
     @SuppressWarnings("static-method")
-    public void testFileNotFound() throws LexicalException, IOException {
+    public void testFileNotFound() throws AnalysisException, IOException {
         try {
             assertLexicals(new LexicalElement[] { ID("identifier"),
                     SYMBOL("\n"), SYMBOL("<<<"), SYMBOL("\n"),
@@ -38,7 +38,7 @@ public class TestHierarchicalReader extends TestCase {
                     "main", "identifier\ninclude \"nonexistent\"\n\"string\"",
                     "sub1", "<<<\n" }));
             assertTrue("Code should not get here", false);
-        } catch (final LexicalException lex) {
+        } catch (final AnalysisException lex) {
             // OK
         }
     }
@@ -63,7 +63,7 @@ public class TestHierarchicalReader extends TestCase {
         }
     }
 
-    public void testMultiInclude() throws LexicalException, IOException {
+    public void testMultiInclude() throws AnalysisException, IOException {
         final ArrayList<LexicalElement> lexes = new ArrayList<LexicalElement>();
         final ArrayList<String> files = new ArrayList<String>();
         final int level = 20;
@@ -74,7 +74,7 @@ public class TestHierarchicalReader extends TestCase {
     }
 
     @SuppressWarnings("static-method")
-    public void testCircularReference() throws LexicalException, IOException {
+    public void testCircularReference() throws AnalysisException, IOException {
         final ArrayList<LexicalElement> lexes = new ArrayList<LexicalElement>();
         final ArrayList<String> files = new ArrayList<String>();
         files.add("foo");
@@ -87,7 +87,7 @@ public class TestHierarchicalReader extends TestCase {
                     createStringArrayReading(files.toArray(new String[files
                             .size()])));
             assertTrue("Circular reference did not throw error", false);
-        } catch (final LexicalException lex) {
+        } catch (final AnalysisException lex) {
             // this is ok
         }
     }

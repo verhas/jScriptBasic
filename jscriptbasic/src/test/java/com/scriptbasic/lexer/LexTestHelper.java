@@ -5,12 +5,13 @@ import java.io.StringReader;
 
 import junit.framework.Assert;
 
-import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.factories.FactoryFactory;
+import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.Reader;
+import com.scriptbasic.lexer.elements.ScriptBasicLexicalAnalyzer;
 import com.scriptbasic.readers.GenericHierarchicalReader;
 import com.scriptbasic.readers.GenericReader;
 import com.scriptbasic.sourceproviders.StringSourceProvider;
@@ -100,7 +101,7 @@ public class LexTestHelper {
     }
 
     static void assertLexicals(final LexicalElement[] lea,
-            final LexicalAnalyzer la) throws LexicalException {
+            final LexicalAnalyzer la) throws AnalysisException {
         for (final LexicalElement le : lea) {
             final LexicalElement le1 = la.get();
             Assert.assertNotNull(
@@ -108,9 +109,8 @@ public class LexTestHelper {
                             + le.getLexeme(), le1);
             Assert.assertEquals("different types of lexemes " + le.getLexeme()
                     + " vs " + le1.getLexeme(), le.getType(), le1.getType());
-            Assert.assertEquals(
-                    "different lexemes " + le.getLexeme() + " vs " + le1.getLexeme(),
-                    le.getLexeme(), le1.getLexeme());
+            Assert.assertEquals("different lexemes " + le.getLexeme() + " vs "
+                    + le1.getLexeme(), le.getLexeme(), le1.getLexeme());
             switch (le.getType()) {
             case LexicalElement.TYPE_DOUBLE:
                 Assert.assertEquals("different double values",
@@ -131,7 +131,8 @@ public class LexTestHelper {
         }
     }
 
-    public static LexicalAnalyzer createStringReading(final Factory factory,final String s) {
+    public static LexicalAnalyzer createStringReading(final Factory factory,
+            final String s) {
         final java.io.Reader r = new StringReader(s);
         final GenericReader reader = new GenericReader();
         reader.set(r);
@@ -142,20 +143,22 @@ public class LexTestHelper {
         return la;
     }
 
-    static LexicalAnalyzer createMStringReading(final Factory factory,final String s) {
-        return createStringReading(factory,"\"\"\"" + s + "\"\"\"");
+    static LexicalAnalyzer createMStringReading(final Factory factory,
+            final String s) {
+        return createStringReading(factory, "\"\"\"" + s + "\"\"\"");
     }
 
-    static LexicalAnalyzer createSStringReading(final Factory factory,final String s) {
-        return createStringReading(factory,"\"" + s + "\"");
+    static LexicalAnalyzer createSStringReading(final Factory factory,
+            final String s) {
+        return createStringReading(factory, "\"" + s + "\"");
     }
 
-    static LexicalAnalyzer createVStringReading(final Factory factory,final String s,
-            final boolean multiline) {
+    static LexicalAnalyzer createVStringReading(final Factory factory,
+            final String s, final boolean multiline) {
         if (multiline) {
-            return createMStringReading(factory,s);
+            return createMStringReading(factory, s);
         } else {
-            return createSStringReading(factory,s);
+            return createSStringReading(factory, s);
         }
     }
 

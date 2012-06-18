@@ -1,6 +1,5 @@
 package com.scriptbasic.interfaces;
 
-import com.scriptbasic.exceptions.SyntaxException;
 
 /**
  * Object implementing this interface keep track of the programming structures
@@ -50,10 +49,10 @@ public interface NestedStructureHouseKeeper extends FactoryManaged {
      * @param <T>
      *            expected type of the element
      * @return the top element
-     * @throws SyntaxException
+     * @throws AnalysisException
      *             when the top element of the stack is not the type that we
      *             expect
      */
     <T extends NestedStructure> T pop(Class<T> expectedClass)
-            throws SyntaxException;
+            throws AnalysisException;
 }

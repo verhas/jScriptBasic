@@ -1,13 +1,13 @@
 package com.scriptbasic.syntax;
 
-import com.scriptbasic.exceptions.AnalysisException;
 import com.scriptbasic.exceptions.CommandFactoryException;
 import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.CommandFactory;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.SyntaxAnalyzer;
 import com.scriptbasic.utility.FactoryUtilities;
 
@@ -39,20 +39,22 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
     @Override
     public BuildableProgram analyze() throws AnalysisException {
         try {
-            BuildableProgram buildableProgram = FactoryUtilities.getProgram(getFactory());
+            BuildableProgram buildableProgram = FactoryUtilities
+                    .getProgram(getFactory());
             LexicalAnalyzer lexicalAnalyzer = FactoryUtilities
                     .getLexicalAnalyzer(getFactory());
-            this.lexicalElement = lexicalAnalyzer.get();
             final CommandFactory commandFactory = FactoryUtilities
                     .getCommandFactory(getFactory());
+            this.lexicalElement = lexicalAnalyzer.peek();
             while (this.lexicalElement != null) {
                 if (this.lexicalElement.isSymbol()) {
+                    lexicalAnalyzer.get();
                     buildableProgram.addCommand(commandFactory
                             .create(this.lexicalElement.getLexeme()));
                 } else {
                     buildableProgram.addCommand(commandFactory.create(null));
                 }
-                this.lexicalElement = lexicalAnalyzer.get();
+                this.lexicalElement = lexicalAnalyzer.peek();
             }
             return buildableProgram;
         } catch (CommandFactoryException e) {

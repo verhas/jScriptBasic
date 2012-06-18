@@ -1,6 +1,5 @@
 package com.scriptbasic.interfaces;
 
-import com.scriptbasic.exceptions.LexicalException;
 
 /**
  * A generic lexical analyzer that reads the characters from a reader and
@@ -26,7 +25,7 @@ public interface LexicalAnalyzer extends FactoryManaged {
      * 
      * @return
      */
-    LexicalElement get() throws LexicalException;
+    LexicalElement get() throws AnalysisException;
 
     /**
      * Peek at the next lexical element and do not remove it from the input
@@ -34,7 +33,7 @@ public interface LexicalAnalyzer extends FactoryManaged {
      * will return the same lexical element. Calling {@see #get()} will return
      * the same lexical element as the last call to {@code peek()}.
      */
-    LexicalElement peek() throws LexicalException;
+    LexicalElement peek() throws AnalysisException;
 
     /**
      * Register a lexical element analyzer. The lexical element analyzers are

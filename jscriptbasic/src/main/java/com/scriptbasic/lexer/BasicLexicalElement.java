@@ -137,6 +137,11 @@ public class BasicLexicalElement extends AbstractLexicalElement {
     }
 
     @Override
+    public Boolean isSymbol(String lexeme) {
+        return isSymbol() && lexeme.equalsIgnoreCase(getLexeme());
+    }
+
+    @Override
     public String toString() {
         String s = "";
         switch (type) {

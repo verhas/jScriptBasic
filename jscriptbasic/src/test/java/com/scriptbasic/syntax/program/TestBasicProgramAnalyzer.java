@@ -3,8 +3,8 @@ package com.scriptbasic.syntax.program;
 import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
 import junit.framework.TestCase;
 
-import com.scriptbasic.exceptions.AnalysisException;
 import com.scriptbasic.factories.BasicFactory;
+import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.Program;
 import com.scriptbasic.utility.FactoryUtilities;
@@ -21,8 +21,10 @@ public class TestBasicProgramAnalyzer extends TestCase {
     }
 
     public void testCorrectProgram() throws Exception {
+        compile("a = 4");
         compile("While 13 > 12\nIf 14 > 23 Then\nElse\nEndIf\nWend");
         compile("While 13 > 12\nIf 14 > 23 Then\nEndIf\nWend");
+        compile("a=1\nWhile a < 10\na=a+1\nwend");
     }
 
 }

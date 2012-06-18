@@ -1,7 +1,7 @@
 package com.scriptbasic.executors.rightvalues;
 
-import com.scriptbasic.exceptions.BasicRuntimeException;
 import com.scriptbasic.executors.AbstractIdentifieredExpressionListedExpression;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.RightValue;
 
 public class FunctionCall extends

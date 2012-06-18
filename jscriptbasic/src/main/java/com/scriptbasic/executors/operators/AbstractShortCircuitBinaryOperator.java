@@ -1,6 +1,6 @@
 package com.scriptbasic.executors.operators;
 
-import com.scriptbasic.exceptions.BasicRuntimeException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.RightValue;
 

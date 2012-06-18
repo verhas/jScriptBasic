@@ -1,9 +1,9 @@
 package com.scriptbasic.syntax.commandanalyzers.commands;
 
-import com.scriptbasic.exceptions.AnalysisException;
 import com.scriptbasic.executors.commands.CommandEndIf;
 import com.scriptbasic.executors.commands.CommandIf;
 import com.scriptbasic.executors.commands.IfOrElse;
+import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.NestedStructureHouseKeeper;
 import com.scriptbasic.syntax.commandanalyzers.AbstractCommandAnalyzer;
@@ -14,7 +14,7 @@ public class CommandAnalyzerEndIf extends AbstractCommandAnalyzer {
     @Override
     public Command analyze() throws AnalysisException {
         CommandEndIf node = new CommandEndIf();
-        assertThereAreNoSuperflouosCharactersOnTheLine();
+        consumeEndOfLine();
         NestedStructureHouseKeeper nshk = FactoryUtilities
                 .getNestedStructureHouseKeeper(getFactory());
         IfOrElse commandIfOrElse = nshk.pop(IfOrElse.class);

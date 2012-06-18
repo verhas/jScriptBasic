@@ -1,7 +1,7 @@
 package com.scriptbasic.executors.operators;
 
-import com.scriptbasic.exceptions.BasicRuntimeException;
 import com.scriptbasic.executors.rightvalues.AbstractNumericRightValue;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.RightValue;
 
 public abstract class AbstractBinaryFullCircuitNumericOperator<T extends Number>

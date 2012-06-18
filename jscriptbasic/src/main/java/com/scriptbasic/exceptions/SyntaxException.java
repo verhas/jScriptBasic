@@ -7,7 +7,7 @@ package com.scriptbasic.exceptions;
  * @author Peter Verhas
  * 
  */
-public abstract class SyntaxException extends AnalysisException {
+public abstract class SyntaxException extends GeneralAnalysisException {
 
     public SyntaxException() {
         super();

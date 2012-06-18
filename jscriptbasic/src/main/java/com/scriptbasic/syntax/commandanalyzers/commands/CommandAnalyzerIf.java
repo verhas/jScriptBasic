@@ -3,8 +3,8 @@
  */
 package com.scriptbasic.syntax.commandanalyzers.commands;
 
-import com.scriptbasic.exceptions.AnalysisException;
 import com.scriptbasic.executors.commands.CommandIf;
+import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.syntax.commandanalyzers.AbstractCommandAnalyzer;
@@ -27,7 +27,7 @@ public class CommandAnalyzerIf extends AbstractCommandAnalyzer {
         //
         Expression condition = analyzeExpression();
         assertKeyWord("THEN");
-        assertThereAreNoSuperflouosCharactersOnTheLine();
+        consumeEndOfLine();
         //
         node.setCondition(condition);
         pushNodeOnTheAnalysisStack(node);

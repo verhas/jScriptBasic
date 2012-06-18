@@ -3,10 +3,10 @@
  */
 package com.scriptbasic.syntax;
 
-import static com.scriptbasic.syntax.expression.LexFacade.get;
-import static com.scriptbasic.syntax.expression.LexFacade.peek;
+import static com.scriptbasic.syntax.LexFacade.get;
+import static com.scriptbasic.syntax.LexFacade.peek;
 
-import com.scriptbasic.exceptions.AnalysisException;
+import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.AnalysisResult;
 import com.scriptbasic.interfaces.Analyzer;
 import com.scriptbasic.interfaces.Factory;
@@ -33,39 +33,37 @@ import com.scriptbasic.utility.FactoryUtilities;
  *            is the analyzer to analyze the something.
  */
 public abstract class AbstractGenericListAnalyzer<T extends GenericList<Z>, K extends T, Z extends AnalysisResult, A extends Analyzer<Z>>
-		implements ListAnalyzer<T> {
+        implements ListAnalyzer<T> {
 
-	abstract public Factory getFactory();
+    abstract public Factory getFactory();
 
-	private K list;
+    private K list;
 
-	protected void setList(K list) {
-		this.list = list;
-	}
+    protected void setList(K list) {
+        this.list = list;
+    }
 
-	private A analyzer;
+    private A analyzer;
 
-	protected void setAnalyzer(A analyzer) {
-		this.analyzer = analyzer;
-	}
+    protected void setAnalyzer(A analyzer) {
+        this.analyzer = analyzer;
+    }
 
-	@Override
-	public T analyze() throws AnalysisException {
-		list.add(analyzer.analyze());
-		LexicalElement lexicalElement = peek(FactoryUtilities
-				.getLexicalAnalyzer(getFactory()));
-		while (isComma(lexicalElement)) {
-			get(FactoryUtilities.getLexicalAnalyzer(getFactory()));
-			list.add(analyzer.analyze());
-			lexicalElement = peek(FactoryUtilities
-					.getLexicalAnalyzer(getFactory()));
-		}
-		return list;
-	}
+    @Override
+    public T analyze() throws AnalysisException {
+        list.add(analyzer.analyze());
+        LexicalElement lexicalElement = peek(FactoryUtilities
+                .getLexicalAnalyzer(getFactory()));
+        while (isComma(lexicalElement)) {
+            get(FactoryUtilities.getLexicalAnalyzer(getFactory()));
+            list.add(analyzer.analyze());
+            lexicalElement = peek(FactoryUtilities
+                    .getLexicalAnalyzer(getFactory()));
+        }
+        return list;
+    }
 
-	private static boolean isComma(final LexicalElement lexicalElement) {
-		return lexicalElement != null && lexicalElement.isSymbol()
-				&& ",".equals(lexicalElement.getLexeme());
-	}
-
+    private static boolean isComma(final LexicalElement lexicalElement) {
+        return lexicalElement != null && lexicalElement.isSymbol(",");
+    }
 }

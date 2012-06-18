@@ -11,9 +11,9 @@ import static com.scriptbasic.lexer.LexTestHelper.VSTRING;
 import static com.scriptbasic.lexer.LexTestHelper.assertLexicals;
 import junit.framework.TestCase;
 
-import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.exceptions.UnterminatedStringException;
 import com.scriptbasic.factories.FactoryFactory;
+import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
@@ -25,7 +25,7 @@ public class TestBasicLexicalAnalyzer extends TestCase {
         super(testName);
     }
 
-    private void keywordtest(final String s) throws LexicalException {
+    private void keywordtest(final String s) throws AnalysisException {
         assertLexicals(new LexicalElement[] { SYMBOL(s) },
                 createStringReading(s));
     }
@@ -38,7 +38,7 @@ public class TestBasicLexicalAnalyzer extends TestCase {
         return LexTestHelper.createStringReading(factory, s);
     }
 
-    public void testKeywords() throws LexicalException {
+    public void testKeywords() throws AnalysisException {
         keywordtest("for");
         keywordtest("end");
         keywordtest("next");
@@ -52,7 +52,7 @@ public class TestBasicLexicalAnalyzer extends TestCase {
         keywordtest("until");
     }
 
-    public void testString() throws LexicalException {
+    public void testString() throws AnalysisException {
         boolean multiline = false;
         do {
             // empty string
@@ -117,17 +117,17 @@ public class TestBasicLexicalAnalyzer extends TestCase {
                 createStringReading("\"\"\"1\"\"\\n2\"\"\""));
     }
 
-    public void testNewLine() throws LexicalException {
+    public void testNewLine() throws AnalysisException {
         assertLexicals(new LexicalElement[] { SYMBOL("\n") },
                 createStringReading("\n"));
     }
 
-    public void testIntegerNumber() throws LexicalException {
+    public void testIntegerNumber() throws AnalysisException {
         assertLexicals(new LexicalElement[] { LONG("12") },
                 createStringReading("12"));
     }
 
-    public void testFloatNumber() throws LexicalException {
+    public void testFloatNumber() throws AnalysisException {
         assertLexicals(new LexicalElement[] { DOUBLE("13e3") },
                 createStringReading("13e3"));
         assertLexicals(new LexicalElement[] { DOUBLE("13.8") },
@@ -146,7 +146,7 @@ public class TestBasicLexicalAnalyzer extends TestCase {
                 createStringReading("13.8E-2"));
     }
 
-    public void testBooleans() throws LexicalException {
+    public void testBooleans() throws AnalysisException {
         assertLexicals(new LexicalElement[] { BOOL(true), BOOL(false) },
                 createStringReading("true false"));
         assertLexicals(new LexicalElement[] { BOOL("TRUE"), BOOL("FALSE") },
@@ -161,7 +161,7 @@ public class TestBasicLexicalAnalyzer extends TestCase {
                 createStringReading("TrUe fAlSe"));
     }
 
-    public void testFloatAndSomething() throws LexicalException {
+    public void testFloatAndSomething() throws AnalysisException {
         assertLexicals(new LexicalElement[] { DOUBLE("13.2"), ID("e"),
                 SYMBOL("+") }, createStringReading("13.2e+"));
         assertLexicals(new LexicalElement[] { DOUBLE("13.2"), ID("e") },
@@ -176,7 +176,7 @@ public class TestBasicLexicalAnalyzer extends TestCase {
                 createStringReading("13\n"));
     }
 
-    public void testUnterminatedString() throws LexicalException {
+    public void testUnterminatedString() throws AnalysisException {
         try {
             assertLexicals(
                     new LexicalElement[] { SSTRING("justAnything, should not check it, if it fails the test fails") },
@@ -186,7 +186,7 @@ public class TestBasicLexicalAnalyzer extends TestCase {
         }
     }
 
-    public void testSpaceSeparated() throws LexicalException {
+    public void testSpaceSeparated() throws AnalysisException {
         assertLexicals(
                 new LexicalElement[] { ID("alma"), LONG("123"), ID("körte"),
                         SYMBOL("<<"), SYMBOL(">="), SYMBOL("<<"),

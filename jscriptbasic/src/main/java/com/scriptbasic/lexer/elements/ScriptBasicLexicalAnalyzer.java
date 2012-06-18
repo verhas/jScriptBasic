@@ -1,12 +1,8 @@
-package com.scriptbasic.lexer;
+package com.scriptbasic.lexer.elements;
 
 import com.scriptbasic.interfaces.KeywordRecognizer;
-import com.scriptbasic.lexer.elements.BasicString;
-import com.scriptbasic.lexer.elements.ConstAwareIdentifier;
-import com.scriptbasic.lexer.elements.Decimal;
-import com.scriptbasic.lexer.elements.Identifier;
-import com.scriptbasic.lexer.elements.MultiCharacter;
-import com.scriptbasic.lexer.elements.OneCharacter;
+import com.scriptbasic.lexer.BasicKeywordRecognizer;
+import com.scriptbasic.lexer.BasicLexicalAnalyzer;
 
 public final class ScriptBasicLexicalAnalyzer extends BasicLexicalAnalyzer {
     private ScriptBasicLexicalAnalyzer() {
