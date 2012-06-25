@@ -17,7 +17,7 @@ import com.scriptbasic.interfaces.NestedStructureHouseKeeper;
 
 public abstract class AbstractNestedStructureHouseKeeper implements
         NestedStructureHouseKeeper {
-    private static Logger log = LoggerFactory
+    private static final Logger log = LoggerFactory
             .getLogger(AbstractNestedStructureHouseKeeper.class);
 
     private Factory factory;
@@ -27,12 +27,12 @@ public abstract class AbstractNestedStructureHouseKeeper implements
     }
 
     @Override
-    public void setFactory(Factory factory) {
+    public void setFactory(final Factory factory) {
         this.factory = factory;
     }
 
     @Override
-    public void push(NestedStructure element) {
+    public void push(final NestedStructure element) {
         push(element.getClass(), element);
     }
 

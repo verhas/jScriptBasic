@@ -1,5 +1,7 @@
 package com.scriptbasic.executors.commands;
 
+import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.LeftValue;
@@ -8,25 +10,23 @@ public class CommandLet extends AbstractCommand implements IfOrElse {
     private LeftValue leftValue;
     private Expression expression;
 
-    public LeftValue getLeftValue() {
-        return leftValue;
-    }
-
-    public void setLeftValue(LeftValue leftValue) {
+    public void setLeftValue(final LeftValue leftValue) {
         this.leftValue = leftValue;
     }
 
-    public Expression getExpression() {
-        return expression;
-    }
-
-    public void setExpression(Expression expression) {
+    public void setExpression(final Expression expression) {
         this.expression = expression;
     }
 
     @Override
-    public void execute(final ExtendedInterpreter interpreter) {
-        // TODO Auto-generated method stub
+    public void execute(final ExtendedInterpreter interpreter)
+            throws ExecutionException {
+        try {
+            this.leftValue.setValue(this.expression.evaluate(),
+                    interpreter.getVariables());
+        } catch (Exception e) {
+            throw new BasicRuntimeException(e);
+        }
     }
 
 }

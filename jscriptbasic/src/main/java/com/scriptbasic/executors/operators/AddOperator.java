@@ -1,5 +1,6 @@
 package com.scriptbasic.executors.operators;
 
+import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
 import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
 import com.scriptbasic.executors.rightvalues.BasicJavaObjectValue;
 import com.scriptbasic.executors.rightvalues.BasicLongValue;
@@ -21,7 +22,8 @@ public class AddOperator extends AbstractBinaryFullCircuitHalfDoubleOperator {
         return new BasicLongValue(a + b);
     }
 
-    private static String getString(final RightValue op) throws BasicRuntimeException {
+    private static String getString(final RightValue op)
+            throws BasicRuntimeException {
         if (op.isString()) {
             return ((BasicStringValue) op).getValue();
         }
@@ -30,6 +32,9 @@ public class AddOperator extends AbstractBinaryFullCircuitHalfDoubleOperator {
         }
         if (op.isLong()) {
             return ((BasicLongValue) op).getValue().toString();
+        }
+        if (op.isBoolean()) {
+            return ((BasicBooleanValue) op).getValue().toString();
         }
         if (op.isJavaObject()) {
             return ((BasicJavaObjectValue) op).getValue().toString();

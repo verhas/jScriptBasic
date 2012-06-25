@@ -18,7 +18,7 @@ public class GenericFactory extends AbstractFactory {
         return new HashMap<Class<? extends FactoryManaged>, FactoryManaged>();
     }
 
-    private Map<Class<? extends FactoryManaged>, FactoryManaged> analyzerMap = newMap();
+    private transient Map<Class<? extends FactoryManaged>, FactoryManaged> analyzerMap = newMap();
 
     @Override
     public void clean() {
@@ -30,13 +30,13 @@ public class GenericFactory extends AbstractFactory {
      * objects.
      */
     @Override
-	<T extends FactoryManaged> void set(Class<T> klass, T analyzer) {
+	<T extends FactoryManaged> void set(final Class<T> klass, final T analyzer) {
         analyzerMap.put(klass, analyzer);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends FactoryManaged> T get(Class<T> klass) {
+    public <T extends FactoryManaged> T get(final Class<T> klass) {
         assertInterface(klass);
         // TODO how to alter it to avoid this unchecked cast
         return (T) analyzerMap.get(klass);

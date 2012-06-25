@@ -21,9 +21,7 @@ public class ConstAwareIdentifier extends Identifier {
                 lexicalElement.setType(LexicalElement.TYPE_BOOLEAN);
                 lexicalElement.setBooleanValue(value);
             }
-            return lexicalElement;
-        } else {
-            return null;
         }
+        return lexicalElement;
     }
 }

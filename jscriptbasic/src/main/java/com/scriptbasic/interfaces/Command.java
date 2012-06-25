@@ -18,10 +18,11 @@ package com.scriptbasic.interfaces;
  * 'while' may have a program counter that points to the corresponding 'wend',
  * but should not contain any data that holds the value of the expression
  * evaluated.
+ * 
  * @author Peter Verhas
  * @date June 15, 2012
  * 
  */
-public interface Command extends AnalysisResult {
-
+public interface Command extends AnalysisResult, Executor {
+    public Command getNextCommand();
 }

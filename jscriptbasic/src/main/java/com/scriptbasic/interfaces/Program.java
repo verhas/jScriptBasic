@@ -18,6 +18,4 @@ public interface Program {
     Command getStartCommand();
 
     Collection<Command> getCommands();
-
-    Command getCommand(Integer programCounter);
 }

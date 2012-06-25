@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
+import com.scriptbasic.executors.BasicExtendedInterpreter;
 import com.scriptbasic.interfaces.CommandFactory;
 import com.scriptbasic.interfaces.ExpressionAnalyzer;
 import com.scriptbasic.interfaces.ExpressionListAnalyzer;
+import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.FactoryManaged;
 import com.scriptbasic.interfaces.HierarchicalReader;
 import com.scriptbasic.interfaces.LeftValueAnalyzer;
@@ -46,48 +48,52 @@ import com.scriptbasic.syntax.leftvalue.BasicLeftValueListAnalyzer;
  */
 public class BasicFactory extends GenericFactory {
 
-	private static Map<Class<? extends FactoryManaged>, Class<? extends FactoryManaged>> classMapping = new HashMap<Class<? extends FactoryManaged>, Class<? extends FactoryManaged>>();
-	static {
-		classMapping.put(SyntaxAnalyzer.class, BasicSyntaxAnalyzer.class);
-		classMapping.put(ExpressionAnalyzer.class,
-				BasicExpressionAnalyzer.class);
-		classMapping.put(ExpressionListAnalyzer.class,
-				BasicExpressionListAnalyzer.class);
-		classMapping.put(BuildableProgram.class, BasicProgram.class);
-		classMapping.put(TagAnalyzer.class, BasicTagAnalyzer.class);
-		classMapping.put(LexicalAnalyzer.class,
-				ScriptBasicLexicalAnalyzer.class);
-		classMapping.put(Reader.class, GenericReader.class);
-		classMapping.put(HierarchicalReader.class,
-				GenericHierarchicalReader.class);
-		classMapping.put(CommandFactory.class, BasicCommandFactory.class);
-		classMapping.put(LeftValueAnalyzer.class, BasicLeftValueAnalyzer.class);
-		classMapping.put(LeftValueListAnalyzer.class, BasicLeftValueListAnalyzer.class);
-		classMapping.put(NestedStructureHouseKeeper.class, GenericNestedStructureHouseKeeper.class);
-	}
+    private static Map<Class<? extends FactoryManaged>, Class<? extends FactoryManaged>> classMapping = new HashMap<Class<? extends FactoryManaged>, Class<? extends FactoryManaged>>();
+    static {
+        classMapping.put(SyntaxAnalyzer.class, BasicSyntaxAnalyzer.class);
+        classMapping.put(ExpressionAnalyzer.class,
+                BasicExpressionAnalyzer.class);
+        classMapping.put(ExpressionListAnalyzer.class,
+                BasicExpressionListAnalyzer.class);
+        classMapping.put(BuildableProgram.class, BasicProgram.class);
+        classMapping.put(TagAnalyzer.class, BasicTagAnalyzer.class);
+        classMapping.put(LexicalAnalyzer.class,
+                ScriptBasicLexicalAnalyzer.class);
+        classMapping.put(Reader.class, GenericReader.class);
+        classMapping.put(HierarchicalReader.class,
+                GenericHierarchicalReader.class);
+        classMapping.put(CommandFactory.class, BasicCommandFactory.class);
+        classMapping.put(LeftValueAnalyzer.class, BasicLeftValueAnalyzer.class);
+        classMapping.put(LeftValueListAnalyzer.class,
+                BasicLeftValueListAnalyzer.class);
+        classMapping.put(NestedStructureHouseKeeper.class,
+                GenericNestedStructureHouseKeeper.class);
+        classMapping.put(ExtendedInterpreter.class,
+                BasicExtendedInterpreter.class);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * This version of the method creates a new instance if there is no object
-	 * in the factory associated with the interface passed as argument.
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T extends FactoryManaged> T get(Class<T> interfac) {
-		T object = super.get(interfac);
-		if (object == null) {
-			// TODO how could we avoid this unchecked mapping?
-			Class<? extends T> klass = (Class<? extends T>) classMapping
-					.get(interfac);
-			if (klass == null) {
-				throw new BasicInterpreterInternalError(
-						"There is no class associated to the interface "
-								+ interfac);
-			}
-			create(interfac, klass);
-			object = super.get(interfac);
-		}
-		return object;
-	}
+    /**
+     * {@inheritDoc}
+     * 
+     * This version of the method creates a new instance if there is no object
+     * in the factory associated with the interface passed as argument.
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T extends FactoryManaged> T get(final Class<T> interfac) {
+        T object = super.get(interfac);
+        if (object == null) {
+            // TODO how could we avoid this unchecked mapping?
+            final Class<? extends T> klass = (Class<? extends T>) classMapping
+                    .get(interfac);
+            if (klass == null) {
+                throw new BasicInterpreterInternalError(
+                        "There is no class associated to the interface "
+                                + interfac);
+            }
+            create(interfac, klass);
+            object = super.get(interfac);
+        }
+        return object;
+    }
 }

@@ -9,8 +9,9 @@ import com.scriptbasic.interfaces.Reader;
  * @author Peter Verhas
  * 
  */
-public class BasicLexialElementFactory {
+public final class BasicLexialElementFactory {
 
+    private BasicLexialElementFactory(){}
     /**
      * Create a new BasicLexicalElement and fill in the FileName, LineNumber and
      * the Position from the current position of the reader.
@@ -21,16 +22,16 @@ public class BasicLexialElementFactory {
      * @return a new and initialized lexical element object
      */
     public static BasicLexicalElement create(final Reader reader) {
-        final BasicLexicalElement le = new BasicLexicalElement();
-        le.setFileName(reader.getFileName());
-        le.setLineNumber(reader.getLineNumber());
-        le.setPosition(reader.getPosition());
-        return le;
+        final BasicLexicalElement lexicalElement = new BasicLexicalElement();
+        lexicalElement.setFileName(reader.getFileName());
+        lexicalElement.setLineNumber(reader.getLineNumber());
+        lexicalElement.setPosition(reader.getPosition());
+        return lexicalElement;
     }
 
     public static BasicLexicalElement create(final Reader reader, final int type) {
-        final BasicLexicalElement le = create(reader);
-        le.setType(type);
-        return le;
+        final BasicLexicalElement lexicalElement = create(reader);
+        lexicalElement.setType(type);
+        return lexicalElement;
     }
 }

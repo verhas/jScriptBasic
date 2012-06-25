@@ -1,6 +1,6 @@
 package com.scriptbasic.interfaces;
 
-public class BasicRuntimeException extends Exception {
+public class BasicRuntimeException extends ExecutionException {
 
     private static final long serialVersionUID = -2861269478069129351L;
 

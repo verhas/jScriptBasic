@@ -25,15 +25,21 @@ public interface ExtendedInterpreter extends Interpreter {
     BuildableProgram getProgram();
 
     /**
-     * Tell the new value of the program counter the Interpreter has to use
-     * after the command returned. If this method is not called by a Command
-     * (which is the usual case), then the program counter is incremented and if
-     * the program counter is out of array index, then the program is finished.
+     * Tell the interpreter that the next command to call is not the one that
+     * follows the actual command but rather the one specified by the argument.
      * 
-     * @param newProgramCounter
-     *            the new value for the program counter to set.
+     * @param nextCommand
+     *            is the next command to execute after the current command
+     * 
      */
-    void delayedSetProgramCounter(Integer newProgramCounter);
+    void setNextCommand(Command nextCommand);
+
+    /**
+     * Get the variables of the program.
+     * 
+     * @return the variables.
+     */
+    VariableMap getVariables();
 
     /**
      * Since the Command objects should not contain runtime information there is

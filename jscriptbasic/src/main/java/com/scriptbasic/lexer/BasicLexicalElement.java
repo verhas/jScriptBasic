@@ -137,34 +137,37 @@ public class BasicLexicalElement extends AbstractLexicalElement {
     }
 
     @Override
-    public Boolean isSymbol(String lexeme) {
+    public Boolean isSymbol(final String lexeme) {
         return isSymbol() && lexeme.equalsIgnoreCase(getLexeme());
     }
 
     @Override
     public String toString() {
-        String s = "";
+        String buffer;
         switch (type) {
         case TYPE_BOOLEAN:
-            s += "Boolean(" + booleanValue + ")";
+            buffer = "Boolean(" + booleanValue + ")";
             break;
         case TYPE_DOUBLE:
-            s += "Double(" + doubleValue + ")";
+            buffer = "Double(" + doubleValue + ")";
             break;
         case TYPE_LONG:
-            s += "Long(" + longValue + ")";
+            buffer = "Long(" + longValue + ")";
             break;
         case TYPE_STRING:
-            s += "String(\"" + stringValue + "\")";
+            buffer = "String(\"" + stringValue + "\")";
             break;
         case TYPE_IDENTIFIER:
-            s += "'" + lexeme + "'";
+            buffer = "'" + lexeme + "'";
             break;
         case TYPE_SYMBOL:
-            s += lexeme;
+            buffer = lexeme;
+            break;
+        default:
+            buffer = "INVALID-TYPE";
             break;
         }
-        return s;
+        return buffer;
     }
 
     @Override

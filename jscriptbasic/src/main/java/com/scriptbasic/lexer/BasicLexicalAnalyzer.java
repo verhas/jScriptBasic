@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.exceptions.BasicLexicalException;
+import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.HierarchicalReader;
@@ -22,7 +23,8 @@ import com.scriptbasic.readers.GenericHierarchicalReader;
 import com.scriptbasic.utility.CharUtils;
 
 public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
-    private Logger log = LoggerFactory.getLogger(BasicLexicalAnalyzer.class);
+    private static final Logger log = LoggerFactory
+            .getLogger(BasicLexicalAnalyzer.class);
     private Reader reader;
     protected Factory factory;
 
@@ -31,7 +33,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     }
 
     @Override
-    public void setFactory(Factory factory) {
+    public void setFactory(final Factory factory) {
         this.factory = factory;
     }
 
@@ -96,12 +98,14 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
         return this.peekElement;
     }
 
-    private Integer skipWhiteSpaces(Integer ch) {
-        while (ch != null && Character.isWhitespace(ch)
-                && !CharUtils.isNewLine(ch)) {
-            ch = this.reader.get();
+    private Integer skipWhiteSpaces(final Integer firstCharacter) {
+        Integer characterToSkip = firstCharacter;
+        while (characterToSkip != null
+                && Character.isWhitespace(characterToSkip)
+                && !CharUtils.isNewLine(characterToSkip)) {
+            characterToSkip = this.reader.get();
         }
-        return ch;
+        return characterToSkip;
     }
 
     private static boolean stringIsIncludeOrImport(final String s) {
@@ -117,14 +121,14 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     private void readTheNextLine() throws AnalysisException {
         Boolean lineEndFound = false;
         emptyLexicalElementQueue();
-        Integer ch;
-        for (ch = this.reader.get(); ch != null && !lineEndFound; ch = this.reader
+        Integer character;
+        for (character = this.reader.get(); character != null && !lineEndFound; character = this.reader
                 .get()) {
             LexicalElement le = null;
-            ch = skipWhiteSpaces(ch);
-            lineEndFound = CharUtils.isNewLine(ch);
-            if (ch != null) {
-                this.reader.pushBack(ch);
+            character = skipWhiteSpaces(character);
+            lineEndFound = CharUtils.isNewLine(character);
+            if (character != null) {
+                this.reader.pushBack(character);
                 boolean analyzed = false;
                 for (final LexicalElementAnalyzer lea : this.analyzerQueue) {
                     le = lea.read();
@@ -143,7 +147,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
                 }
             }
         }
-        this.reader.pushBack(ch);
+        this.reader.pushBack(character);
         if (this.reader instanceof HierarchicalReader) {
             processSourceInclude();
         }
@@ -153,31 +157,30 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
         resetLine();
         final GenericHierarchicalReader hreader = (GenericHierarchicalReader) this.reader;
         if (!this.lexicalElementQueue.isEmpty()) {
-            LexicalElement le = this.lexicalElementQueueIterator.next();
-            if (isIncludeOrImport(le)) {
-                le = this.lexicalElementQueueIterator.next();
-                if (le.isString()) {
+            LexicalElement lexicalElement = this.lexicalElementQueueIterator.next();
+            if (isIncludeOrImport(lexicalElement)) {
+                lexicalElement = this.lexicalElementQueueIterator.next();
+                if (lexicalElement.isString()) {
                     // TODO check that there are no extra chars on the line
                     final SourceProvider sp = hreader.getSourceProvider();
                     Reader childReader = null;
                     try {
-                        childReader = sp.get(le.stringValue(),
+                        childReader = sp.get(lexicalElement.stringValue(),
                                 hreader.getFileName());
                     } catch (final IllegalArgumentException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                        log.error("",e);
                     } catch (final IOException e) {
                         throw new BasicLexicalException(
                                 "Can not open included file '"
-                                        + le.stringValue() + "'", e);
+                                        + lexicalElement.stringValue() + "'", e);
                     }
                     hreader.include(childReader);
                     emptyLexicalElementQueue();
                     readTheNextLine();
                     resetLine();
                 } else {
-                    // TODO throw error that it is not string after the
-                    // INCLUDE
+                    log.error("This is not a string following the keyword INCLUDE");
+                    throw new GenericSyntaxException("String has to be used after import or include.");
                 }
             }
         }

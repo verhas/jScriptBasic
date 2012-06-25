@@ -10,7 +10,7 @@ public class LeftValueBuilder {
 	private BasicLeftValue lv = new BasicLeftValue();
 
 	public LeftValueBuilder(String id) {
-		lv.setId(id);
+		lv.setIdentifier(id);
 	}
 
 	public LeftValueBuilder field(String id){

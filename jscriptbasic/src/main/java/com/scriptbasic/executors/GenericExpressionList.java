@@ -9,7 +9,7 @@ import com.scriptbasic.interfaces.ExpressionList;
 
 public class GenericExpressionList implements ExpressionList {
 
-    List<Expression> expressionList = new LinkedList<Expression>();
+    private final List<Expression> expressionList = new LinkedList<Expression>();
 
     @Override
 	public void add(final Expression expression) {

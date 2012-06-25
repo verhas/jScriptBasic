@@ -94,7 +94,7 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
         if (lexicalElement.isIdentifier()) {
             lexicalAnalyzer.get();
             leftValue = new BasicLeftValue();
-            leftValue.setId(lexicalElement.getLexeme());
+            leftValue.setIdentifier(lexicalElement.getLexeme());
             lexicalElement = lexicalAnalyzer.peek();
             while (isModifierStart(lexicalElement)) {
                 LeftValueModifier lvm = null;

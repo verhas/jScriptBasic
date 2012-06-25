@@ -3,36 +3,39 @@ package com.scriptbasic.executors.rightvalues;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.RightValue;
 
-public class BasicBooleanValue extends AbstractPrimitiveRightValue<Boolean> {
+public final class BasicBooleanValue extends
+        AbstractPrimitiveRightValue<Boolean> {
+
     public BasicBooleanValue(final Boolean b) {
         setValue(b);
     }
 
-    public static Boolean convert(final RightValue rv)
+    public static Boolean convert(final RightValue originalValue)
             throws BasicRuntimeException {
-        if (rv.isBoolean()) {
-            return ((BasicBooleanValue) rv).getValue();
-        }
-        if (rv.isString()) {
-            final String s = ((BasicStringValue) rv).getValue();
-            return s != null && s.length() > 0;
-        }
-        if (rv.isLong()) {
-            final Long l = ((BasicLongValue) rv).getValue();
-            return l != null && l != 0;
-        }
-        if (rv.isDouble()) {
-            final Double d = ((BasicDoubleValue) rv).getValue();
-            return d != null && d != 0;
-        }
-        if (rv.isJavaObject()) {
-            final Object o = ((BasicJavaObjectValue) rv).getValue();
+        Boolean convertedValue = null;
+        if (originalValue == null) {
+            convertedValue = Boolean.FALSE;
+        } else if (originalValue.isBoolean()) {
+            convertedValue = ((BasicBooleanValue) originalValue).getValue();
+        } else if (originalValue.isString()) {
+            final String s = ((BasicStringValue) originalValue).getValue();
+            convertedValue = s != null && s.length() > 0;
+        } else if (originalValue.isLong()) {
+            final Long l = ((BasicLongValue) originalValue).getValue();
+            convertedValue = l != null && l != 0;
+        } else if (originalValue.isDouble()) {
+            final Double d = ((BasicDoubleValue) originalValue).getValue();
+            convertedValue = d != null && d != 0;
+        } else if (originalValue.isJavaObject()) {
+            final Object o = ((BasicJavaObjectValue) originalValue).getValue();
             if (o instanceof Boolean) {
-                return (Boolean) o;
+                convertedValue = (Boolean) o;
+            } else {
+                // TODO extend the conversion in case of other simple types
+                convertedValue = o != null;
             }
-            // TODO extend the conversion in case of other simple types
-            return o != null;
         }
-        throw new BasicRuntimeException("Can not convert value to boolean");
+        return convertedValue;
+        // throw new BasicRuntimeException("Can not convert value to boolean");
     }
 }

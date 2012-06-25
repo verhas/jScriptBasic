@@ -30,22 +30,26 @@ public class MultiCharacter extends AbstractElementAnalyzer {
         }
     }
 
-    private void readAhead(final StringBuilder sb, int charsToReadAhead) {
+    private void readAhead(final StringBuilder stringBuider,
+            final int totalCharsToReadAhead) {
+        int charsToReadAhead = totalCharsToReadAhead;
         while (charsToReadAhead > 0) {
             final Integer ch = getReader().get();
             if (ch == null || Character.isWhitespace(ch)) {
                 getReader().pushBack(ch);
                 break;
             }
-            sb.appendCodePoint(ch);
+            stringBuider.appendCodePoint(ch);
             charsToReadAhead--;
         }
     }
 
-    private void pushBack(final StringBuilder sb, int charsToPushBack) {
-        int pos = sb.length() - 1;
+    private void pushBack(final StringBuilder stringBuilder,
+            int totalCharsToPushBack) {
+        int charsToPushBack = totalCharsToPushBack;
+        int pos = stringBuilder.length() - 1;
         while (charsToPushBack > 0) {
-            getReader().pushBack((int) sb.charAt(pos));
+            getReader().pushBack((int) stringBuilder.charAt(pos));
             pos--;
             charsToPushBack--;
         }

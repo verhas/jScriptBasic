@@ -10,28 +10,26 @@ public class BasicString extends AbstractElementAnalyzer {
 
     @Override
     public LexicalElement read() throws LexicalException {
-        BasicLexicalElement le = null;
-        final Integer ch = getReader().get();
-        if (ch != null && ch.equals((int) '"')) {
+        BasicLexicalElement lexicalElement = null;
+        final Integer character = getReader().get();
+        if (character != null && character.equals((int) '"')) {
             if (isTripleQuote()) {
-                le = readMultiLineString();
+                lexicalElement = readMultiLineString();
             } else {
-                le = readSingleLineString();
+                lexicalElement = readSingleLineString();
             }
         } else {
-            getReader().pushBack(ch);
+            getReader().pushBack(character);
         }
-        return le;
+        return lexicalElement;
     }
 
     private boolean isTripleQuote() {
-        boolean itIs = false;
         final Integer second = getReader().get();
         final Integer third = getReader().get();
-        if (((Integer) (int) '"').equals(second)
-                && ((Integer) (int) '"').equals(third)) {
-            itIs = true;
-        } else {
+        final boolean itIs = ((Integer) (int) '"').equals(second)
+                && ((Integer) (int) '"').equals(third);
+        if (!itIs) {
             getReader().pushBack(third);
             getReader().pushBack(second);
         }
@@ -41,13 +39,13 @@ public class BasicString extends AbstractElementAnalyzer {
     private static final int SINGLE_LINE_STRINGBUILDER_INITIAL_CAPACITY = 100;
     private static final int MULTI_LINE_STRINGBUILDER_INITIAL_CAPACITY = 1000;
 
-    private boolean isStringTerminated(final Integer ch, final boolean multiLine)
-            throws UnterminatedStringException {
+    private boolean isStringTerminated(final Integer character,
+            final boolean multiLine) throws UnterminatedStringException {
         boolean terminated = false;
-        if (ch == null) {
+        if (character == null) {
             throw new UnterminatedStringException(getReader());
         }
-        if (ch.equals((int) '"')) {
+        if (character.equals((int) '"')) {
             if (multiLine) {
                 terminated = isTripleQuote();
             } else {
@@ -67,30 +65,34 @@ public class BasicString extends AbstractElementAnalyzer {
      * Later versions should handle UNICODE escapes reading on from the
      * {@code reader}. //TODO
      * 
-     * @param ch
+     * @param inputCharacter
      *            the character that was following the backslash.
      * 
      * @return the converted character.
      */
-    private static Integer convertEscapedChar(Integer ch) {
-        if (ch != null) {
-            switch (ch) {
+    private static Integer convertEscapedChar(final Integer inputCharacter) {
+        Integer outputCharacter = inputCharacter;
+        if (inputCharacter != null) {
+            switch (inputCharacter) {
             case 'n':
-                ch = (int)'\n';
+                outputCharacter = (int) '\n';
                 break;
             case 't':
-                ch = (int)'\t';
+                outputCharacter = (int) '\t';
                 break;
             case 'r':
-                ch = (int)'\r';
+                outputCharacter = (int) '\r';
+                break;
+            default:
                 break;
             }
         }
-        return ch;
+        return outputCharacter;
     }
 
-    private static void appendSeparator(final StringBuilder sb, final boolean multiLine) {
-        sb.append(multiLine ? "\"\"\"" : "\"");
+    private static void appendSeparator(final StringBuilder stringBuilder,
+            final boolean multiLine) {
+        stringBuilder.append(multiLine ? "\"\"\"" : "\"");
     }
 
     /**
@@ -107,25 +109,25 @@ public class BasicString extends AbstractElementAnalyzer {
         final StringBuilder lexeme = new StringBuilder(stringBufferInitialSize);
         appendSeparator(lexeme, multiLine);
 
-        final BasicLexicalElement le = BasicLexialElementFactory.create(
+        final BasicLexicalElement lexicalElement = BasicLexialElementFactory.create(
                 getReader(), LexicalElement.TYPE_STRING);
 
-        Integer ch = getReader().get();
-        while (!isStringTerminated(ch, multiLine)) {
-            lexeme.appendCodePoint(ch);
-            if (ch.equals((int) '\\')) {
-                ch = getReader().get();
-                lexeme.appendCodePoint(ch);
-                ch = convertEscapedChar(ch);
+        Integer character = getReader().get();
+        while (!isStringTerminated(character, multiLine)) {
+            lexeme.appendCodePoint(character);
+            if (character.equals((int) '\\')) {
+                character = getReader().get();
+                lexeme.appendCodePoint(character);
+                character = convertEscapedChar(character);
             }
-            string.appendCodePoint(ch);
-            ch = getReader().get();
+            string.appendCodePoint(character);
+            character = getReader().get();
         }
         appendSeparator(lexeme, multiLine);
-        le.setLexeme(lexeme.toString());
-        le.setStringValue(string.toString());
-        le.setType(LexicalElement.TYPE_STRING);
-        return le;
+        lexicalElement.setLexeme(lexeme.toString());
+        lexicalElement.setStringValue(string.toString());
+        lexicalElement.setType(LexicalElement.TYPE_STRING);
+        return lexicalElement;
     }
 
     private BasicLexicalElement readSingleLineString()

@@ -9,16 +9,16 @@ import com.scriptbasic.interfaces.LeftValueList;
 
 public class GenericLeftValueList implements LeftValueList {
 
-	List<LeftValue> expressionList = new LinkedList<LeftValue>();
+	private final List<LeftValue> leftValueList = new LinkedList<LeftValue>();
 
 	@Override
 	public void add(final LeftValue expression) {
-		this.expressionList.add(expression);
+		this.leftValueList.add(expression);
 	}
 
 	@Override
 	public Iterator<LeftValue> iterator() {
-		return this.expressionList.iterator();
+		return this.leftValueList.iterator();
 	}
 
 }

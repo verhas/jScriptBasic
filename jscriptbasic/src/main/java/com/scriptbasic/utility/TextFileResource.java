@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TextFileResource {
-    private static Logger log = LoggerFactory.getLogger(TextFileResource.class);
+    private static final Logger log = LoggerFactory.getLogger(TextFileResource.class);
     ArrayList<String> lines = null;
 
     public TextFileResource(final Class<? extends Object> loadingClass,

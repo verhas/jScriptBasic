@@ -14,11 +14,6 @@ public abstract class AnalysisException extends Exception {
         super();
     }
 
-    public AnalysisException(String message, Throwable cause,
-            boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
-
     public AnalysisException(String message, Throwable cause) {
         super(message, cause);
     }

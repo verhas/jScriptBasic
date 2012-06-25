@@ -19,7 +19,7 @@ import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.syntax.commandanalyzers.AbstractCommandAnalyzer;
 
 public final class BasicCommandFactory implements CommandFactory {
-    private static Logger log = LoggerFactory
+    private static final Logger log = LoggerFactory
             .getLogger(BasicCommandFactory.class);
     Factory factory;
 

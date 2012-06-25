@@ -8,7 +8,6 @@ import com.scriptbasic.exceptions.KeywordNotImplementedException;
 import com.scriptbasic.exceptions.SyntaxException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.lexer.BasicLexicalElement;
-import com.scriptbasic.utility.FactoryUtilities;
 import com.scriptbasic.utility.SyntaxExceptionUtility;
 
 public class AuxTests extends TestCase {
@@ -16,10 +15,11 @@ public class AuxTests extends TestCase {
     @SuppressWarnings("static-method")
     public void testExceptions() {
         new SyntaxExceptionUtility();
-        new FactoryUtilities();
+        // new FactoryUtilities();
         new CommandCanNotBeCreatedException("bla bla", null);
         new KeywordNotImplementedException("hukk");
-        final SyntaxException c = new GenericSyntaxException("hull", (Throwable)null);
+        final SyntaxException c = new GenericSyntaxException("hull",
+                (Throwable) null);
         c.setLocation(new BasicLexicalElement());
         c.getFileName();
         c.getLineNumber();
@@ -42,5 +42,4 @@ public class AuxTests extends TestCase {
             // OK
         }
     }
-
 }

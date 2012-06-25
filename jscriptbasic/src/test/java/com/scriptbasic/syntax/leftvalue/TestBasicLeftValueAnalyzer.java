@@ -48,7 +48,7 @@ public class TestBasicLeftValueAnalyzer extends TestCase {
     }
 
     private static void compare(BasicLeftValue gv, BasicLeftValue lv) {
-        assertEquals(gv.getId(), lv.getId());
+        assertEquals(gv.getIdentifier(), lv.getIdentifier());
         Iterator<LeftValueModifier> gvms = gv.getModifiers().iterator();
         Iterator<LeftValueModifier> lvms = lv.getModifiers().iterator();
         while (gvms.hasNext() && lvms.hasNext()) {

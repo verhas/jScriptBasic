@@ -10,7 +10,7 @@ import com.scriptbasic.interfaces.NestedStructure;
  * @author Peter Verhas
  * @date June 11, 2012
  */
-public class GenericNestedStructureHouseKeeper extends
+public final class GenericNestedStructureHouseKeeper extends
         AbstractNestedStructureHouseKeeper {
 
     private GenericNestedStructureHouseKeeper() {

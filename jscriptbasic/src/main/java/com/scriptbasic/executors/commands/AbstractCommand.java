@@ -1,6 +1,7 @@
 package com.scriptbasic.executors.commands;
 
 import com.scriptbasic.interfaces.Command;
+import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.Executor;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.NestedStructure;
@@ -9,7 +10,8 @@ public abstract class AbstractCommand implements Executor, Command,
         NestedStructure {
 
     @Override
-    public abstract void execute(ExtendedInterpreter interpreter);
+    public abstract void execute(ExtendedInterpreter interpreter)
+            throws ExecutionException;
 
     private Command nextCommand;
 
@@ -19,11 +21,12 @@ public abstract class AbstractCommand implements Executor, Command,
      * 
      * @return
      */
+    @Override
     public Command getNextCommand() {
         return nextCommand;
     }
 
-    public void setNextCommand(Command nextCommand) {
+    public void setNextCommand(final Command nextCommand) {
         this.nextCommand = nextCommand;
     }
 }

@@ -6,7 +6,7 @@ package com.scriptbasic.interfaces;
  * @author Peter Verhas
  * 
  */
-public interface Interpreter {
+public interface Interpreter extends FactoryManaged {
     /**
      * Set the program to execute.
      * 
@@ -17,7 +17,7 @@ public interface Interpreter {
     /**
      * Execute the program.
      */
-    void execute();
+    void execute() throws ExecutionException;
 
     /**
      * Set the value of the global variable.
@@ -30,13 +30,17 @@ public interface Interpreter {
     void setVariable(String name, Object value);
 
     /**
-     * Get the value of a global variable.
+     * Get the value of a global variable. Since this is not a BASIC interpreter
+     * method, but rather a method that helps the embedding of the interpreter
+     * the returned value is a raw Java object and not a RightValue. Thus if the
+     * variable value is for example a {@see BasicDoubleValue} then the
+     * implementation should return a {@see Double}.
      * 
      * @param name
      *            the name of the variable
      * @return the value of the variable
      */
-    Object getVariable(String name);
+    Object getVariable(String name) throws ExecutionException;
 
     /**
      * Call a function defined by the program passing the objects as arguments.
