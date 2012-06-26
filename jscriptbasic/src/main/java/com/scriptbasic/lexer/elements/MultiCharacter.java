@@ -1,34 +1,13 @@
 package com.scriptbasic.lexer.elements;
 
-import java.io.IOException;
-
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.interfaces.ScriptBasicKeyWords;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
 import com.scriptbasic.lexer.BasicLexicalElement;
-import com.scriptbasic.utility.RegexpCommentFilter;
-import com.scriptbasic.utility.TextFileResource;
 
-public class MultiCharacter extends AbstractElementAnalyzer {
-    private static String[] operators;
-    private static int maxOperatorLength;
+public class MultiCharacter extends AbstractElementAnalyzer implements ScriptBasicKeyWords {
 
-    static {
-        try {
-            operators = new TextFileResource(MultiCharacter.class,
-                    "operators.txt").stripSpaces().stripEmptyLines()
-                    .stripComments(new RegexpCommentFilter("^\\w.*"))
-                    .getArray();
-            maxOperatorLength = 0;
-            for (final String s : operators) {
-                if (s.length() > maxOperatorLength) {
-                    maxOperatorLength = s.length();
-                }
-            }
-        } catch (final IOException e) {
-            operators = null;
-        }
-    }
 
     private void readAhead(final StringBuilder stringBuider,
             final int totalCharsToReadAhead) {

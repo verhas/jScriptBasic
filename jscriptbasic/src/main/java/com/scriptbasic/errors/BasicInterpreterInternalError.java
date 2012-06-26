@@ -6,5 +6,7 @@ public class BasicInterpreterInternalError extends Error {
     public BasicInterpreterInternalError(final String arg0) {
         super(arg0);
     }
-
+    public BasicInterpreterInternalError(final String arg0,Throwable e) {
+        super(arg0,e);
+    }
 }

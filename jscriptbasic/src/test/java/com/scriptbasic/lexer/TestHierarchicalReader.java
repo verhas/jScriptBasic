@@ -23,10 +23,10 @@ public class TestHierarchicalReader extends TestCase {
     @SuppressWarnings("static-method")
     public void testOneInclude() throws AnalysisException, IOException {
         assertLexicals(new LexicalElement[] { ID("identifier"), SYMBOL("\n"),
-                SYMBOL("<<<"), SYMBOL("\n"), SSTRING("string") },
+                SYMBOL("<"), SYMBOL("\n"), SSTRING("string") },
                 createStringArrayReading(new String[] { "main",
                         "identifier\ninclude \"sub1\"\n\"string\"", "sub1",
-                        "<<<\n" }));
+                        "<\n" }));
     }
 
     @SuppressWarnings("static-method")

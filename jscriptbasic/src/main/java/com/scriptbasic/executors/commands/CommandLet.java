@@ -22,8 +22,8 @@ public class CommandLet extends AbstractCommand implements IfOrElse {
     public void execute(final ExtendedInterpreter interpreter)
             throws ExecutionException {
         try {
-            this.leftValue.setValue(this.expression.evaluate(),
-                    interpreter.getVariables());
+            this.leftValue.setValue(this.expression.evaluate(interpreter),
+                    interpreter);
         } catch (Exception e) {
             throw new BasicRuntimeException(e);
         }

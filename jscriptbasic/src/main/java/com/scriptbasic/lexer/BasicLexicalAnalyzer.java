@@ -101,7 +101,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     private Integer skipWhiteSpaces(final Integer firstCharacter) {
         Integer characterToSkip = firstCharacter;
         while (characterToSkip != null
-                && Character.isWhitespace(characterToSkip)
+                && CharUtils.isWhitespace(characterToSkip)
                 && !CharUtils.isNewLine(characterToSkip)) {
             characterToSkip = this.reader.get();
         }

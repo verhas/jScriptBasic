@@ -27,7 +27,7 @@ public interface Interpreter extends FactoryManaged {
      * @param value
      *            the value to be set
      */
-    void setVariable(String name, Object value);
+    void setVariable(String name, Object value) throws ExecutionException;
 
     /**
      * Get the value of a global variable. Since this is not a BASIC interpreter

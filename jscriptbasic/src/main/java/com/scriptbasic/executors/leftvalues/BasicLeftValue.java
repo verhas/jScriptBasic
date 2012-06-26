@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.interfaces.VariableMap;
 
@@ -39,7 +40,9 @@ public class BasicLeftValue extends AbstractLeftValue {
     }
 
     @Override
-    public void setValue(final RightValue rightValue, VariableMap variableMap) throws ExecutionException {
+    public void setValue(final RightValue rightValue,
+            ExtendedInterpreter extendedInterpreter) throws ExecutionException {
+        VariableMap variableMap = extendedInterpreter.getVariables();
         if (modifiers == null || modifiers.isEmpty()) {
             variableMap.setVariable(getIdentifier(), rightValue);
         } else {

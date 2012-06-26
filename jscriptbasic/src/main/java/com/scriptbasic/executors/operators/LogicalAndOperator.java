@@ -1,19 +1,21 @@
 package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
-import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.Expression;
+import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.RightValue;
 
 public class LogicalAndOperator extends AbstractShortCircuitBinaryOperator {
 
     @Override
-    protected RightValue evaluateOn(final RightValue leftOperand,
-            final Expression rightOperand) throws BasicRuntimeException {
+    protected RightValue evaluateOn(ExtendedInterpreter extendedInterpreter,
+            RightValue leftOperand, final Expression rightOperand)
+            throws ExecutionException {
         final BasicBooleanValue bbv = new BasicBooleanValue(false);
         if (BasicBooleanValue.convert(leftOperand)) {
             return new BasicBooleanValue(BasicBooleanValue.convert(rightOperand
-                    .evaluate()));
+                    .evaluate(extendedInterpreter)));
         } else {
             return bbv;
         }

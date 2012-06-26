@@ -14,6 +14,7 @@ import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.memory.MixedBasicVariableMap;
+import com.scriptbasic.utility.RightValueUtils;
 
 /**
  * @author Peter Verhas
@@ -69,9 +70,10 @@ public class BasicExtendedInterpreter implements ExtendedInterpreter {
      * java.lang.Object)
      */
     @Override
-    public void setVariable(String name, Object value) {
-        // TODO Auto-generated method stub
-        throw new RuntimeException("not yet implemented");
+    public void setVariable(String name, Object value)
+            throws ExecutionException {
+        RightValue rightValue = RightValueUtils.createRightValue(value);
+        getVariables().setVariable(name, rightValue);
     }
 
     /*

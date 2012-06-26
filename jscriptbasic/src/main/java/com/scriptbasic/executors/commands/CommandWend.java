@@ -15,7 +15,7 @@ public class CommandWend extends AbstractCommand {
 
     @Override
     public void execute(final ExtendedInterpreter interpreter) {
-        // TODO Auto-generated method stub
+        interpreter.setNextCommand(commandWhile);
     }
 
 }

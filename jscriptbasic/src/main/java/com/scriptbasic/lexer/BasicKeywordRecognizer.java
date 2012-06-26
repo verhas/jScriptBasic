@@ -1,30 +1,26 @@
 package com.scriptbasic.lexer;
 
-import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 
 import com.scriptbasic.interfaces.KeywordRecognizer;
-import com.scriptbasic.utility.RegexpCommentFilter;
-import com.scriptbasic.utility.TextFileResource;
+import com.scriptbasic.interfaces.ScriptBasicKeyWords;
 
-public class BasicKeywordRecognizer implements KeywordRecognizer {
-    private static Set<String> keywords;
+public class BasicKeywordRecognizer implements KeywordRecognizer,
+        ScriptBasicKeyWords {
+    private Set<String> keywords = new HashSet<>();
 
-    static {
-        try {
-            keywords = new TextFileResource(BasicKeywordRecognizer.class,
-                    "keywords.txt").stripSpaces().stripEmptyLines()
-                    .stripComments(new RegexpCommentFilter("^#.*")).getSet();
-        } catch (final IOException e) {
-            keywords = null;
+    public BasicKeywordRecognizer() {
+        for (String keyword : keywordArray) {
+            keywords.add(keyword);
         }
     }
 
-    public static Set<String> getKeywords() {
+    public Set<String> getKeywords() {
         return keywords;
     }
 
-    public static void setKeywords(final Set<String> kwords) {
+    public void setKeywords(final Set<String> kwords) {
         keywords = kwords;
     }
 

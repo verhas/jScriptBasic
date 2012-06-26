@@ -24,7 +24,7 @@ public class TestToExtendCoverage extends TestCase {
         new BasicLexicalException("");
         new BasicLexicalException((Throwable) null);
         new BasicLexicalException("", null);
-        BasicKeywordRecognizer.setKeywords(BasicKeywordRecognizer.getKeywords());
+        new BasicKeywordRecognizer().setKeywords(new BasicKeywordRecognizer().getKeywords());
         
     }
 }

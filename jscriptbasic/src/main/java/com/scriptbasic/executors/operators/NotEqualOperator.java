@@ -13,13 +13,13 @@ public class NotEqualOperator extends AbstractCompareOperator {
     @Override
     protected Boolean compareTo(final BasicDoubleValue f, final RightValue op)
             throws BasicRuntimeException {
-        return f.getValue() != BasicDoubleValue.convert(op);
+        return !f.getValue().equals(BasicDoubleValue.convert(op));
     }
 
     @Override
     protected Boolean compareTo(final BasicLongValue f, final RightValue op)
             throws BasicRuntimeException {
-        return f.getValue() != BasicLongValue.convert(op);
+        return !f.getValue().equals(BasicLongValue.convert(op));
     }
 
     @Override

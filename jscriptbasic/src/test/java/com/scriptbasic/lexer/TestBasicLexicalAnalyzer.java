@@ -189,9 +189,9 @@ public class TestBasicLexicalAnalyzer extends TestCase {
     public void testSpaceSeparated() throws AnalysisException {
         assertLexicals(
                 new LexicalElement[] { ID("alma"), LONG("123"), ID("körte"),
-                        SYMBOL("<<"), SYMBOL(">="), SYMBOL("<<"),
+                        SYMBOL("<="), SYMBOL(">="), SYMBOL("<="),
                         DOUBLE("12.3"), DOUBLE("13e3"), DOUBLE("12.3e2"),
                         SSTRING("habakukk"), SYMBOL("<") },
-                createStringReading("alma 123 körte << >= << 12.3 13e3 12.3e2 \"habakukk\" <"));
+                createStringReading("alma 123 körte <= >= <= 12.3 13e3 12.3e2 \"habakukk\" <"));
     }
 }

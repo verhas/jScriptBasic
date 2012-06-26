@@ -6,6 +6,9 @@ import static com.scriptbasic.syntax.LexFacade.peek;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.executors.operators.AbstractUnaryOperator;
@@ -51,6 +54,8 @@ import com.scriptbasic.utility.FactoryUtilities;
  */
 public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
         implements TagAnalyzer {
+    private static Logger log = LoggerFactory.getLogger(BasicTagAnalyzer.class);
+
     private BasicTagAnalyzer() {
     }
 

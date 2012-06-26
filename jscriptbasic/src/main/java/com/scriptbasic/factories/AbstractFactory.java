@@ -46,7 +46,7 @@ public abstract class AbstractFactory implements Factory {
             object.setFactory(this);
         } catch (Exception e) {
             throw new BasicInterpreterInternalError("Can not instantiate "
-                    + klass);
+                    + klass,e);
         }
     }
 
