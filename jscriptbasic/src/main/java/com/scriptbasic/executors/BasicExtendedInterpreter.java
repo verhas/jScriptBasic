@@ -160,4 +160,16 @@ public class BasicExtendedInterpreter implements ExtendedInterpreter {
         // this.factory = factory;
     }
 
+    private Map<String, Class<?>> useMap = new HashMap<>();
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.scriptbasic.interfaces.ExtendedInterpreter#getUseMap()
+     */
+    @Override
+    public Map<String, Class<?>> getUseMap() {
+        return useMap;
+    }
+
 }

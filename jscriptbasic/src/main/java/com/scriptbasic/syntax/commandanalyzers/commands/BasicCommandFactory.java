@@ -32,8 +32,8 @@ public final class BasicCommandFactory implements CommandFactory {
         this.factory = factory;
     }
 
-    private Map<String, CommandAnalyzer> classMap = new HashMap<String, CommandAnalyzer>();
-    private List<CommandAnalyzer> classList = new LinkedList<CommandAnalyzer>();
+    private Map<String, CommandAnalyzer> classMap = new HashMap<>();
+    private List<CommandAnalyzer> classList = new LinkedList<>();
 
     /*
      * (non-Javadoc)
@@ -44,6 +44,7 @@ public final class BasicCommandFactory implements CommandFactory {
      */
     @Override
     public void registerCommandAnalyzer(String keyword, CommandAnalyzer analyzer) {
+        log.info("Registering command {}", keyword);
         if (keyword == null) {
             classList.add(analyzer);
         } else {
@@ -69,7 +70,8 @@ public final class BasicCommandFactory implements CommandFactory {
         registerCommandAnalyzer("if", new CommandAnalyzerIf());
         registerCommandAnalyzer("else", new CommandAnalyzerElse());
         registerCommandAnalyzer("endif", new CommandAnalyzerEndIf());
-        
+        registerCommandAnalyzer("use", new CommandAnalyzerUse());
+
         registerCommandAnalyzer(new CommandAnalyzerLet());
         registerCommandAnalyzer(new CommandAnalyzerCall());
     }

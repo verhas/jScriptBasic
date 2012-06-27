@@ -11,7 +11,8 @@ package com.scriptbasic.interfaces;
 public interface ScriptBasicKeyWords {
     String[] keywordArray = new String[] { "for", "end", "next", "let", "if",
             "endif", "then", "while", "wend", "else", "elseif", "repeat",
-            "until", "not", "false", "true", "and", "or", "div" };
+            "until", "not", "false", "true", "and", "or", "div", "use", "from",
+            "as", "function" , "endfunction", "to", "step" };
     String[] operators = new String[] { "<=", ">=", "<>" };
     int maxOperatorLength = 2;
 }

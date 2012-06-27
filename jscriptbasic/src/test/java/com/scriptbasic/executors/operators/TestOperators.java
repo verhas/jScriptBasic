@@ -6,6 +6,9 @@ package com.scriptbasic.executors.operators;
 import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
 import junit.framework.TestCase;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.scriptbasic.factories.BasicFactory;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
@@ -21,6 +24,7 @@ import com.scriptbasic.utility.FactoryUtilities;
  */
 public class TestOperators extends TestCase {
     private static Factory factory = new BasicFactory();
+    private static Logger log = LoggerFactory.getLogger(TestOperators.class);
 
     private static ExtendedInterpreter ana(final String s)
             throws AnalysisException {
@@ -284,6 +288,22 @@ public class TestOperators extends TestCase {
         b("a=b.www", new qqq(), 13);
         b("a=b.fff", new qqq(), 13.0);
         b("a=b.ccc.www", new qqq(), 13);
+
+        final qqq l = new qqq();
+
+        class zp {
+            public Integer zpq() {
+                log.debug("zpq() was called");
+                return 14;
+            }
+
+            public qqq oneArg(Long z) {
+                log.debug("oneArg was called: {}", z);
+                return l;
+            }
+        }
+        b("a=b.zpq()", new zp(), 14);
+        b("a=b.oneArg(13)", new zp(), l);
     }
 
 }

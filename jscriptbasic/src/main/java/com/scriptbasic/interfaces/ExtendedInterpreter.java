@@ -60,4 +60,25 @@ public interface ExtendedInterpreter extends Interpreter {
      * @return the map
      */
     Map<String, Object> getMap();
+
+    /**
+     * Programs can access Java static methods from different packages. To do
+     * that the programs have to recognize when the call 'out' to Java instead
+     * of looking for an internal function implemented in the program. For
+     * example the BASIC program has to declare the use of these packages using
+     * the command USE. For example
+     * 
+     * <pre>
+     * use Math from java.lang as matematika
+     * </pre>
+     * 
+     * (the part following the keyword 'as' is optional, in which case the Java
+     * name of the class is used). After this statement is executed the use map
+     * will contain the class {@code javal.lang.Math} for the key
+     * {@code matematika} (that is just the weird spelling of Math in
+     * Hungarian).
+     * 
+     * @return the use map itself.
+     */
+    Map<String, Class<?>> getUseMap();
 }
