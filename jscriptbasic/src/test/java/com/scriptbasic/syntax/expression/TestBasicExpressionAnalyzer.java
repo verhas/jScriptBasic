@@ -23,8 +23,8 @@ import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.syntax.LexFacade;
 import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.LexUtility;
 
 @SuppressWarnings("static-method")
 public class TestBasicExpressionAnalyzer extends TestCase {
@@ -38,10 +38,10 @@ public class TestBasicExpressionAnalyzer extends TestCase {
         final BasicExpressionAnalyzer bea = (BasicExpressionAnalyzer) FactoryUtilities
                 .getExpressionAnalyzer(factory);
         final Expression e = bea.analyze();
-        if (LexFacade.peek(la) != null) {
+        if (LexUtility.peek(la) != null) {
             throw new GenericSyntaxException(
                     "There are extra lexemes after the expression: "
-                            + LexFacade.peek(la).getLexeme());
+                            + LexUtility.peek(la).getLexeme());
         }
         return e;
     }

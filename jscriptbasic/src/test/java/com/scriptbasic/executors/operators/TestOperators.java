@@ -4,6 +4,9 @@
 package com.scriptbasic.executors.operators;
 
 import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
+
+import java.lang.reflect.InvocationTargetException;
+
 import junit.framework.TestCase;
 
 import org.slf4j.Logger;
@@ -220,8 +223,11 @@ public class TestOperators extends TestCase {
         new ModuloOperator().operatorName();
     }
 
+    @SuppressWarnings("unused")
     public static void testObjectAccess() throws AnalysisException,
-            ExecutionException {
+            ExecutionException, NoSuchMethodException, SecurityException,
+            IllegalAccessException, IllegalArgumentException,
+            InvocationTargetException {
         // b("program string", preset value for variable 'b', expected value of
         // 'a' after execution)
         b("a=b", 23L, 23);

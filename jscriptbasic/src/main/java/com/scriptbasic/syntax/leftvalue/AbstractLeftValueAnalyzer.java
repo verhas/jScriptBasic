@@ -54,7 +54,7 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
             return lvm;
         }
         throw new GenericSyntaxException(
-                "Left value array access does not have ]", lexicalElement);
+                "Left value array access does not have ]", lexicalElement, null);
     }
 
     private static LeftValueModifier analyzeFieldAccess(
@@ -68,7 +68,8 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
             return lvm;
         }
         throw new GenericSyntaxException(
-                "Left value . is not followed by a field name", lexicalElement);
+                "Left value . is not followed by a field name", lexicalElement,
+                null);
     }
 
     private static boolean isModifierStart(LexicalElement lexicalElement) {
@@ -112,7 +113,7 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
         } else {
             throw new GenericSyntaxException(
                     "left value should start with an identifier",
-                    lexicalElement);
+                    lexicalElement, null);
         }
         return leftValue;
     }

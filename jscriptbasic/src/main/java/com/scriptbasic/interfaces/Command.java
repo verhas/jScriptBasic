@@ -24,5 +24,5 @@ package com.scriptbasic.interfaces;
  * 
  */
 public interface Command extends AnalysisResult, Executor {
-    public Command getNextCommand();
+    Command getNextCommand();
 }

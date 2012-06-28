@@ -2,6 +2,7 @@ package com.scriptbasic.syntax.expression;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.scriptbasic.executors.operators.AbstractBinaryOperator;
@@ -29,7 +30,7 @@ public final class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
 
     private final static Integer MAXIMUM_PRIORITY = 6;
 
-    private static ArrayList<Map<String, Class<? extends AbstractBinaryOperator>>> operatorMapArray = new ArrayList<Map<String, Class<? extends AbstractBinaryOperator>>>(
+    private static List<Map<String, Class<? extends AbstractBinaryOperator>>> operatorMapArray = new ArrayList<Map<String, Class<? extends AbstractBinaryOperator>>>(
             MAXIMUM_PRIORITY + 1);
     static {
         for (Integer i = 0; i <= MAXIMUM_PRIORITY; i++) {

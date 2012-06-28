@@ -14,7 +14,6 @@ public class AuxTests extends TestCase {
 
     @SuppressWarnings("static-method")
     public void testExceptions() {
-        new SyntaxExceptionUtility();
         // new FactoryUtilities();
         new CommandCanNotBeCreatedException("bla bla", null);
         new KeywordNotImplementedException("hukk");

@@ -29,9 +29,11 @@ import com.scriptbasic.utility.RightValueUtils;
  */
 public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
 
-    private static RightValue fetchField(Object object, VariableAccess rightOp)
+    private RightValue fetchField(ExtendedInterpreter extendedInterpreter)
             throws ExecutionException {
         RightValue result = null;
+        Object object = getLeftOperandObject(extendedInterpreter);
+        VariableAccess rightOp = (VariableAccess) getRightOperand();
         String fieldName = rightOp.getVariableName();
         Class<?> klass = object.getClass();
         try {
@@ -41,7 +43,7 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
                 | IllegalArgumentException | IllegalAccessException e) {
             throw new BasicRuntimeException("Object access of type "
                     + object.getClass() + " can not access field '" + fieldName
-                    + "'");
+                    + "'", e);
         }
         return result;
     }
@@ -96,24 +98,28 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
                 result.add(object);
             }
         }
-        return result == null ? null :result.toArray(new Object[0]);
+        return result == null ? null : result.toArray(new Object[0]);
     }
 
-    private static RightValue callMethod(
-            ExtendedInterpreter extendedInterpreter, Object object,
-            FunctionCall rightOp) throws ExecutionException {
+    private RightValue callMethod(
+            final ExtendedInterpreter extendedInterpreter, final Object object,
+            final Class<?> klass) throws ExecutionException {
         RightValue result = null;
+        FunctionCall rightOp = (FunctionCall) getRightOperand();
         String methodName = rightOp.getVariableName();
         ExpressionList expressionList = rightOp.getExpressionList();
         List<RightValue> args = evaluateExpressionList(extendedInterpreter,
                 expressionList);
         Method method = null;
-        try {
-            method = object.getClass().getMethod(methodName,
-                    getClassArray(args));
-        } catch (NoSuchMethodException | SecurityException e) {
-            throw new BasicRuntimeException("Method " + methodName
-                    + " can not be obtained", e);
+        method = extendedInterpreter.getJavaMethod(
+                klass == null ? object.getClass() : klass, methodName);
+        if (method == null) {
+            try {
+                method = klass.getMethod(methodName, getClassArray(args));
+            } catch (NoSuchMethodException | SecurityException e) {
+                throw new BasicRuntimeException("Method '" + methodName
+                        + "' from class '" + klass + "' can not be accessed", e);
+            }
         }
         Object methodResultObject = null;
         try {
@@ -122,6 +128,9 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
                 | InvocationTargetException e) {
             throw new BasicRuntimeException("Can not invoke method "
                     + methodName, e);
+        } catch (Throwable e) {// TODO examine later what to catch...
+            throw new BasicRuntimeException("Invoking methos '" + methodName
+                    + "' throws exception:", e);
         }
         result = RightValueUtils.createRightValue(methodResultObject);
         return result;
@@ -138,22 +147,35 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
         return ((AbstractPrimitiveRightValue<Object>) leftOp).getValue();
     }
 
+    private Class<?> getStaticClass(ExtendedInterpreter extendedInterpreter) {
+        Class<?> result = null;
+        if (getLeftOperand() instanceof VariableAccess) {
+            String classAsName = ((VariableAccess) getLeftOperand())
+                    .getVariableName();
+            if (extendedInterpreter.getUseMap().containsKey(classAsName)) {
+                result = extendedInterpreter.getUseMap().get(classAsName);
+            }
+        }
+        return result;
+    }
+
     @Override
     public RightValue evaluate(ExtendedInterpreter extendedInterpreter)
             throws ExecutionException {
         RightValue result = null;
-
-        Object object = getLeftOperandObject(extendedInterpreter);
-
         Expression rightOp = getRightOperand();
+
         if (rightOp instanceof VariableAccess) {
 
-            result = fetchField(object, (VariableAccess) rightOp);
+            result = fetchField(extendedInterpreter);
 
         } else if (rightOp instanceof FunctionCall) {
-
-            result = callMethod(extendedInterpreter, object,
-                    (FunctionCall) rightOp);
+            Class<?> klass = getStaticClass(extendedInterpreter);
+            Object object = null;
+            if (klass == null) {
+                object = getLeftOperandObject(extendedInterpreter);
+            }
+            result = callMethod(extendedInterpreter, object, klass);
 
         } else if (rightOp instanceof ArrayElementAccess) {
             // TODO develop this

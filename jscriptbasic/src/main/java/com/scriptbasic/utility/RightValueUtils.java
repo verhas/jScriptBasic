@@ -17,6 +17,7 @@ import com.scriptbasic.interfaces.RightValue;
  */
 public class RightValueUtils {
     private RightValueUtils() {
+        UtilityUtility.assertUtilityClass();
     }
 
     public static RightValue createRightValue(Object value) {

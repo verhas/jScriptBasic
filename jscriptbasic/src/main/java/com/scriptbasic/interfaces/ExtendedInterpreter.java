@@ -1,5 +1,6 @@
 package com.scriptbasic.interfaces;
 
+import java.lang.reflect.Method;
 import java.util.Map;
 
 /**
@@ -69,16 +70,85 @@ public interface ExtendedInterpreter extends Interpreter {
      * the command USE. For example
      * 
      * <pre>
-     * use Math from java.lang as matematika
+     * use Math from java.lang as m
      * </pre>
      * 
      * (the part following the keyword 'as' is optional, in which case the Java
      * name of the class is used). After this statement is executed the use map
-     * will contain the class {@code javal.lang.Math} for the key
-     * {@code matematika} (that is just the weird spelling of Math in
-     * Hungarian).
+     * will contain the class {@code javal.lang.Math} for the key {@code m}.
      * 
      * @return the use map itself.
      */
     Map<String, Class<?>> getUseMap();
+
+    /**
+     * Register a BASIC function as Java method. Java methods may be overloaded
+     * but BASIC functions can not. When a BASIC program wants to use a Java
+     * method it has to declare it as
+     * 
+     * <pre>
+     * use class from package as basicClassReference
+     * </pre>
+     * 
+     * for example
+     * 
+     * <pre>
+     * use Math from java.lang as m
+     * </pre>
+     * 
+     * when the method {@code sin} is used, foe example
+     * 
+     * <pre>
+     * a = m.sin(1.0)
+     * </pre>
+     * 
+     * the BASIC interpreter has to find the method
+     * {@code java.lang.Math.sin(Double x)}. The problem is that the method does
+     * not exist because the argument is not {@code Double} but rather
+     * {@code double}.
+     * <p>
+     * To help with this situation the BASIC program should declare the Java
+     * signature of the method using the BASIC command METHOD. For example:
+     * 
+     * <pre>
+     * method sin from java.lang.Math is (double) use as sinus
+     * </pre>
+     * 
+     * (Note that the part {@code use as ...} is optional.)
+     * <p>
+     * After this command is executed the interpreter will use the defined
+     * signature to locate the method. You can write in the BASIC program
+     * 
+     * <pre>
+     * a = m.sinus(1.0)
+     * </pre>
+     * 
+     * {@code registerJavaMethod()} registers the basic function alias, class,
+     * java method name and the argument types so that later call to {@see
+     * #getJavaMethod(Class, String)} can find the appropriate method.
+     * 
+     * @param klass
+     * @param methodName
+     * @param argumentTypes
+     */
+    void registerJavaMethod(String alias, Class<?> klass, String methodName,
+            Class<?>[] argumentTypes);
+
+    /**
+     * Get the method named from the klass based on the declaration given in a
+     * previously executed {@code METHOD} basic command. The basic command
+     * METHOD has the form (example follows):
+     * 
+     * <pre>
+     * method sin from java.lang.Math is (double)
+     * </pre>
+     * 
+     * that defines that the
+     * 
+     * @param klass
+     * @param mehodName
+     * @return
+     * @throws ExecutionException 
+     */
+    Method getJavaMethod(Class<?> klass, String methodName) throws ExecutionException;
 }

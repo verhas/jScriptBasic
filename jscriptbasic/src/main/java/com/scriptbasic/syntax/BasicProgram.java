@@ -2,6 +2,7 @@ package com.scriptbasic.syntax;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import com.scriptbasic.executors.commands.AbstractCommand;
 import com.scriptbasic.interfaces.BuildableProgram;
@@ -23,7 +24,7 @@ public final class BasicProgram implements BuildableProgram {
     private BasicProgram() {
     }
 
-    private final ArrayList<Command> commands = new ArrayList<Command>();
+    private final List<Command> commands = new ArrayList<Command>();
     private AbstractCommand lastCommand = null;
 
     public void addCommand(final Command command) {

@@ -71,6 +71,7 @@ public final class BasicCommandFactory implements CommandFactory {
         registerCommandAnalyzer("else", new CommandAnalyzerElse());
         registerCommandAnalyzer("endif", new CommandAnalyzerEndIf());
         registerCommandAnalyzer("use", new CommandAnalyzerUse());
+        registerCommandAnalyzer("method", new CommandAnalyzerMethod());
 
         registerCommandAnalyzer(new CommandAnalyzerLet());
         registerCommandAnalyzer(new CommandAnalyzerCall());
@@ -89,8 +90,8 @@ public final class BasicCommandFactory implements CommandFactory {
     private Command create() throws AnalysisException, CommandFactoryException {
         for (final CommandAnalyzer commandAnalyzer : classList) {
             try {
-                log.info("trying to analyze the line using "
-                        + commandAnalyzer.getClass());
+                log.info("trying to analyze the line using {}",
+                        commandAnalyzer.getClass());
                 final Command command = commandAnalyzer.analyze();
                 if (command != null) {
                     return command;

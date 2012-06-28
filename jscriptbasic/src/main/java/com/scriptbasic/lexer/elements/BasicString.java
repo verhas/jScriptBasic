@@ -74,13 +74,13 @@ public class BasicString extends AbstractElementAnalyzer {
         Integer outputCharacter = inputCharacter;
         if (inputCharacter != null) {
             switch (inputCharacter) {
-            case 'n':
+            case (int) 'n':
                 outputCharacter = (int) '\n';
                 break;
-            case 't':
+            case (int) 't':
                 outputCharacter = (int) '\t';
                 break;
-            case 'r':
+            case (int) 'r':
                 outputCharacter = (int) '\r';
                 break;
             default:
@@ -109,8 +109,8 @@ public class BasicString extends AbstractElementAnalyzer {
         final StringBuilder lexeme = new StringBuilder(stringBufferInitialSize);
         appendSeparator(lexeme, multiLine);
 
-        final BasicLexicalElement lexicalElement = BasicLexialElementFactory.create(
-                getReader(), LexicalElement.TYPE_STRING);
+        final BasicLexicalElement lexicalElement = BasicLexialElementFactory
+                .create(getReader(), LexicalElement.TYPE_STRING);
 
         Integer character = getReader().get();
         while (!isStringTerminated(character, multiLine)) {

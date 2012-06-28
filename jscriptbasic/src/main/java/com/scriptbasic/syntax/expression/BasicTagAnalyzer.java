@@ -1,13 +1,7 @@
 package com.scriptbasic.syntax.expression;
 
-import static com.scriptbasic.syntax.LexFacade.get;
-import static com.scriptbasic.syntax.LexFacade.peek;
-
 import java.util.HashMap;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.exceptions.GenericSyntaxException;
@@ -31,6 +25,7 @@ import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.TagAnalyzer;
 import com.scriptbasic.syntax.AbstractAnalyzer;
 import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.LexUtility;
 
 /**
  * Analyze a tag. A tag is the most primitive part of an expression that does
@@ -54,7 +49,8 @@ import com.scriptbasic.utility.FactoryUtilities;
  */
 public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
         implements TagAnalyzer {
-    private static Logger log = LoggerFactory.getLogger(BasicTagAnalyzer.class);
+    // private static Logger log =
+    // LoggerFactory.getLogger(BasicTagAnalyzer.class);
 
     private BasicTagAnalyzer() {
     }
@@ -82,7 +78,7 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
     public Expression analyze() throws AnalysisException {
         final LexicalAnalyzer lexicalAnalyzer = FactoryUtilities
                 .getLexicalAnalyzer(factory);
-        final LexicalElement lexicalElement = peek(lexicalAnalyzer);
+        final LexicalElement lexicalElement = LexUtility.peek(lexicalAnalyzer);
         if (lexicalElement != null) {
             if (isUnaryOperator(lexicalElement)) {
                 return newUnaryOperator(lexicalAnalyzer);
@@ -99,8 +95,9 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
 
     private Expression newArrayOrVariableOrFunctionCall(
             final LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
-        final LexicalElement identifierElement = get(lexicalAnalyzer);
-        final LexicalElement lexicalElement = peek(lexicalAnalyzer);
+        final LexicalElement identifierElement = LexUtility
+                .get(lexicalAnalyzer);
+        final LexicalElement lexicalElement = LexUtility.peek(lexicalAnalyzer);
         if (isOpeningBracket(lexicalElement)) {
             return newArray(lexicalAnalyzer, identifierElement);
         } else if (isOpeningParenthese(lexicalElement)) {
@@ -120,16 +117,16 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
     private Expression newFunctionCall(final LexicalAnalyzer lexicalAnalyzer,
             final LexicalElement identifierElement) throws AnalysisException {
         final FunctionCall functionCall = new FunctionCall();
-        get(lexicalAnalyzer);
+        LexUtility.get(lexicalAnalyzer);
         functionCall.setVariableName(identifierElement.getLexeme());
-        LexicalElement lexicalElement = peek(lexicalAnalyzer);
+        LexicalElement lexicalElement = LexUtility.peek(lexicalAnalyzer);
         if (!isClosingParenthese(lexicalElement)) {
             functionCall.setExpressionList(FactoryUtilities
                     .getExpressionListAnalyzer(factory).analyze());
-            lexicalElement = peek(lexicalAnalyzer);
+            lexicalElement = LexUtility.peek(lexicalAnalyzer);
         }
         if (isClosingParenthese(lexicalElement)) {
-            get(lexicalAnalyzer);
+            LexUtility.get(lexicalAnalyzer);
             return functionCall;
         } else {
             throw new GenericSyntaxException(
@@ -139,14 +136,14 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
 
     private Expression newArray(final LexicalAnalyzer lexicalAnalyzer,
             final LexicalElement identifierElement) throws AnalysisException {
-        get(lexicalAnalyzer);
+        LexUtility.get(lexicalAnalyzer);
         final ArrayElementAccess arrayElementAccess = new ArrayElementAccess();
         arrayElementAccess.setVariableName(identifierElement.getLexeme());
         arrayElementAccess.setExpressionList(FactoryUtilities
                 .getExpressionListAnalyzer(factory).analyze());
-        final LexicalElement lexicalElement = peek(lexicalAnalyzer);
+        final LexicalElement lexicalElement = LexUtility.peek(lexicalAnalyzer);
         if (isClosingBracket(lexicalElement)) {
-            get(lexicalAnalyzer);
+            LexUtility.get(lexicalAnalyzer);
             return arrayElementAccess;
         } else {
             throw new GenericSyntaxException(
@@ -157,12 +154,12 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
 
     private Expression newSubExpression(final LexicalAnalyzer lexicalAnalyzer)
             throws AnalysisException {
-        get(lexicalAnalyzer);
+        LexUtility.get(lexicalAnalyzer);
         final Expression expression = FactoryUtilities.getExpressionAnalyzer(
                 factory).analyze();
-        final LexicalElement lexicalElement = peek(lexicalAnalyzer);
+        final LexicalElement lexicalElement = LexUtility.peek(lexicalAnalyzer);
         if (isClosingParenthese(lexicalElement)) {
-            get(lexicalAnalyzer);
+            LexUtility.get(lexicalAnalyzer);
             return expression;
         } else {
             throw new GenericSyntaxException(
@@ -172,7 +169,7 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
 
     private AbstractUnaryOperator newUnaryOperator(
             final LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
-        final LexicalElement lexicalElement = get(lexicalAnalyzer);
+        final LexicalElement lexicalElement = LexUtility.get(lexicalAnalyzer);
         AbstractUnaryOperator operator;
         try {
             operator = unaryOperatorMap.get(lexicalElement.getLexeme())
@@ -186,7 +183,7 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
 
     private static AbstractPrimitiveRightValue<?> newLiteralConstant(
             final LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
-        final LexicalElement lexicalElement = get(lexicalAnalyzer);
+        final LexicalElement lexicalElement = LexUtility.get(lexicalAnalyzer);
         if (lexicalElement.isDouble()) {
             return new BasicDoubleValue(lexicalElement.doubleValue());
         } else if (lexicalElement.isLong()) {

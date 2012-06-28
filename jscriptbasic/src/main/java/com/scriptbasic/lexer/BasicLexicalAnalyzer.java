@@ -38,7 +38,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     }
 
     protected BasicLexicalAnalyzer() {
-        log.debug("constructor created " + this);
+        log.debug("constructor created {}", this);
     }
 
     private final Deque<LexicalElementAnalyzer> analyzerQueue = new LinkedList<LexicalElementAnalyzer>();
@@ -53,7 +53,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
 
     @Override
     public void registerElementAnalyzer(final LexicalElementAnalyzer lea) {
-        log.debug("lexical element analyzer " + lea + " was registered");
+        log.debug("lexical element analyzer {} was registered", lea);
         lea.setReader(reader);
         this.analyzerQueue.add(lea);
     }
@@ -134,8 +134,8 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
                     le = lea.read();
                     if (le != null) {
                         analyzed = true;
-                        log.debug(lea + " could analyze the characters");
-                        log.debug("the result is: " + le.toString());
+                        log.debug("{} could analyze the characters", lea);
+                        log.debug("the result is: {}", le.toString());
                         this.lexicalElementQueue.add(le);
                         break;
                     }
@@ -157,7 +157,8 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
         resetLine();
         final GenericHierarchicalReader hreader = (GenericHierarchicalReader) this.reader;
         if (!this.lexicalElementQueue.isEmpty()) {
-            LexicalElement lexicalElement = this.lexicalElementQueueIterator.next();
+            LexicalElement lexicalElement = this.lexicalElementQueueIterator
+                    .next();
             if (isIncludeOrImport(lexicalElement)) {
                 lexicalElement = this.lexicalElementQueueIterator.next();
                 if (lexicalElement.isString()) {
@@ -168,7 +169,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
                         childReader = sp.get(lexicalElement.stringValue(),
                                 hreader.getFileName());
                     } catch (final IllegalArgumentException e) {
-                        log.error("",e);
+                        log.error("", e);
                     } catch (final IOException e) {
                         throw new BasicLexicalException(
                                 "Can not open included file '"
@@ -180,7 +181,8 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
                     resetLine();
                 } else {
                     log.error("This is not a string following the keyword INCLUDE");
-                    throw new GenericSyntaxException("String has to be used after import or include.");
+                    throw new GenericSyntaxException(
+                            "String has to be used after import or include.");
                 }
             }
         }

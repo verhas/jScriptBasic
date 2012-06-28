@@ -25,7 +25,7 @@ public class CommandAnalyzerLet extends AbstractCommandAnalyzer {
         lexicalElement = lexicalAnalyzer.get();
         if (lexicalElement == null || !lexicalElement.isSymbol("=")) {
             throw new GenericSyntaxException("Assignment does not contain '='",
-                    lexicalElement);
+                    lexicalElement, null);
         }
         commandLet.setExpression(FactoryUtilities.getExpressionAnalyzer(
                 getFactory()).analyze());

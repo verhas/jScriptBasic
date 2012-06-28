@@ -11,7 +11,7 @@ import com.scriptbasic.utility.CharUtils;
 
 public class GenericReader implements Reader {
     @Override
-	public void setFactory(Factory factory) {
+    public void setFactory(Factory factory) {
     }
 
     private java.io.Reader sourceReader;
@@ -59,7 +59,6 @@ public class GenericReader implements Reader {
         if (ch != null) {
             this.charsAhead.addFirst(ch);
             this.position--;
-        } else {
         }
     }
 

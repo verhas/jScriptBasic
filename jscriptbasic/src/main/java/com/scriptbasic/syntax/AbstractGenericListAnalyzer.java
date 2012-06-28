@@ -3,9 +3,6 @@
  */
 package com.scriptbasic.syntax;
 
-import static com.scriptbasic.syntax.LexFacade.get;
-import static com.scriptbasic.syntax.LexFacade.peek;
-
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.AnalysisResult;
 import com.scriptbasic.interfaces.Analyzer;
@@ -14,6 +11,7 @@ import com.scriptbasic.interfaces.GenericList;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.ListAnalyzer;
 import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.LexUtility;
 
 /**
  * An abstract class to analyze a list of something. A list is several something
@@ -52,12 +50,12 @@ public abstract class AbstractGenericListAnalyzer<T extends GenericList<Z>, K ex
     @Override
     public T analyze() throws AnalysisException {
         list.add(analyzer.analyze());
-        LexicalElement lexicalElement = peek(FactoryUtilities
+        LexicalElement lexicalElement = LexUtility.peek(FactoryUtilities
                 .getLexicalAnalyzer(getFactory()));
         while (isComma(lexicalElement)) {
-            get(FactoryUtilities.getLexicalAnalyzer(getFactory()));
+            LexUtility.get(FactoryUtilities.getLexicalAnalyzer(getFactory()));
             list.add(analyzer.analyze());
-            lexicalElement = peek(FactoryUtilities
+            lexicalElement = LexUtility.peek(FactoryUtilities
                     .getLexicalAnalyzer(getFactory()));
         }
         return list;

@@ -42,8 +42,7 @@ public interface LocalVariableMap extends VariableMap {
      * @param variableName
      * @throws ExecutionException
      */
-    public void registerGlobalVariable(String variableName)
-            throws ExecutionException;
+    void registerGlobalVariable(String variableName) throws ExecutionException;
 
     /**
      * Define the variable as a local variable in a local environment. For more
@@ -53,6 +52,5 @@ public interface LocalVariableMap extends VariableMap {
      * @param variableName
      * @throws ExecutionException
      */
-    public void registerLocalVariable(String variableName)
-            throws ExecutionException;
+    void registerLocalVariable(String variableName) throws ExecutionException;
 }

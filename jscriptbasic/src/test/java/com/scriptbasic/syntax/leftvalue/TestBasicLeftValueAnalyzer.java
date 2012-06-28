@@ -24,9 +24,9 @@ import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LeftValueAnalyzer;
 import com.scriptbasic.interfaces.LeftValueListAnalyzer;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.syntax.LexFacade;
 import com.scriptbasic.syntax.expression.ExpressionComparator;
 import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.LexUtility;
 
 public class TestBasicLeftValueAnalyzer extends TestCase {
 
@@ -39,10 +39,10 @@ public class TestBasicLeftValueAnalyzer extends TestCase {
         final LeftValueAnalyzer lva = FactoryUtilities
                 .getLeftValueAnalyzer(factory);
         final BasicLeftValue e = (BasicLeftValue) lva.analyze();
-        if (LexFacade.peek(la) != null) {
+        if (LexUtility.peek(la) != null) {
             throw new GenericSyntaxException(
                     "There are extra lexemes after the expression: "
-                            + LexFacade.peek(la).getLexeme());
+                            + LexUtility.peek(la).getLexeme());
         }
         return e;
     }
@@ -155,10 +155,10 @@ public class TestBasicLeftValueAnalyzer extends TestCase {
         final LeftValueListAnalyzer lva = FactoryUtilities
                 .getLeftValueListAnalyzer(factory);
         final GenericLeftValueList e = (GenericLeftValueList) lva.analyze();
-        if (LexFacade.peek(la) != null) {
+        if (LexUtility.peek(la) != null) {
             throw new GenericSyntaxException(
                     "There are extra lexemes after the expression: "
-                            + LexFacade.peek(la).getLexeme());
+                            + LexUtility.peek(la).getLexeme());
         }
         return e;
     }

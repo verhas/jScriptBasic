@@ -52,7 +52,7 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
                 getFactory()).get();
         if (lexicalElement == null || !lexicalElement.isSymbol(keyword)) {
             throw new GenericSyntaxException("There is no '" + keyword
-                    + "' after the '" + getName() + "'", lexicalElement);
+                    + "' after the '" + getName() + "'", lexicalElement,null);
         }
     }
 

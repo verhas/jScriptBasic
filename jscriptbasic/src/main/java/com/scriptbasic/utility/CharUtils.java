@@ -1,11 +1,8 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.errors.BasicInterpreterInternalError;
-
 public class CharUtils {
     private CharUtils() {
-        throw new BasicInterpreterInternalError(
-                "Should not instantiate CharUtils utility class");
+        UtilityUtility.assertUtilityClass();
     }
 
     public static boolean isNewLine(final Integer ch) {

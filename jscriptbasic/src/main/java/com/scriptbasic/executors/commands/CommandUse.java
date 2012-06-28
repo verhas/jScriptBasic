@@ -2,7 +2,7 @@ package com.scriptbasic.executors.commands;
 
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 
-public class CommandUse extends AbstractCommand implements IfOrElse {
+public class CommandUse extends AbstractCommand {
 
     private Class<?> klass = null;
     private String alias = null;
@@ -15,7 +15,8 @@ public class CommandUse extends AbstractCommand implements IfOrElse {
     }
 
     /**
-     * @param klass the klass to set
+     * @param klass
+     *            the klass to set
      */
     public void setKlass(Class<?> klass) {
         this.klass = klass;
@@ -29,7 +30,8 @@ public class CommandUse extends AbstractCommand implements IfOrElse {
     }
 
     /**
-     * @param alias the alias to set
+     * @param alias
+     *            the alias to set
      */
     public void setAlias(String alias) {
         this.alias = alias;

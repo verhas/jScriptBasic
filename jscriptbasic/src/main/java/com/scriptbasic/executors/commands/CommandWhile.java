@@ -29,16 +29,19 @@ public class CommandWhile extends AbstractCommand {
         this.condition = condition;
     }
 
+    private void jumpAfterTheWendCommand(final ExtendedInterpreter interpreter) {
+        interpreter.setNextCommand(getWendNode().getNextCommand());
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public void execute(final ExtendedInterpreter interpreter)
             throws ExecutionException {
         final RightValue conditionValue = getCondition().evaluate(interpreter);
         if (conditionValue instanceof AbstractPrimitiveRightValue<?>) {
-            final AbstractPrimitiveRightValue<Object> condition = (AbstractPrimitiveRightValue<Object>) conditionValue;
-            if (!condition.getBooleanValue()) {
-                // jump after the WEND command
-                interpreter.setNextCommand(getWendNode().getNextCommand());
+            final AbstractPrimitiveRightValue<Object> cond = (AbstractPrimitiveRightValue<Object>) conditionValue;
+            if (!cond.getBooleanValue()) {
+                jumpAfterTheWendCommand(interpreter);
             }
         } else {
             throw new BasicRuntimeException(

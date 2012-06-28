@@ -3,6 +3,7 @@
  */
 package com.scriptbasic.executors;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -170,6 +171,35 @@ public class BasicExtendedInterpreter implements ExtendedInterpreter {
     @Override
     public Map<String, Class<?>> getUseMap() {
         return useMap;
+    }
+
+    private MethodRegistry methodRegistry = new MethodRegistry();
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.scriptbasic.interfaces.ExtendedInterpreter#getJavaMethod(java.lang
+     * .Class, java.lang.String)
+     */
+    @Override
+    public Method getJavaMethod(Class<?> klass, String methodName) throws ExecutionException {
+        return methodRegistry.getJavaMethod(klass, methodName);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.scriptbasic.interfaces.ExtendedInterpreter#registerJavaMethod(java
+     * .lang.String, java.lang.Class, java.lang.String, java.lang.Class<?>[])
+     */
+    @Override
+    public void registerJavaMethod(String alias, Class<?> klass,
+            String methodName, Class<?>[] argumentTypes) {
+        methodRegistry.registerJavaMethod(alias, klass, methodName,
+                argumentTypes);
+
     }
 
 }

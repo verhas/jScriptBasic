@@ -58,7 +58,7 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
             }
             return buildableProgram;
         } catch (CommandFactoryException e) {
-            throw new GenericSyntaxException(e.getMessage(), lexicalElement);
+            throw new GenericSyntaxException(e.getMessage(), lexicalElement,e);
         }
     }
 }

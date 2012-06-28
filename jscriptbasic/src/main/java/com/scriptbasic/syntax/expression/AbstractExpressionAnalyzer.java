@@ -4,7 +4,6 @@ import java.util.Map;
 
 import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.exceptions.LexicalException;
-import com.scriptbasic.exceptions.SyntaxException;
 import com.scriptbasic.executors.operators.AbstractBinaryOperator;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Expression;
@@ -97,8 +96,7 @@ public abstract class AbstractExpressionAnalyzer extends
      * 
      * @param priority
      * @return
-     * @throws SyntaxException
-     * @throws LexicalException
+     * @throws AnalysisException
      */
     private Expression analyze(final Integer priority) throws AnalysisException {
         if (priority == 0) {
