@@ -11,7 +11,7 @@ public class BasicKeywordRecognizer implements KeywordRecognizer,
     private Set<String> keywords = new HashSet<>();
 
     public BasicKeywordRecognizer() {
-        for (String keyword : keywordArray) {
+        for (String keyword : BASIC_KEYWORDS) {
             keywords.add(keyword);
         }
     }

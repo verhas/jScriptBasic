@@ -22,7 +22,7 @@ import com.scriptbasic.utility.RightValueUtils;
  * @date June 22, 2012
  * 
  */
-public class BasicExtendedInterpreter implements ExtendedInterpreter {
+public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     private BasicExtendedInterpreter() {
     }
 
@@ -40,7 +40,7 @@ public class BasicExtendedInterpreter implements ExtendedInterpreter {
         this.program = buildableProgram;
     }
 
-    final private MixedBasicVariableMap variables = new MixedBasicVariableMap();
+    private final MixedBasicVariableMap variables = new MixedBasicVariableMap();
 
     @Override
     public MixedBasicVariableMap getVariables() {
@@ -183,7 +183,8 @@ public class BasicExtendedInterpreter implements ExtendedInterpreter {
      * .Class, java.lang.String)
      */
     @Override
-    public Method getJavaMethod(Class<?> klass, String methodName) throws ExecutionException {
+    public Method getJavaMethod(Class<?> klass, String methodName)
+            throws ExecutionException {
         return methodRegistry.getJavaMethod(klass, methodName);
     }
 

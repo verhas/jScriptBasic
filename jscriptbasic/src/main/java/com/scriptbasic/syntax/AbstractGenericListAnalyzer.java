@@ -33,7 +33,7 @@ import com.scriptbasic.utility.LexUtility;
 public abstract class AbstractGenericListAnalyzer<T extends GenericList<Z>, K extends T, Z extends AnalysisResult, A extends Analyzer<Z>>
         implements ListAnalyzer<T> {
 
-    abstract public Factory getFactory();
+    public abstract Factory getFactory();
 
     private K list;
 

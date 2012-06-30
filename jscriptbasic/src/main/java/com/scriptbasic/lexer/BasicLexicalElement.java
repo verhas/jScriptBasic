@@ -87,22 +87,22 @@ public class BasicLexicalElement extends AbstractLexicalElement {
     }
 
     @Override
-    public String stringValue() throws IllegalArgumentException {
+    public String stringValue() {
         return this.stringValue;
     }
 
     @Override
-    public Long longValue() throws IllegalArgumentException {
+    public Long longValue() {
         return this.longValue;
     }
 
     @Override
-    public Double doubleValue() throws IllegalArgumentException {
+    public Double doubleValue() {
         return this.doubleValue;
     }
 
     @Override
-    public Boolean booleanValue() throws IllegalArgumentException {
+    public Boolean booleanValue() {
         return this.booleanValue;
     }
 

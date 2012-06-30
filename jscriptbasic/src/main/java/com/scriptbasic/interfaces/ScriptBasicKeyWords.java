@@ -9,10 +9,11 @@ package com.scriptbasic.interfaces;
  * 
  */
 public interface ScriptBasicKeyWords {
-    String[] keywordArray = new String[] { "for", "end", "next", "let", "if",
+    String[] BASIC_KEYWORDS = new String[] { "for", "end", "next", "let", "if",
             "endif", "then", "while", "wend", "else", "elseif", "repeat",
             "until", "not", "false", "true", "and", "or", "div", "use", "from",
-            "as", "function" , "endfunction", "to", "step", "method", "is" };
-    String[] operators = new String[] { "<=", ">=", "<>" };
-    int maxOperatorLength = 2;
+            "as", "function", "endfunction", "to", "step", "method", "is",
+            "rem" };
+    String[] BASIC_OPERATORS = new String[] { "<=", ">=", "<>" };
+    int BASIC_OPERATOR_LEXEME_MAX_LENGTH = 2;
 }

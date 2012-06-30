@@ -28,52 +28,53 @@ public final class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
     private BasicExpressionAnalyzer() {
     }
 
-    private final static Integer MAXIMUM_PRIORITY = 6;
+    private static final Integer MAXIMUM_PRIORITY = 6;
 
-    private static List<Map<String, Class<? extends AbstractBinaryOperator>>> operatorMapArray = new ArrayList<Map<String, Class<? extends AbstractBinaryOperator>>>(
+    private static final List<Map<String, Class<? extends AbstractBinaryOperator>>> BASIC_OPERATOR_MAPS = new ArrayList<Map<String, Class<? extends AbstractBinaryOperator>>>(
             MAXIMUM_PRIORITY + 1);
     static {
         for (Integer i = 0; i <= MAXIMUM_PRIORITY; i++) {
-            operatorMapArray.add(null);
+            BASIC_OPERATOR_MAPS.add(null);
         }
     }
 
     private static Map<String, Class<? extends AbstractBinaryOperator>> getStaticOperatorMap(
             final Integer priority) {
-        Map<String, Class<? extends AbstractBinaryOperator>> operatorMap = operatorMapArray
+        Map<String, Class<? extends AbstractBinaryOperator>> operatorMap = BASIC_OPERATOR_MAPS
                 .get(priority);
         if (operatorMap == null) {
             operatorMap = new HashMap<String, Class<? extends AbstractBinaryOperator>>();
-            operatorMapArray.set(priority, operatorMap);
+            BASIC_OPERATOR_MAPS.set(priority, operatorMap);
         }
         return operatorMap;
     }
 
     static {
-        // TODO create all the executor classes and replace the nulls
         Map<String, Class<? extends AbstractBinaryOperator>> opMap = null;
-        opMap = getStaticOperatorMap(1);
+        int priority = 0;
+        opMap = getStaticOperatorMap(++priority);
         opMap.put(".", ObjectFieldAccessOperator.class);
-        opMap = getStaticOperatorMap(2);
+        opMap = getStaticOperatorMap(++priority);
         opMap.put("^", PowerOperator.class);
-        opMap = getStaticOperatorMap(3);
+        opMap = getStaticOperatorMap(++priority);
         opMap.put("*", MultiplyOperator.class);
         opMap.put("/", DivideOperator.class);
         opMap.put("%", ModuloOperator.class);
         opMap.put("div", IntegerDivideOperator.class);
-        opMap = getStaticOperatorMap(4);
+        opMap = getStaticOperatorMap(++priority);
         opMap.put("+", AddOperator.class); // numeric and also concatenation of
                                            // strings
         opMap.put("-", MinusOperator.class);
-        opMap = getStaticOperatorMap(5);
-        // LIKE operator is NOT implemented in jScriptBasic, use Java methods
+        opMap = getStaticOperatorMap(++priority);
+        // LIKE operator is NOT implemented in jScriptBasic, use Java methods as
+        // it was in ScriptBasic
         opMap.put("=", EqualsOperator.class);
         opMap.put("<", LessThanOperator.class);
         opMap.put(">", GreaterThanOperator.class);
         opMap.put(">=", GreaterOrEqualOperator.class);
         opMap.put("<=", LessOrEqualOperator.class);
         opMap.put("<>", NotEqualOperator.class);
-        opMap = getStaticOperatorMap(6);
+        opMap = getStaticOperatorMap(++priority);
         opMap.put("and", LogicalAndOperator.class);
         opMap.put("or", LogicalOrOperator.class);
         // XOR is not implemented in jScriptBasic by design

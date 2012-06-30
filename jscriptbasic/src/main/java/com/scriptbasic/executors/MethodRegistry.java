@@ -12,19 +12,19 @@ import com.scriptbasic.interfaces.ExecutionException;
 
 /**
  * @author Peter Verhas
- * @date Jun 28, 2012
+ * @date June 28, 2012
  * 
  */
 public class MethodRegistry {
 
     private static String formKey(String alias, Class<?> klass) {
-        return alias + "#" + klass.getCanonicalName();
+        return alias + "#" + klass.getCanonicalName().replaceAll("\\$", ".");
     }
 
     private static class RegistryItem {
-        String methodName;
-        Class<?> klass;
-        Class<?>[] args;
+        private String methodName;
+        private Class<?> klass;
+        private Class<?>[] args;
     }
 
     private Map<String, RegistryItem> registry = new HashMap<>();

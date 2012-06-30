@@ -15,7 +15,7 @@ import com.scriptbasic.interfaces.LexicalElement;
  * @date Jun 28, 2012
  * 
  */
-public class LexUtility {
+public final class LexUtility {
     private LexUtility() {
         UtilityUtility.assertUtilityClass();
     }

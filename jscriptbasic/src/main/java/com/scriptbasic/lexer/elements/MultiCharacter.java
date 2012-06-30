@@ -37,10 +37,10 @@ public class MultiCharacter extends AbstractElementAnalyzer implements ScriptBas
     @Override
     public LexicalElement read() throws LexicalException {
         BasicLexicalElement le = null;
-        final StringBuilder sb = new StringBuilder(maxOperatorLength);
-        readAhead(sb, maxOperatorLength);
+        final StringBuilder sb = new StringBuilder(BASIC_OPERATOR_LEXEME_MAX_LENGTH);
+        readAhead(sb, BASIC_OPERATOR_LEXEME_MAX_LENGTH);
         final String s = sb.toString();
-        for (final String operator : operators) {
+        for (final String operator : BASIC_OPERATORS) {
             if (s.startsWith(operator)) {
                 pushBack(sb, s.length() - operator.length());
                 le = BasicLexialElementFactory.create(getReader(),

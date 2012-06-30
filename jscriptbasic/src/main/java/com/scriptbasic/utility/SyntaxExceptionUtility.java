@@ -4,7 +4,7 @@ import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.exceptions.SyntaxException;
 import com.scriptbasic.interfaces.LexicalElement;
 
-public class SyntaxExceptionUtility {
+public final class SyntaxExceptionUtility {
 
     private SyntaxExceptionUtility() {
         UtilityUtility.assertUtilityClass();

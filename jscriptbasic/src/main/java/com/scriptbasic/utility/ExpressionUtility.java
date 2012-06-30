@@ -15,7 +15,7 @@ import com.scriptbasic.interfaces.Expression;
  * @date June 28, 2012
  * 
  */
-public class ExpressionUtility {
+public final class ExpressionUtility {
     private ExpressionUtility() {
         UtilityUtility.assertUtilityClass();
     }

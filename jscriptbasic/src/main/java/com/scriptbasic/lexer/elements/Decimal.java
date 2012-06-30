@@ -45,18 +45,7 @@ public class Decimal extends AbstractElementAnalyzer {
             ch = getReader().get();
             boolean floatFormat;
             if (((Integer) (int) '.').equals(ch)) {
-                ch = getReader().get();
-                if (ch != null && Character.isDigit(ch)) {
-                    floatFormat = true;
-                    digits.appendCodePoint('.');
-                    getReader().pushBack(ch);
-                    processDigits(digits);
-                    processExponent(digits);
-                } else {
-                    floatFormat = false;
-                    getReader().pushBack(ch);
-                    getReader().pushBack((int) '.');
-                }
+                floatFormat = processFraction(digits);
             } else {
                 getReader().pushBack(ch);
                 floatFormat = processExponent(digits);
@@ -77,6 +66,97 @@ public class Decimal extends AbstractElementAnalyzer {
     }
 
     /**
+     * Process the fractional part of the number. The optional fractional part
+     * starts with a '.' (dot) and is followed by decimal numbers.
+     * <p>
+     * If the '.' is not followed by digits then there is no fractional part of
+     * the number and even if there is a '.' it is treated as stop character
+     * that does not belong to the number and the '.' in this case is left on
+     * the reader's character stream.
+     * 
+     * @param fractionPart
+     *            where the character are appended
+     * @return {@code true} when there is a fractional part
+     */
+    private boolean processFraction(final StringBuilder fractionPart) {
+        boolean floatFormat = false;
+        Integer ch = getReader().get();
+        if (ch != null && Character.isDigit(ch)) {
+            floatFormat = true;
+            fractionPart.appendCodePoint('.');
+            getReader().pushBack(ch);
+            processDigits(fractionPart);
+            processExponent(fractionPart);
+        } else {
+            floatFormat = false;
+            getReader().pushBack(ch);
+            getReader().pushBack((int) '.');
+        }
+        return floatFormat;
+    }
+
+    /**
+     * Process the {@code [eE](+|-)?\d+} part of the float number after the sign
+     * character was recognized. The sign character '+' or '-' is passed in the
+     * argument just as well as the 'e' or 'E' exponent character.
+     * 
+     * @param exponentCharacters
+     *            where the characters are put to form the lexeme.
+     * @param signChar
+     *            the '+' or '-' character
+     * @param expChar
+     *            the 'e' or 'E' character
+     */
+    private void processSignedExponenChars(
+            final StringBuilder exponentCharacters, final Integer signChar,
+            final Integer expChar) {
+
+        Integer ch = getReader().get();
+        if (ch != null && Character.isDigit(ch)) {
+            exponentCharacters.appendCodePoint(expChar);
+            exponentCharacters.appendCodePoint(signChar);
+            getReader().pushBack(ch);
+            processDigits(exponentCharacters);
+        } else {
+            getReader().pushBack(signChar);
+            getReader().pushBack(expChar);
+        }
+    }
+
+    /**
+     * Process the {@code [eE](+|-)?\d+} part of the float number. The starting
+     * {@code [eE]} character is already read when this method is read and has
+     * to be passed in the argument.
+     * <p>
+     * Process the exponent characters that follow the characters 'e' or 'E'. If
+     * there is no '-' and/or '+' followed by a number then the 'e' or 'E'
+     * (whichever is present on the input stream) is treated as stop character
+     * and pushed back to the reader character stream.
+     * 
+     * @param exponentCharacters
+     *            where to put the characters
+     * @param expChar
+     *            the 'e' or 'E' character. Used only to preserve the case of
+     *            the character for the lexeme and also to push it back to the
+     *            reader stream if the characters do not form an exponent part.
+     */
+    private void processExponenChars(final StringBuilder exponentCharacters,
+            final Integer expChar) {
+        Integer ch = getReader().get();
+        if (ch != null && (ch.equals((int) '-') || ch.equals((int) '+'))) {
+            processSignedExponenChars(exponentCharacters, ch, expChar);
+        } else {// if there is no + or -
+            if (ch != null && Character.isDigit(ch)) {
+                exponentCharacters.appendCodePoint(expChar);
+                getReader().pushBack(ch);
+                processDigits(exponentCharacters);
+            } else {
+                getReader().pushBack(expChar);
+            }
+        }
+    }
+
+    /**
      * Process the exponent part of a floating point number. The format of such
      * a part is {@code (E|e)[+|-]digits}
      * <p>
@@ -92,29 +172,7 @@ public class Decimal extends AbstractElementAnalyzer {
         boolean thereWasExponentPart = true;
         Integer ch = getReader().get();
         if (ch != null && (ch.equals((int) 'e') || ch.equals((int) 'E'))) {
-            final Integer expChar = ch; // only to preserve the case: 'E' or 'e'
-            ch = getReader().get();
-            if (ch != null && (ch.equals((int) '-') || ch.equals((int) '+'))) {
-                final Integer signChar = ch;
-                ch = getReader().get();
-                if (ch != null && Character.isDigit(ch)) {
-                    exponentCharacters.appendCodePoint(expChar);
-                    exponentCharacters.appendCodePoint(signChar);
-                    getReader().pushBack(ch);
-                    processDigits(exponentCharacters);
-                } else {
-                    getReader().pushBack(signChar);
-                    getReader().pushBack(expChar);
-                }
-            } else {// if there is no + or -
-                if (ch != null && Character.isDigit(ch)) {
-                    exponentCharacters.appendCodePoint(expChar);
-                    getReader().pushBack(ch);
-                    processDigits(exponentCharacters);
-                } else {
-                    getReader().pushBack(expChar);
-                }
-            }
+            processExponenChars(exponentCharacters, ch);
         } else {
             thereWasExponentPart = false;
             getReader().pushBack(ch);

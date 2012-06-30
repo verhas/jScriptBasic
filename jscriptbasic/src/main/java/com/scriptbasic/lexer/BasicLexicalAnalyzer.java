@@ -23,10 +23,10 @@ import com.scriptbasic.readers.GenericHierarchicalReader;
 import com.scriptbasic.utility.CharUtils;
 
 public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
-    private static final Logger log = LoggerFactory
+    private static final Logger LOG = LoggerFactory
             .getLogger(BasicLexicalAnalyzer.class);
     private Reader reader;
-    protected Factory factory;
+    private Factory factory;
 
     public Factory getFactory() {
         return factory;
@@ -38,7 +38,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     }
 
     protected BasicLexicalAnalyzer() {
-        log.debug("constructor created {}", this);
+        LOG.debug("constructor created {}", this);
     }
 
     private final Deque<LexicalElementAnalyzer> analyzerQueue = new LinkedList<LexicalElementAnalyzer>();
@@ -53,13 +53,13 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
 
     @Override
     public void registerElementAnalyzer(final LexicalElementAnalyzer lea) {
-        log.debug("lexical element analyzer {} was registered", lea);
+        LOG.debug("lexical element analyzer {} was registered", lea);
         lea.setReader(reader);
         this.analyzerQueue.add(lea);
     }
 
-    Deque<LexicalElement> lexicalElementQueue = new LinkedList<LexicalElement>();
-    Iterator<LexicalElement> lexicalElementQueueIterator = this.lexicalElementQueue
+    private Deque<LexicalElement> lexicalElementQueue = new LinkedList<LexicalElement>();
+    private Iterator<LexicalElement> lexicalElementQueueIterator = this.lexicalElementQueue
             .iterator();
 
     @Override
@@ -134,14 +134,14 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
                     le = lea.read();
                     if (le != null) {
                         analyzed = true;
-                        log.debug("{} could analyze the characters", lea);
-                        log.debug("the result is: {}", le.toString());
+                        LOG.debug("{} could analyze the characters", lea);
+                        LOG.debug("the result is: {}", le.toString());
                         this.lexicalElementQueue.add(le);
                         break;
                     }
                 }
                 if (!analyzed) {
-                    log.error("None of the lexical analyzers could analyze the line");
+                    LOG.error("None of the lexical analyzers could analyze the line");
                     throw new BasicInterpreterInternalError(
                             "no lexical element analyzer could analyze the input");
                 }
@@ -169,7 +169,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
                         childReader = sp.get(lexicalElement.stringValue(),
                                 hreader.getFileName());
                     } catch (final IllegalArgumentException e) {
-                        log.error("", e);
+                        LOG.error("", e);
                     } catch (final IOException e) {
                         throw new BasicLexicalException(
                                 "Can not open included file '"
@@ -180,7 +180,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
                     readTheNextLine();
                     resetLine();
                 } else {
-                    log.error("This is not a string following the keyword INCLUDE");
+                    LOG.error("This is not a string following the keyword INCLUDE");
                     throw new GenericSyntaxException(
                             "String has to be used after import or include.");
                 }

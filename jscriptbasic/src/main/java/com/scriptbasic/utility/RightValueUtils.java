@@ -12,10 +12,10 @@ import com.scriptbasic.interfaces.RightValue;
 
 /**
  * @author Peter Verhas
- * @date Jun 26, 2012
+ * @date June 26, 2012
  * 
  */
-public class RightValueUtils {
+public final class RightValueUtils {
     private RightValueUtils() {
         UtilityUtility.assertUtilityClass();
     }

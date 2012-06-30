@@ -6,6 +6,8 @@ package com.scriptbasic.executors.operators;
 import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
 import junit.framework.TestCase;
 
+import org.junit.Test;
+import org.junit.experimental.theories.suppliers.TestedOn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,8 +72,32 @@ public class TestJavaAccess extends TestCase {
         return sb.toString();
     }
 
-    public static void test1() throws Exception {
+    public static class OverloadedMethods {
+        public static int A(Long lng) {
+            log.debug("A(Long) was invoked with value {}", lng);
+            return 1;
+        }
 
+        public static int A(String z) {
+            log.debug("A(String) was invoked with value {}", z);
+            return 1;
+        }
+
+        public static int A(int z) {
+            log.debug("A(int) was invoked with value {}", z);
+            return 1;
+        }
+    }
+
+    @Test
+    public static void test1() throws Exception {
+        b(program(
+                "",
+                "rem this is a command line",
+                "' this is another command line",
+                "use OverloadedMethods from com.scriptbasic.executors.operators.TestJavaAccess as q",
+                "method A from com.scriptbasic.executors.operators.TestJavaAccess.OverloadedMethods is (int) use as aint",
+                "a=q.aint(1)"), Math.sin(1.0));
         /*
          * use "Math" from java.lang as m method "java.lang.Math.sin" is
          * ("double") method "java.lang.Math.wait" is ("long","int")
@@ -79,11 +105,13 @@ public class TestJavaAccess extends TestCase {
         b(program("use Math from java.lang as m",
                 "method sin from java.lang.Math is (double) use as sinus",
                 "a=m.sinus(1.0)"), Math.sin(1.0));
-        b(program("use \"Math\" from \"java\".lang as \"m\"",
+        b(program(
+                "use \"Math\" from \"java\".lang as \"m\"",
                 "method sin from \"java.lang.Math\" is (\"double\") use as sinus",
                 "a=m.sinus(1.0)"), Math.sin(1.0));
-        b(program("use Math from java.lang as m",
-                "method sin from java.lang.Math is (double)",
-                "a=m.sin(1.0)"), Math.sin(1.0));
+        b(program("\n", "use Math from java.lang as m",
+                "method sin from java.lang.Math is (double)", "a=m.sin(1.0)"),
+                Math.sin(1.0));
+
     }
 }

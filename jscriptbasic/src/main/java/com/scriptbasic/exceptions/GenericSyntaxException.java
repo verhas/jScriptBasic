@@ -23,8 +23,8 @@ public class GenericSyntaxException extends SyntaxException {
     }
 
     public GenericSyntaxException(final String s, LexicalElement le,
-            final Throwable arg1) {
-        super(s);
+            final Throwable e) {
+        super(s,e);
         if (le != null) {
             setLocation(le);
         }

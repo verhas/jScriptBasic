@@ -1,4 +1,4 @@
-/**
+ /**
  * 
  */
 package com.scriptbasic.utility;
@@ -10,7 +10,7 @@ import com.scriptbasic.errors.BasicInterpreterInternalError;
  * @date June 28, 2012
  * 
  */
-public class UtilityUtility {
+public final class UtilityUtility {
     private UtilityUtility() {
         assertUtilityClass();
     }

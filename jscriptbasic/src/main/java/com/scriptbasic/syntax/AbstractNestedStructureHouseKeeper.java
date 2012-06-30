@@ -17,7 +17,7 @@ import com.scriptbasic.interfaces.NestedStructureHouseKeeper;
 
 public abstract class AbstractNestedStructureHouseKeeper implements
         NestedStructureHouseKeeper {
-    private static final Logger log = LoggerFactory
+    private static final Logger LOG = LoggerFactory
             .getLogger(AbstractNestedStructureHouseKeeper.class);
 
     private Factory factory;
@@ -88,7 +88,7 @@ public abstract class AbstractNestedStructureHouseKeeper implements
                 le = la.peek();
                 se.setLocation(le);
             } catch (LexicalException e) {
-                log.error(
+                LOG.error(
                         "There was an error when trying to fetch the current source location",
                         e);
             }

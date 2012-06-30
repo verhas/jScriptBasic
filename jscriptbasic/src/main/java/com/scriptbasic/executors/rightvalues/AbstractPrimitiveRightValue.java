@@ -7,7 +7,7 @@ import com.scriptbasic.interfaces.RightValue;
 
 public abstract class AbstractPrimitiveRightValue<T> extends AbstractRightValue
         implements Expression {
-    protected T value;
+    private T value;
 
     public T getValue() {
         return this.value;

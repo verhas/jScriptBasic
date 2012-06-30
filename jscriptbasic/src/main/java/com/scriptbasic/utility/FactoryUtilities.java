@@ -18,13 +18,13 @@ import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.SyntaxAnalyzer;
 import com.scriptbasic.interfaces.TagAnalyzer;
 
-public class FactoryUtilities {
+public final class FactoryUtilities {
 
     private FactoryUtilities() {
         UtilityUtility.assertUtilityClass();
     }
 
-    private static final Logger log = LoggerFactory
+    private static final Logger LOG = LoggerFactory
             .getLogger(FactoryUtilities.class);
 
     private static <T extends FactoryManaged> T get(final Factory factory,
@@ -50,59 +50,59 @@ public class FactoryUtilities {
     }
 
     public static LexicalAnalyzer getLexicalAnalyzer(Factory factory) {
-        log.debug("getting lexical analyzer from {}", factory);
+        LOG.debug("getting lexical analyzer from {}", factory);
         return get(factory, LexicalAnalyzer.class);
     }
 
     public static BuildableProgram getProgram(Factory factory) {
-        log.debug("getting program from {}", factory);
+        LOG.debug("getting program from {}", factory);
         return get(factory, BuildableProgram.class);
     }
 
     public static SyntaxAnalyzer getSyntaxAnalyzer(Factory factory) {
-        log.debug("getting syntax analyzer from {}", factory);
+        LOG.debug("getting syntax analyzer from {}", factory);
         return get(factory, SyntaxAnalyzer.class);
     }
 
     public static ExpressionAnalyzer getExpressionAnalyzer(Factory factory) {
-        log.debug("getting expression analyzer from {}", factory);
+        LOG.debug("getting expression analyzer from {}", factory);
         return get(factory, ExpressionAnalyzer.class);
     }
 
     public static ExpressionListAnalyzer getExpressionListAnalyzer(
             Factory factory) {
-        log.debug("getting expression list analyzer from {}", factory);
+        LOG.debug("getting expression list analyzer from {}", factory);
         return get(factory, ExpressionListAnalyzer.class);
     }
 
     public static TagAnalyzer getTagAnalyzer(Factory factory) {
-        log.debug("getting tag analyzer from {}", factory);
+        LOG.debug("getting tag analyzer from {}", factory);
         return get(factory, TagAnalyzer.class);
     }
 
     public static NestedStructureHouseKeeper getNestedStructureHouseKeeper(
             Factory factory) {
-        log.debug("getting nested structure house keeper from {}", factory);
+        LOG.debug("getting nested structure house keeper from {}", factory);
         return get(factory, NestedStructureHouseKeeper.class);
     }
 
     public static CommandFactory getCommandFactory(Factory factory) {
-        log.debug("getting command factory from {}", factory);
+        LOG.debug("getting command factory from {}", factory);
         return get(factory, CommandFactory.class);
     }
 
     public static LeftValueAnalyzer getLeftValueAnalyzer(Factory factory) {
-        log.debug("getting left value analyzer from {}", factory);
+        LOG.debug("getting left value analyzer from {}", factory);
         return get(factory, LeftValueAnalyzer.class);
     }
 
     public static LeftValueListAnalyzer getLeftValueListAnalyzer(Factory factory) {
-        log.debug("getting left value list analyzer from {}", factory);
+        LOG.debug("getting left value list analyzer from {}", factory);
         return get(factory, LeftValueListAnalyzer.class);
     }
 
     public static ExtendedInterpreter getExtendedInterpreter(Factory factory) {
-        log.debug("getting extended interpreter analyzer from {}", factory);
+        LOG.debug("getting extended interpreter analyzer from {}", factory);
         return get(factory, ExtendedInterpreter.class);
     }
 }

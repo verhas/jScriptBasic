@@ -18,6 +18,7 @@ import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.ExpressionList;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.RightValue;
+import com.scriptbasic.utility.CastUtility;
 import com.scriptbasic.utility.RightValueUtils;
 
 /**
@@ -82,20 +83,39 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
     }
 
     @SuppressWarnings("unchecked")
-    private static Object[] getObjectArray(List<RightValue> args) {
+    private static Object getParameter(RightValue arg) {
+        Object object = null;
+        if (arg instanceof AbstractPrimitiveRightValue<?>) {
+            object = ((AbstractPrimitiveRightValue<Object>) arg).getValue();
+        } else {
+            throw new BasicInterpreterInternalError("What class is " + arg);
+        }
+        return object;
+    }
+
+    private static Object[] getObjectArray(List<RightValue> args,
+            Method method, ExtendedInterpreter extendedInterpreter)
+            throws ExecutionException {
+        Class<?>[] parameterTypes = method.getParameterTypes();
+        // if the declaring class of the method implements the interface
+        // WHATEVER //TODO find a good name
+        // and the first parameter of the method is
+        // com.scriptbasic.interfaces.interpreter then auto magically
+        // pass that parameter to the method
+        if (parameterTypes.length != args.size()) {
+            throw new BasicRuntimeException(
+                    "Different number of parameters calling the Java method '"
+                            + method.getName() + "'");
+        }
         ArrayList<Object> result = null;
         if (args != null) {
             result = new ArrayList<>();
+            int parameterIndex = 0;
             for (RightValue arg : args) {
-                Object object = null;
-                if (arg instanceof AbstractPrimitiveRightValue<?>) {
-                    object = ((AbstractPrimitiveRightValue<Object>) arg)
-                            .getValue();
-                } else {
-                    throw new BasicInterpreterInternalError("What class is "
-                            + arg);
-                }
+                Object object = CastUtility.cast(getParameter(arg),
+                        parameterTypes[parameterIndex]);
                 result.add(object);
+                parameterIndex++;
             }
         }
         return result == null ? null : result.toArray(new Object[0]);
@@ -111,11 +131,13 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
         List<RightValue> args = evaluateExpressionList(extendedInterpreter,
                 expressionList);
         Method method = null;
-        method = extendedInterpreter.getJavaMethod(
-                klass == null ? object.getClass() : klass, methodName);
+        final Class<?> calculatedKlass = klass == null ? object.getClass()
+                : klass;
+        method = extendedInterpreter.getJavaMethod(calculatedKlass, methodName);
         if (method == null) {
             try {
-                method = klass.getMethod(methodName, getClassArray(args));
+                method = calculatedKlass.getMethod(methodName,
+                        getClassArray(args));
             } catch (NoSuchMethodException | SecurityException e) {
                 throw new BasicRuntimeException("Method '" + methodName
                         + "' from class '" + klass + "' can not be accessed", e);
@@ -123,7 +145,8 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
         }
         Object methodResultObject = null;
         try {
-            methodResultObject = method.invoke(object, getObjectArray(args));
+            methodResultObject = method.invoke(object,
+                    getObjectArray(args, method, extendedInterpreter));
         } catch (IllegalAccessException | IllegalArgumentException
                 | InvocationTargetException e) {
             throw new BasicRuntimeException("Can not invoke method "
@@ -142,7 +165,9 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
         RightValue leftOp = getLeftOperand().evaluate(extendedInterpreter);
         if (!(leftOp instanceof AbstractPrimitiveRightValue<?>)) {
             throw new BasicRuntimeException("Can not get field access from "
-                    + leftOp.getClass());
+                    + (leftOp == null ? "null" : leftOp.getClass())
+                    + " from variable "
+                    + ((VariableAccess) getLeftOperand()).getVariableName());
         }
         return ((AbstractPrimitiveRightValue<Object>) leftOp).getValue();
     }

@@ -26,7 +26,7 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
         this.factory = factory;
     }
 
-    abstract protected String getName();
+    protected abstract String getName();
 
     protected Expression analyzeExpression() throws AnalysisException {
         return FactoryUtilities.getExpressionAnalyzer(getFactory()).analyze();
@@ -52,7 +52,7 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
                 getFactory()).get();
         if (lexicalElement == null || !lexicalElement.isSymbol(keyword)) {
             throw new GenericSyntaxException("There is no '" + keyword
-                    + "' after the '" + getName() + "'", lexicalElement,null);
+                    + "' after the '" + getName() + "'", lexicalElement, null);
         }
     }
 

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.scriptbasic.executors.operators.TestJavaAccess
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.038 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.15 sec

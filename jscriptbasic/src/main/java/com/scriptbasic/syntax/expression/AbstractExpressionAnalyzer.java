@@ -2,6 +2,7 @@ package com.scriptbasic.syntax.expression;
 
 import java.util.Map;
 
+import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.executors.operators.AbstractBinaryOperator;
@@ -79,12 +80,9 @@ public abstract class AbstractExpressionAnalyzer extends
             }
         } catch (final LexicalException e) {
             throw new GenericSyntaxException(e);
-        } catch (final InstantiationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (final IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (final InstantiationException | IllegalAccessException e) {
+            throw new BasicInterpreterInternalError(
+                    "Can not instantiate the operator class", e);
         }
         return expression;
     }

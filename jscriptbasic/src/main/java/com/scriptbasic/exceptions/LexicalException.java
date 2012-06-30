@@ -26,11 +26,11 @@ public abstract class LexicalException extends GeneralAnalysisException {
     }
 
     @Override
-	abstract public String getFileName();
+    public abstract String getFileName();
 
     @Override
-	abstract public int getLineNumber();
+    public abstract int getLineNumber();
 
     @Override
-	abstract public int getPosition();
+    public abstract int getPosition();
 }

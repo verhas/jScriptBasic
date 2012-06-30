@@ -1,6 +1,6 @@
 package com.scriptbasic.utility;
 
-public class CharUtils {
+public final class CharUtils {
     private CharUtils() {
         UtilityUtility.assertUtilityClass();
     }

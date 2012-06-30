@@ -10,22 +10,33 @@ public final class BasicBooleanValue extends
         setValue(b);
     }
 
+    private static Boolean convertNumeric(
+            AbstractNumericRightValue<Number> originalValue) {
+        Boolean convertedValue = null;
+        if (originalValue.isLong()) {
+            final Long l = (Long) originalValue.getValue();
+            convertedValue = l != null && l != 0;
+        } else if (originalValue.isDouble()) {
+            final Double d = (Double) originalValue.getValue();
+            convertedValue = d != null && d != 0;
+        }
+        return convertedValue;
+    }
+
+    @SuppressWarnings("unchecked")
     public static Boolean convert(final RightValue originalValue)
             throws BasicRuntimeException {
         Boolean convertedValue = null;
+
         if (originalValue == null) {
             convertedValue = Boolean.FALSE;
+        } else if (originalValue instanceof AbstractNumericRightValue<?>) {
+            convertedValue = convertNumeric((AbstractNumericRightValue<Number>) originalValue);
         } else if (originalValue.isBoolean()) {
             convertedValue = ((BasicBooleanValue) originalValue).getValue();
         } else if (originalValue.isString()) {
             final String s = ((BasicStringValue) originalValue).getValue();
             convertedValue = s != null && s.length() > 0;
-        } else if (originalValue.isLong()) {
-            final Long l = ((BasicLongValue) originalValue).getValue();
-            convertedValue = l != null && l != 0;
-        } else if (originalValue.isDouble()) {
-            final Double d = ((BasicDoubleValue) originalValue).getValue();
-            convertedValue = d != null && d != 0;
         } else if (originalValue.isJavaObject()) {
             final Object o = ((BasicJavaObjectValue) originalValue).getValue();
             if (o instanceof Boolean) {

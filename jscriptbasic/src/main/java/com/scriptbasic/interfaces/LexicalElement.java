@@ -30,7 +30,7 @@ public interface LexicalElement extends SourceLocationBound {
      * 
      * @return
      */
-    String stringValue() throws IllegalArgumentException;
+    String stringValue();
 
     /**
      * Get the long value of the element. This method should only be called when
@@ -40,11 +40,11 @@ public interface LexicalElement extends SourceLocationBound {
      * @return
      * @throws IllegalArgumentException
      */
-    Long longValue() throws IllegalArgumentException;
+    Long longValue();
 
-    Double doubleValue() throws IllegalArgumentException;
+    Double doubleValue();
 
-    Boolean booleanValue() throws IllegalArgumentException;
+    Boolean booleanValue();
 
     Boolean isString();
 

@@ -9,6 +9,7 @@ import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.syntax.commandanalyzers.AbstractCommandAnalyzer;
 import com.scriptbasic.utility.ExpressionUtility;
+import com.scriptbasic.utility.KlassUtility;
 import com.scriptbasic.utility.LexUtility;
 
 /**
@@ -45,8 +46,8 @@ public class CommandAnalyzerUse extends AbstractCommandAnalyzer {
         final String fullClassName = packageName + "." + className;
         Class<?> klass = null;
         try {
-            klass = Class.forName(fullClassName);
-        } catch (ClassNotFoundException e) {
+            klass = KlassUtility.forNameEx(fullClassName);
+        } catch (GenericSyntaxException e) {
             throw new GenericSyntaxException(
                     "The class in the USE statement is not found.", e);
         }

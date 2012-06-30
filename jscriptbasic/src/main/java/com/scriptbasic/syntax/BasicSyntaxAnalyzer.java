@@ -36,6 +36,11 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
         this.lexicalElement = lexicalElement;
     }
 
+    private static boolean lineToIgnore(String lexString) {
+        return lexString.equals("\n") || lexString.equals("'")
+                || lexString.equalsIgnoreCase("REM");
+    }
+
     @Override
     public BuildableProgram analyze() throws AnalysisException {
         try {
@@ -49,8 +54,15 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
             while (this.lexicalElement != null) {
                 if (this.lexicalElement.isSymbol()) {
                     lexicalAnalyzer.get();
-                    buildableProgram.addCommand(commandFactory
-                            .create(this.lexicalElement.getLexeme()));
+                    String lexString = this.lexicalElement.getLexeme();
+                    if (lineToIgnore(lexString)) {
+                        while( ! lexString.equals("\n")){
+                            lexString = lexicalAnalyzer.get().getLexeme();
+                        }
+                    } else {
+                        buildableProgram.addCommand(commandFactory
+                                .create(this.lexicalElement.getLexeme()));
+                    }
                 } else {
                     buildableProgram.addCommand(commandFactory.create(null));
                 }
@@ -58,7 +70,7 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
             }
             return buildableProgram;
         } catch (CommandFactoryException e) {
-            throw new GenericSyntaxException(e.getMessage(), lexicalElement,e);
+            throw new GenericSyntaxException(e.getMessage(), lexicalElement, e);
         }
     }
 }

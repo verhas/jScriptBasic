@@ -13,7 +13,7 @@ import com.scriptbasic.interfaces.ExpressionList;
 import com.scriptbasic.syntax.commandanalyzers.AbstractCommandAnalyzer;
 import com.scriptbasic.utility.ExpressionUtility;
 import com.scriptbasic.utility.FactoryUtilities;
-import com.scriptbasic.utility.Klass;
+import com.scriptbasic.utility.KlassUtility;
 import com.scriptbasic.utility.LexUtility;
 
 /**
@@ -57,11 +57,11 @@ public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
         ArrayList<Class<?>> argClasses = new ArrayList<>();
         for (Expression expression : argExpressions) {
             String argClassName = ExpressionUtility.convertToString(expression);
-            argClasses.add(Klass.forName(argClassName));
+            argClasses.add(KlassUtility.forNameEx(argClassName));
         }
         CommandMethod node = new CommandMethod();
         node.setArgumentTypes(argClasses.toArray(new Class<?>[0]));
-        node.setKlass(Klass.forName(className));
+        node.setKlass(KlassUtility.forNameEx(className));
         node.setMethodName(methodName);
         node.setAlias(alias);
         consumeEndOfLine();

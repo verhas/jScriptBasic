@@ -29,7 +29,7 @@ public class BasicLeftValue extends AbstractLeftValue {
         this.identifier = identifier;
     }
 
-    final List<LeftValueModifier> modifiers = new LinkedList<LeftValueModifier>();
+    private final List<LeftValueModifier> modifiers = new LinkedList<LeftValueModifier>();
 
     public List<LeftValueModifier> getModifiers() {
         return modifiers;
@@ -46,7 +46,9 @@ public class BasicLeftValue extends AbstractLeftValue {
         if (modifiers == null || modifiers.isEmpty()) {
             variableMap.setVariable(getIdentifier(), rightValue);
         } else {
-            throw new RuntimeException("not implemened yet");
+            // TODO implement the complex left value setting
+            throw new IllegalArgumentException(
+                    "a[erer]() ... is not implemened yet. Use only A=expression ");
         }
     }
 

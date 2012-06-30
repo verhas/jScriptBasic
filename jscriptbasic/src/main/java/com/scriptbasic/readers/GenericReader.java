@@ -46,7 +46,7 @@ public class GenericReader implements Reader {
         return this.position;
     }
 
-    Deque<Integer> charsAhead = new LinkedList<Integer>();
+    private Deque<Integer> charsAhead = new LinkedList<Integer>();
 
     /**
      * {@inheritDoc}

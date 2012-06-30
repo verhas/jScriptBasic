@@ -19,9 +19,9 @@ import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.syntax.commandanalyzers.AbstractCommandAnalyzer;
 
 public final class BasicCommandFactory implements CommandFactory {
-    private static final Logger log = LoggerFactory
+    private static final Logger LOG = LoggerFactory
             .getLogger(BasicCommandFactory.class);
-    Factory factory;
+    private Factory factory;
 
     public Factory getFactory() {
         return factory;
@@ -44,7 +44,7 @@ public final class BasicCommandFactory implements CommandFactory {
      */
     @Override
     public void registerCommandAnalyzer(String keyword, CommandAnalyzer analyzer) {
-        log.info("Registering command {}", keyword);
+        LOG.info("Registering command {}", keyword);
         if (keyword == null) {
             classList.add(analyzer);
         } else {
@@ -78,8 +78,7 @@ public final class BasicCommandFactory implements CommandFactory {
     }
 
     @Override
-    public Command create(final String commandKeyword)
-            throws AnalysisException, CommandFactoryException {
+    public Command create(final String commandKeyword) throws AnalysisException {
         if (commandKeyword == null) {
             return create();
         } else {
@@ -87,21 +86,21 @@ public final class BasicCommandFactory implements CommandFactory {
         }
     }
 
-    private Command create() throws AnalysisException, CommandFactoryException {
+    private Command create() throws AnalysisException {
         for (final CommandAnalyzer commandAnalyzer : classList) {
             try {
-                log.info("trying to analyze the line using {}",
+                LOG.info("trying to analyze the line using {}",
                         commandAnalyzer.getClass());
                 final Command command = commandAnalyzer.analyze();
                 if (command != null) {
                     return command;
                 }
             } catch (AnalysisException e) {
-                log.info("Tried but not analyze the line using "
+                LOG.info("Tried but not analyze the line using "
                         + commandAnalyzer.getClass(), e);
             }
         }
-        log.info("None of the analyzers could analyze the line");
+        LOG.info("None of the analyzers could analyze the line");
         throw new CommandFactoryException("The line could not be analyzed");
     }
 
