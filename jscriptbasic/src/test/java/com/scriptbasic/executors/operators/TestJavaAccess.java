@@ -73,8 +73,8 @@ public class TestJavaAccess extends TestCase {
     }
 
     public static class OverloadedMethods {
-        public static int A(Long lng) {
-            log.debug("A(Long) was invoked with value {}", lng);
+        public static int A(long z) {
+            log.debug("A(Long) was invoked with value {}", z);
             return 1;
         }
 
@@ -97,7 +97,7 @@ public class TestJavaAccess extends TestCase {
                 "' this is another command line",
                 "use OverloadedMethods from com.scriptbasic.executors.operators.TestJavaAccess as q",
                 "method A from com.scriptbasic.executors.operators.TestJavaAccess.OverloadedMethods is (int) use as aint",
-                "a=q.aint(1)"), Math.sin(1.0));
+                "a=q.aint(1)"), 1);
         /*
          * use "Math" from java.lang as m method "java.lang.Math.sin" is
          * ("double") method "java.lang.Math.wait" is ("long","int")

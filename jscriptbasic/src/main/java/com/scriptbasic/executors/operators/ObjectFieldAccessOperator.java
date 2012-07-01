@@ -93,6 +93,14 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
         return object;
     }
 
+    private static boolean parameterLengthMatch(Class<?>[] parameterTypes,
+            List<RightValue> args) {
+        if (args == null) {
+            return parameterTypes.length == 0;
+        }
+        return parameterTypes.length == args.size();
+    }
+
     private static Object[] getObjectArray(List<RightValue> args,
             Method method, ExtendedInterpreter extendedInterpreter)
             throws ExecutionException {
@@ -102,7 +110,7 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
         // and the first parameter of the method is
         // com.scriptbasic.interfaces.interpreter then auto magically
         // pass that parameter to the method
-        if (parameterTypes.length != args.size()) {
+        if (!parameterLengthMatch(parameterTypes,args)) {
             throw new BasicRuntimeException(
                     "Different number of parameters calling the Java method '"
                             + method.getName() + "'");

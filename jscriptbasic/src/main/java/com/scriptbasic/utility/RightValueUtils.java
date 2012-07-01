@@ -22,7 +22,7 @@ public final class RightValueUtils {
 
     public static RightValue createRightValue(Object value) {
         RightValue rightValue = null;
-        if (value instanceof Boolean) {
+        if (value instanceof Double) {
             rightValue = new BasicDoubleValue((Double) value);
         } else if (value instanceof Float) {
             rightValue = new BasicDoubleValue(((Float) value).doubleValue());
