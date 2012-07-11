@@ -10,7 +10,7 @@ package com.scriptbasic.utility;
  */
 public final class CastUtility {
     private CastUtility() {
-        UtilityUtility.assertUtilityClass();
+        UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
     }
 
     private static class Byte {

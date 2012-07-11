@@ -1,13 +1,11 @@
 package com.scriptbasic.executors.operators;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.executors.rightvalues.ArrayElementAccess;
 import com.scriptbasic.executors.rightvalues.FunctionCall;
@@ -19,6 +17,7 @@ import com.scriptbasic.interfaces.ExpressionList;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.utility.CastUtility;
+import com.scriptbasic.utility.KlassUtility;
 import com.scriptbasic.utility.RightValueUtils;
 
 /**
@@ -32,21 +31,12 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
 
     private RightValue fetchField(ExtendedInterpreter extendedInterpreter)
             throws ExecutionException {
-        RightValue result = null;
         Object object = getLeftOperandObject(extendedInterpreter);
         VariableAccess rightOp = (VariableAccess) getRightOperand();
         String fieldName = rightOp.getVariableName();
-        Class<?> klass = object.getClass();
-        try {
-            Field field = klass.getField(fieldName);
-            result = RightValueUtils.createRightValue(field.get(object));
-        } catch (NoSuchFieldException | SecurityException
-                | IllegalArgumentException | IllegalAccessException e) {
-            throw new BasicRuntimeException("Object access of type "
-                    + object.getClass() + " can not access field '" + fieldName
-                    + "'", e);
-        }
-        return result;
+        Object fieldObject = KlassUtility.getField(object, fieldName);
+        RightValue rightValue = RightValueUtils.createRightValue(fieldObject);
+        return rightValue;
     }
 
     private static List<RightValue> evaluateExpressionList(
@@ -62,35 +52,15 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
         return args;
     }
 
-    @SuppressWarnings("unchecked")
     private static Class<?>[] getClassArray(List<RightValue> args) {
         ArrayList<Class<?>> result = null;
         if (args != null) {
             result = new ArrayList<>();
             for (RightValue arg : args) {
-                Class<?> klass = null;
-                if (arg instanceof AbstractPrimitiveRightValue<?>) {
-                    klass = ((AbstractPrimitiveRightValue<Object>) arg)
-                            .getValue().getClass();
-                } else {
-                    throw new BasicInterpreterInternalError("What class is "
-                            + arg);
-                }
-                result.add(klass);
+                result.add(RightValueUtils.getValueObject(arg).getClass());
             }
         }
         return result == null ? null : result.toArray(new Class<?>[0]);
-    }
-
-    @SuppressWarnings("unchecked")
-    private static Object getParameter(RightValue arg) {
-        Object object = null;
-        if (arg instanceof AbstractPrimitiveRightValue<?>) {
-            object = ((AbstractPrimitiveRightValue<Object>) arg).getValue();
-        } else {
-            throw new BasicInterpreterInternalError("What class is " + arg);
-        }
-        return object;
     }
 
     private static boolean parameterLengthMatch(Class<?>[] parameterTypes,
@@ -106,11 +76,12 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
             throws ExecutionException {
         Class<?>[] parameterTypes = method.getParameterTypes();
         // if the declaring class of the method implements the interface
-        // WHATEVER //TODO find a good name
+        // WHATEVER //TODO find a good name for the interface that is to be
+        // implemented by the embedding Java program
         // and the first parameter of the method is
         // com.scriptbasic.interfaces.interpreter then auto magically
         // pass that parameter to the method
-        if (!parameterLengthMatch(parameterTypes,args)) {
+        if (!parameterLengthMatch(parameterTypes, args)) {
             throw new BasicRuntimeException(
                     "Different number of parameters calling the Java method '"
                             + method.getName() + "'");
@@ -120,7 +91,8 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
             result = new ArrayList<>();
             int parameterIndex = 0;
             for (RightValue arg : args) {
-                Object object = CastUtility.cast(getParameter(arg),
+                Object object = CastUtility.cast(
+                        RightValueUtils.getValueObject(arg),
                         parameterTypes[parameterIndex]);
                 result.add(object);
                 parameterIndex++;
@@ -211,7 +183,7 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
             result = callMethod(extendedInterpreter, object, klass);
 
         } else if (rightOp instanceof ArrayElementAccess) {
-            // TODO develop this
+            // TODO develop the array access in fields like X.y[z] type access
             throw new BasicRuntimeException(
                     "Field access operator is not implemented to handle array element access (yet).");
         } else {

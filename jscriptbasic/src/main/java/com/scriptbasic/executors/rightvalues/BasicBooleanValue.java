@@ -42,7 +42,7 @@ public final class BasicBooleanValue extends
             if (o instanceof Boolean) {
                 convertedValue = (Boolean) o;
             } else {
-                // TODO extend the conversion in case of other simple types
+                // TODO elaborate the conversion with other object classes, like
                 convertedValue = o != null;
             }
         }

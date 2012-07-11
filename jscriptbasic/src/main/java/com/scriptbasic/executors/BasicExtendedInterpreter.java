@@ -98,7 +98,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      */
     @Override
     public Object call(String functionName, Object[] arguments) {
-        // TODO Auto-generated method stub
+        // TODO implement calling a function from an already executed BASIC program
         return null;
     }
 
@@ -109,7 +109,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      */
     @Override
     public Integer getProgramCounter() {
-        // TODO Auto-generated method stub
+        // TODO delete this when it becomes evident that there is no such thing as Program Counter is ScriptBasic
         return null;
     }
 

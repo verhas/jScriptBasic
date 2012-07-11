@@ -17,7 +17,7 @@ import com.scriptbasic.interfaces.Expression;
  */
 public final class ExpressionUtility {
     private ExpressionUtility() {
-        UtilityUtility.assertUtilityClass();
+        UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
     }
 
     /**

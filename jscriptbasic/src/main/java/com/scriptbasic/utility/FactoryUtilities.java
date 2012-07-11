@@ -21,7 +21,7 @@ import com.scriptbasic.interfaces.TagAnalyzer;
 public final class FactoryUtilities {
 
     private FactoryUtilities() {
-        UtilityUtility.assertUtilityClass();
+        UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
     }
 
     private static final Logger LOG = LoggerFactory

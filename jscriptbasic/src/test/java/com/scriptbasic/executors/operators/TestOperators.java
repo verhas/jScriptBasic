@@ -223,6 +223,33 @@ public class TestOperators extends TestCase {
         new ModuloOperator().operatorName();
     }
 
+    public static class qqq {
+        public Integer www = 13;
+        public Float fff = (float) 13.0;
+        public qq ccc = new qq();
+
+        public Integer getQwww() {
+            return ccc.www;
+        }
+    }
+
+    public static class qq {
+        public Integer www = 13;
+        public Float fff = (float) 13.0;
+    }
+
+    public static void testObjectSet() throws AnalysisException,
+            ExecutionException, NoSuchMethodException, SecurityException,
+            IllegalAccessException, IllegalArgumentException,
+            InvocationTargetException {
+        b("b.www=55\na=b.www", new qqq(), 55);
+        b("b.ccc.www=55\na=b.getQwww()", new qqq(), 55);
+    }
+
+    public static void testArraySetGet() throws Exception {
+        b("c[13]=55\na=c[13]", null, 55);
+    }
+
     @SuppressWarnings("unused")
     public static void testObjectAccess() throws AnalysisException,
             ExecutionException, NoSuchMethodException, SecurityException,
@@ -282,15 +309,6 @@ public class TestOperators extends TestCase {
 
         b("a=b+\"\"", new zzz(), "zzz");
 
-        class qq {
-            public Integer www = 13;
-            public Float fff = (float) 13.0;
-        }
-        class qqq {
-            public Integer www = 13;
-            public Float fff = (float) 13.0;
-            public qq ccc = new qq();
-        }
         b("a=b.www", new qqq(), 13);
         b("a=b.fff", new qqq(), 13.0);
         b("a=b.ccc.www", new qqq(), 13);

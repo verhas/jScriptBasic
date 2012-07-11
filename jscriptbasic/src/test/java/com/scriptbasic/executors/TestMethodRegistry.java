@@ -30,6 +30,7 @@ public class TestMethodRegistry extends TestCase {
         }
         mr.registerJavaMethod("sinus", java.lang.Math.class, "sin",
                 new Class<?>[] { double.class });
+        @SuppressWarnings("unused")
         Method m = mr.getJavaMethod(java.lang.Math.class, "sinus");
     }
 

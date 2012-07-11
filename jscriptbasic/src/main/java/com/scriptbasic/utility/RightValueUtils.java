@@ -3,11 +3,16 @@
  */
 package com.scriptbasic.utility;
 
+import com.scriptbasic.errors.BasicInterpreterInternalError;
+import com.scriptbasic.executors.rightvalues.AbstractNumericRightValue;
+import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
 import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
 import com.scriptbasic.executors.rightvalues.BasicJavaObjectValue;
 import com.scriptbasic.executors.rightvalues.BasicLongValue;
 import com.scriptbasic.executors.rightvalues.BasicStringValue;
+import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.RightValue;
 
 /**
@@ -17,7 +22,40 @@ import com.scriptbasic.interfaces.RightValue;
  */
 public final class RightValueUtils {
     private RightValueUtils() {
-        UtilityUtility.assertUtilityClass();
+        UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
+    }
+
+    @SuppressWarnings("unchecked")
+    public static Object getValueObject(RightValue arg) {
+        Object object;
+        if (arg instanceof AbstractPrimitiveRightValue<?>) {
+            object = ((AbstractPrimitiveRightValue<Object>) arg).getValue();
+        } else {
+            throw new BasicInterpreterInternalError(
+                    "The class of the object "
+                            + arg
+                            + " is not convertible type to fetchs it's value as object.");
+        }
+        return object;
+    }
+
+    /**
+     * @param index
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public static Integer convert2Integer(RightValue index)
+            throws ExecutionException {
+        Integer result = 0;
+        if (index.isNumeric()) {
+            result = ((AbstractNumericRightValue<Number>) index).getValue()
+                    .intValue();
+        } else {
+            throw new BasicRuntimeException(
+                    index.toString()
+                            + " is not a numeric value, can not be used to index and array");
+        }
+        return result;
     }
 
     public static RightValue createRightValue(Object value) {

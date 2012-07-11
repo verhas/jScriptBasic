@@ -34,7 +34,7 @@ public class CommandIf extends AbstractCommand implements IfOrElse {
 
     @Override
     public void execute(final ExtendedInterpreter interpreter) {
-        // TODO Auto-generated method stub
+        // TODO implement the command IF
     }
 
 }

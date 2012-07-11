@@ -17,7 +17,7 @@ import com.scriptbasic.interfaces.LexicalElement;
  */
 public final class LexUtility {
     private LexUtility() {
-        UtilityUtility.assertUtilityClass();
+        UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
     }
 
     public static LexicalElement peek(final LexicalAnalyzer lexicalAnalyzer)

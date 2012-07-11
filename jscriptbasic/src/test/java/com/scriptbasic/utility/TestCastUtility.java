@@ -44,7 +44,7 @@ public class TestCastUtility extends TestCase {
         assertEquals(CastUtility.cast("DEADBEEF", Class.class), "DEADBEEF");
 
         try {
-            UtilityUtility.assertUtilityClass();
+            UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
             assertTrue(false);
         } catch (BasicInterpreterInternalError e) {
         }

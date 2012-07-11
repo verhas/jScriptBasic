@@ -63,7 +63,7 @@ public class BasicString extends AbstractElementAnalyzer {
      * Also " and ' and \.
      * <p>
      * Later versions should handle UNICODE escapes reading on from the
-     * {@code reader}. //TODO
+     * {@code reader}. //TODO handle unicode escapes in strings
      * 
      * @param inputCharacter
      *            the character that was following the backslash.

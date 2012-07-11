@@ -9,8 +9,11 @@ public class FunctionCall extends
         AbstractIdentifieredExpressionListedExpression {
 
     @Override
-    public RightValue evaluate(ExtendedInterpreter extendedInterpreter) throws BasicRuntimeException {
-        // TODO Auto-generated method stub
+    public RightValue evaluate(ExtendedInterpreter extendedInterpreter)
+            throws BasicRuntimeException {
+        // TODO implement F(x) evaluation. This has to recognize BASIC
+        // functions, or declared Java static methods or object methods using
+        // registered objects
         return null;
     }
 

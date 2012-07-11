@@ -30,6 +30,24 @@ public class TestHierarchicalReader extends TestCase {
     }
 
     @SuppressWarnings("static-method")
+    public void testExtraCharsAfterInclude() throws AnalysisException,
+            IOException {
+        try {
+            assertLexicals(
+                    new LexicalElement[] { ID("identifier"), SYMBOL("\n"),
+                            SYMBOL("<"), SYMBOL("\n"), SSTRING("string") },
+                    createStringArrayReading(new String[] {
+                            "main",
+                            "identifier\ninclude \"sub1\" bla bla \n\"string\"",
+                            "sub1", "<\n" }));
+            assertTrue(
+                    "extra chars after the include file name did not throw exception",
+                    false);
+        } catch (Exception e) {
+        }
+    }
+
+    @SuppressWarnings("static-method")
     public void testFileNotFound() throws AnalysisException, IOException {
         try {
             assertLexicals(new LexicalElement[] { ID("identifier"),

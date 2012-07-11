@@ -7,7 +7,7 @@ import com.scriptbasic.interfaces.LexicalElement;
 public final class SyntaxExceptionUtility {
 
     private SyntaxExceptionUtility() {
-        UtilityUtility.assertUtilityClass();
+        UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
     }
 
     public static void throwSyntaxException(String s, LexicalElement le)

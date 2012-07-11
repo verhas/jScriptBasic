@@ -7,7 +7,6 @@ import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
 import junit.framework.TestCase;
 
 import org.junit.Test;
-import org.junit.experimental.theories.suppliers.TestedOn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

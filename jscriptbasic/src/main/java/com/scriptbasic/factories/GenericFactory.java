@@ -38,7 +38,7 @@ public class GenericFactory extends AbstractFactory {
     @Override
     public <T extends FactoryManaged> T get(final Class<T> klass) {
         assertInterface(klass);
-        // TODO how to alter it to avoid this unchecked cast
+        // TODO how could we avoid this unchecked mapping?
         return (T) analyzerMap.get(klass);
     }
 

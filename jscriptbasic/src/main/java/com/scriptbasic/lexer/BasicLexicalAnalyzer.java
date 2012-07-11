@@ -113,6 +113,15 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
 
     }
 
+    /**
+     * Checks that the line starts with the keyword INCLUDE or IMPORT. It does
+     * work when one or both keywords are defined as keywords in the interpreter
+     * and also when these are just identifiers in the language.
+     * 
+     * @param le
+     *            the lexical element to examine if it is INLCUDE or IMPORT word
+     * @return {@code true} if it is include or import
+     */
     private static boolean isIncludeOrImport(final LexicalElement le) {
         return (le.isSymbol() || le.isIdentifier())
                 && stringIsIncludeOrImport(le.getLexeme());
@@ -162,7 +171,13 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
             if (isIncludeOrImport(lexicalElement)) {
                 lexicalElement = this.lexicalElementQueueIterator.next();
                 if (lexicalElement.isString()) {
-                    // TODO check that there are no extra chars on the line
+                    LexicalElement newLine = this.lexicalElementQueueIterator
+                            .next();
+                    if (newLine == null || !newLine.isLineTerminator()) {
+                        LOG.error("There are extra characters on the line after the include file name string");
+                        throw new GenericSyntaxException(
+                                "There are extra chars at the end of the INCLUDE statement");
+                    }
                     final SourceProvider sp = hreader.getSourceProvider();
                     Reader childReader = null;
                     try {

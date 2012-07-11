@@ -12,10 +12,10 @@ import com.scriptbasic.errors.BasicInterpreterInternalError;
  */
 public final class UtilityUtility {
     private UtilityUtility() {
-        assertUtilityClass();
+        throwExceptionToEnsureNobodyCallsIt();
     }
 
-    static void assertUtilityClass() {
+    static void throwExceptionToEnsureNobodyCallsIt() {
         throw new BasicInterpreterInternalError(
                 "Should not instantiate utility class");
     }
