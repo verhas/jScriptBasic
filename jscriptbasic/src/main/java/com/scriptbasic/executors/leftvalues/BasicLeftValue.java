@@ -57,6 +57,10 @@ public class BasicLeftValue extends AbstractLeftValue {
             variableMap.setVariable(getIdentifier(), rightValue);
         } else {
             RightValue variable = variableMap.getVariableValue(getIdentifier());
+            // TODO this has to be removed and moved to the execution of a DIM
+            // command
+            // variables in the release version should NOT be converted to be
+            // arrays on the fly
             if (variable == null) {
                 variable = new BasicArrayValue();
                 variableMap.setVariable(getIdentifier(), variable);
