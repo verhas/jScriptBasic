@@ -10,7 +10,7 @@ import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.utility.FactoryUtility;
 
 public class CommandAnalyzerSub extends AbstractCommandAnalyzer {
-
+    // TODO 'sub name' without list and with empty list
     @Override
     public Command analyze() throws AnalysisException {
         CommandSub node = new CommandSub();
@@ -25,10 +25,18 @@ public class CommandAnalyzerSub extends AbstractCommandAnalyzer {
             throw new GenericSyntaxException(
                     "subroutine name has to follow the keyword " + getName());
         }
-        assertKeyWord("(");
-        LeftValueList arguments = analyzeLeftValueList();
-        node.setArguments(arguments);
-        assertKeyWord(")");
+        if (isKeyWord("(")) {
+            lexicalAnalyzer.get();
+            if (isKeyWord(")")) {
+                node.setArguments(null);
+            } else {
+                LeftValueList arguments = analyzeLeftValueList();
+                node.setArguments(arguments);
+                assertKeyWord(")");
+            }
+        } else {
+            node.setArguments(null);
+        }
         pushNode(node);
         return node;
     }

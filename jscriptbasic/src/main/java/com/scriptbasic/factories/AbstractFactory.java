@@ -20,7 +20,7 @@ import com.scriptbasic.interfaces.FactoryManaged;
  * Factory}
  * 
  * @author Peter Verhas
- * @date Jun 8, 2012
+ * @date June 8, 2012
  */
 @SuppressWarnings("javadoc")
 public abstract class AbstractFactory implements Factory {
@@ -46,7 +46,7 @@ public abstract class AbstractFactory implements Factory {
             object.setFactory(this);
         } catch (Exception e) {
             throw new BasicInterpreterInternalError("Can not instantiate "
-                    + klass,e);
+                    + klass, e);
         }
     }
 

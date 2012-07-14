@@ -32,9 +32,8 @@ public final class BasicLeftValueListAnalyzer
 
     @Override
     public LeftValueList analyze() throws AnalysisException {
-        setList(new GenericLeftValueList());
-        setAnalyzer(FactoryUtility.getLeftValueAnalyzer(getFactory()));
-        return super.analyze();
+        return super.analyze(new GenericLeftValueList(),
+                FactoryUtility.getLeftValueAnalyzer(getFactory()));
     }
 
 }

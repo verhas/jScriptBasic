@@ -10,19 +10,15 @@ import com.scriptbasic.interfaces.FactoryManaged;
  * the different threads.
  * 
  * @author Peter Verhas
- * @date Jun 8, 2012
+ * @date June 8, 2012
  */
 public class GenericFactory extends AbstractFactory {
 
-    private static Map<Class<? extends FactoryManaged>, FactoryManaged> newMap() {
-        return new HashMap<Class<? extends FactoryManaged>, FactoryManaged>();
-    }
-
-    private transient Map<Class<? extends FactoryManaged>, FactoryManaged> analyzerMap = newMap();
+    private transient Map<Class<? extends FactoryManaged>, FactoryManaged> analyzerMap = new HashMap<>();
 
     @Override
     public void clean() {
-        analyzerMap=newMap();
+        analyzerMap = new HashMap<>();
     }
 
     /**
@@ -30,7 +26,7 @@ public class GenericFactory extends AbstractFactory {
      * objects.
      */
     @Override
-	<T extends FactoryManaged> void set(final Class<T> klass, final T analyzer) {
+    <T extends FactoryManaged> void set(final Class<T> klass, final T analyzer) {
         analyzerMap.put(klass, analyzer);
     }
 
@@ -38,7 +34,6 @@ public class GenericFactory extends AbstractFactory {
     @Override
     public <T extends FactoryManaged> T get(final Class<T> klass) {
         assertInterface(klass);
-        // TODO how could we avoid this unchecked mapping?
         return (T) analyzerMap.get(klass);
     }
 

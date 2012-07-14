@@ -58,12 +58,20 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
      *             when the next lexeme is NOT the expected keyword.
      */
     protected void assertKeyWord(String keyword) throws AnalysisException {
-        LexicalElement lexicalElement = FactoryUtility.getLexicalAnalyzer(
-                getFactory()).get();
-        if (lexicalElement == null || !lexicalElement.isSymbol(keyword)) {
+        if (!isKeyWord(keyword)) {
+            LexicalElement lexicalElement = FactoryUtility.getLexicalAnalyzer(
+                    getFactory()).peek();
             throw new GenericSyntaxException("There is no '" + keyword
                     + "' after the '" + getName() + "'", lexicalElement, null);
+        } else {
+            FactoryUtility.getLexicalAnalyzer(getFactory()).get();
         }
+    }
+
+    protected boolean isKeyWord(String keyword) throws AnalysisException {
+        LexicalElement lexicalElement = FactoryUtility.getLexicalAnalyzer(
+                getFactory()).peek();
+        return lexicalElement != null && lexicalElement.isSymbol(keyword);
     }
 
     /**

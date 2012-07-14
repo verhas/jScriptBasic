@@ -297,7 +297,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     }
 
     private Stack<Command> commandStack = new Stack<>();
-
+    private Stack<Command> nextCommandStack = new Stack<>();
     /*
      * (non-Javadoc)
      * 
@@ -307,6 +307,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     @Override
     public void push(Command command) {
         commandStack.push(command);
+        nextCommandStack.push(nextCommand);
         getVariables().newFrame();
     }
 
@@ -327,6 +328,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     @Override
     public Command pop() {
         getVariables().dropFrame();
+        nextCommand = nextCommandStack.pop();
         return commandStack.pop();
     }
 

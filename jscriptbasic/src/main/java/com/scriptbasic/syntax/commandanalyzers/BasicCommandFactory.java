@@ -76,6 +76,8 @@ public final class BasicCommandFactory implements CommandFactory {
         registerCommandAnalyzer("endsub", new CommandAnalyzerEndSub());
         registerCommandAnalyzer("return", new CommandAnalyzerReturn());
         registerCommandAnalyzer("print", new CommandAnalyzerPrint());
+        registerCommandAnalyzer("local", new CommandAnalyzerLocal());
+        registerCommandAnalyzer("global", new CommandAnalyzerGlobal());
         //
         registerCommandAnalyzer(new CommandAnalyzerLet());
         registerCommandAnalyzer(new CommandAnalyzerCall());

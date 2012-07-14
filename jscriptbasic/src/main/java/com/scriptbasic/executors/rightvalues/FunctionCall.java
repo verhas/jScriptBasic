@@ -34,6 +34,7 @@ public class FunctionCall extends
             extendedInterpreter.setReturnValue(null);
             extendedInterpreter.execute(commandSub.getNextCommand());
             result = extendedInterpreter.getReturnValue();
+            extendedInterpreter.pop();
         } else {
             // TODO implement F(x) evaluation when F is not a subroutine.
         }
@@ -42,11 +43,16 @@ public class FunctionCall extends
 
     private static RightValue[] evaluateArguments(ExpressionList argumentList,
             ExtendedInterpreter extendedInterpreter) throws ExecutionException {
-        Iterator<Expression> expressionIterator = argumentList.iterator();
-        RightValue[] argumentValues = new RightValue[argumentList.size()];
-        for (int i = 0; i < argumentValues.length; i++) {
-            argumentValues[i] = expressionIterator.next().evaluate(
-                    extendedInterpreter);
+        RightValue[] argumentValues;
+        if (argumentList == null) {
+            argumentValues = null;
+        } else {
+            Iterator<Expression> expressionIterator = argumentList.iterator();
+            argumentValues = new RightValue[argumentList.size()];
+            for (int i = 0; i < argumentValues.length; i++) {
+                argumentValues[i] = expressionIterator.next().evaluate(
+                        extendedInterpreter);
+            }
         }
         return argumentValues;
     }
@@ -59,19 +65,20 @@ public class FunctionCall extends
     private static void registerLocalVariablesWithValues(
             LeftValueList arguments, RightValue[] argumentValues,
             ExtendedInterpreter extendedInterpreter) throws ExecutionException {
-        Iterator<LeftValue> argumentIterator = arguments.iterator();
-        for (int i = 0; i < argumentValues.length; i++) {
-            LeftValue argument = argumentIterator.next();
-            if (argument instanceof BasicLeftValue) {
-                String name = ((BasicLeftValue) argument).getIdentifier();
-                extendedInterpreter.getVariables().registerLocalVariable(name);
-                extendedInterpreter.setVariable(name, argumentValues[i]);
-            } else {
-                throw new BasicRuntimeException(
-                        "subroutine formal argument is erroneous");
+        if (arguments != null) {
+            Iterator<LeftValue> argumentIterator = arguments.iterator();
+            for (int i = 0; i < argumentValues.length; i++) {
+                LeftValue argument = argumentIterator.next();
+                if (argument instanceof BasicLeftValue) {
+                    String name = ((BasicLeftValue) argument).getIdentifier();
+                    extendedInterpreter.getVariables().registerLocalVariable(
+                            name);
+                    extendedInterpreter.setVariable(name, argumentValues[i]);
+                } else {
+                    throw new BasicRuntimeException(
+                            "subroutine formal argument is erroneous");
+                }
             }
         }
-        // extendedInterpreter.getVariables().registerLocalVariable(variableName)
-
     }
 }

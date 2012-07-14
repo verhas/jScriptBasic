@@ -35,20 +35,7 @@ public abstract class AbstractGenericListAnalyzer<T extends GenericList<Z>, K ex
 
     public abstract Factory getFactory();
 
-    private K list;
-
-    protected void setList(K list) {
-        this.list = list;
-    }
-
-    private A analyzer;
-
-    protected void setAnalyzer(A analyzer) {
-        this.analyzer = analyzer;
-    }
-
-    @Override
-    public T analyze() throws AnalysisException {
+    protected T analyze(K list, A analyzer) throws AnalysisException {
         list.add(analyzer.analyze());
         LexicalElement lexicalElement = LexUtility.peek(FactoryUtility
                 .getLexicalAnalyzer(getFactory()));

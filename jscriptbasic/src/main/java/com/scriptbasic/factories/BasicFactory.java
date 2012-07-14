@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.BasicExtendedInterpreter;
+import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.CommandFactory;
 import com.scriptbasic.interfaces.ExpressionAnalyzer;
 import com.scriptbasic.interfaces.ExpressionListAnalyzer;
@@ -14,7 +15,6 @@ import com.scriptbasic.interfaces.HierarchicalReader;
 import com.scriptbasic.interfaces.LeftValueAnalyzer;
 import com.scriptbasic.interfaces.LeftValueListAnalyzer;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.NestedStructureHouseKeeper;
 import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.interfaces.SyntaxAnalyzer;
@@ -48,7 +48,16 @@ import com.scriptbasic.syntax.leftvalue.BasicLeftValueListAnalyzer;
  */
 public class BasicFactory extends GenericFactory {
 
-    private static Map<Class<? extends FactoryManaged>, Class<? extends FactoryManaged>> classMapping = new HashMap<Class<? extends FactoryManaged>, Class<? extends FactoryManaged>>();
+    /**
+     * {@code classMapping} contains the interfaces and the classes that
+     * implement the interface and that are used in this interpreter.
+     */
+    private static Map<Class<? extends FactoryManaged>, Class<? extends FactoryManaged>> classMapping = new HashMap<>();
+
+    /*
+     * This static block configures the classes and the interfaces and also list
+     * the interfaces that are implemented in multitone mode.
+     */
     static {
         classMapping.put(SyntaxAnalyzer.class, BasicSyntaxAnalyzer.class);
         classMapping.put(ExpressionAnalyzer.class,
@@ -83,7 +92,6 @@ public class BasicFactory extends GenericFactory {
     public <T extends FactoryManaged> T get(final Class<T> interfac) {
         T object = super.get(interfac);
         if (object == null) {
-            // TODO how could we avoid this unchecked mapping?
             final Class<? extends T> klass = (Class<? extends T>) classMapping
                     .get(interfac);
             if (klass == null) {

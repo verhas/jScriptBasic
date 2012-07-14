@@ -31,9 +31,8 @@ public final class BasicExpressionListAnalyzer
 
     @Override
     public ExpressionList analyze() throws AnalysisException {
-        setList(new GenericExpressionList());
-        setAnalyzer(FactoryUtility.getExpressionAnalyzer(getFactory()));
-        return super.analyze();
+        return super.analyze(new GenericExpressionList(),
+                FactoryUtility.getExpressionAnalyzer(getFactory()));
     }
 
 }

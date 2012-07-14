@@ -7,32 +7,15 @@ import com.scriptbasic.executors.rightvalues.BasicStringValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.Expression;
-import com.scriptbasic.interfaces.ExpressionList;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.RightValue;
 
-public class CommandPrint extends AbstractCommand {
-    private ExpressionList expressionList;
-
-    /**
-     * @return the expressionList
-     */
-    public ExpressionList getExpressionList() {
-        return expressionList;
-    }
-
-    /**
-     * @param expressionList
-     *            the expressionList to set
-     */
-    public void setExpressionList(ExpressionList expressionList) {
-        this.expressionList = expressionList;
-    }
+public class CommandPrint extends AbstractCommandExpressionListed {
 
     @Override
     public void execute(final ExtendedInterpreter interpreter)
             throws ExecutionException {
-        for (Expression expression : expressionList) {
+        for (Expression expression : getExpressionList()) {
             RightValue rightValue = expression.evaluate(interpreter);
             try {
                 Writer writer = interpreter.getWriter();

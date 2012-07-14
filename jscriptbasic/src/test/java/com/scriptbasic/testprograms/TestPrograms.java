@@ -37,6 +37,8 @@ public class TestPrograms extends TestCase {
             assertFalse(true);
         } catch (BasicRuntimeException e) {
         }
-        codeTest("TestSub.bas", "6");
+        codeTest("TestSub1.bas", "6");
+        codeTest("TestSub2.bas", "21");
+        codeTest("TestSub3.bas", "21");
     }
 }
