@@ -21,4 +21,12 @@ public class GenericLeftValueList implements LeftValueList {
 		return this.leftValueList.iterator();
 	}
 
+    /* (non-Javadoc)
+     * @see com.scriptbasic.interfaces.GenericList#length()
+     */
+    @Override
+    public int size() {
+        return leftValueList.size();
+    }
+
 }

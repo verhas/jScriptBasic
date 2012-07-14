@@ -9,7 +9,7 @@ import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.FactoryManaged;
 import com.scriptbasic.readers.GenericHierarchicalReader;
 import com.scriptbasic.syntax.BasicSyntaxAnalyzer;
-import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.FactoryUtility;
 
 public class TestFactories extends TestCase {
 
@@ -111,13 +111,13 @@ public class TestFactories extends TestCase {
         }
 
         try {
-            FactoryUtilities.getExpressionAnalyzer(new NullFactory());
+            FactoryUtility.getExpressionAnalyzer(new NullFactory());
             assertTrue("NullFactory could load ExpressionAnalyzer instance",
                     false);
         } catch (BasicInterpreterInternalError e) {
         }
         try {
-            FactoryUtilities.getSyntaxAnalyzer(new BadFactory());
+            FactoryUtility.getSyntaxAnalyzer(new BadFactory());
             assertTrue("BadFactory could load getSyntaxAnalyzer instance",
                     false);
         } catch (BasicInterpreterInternalError e) {

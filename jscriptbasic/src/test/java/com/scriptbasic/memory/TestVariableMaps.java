@@ -87,77 +87,77 @@ public class TestVariableMaps extends TestCase {
         }
     }
 
-    MixedBasicVariableMap blvm = null;
+    MixedBasicVariableMap mixedMap = null;
 
     private void VE(String name) throws ExecutionException {
-        assertTrue(blvm.variableExists(name));
+        assertTrue(mixedMap.variableExists(name));
     }
 
     private void VNE(String name) throws ExecutionException {
-        assertFalse(blvm.variableExists(name));
+        assertFalse(mixedMap.variableExists(name));
     }
 
     private void VD(String name) throws ExecutionException {
-        assertTrue(blvm.variableDefined(name));
+        assertTrue(mixedMap.variableDefined(name));
     }
 
     private void VND(String name) throws ExecutionException {
-        assertFalse(blvm.variableDefined(name));
+        assertFalse(mixedMap.variableDefined(name));
     }
 
     private void LET(String name, Object v) throws ExecutionException {
         SET: {
             if (v == null) {
-                blvm.setVariable(name, null);
+                mixedMap.setVariable(name, null);
                 break SET;
             }
             if (v instanceof RightValue) {
-                blvm.setVariable(name, (RightValue) v);
+                mixedMap.setVariable(name, (RightValue) v);
                 break SET;
             }
             if (v instanceof Double) {
-                blvm.setVariable(name, new BasicDoubleValue((Double) v));
+                mixedMap.setVariable(name, new BasicDoubleValue((Double) v));
                 break SET;
             }
             if (v instanceof Long) {
-                blvm.setVariable(name, new BasicLongValue((Long) v));
+                mixedMap.setVariable(name, new BasicLongValue((Long) v));
                 break SET;
             }
             if (v instanceof Integer) {
-                blvm.setVariable(name,
+                mixedMap.setVariable(name,
                         new BasicLongValue(((Integer) v).longValue()));
                 break SET;
             }
             if (v instanceof String) {
-                blvm.setVariable(name, new BasicStringValue((String) v));
+                mixedMap.setVariable(name, new BasicStringValue((String) v));
                 break SET;
             }
         }
     }
 
     private void PUSH() {
-        blvm.newFrame();
+        mixedMap.newFrame();
     }
 
     private void POP() {
-        blvm.dropFrame();
+        mixedMap.dropFrame();
     }
 
     private void RLV(String name) throws ExecutionException {
-        blvm.registerLocalVariable(name);
+        mixedMap.registerLocalVariable(name);
     }
 
     private void RGV(String name) throws ExecutionException {
-        blvm.registerGlobalVariable(name);
+        mixedMap.registerGlobalVariable(name);
     }
 
     private Object VALUE(String name) throws ExecutionException {
-        return ((AbstractPrimitiveRightValue<?>) blvm.getVariableValue(name))
+        return ((AbstractPrimitiveRightValue<?>) mixedMap.getVariableValue(name))
                 .getValue();
     }
 
     public void testMixedBasicVariableMap() throws ExecutionException {
-        blvm = new MixedBasicVariableMap();
+        mixedMap = new MixedBasicVariableMap();
 
         try {
             RLV("algo");
@@ -180,7 +180,7 @@ public class TestVariableMaps extends TestCase {
         // ENTERING LOCAL SCOPE
         //
         PUSH();
-        blvm.isGlobal("alga");
+        mixedMap.isGlobal("alga");
         RGV("olga");
         RGV("olga");// must be lenient
         try {
@@ -219,21 +219,21 @@ public class TestVariableMaps extends TestCase {
     }
 
     public void testCasing() throws ExecutionException {
-        blvm = new MixedBasicVariableMap();
-        blvm.setCaseSensitive();
+        mixedMap = new MixedBasicVariableMap();
+        mixedMap.setCaseSensitive();
         LET("var1", 1);
         LET("VAR1", 2);
         assertEquals((Long) 1L, (Long) VALUE("var1"));
         assertEquals((Long) 2L, (Long) VALUE("VAR1"));
 
-        blvm = new MixedBasicVariableMap();
-        blvm.setCaseIgnorant();
+        mixedMap = new MixedBasicVariableMap();
+        mixedMap.setCaseIgnorant();
         LET("var1", 1);
         LET("VAR1", 2);
         assertEquals((Long) 2L, (Long) VALUE("VaR1"));
 
-        blvm = new MixedBasicVariableMap();
-        blvm.setCaseFreak();
+        mixedMap = new MixedBasicVariableMap();
+        mixedMap.setCaseFreak();
         LET("var1", 1);
         try {
             LET("VAR1", 2);
@@ -243,9 +243,9 @@ public class TestVariableMaps extends TestCase {
         }
         assertEquals((Long) 1L, (Long) VALUE("var1"));
 
-        blvm = new MixedBasicVariableMap();
-        blvm.setCaseSensitive();
-        blvm.defaultVariableScopeShallBeGlobal();
+        mixedMap = new MixedBasicVariableMap();
+        mixedMap.setCaseSensitive();
+        mixedMap.defaultVariableScopeShallBeGlobal();
         PUSH();
         LET("var1", 1);
         LET("VAR1", 2);
@@ -253,9 +253,9 @@ public class TestVariableMaps extends TestCase {
         assertEquals((Long) 1L, (Long) VALUE("var1"));
         assertEquals((Long) 2L, (Long) VALUE("VAR1"));
 
-        blvm = new MixedBasicVariableMap();
-        blvm.setCaseFreak();
-        blvm.defaultVariableScopeShallBeLocal();
+        mixedMap = new MixedBasicVariableMap();
+        mixedMap.setCaseFreak();
+        mixedMap.defaultVariableScopeShallBeLocal();
         PUSH();
         LET("var1", 1);
         try {
@@ -268,10 +268,10 @@ public class TestVariableMaps extends TestCase {
         POP();
         VNE("var1");
 
-        blvm = new MixedBasicVariableMap();
-        blvm.setCaseFreak();
-        blvm.defaultVariableScopeShallBeGlobal();
-        blvm.createVariablesOnTheFly();// just for the coverage
+        mixedMap = new MixedBasicVariableMap();
+        mixedMap.setCaseFreak();
+        mixedMap.defaultVariableScopeShallBeGlobal();
+        mixedMap.createVariablesOnTheFly();// just for the coverage
         PUSH();
         LET("var1", 1);
         try {
@@ -285,9 +285,9 @@ public class TestVariableMaps extends TestCase {
         VE("var1");
         assertEquals((Long) 1L, (Long) VALUE("var1"));
 
-        blvm = new MixedBasicVariableMap();
-        blvm.setCaseFreak();
-        blvm.requireVariableDeclaration();
+        mixedMap = new MixedBasicVariableMap();
+        mixedMap.setCaseFreak();
+        mixedMap.requireVariableDeclaration();
         PUSH();
         try {
             LET("var1", 1);

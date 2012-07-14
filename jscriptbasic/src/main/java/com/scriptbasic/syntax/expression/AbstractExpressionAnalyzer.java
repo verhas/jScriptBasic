@@ -12,7 +12,7 @@ import com.scriptbasic.interfaces.ExpressionAnalyzer;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.syntax.AbstractAnalyzer;
-import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.FactoryUtility;
 
 public abstract class AbstractExpressionAnalyzer extends
         AbstractAnalyzer<Expression> implements ExpressionAnalyzer {
@@ -40,11 +40,11 @@ public abstract class AbstractExpressionAnalyzer extends
     }
 
     private LexicalElement peekAtOperatorLexeme() throws AnalysisException {
-        return FactoryUtilities.getLexicalAnalyzer(factory).peek();
+        return FactoryUtility.getLexicalAnalyzer(factory).peek();
     }
 
     private LexicalElement consumeTheOperatorLexeme() throws AnalysisException {
-        return FactoryUtilities.getLexicalAnalyzer(factory).get();
+        return FactoryUtility.getLexicalAnalyzer(factory).get();
     }
 
     private boolean isOperatorWithPriority(final LexicalElement le,
@@ -98,7 +98,7 @@ public abstract class AbstractExpressionAnalyzer extends
      */
     private Expression analyze(final Integer priority) throws AnalysisException {
         if (priority == 0) {
-            return FactoryUtilities.getTagAnalyzer(factory).analyze();
+            return FactoryUtility.getTagAnalyzer(factory).analyze();
         } else {
             return analyzeWithPositivePriority(priority);
         }

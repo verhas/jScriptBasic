@@ -14,7 +14,7 @@ import com.scriptbasic.interfaces.LeftValue;
 import com.scriptbasic.interfaces.LeftValueAnalyzer;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.FactoryUtility;
 
 /**
  * Left value is defined as
@@ -43,7 +43,7 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
             throws AnalysisException {
         lexicalAnalyzer.get();
         ArrayElementAccessLeftValueModifier lvm = new ArrayElementAccessLeftValueModifier();
-        ExpressionListAnalyzer expressionListAnalyzer = FactoryUtilities
+        ExpressionListAnalyzer expressionListAnalyzer = FactoryUtility
                 .getExpressionListAnalyzer(getFactory());
 
         ExpressionList indexList = expressionListAnalyzer.analyze();
@@ -89,7 +89,7 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
     @Override
     public LeftValue analyze() throws AnalysisException {
         BasicLeftValue leftValue = null;
-        LexicalAnalyzer lexicalAnalyzer = FactoryUtilities
+        LexicalAnalyzer lexicalAnalyzer = FactoryUtility
                 .getLexicalAnalyzer(getFactory());
         LexicalElement lexicalElement = lexicalAnalyzer.peek();
         if (lexicalElement.isIdentifier()) {

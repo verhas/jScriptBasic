@@ -18,14 +18,14 @@ import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.SyntaxAnalyzer;
 import com.scriptbasic.interfaces.TagAnalyzer;
 
-public final class FactoryUtilities {
+public final class FactoryUtility {
 
-    private FactoryUtilities() {
+    private FactoryUtility() {
         UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
     }
 
     private static final Logger LOG = LoggerFactory
-            .getLogger(FactoryUtilities.class);
+            .getLogger(FactoryUtility.class);
 
     private static <T extends FactoryManaged> T get(final Factory factory,
             final Class<T> klass) {

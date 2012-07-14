@@ -8,7 +8,7 @@ import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.FactoryUtility;
 
 @SuppressWarnings("static-method")
 public class TestBasicProgramAnalyzer extends TestCase {
@@ -19,7 +19,7 @@ public class TestBasicProgramAnalyzer extends TestCase {
             throws AnalysisException {
         factory.clean();
         createStringReading(factory, s);
-        return FactoryUtilities.getSyntaxAnalyzer(factory).analyze();
+        return FactoryUtility.getSyntaxAnalyzer(factory).analyze();
     }
 
     public void testCorrectProgram() throws Exception {
@@ -31,7 +31,7 @@ public class TestBasicProgramAnalyzer extends TestCase {
 
     public void testOneStepProgramExcute() throws Exception {
         BuildableProgram program = compile("a=1");
-        ExtendedInterpreter eInterpreter = FactoryUtilities
+        ExtendedInterpreter eInterpreter = FactoryUtility
                 .getExtendedInterpreter(factory);
         eInterpreter.setProgram(program);
         eInterpreter.execute();
@@ -43,7 +43,7 @@ public class TestBasicProgramAnalyzer extends TestCase {
 
     public void test2StepsProgramExcute() throws Exception {
         BuildableProgram program = compile("a=1\nb=1+1");
-        ExtendedInterpreter eInterpreter = FactoryUtilities
+        ExtendedInterpreter eInterpreter = FactoryUtility
                 .getExtendedInterpreter(factory);
         eInterpreter.setProgram(program);
         eInterpreter.execute();

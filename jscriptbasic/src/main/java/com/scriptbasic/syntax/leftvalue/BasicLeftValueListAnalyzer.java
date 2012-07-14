@@ -8,7 +8,7 @@ import com.scriptbasic.interfaces.LeftValueAnalyzer;
 import com.scriptbasic.interfaces.LeftValueList;
 import com.scriptbasic.interfaces.LeftValueListAnalyzer;
 import com.scriptbasic.syntax.AbstractGenericListAnalyzer;
-import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.FactoryUtility;
 
 public final class BasicLeftValueListAnalyzer
         extends
@@ -33,7 +33,7 @@ public final class BasicLeftValueListAnalyzer
     @Override
     public LeftValueList analyze() throws AnalysisException {
         setList(new GenericLeftValueList());
-        setAnalyzer(FactoryUtilities.getLeftValueAnalyzer(getFactory()));
+        setAnalyzer(FactoryUtility.getLeftValueAnalyzer(getFactory()));
         return super.analyze();
     }
 

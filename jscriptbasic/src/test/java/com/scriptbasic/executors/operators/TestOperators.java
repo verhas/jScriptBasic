@@ -18,7 +18,7 @@ import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.FactoryUtility;
 
 /**
  * @author Peter Verhas
@@ -33,9 +33,9 @@ public class TestOperators extends TestCase {
             throws AnalysisException {
         factory.clean();
         createStringReading(factory, s);
-        ExtendedInterpreter eInterpreter = FactoryUtilities
+        ExtendedInterpreter eInterpreter = FactoryUtility
                 .getExtendedInterpreter(factory);
-        eInterpreter.setProgram(FactoryUtilities.getSyntaxAnalyzer(factory)
+        eInterpreter.setProgram(FactoryUtility.getSyntaxAnalyzer(factory)
                 .analyze());
         return eInterpreter;
     }
@@ -223,6 +223,10 @@ public class TestOperators extends TestCase {
         new ModuloOperator().operatorName();
     }
 
+    public static void testFunctionCall() throws Exception {
+        a("sub apple(x)\nx=x+1\nreturn x\nendsub\na=apple(2)\n", 3);
+    }
+
     public static class qqq {
         public Integer www = 13;
         public Float fff = (float) 13.0;
@@ -236,6 +240,7 @@ public class TestOperators extends TestCase {
     public static class qq {
         public Integer www = 13;
         public Float fff = (float) 13.0;
+        public Integer arr[] = new Integer[4];
     }
 
     public static void testObjectSet() throws AnalysisException,
@@ -248,6 +253,11 @@ public class TestOperators extends TestCase {
 
     public static void testArraySetGet() throws Exception {
         b("c[13]=55\na=c[13]", null, 55);
+        b("c[13,14]=66\n\na=c[13,14]", null, 66);
+        qq b = new qq();
+        b.arr[3] = 777;
+        b("a=b.arr[3]", b, 777);
+        b("z[12]=b", b, null);
     }
 
     @SuppressWarnings("unused")

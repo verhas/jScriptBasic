@@ -21,4 +21,12 @@ public class GenericExpressionList implements ExpressionList {
         return this.expressionList.iterator();
     }
 
+    /* (non-Javadoc)
+     * @see com.scriptbasic.interfaces.GenericList#length()
+     */
+    @Override
+    public int size() {
+        return expressionList.size();
+    }
+
 }

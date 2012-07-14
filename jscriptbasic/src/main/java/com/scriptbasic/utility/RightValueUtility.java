@@ -20,8 +20,8 @@ import com.scriptbasic.interfaces.RightValue;
  * @date June 26, 2012
  * 
  */
-public final class RightValueUtils {
-    private RightValueUtils() {
+public final class RightValueUtility {
+    private RightValueUtility() {
         UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
     }
 
@@ -58,9 +58,24 @@ public final class RightValueUtils {
         return result;
     }
 
+    /**
+     * Create a right value from the object. If the object is already a right
+     * value then just return the object. If the object is some primitive object
+     * (Long, Integer, Short, Float, Double, String, Character, Boolean then it
+     * creates a Basic object that holds a Long, Double, String or Boolean
+     * value.
+     * <p>
+     * In other cases the method will return a {@see BasicJavaObjectValue}.
+     * 
+     * @param value
+     *            the original value to convert to a right value
+     * @return the converted right value
+     */
     public static RightValue createRightValue(Object value) {
         RightValue rightValue = null;
-        if (value instanceof Double) {
+        if (value instanceof RightValue) {
+            rightValue = (RightValue) value;
+        } else if (value instanceof Double) {
             rightValue = new BasicDoubleValue((Double) value);
         } else if (value instanceof Float) {
             rightValue = new BasicDoubleValue(((Float) value).doubleValue());
@@ -68,8 +83,13 @@ public final class RightValueUtils {
             rightValue = new BasicLongValue((Long) value);
         } else if (value instanceof Integer) {
             rightValue = new BasicLongValue(((Integer) value).longValue());
+        } else if (value instanceof Short) {
+            rightValue = new BasicLongValue(((Short) value).longValue());
         } else if (value instanceof String) {
             rightValue = new BasicStringValue((String) value);
+        } else if (value instanceof Character) {
+            rightValue = new BasicStringValue(new String(
+                    new char[] { (Character) value }));
         } else if (value instanceof Boolean) {
             rightValue = new BasicBooleanValue((Boolean) value);
         } else {

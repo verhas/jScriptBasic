@@ -6,7 +6,7 @@ import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.LeftValue;
 
-public class CommandLet extends AbstractCommand implements IfOrElse {
+public class CommandLet extends AbstractCommand {
     private LeftValue leftValue;
     private Expression expression;
 

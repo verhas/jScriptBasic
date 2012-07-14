@@ -6,7 +6,7 @@ import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.interfaces.VariableMap;
-import com.scriptbasic.utility.RightValueUtils;
+import com.scriptbasic.utility.RightValueUtility;
 
 public class ArrayElementAccess extends
         AbstractIdentifieredExpressionListedExpression {
@@ -19,7 +19,7 @@ public class ArrayElementAccess extends
         for (Expression expression : getExpressionList()) {
             if (variable instanceof BasicArrayValue) {
                 BasicArrayValue arrayVar = (BasicArrayValue) variable;
-                Integer index = RightValueUtils.convert2Integer(expression
+                Integer index = RightValueUtility.convert2Integer(expression
                         .evaluate(extendedInterpreter));
                 Object object = arrayVar.get(index);
                 if (object instanceof RightValue) {

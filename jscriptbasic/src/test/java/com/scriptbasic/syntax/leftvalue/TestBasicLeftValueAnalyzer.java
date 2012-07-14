@@ -25,7 +25,7 @@ import com.scriptbasic.interfaces.LeftValueAnalyzer;
 import com.scriptbasic.interfaces.LeftValueListAnalyzer;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.syntax.expression.ExpressionComparator;
-import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.FactoryUtility;
 import com.scriptbasic.utility.LexUtility;
 
 public class TestBasicLeftValueAnalyzer extends TestCase {
@@ -36,7 +36,7 @@ public class TestBasicLeftValueAnalyzer extends TestCase {
             throws AnalysisException {
         factory.clean();
         final LexicalAnalyzer la = createStringReading(factory, s);
-        final LeftValueAnalyzer lva = FactoryUtilities
+        final LeftValueAnalyzer lva = FactoryUtility
                 .getLeftValueAnalyzer(factory);
         final BasicLeftValue e = (BasicLeftValue) lva.analyze();
         if (LexUtility.peek(la) != null) {
@@ -152,7 +152,7 @@ public class TestBasicLeftValueAnalyzer extends TestCase {
             throws AnalysisException {
         factory.clean();
         final LexicalAnalyzer la = createStringReading(factory, s);
-        final LeftValueListAnalyzer lva = FactoryUtilities
+        final LeftValueListAnalyzer lva = FactoryUtility
                 .getLeftValueListAnalyzer(factory);
         final GenericLeftValueList e = (GenericLeftValueList) lva.analyze();
         if (LexUtility.peek(la) != null) {

@@ -53,4 +53,25 @@ public interface Interpreter extends FactoryManaged {
      *         return value
      */
     Object call(String functionName, Object[] arguments);
+
+    /**
+     * {@see javax.script.ScriptContext#setReader(java.io.Reader)}
+     * 
+     * @param reader
+     */
+    void setReader(java.io.Reader reader);
+
+    /**
+     * {@see javax.script.ScriptContext#setWriter(Writer)};
+     * 
+     * @param writer
+     */
+    void setWriter(java.io.Writer writer);
+
+    /**
+     * {@see javax.script.ScriptContext#setErrorWriter(Writer)}
+     * 
+     * @param writer
+     */
+    void setErrorWriter(java.io.Writer writer);
 }

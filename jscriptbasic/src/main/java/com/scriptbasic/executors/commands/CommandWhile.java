@@ -1,6 +1,7 @@
 package com.scriptbasic.executors.commands;
 
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
+import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.ExecutionException;
@@ -33,14 +34,12 @@ public class CommandWhile extends AbstractCommand {
         interpreter.setNextCommand(getWendNode().getNextCommand());
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void execute(final ExtendedInterpreter interpreter)
             throws ExecutionException {
         final RightValue conditionValue = getCondition().evaluate(interpreter);
         if (conditionValue instanceof AbstractPrimitiveRightValue<?>) {
-            final AbstractPrimitiveRightValue<Object> cond = (AbstractPrimitiveRightValue<Object>) conditionValue;
-            if (!cond.getBooleanValue()) {
+            if (!BasicBooleanValue.convert(conditionValue)) {
                 jumpAfterTheWendCommand(interpreter);
             }
         } else {

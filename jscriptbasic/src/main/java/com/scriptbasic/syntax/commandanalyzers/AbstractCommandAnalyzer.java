@@ -5,12 +5,14 @@ import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.CommandAnalyzer;
 import com.scriptbasic.interfaces.Expression;
+import com.scriptbasic.interfaces.ExpressionList;
 import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.interfaces.LeftValueList;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.NestedStructure;
 import com.scriptbasic.interfaces.NestedStructureHouseKeeper;
 import com.scriptbasic.syntax.AbstractAnalyzer;
-import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.FactoryUtility;
 import com.scriptbasic.utility.SyntaxExceptionUtility;
 
 public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
@@ -28,12 +30,20 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
 
     protected abstract String getName();
 
-    protected Expression analyzeExpression() throws AnalysisException {
-        return FactoryUtilities.getExpressionAnalyzer(getFactory()).analyze();
+    protected LeftValueList analyzeLeftValueList() throws AnalysisException {
+        return FactoryUtility.getLeftValueListAnalyzer(getFactory()).analyze();
     }
 
-    protected void pushNodeOnTheAnalysisStack(NestedStructure node) {
-        NestedStructureHouseKeeper nshk = FactoryUtilities
+    protected Expression analyzeExpression() throws AnalysisException {
+        return FactoryUtility.getExpressionAnalyzer(getFactory()).analyze();
+    }
+
+    protected ExpressionList analyzeExpressionList() throws AnalysisException {
+        return FactoryUtility.getExpressionListAnalyzer(getFactory()).analyze();
+    }
+
+    protected void pushNode(NestedStructure node) {
+        NestedStructureHouseKeeper nshk = FactoryUtility
                 .getNestedStructureHouseKeeper(getFactory());
         nshk.push(node);
     }
@@ -48,7 +58,7 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
      *             when the next lexeme is NOT the expected keyword.
      */
     protected void assertKeyWord(String keyword) throws AnalysisException {
-        LexicalElement lexicalElement = FactoryUtilities.getLexicalAnalyzer(
+        LexicalElement lexicalElement = FactoryUtility.getLexicalAnalyzer(
                 getFactory()).get();
         if (lexicalElement == null || !lexicalElement.isSymbol(keyword)) {
             throw new GenericSyntaxException("There is no '" + keyword
@@ -67,7 +77,7 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
      *             when there are extra character on the actual line
      */
     protected void consumeEndOfLine() throws AnalysisException {
-        LexicalElement le = FactoryUtilities.getLexicalAnalyzer(factory).get();
+        LexicalElement le = FactoryUtility.getLexicalAnalyzer(factory).get();
         if (le != null && !le.isLineTerminator()) {
             SyntaxExceptionUtility.throwSyntaxException(
                     "There are extra characters following the expression after the '"

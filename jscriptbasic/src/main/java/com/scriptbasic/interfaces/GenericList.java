@@ -11,4 +11,5 @@ package com.scriptbasic.interfaces;
 public interface GenericList<Z extends AnalysisResult> extends Iterable<Z>,
 		AnalysisResult {
 	void add(Z element);
+	int size();
 }

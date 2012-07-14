@@ -24,7 +24,7 @@ import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.TagAnalyzer;
 import com.scriptbasic.syntax.AbstractAnalyzer;
-import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.FactoryUtility;
 import com.scriptbasic.utility.LexUtility;
 
 /**
@@ -76,7 +76,7 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
 
     @Override
     public Expression analyze() throws AnalysisException {
-        final LexicalAnalyzer lexicalAnalyzer = FactoryUtilities
+        final LexicalAnalyzer lexicalAnalyzer = FactoryUtility
                 .getLexicalAnalyzer(factory);
         final LexicalElement lexicalElement = LexUtility.peek(lexicalAnalyzer);
         if (lexicalElement != null) {
@@ -121,7 +121,7 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
         functionCall.setVariableName(identifierElement.getLexeme());
         LexicalElement lexicalElement = LexUtility.peek(lexicalAnalyzer);
         if (!isClosingParenthese(lexicalElement)) {
-            functionCall.setExpressionList(FactoryUtilities
+            functionCall.setExpressionList(FactoryUtility
                     .getExpressionListAnalyzer(factory).analyze());
             lexicalElement = LexUtility.peek(lexicalAnalyzer);
         }
@@ -139,7 +139,7 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
         LexUtility.get(lexicalAnalyzer);
         final ArrayElementAccess arrayElementAccess = new ArrayElementAccess();
         arrayElementAccess.setVariableName(identifierElement.getLexeme());
-        arrayElementAccess.setExpressionList(FactoryUtilities
+        arrayElementAccess.setExpressionList(FactoryUtility
                 .getExpressionListAnalyzer(factory).analyze());
         final LexicalElement lexicalElement = LexUtility.peek(lexicalAnalyzer);
         if (isClosingBracket(lexicalElement)) {
@@ -155,7 +155,7 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
     private Expression newSubExpression(final LexicalAnalyzer lexicalAnalyzer)
             throws AnalysisException {
         LexUtility.get(lexicalAnalyzer);
-        final Expression expression = FactoryUtilities.getExpressionAnalyzer(
+        final Expression expression = FactoryUtility.getExpressionAnalyzer(
                 factory).analyze();
         final LexicalElement lexicalElement = LexUtility.peek(lexicalAnalyzer);
         if (isClosingParenthese(lexicalElement)) {

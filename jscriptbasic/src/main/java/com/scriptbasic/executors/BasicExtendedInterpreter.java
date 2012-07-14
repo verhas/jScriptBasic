@@ -3,19 +3,23 @@
  */
 package com.scriptbasic.executors;
 
+import java.io.Writer;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
+import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.interfaces.HierarchicalVariableMap;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.memory.MixedBasicVariableMap;
-import com.scriptbasic.utility.RightValueUtils;
+import com.scriptbasic.utility.RightValueUtility;
 
 /**
  * @author Peter Verhas
@@ -27,6 +31,60 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     }
 
     private BuildableProgram program;
+    private java.io.Reader reader;
+    private java.io.Writer writer;
+    private java.io.Writer errorWriter;
+
+    /**
+     * @return the reader
+     */
+    @Override
+    public java.io.Reader getReader() {
+        return reader;
+    }
+
+    /**
+     * @param reader
+     *            the reader to set
+     */
+    @Override
+    public void setReader(java.io.Reader reader) {
+        this.reader = reader;
+    }
+
+    /**
+     * @return the writer
+     */
+    @Override
+    public java.io.Writer getWriter() {
+        return writer;
+    }
+
+    /**
+     * @param writer
+     *            the writer to set
+     */
+    @Override
+    public void setWriter(java.io.Writer writer) {
+        this.writer = writer;
+    }
+
+    /**
+     * @return the errorWriter
+     */
+    @Override
+    public Writer getErrorWriter() {
+        return errorWriter;
+    }
+
+    /**
+     * @param errorWriter
+     *            the errorWriter to set
+     */
+    @Override
+    public void setErrorWriter(Writer errorWriter) {
+        this.errorWriter = errorWriter;
+    }
 
     /*
      * (non-Javadoc)
@@ -43,11 +101,35 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     private final MixedBasicVariableMap variables = new MixedBasicVariableMap();
 
     @Override
-    public MixedBasicVariableMap getVariables() {
+    public HierarchicalVariableMap getVariables() {
         return variables;
     }
 
     private Command nextCommand;
+    private Command currentCommand;
+
+    private Map<String, CommandSub> subroutineMap = new HashMap<>();
+
+    /**
+     * Collect all the subroutines and build the subroutine map to ease the
+     * location of subroutines based on name.
+     * 
+     * @param startCommand
+     */
+    private void collectSubroutines(final Command startCommand) {
+        for (Command command = startCommand; command != null; command = command
+                .getNextCommand()) {
+            if (command instanceof CommandSub) {
+                subroutineMap.put(((CommandSub) command).getSubName(),
+                        (CommandSub) command);
+            }
+        }
+    }
+
+    @Override
+    public CommandSub getSubroutine(String name) {
+        return subroutineMap.get(name);
+    }
 
     /*
      * (non-Javadoc)
@@ -57,9 +139,25 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     @Override
     public void execute() throws ExecutionException {
         Command command = program.getStartCommand();
+        collectSubroutines(command);
+        execute(command);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.scriptbasic.interfaces.ExtendedInterpreter#execute(com.scriptbasic
+     * .interfaces.Command)
+     */
+    @Override
+    public void execute(final Command startCommand) throws ExecutionException {
+        Command command = startCommand;
         while (command != null) {
             nextCommand = command.getNextCommand();
+            currentCommand = command;
             command.execute(this);
+            currentCommand = null;
             command = nextCommand;
         }
     }
@@ -73,7 +171,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     @Override
     public void setVariable(String name, Object value)
             throws ExecutionException {
-        RightValue rightValue = RightValueUtils.createRightValue(value);
+        RightValue rightValue = RightValueUtility.createRightValue(value);
         getVariables().setVariable(name, rightValue);
     }
 
@@ -98,18 +196,8 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      */
     @Override
     public Object call(String functionName, Object[] arguments) {
-        // TODO implement calling a function from an already executed BASIC program
-        return null;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.scriptbasic.interfaces.ExtendedInterpreter#getProgramCounter()
-     */
-    @Override
-    public Integer getProgramCounter() {
-        // TODO delete this when it becomes evident that there is no such thing as Program Counter is ScriptBasic
+        // TODO implement calling a function from an already executed BASIC
+        // program
         return null;
     }
 
@@ -133,6 +221,11 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     @Override
     public void setNextCommand(Command nextCommand) {
         this.nextCommand = nextCommand;
+    }
+
+    @Override
+    public Command getCurrentCommand() {
+        return currentCommand;
     }
 
     private final Map<String, Object> interpreterStateMap = new HashMap<String, Object>();
@@ -201,6 +294,64 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
         methodRegistry.registerJavaMethod(alias, klass, methodName,
                 argumentTypes);
 
+    }
+
+    private Stack<Command> commandStack = new Stack<>();
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.scriptbasic.interfaces.ExtendedInterpreter#push(com.scriptbasic.
+     * interfaces.Command)
+     */
+    @Override
+    public void push(Command command) {
+        commandStack.push(command);
+        getVariables().newFrame();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.scriptbasic.interfaces.ExtendedInterpreter#push()
+     */
+    public void push() {
+        push(currentCommand);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.scriptbasic.interfaces.ExtendedInterpreter#pop()
+     */
+    @Override
+    public Command pop() {
+        getVariables().dropFrame();
+        return commandStack.pop();
+    }
+
+    private RightValue returnValue;
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.scriptbasic.interfaces.ExtendedInterpreter#setReturnValue(com.scriptbasic
+     * .interfaces.RightValue)
+     */
+    @Override
+    public void setReturnValue(RightValue returnValue) {
+        this.returnValue = returnValue;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.scriptbasic.interfaces.ExtendedInterpreter#getReturnValue()
+     */
+    @Override
+    public RightValue getReturnValue() {
+        return returnValue;
     }
 
 }

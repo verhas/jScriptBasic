@@ -5,6 +5,7 @@ package com.scriptbasic.memory;
 
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.interfaces.HierarchicalVariableMap;
 import com.scriptbasic.interfaces.RightValue;
 
 /**
@@ -16,7 +17,8 @@ import com.scriptbasic.interfaces.RightValue;
  * @date June 22, 2012
  * 
  */
-public class MixedBasicVariableMap extends BasicLocalVariableMap {
+public class MixedBasicVariableMap extends BasicLocalVariableMap implements
+        HierarchicalVariableMap {
 
     private final BasicVariableMap globalVariableMap = new BasicVariableMap();
     private final BasicVariableRegistry globalVariableRegistry = new BasicVariableRegistry(

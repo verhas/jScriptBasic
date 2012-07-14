@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.scriptbasic.executors.AbstractIdentifieredExpression;
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.executors.rightvalues.ArrayElementAccess;
 import com.scriptbasic.executors.rightvalues.FunctionCall;
@@ -18,7 +19,7 @@ import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.utility.CastUtility;
 import com.scriptbasic.utility.KlassUtility;
-import com.scriptbasic.utility.RightValueUtils;
+import com.scriptbasic.utility.RightValueUtility;
 
 /**
  * This is the highest priority operator (priority 1) that is used to access a
@@ -29,13 +30,19 @@ import com.scriptbasic.utility.RightValueUtils;
  */
 public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
 
-    private RightValue fetchField(ExtendedInterpreter extendedInterpreter)
+    private Object fetchFieldObject(ExtendedInterpreter extendedInterpreter)
             throws ExecutionException {
         Object object = getLeftOperandObject(extendedInterpreter);
-        VariableAccess rightOp = (VariableAccess) getRightOperand();
+        AbstractIdentifieredExpression rightOp = (AbstractIdentifieredExpression) getRightOperand();
         String fieldName = rightOp.getVariableName();
         Object fieldObject = KlassUtility.getField(object, fieldName);
-        RightValue rightValue = RightValueUtils.createRightValue(fieldObject);
+        return fieldObject;
+    }
+
+    private RightValue fetchField(ExtendedInterpreter extendedInterpreter)
+            throws ExecutionException {
+        Object fieldObject = fetchFieldObject(extendedInterpreter);
+        RightValue rightValue = RightValueUtility.createRightValue(fieldObject);
         return rightValue;
     }
 
@@ -57,7 +64,7 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
         if (args != null) {
             result = new ArrayList<>();
             for (RightValue arg : args) {
-                result.add(RightValueUtils.getValueObject(arg).getClass());
+                result.add(RightValueUtility.getValueObject(arg).getClass());
             }
         }
         return result == null ? null : result.toArray(new Class<?>[0]);
@@ -92,7 +99,7 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
             int parameterIndex = 0;
             for (RightValue arg : args) {
                 Object object = CastUtility.cast(
-                        RightValueUtils.getValueObject(arg),
+                        RightValueUtility.getValueObject(arg),
                         parameterTypes[parameterIndex]);
                 result.add(object);
                 parameterIndex++;
@@ -131,11 +138,11 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
                 | InvocationTargetException e) {
             throw new BasicRuntimeException("Can not invoke method "
                     + methodName, e);
-        } catch (Throwable e) {// TODO examine later what to catch...
+        } catch (Exception e) {
             throw new BasicRuntimeException("Invoking methos '" + methodName
                     + "' throws exception:", e);
         }
-        result = RightValueUtils.createRightValue(methodResultObject);
+        result = RightValueUtility.createRightValue(methodResultObject);
         return result;
     }
 
@@ -164,6 +171,19 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
         return result;
     }
 
+    private static Object getArrayElement(Object[] array, Integer index)
+            throws ExecutionException {
+        if (index < 0) {
+            throw new BasicRuntimeException("Can not use " + index
+                    + " < 0 as array index");
+        }
+        if (index >= array.length) {
+            throw new BasicRuntimeException("Cann not use index" + index
+                    + " > max index" + (array.length - 1) + " ");
+        }
+        return array[index];
+    }
+
     @Override
     public RightValue evaluate(ExtendedInterpreter extendedInterpreter)
             throws ExecutionException {
@@ -183,9 +203,20 @@ public class ObjectFieldAccessOperator extends AbstractBinaryOperator {
             result = callMethod(extendedInterpreter, object, klass);
 
         } else if (rightOp instanceof ArrayElementAccess) {
-            // TODO develop the array access in fields like X.y[z] type access
-            throw new BasicRuntimeException(
-                    "Field access operator is not implemented to handle array element access (yet).");
+            Object variable = fetchFieldObject(extendedInterpreter);
+            for (Expression expression : ((ArrayElementAccess) rightOp)
+                    .getExpressionList()) {
+                if (variable instanceof Object[]) {
+                    Integer index = RightValueUtility
+                            .convert2Integer(expression
+                                    .evaluate(extendedInterpreter));
+                    variable = getArrayElement((Object[]) variable, index);
+                } else {
+                    throw new BasicRuntimeException(
+                            "Java object field is not array, can not access it that way.");
+                }
+            }
+            result = RightValueUtility.createRightValue(variable);
         } else {
             throw new BasicRuntimeException(
                     "Field access operator is not implemented to handle variable field.");

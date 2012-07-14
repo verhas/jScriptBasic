@@ -15,7 +15,7 @@ import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.FactoryUtility;
 
 /**
  * @author Peter Verhas
@@ -30,9 +30,9 @@ public class TestJavaAccess extends TestCase {
             throws AnalysisException {
         factory.clean();
         createStringReading(factory, s);
-        ExtendedInterpreter eInterpreter = FactoryUtilities
+        ExtendedInterpreter eInterpreter = FactoryUtility
                 .getExtendedInterpreter(factory);
-        eInterpreter.setProgram(FactoryUtilities.getSyntaxAnalyzer(factory)
+        eInterpreter.setProgram(FactoryUtility.getSyntaxAnalyzer(factory)
                 .analyze());
         return eInterpreter;
     }

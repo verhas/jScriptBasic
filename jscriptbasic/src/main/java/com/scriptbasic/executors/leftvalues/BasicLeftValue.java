@@ -16,7 +16,7 @@ import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.interfaces.VariableMap;
 import com.scriptbasic.utility.KlassUtility;
-import com.scriptbasic.utility.RightValueUtils;
+import com.scriptbasic.utility.RightValueUtility;
 
 /**
  * 
@@ -25,7 +25,7 @@ import com.scriptbasic.utility.RightValueUtils;
  * 
  */
 public class BasicLeftValue extends AbstractLeftValue {
-    private static Logger LOG = LoggerFactory.getLogger(BasicLeftValue.class);
+    final private static Logger LOG = LoggerFactory.getLogger(BasicLeftValue.class);
     /**
      * The identifier that is the name of the local or global variable.
      */
@@ -45,15 +45,16 @@ public class BasicLeftValue extends AbstractLeftValue {
         return modifiers;
     }
 
-    public void addModifier(LeftValueModifier modifier) {
+    public void addModifier(final LeftValueModifier modifier) {
         modifiers.add(modifier);
     }
 
     @Override
     public void setValue(final RightValue rightValue,
-            ExtendedInterpreter extendedInterpreter) throws ExecutionException {
-        VariableMap variableMap = extendedInterpreter.getVariables();
+            final ExtendedInterpreter extendedInterpreter) throws ExecutionException {
+        final VariableMap variableMap = extendedInterpreter.getVariables();
         if (modifiers == null || modifiers.isEmpty()) {
+            LOG.debug("setting the variable '{}'", getIdentifier());
             variableMap.setVariable(getIdentifier(), rightValue);
         } else {
             RightValue variable = variableMap.getVariableValue(getIdentifier());
@@ -149,10 +150,10 @@ public class BasicLeftValue extends AbstractLeftValue {
         Object object = bjov.getValue();
         if (hasNext) {
             Object fieldObject = KlassUtility.getField(object, fieldName);
-            variable = RightValueUtils.createRightValue(fieldObject);
+            variable = RightValueUtility.createRightValue(fieldObject);
             return variable;
         } else {
-            Object valueObject = RightValueUtils.getValueObject(rightValue);
+            Object valueObject = RightValueUtility.getValueObject(rightValue);
             KlassUtility.setField(object, fieldName, valueObject);
             return null;
         }
@@ -184,7 +185,7 @@ public class BasicLeftValue extends AbstractLeftValue {
 
                 variable = handleBasicArrayElementAccess(
                         (BasicArrayValue) variable,
-                        RightValueUtils.convert2Integer(index),
+                        RightValueUtility.convert2Integer(index),
                         (hasNext || expressionIterator.hasNext()), rightValue,
                         extendedInterpreter);
 

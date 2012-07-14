@@ -3,6 +3,8 @@ package com.scriptbasic.interfaces;
 import java.lang.reflect.Method;
 import java.util.Map;
 
+import com.scriptbasic.executors.commands.CommandSub;
+
 /**
  * The extended interpreter is the interface that extends the functions of the
  * Interpreter with the methods that are needed by the command implementations
@@ -12,18 +14,70 @@ import java.util.Map;
  * 
  */
 public interface ExtendedInterpreter extends Interpreter {
-    /**
-     * Get the actual value of the program counter.
-     * 
-     * @return the actual command pointer
-     */
-    Integer getProgramCounter();
 
     /**
      * 
      * @return the program that the interpreter is executing.
      */
     BuildableProgram getProgram();
+
+    /**
+     * Execute the program.
+     */
+    void execute(Command startCommand) throws ExecutionException;
+
+    /**
+     * Get a subroutine by its name.
+     * 
+     * @param name
+     *            the name of the subroutine
+     * @return the "SUB" command that starts the subroutine
+     */
+    CommandSub getSubroutine(String name);
+
+    /**
+     * Register the return value. This method is called from a subroutine.
+     * 
+     * @param returnValue
+     *            the value that the subroutine will return
+     */
+    void setReturnValue(RightValue returnValue);
+
+    /**
+     * Get the return value that was set by the execution of the subroutine.
+     * 
+     * @return
+     */
+    RightValue getReturnValue();
+
+    /**
+     * Push a command to the stack. This is called before a subroutine call is
+     * executed. Even though the actual stack is NOT maintained here but rather
+     * in the JVM call stack, since function call is implemented using recursive
+     * calls to the interpreter the call to this push and pop is vital to keep
+     * track the stack trace for debugging purposes and to have a mean to limit
+     * the stack size.
+     * <p>
+     * Calling this method also starts a new local variable frame, thus
+     * evaluation of the actual argument values in a function call has to be
+     * executed before calling this method.
+     * 
+     * @param command
+     *            the command from which a subroutine call was executed.
+     */
+    void push(Command command);
+
+    /**
+     * Same as {@see #push(Command)} and pushes the currently executing command
+     * on the stack.
+     */
+    void push();
+
+    /**
+     * Pop the command from the top of the stack and also drop the last local
+     * variables frame.
+     */
+    Command pop();
 
     /**
      * Tell the interpreter that the next command to call is not the one that
@@ -36,11 +90,20 @@ public interface ExtendedInterpreter extends Interpreter {
     void setNextCommand(Command nextCommand);
 
     /**
+     * Get the command that is currently executing. This method is available for
+     * the code that are executing under some command. Typically a function call
+     * needs to know what command to push onto the call stack.
+     * 
+     * @return the currently executing command
+     */
+    Command getCurrentCommand();
+
+    /**
      * Get the variables of the program.
      * 
      * @return the variables.
      */
-    VariableMap getVariables();
+    HierarchicalVariableMap getVariables();
 
     /**
      * Since the Command objects should not contain runtime information there is
@@ -148,7 +211,26 @@ public interface ExtendedInterpreter extends Interpreter {
      * @param klass
      * @param mehodName
      * @return
-     * @throws ExecutionException 
+     * @throws ExecutionException
      */
-    Method getJavaMethod(Class<?> klass, String methodName) throws ExecutionException;
+    Method getJavaMethod(Class<?> klass, String methodName)
+            throws ExecutionException;
+
+    /**
+     * {@see javax.script.ScriptContext#getReader()}
+     * 
+     */
+    java.io.Reader getReader();
+
+    /**
+     * {@see javax.script.ScriptContext#getWriter()}
+     */
+    java.io.Writer getWriter();
+
+    /**
+     * {@see javax.script.ScriptContext#getReader()}
+     * 
+     * @return
+     */
+    java.io.Writer getErrorWriter();
 }

@@ -40,7 +40,7 @@ public final class LexUtility {
 
     public static boolean isLexeme(Factory factory, String lexeme)
             throws AnalysisException {
-        LexicalAnalyzer lexicalAnalyzer = FactoryUtilities
+        LexicalAnalyzer lexicalAnalyzer = FactoryUtility
                 .getLexicalAnalyzer(factory);
         LexicalElement lexicalElement = lexicalAnalyzer.peek();
         if (lexicalElement != null && lexicalElement.isSymbol()

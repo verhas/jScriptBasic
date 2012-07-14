@@ -9,7 +9,7 @@ import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.SyntaxAnalyzer;
-import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.FactoryUtility;
 
 public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
     private Factory factory;
@@ -44,11 +44,11 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
     @Override
     public BuildableProgram analyze() throws AnalysisException {
         try {
-            BuildableProgram buildableProgram = FactoryUtilities
+            BuildableProgram buildableProgram = FactoryUtility
                     .getProgram(getFactory());
-            LexicalAnalyzer lexicalAnalyzer = FactoryUtilities
+            LexicalAnalyzer lexicalAnalyzer = FactoryUtility
                     .getLexicalAnalyzer(getFactory());
-            final CommandFactory commandFactory = FactoryUtilities
+            final CommandFactory commandFactory = FactoryUtility
                     .getCommandFactory(getFactory());
             this.lexicalElement = lexicalAnalyzer.peek();
             while (this.lexicalElement != null) {

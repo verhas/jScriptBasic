@@ -8,7 +8,7 @@ import com.scriptbasic.interfaces.ExpressionList;
 import com.scriptbasic.interfaces.ExpressionListAnalyzer;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.syntax.AbstractGenericListAnalyzer;
-import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.FactoryUtility;
 
 public final class BasicExpressionListAnalyzer
         extends
@@ -32,7 +32,7 @@ public final class BasicExpressionListAnalyzer
     @Override
     public ExpressionList analyze() throws AnalysisException {
         setList(new GenericExpressionList());
-        setAnalyzer(FactoryUtilities.getExpressionAnalyzer(getFactory()));
+        setAnalyzer(FactoryUtility.getExpressionAnalyzer(getFactory()));
         return super.analyze();
     }
 

@@ -10,7 +10,7 @@ import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.GenericList;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.ListAnalyzer;
-import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.FactoryUtility;
 import com.scriptbasic.utility.LexUtility;
 
 /**
@@ -50,12 +50,12 @@ public abstract class AbstractGenericListAnalyzer<T extends GenericList<Z>, K ex
     @Override
     public T analyze() throws AnalysisException {
         list.add(analyzer.analyze());
-        LexicalElement lexicalElement = LexUtility.peek(FactoryUtilities
+        LexicalElement lexicalElement = LexUtility.peek(FactoryUtility
                 .getLexicalAnalyzer(getFactory()));
         while (isComma(lexicalElement)) {
-            LexUtility.get(FactoryUtilities.getLexicalAnalyzer(getFactory()));
+            LexUtility.get(FactoryUtility.getLexicalAnalyzer(getFactory()));
             list.add(analyzer.analyze());
-            lexicalElement = LexUtility.peek(FactoryUtilities
+            lexicalElement = LexUtility.peek(FactoryUtility
                     .getLexicalAnalyzer(getFactory()));
         }
         return list;

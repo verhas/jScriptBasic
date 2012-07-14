@@ -15,7 +15,7 @@ import com.scriptbasic.lexer.elements.ScriptBasicLexicalAnalyzer;
 import com.scriptbasic.readers.GenericHierarchicalReader;
 import com.scriptbasic.readers.GenericReader;
 import com.scriptbasic.sourceproviders.StringSourceProvider;
-import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.FactoryUtility;
 
 public class LexTestHelper {
     static TestLE ID(final String name) {
@@ -138,7 +138,7 @@ public class LexTestHelper {
         reader.set(r);
         reader.setSourceProvider(null);
         reader.set((String) null);
-        final LexicalAnalyzer la = FactoryUtilities.getLexicalAnalyzer(factory);
+        final LexicalAnalyzer la = FactoryUtility.getLexicalAnalyzer(factory);
         la.set(reader);
         return la;
     }

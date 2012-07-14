@@ -23,7 +23,7 @@ import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.utility.FactoryUtilities;
+import com.scriptbasic.utility.FactoryUtility;
 import com.scriptbasic.utility.LexUtility;
 
 @SuppressWarnings("static-method")
@@ -35,7 +35,7 @@ public class TestBasicExpressionAnalyzer extends TestCase {
     private static Expression compile(final String s) throws AnalysisException {
         factory.clean();
         final LexicalAnalyzer la = createStringReading(factory, s);
-        final BasicExpressionAnalyzer bea = (BasicExpressionAnalyzer) FactoryUtilities
+        final BasicExpressionAnalyzer bea = (BasicExpressionAnalyzer) FactoryUtility
                 .getExpressionAnalyzer(factory);
         final Expression e = bea.analyze();
         if (LexUtility.peek(la) != null) {
