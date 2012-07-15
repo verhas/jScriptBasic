@@ -7,6 +7,8 @@ import com.scriptbasic.executors.commands.CommandReturn;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.Expression;
+import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.utility.FactoryUtility;
 
 /**
  * @author Peter Verhas
@@ -22,8 +24,13 @@ public class CommandAnalyzerReturn extends AbstractCommandAnalyzer {
     @Override
     public Command analyze() throws AnalysisException {
         CommandReturn node = new CommandReturn();
-        Expression returnExpression = analyzeExpression();
-        node.setReturnExpression(returnExpression);
+        LexicalElement le = FactoryUtility.getLexicalAnalyzer(getFactory()).peek();
+        if (le != null && !le.isLineTerminator()) {
+            Expression returnExpression = analyzeExpression();
+            node.setReturnExpression(returnExpression);
+        } else {
+            node.setReturnExpression(null);
+        }
         consumeEndOfLine();
         return node;
     }

@@ -41,6 +41,7 @@ public class TestPrograms extends TestCase {
         codeTest("TestSub1.bas", "6");
         codeTest("TestSub2.bas", "21");
         codeTest("TestSub3.bas", "21undef");
-        codeTest("TestAbs.bas", "3");
+        codeTest("TestSub4.bas", "123\n123\n123\n123\n");
+        codeTest("TestAbs.bas", "31255");
     }
 }

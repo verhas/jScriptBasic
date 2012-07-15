@@ -26,7 +26,8 @@ public class CommandReturn extends AbstractCommand {
     @Override
     public void execute(final ExtendedInterpreter interpreter)
             throws ExecutionException {
-        RightValue returnValue = returnExpression.evaluate(interpreter);
+        RightValue returnValue = returnExpression == null ? null
+                : returnExpression.evaluate(interpreter);
         interpreter.setReturnValue(returnValue);
         interpreter.setNextCommand(null);
     }

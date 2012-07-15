@@ -16,6 +16,9 @@ import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.CommandAnalyzer;
 import com.scriptbasic.interfaces.CommandFactory;
 import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.interfaces.LexicalAnalyzer;
+import com.scriptbasic.interfaces.LineOrientedLexicalAnalyzer;
+import com.scriptbasic.utility.FactoryUtility;
 
 public final class BasicCommandFactory implements CommandFactory {
     private static final Logger LOG = LoggerFactory
@@ -78,6 +81,8 @@ public final class BasicCommandFactory implements CommandFactory {
         registerCommandAnalyzer("print", new CommandAnalyzerPrint());
         registerCommandAnalyzer("local", new CommandAnalyzerLocal());
         registerCommandAnalyzer("global", new CommandAnalyzerGlobal());
+        registerCommandAnalyzer("call", new CommandAnalyzerCall());
+        registerCommandAnalyzer("let", new CommandAnalyzerLet());
         //
         registerCommandAnalyzer(new CommandAnalyzerLet());
         registerCommandAnalyzer(new CommandAnalyzerCall());
@@ -93,17 +98,23 @@ public final class BasicCommandFactory implements CommandFactory {
     }
 
     private Command create() throws AnalysisException {
-        for (final CommandAnalyzer commandAnalyzer : classList) {
-            try {
-                LOG.info("trying to analyze the line using {}",
-                        commandAnalyzer.getClass());
-                final Command command = commandAnalyzer.analyze();
-                if (command != null) {
-                    return command;
+        LexicalAnalyzer lexicalAnalyzer = FactoryUtility
+                .getLexicalAnalyzer(getFactory());
+        if (lexicalAnalyzer instanceof LineOrientedLexicalAnalyzer) {
+            LineOrientedLexicalAnalyzer loLexicalAnalyzer = (LineOrientedLexicalAnalyzer) lexicalAnalyzer;
+            for (final CommandAnalyzer commandAnalyzer : classList) {
+                try {
+                    LOG.info("trying to analyze the line using {}",
+                            commandAnalyzer.getClass());
+                    final Command command = commandAnalyzer.analyze();
+                    if (command != null) {
+                        return command;
+                    }
+                } catch (AnalysisException e) {
+                    LOG.info("Tried but not analyze the line using "
+                            + commandAnalyzer.getClass(), e);
                 }
-            } catch (AnalysisException e) {
-                LOG.info("Tried but not analyze the line using "
-                        + commandAnalyzer.getClass(), e);
+                loLexicalAnalyzer.resetLine();
             }
         }
         LOG.info("None of the analyzers could analyze the line");
