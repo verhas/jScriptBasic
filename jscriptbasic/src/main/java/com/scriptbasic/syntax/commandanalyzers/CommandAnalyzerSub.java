@@ -30,7 +30,7 @@ public class CommandAnalyzerSub extends AbstractCommandAnalyzer {
             if (isKeyWord(")")) {
                 node.setArguments(null);
             } else {
-                LeftValueList arguments = analyzeLeftValueList();
+                LeftValueList arguments = analyzeSimpleLeftValueList();
                 node.setArguments(arguments);
                 assertKeyWord(")");
             }

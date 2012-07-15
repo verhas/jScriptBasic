@@ -17,6 +17,8 @@ import com.scriptbasic.interfaces.LeftValueListAnalyzer;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.NestedStructureHouseKeeper;
 import com.scriptbasic.interfaces.Reader;
+import com.scriptbasic.interfaces.SimpleLeftValueAnalyzer;
+import com.scriptbasic.interfaces.SimpleLeftValueListAnalyzer;
 import com.scriptbasic.interfaces.SyntaxAnalyzer;
 import com.scriptbasic.interfaces.TagAnalyzer;
 import com.scriptbasic.lexer.elements.ScriptBasicLexicalAnalyzer;
@@ -31,6 +33,8 @@ import com.scriptbasic.syntax.expression.BasicExpressionListAnalyzer;
 import com.scriptbasic.syntax.expression.BasicTagAnalyzer;
 import com.scriptbasic.syntax.leftvalue.BasicLeftValueAnalyzer;
 import com.scriptbasic.syntax.leftvalue.BasicLeftValueListAnalyzer;
+import com.scriptbasic.syntax.leftvalue.BasicSimpleLeftValueAnalyzer;
+import com.scriptbasic.syntax.leftvalue.BasicSimpleLeftValueListAnalyzer;
 
 /**
  * This extension of the concrete class {@see GenericFactory} does return an
@@ -54,10 +58,6 @@ public class BasicFactory extends GenericFactory {
      */
     private static Map<Class<? extends FactoryManaged>, Class<? extends FactoryManaged>> classMapping = new HashMap<>();
 
-    /*
-     * This static block configures the classes and the interfaces and also list
-     * the interfaces that are implemented in multitone mode.
-     */
     static {
         classMapping.put(SyntaxAnalyzer.class, BasicSyntaxAnalyzer.class);
         classMapping.put(ExpressionAnalyzer.class,
@@ -79,6 +79,10 @@ public class BasicFactory extends GenericFactory {
                 GenericNestedStructureHouseKeeper.class);
         classMapping.put(ExtendedInterpreter.class,
                 BasicExtendedInterpreter.class);
+        classMapping.put(SimpleLeftValueAnalyzer.class,
+                BasicSimpleLeftValueAnalyzer.class);
+        classMapping.put(SimpleLeftValueListAnalyzer.class,
+                BasicSimpleLeftValueListAnalyzer.class);
     }
 
     /**

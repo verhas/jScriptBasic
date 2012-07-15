@@ -26,7 +26,7 @@ public abstract class AbstractCommandAnalyzerGlobalLocal extends
     @Override
     public Command analyze() throws AnalysisException {
         AbstractCommandLeftValueListed node = newNode();
-        LeftValueList list = analyzeLeftValueList();
+        LeftValueList list = analyzeSimpleLeftValueList();
         node.setLeftValueList(list);
         consumeEndOfLine();
         return node;

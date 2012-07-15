@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
+import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.CommandFactory;
 import com.scriptbasic.interfaces.ExpressionAnalyzer;
 import com.scriptbasic.interfaces.ExpressionListAnalyzer;
@@ -14,7 +15,8 @@ import com.scriptbasic.interfaces.LeftValueAnalyzer;
 import com.scriptbasic.interfaces.LeftValueListAnalyzer;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.NestedStructureHouseKeeper;
-import com.scriptbasic.interfaces.BuildableProgram;
+import com.scriptbasic.interfaces.SimpleLeftValueAnalyzer;
+import com.scriptbasic.interfaces.SimpleLeftValueListAnalyzer;
 import com.scriptbasic.interfaces.SyntaxAnalyzer;
 import com.scriptbasic.interfaces.TagAnalyzer;
 
@@ -104,5 +106,21 @@ public final class FactoryUtility {
     public static ExtendedInterpreter getExtendedInterpreter(Factory factory) {
         LOG.debug("getting extended interpreter analyzer from {}", factory);
         return get(factory, ExtendedInterpreter.class);
+    }
+
+    public static SimpleLeftValueAnalyzer getSimpleLeftValueAnalyzer(
+            Factory factory) {
+        LOG.debug("getting simple leftvalue analyzer from {}", factory);
+        return get(factory, SimpleLeftValueAnalyzer.class);
+    }
+
+    /**
+     * @param factory
+     * @return
+     */
+    public static SimpleLeftValueListAnalyzer getSimpleLeftValueListAnalyzer(
+            Factory factory) {
+        LOG.debug("getting simple leftvalue listanalyzer from {}", factory);
+        return get(factory, SimpleLeftValueListAnalyzer.class);
     }
 }

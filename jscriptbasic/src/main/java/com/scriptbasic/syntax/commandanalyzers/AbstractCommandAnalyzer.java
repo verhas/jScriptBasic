@@ -34,6 +34,12 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
         return FactoryUtility.getLeftValueListAnalyzer(getFactory()).analyze();
     }
 
+    protected LeftValueList analyzeSimpleLeftValueList()
+            throws AnalysisException {
+        return FactoryUtility.getSimpleLeftValueListAnalyzer(getFactory())
+                .analyze();
+    }
+
     protected Expression analyzeExpression() throws AnalysisException {
         return FactoryUtility.getExpressionAnalyzer(getFactory()).analyze();
     }
