@@ -1,4 +1,4 @@
-package com.scriptbasic.syntax.commandanalyzers;
+package com.scriptbasic.syntax.commands;
 
 import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.executors.commands.CommandSub;
@@ -10,7 +10,6 @@ import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.utility.FactoryUtility;
 
 public class CommandAnalyzerSub extends AbstractCommandAnalyzer {
-    // TODO 'sub name' without list and with empty list
     @Override
     public Command analyze() throws AnalysisException {
         CommandSub node = new CommandSub();

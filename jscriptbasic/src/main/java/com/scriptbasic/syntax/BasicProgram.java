@@ -37,7 +37,13 @@ public final class BasicProgram implements BuildableProgram {
 
     @Override
     public Command getStartCommand() {
-        return commands.get(0);
+        Command startCommand;
+        if (commands.isEmpty()) {
+            startCommand = null;
+        } else {
+            startCommand = commands.get(0);
+        }
+        return startCommand;
     }
 
     @Override

@@ -23,6 +23,7 @@ public class TestPrograms extends TestCase {
     }
 
     public static void testPrograms() throws Exception {
+        codeTest("TestEmpty.bas", "");
         codeTest("TestPrintHello.bas", "hello");
         codeTest("TestIf.bas", "111");
         codeTest("TestBooleanConversions.bas", "111111");
@@ -39,6 +40,7 @@ public class TestPrograms extends TestCase {
         }
         codeTest("TestSub1.bas", "6");
         codeTest("TestSub2.bas", "21");
-        codeTest("TestSub3.bas", "21");
+        codeTest("TestSub3.bas", "21undef");
+        codeTest("TestAbs.bas", "3");
     }
 }

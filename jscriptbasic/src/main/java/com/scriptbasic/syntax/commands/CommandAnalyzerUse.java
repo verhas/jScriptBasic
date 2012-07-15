@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.scriptbasic.syntax.commandanalyzers;
+package com.scriptbasic.syntax.commands;
 
 import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.executors.commands.CommandUse;

@@ -1,9 +1,9 @@
 /**
  * 
  */
-package com.scriptbasic.syntax.commandanalyzers;
+package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.executors.commands.CommandIf;
+import com.scriptbasic.executors.commands.CommandElseIf;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.Expression;
@@ -13,11 +13,7 @@ import com.scriptbasic.interfaces.Expression;
  * @date June 16, 2012
  * 
  */
-public class CommandAnalyzerIf extends AbstractCommandAnalyzerIfKind {
-
-    protected void handleNode(CommandIf node) throws AnalysisException {
-        pushNode(node);
-    }
+public class CommandAnalyzerElseIf extends AbstractCommandAnalyzerIfKind {
 
     /*
      * (non-Javadoc)
@@ -31,9 +27,10 @@ public class CommandAnalyzerIf extends AbstractCommandAnalyzerIfKind {
     }
 
     protected Command createNode(Expression condition) throws AnalysisException {
-        CommandIf node = new CommandIf();
+        CommandElseIf node = new CommandElseIf();
         node.setCondition(condition);
-        pushNode(node);
+        registerAndSwapNode(node);
         return node;
     }
+
 }

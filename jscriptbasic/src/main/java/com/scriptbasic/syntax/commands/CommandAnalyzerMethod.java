@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.scriptbasic.syntax.commandanalyzers;
+package com.scriptbasic.syntax.commands;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,7 @@ public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
         String methodName = ExpressionUtility
                 .convertToString(analyzeExpression());
         LexUtility.checkLexeme(getFactory(), "from",
-                "Keyword 'IS' is missing in command 'METHOD'");
+                "Keyword 'FROM' is missing in command 'METHOD'");
         String className = ExpressionUtility
                 .convertToString(analyzeExpression());
 

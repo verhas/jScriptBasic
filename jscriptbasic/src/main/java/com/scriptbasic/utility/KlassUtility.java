@@ -43,11 +43,12 @@ public final class KlassUtility {
     }
 
     /**
-     * Get the value of a field of an object and return it. TODO implement the
-     * following algorithm: 1. If there is a getter for the field, use that 2.
-     * If there is no getter starting with name 'get' but the field is declared
-     * as boolean or Boolean then use the getter that starts with 'is' 3. Use
-     * the field.
+     * Get the value of a field of an object and return it.
+     * 
+     * TODO implement the following algorithm: 1. If there is a getter for the
+     * field, use that 2. If there is no getter starting with name 'get' but the
+     * field is declared as boolean or Boolean then use the getter that starts
+     * with 'is' 3. Use the field.
      * <p>
      * Current implementation uses the field. TODO implement access as a last
      * resort calling the method INVENT_NAME passing the field name as argument

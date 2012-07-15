@@ -56,8 +56,13 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
                     lexicalAnalyzer.get();
                     String lexString = this.lexicalElement.getLexeme();
                     if (lineToIgnore(lexString)) {
-                        while( ! lexString.equals("\n")){
-                            lexString = lexicalAnalyzer.get().getLexeme();
+                        while (!lexString.equals("\n")) {
+                            LexicalElement le = lexicalAnalyzer.get();
+                            if (le == null) {
+                                break;
+                            } else {
+                                lexString = le.getLexeme();
+                            }
                         }
                     } else {
                         buildableProgram.addCommand(commandFactory

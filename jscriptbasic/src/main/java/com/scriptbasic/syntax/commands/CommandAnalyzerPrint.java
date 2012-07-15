@@ -1,19 +1,19 @@
 /**
  * 
  */
-package com.scriptbasic.syntax.commandanalyzers;
+package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.executors.commands.CommandReturn;
+import com.scriptbasic.executors.commands.CommandPrint;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Command;
-import com.scriptbasic.interfaces.Expression;
+import com.scriptbasic.interfaces.ExpressionList;
 
 /**
  * @author Peter Verhas
  * @date Jul 12, 2012
  * 
  */
-public class CommandAnalyzerReturn extends AbstractCommandAnalyzer {
+public class CommandAnalyzerPrint extends AbstractCommandAnalyzer {
     /*
      * (non-Javadoc)
      * 
@@ -21,9 +21,9 @@ public class CommandAnalyzerReturn extends AbstractCommandAnalyzer {
      */
     @Override
     public Command analyze() throws AnalysisException {
-        CommandReturn node = new CommandReturn();
-        Expression returnExpression = analyzeExpression();
-        node.setReturnExpression(returnExpression);
+        CommandPrint node = new CommandPrint();
+        ExpressionList expressionList = analyzeExpressionList();
+        node.setExpressionList(expressionList);
         consumeEndOfLine();
         return node;
     }
@@ -36,7 +36,7 @@ public class CommandAnalyzerReturn extends AbstractCommandAnalyzer {
      */
     @Override
     protected String getName() {
-        return "RETURN";
+        return "PRINT";
     }
 
 }

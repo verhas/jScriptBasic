@@ -27,7 +27,7 @@ import com.scriptbasic.readers.GenericReader;
 import com.scriptbasic.syntax.BasicProgram;
 import com.scriptbasic.syntax.BasicSyntaxAnalyzer;
 import com.scriptbasic.syntax.GenericNestedStructureHouseKeeper;
-import com.scriptbasic.syntax.commandanalyzers.BasicCommandFactory;
+import com.scriptbasic.syntax.commands.BasicCommandFactory;
 import com.scriptbasic.syntax.expression.BasicExpressionAnalyzer;
 import com.scriptbasic.syntax.expression.BasicExpressionListAnalyzer;
 import com.scriptbasic.syntax.expression.BasicTagAnalyzer;

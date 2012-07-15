@@ -20,6 +20,7 @@ import com.scriptbasic.interfaces.HierarchicalVariableMap;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.memory.MixedBasicVariableMap;
 import com.scriptbasic.utility.RightValueUtility;
+import com.scriptbasic.utility.RuntimeUtility;
 
 /**
  * @author Peter Verhas
@@ -140,6 +141,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     public void execute() throws ExecutionException {
         Command command = program.getStartCommand();
         collectSubroutines(command);
+        RuntimeUtility.registerFunctions(methodRegistry);
         execute(command);
     }
 

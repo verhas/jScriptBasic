@@ -11,6 +11,9 @@ public class BasicStringValue extends AbstractPrimitiveRightValue<String> {
     @SuppressWarnings("unchecked")
     public static String convert(final RightValue rv)
             throws BasicRuntimeException {
+        if (rv == null) {
+            return "undef";
+        }
         if (rv.isString() || rv.isNumeric() || rv.isBoolean()
                 || rv.isJavaObject()) {
             return ((AbstractPrimitiveRightValue<Object>) rv).getValue()

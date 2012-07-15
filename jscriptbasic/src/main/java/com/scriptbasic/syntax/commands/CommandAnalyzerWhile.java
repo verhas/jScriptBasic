@@ -1,4 +1,4 @@
-package com.scriptbasic.syntax.commandanalyzers;
+package com.scriptbasic.syntax.commands;
 
 import com.scriptbasic.executors.commands.CommandWhile;
 import com.scriptbasic.interfaces.AnalysisException;

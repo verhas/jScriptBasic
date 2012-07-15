@@ -1,6 +1,9 @@
 package com.scriptbasic.executors.rightvalues;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Iterator;
+import java.util.List;
 
 import com.scriptbasic.executors.AbstractIdentifieredExpressionListedExpression;
 import com.scriptbasic.executors.commands.CommandSub;
@@ -13,6 +16,8 @@ import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.LeftValue;
 import com.scriptbasic.interfaces.LeftValueList;
 import com.scriptbasic.interfaces.RightValue;
+import com.scriptbasic.utility.ExpressionUtility;
+import com.scriptbasic.utility.RightValueUtility;
 
 public class FunctionCall extends
         AbstractIdentifieredExpressionListedExpression {
@@ -36,7 +41,26 @@ public class FunctionCall extends
             result = extendedInterpreter.getReturnValue();
             extendedInterpreter.pop();
         } else {
-            // TODO implement F(x) evaluation when F is not a subroutine.
+            List<RightValue> args = ExpressionUtility.evaluateExpressionList(
+                    extendedInterpreter, argumentList);
+            Method method = null;
+            method = extendedInterpreter.getJavaMethod(null, functionName);
+            if (method != null) {
+            }
+            Object methodResultObject = null;
+            try {
+                methodResultObject = method.invoke(null, ExpressionUtility
+                        .getObjectArray(args, method, extendedInterpreter));
+            } catch (IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException e) {
+                throw new BasicRuntimeException("Can not invoke method "
+                        + functionName, e);
+            } catch (Exception e) {
+                throw new BasicRuntimeException("Invoking function '"
+                        + functionName + "' throws exception:", e);
+            }
+            result = RightValueUtility.createRightValue(methodResultObject);
+            return result;
         }
         return result;
     }

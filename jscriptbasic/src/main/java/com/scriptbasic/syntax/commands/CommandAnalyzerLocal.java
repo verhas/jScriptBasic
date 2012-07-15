@@ -1,17 +1,17 @@
 /**
  * 
  */
-package com.scriptbasic.syntax.commandanalyzers;
+package com.scriptbasic.syntax.commands;
 
 import com.scriptbasic.executors.commands.AbstractCommandLeftValueListed;
-import com.scriptbasic.executors.commands.CommandGlobal;
+import com.scriptbasic.executors.commands.CommandLocal;
 
 /**
  * @author Peter Verhas
  * @date Jul 12, 2012
  * 
  */
-public class CommandAnalyzerGlobal extends AbstractCommandAnalyzerGlobalLocal {
+public class CommandAnalyzerLocal extends AbstractCommandAnalyzerGlobalLocal {
 
     /*
      * (non-Javadoc)
@@ -21,7 +21,7 @@ public class CommandAnalyzerGlobal extends AbstractCommandAnalyzerGlobalLocal {
      */
     @Override
     protected String getName() {
-        return "GLOBAL";
+        return "LOCAL";
     }
 
     /*
@@ -33,7 +33,7 @@ public class CommandAnalyzerGlobal extends AbstractCommandAnalyzerGlobalLocal {
      */
     @Override
     protected AbstractCommandLeftValueListed newNode() {
-        return new CommandGlobal();
+        return new CommandLocal();
     }
 
 }
