@@ -31,10 +31,18 @@ public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
         if (lexicalElement != null && lexicalElement.isSymbol("(")) {
             lexicalAnalyzer.get();
             needClosing = true;
+            lexicalElement = lexicalAnalyzer.peek();
         }
 
-        functionCall.setExpressionList(FactoryUtility
-                .getExpressionListAnalyzer(getFactory()).analyze());
+        if ((needClosing && lexicalElement != null && !lexicalElement
+                .isSymbol(")"))
+                || ((!needClosing) && lexicalElement != null && !lexicalElement
+                        .isSymbol("\n"))) {
+            functionCall.setExpressionList(FactoryUtility
+                    .getExpressionListAnalyzer(getFactory()).analyze());
+        } else {
+            functionCall.setExpressionList(null);
+        }
         if (needClosing) {
             lexicalElement = lexicalAnalyzer.peek();
             if (lexicalElement != null && lexicalElement.isSymbol(")")) {

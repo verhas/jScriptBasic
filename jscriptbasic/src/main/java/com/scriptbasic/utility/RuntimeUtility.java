@@ -21,15 +21,29 @@ public class RuntimeUtility {
         UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
     }
 
+    // TODO create mathematical functions for DOUBLE arguments and values
+
     public static Long abs(Long a) {
         return Math.abs(a);
+    }
+
+    // TODO create functions for regular expression handling
+
+    private static void registerFunction(MethodRegistry methodRegistry,
+            String name, Class<?>... argClasses) {
+        registerFunction(methodRegistry, name, name, argClasses);
+    }
+
+    private static void registerFunction(MethodRegistry methodRegistry,
+            String name, String alias, Class<?>... argClasses) {
+        methodRegistry.registerJavaMethod(name, RuntimeUtility.class, alias,
+                argClasses);
     }
 
     /**
      * @param methodRegistry
      */
     public static void registerFunctions(MethodRegistry methodRegistry) {
-        methodRegistry.registerJavaMethod("abs", RuntimeUtility.class, "abs",
-                new Class<?>[] { Long.class });
+        registerFunction(methodRegistry, "abs", Long.class);
     }
 }

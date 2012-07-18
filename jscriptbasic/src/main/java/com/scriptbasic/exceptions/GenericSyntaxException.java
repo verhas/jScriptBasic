@@ -22,11 +22,23 @@ public class GenericSyntaxException extends SyntaxException {
         super(s);
     }
 
-    public GenericSyntaxException(final String s, LexicalElement le,
-            final Throwable e) {
-        super(s,e);
+    public GenericSyntaxException(final String s, LexicalElement le) {
+        super(s);
         if (le != null) {
             setLocation(le);
         }
+    }
+
+    public GenericSyntaxException(final String s, LexicalElement le,
+            final Throwable e) {
+        super(s, e);
+        if (le != null) {
+            setLocation(le);
+        }
+    }
+
+    public String toString() {
+        return getMessage() + " " + getFileName() + "(" + getLineNumber()
+                + "):" + getPosition();
     }
 }

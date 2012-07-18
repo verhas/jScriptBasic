@@ -31,17 +31,17 @@ public class Executor extends AbstractStringIOPojo {
 
     private Factory factory = new BasicFactory();
 
-    public void execute(String resoureName) throws AnalysisException,
+    public void execute(String resourceName) throws AnalysisException,
             ExecutionException, ClassNotFoundException {
         factory.clean();
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         InputStream is = Class.forName(stackTrace[2].getClassName())
-                .getResourceAsStream(resoureName);
+                .getResourceAsStream(resourceName);
         final java.io.Reader r = new InputStreamReader(is);
         final GenericReader reader = new GenericReader();
         reader.set(r);
         reader.setSourceProvider(null);
-        reader.set((String) null);
+        reader.set((String) resourceName);
         final LexicalAnalyzer lexicalAnalyzer = FactoryUtility
                 .getLexicalAnalyzer(factory);
         lexicalAnalyzer.set(reader);

@@ -90,7 +90,9 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
                 return newArrayOrVariableOrFunctionCall(lexicalAnalyzer);
             }
         }
-        throw new GenericSyntaxException();
+        throw new GenericSyntaxException(
+                "Expression syntax is erroneous. Unexpected lexeme is "
+                        + lexicalElement, lexicalElement);
     }
 
     private Expression newArrayOrVariableOrFunctionCall(

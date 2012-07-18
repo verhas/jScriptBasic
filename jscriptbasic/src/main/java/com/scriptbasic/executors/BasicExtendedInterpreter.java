@@ -109,27 +109,13 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     private Command nextCommand;
     private Command currentCommand;
 
-    private Map<String, CommandSub> subroutineMap = new HashMap<>();
-
-    /**
-     * Collect all the subroutines and build the subroutine map to ease the
-     * location of subroutines based on name.
-     * 
-     * @param startCommand
-     */
-    private void collectSubroutines(final Command startCommand) {
-        for (Command command = startCommand; command != null; command = command
-                .getNextCommand()) {
-            if (command instanceof CommandSub) {
-                subroutineMap.put(((CommandSub) command).getSubName(),
-                        (CommandSub) command);
-            }
-        }
-    }
-
     @Override
     public CommandSub getSubroutine(String name) {
-        return subroutineMap.get(name);
+        Command command = program.getNamedCommand(name);
+        if (command instanceof CommandSub) {
+            return (CommandSub) command;
+        }
+        return null;
     }
 
     /*
@@ -140,7 +126,6 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     @Override
     public void execute() throws ExecutionException {
         Command command = program.getStartCommand();
-        collectSubroutines(command);
         RuntimeUtility.registerFunctions(methodRegistry);
         execute(command);
     }
@@ -300,6 +285,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
 
     private Stack<Command> commandStack = new Stack<>();
     private Stack<Command> nextCommandStack = new Stack<>();
+
     /*
      * (non-Javadoc)
      * 

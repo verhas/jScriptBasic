@@ -124,6 +124,8 @@ public final class BasicCommandFactory implements CommandFactory {
     private Command createFromStartingSymbol(final String commandKeyword)
             throws AnalysisException {
         final String loverCaseCommandKeyword = commandKeyword.toLowerCase();
+        LOG.debug("Creating command starting with the keyword '{}'",
+                loverCaseCommandKeyword);
         if (!classMap.containsKey(loverCaseCommandKeyword)) {
             throw new KeywordNotImplementedException(commandKeyword);
         }

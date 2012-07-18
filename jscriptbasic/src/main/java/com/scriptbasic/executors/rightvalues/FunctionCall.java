@@ -22,45 +22,68 @@ import com.scriptbasic.utility.RightValueUtility;
 public class FunctionCall extends
         AbstractIdentifieredExpressionListedExpression {
 
-    @Override
-    public RightValue evaluate(ExtendedInterpreter extendedInterpreter)
+    private RightValue callBasicFunction(ExtendedInterpreter extendedInterpreter)
+            throws ExecutionException {
+        RightValue result = null;
+        RightValue[] argumentValues = evaluateArguments(getExpressionList(),
+                extendedInterpreter);
+        extendedInterpreter.push();
+        LeftValueList arguments = commandSub.getArguments();
+        registerLocalVariablesWithValues(arguments, argumentValues,
+                extendedInterpreter);
+        extendedInterpreter.setReturnValue(null);
+        extendedInterpreter.execute(commandSub.getNextCommand());
+        result = extendedInterpreter.getReturnValue();
+        extendedInterpreter.pop();
+        return result;
+    }
+
+    private RightValue callJavaFunction(ExtendedInterpreter extendedInterpreter)
             throws ExecutionException {
         RightValue result = null;
         String functionName = getVariableName();
-        ExpressionList argumentList = getExpressionList();
-        CommandSub commandSub = extendedInterpreter.getSubroutine(functionName);
-        if (commandSub != null) {
-            RightValue[] argumentValues = evaluateArguments(argumentList,
-                    extendedInterpreter);
-            extendedInterpreter.push();
-            LeftValueList arguments = commandSub.getArguments();
-            registerLocalVariablesWithValues(arguments, argumentValues,
-                    extendedInterpreter);
-            extendedInterpreter.setReturnValue(null);
-            extendedInterpreter.execute(commandSub.getNextCommand());
-            result = extendedInterpreter.getReturnValue();
-            extendedInterpreter.pop();
+        List<RightValue> args = ExpressionUtility.evaluateExpressionList(
+                extendedInterpreter, getExpressionList());
+        Method method = null;
+        method = extendedInterpreter.getJavaMethod(null, functionName);
+        if (method != null) {
+        }
+        Object methodResultObject = null;
+        try {
+            methodResultObject = method.invoke(null, ExpressionUtility
+                    .getObjectArray(args, method, extendedInterpreter));
+        } catch (IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException e) {
+            throw new BasicRuntimeException("Can not invoke method "
+                    + functionName, e);
+        } catch (Exception e) {
+            throw new BasicRuntimeException("Invoking function '"
+                    + functionName + "' throws exception:", e);
+        }
+        result = RightValueUtility.createRightValue(methodResultObject);
+        return result;
+    }
+
+    private boolean commandNeedLookup = true;
+    private CommandSub commandSub = null;
+
+    private void looupCommandSub(ExtendedInterpreter extendedInterpreter) {
+        if (commandNeedLookup) {
+            commandNeedLookup = false;
+            commandSub = extendedInterpreter.getSubroutine(getVariableName());
+        }
+    }
+
+    @Override
+    public RightValue evaluate(ExtendedInterpreter extendedInterpreter)
+            throws ExecutionException {
+
+        looupCommandSub(extendedInterpreter);
+        RightValue result = null;
+        if (commandSub == null) {
+            result = callJavaFunction(extendedInterpreter);
         } else {
-            List<RightValue> args = ExpressionUtility.evaluateExpressionList(
-                    extendedInterpreter, argumentList);
-            Method method = null;
-            method = extendedInterpreter.getJavaMethod(null, functionName);
-            if (method != null) {
-            }
-            Object methodResultObject = null;
-            try {
-                methodResultObject = method.invoke(null, ExpressionUtility
-                        .getObjectArray(args, method, extendedInterpreter));
-            } catch (IllegalAccessException | IllegalArgumentException
-                    | InvocationTargetException e) {
-                throw new BasicRuntimeException("Can not invoke method "
-                        + functionName, e);
-            } catch (Exception e) {
-                throw new BasicRuntimeException("Invoking function '"
-                        + functionName + "' throws exception:", e);
-            }
-            result = RightValueUtility.createRightValue(methodResultObject);
-            return result;
+            result = callBasicFunction(extendedInterpreter);
         }
         return result;
     }

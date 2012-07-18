@@ -6,6 +6,7 @@ package com.scriptbasic.testprograms;
 import junit.framework.TestCase;
 
 import com.scriptbasic.Executor;
+import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 
 /**
@@ -20,6 +21,16 @@ public class TestPrograms extends TestCase {
         Executor e = new Executor();
         e.execute(fileName);
         e.assertOutput(expectedOutput);
+    }
+
+    private static void testSyntaxFail(String fileName) throws Exception {
+        try {
+            codeTest(fileName, null);
+            assertTrue(false);
+        } catch (AnalysisException e) {
+            Exception ex = e;
+            // OK
+        }
     }
 
     public static void testPrograms() throws Exception {
@@ -43,5 +54,13 @@ public class TestPrograms extends TestCase {
         codeTest("TestSub3.bas", "21undef");
         codeTest("TestSub4.bas", "123\n123\n123\n123\n");
         codeTest("TestAbs.bas", "31255");
+        codeTest("TestSub5.bas", "1111");
+
+        testSyntaxFail("NestedSub.bas");
+        testSyntaxFail("DisplacedGlobal.bas");
+        testSyntaxFail("DisplacedLocal.bas");
+        testSyntaxFail("LocalUse.bas");
+        testSyntaxFail("LocalMethod.bas");
+        testSyntaxFail("GlobalLocal.bas");
     }
 }

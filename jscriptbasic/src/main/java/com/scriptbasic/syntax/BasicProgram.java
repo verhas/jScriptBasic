@@ -2,15 +2,20 @@ package com.scriptbasic.syntax;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.scriptbasic.executors.commands.AbstractCommand;
-import com.scriptbasic.interfaces.BuildableProgram;
+import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.Factory;
 
-public final class BasicProgram implements BuildableProgram {
+public final class BasicProgram extends AbstractBasicProgramPostprocessing {
+//    final private static Logger LOG = LoggerFactory
+//            .getLogger(BasicProgram.class);
     private Factory factory;
+
 
     public Factory getFactory() {
         return factory;
@@ -35,20 +40,31 @@ public final class BasicProgram implements BuildableProgram {
         this.commands.add(command);
     }
 
-    @Override
-    public Command getStartCommand() {
-        Command startCommand;
+    protected Command getFirstCommand() {
         if (commands.isEmpty()) {
-            startCommand = null;
+            return null;
         } else {
-            startCommand = commands.get(0);
+            return commands.get(0);
         }
-        return startCommand;
     }
 
     @Override
     public Collection<Command> getCommands() {
         return commands;
+    }
+
+    private Map<String, CommandSub> subroutineMap = new HashMap<>();
+
+    /**
+     * @return the subroutineMap
+     */
+    protected Map<String, CommandSub> getSubroutineMap() {
+        return subroutineMap;
+    }
+
+    @Override
+    public Command getNamedCommand(String name) {
+        return subroutineMap.get(name);
     }
 
 }

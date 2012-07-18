@@ -161,7 +161,11 @@ public class BasicLexicalElement extends AbstractLexicalElement {
             buffer = "'" + lexeme + "'";
             break;
         case TYPE_SYMBOL:
-            buffer = lexeme;
+            if (isLineTerminator()) {
+                buffer = "new-line";
+            } else {
+                buffer = lexeme;
+            }
             break;
         default:
             buffer = "INVALID-TYPE";

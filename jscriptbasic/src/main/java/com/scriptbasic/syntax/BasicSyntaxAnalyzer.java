@@ -73,6 +73,7 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
                 }
                 this.lexicalElement = lexicalAnalyzer.peek();
             }
+            buildableProgram.postprocess();
             return buildableProgram;
         } catch (CommandFactoryException e) {
             throw new GenericSyntaxException(e.getMessage(), lexicalElement, e);

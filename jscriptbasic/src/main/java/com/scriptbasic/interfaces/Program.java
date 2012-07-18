@@ -17,5 +17,7 @@ import java.util.Collection;
 public interface Program {
     Command getStartCommand();
 
+    Command getNamedCommand(String name);
+    
     Collection<Command> getCommands();
 }
