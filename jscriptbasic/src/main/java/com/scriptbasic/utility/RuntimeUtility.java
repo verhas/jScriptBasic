@@ -27,6 +27,11 @@ public class RuntimeUtility {
         return Math.abs(a);
     }
 
+    // TODO move the functions to a separate class and create code that
+    // registers all the function with annotations for a class
+
+    // TODO create function that returns null
+
     // TODO create functions for regular expression handling
 
     private static void registerFunction(MethodRegistry methodRegistry,

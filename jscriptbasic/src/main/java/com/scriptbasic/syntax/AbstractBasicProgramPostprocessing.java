@@ -163,9 +163,20 @@ public abstract class AbstractBasicProgramPostprocessing implements
     @Override
     public void postprocess() throws AnalysisException {
         startCommand = getFirstCommand();
-        collectSubroutines();
+        checkLocalAndGlobalDeclarations();
+
 
         skipDeclarations();
-        checkLocalAndGlobalDeclarations();
+        collectSubroutines();
+        // TODO rearrange the commands so that the subroutines are out of order
+        // and can be totally skipped even if they are not at the start of the
+        // code
+        // TODO rearrange the USE and METHOD commands so that they appear at the
+        // start of the program, no matter where they are
+        //TODO optimize expression:
+        // 1. execute constant integer arithmetic
+        // 2. execute constant string concatenation
+        // 3. execute constant boolean arithmentic
+
     }
 }
