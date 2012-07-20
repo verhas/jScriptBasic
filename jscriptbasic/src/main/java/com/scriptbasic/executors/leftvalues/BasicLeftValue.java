@@ -25,7 +25,8 @@ import com.scriptbasic.utility.RightValueUtility;
  * 
  */
 public class BasicLeftValue extends AbstractLeftValue {
-    final private static Logger LOG = LoggerFactory.getLogger(BasicLeftValue.class);
+    final private static Logger LOG = LoggerFactory
+            .getLogger(BasicLeftValue.class);
     /**
      * The identifier that is the name of the local or global variable.
      */
@@ -45,13 +46,18 @@ public class BasicLeftValue extends AbstractLeftValue {
         return modifiers;
     }
 
+    public boolean hasModifiers() {
+        return modifiers != null && modifiers.size() > 0;
+    }
+
     public void addModifier(final LeftValueModifier modifier) {
         modifiers.add(modifier);
     }
 
     @Override
     public void setValue(final RightValue rightValue,
-            final ExtendedInterpreter extendedInterpreter) throws ExecutionException {
+            final ExtendedInterpreter extendedInterpreter)
+            throws ExecutionException {
         final VariableMap variableMap = extendedInterpreter.getVariables();
         if (modifiers == null || modifiers.isEmpty()) {
             LOG.debug("setting the variable '{}'", getIdentifier());

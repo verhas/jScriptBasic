@@ -15,9 +15,9 @@ import com.scriptbasic.interfaces.Expression;
  */
 public class CommandAnalyzerIf extends AbstractCommandAnalyzerIfKind {
 
-    protected void handleNode(CommandIf node) throws AnalysisException {
-        pushNode(node);
-    }
+//    protected void handleNode(CommandIf node) throws AnalysisException {
+//        pushNode(node);
+//    }
 
     /*
      * (non-Javadoc)

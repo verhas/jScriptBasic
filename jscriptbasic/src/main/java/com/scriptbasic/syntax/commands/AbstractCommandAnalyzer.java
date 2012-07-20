@@ -1,12 +1,14 @@
 package com.scriptbasic.syntax.commands;
 
 import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.CommandAnalyzer;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.ExpressionList;
 import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.interfaces.LeftValue;
 import com.scriptbasic.interfaces.LeftValueList;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.NestedStructure;
@@ -30,6 +32,35 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
 
     protected abstract String getName();
 
+    /**
+     * Check that the left values are simple (no modifiers, aka simply
+     * variables) and are teh same variables (have the same name).
+     * 
+     * @param a
+     *            variable one
+     * @param b
+     *            variable two
+     * @return {@code true} if the variables have the same name and none of them
+     *         has modifiers (array access or field access)
+     */
+    protected static boolean equal(LeftValue a, LeftValue b) {
+        if (a == b || (a != null && a.equals(b))) {
+            return true;
+        }
+        if (a instanceof BasicLeftValue && b instanceof BasicLeftValue) {
+            BasicLeftValue aBasic = (BasicLeftValue) a;
+            BasicLeftValue bBasic = (BasicLeftValue) b;
+            if (aBasic.hasModifiers() || bBasic.hasModifiers()) {
+                return false;
+            }
+            return aBasic.getIdentifier() != null
+                    && aBasic.getIdentifier().equals(bBasic.getIdentifier());
+
+        } else {
+            return false;
+        }
+    }
+
     protected LeftValueList analyzeLeftValueList() throws AnalysisException {
         return FactoryUtility.getLeftValueListAnalyzer(getFactory()).analyze();
     }
@@ -37,6 +68,11 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
     protected LeftValueList analyzeSimpleLeftValueList()
             throws AnalysisException {
         return FactoryUtility.getSimpleLeftValueListAnalyzer(getFactory())
+                .analyze();
+    }
+
+    protected LeftValue analyzeSimpleLeftValue() throws AnalysisException {
+        return FactoryUtility.getSimpleLeftValueAnalyzer(getFactory())
                 .analyze();
     }
 

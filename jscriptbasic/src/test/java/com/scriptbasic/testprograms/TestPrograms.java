@@ -62,5 +62,6 @@ public class TestPrograms extends TestCase {
         testSyntaxFail("LocalUse.bas");
         testSyntaxFail("LocalMethod.bas");
         testSyntaxFail("GlobalLocal.bas");
+        codeTest("TestForLoop.bas", "");
     }
 }
