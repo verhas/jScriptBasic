@@ -28,6 +28,7 @@ public class TestPrograms extends TestCase {
             codeTest(fileName, null);
             assertTrue(false);
         } catch (AnalysisException e) {
+            @SuppressWarnings("unused")
             Exception ex = e;
             // OK
         }
@@ -63,5 +64,16 @@ public class TestPrograms extends TestCase {
         testSyntaxFail("LocalMethod.bas");
         testSyntaxFail("GlobalLocal.bas");
         codeTest("TestForLoop.bas", "");
+        codeTest("TestForLoop1.bas", "123456789");
+        codeTest("TestForLoop2.bas", "123456789");
+        codeTest("TestForLoop3.bas",
+                "1.01.52.02.53.03.54.04.55.05.56.06.57.07.58.08.59.09.5");
+        codeTest("TestForLoop4.bas", "987654321");
+        codeTest("TestForLoop5.bas",
+                "9.08.58.07.57.06.56.05.55.04.54.03.53.02.52.01.51.0");
+        codeTest("TestForLoop6.bas", "9");
+        codeTest("TestForLoop7.bas", "");
+        codeTest("TestForLoop8.bas", "22");
+        codeTest("TestForLoop9.bas", "111213212223313233");
     }
 }

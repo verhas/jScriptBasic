@@ -1,4 +1,4 @@
-for i=1 to 100
+for i=1 to 10
 next
 
 for i=1 to 100

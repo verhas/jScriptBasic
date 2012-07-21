@@ -43,7 +43,7 @@ public class CommandAnalyzerNext extends AbstractCommandAnalyzer {
         CommandFor commandFor = nshk.pop(CommandFor.class);
         commandFor.setLoopEndNode(node);
         node.setLoopStartNode(commandFor);
-        if (!lexicalElement.isLineTerminator()) {
+        if (lexicalElement != null && !lexicalElement.isLineTerminator()) {
             LeftValue loopVariableB = analyzeSimpleLeftValue();
             LeftValue loopVariableA = commandFor.getLoopVariable();
             if (!equal(loopVariableA, loopVariableB)) {

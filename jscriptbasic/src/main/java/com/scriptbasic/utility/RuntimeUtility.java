@@ -21,6 +21,12 @@ public class RuntimeUtility {
         UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
     }
 
+    // TODO separate this utility class from the one that can be used to
+    // register the methods and make the other one configurable via properties,
+    // XML and API
+
+    // TODO create function to instantiate an object
+
     // TODO create mathematical functions for DOUBLE arguments and values
 
     public static Long abs(Long a) {
@@ -34,11 +40,31 @@ public class RuntimeUtility {
 
     // TODO create functions for regular expression handling
 
+    // TODO create functions using JODA time to handle date and time
+
+    /**
+     * Register a static method as BASIC function so that the method can be
+     * called from BASIC program. The alias used in BASIC is the same as the
+     * name of the method.
+     * 
+     * @param methodRegistry
+     * @param name
+     * @param argClasses
+     */
     private static void registerFunction(MethodRegistry methodRegistry,
             String name, Class<?>... argClasses) {
         registerFunction(methodRegistry, name, name, argClasses);
     }
 
+    /**
+     * Register a static method as BASIC function so that the method can be
+     * called from BASIC programs.
+     * 
+     * @param methodRegistry
+     * @param name
+     * @param alias
+     * @param argClasses
+     */
     private static void registerFunction(MethodRegistry methodRegistry,
             String name, String alias, Class<?>... argClasses) {
         methodRegistry.registerJavaMethod(name, RuntimeUtility.class, alias,

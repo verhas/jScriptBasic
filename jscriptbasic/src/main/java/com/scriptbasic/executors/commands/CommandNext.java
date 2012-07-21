@@ -22,9 +22,10 @@ public class CommandNext extends AbstractCommand {
     }
 
     /**
-     * @param loopStartNode the loopStartNode to set
+     * @param loopStartNode
+     *            the loopStartNode to set
      */
-    public void setLoopStartNode(CommandFor loopStartNode) {
+    public void setLoopStartNode(final CommandFor loopStartNode) {
         this.loopStartNode = loopStartNode;
     }
 
@@ -36,10 +37,8 @@ public class CommandNext extends AbstractCommand {
      * .interfaces.ExtendedInterpreter)
      */
     @Override
-    public void execute(ExtendedInterpreter interpreter)
+    public void execute(final ExtendedInterpreter interpreter)
             throws ExecutionException {
-        // TODO Auto-generated method stub
-
+        loopStartNode.stepLoopVariable(interpreter);
     }
-
 }
