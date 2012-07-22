@@ -8,3 +8,5 @@
 .classpath
 .settings
 .project
+.gitignore
+.checkstyle
