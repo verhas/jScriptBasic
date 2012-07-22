@@ -10,3 +10,6 @@
 .project
 .gitignore
 .checkstyle
+doc/
+target/
+reports/
