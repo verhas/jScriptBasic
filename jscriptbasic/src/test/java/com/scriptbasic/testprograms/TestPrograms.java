@@ -54,7 +54,6 @@ public class TestPrograms extends TestCase {
         codeTest("TestSub2.bas", "21");
         codeTest("TestSub3.bas", "21undef");
         codeTest("TestSub4.bas", "123\n123\n123\n123\n");
-        codeTest("TestAbs.bas", "31255");
         codeTest("TestSub5.bas", "1111");
 
         testSyntaxFail("NestedSub.bas");
@@ -75,5 +74,6 @@ public class TestPrograms extends TestCase {
         codeTest("TestForLoop7.bas", "");
         codeTest("TestForLoop8.bas", "22");
         codeTest("TestForLoop9.bas", "111213212223313233");
+        codeTest("TestRuntimeFunction.bas","1.01.5707963267948966");
     }
 }

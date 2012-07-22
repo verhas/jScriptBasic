@@ -74,4 +74,16 @@ public interface Interpreter extends FactoryManaged {
      * @param writer
      */
     void setErrorWriter(java.io.Writer writer);
+
+    /**
+     * Register the functions defined in the class. Functions that can be called
+     * from a BASIC program but implemented in Java are static methods that are
+     * registered for the interpreter. The easiest way to define these methods
+     * are to create a class and annotate the methods that serve as BASIC
+     * functions with the annotation {@code @Function}
+     * 
+     * @param klass
+     *            the class the defines the functions.
+     */
+    void registerFunctions(Class<?> klass);
 }

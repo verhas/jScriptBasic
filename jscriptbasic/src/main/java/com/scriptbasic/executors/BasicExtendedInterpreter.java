@@ -19,6 +19,7 @@ import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.HierarchicalVariableMap;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.memory.MixedBasicVariableMap;
+import com.scriptbasic.utility.MethodRegisterUtility;
 import com.scriptbasic.utility.RightValueUtility;
 import com.scriptbasic.utility.RuntimeUtility;
 
@@ -49,7 +50,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      *            the reader to set
      */
     @Override
-    public void setReader(java.io.Reader reader) {
+    public void setReader(final java.io.Reader reader) {
         this.reader = reader;
     }
 
@@ -66,7 +67,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      *            the writer to set
      */
     @Override
-    public void setWriter(java.io.Writer writer) {
+    public void setWriter(final java.io.Writer writer) {
         this.writer = writer;
     }
 
@@ -83,7 +84,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      *            the errorWriter to set
      */
     @Override
-    public void setErrorWriter(Writer errorWriter) {
+    public void setErrorWriter(final Writer errorWriter) {
         this.errorWriter = errorWriter;
     }
 
@@ -95,7 +96,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      * .BuildableProgram)
      */
     @Override
-    public void setProgram(BuildableProgram buildableProgram) {
+    public void setProgram(final BuildableProgram buildableProgram) {
         this.program = buildableProgram;
     }
 
@@ -110,12 +111,17 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     private Command currentCommand;
 
     @Override
-    public CommandSub getSubroutine(String name) {
-        Command command = program.getNamedCommand(name);
+    public CommandSub getSubroutine(final String name) {
+        final Command command = program.getNamedCommand(name);
         if (command instanceof CommandSub) {
             return (CommandSub) command;
         }
         return null;
+    }
+
+    @Override
+    public void registerFunctions(final Class<?> klass) {
+        MethodRegisterUtility.registerFunctions(klass, this);
     }
 
     /*
@@ -125,8 +131,8 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      */
     @Override
     public void execute() throws ExecutionException {
-        Command command = program.getStartCommand();
-        RuntimeUtility.registerFunctions(methodRegistry);
+        final Command command = program.getStartCommand();
+        MethodRegisterUtility.registerFunctions(RuntimeUtility.class, this);
         execute(command);
     }
 
@@ -156,9 +162,9 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      * java.lang.Object)
      */
     @Override
-    public void setVariable(String name, Object value)
+    public void setVariable(final String name, final Object value)
             throws ExecutionException {
-        RightValue rightValue = RightValueUtility.createRightValue(value);
+        final RightValue rightValue = RightValueUtility.createRightValue(value);
         getVariables().setVariable(name, rightValue);
     }
 
@@ -169,8 +175,8 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      */
     @SuppressWarnings("unchecked")
     @Override
-    public Object getVariable(String name) throws ExecutionException {
-        RightValue rightValue = getVariables().getVariableValue(name);
+    public Object getVariable(final String name) throws ExecutionException {
+        final RightValue rightValue = getVariables().getVariableValue(name);
         return rightValue == null ? null
                 : ((AbstractPrimitiveRightValue<Object>) rightValue).getValue();
     }
@@ -182,7 +188,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      * java.lang.Object[])
      */
     @Override
-    public Object call(String functionName, Object[] arguments) {
+    public Object call(final String functionName, final Object[] arguments) {
         // TODO implement calling a function from an already executed BASIC
         // program
         return null;
@@ -206,7 +212,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      * (java.lang.Integer)
      */
     @Override
-    public void setNextCommand(Command nextCommand) {
+    public void setNextCommand(final Command nextCommand) {
         this.nextCommand = nextCommand;
     }
 
@@ -241,7 +247,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
         // this.factory = factory;
     }
 
-    private Map<String, Class<?>> useMap = new HashMap<>();
+    private final Map<String, Class<?>> useMap = new HashMap<>();
 
     /*
      * (non-Javadoc)
@@ -253,7 +259,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
         return useMap;
     }
 
-    private MethodRegistry methodRegistry = new MethodRegistry();
+    private final MethodRegistry methodRegistry = new MethodRegistry();
 
     /*
      * (non-Javadoc)
@@ -263,7 +269,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      * .Class, java.lang.String)
      */
     @Override
-    public Method getJavaMethod(Class<?> klass, String methodName)
+    public Method getJavaMethod(final Class<?> klass, final String methodName)
             throws ExecutionException {
         return methodRegistry.getJavaMethod(klass, methodName);
     }
@@ -276,15 +282,15 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      * .lang.String, java.lang.Class, java.lang.String, java.lang.Class<?>[])
      */
     @Override
-    public void registerJavaMethod(String alias, Class<?> klass,
-            String methodName, Class<?>[] argumentTypes) {
+    public void registerJavaMethod(final String alias, final Class<?> klass,
+            final String methodName, final Class<?>[] argumentTypes) {
         methodRegistry.registerJavaMethod(alias, klass, methodName,
                 argumentTypes);
 
     }
 
-    private Stack<Command> commandStack = new Stack<>();
-    private Stack<Command> nextCommandStack = new Stack<>();
+    private final Stack<Command> commandStack = new Stack<>();
+    private final Stack<Command> nextCommandStack = new Stack<>();
 
     /*
      * (non-Javadoc)
@@ -293,7 +299,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      * interfaces.Command)
      */
     @Override
-    public void push(Command command) {
+    public void push(final Command command) {
         commandStack.push(command);
         nextCommandStack.push(nextCommand);
         getVariables().newFrame();
@@ -330,7 +336,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      * .interfaces.RightValue)
      */
     @Override
-    public void setReturnValue(RightValue returnValue) {
+    public void setReturnValue(final RightValue returnValue) {
         this.returnValue = returnValue;
     }
 
