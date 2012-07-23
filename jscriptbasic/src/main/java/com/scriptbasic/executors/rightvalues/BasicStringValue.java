@@ -11,14 +11,17 @@ public class BasicStringValue extends AbstractPrimitiveRightValue<String> {
     @SuppressWarnings("unchecked")
     public static String convert(final RightValue rv)
             throws BasicRuntimeException {
-        if (rv == null) {
-            return "undef";
-        }
-        if (rv.isString() || rv.isNumeric() || rv.isBoolean()
+        String resultString = null;
+        if (rv == null
+                || ((AbstractPrimitiveRightValue<Object>) rv).getValue() == null) {
+            resultString = "undef";
+        } else if (rv.isString() || rv.isNumeric() || rv.isBoolean()
                 || rv.isJavaObject()) {
-            return ((AbstractPrimitiveRightValue<Object>) rv).getValue()
-                    .toString();
+            resultString = ((AbstractPrimitiveRightValue<Object>) rv)
+                    .getValue().toString();
+        } else {
+            throw new BasicRuntimeException("Can not convert value to string");
         }
-        throw new BasicRuntimeException("Can not convert value to string");
+        return resultString;
     }
 }

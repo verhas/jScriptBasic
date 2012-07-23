@@ -74,6 +74,7 @@ public class TestPrograms extends TestCase {
         codeTest("TestForLoop7.bas", "");
         codeTest("TestForLoop8.bas", "22");
         codeTest("TestForLoop9.bas", "111213212223313233");
-        codeTest("TestRuntimeFunction.bas","1.01.5707963267948966");
+        codeTest("TestRuntimeFunction.bas", "1.01.5707963267948966");
+        codeTest("TestNullFunction.bas", "undefundef");
     }
 }

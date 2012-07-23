@@ -4,6 +4,7 @@
 package com.scriptbasic.utility;
 
 import com.scriptbasic.Function;
+import com.scriptbasic.classification.Constant;
 import com.scriptbasic.classification.System;
 
 /**
@@ -14,7 +15,7 @@ import com.scriptbasic.classification.System;
  * functions like BASIC built in functions.
  * 
  * @author Peter Verhas
- * @date Jul 15, 2012
+ * @date July 15, 2012
  * 
  */
 public class RuntimeUtility {
@@ -28,8 +29,8 @@ public class RuntimeUtility {
 
     // TODO create function to instantiate an object
     @Function(alias = "new", classification = System.class)
-    public static Object newObject(String klass) throws ClassNotFoundException {
-        return Class.forName(klass);
+    public static Object newObject(String klass) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        return Class.forName(klass).newInstance();
     }
 
     // TODO create mathematical functions for DOUBLE arguments and values
@@ -113,13 +114,11 @@ public class RuntimeUtility {
         return 0.0;
     }
 
-    // TODO move the functions to a separate class and create code that
-    // registers all the function with annotations for a class
-
-    // TODO create function that returns null
+    @Function(alias="undef",classification=Constant.class)
+    static public Object nullFunction(){
+        return null;
+    }
 
     // TODO create functions for regular expression handling
-
-    // TODO create functions using JODA time to handle date and time
 
 }
