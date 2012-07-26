@@ -47,20 +47,20 @@ public class FunctionCall extends
         Method method = null;
         method = extendedInterpreter.getJavaMethod(null, functionName);
         if (method != null) {
+            Object methodResultObject = null;
+            try {
+                methodResultObject = method.invoke(null, ExpressionUtility
+                        .getObjectArray(args, method, extendedInterpreter));
+            } catch (IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException e) {
+                throw new BasicRuntimeException("Can not invoke method "
+                        + functionName, e);
+            } catch (Exception e) {
+                throw new BasicRuntimeException("Invoking function '"
+                        + functionName + "' throws exception:", e);
+            }
+            result = RightValueUtility.createRightValue(methodResultObject);
         }
-        Object methodResultObject = null;
-        try {
-            methodResultObject = method.invoke(null, ExpressionUtility
-                    .getObjectArray(args, method, extendedInterpreter));
-        } catch (IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException e) {
-            throw new BasicRuntimeException("Can not invoke method "
-                    + functionName, e);
-        } catch (Exception e) {
-            throw new BasicRuntimeException("Invoking function '"
-                    + functionName + "' throws exception:", e);
-        }
-        result = RightValueUtility.createRightValue(methodResultObject);
         return result;
     }
 

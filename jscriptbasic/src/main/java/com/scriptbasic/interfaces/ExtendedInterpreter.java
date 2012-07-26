@@ -15,6 +15,7 @@ import com.scriptbasic.executors.commands.CommandSub;
  */
 public interface ExtendedInterpreter extends Interpreter {
 
+    Configuration getConfiguration();
     /**
      * 
      * @return the program that the interpreter is executing.

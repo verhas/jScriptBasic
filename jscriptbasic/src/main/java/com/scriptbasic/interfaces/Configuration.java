@@ -3,7 +3,7 @@
  */
 package com.scriptbasic.interfaces;
 
-import java.util.Set;
+import java.util.Properties;
 
 /**
  * Manage the configuration of the interpreter. Configuration parameters can be
@@ -14,10 +14,9 @@ import java.util.Set;
  * @date Jul 23, 2012
  * 
  */
-public interface Configuration {
+public interface Configuration extends FactoryManaged {
+    void setConfigProperties(Properties configProperties);
 
-    public Set<String> getConfigKeys();
-    
     public String getConfigValue(String key);
 
     public String getConfigValue(String key, String defaultValue);

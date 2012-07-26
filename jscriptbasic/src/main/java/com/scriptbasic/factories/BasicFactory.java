@@ -3,10 +3,12 @@ package com.scriptbasic.factories;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.scriptbasic.configuration.ScriptBasicConfiguration;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.BasicExtendedInterpreter;
 import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.CommandFactory;
+import com.scriptbasic.interfaces.Configuration;
 import com.scriptbasic.interfaces.ExpressionAnalyzer;
 import com.scriptbasic.interfaces.ExpressionListAnalyzer;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
@@ -51,6 +53,38 @@ import com.scriptbasic.syntax.leftvalue.BasicSimpleLeftValueListAnalyzer;
  * 
  */
 public class BasicFactory extends GenericFactory {
+    private String factoryName = null;
+
+    /**
+     * @return the factoryName
+     */
+    public String getFactoryName() {
+        return factoryName;
+    }
+
+    /**
+     * @param factoryName
+     *            the factoryName to set
+     */
+    public void setFactoryName(String factoryName) {
+        this.factoryName = factoryName;
+    }
+
+    public BasicFactory(String name) {
+        setFactoryName(name);
+    }
+
+    public BasicFactory() {
+        setFactoryName(null);
+    }
+
+    public String toString() {
+        if (getFactoryName() == null) {
+            return super.toString();
+        } else {
+            return "factory:" + getFactoryName();
+        }
+    }
 
     /**
      * {@code classMapping} contains the interfaces and the classes that
@@ -83,6 +117,7 @@ public class BasicFactory extends GenericFactory {
                 BasicSimpleLeftValueAnalyzer.class);
         classMapping.put(SimpleLeftValueListAnalyzer.class,
                 BasicSimpleLeftValueListAnalyzer.class);
+        classMapping.put(Configuration.class, ScriptBasicConfiguration.class);
     }
 
     /**

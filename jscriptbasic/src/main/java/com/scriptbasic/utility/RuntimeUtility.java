@@ -27,13 +27,24 @@ public class RuntimeUtility {
     // register the methods and make the other one configurable via properties,
     // XML and API
 
-    // TODO create function to instantiate an object
+    /**
+     * This method can be used to call the default constructor of a class. This,
+     * of course, can only be used for classes that have default constructor.
+     * <p>
+     * 
+     * 
+     * @param klass the class to instantiate
+     * @return the new object instance
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
     @Function(alias = "new", classification = System.class)
-    public static Object newObject(String klass) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public static Object newObject(String klass) throws ClassNotFoundException,
+            InstantiationException, IllegalAccessException {
         return Class.forName(klass).newInstance();
     }
 
-    // TODO create mathematical functions for DOUBLE arguments and values
     @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     static public double acos(double x) {
         return 0.0;
@@ -114,8 +125,8 @@ public class RuntimeUtility {
         return 0.0;
     }
 
-    @Function(alias="undef",classification=Constant.class)
-    static public Object nullFunction(){
+    @Function(alias = "undef", classification = Constant.class)
+    static public Object nullFunction() {
         return null;
     }
 

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.scriptbasic.Function;
+import com.scriptbasic.interfaces.Configuration;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.ExtensionInterfaceVersion;
 
@@ -126,8 +127,12 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
      */
     private static boolean classificationsAllowRegistering(
             ExtendedInterpreter interpreter, Class<?>[] classifications) {
-        // TODO implement a logic that lets the user configure which methods may
-        // be registered and which are those that are not to be registered
+        Configuration config = interpreter.getConfiguration();
+        for (Class<?> classification : classifications) {
+            if ("deny".equals(config.getConfigValue("classification."
+                    + classification.getName(), "allow")))
+                return false;
+        }
         return true;
     }
 }

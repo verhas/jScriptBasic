@@ -13,12 +13,14 @@ import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.Command;
+import com.scriptbasic.interfaces.Configuration;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.HierarchicalVariableMap;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.memory.MixedBasicVariableMap;
+import com.scriptbasic.utility.FactoryUtility;
 import com.scriptbasic.utility.MethodRegisterUtility;
 import com.scriptbasic.utility.RightValueUtility;
 import com.scriptbasic.utility.RuntimeUtility;
@@ -149,7 +151,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
         while (command != null) {
             nextCommand = command.getNextCommand();
             currentCommand = command;
-            command.execute(this);
+            command.checkedExecute(this);
             currentCommand = null;
             command = nextCommand;
         }
@@ -233,7 +235,14 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
         return interpreterStateMap;
     }
 
-    // private Factory factory;
+    private Factory factory;
+
+    /**
+     * @return the factory
+     */
+    public Factory getFactory() {
+        return factory;
+    }
 
     /*
      * (non-Javadoc)
@@ -244,7 +253,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      */
     @Override
     public void setFactory(final Factory factory) {
-        // this.factory = factory;
+        this.factory = factory;
     }
 
     private final Map<String, Class<?>> useMap = new HashMap<>();
@@ -348,6 +357,14 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     @Override
     public RightValue getReturnValue() {
         return returnValue;
+    }
+
+    /* (non-Javadoc)
+     * @see com.scriptbasic.interfaces.ExtendedInterpreter#getConfiguration()
+     */
+    @Override
+    public Configuration getConfiguration() {
+        return FactoryUtility.getConfiguration(getFactory());
     }
 
 }

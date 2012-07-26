@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.CommandFactory;
+import com.scriptbasic.interfaces.Configuration;
 import com.scriptbasic.interfaces.ExpressionAnalyzer;
 import com.scriptbasic.interfaces.ExpressionListAnalyzer;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
@@ -112,6 +113,11 @@ public final class FactoryUtility {
             Factory factory) {
         LOG.debug("getting simple leftvalue analyzer from {}", factory);
         return get(factory, SimpleLeftValueAnalyzer.class);
+    }
+
+    public static Configuration getConfiguration(Factory factory) {
+        LOG.debug("getting configuration from {}", factory);
+        return get(factory, Configuration.class);
     }
 
     /**
