@@ -25,9 +25,6 @@ import com.scriptbasic.executors.operators.PowerOperator;
 
 public final class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
 
-    private BasicExpressionAnalyzer() {
-    }
-
     private static final Integer MAXIMUM_PRIORITY = 6;
 
     private static final List<Map<String, Class<? extends AbstractBinaryOperator>>> BASIC_OPERATOR_MAPS = new ArrayList<Map<String, Class<? extends AbstractBinaryOperator>>>(

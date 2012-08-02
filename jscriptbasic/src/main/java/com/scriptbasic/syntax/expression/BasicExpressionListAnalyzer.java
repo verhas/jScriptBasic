@@ -16,9 +16,6 @@ public final class BasicExpressionListAnalyzer
         implements ExpressionListAnalyzer {
     private Factory factory;
 
-    private BasicExpressionListAnalyzer() {
-    }
-
     @Override
     public Factory getFactory() {
         return factory;

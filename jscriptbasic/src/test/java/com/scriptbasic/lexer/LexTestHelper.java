@@ -11,7 +11,6 @@ import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.Reader;
-import com.scriptbasic.lexer.elements.ScriptBasicLexicalAnalyzer;
 import com.scriptbasic.readers.GenericHierarchicalReader;
 import com.scriptbasic.readers.GenericReader;
 import com.scriptbasic.sourceproviders.StringSourceProvider;
@@ -176,9 +175,6 @@ public class LexTestHelper {
 
         final GenericHierarchicalReader hreader = new GenericHierarchicalReader();
         hreader.include(reader);
-
-        FactoryFactory.getFactory().create(LexicalAnalyzer.class,
-                ScriptBasicLexicalAnalyzer.class);
         final LexicalAnalyzer la = FactoryFactory.getFactory().get(
                 LexicalAnalyzer.class);
         la.set(hreader);

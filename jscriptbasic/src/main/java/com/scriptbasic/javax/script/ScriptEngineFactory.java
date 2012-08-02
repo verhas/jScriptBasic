@@ -3,11 +3,20 @@
  */
 package com.scriptbasic.javax.script;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.script.Bindings;
 import javax.script.ScriptEngine;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.scriptbasic.Version;
+import com.scriptbasic.factories.SingletonFactoryFactory;
+import com.scriptbasic.interfaces.Configuration;
+import com.scriptbasic.utility.BeanUtility;
+import com.scriptbasic.utility.FactoryUtility;
 
 /**
  * @author Peter Verhas
@@ -15,6 +24,125 @@ import com.scriptbasic.Version;
  * 
  */
 public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
+    private static final Logger LOG = LoggerFactory
+            .getLogger(ScriptEngineFactory.class);
+    private Bindings globalScopeBinding;
+
+    /**
+     * @return the globalScopeBinding
+     */
+    public Bindings getGlobalScopeBinding() {
+        return globalScopeBinding;
+    }
+
+    /**
+     * @param globalScopeBinding
+     *            the globalScopeBinding to set
+     */
+    public void setGlobalScopeBinding(Bindings globalScopeBinding) {
+        this.globalScopeBinding = globalScopeBinding;
+    }
+
+    private String engineName = Version.engineName;
+    private String version = Version.version;
+    private List<String> extensions = Version.extensions;
+    private List<String> mimeTypes = Version.mimeTypes;
+    private List<String> names = Version.names;
+    private String language = Version.language;
+    private String languageVersion = Version.languageVersion;
+    // configuration is more or less factory independent, at least the
+    // standard scripting interface does not provide any mean to define a
+    // specific interface for the different engine instances that may
+    // concurrently exist in the JVM
+    private Configuration config = FactoryUtility
+            .getConfiguration(SingletonFactoryFactory.getFactory());
+
+    /**
+     * Load the configuration keys into the private fields. The parameters
+     * requested by the {@see ScriptEngineManager}, {@code names},
+     * {@code mimeTypes}, {@code extensions} are stored in private
+     * {@code List<String>}fields in this class and returned by the methods
+     * defined by the interface {@see javax.script.ScriptEngineFactory}.
+     * <p>
+     * Unless configured these fields are filled in the object constructor from
+     * the constants defined in the class {@see Version}.
+     * <p>
+     * When the configuration defines these values then they replace the values
+     * defined in the class {@code Version}.
+     * <p>
+     * The configuration key (used as a parameter to this method) should be the
+     * same as the name of the field, in singular format. Thus {@code key} can
+     * be {@code extension}, {@code name}, {@code mimeType}.
+     * <p>
+     * The configuration should contain the properties '{@code key}'s'{@code .n}
+     * ' for n=0..z
+     * <p>
+     * For example
+     * 
+     * <pre>
+     * extension.0=sb
+     * extension.1=bas
+     * extension.2=scriba
+     * </pre>
+     * 
+     * will define the default two extensions and an extra one. The numbers
+     * start from zero and should be continuous. Empty values are skipped, so
+     * deleting one value you need not reorder or renumber the whole list in
+     * your configuration.
+     * <p>
+     * If a list is defined in the configuration then the default values are
+     * dropped totally. Thus if you for example want to use the default
+     * extensions as well as the new, non-standard extension {@code scriba},
+     * then you have to list all three extensions.
+     * 
+     * @param key
+     *            the name of the configuration key. Note that the field should
+     *            have the name {@code key}'s', that is the plural form of the
+     *            name of the configuration key.
+     */
+    private void loadKeys(String key) {
+        final String keys = key + "s";
+        if (config != null && config.getConfigValue(key + "." + 0) != null) {
+            try {
+                List<String> list = new ArrayList<String>();
+                BeanUtility.setField(this, keys, list);
+                for (int i = 0; config.getConfigValue(key + "." + i) != null; i++) {
+                    if (config.getConfigValue(key + "." + i).length() > 0) {
+                        list.add(config.getConfigValue(key));
+                    }
+                }
+            } catch (Exception e) {
+                LOG.error(
+                        "Can not intialize the configuration parameters from configuration",
+                        e);
+            }
+        }
+    }
+
+    /**
+     * The constructor reads the configuration and fills the constants that are
+     * requested by the {@see ScriptEngineManager}.
+     */
+    public ScriptEngineFactory() {
+
+        if (config.getConfigValue("engineName") != null) {
+            engineName = config.getConfigValue("engineName");
+        }
+        if (config.getConfigValue("version") != null) {
+            version = config.getConfigValue("version");
+        }
+        if (config.getConfigValue("language") != null) {
+            language = config.getConfigValue("language");
+        }
+        if (config.getConfigValue("languageVersion") != null) {
+            languageVersion = config.getConfigValue("languageVersion");
+        }
+
+        loadKeys("extension");
+        loadKeys("mimeType");
+        loadKeys("name");
+
+    }
 
     /*
      * (non-Javadoc)
@@ -23,7 +151,7 @@ public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
      */
     @Override
     public String getEngineName() {
-        return "scriptbasic";
+        return engineName;
     }
 
     /*
@@ -33,7 +161,7 @@ public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
      */
     @Override
     public String getEngineVersion() {
-        return Version.version;
+        return version;
     }
 
     /*
@@ -43,7 +171,7 @@ public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
      */
     @Override
     public List<String> getExtensions() {
-        return Version.extensions;
+        return extensions;
     }
 
     /*
@@ -53,7 +181,7 @@ public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
      */
     @Override
     public List<String> getMimeTypes() {
-        return Version.mimeTypes;
+        return mimeTypes;
     }
 
     /*
@@ -63,7 +191,7 @@ public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
      */
     @Override
     public List<String> getNames() {
-        return Version.names;
+        return names;
     }
 
     /*
@@ -73,7 +201,7 @@ public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
      */
     @Override
     public String getLanguageName() {
-        return Version.language;
+        return language;
     }
 
     /*
@@ -83,7 +211,7 @@ public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
      */
     @Override
     public String getLanguageVersion() {
-        return Version.languageVersion;
+        return languageVersion;
     }
 
     /*
@@ -151,7 +279,7 @@ public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
             len += 1 + line.length();
         }
         StringBuilder sb = new StringBuilder(len);
-        for( String line : statements){
+        for (String line : statements) {
             sb.append(line).append("\n");
         }
         return sb.toString();

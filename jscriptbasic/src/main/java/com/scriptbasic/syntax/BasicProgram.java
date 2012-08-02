@@ -26,12 +26,15 @@ public final class BasicProgram extends AbstractBasicProgramPostprocessing {
         this.factory = factory;
     }
 
-    private BasicProgram() {
-    }
-
     private final List<Command> commands = new ArrayList<Command>();
     private AbstractCommand lastCommand = null;
 
+    @Override
+    public void reset(){
+        commands.clear();
+        lastCommand = null;
+    }
+    
     public void addCommand(final Command command) {
         if (lastCommand != null) {
             lastCommand.setNextCommand(command);

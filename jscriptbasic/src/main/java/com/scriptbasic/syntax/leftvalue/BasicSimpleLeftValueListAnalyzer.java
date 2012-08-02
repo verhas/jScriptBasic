@@ -16,10 +16,6 @@ public final class BasicSimpleLeftValueListAnalyzer
         implements SimpleLeftValueListAnalyzer {
     private Factory factory;
 
-    private BasicSimpleLeftValueListAnalyzer() {
-        super();
-    }
-
     @Override
     public Factory getFactory() {
         return factory;

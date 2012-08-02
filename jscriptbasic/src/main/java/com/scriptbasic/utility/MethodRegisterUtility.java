@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.scriptbasic.Function;
-import com.scriptbasic.interfaces.Configuration;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.ExtensionInterfaceVersion;
 
@@ -127,12 +126,14 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
      */
     private static boolean classificationsAllowRegistering(
             ExtendedInterpreter interpreter, Class<?>[] classifications) {
-        Configuration config = interpreter.getConfiguration();
-        for (Class<?> classification : classifications) {
-            if ("deny".equals(config.getConfigValue("classification."
-                    + classification.getName(), "allow")))
-                return false;
-        }
+        // TODO use the SecurityManager to control the access to the different
+        // Java methods
+        // Configuration config = interpreter.getConfiguration();
+        // for (Class<?> classification : classifications) {
+        // if ("deny".equals(config.getConfigValue("classification."
+        // + classification.getName(), "allow")))
+        // return false;
+        // }
         return true;
     }
 }

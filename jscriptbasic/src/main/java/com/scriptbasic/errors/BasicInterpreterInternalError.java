@@ -1,6 +1,6 @@
 package com.scriptbasic.errors;
 
-public class BasicInterpreterInternalError extends Error {
+public class BasicInterpreterInternalError extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     public BasicInterpreterInternalError(final String arg0) {

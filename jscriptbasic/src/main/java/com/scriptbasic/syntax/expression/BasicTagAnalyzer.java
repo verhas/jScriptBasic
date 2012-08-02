@@ -49,11 +49,6 @@ import com.scriptbasic.utility.LexUtility;
  */
 public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
         implements TagAnalyzer {
-    // private static Logger log =
-    // LoggerFactory.getLogger(BasicTagAnalyzer.class);
-
-    private BasicTagAnalyzer() {
-    }
 
     private Factory factory;
 

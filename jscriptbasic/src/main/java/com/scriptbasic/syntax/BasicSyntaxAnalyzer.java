@@ -23,9 +23,6 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
         this.factory = factory;
     }
 
-    private BasicSyntaxAnalyzer() {
-    }
-
     private LexicalElement lexicalElement;
 
     public LexicalElement getLexicalElement() {
@@ -46,6 +43,7 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
         try {
             BuildableProgram buildableProgram = FactoryUtility
                     .getProgram(getFactory());
+            buildableProgram.reset();
             LexicalAnalyzer lexicalAnalyzer = FactoryUtility
                     .getLexicalAnalyzer(getFactory());
             final CommandFactory commandFactory = FactoryUtility

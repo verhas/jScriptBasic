@@ -32,6 +32,27 @@ public final class BasicCommandFactory implements CommandFactory {
     @Override
     public void setFactory(Factory factory) {
         this.factory = factory;
+        registerCommandAnalyzer("while", new CommandAnalyzerWhile());
+        registerCommandAnalyzer("wend", new CommandAnalyzerWend());
+        registerCommandAnalyzer("if", new CommandAnalyzerIf());
+        registerCommandAnalyzer("else", new CommandAnalyzerElse());
+        registerCommandAnalyzer("elseif", new CommandAnalyzerElseIf());
+        registerCommandAnalyzer("endif", new CommandAnalyzerEndIf());
+        registerCommandAnalyzer("use", new CommandAnalyzerUse());
+        registerCommandAnalyzer("method", new CommandAnalyzerMethod());
+        registerCommandAnalyzer("sub", new CommandAnalyzerSub());
+        registerCommandAnalyzer("endsub", new CommandAnalyzerEndSub());
+        registerCommandAnalyzer("return", new CommandAnalyzerReturn());
+        registerCommandAnalyzer("print", new CommandAnalyzerPrint());
+        registerCommandAnalyzer("local", new CommandAnalyzerLocal());
+        registerCommandAnalyzer("global", new CommandAnalyzerGlobal());
+        registerCommandAnalyzer("call", new CommandAnalyzerCall());
+        registerCommandAnalyzer("let", new CommandAnalyzerLet());
+        registerCommandAnalyzer("for", new CommandAnalyzerFor());
+        registerCommandAnalyzer("next", new CommandAnalyzerNext());
+        //
+        registerCommandAnalyzer(new CommandAnalyzerLet());
+        registerCommandAnalyzer(new CommandAnalyzerCall());
     }
 
     private Map<String, CommandAnalyzer> classMap = new HashMap<>();
@@ -63,31 +84,6 @@ public final class BasicCommandFactory implements CommandFactory {
 
     private void registerCommandAnalyzer(CommandAnalyzer analyzer) {
         registerCommandAnalyzer(null, analyzer);
-    }
-
-    private BasicCommandFactory(Factory factory) {
-        this.factory = factory;
-        registerCommandAnalyzer("while", new CommandAnalyzerWhile());
-        registerCommandAnalyzer("wend", new CommandAnalyzerWend());
-        registerCommandAnalyzer("if", new CommandAnalyzerIf());
-        registerCommandAnalyzer("else", new CommandAnalyzerElse());
-        registerCommandAnalyzer("elseif", new CommandAnalyzerElseIf());
-        registerCommandAnalyzer("endif", new CommandAnalyzerEndIf());
-        registerCommandAnalyzer("use", new CommandAnalyzerUse());
-        registerCommandAnalyzer("method", new CommandAnalyzerMethod());
-        registerCommandAnalyzer("sub", new CommandAnalyzerSub());
-        registerCommandAnalyzer("endsub", new CommandAnalyzerEndSub());
-        registerCommandAnalyzer("return", new CommandAnalyzerReturn());
-        registerCommandAnalyzer("print", new CommandAnalyzerPrint());
-        registerCommandAnalyzer("local", new CommandAnalyzerLocal());
-        registerCommandAnalyzer("global", new CommandAnalyzerGlobal());
-        registerCommandAnalyzer("call", new CommandAnalyzerCall());
-        registerCommandAnalyzer("let", new CommandAnalyzerLet());
-        registerCommandAnalyzer("for", new CommandAnalyzerFor());
-        registerCommandAnalyzer("next", new CommandAnalyzerNext());
-        //
-        registerCommandAnalyzer(new CommandAnalyzerLet());
-        registerCommandAnalyzer(new CommandAnalyzerCall());
     }
 
     @Override

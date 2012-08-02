@@ -17,21 +17,21 @@ public interface SourceLocationBound {
     /**
      * Get the name of the file to which the object is bound to.
      * 
-     * @return
+     * @return the name of the file
      */
     String getFileName();
 
     /**
      * Get the line number to which the object is bound to.
      * 
-     * @return
+     * @return the line number in the file
      */
     int getLineNumber();
 
     /**
      * Get the position on the line to which the object is bound to.
      * 
-     * @return
+     * @return the position within the line
      */
     int getPosition();
 }

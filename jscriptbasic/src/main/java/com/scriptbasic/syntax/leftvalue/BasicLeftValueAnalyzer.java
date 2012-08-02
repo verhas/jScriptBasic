@@ -9,7 +9,5 @@ package com.scriptbasic.syntax.leftvalue;
  * 
  */
 public final class BasicLeftValueAnalyzer extends AbstractLeftValueAnalyzer {
-	private BasicLeftValueAnalyzer() {
-	    super();
-	}
+
 }

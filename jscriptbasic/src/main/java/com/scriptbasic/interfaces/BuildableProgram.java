@@ -10,6 +10,23 @@ package com.scriptbasic.interfaces;
  */
 public interface BuildableProgram extends FactoryManaged, Program {
 
+    /**
+     * Calling this method will remove all previously built code from the
+     * program. This method should be called if the same
+     * {@code BuildableProgram} object is used to execute different programs,
+     * one after the other.
+     * <p>
+     * Without calling this method the program would be concatenated and the
+     * second execution would contain the program codes of the first program and
+     * after that the second.
+     */
+    void reset();
+
+    /**
+     * Add a new command to the list of commands.
+     * 
+     * @param command
+     */
     void addCommand(Command command);
 
     /**

@@ -23,8 +23,6 @@ import com.scriptbasic.utility.FactoryUtility;
  */
 public class BasicSimpleLeftValueAnalyzer implements
         LeftValueAnalyzer, SimpleLeftValueAnalyzer {
-    private BasicSimpleLeftValueAnalyzer() {
-    }
 
     private Factory factory;
 

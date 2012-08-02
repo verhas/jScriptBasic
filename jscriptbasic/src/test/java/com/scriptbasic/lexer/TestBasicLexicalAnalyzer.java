@@ -12,14 +12,14 @@ import static com.scriptbasic.lexer.LexTestHelper.assertLexicals;
 import junit.framework.TestCase;
 
 import com.scriptbasic.exceptions.UnterminatedStringException;
-import com.scriptbasic.factories.FactoryFactory;
+import com.scriptbasic.factories.SingletonFactoryFactory;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
 
 public class TestBasicLexicalAnalyzer extends TestCase {
-    private Factory factory = FactoryFactory.getFactory();
+    private Factory factory = SingletonFactoryFactory.getFactory();
 
     public TestBasicLexicalAnalyzer(final String testName) {
         super(testName);

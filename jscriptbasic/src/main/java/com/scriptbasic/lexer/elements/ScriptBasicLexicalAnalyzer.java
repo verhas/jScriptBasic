@@ -5,7 +5,7 @@ import com.scriptbasic.lexer.BasicKeywordRecognizer;
 import com.scriptbasic.lexer.BasicLexicalAnalyzer;
 
 public final class ScriptBasicLexicalAnalyzer extends BasicLexicalAnalyzer {
-    private ScriptBasicLexicalAnalyzer() {
+    public ScriptBasicLexicalAnalyzer() {
         final Identifier identifier = new ConstAwareIdentifier();
         final KeywordRecognizer keywordRecognizer = new BasicKeywordRecognizer();
         identifier.setKeywordRecognizer(keywordRecognizer);

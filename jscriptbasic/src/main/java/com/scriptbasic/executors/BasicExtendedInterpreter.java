@@ -31,8 +31,6 @@ import com.scriptbasic.utility.RuntimeUtility;
  * 
  */
 public final class BasicExtendedInterpreter implements ExtendedInterpreter {
-    private BasicExtendedInterpreter() {
-    }
 
     private BuildableProgram program;
     private java.io.Reader reader;
@@ -149,6 +147,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     public void execute(final Command startCommand) throws ExecutionException {
         Command command = startCommand;
         while (command != null) {
+            //TODO implement time and counter based limit on execution, configurable
             nextCommand = command.getNextCommand();
             currentCommand = command;
             command.checkedExecute(this);

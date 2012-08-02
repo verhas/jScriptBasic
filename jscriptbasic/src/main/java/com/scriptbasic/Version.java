@@ -12,6 +12,7 @@ import java.util.List;
  * 
  */
 public class Version {
+    public static final String engineName = "ScriptBasic";
     public static final long MAJOR = 1L;
     public static final Long MINOR = 0L;
     public static final Long BUGFIX = 0L;

@@ -1,146 +1,91 @@
 package com.scriptbasic.factories;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Iterator;
+import java.util.ServiceLoader;
 
-import com.scriptbasic.configuration.ScriptBasicConfiguration;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
-import com.scriptbasic.executors.BasicExtendedInterpreter;
-import com.scriptbasic.interfaces.BuildableProgram;
-import com.scriptbasic.interfaces.CommandFactory;
-import com.scriptbasic.interfaces.Configuration;
-import com.scriptbasic.interfaces.ExpressionAnalyzer;
-import com.scriptbasic.interfaces.ExpressionListAnalyzer;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.FactoryManaged;
-import com.scriptbasic.interfaces.HierarchicalReader;
-import com.scriptbasic.interfaces.LeftValueAnalyzer;
-import com.scriptbasic.interfaces.LeftValueListAnalyzer;
-import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.interfaces.NestedStructureHouseKeeper;
-import com.scriptbasic.interfaces.Reader;
-import com.scriptbasic.interfaces.SimpleLeftValueAnalyzer;
-import com.scriptbasic.interfaces.SimpleLeftValueListAnalyzer;
-import com.scriptbasic.interfaces.SyntaxAnalyzer;
-import com.scriptbasic.interfaces.TagAnalyzer;
-import com.scriptbasic.lexer.elements.ScriptBasicLexicalAnalyzer;
-import com.scriptbasic.readers.GenericHierarchicalReader;
-import com.scriptbasic.readers.GenericReader;
-import com.scriptbasic.syntax.BasicProgram;
-import com.scriptbasic.syntax.BasicSyntaxAnalyzer;
-import com.scriptbasic.syntax.GenericNestedStructureHouseKeeper;
-import com.scriptbasic.syntax.commands.BasicCommandFactory;
-import com.scriptbasic.syntax.expression.BasicExpressionAnalyzer;
-import com.scriptbasic.syntax.expression.BasicExpressionListAnalyzer;
-import com.scriptbasic.syntax.expression.BasicTagAnalyzer;
-import com.scriptbasic.syntax.leftvalue.BasicLeftValueAnalyzer;
-import com.scriptbasic.syntax.leftvalue.BasicLeftValueListAnalyzer;
-import com.scriptbasic.syntax.leftvalue.BasicSimpleLeftValueAnalyzer;
-import com.scriptbasic.syntax.leftvalue.BasicSimpleLeftValueListAnalyzer;
 
 /**
- * This extension of the concrete class {@see GenericFactory} does return an
- * object instance even if there was no call to {@see #create(Class, Class)}
- * previously.
+ * Implementing the interface {@see com.scriptbasic.interfaces.Factory} this
+ * class instantiates the objects using the JDK standard {@see
+ * java.util.ServiceLoader}. A single factory instance will maintain a single
+ * instance of each class and subsequent call on the same factory object to the
+ * method {@see #get(Class)} will return the same class instance for the same
+ * interface.
  * <p>
- * To do that the class contains a list of classes for the interfaces that are
- * used by the BASIC interpreter and this way it knows which class (implementing
- * the interface by the way) should be instantiated by the {@see Factory} when
- * {@see #get(Class)} is called.
+ * The implementation also checks that the argument passed to the method is an
+ * interface and not a class.
  * 
  * @author Peter Verhas
  * @date June 8, 2012
  * 
  */
-public class BasicFactory extends GenericFactory {
-    private String factoryName = null;
-
+public class BasicFactory implements Factory {
     /**
-     * @return the factoryName
+     * Asserts that the parameter is an interface and not a class. If the
+     * assertion fails a runtime exception is thrown.
+     * 
+     * @param interfAce
+     *            the interface to check
      */
-    public String getFactoryName() {
-        return factoryName;
-    }
-
-    /**
-     * @param factoryName
-     *            the factoryName to set
-     */
-    public void setFactoryName(String factoryName) {
-        this.factoryName = factoryName;
-    }
-
-    public BasicFactory(String name) {
-        setFactoryName(name);
-    }
-
-    public BasicFactory() {
-        setFactoryName(null);
-    }
-
-    public String toString() {
-        if (getFactoryName() == null) {
-            return super.toString();
-        } else {
-            return "factory:" + getFactoryName();
+    private static void assertInterface(
+            Class<? extends FactoryManaged> interfAce) {
+        if (!interfAce.isInterface()) {
+            throw new IllegalArgumentException("The class " + interfAce
+                    + " is not an interface, can not be used in this factory.");
         }
     }
 
     /**
-     * {@code classMapping} contains the interfaces and the classes that
-     * implement the interface and that are used in this interpreter.
+     * Load a new instance of a class that implements the {@code interfAce}. If
+     * the load is successful the new object is registered in the factory and
+     * also the factory is set in the object.
+     * 
+     * @param interfAce
+     *            is the interface for which we need an implementation.
      */
-    private static Map<Class<? extends FactoryManaged>, Class<? extends FactoryManaged>> classMapping = new HashMap<>();
-
-    static {
-        classMapping.put(SyntaxAnalyzer.class, BasicSyntaxAnalyzer.class);
-        classMapping.put(ExpressionAnalyzer.class,
-                BasicExpressionAnalyzer.class);
-        classMapping.put(ExpressionListAnalyzer.class,
-                BasicExpressionListAnalyzer.class);
-        classMapping.put(BuildableProgram.class, BasicProgram.class);
-        classMapping.put(TagAnalyzer.class, BasicTagAnalyzer.class);
-        classMapping.put(LexicalAnalyzer.class,
-                ScriptBasicLexicalAnalyzer.class);
-        classMapping.put(Reader.class, GenericReader.class);
-        classMapping.put(HierarchicalReader.class,
-                GenericHierarchicalReader.class);
-        classMapping.put(CommandFactory.class, BasicCommandFactory.class);
-        classMapping.put(LeftValueAnalyzer.class, BasicLeftValueAnalyzer.class);
-        classMapping.put(LeftValueListAnalyzer.class,
-                BasicLeftValueListAnalyzer.class);
-        classMapping.put(NestedStructureHouseKeeper.class,
-                GenericNestedStructureHouseKeeper.class);
-        classMapping.put(ExtendedInterpreter.class,
-                BasicExtendedInterpreter.class);
-        classMapping.put(SimpleLeftValueAnalyzer.class,
-                BasicSimpleLeftValueAnalyzer.class);
-        classMapping.put(SimpleLeftValueListAnalyzer.class,
-                BasicSimpleLeftValueListAnalyzer.class);
-        classMapping.put(Configuration.class, ScriptBasicConfiguration.class);
+    private <T extends FactoryManaged> void load(Class<T> interfAce) {
+        ServiceLoader<T> loader = ServiceLoader.load(interfAce);
+        Iterator<T> iterator = loader.iterator();
+        if (iterator.hasNext()) {
+            T object = iterator.next();
+            store.set(interfAce, object);
+            object.setFactory(this);
+        } else {
+            throw new BasicInterpreterInternalError("Can not instantiate "
+                    + interfAce);
+        }
     }
+
+    final private ManagedObjectsStore store = new ManagedObjectsStore();
 
     /**
      * {@inheritDoc}
      * 
-     * This version of the method creates a new instance if there is no object
-     * in the factory associated with the interface passed as argument.
+     * The implementation checks that the argument is an interface and throws
+     * IllegalArgumentException if the argument is a class.
      */
-    @SuppressWarnings("unchecked")
     @Override
-    public <T extends FactoryManaged> T get(final Class<T> interfac) {
-        T object = super.get(interfac);
+    public <T extends FactoryManaged> T get(final Class<T> interfAce) {
+        assertInterface(interfAce);
+        T object = store.get(interfAce);
         if (object == null) {
-            final Class<? extends T> klass = (Class<? extends T>) classMapping
-                    .get(interfac);
-            if (klass == null) {
-                throw new BasicInterpreterInternalError(
-                        "There is no class associated to the interface "
-                                + interfac);
-            }
-            create(interfac, klass);
-            object = super.get(interfac);
+            load(interfAce);
+            object = store.get(interfAce);
         }
         return object;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.scriptbasic.interfaces.Factory#clean()
+     */
+    @Override
+    public void clean() {
+        store.clean();
+    }
+
 }

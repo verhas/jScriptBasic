@@ -47,11 +47,6 @@ public final class FactoryUtility {
         return object;
     }
 
-    public static <T extends FactoryManaged> void create(Factory factory,
-            Class<T> interf4ce, Class<? extends T> klass) {
-        factory.create(interf4ce, klass);
-    }
-
     public static LexicalAnalyzer getLexicalAnalyzer(Factory factory) {
         LOG.debug("getting lexical analyzer from {}", factory);
         return get(factory, LexicalAnalyzer.class);

@@ -55,21 +55,21 @@ public interface Interpreter extends FactoryManaged {
     Object call(String functionName, Object[] arguments);
 
     /**
-     * {@see javax.script.ScriptContext#setReader(java.io.Reader)}
+     * @see javax.script.ScriptContext#setReader(java.io.Reader)
      * 
      * @param reader
      */
     void setReader(java.io.Reader reader);
 
     /**
-     * {@see javax.script.ScriptContext#setWriter(Writer)};
+     * @see javax.script.ScriptContext#setWriter(Writer)
      * 
      * @param writer
      */
     void setWriter(java.io.Writer writer);
 
     /**
-     * {@see javax.script.ScriptContext#setErrorWriter(Writer)}
+     * @see javax.script.ScriptContext#setErrorWriter(Writer)
      * 
      * @param writer
      */
