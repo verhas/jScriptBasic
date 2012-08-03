@@ -7,6 +7,9 @@ package com.scriptbasic.interfaces;
  * 
  */
 public interface Interpreter extends FactoryManaged {
+    
+    void registerHook(InterpreterHook hook);
+    
     /**
      * Set the program to execute.
      * 

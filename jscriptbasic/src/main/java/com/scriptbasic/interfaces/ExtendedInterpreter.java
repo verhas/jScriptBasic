@@ -16,6 +16,7 @@ import com.scriptbasic.executors.commands.CommandSub;
 public interface ExtendedInterpreter extends Interpreter {
 
     Configuration getConfiguration();
+
     /**
      * 
      * @return the program that the interpreter is executing.
@@ -234,4 +235,33 @@ public interface ExtendedInterpreter extends Interpreter {
      * @return
      */
     java.io.Writer getErrorWriter();
+
+    /**
+     * Temporarily disable the hooks. Following this call the hooks will not be
+     * called until the {@see #enableHook()} is called.
+     * <p>
+     * Hook disabling was designed with the special case in mind when a hook
+     * wants to alter the return value returned from a subroutine. To do so the
+     * hook method has to invoke the {@see
+     * ExtendedInterpreter#setReturnValue(RightValue)} method, which was
+     * actually calling the hook. To avoid the infinite loop and not to confuse
+     * the other hook methods that are in the list sooner the hook method {@see
+     * InterpreterHook#setReturnValue(RightValue)} should first disable the hook
+     * mechanism, call back to the interpreter object and the enable the hook
+     * mechanism again.
+     */
+    void disableHook();
+
+    /**
+     * Enable the hook calls. This method has to be called after the call to
+     * {@see #disableHook()} to enable again the calling mechanism.
+     */
+    void enableHook();
+
+    /**
+     * Get the hook object the interpreter has.
+     * 
+     * @return
+     */
+    InterpreterHook getHook();
 }

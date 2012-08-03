@@ -18,6 +18,7 @@ import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.HierarchicalVariableMap;
+import com.scriptbasic.interfaces.InterpreterHook;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.memory.MixedBasicVariableMap;
 import com.scriptbasic.utility.FactoryUtility;
@@ -36,6 +37,51 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     private java.io.Reader reader;
     private java.io.Writer writer;
     private java.io.Writer errorWriter;
+    private InterpreterHook hook = null;
+    private InterpreterHook hookedHook = null;
+
+    @Override
+    public InterpreterHook getHook() {
+        return hook;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.scriptbasic.interfaces.ExtendedInterpreter#disableHook()
+     */
+    @Override
+    public void disableHook() {
+        if (hook != null) {
+            hookedHook = hook;
+            hook = null;
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.scriptbasic.interfaces.ExtendedInterpreter#enableHook()
+     */
+    @Override
+    public void enableHook() {
+        if (hookedHook != null) {
+            hook = hookedHook;
+            hookedHook = null;
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.scriptbasic.interfaces.Interpreter#registerHook(com.scriptbasic.
+     * interfaces.InterpreterHook)
+     */
+    @Override
+    public void registerHook(InterpreterHook hook) {
+        hook.setNext(this.hook);
+        this.hook = hook;
+    }
 
     /**
      * @return the reader
@@ -147,10 +193,15 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     public void execute(final Command startCommand) throws ExecutionException {
         Command command = startCommand;
         while (command != null) {
-            //TODO implement time and counter based limit on execution, configurable
             nextCommand = command.getNextCommand();
             currentCommand = command;
+            if (hook != null) {
+                hook.beforeExecute(command);
+            }
             command.checkedExecute(this);
+            if (hook != null) {
+                hook.afterExecute(command);
+            }
             currentCommand = null;
             command = nextCommand;
         }
@@ -292,6 +343,10 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     @Override
     public void registerJavaMethod(final String alias, final Class<?> klass,
             final String methodName, final Class<?>[] argumentTypes) {
+        if (hook != null) {
+            hook.beforeRegisteringJavaMethod(alias, klass, methodName,
+                    argumentTypes);
+        }
         methodRegistry.registerJavaMethod(alias, klass, methodName,
                 argumentTypes);
 
@@ -308,9 +363,15 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      */
     @Override
     public void push(final Command command) {
+        if (hook != null) {
+            hook.beforePush(command);
+        }
         commandStack.push(command);
         nextCommandStack.push(nextCommand);
         getVariables().newFrame();
+        if (hook != null) {
+            hook.afterPush(command);
+        }
     }
 
     /*
@@ -329,9 +390,16 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      */
     @Override
     public Command pop() {
+        if (hook != null) {
+            hook.beforePop();
+        }
         getVariables().dropFrame();
         nextCommand = nextCommandStack.pop();
-        return commandStack.pop();
+        Command command = commandStack.pop();
+        if (hook != null) {
+            hook.afterPop(command);
+        }
+        return command;
     }
 
     private RightValue returnValue;
@@ -346,6 +414,9 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     @Override
     public void setReturnValue(final RightValue returnValue) {
         this.returnValue = returnValue;
+        if (hook != null) {
+            hook.setReturnValue(returnValue);
+        }
     }
 
     /*
@@ -358,7 +429,9 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
         return returnValue;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see com.scriptbasic.interfaces.ExtendedInterpreter#getConfiguration()
      */
     @Override

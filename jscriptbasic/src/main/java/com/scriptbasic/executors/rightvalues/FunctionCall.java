@@ -22,35 +22,46 @@ import com.scriptbasic.utility.RightValueUtility;
 public class FunctionCall extends
         AbstractIdentifieredExpressionListedExpression {
 
-    private RightValue callBasicFunction(ExtendedInterpreter extendedInterpreter)
+    private RightValue callBasicFunction(ExtendedInterpreter interpreter)
             throws ExecutionException {
         RightValue result = null;
         RightValue[] argumentValues = evaluateArguments(getExpressionList(),
-                extendedInterpreter);
-        extendedInterpreter.push();
+                interpreter);
+        interpreter.push();
         LeftValueList arguments = commandSub.getArguments();
-        registerLocalVariablesWithValues(arguments, argumentValues,
-                extendedInterpreter);
-        extendedInterpreter.setReturnValue(null);
-        extendedInterpreter.execute(commandSub.getNextCommand());
-        result = extendedInterpreter.getReturnValue();
-        extendedInterpreter.pop();
+        registerLocalVariablesWithValues(arguments, argumentValues, interpreter);
+        interpreter.disableHook();
+        interpreter.setReturnValue(null);
+        interpreter.enableHook();
+        if (interpreter.getHook() != null) {
+            interpreter.getHook().beforeSubroutineCall(getVariableName(),
+                    arguments, argumentValues);
+        }
+        interpreter.execute(commandSub.getNextCommand());
+        result = interpreter.getReturnValue();
+        interpreter.pop();
         return result;
     }
 
-    private RightValue callJavaFunction(ExtendedInterpreter extendedInterpreter)
+    private RightValue callJavaFunction(ExtendedInterpreter interpreter)
             throws ExecutionException {
         RightValue result = null;
         String functionName = getVariableName();
         List<RightValue> args = ExpressionUtility.evaluateExpressionList(
-                extendedInterpreter, getExpressionList());
-        Method method = null;
-        method = extendedInterpreter.getJavaMethod(null, functionName);
+                interpreter, getExpressionList());
+        Method method = interpreter.getJavaMethod(null, functionName);
         if (method != null) {
-            Object methodResultObject = null;
+            Object methodResult = null;
             try {
-                methodResultObject = method.invoke(null, ExpressionUtility
-                        .getObjectArray(args, method, extendedInterpreter));
+                if (interpreter.getHook() != null) {
+                    interpreter.getHook().beforeCallJavaFunction(method);
+                }
+                methodResult = method.invoke(null, ExpressionUtility
+                        .getObjectArray(args, method, interpreter));
+                if (interpreter.getHook() != null) {
+                    methodResult = interpreter.getHook().afterCallJavaFunction(
+                            method, methodResult);
+                }
             } catch (IllegalAccessException | IllegalArgumentException
                     | InvocationTargetException e) {
                 throw new BasicRuntimeException("Can not invoke method "
@@ -59,7 +70,7 @@ public class FunctionCall extends
                 throw new BasicRuntimeException("Invoking function '"
                         + functionName + "' throws exception:", e);
             }
-            result = RightValueUtility.createRightValue(methodResultObject);
+            result = RightValueUtility.createRightValue(methodResult);
         }
         return result;
     }
@@ -67,29 +78,15 @@ public class FunctionCall extends
     private boolean commandNeedLookup = true;
     private CommandSub commandSub = null;
 
-    private void looupCommandSub(ExtendedInterpreter extendedInterpreter) {
+    private void lookUpCommandSub(ExtendedInterpreter interpreter) {
         if (commandNeedLookup) {
             commandNeedLookup = false;
-            commandSub = extendedInterpreter.getSubroutine(getVariableName());
+            commandSub = interpreter.getSubroutine(getVariableName());
         }
-    }
-
-    @Override
-    public RightValue evaluate(ExtendedInterpreter extendedInterpreter)
-            throws ExecutionException {
-
-        looupCommandSub(extendedInterpreter);
-        RightValue result = null;
-        if (commandSub == null) {
-            result = callJavaFunction(extendedInterpreter);
-        } else {
-            result = callBasicFunction(extendedInterpreter);
-        }
-        return result;
     }
 
     private static RightValue[] evaluateArguments(ExpressionList argumentList,
-            ExtendedInterpreter extendedInterpreter) throws ExecutionException {
+            ExtendedInterpreter interpreter) throws ExecutionException {
         RightValue[] argumentValues;
         if (argumentList == null) {
             argumentValues = null;
@@ -98,7 +95,7 @@ public class FunctionCall extends
             argumentValues = new RightValue[argumentList.size()];
             for (int i = 0; i < argumentValues.length; i++) {
                 argumentValues[i] = expressionIterator.next().evaluate(
-                        extendedInterpreter);
+                        interpreter);
             }
         }
         return argumentValues;
@@ -111,21 +108,34 @@ public class FunctionCall extends
      */
     private static void registerLocalVariablesWithValues(
             LeftValueList arguments, RightValue[] argumentValues,
-            ExtendedInterpreter extendedInterpreter) throws ExecutionException {
+            ExtendedInterpreter interpreter) throws ExecutionException {
         if (arguments != null) {
             Iterator<LeftValue> argumentIterator = arguments.iterator();
             for (int i = 0; i < argumentValues.length; i++) {
                 LeftValue argument = argumentIterator.next();
                 if (argument instanceof BasicLeftValue) {
                     String name = ((BasicLeftValue) argument).getIdentifier();
-                    extendedInterpreter.getVariables().registerLocalVariable(
-                            name);
-                    extendedInterpreter.setVariable(name, argumentValues[i]);
+                    interpreter.getVariables().registerLocalVariable(name);
+                    interpreter.setVariable(name, argumentValues[i]);
                 } else {
                     throw new BasicRuntimeException(
                             "subroutine formal argument is erroneous");
                 }
             }
         }
+    }
+
+    @Override
+    public RightValue evaluate(ExtendedInterpreter interpreter)
+            throws ExecutionException {
+
+        lookUpCommandSub(interpreter);
+        RightValue result = null;
+        if (commandSub == null) {
+            result = callJavaFunction(interpreter);
+        } else {
+            result = callBasicFunction(interpreter);
+        }
+        return result;
     }
 }

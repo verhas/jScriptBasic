@@ -55,14 +55,15 @@ public class BasicConfiguration implements Configuration {
     public String getConfigValue(final String key) {
         String configValue = null;
         final String envKey = "sb4j." + key;
-        if (System.getProperty(envKey) != null) {
-            configValue = System.getProperty(envKey);
-        }
         if (configProperties != null && configProperties.containsKey(key)) {
             configValue = configProperties.getProperty(key);
         }
-        if (System.getenv(envKey) != null) {
-            configValue = System.getenv(envKey);
+        String sysValue = null;
+        if ((sysValue = System.getenv(envKey)) != null) {
+            configValue = sysValue;
+        }
+        if ((sysValue = System.getProperty(envKey)) != null) {
+            configValue = sysValue;
         }
         return configValue;
     }
