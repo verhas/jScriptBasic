@@ -22,6 +22,7 @@ import com.scriptbasic.interfaces.InterpreterHook;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.memory.MixedBasicVariableMap;
 import com.scriptbasic.utility.FactoryUtility;
+import com.scriptbasic.utility.HookRegisterUtility;
 import com.scriptbasic.utility.MethodRegisterUtility;
 import com.scriptbasic.utility.RightValueUtility;
 import com.scriptbasic.utility.RuntimeUtility;
@@ -80,6 +81,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     @Override
     public void registerHook(InterpreterHook hook) {
         hook.setNext(this.hook);
+        hook.setInterpreter(this);
         this.hook = hook;
     }
 
@@ -179,6 +181,10 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     public void execute() throws ExecutionException {
         final Command command = program.getStartCommand();
         MethodRegisterUtility.registerFunctions(RuntimeUtility.class, this);
+        HookRegisterUtility.registerHooks(this);
+        if( hook != null ){
+            hook.init();
+        }
         execute(command);
     }
 

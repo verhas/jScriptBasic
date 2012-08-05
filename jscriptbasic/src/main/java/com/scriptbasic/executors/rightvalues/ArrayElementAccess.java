@@ -12,25 +12,28 @@ public class ArrayElementAccess extends
         AbstractIdentifieredExpressionListedExpression {
 
     @Override
-    public RightValue evaluate(ExtendedInterpreter extendedInterpreter)
+    public RightValue evaluate(ExtendedInterpreter interpreter)
             throws ExecutionException {
-        VariableMap variableMap = extendedInterpreter.getVariables();
-        RightValue variable = variableMap.getVariableValue(getVariableName());
+        VariableMap variableMap = interpreter.getVariables();
+        RightValue value = variableMap.getVariableValue(getVariableName());
+        if( interpreter.getHook() != null ){
+            value = interpreter.getHook().variableRead(getVariableName(),value);
+        }
         for (Expression expression : getExpressionList()) {
-            if (variable instanceof BasicArrayValue) {
-                BasicArrayValue arrayVar = (BasicArrayValue) variable;
+            if (value instanceof BasicArrayValue) {
+                BasicArrayValue arrayVar = (BasicArrayValue) value;
                 Integer index = RightValueUtility.convert2Integer(expression
-                        .evaluate(extendedInterpreter));
+                        .evaluate(interpreter));
                 Object object = arrayVar.get(index);
                 if (object instanceof RightValue) {
-                    variable = (RightValue) object;
+                    value = (RightValue) object;
                 }else{
-                    variable = new BasicJavaObjectValue(object);
-                    arrayVar.set(index, variable);
+                    value = new BasicJavaObjectValue(object);
+                    arrayVar.set(index, value);
                 }
             }
         }
-        return variable;
+        return value;
     }
 
 }

@@ -4,6 +4,7 @@
 package com.scriptbasic.interfaces;
 
 import java.io.InputStream;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -46,7 +47,7 @@ public interface Configuration extends FactoryManaged {
      * @return the string value of the configuration or {@code null} if the key
      *         is not configured.
      */
-    public String getConfigValue(String key);
+    String getConfigValue(String key);
 
     /**
      * Complimentary method calling {@see #getConfigValue(String)} but returning
@@ -62,13 +63,24 @@ public interface Configuration extends FactoryManaged {
      * @return the string value of the configuration or {@code defaultValue} if
      *         the key is not configured.
      */
-    public String getConfigValue(String key, String defaultValue);
+    String getConfigValue(String key, String defaultValue);
+
+    /**
+     * Returns a list of strings that are the values assigned to the key in the
+     * configuration. List of strings in the configuration should be defined
+     * using the notation {@code key}'.n' where 'n' starts with zero and should
+     * increment by one continuously.
+     * 
+     * @param key
+     * @return the list of configured strings
+     */
+    List<String> getConfigValueList(final String key);
 
     /**
      * Load the default configuration. The implementation should define some
      * default properties file to load the configuration from.
      */
-    public void loadDefaultConfiguration();
+    void loadDefaultConfiguration();
 
     /**
      * Load the configuration from an input stream.
@@ -77,5 +89,5 @@ public interface Configuration extends FactoryManaged {
      *            the input stream that is used to read the content of the
      *            properties file.
      */
-    public void loadConfiguration(final InputStream is);
+    void loadConfiguration(final InputStream is);
 }

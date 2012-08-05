@@ -5,6 +5,9 @@ package com.scriptbasic.configuration;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 
 import org.slf4j.Logger;
@@ -44,6 +47,7 @@ public class BasicConfiguration implements Configuration {
      */
     public void setConfigProperties(final Properties configProperties) {
         this.configProperties = configProperties;
+        lists.clear();
     }
 
     /*
@@ -80,15 +84,38 @@ public class BasicConfiguration implements Configuration {
         return configValue == null ? defaultValue : configValue;
     }
 
-    /*
-     * (non-Javadoc)
+    private final HashMap<String, List<String>> lists = new HashMap<>();
+
+    public List<String> getConfigValueList(final String key) {
+        if (lists.containsKey(key)) {
+            return lists.get(key);
+        }
+        List<String> list = new LinkedList<>();
+        String keyi;
+        String value;
+        for (int i = 0; (keyi = key + "." + i) != null
+                && (value = getConfigValue(keyi)) != null; i++) {
+            list.add(value);
+        }
+        lists.put(keyi, list);
+        return list;
+    }
+
+    /**
+     * The default configuration is stored in the file {@code sb4j.properties}
+     * or in the file defined by the system property named
+     * {@code sb4j.configuration}.
      * 
-     * @see com.scriptbasic.interfaces.Configuration#loadDefaultConfiguration()
+     * @see Configuration#loadDefaultConfiguration()
      */
     @Override
     public void loadDefaultConfiguration() {
+        final String systemPropertyDefinedConfiguration = System
+                .getProperty("sb4j.configuration");
+        final String configurationFileName = systemPropertyDefinedConfiguration == null ? "sb4j.properties"
+                : systemPropertyDefinedConfiguration;
         final InputStream is = this.getClass().getClassLoader()
-                .getResourceAsStream("sb4j.properties");
+                .getResourceAsStream(configurationFileName);
         if (null != is) {
             loadConfiguration(is);
         }

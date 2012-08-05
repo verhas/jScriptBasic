@@ -25,6 +25,13 @@ import java.lang.reflect.Method;
  * 
  */
 public interface InterpreterHook {
+    /**
+     * This method is called at the end of the hook registering. When this
+     * method is called the hook does have interpreter and the field 'next'
+     * already set. The method should do its initialization and then call the
+     * same method of the next hook in the chain.
+     */
+    void init();
 
     /**
      * When a hook is registered the registering process calls this method and
@@ -43,7 +50,7 @@ public interface InterpreterHook {
      * 
      * @param interpreter
      */
-    void setInterpreter(Interpreter interpreter);
+    void setInterpreter(ExtendedInterpreter interpreter);
 
     /**
      * This method is called before the interpreter executes a command.
@@ -133,9 +140,22 @@ public interface InterpreterHook {
      * @param method
      *            the method that was called
      * @param result
-     *            teh result that the static method returned
+     *            the result that the static method returned
      * @return the modified result or just the same object if the hook does not
      *         want to modify the result
      */
     Object afterCallJavaFunction(Method method, Object result);
+
+    /**
+     * This hook is called when the interpreter accesses a variable.
+     * 
+     * @param variableName
+     *            the name of the variable
+     * @param value
+     *            the value of the variable when accessed
+     * @return the value that will be used. The implementation may decide to
+     *         alter the value used. Returning a modified value will not,
+     *         however alterthe value of the variable itself.
+     */
+    RightValue variableRead(String variableName, RightValue value);
 }

@@ -56,7 +56,7 @@ public class TestJavaxInterface {
 
     @SuppressWarnings("static-method")
     @Test
-    public void tistCoverConfiguration() throws Exception {
+    public void testCoverConfiguration() throws Exception {
         Configuration config = FactoryUtility
                 .getConfiguration(SingletonFactoryFactory.getFactory());
         Properties configProperties = new Properties();

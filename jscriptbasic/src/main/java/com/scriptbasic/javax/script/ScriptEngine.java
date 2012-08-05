@@ -32,6 +32,10 @@ public class ScriptEngine extends AbstractScriptEngine {
 
     private Factory factory;
 
+    public Factory getBasicFactory(){
+        return factory;
+    }
+    
     public ScriptEngine(ScriptEngineFactory scriptEngineFactory) {
         this.scriptEngineFactory = scriptEngineFactory;
         factory = FactoryFactory.getFactory();
@@ -109,14 +113,14 @@ public class ScriptEngine extends AbstractScriptEngine {
         final LexicalAnalyzer lexicalAnalyzer = FactoryUtility
                 .getLexicalAnalyzer(factory);
         lexicalAnalyzer.set(reader);
-        ExtendedInterpreter eInterpreter = FactoryUtility
+        ExtendedInterpreter interpreter = FactoryUtility
                 .getExtendedInterpreter(factory);
-        eInterpreter.setProgram(FactoryUtility.getSyntaxAnalyzer(factory)
+        interpreter.setProgram(FactoryUtility.getSyntaxAnalyzer(factory)
                 .analyze());
-        eInterpreter.setWriter(output);
-        eInterpreter.setErrorWriter(error);
-        eInterpreter.setReader(input);
-        eInterpreter.execute();
+        interpreter.setWriter(output);
+        interpreter.setErrorWriter(error);
+        interpreter.setReader(input);
+        interpreter.execute();
     }
 
     private static void unmergeBindings(ExtendedInterpreter interpreter,
