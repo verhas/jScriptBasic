@@ -5,11 +5,10 @@ package com.scriptbasic.utility;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.InterpreterHook;
+import com.scriptbasic.log.Logger;
+import com.scriptbasic.log.LoggerFactory;
 
 /**
  * @author Peter Verhas

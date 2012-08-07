@@ -5,12 +5,11 @@ package com.scriptbasic.utility;
 
 import java.lang.reflect.Method;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.scriptbasic.Function;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.ExtensionInterfaceVersion;
+import com.scriptbasic.log.Logger;
+import com.scriptbasic.log.LoggerFactory;
 
 /**
  * @author Peter Verhas

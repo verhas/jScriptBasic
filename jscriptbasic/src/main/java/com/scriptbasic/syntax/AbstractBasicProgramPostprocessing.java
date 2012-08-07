@@ -5,9 +5,6 @@ package com.scriptbasic.syntax;
 
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.executors.commands.CommandEndSub;
 import com.scriptbasic.executors.commands.CommandGlobal;
@@ -18,6 +15,8 @@ import com.scriptbasic.executors.commands.CommandUse;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.Command;
+import com.scriptbasic.log.Logger;
+import com.scriptbasic.log.LoggerFactory;
 
 /**
  * @author Peter Verhas

@@ -2,9 +2,6 @@ package com.scriptbasic.syntax;
 
 import java.util.Stack;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.exceptions.SyntaxException;
@@ -14,6 +11,8 @@ import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.NestedStructure;
 import com.scriptbasic.interfaces.NestedStructureHouseKeeper;
+import com.scriptbasic.log.Logger;
+import com.scriptbasic.log.LoggerFactory;
 
 public abstract class AbstractNestedStructureHouseKeeper implements
         NestedStructureHouseKeeper {

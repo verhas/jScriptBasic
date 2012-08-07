@@ -9,12 +9,11 @@ import java.util.List;
 import javax.script.Bindings;
 import javax.script.ScriptEngine;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.scriptbasic.Version;
 import com.scriptbasic.factories.SingletonFactoryFactory;
 import com.scriptbasic.interfaces.Configuration;
+import com.scriptbasic.log.Logger;
+import com.scriptbasic.log.LoggerFactory;
 import com.scriptbasic.utility.BeanUtility;
 import com.scriptbasic.utility.FactoryUtility;
 

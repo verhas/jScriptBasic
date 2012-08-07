@@ -10,11 +10,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.scriptbasic.interfaces.Configuration;
 import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.log.Logger;
+import com.scriptbasic.log.LoggerFactory;
 
 /**
  * @author Peter Verhas

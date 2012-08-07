@@ -5,9 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.exceptions.CommandFactoryException;
 import com.scriptbasic.exceptions.KeywordNotImplementedException;
@@ -18,6 +15,8 @@ import com.scriptbasic.interfaces.CommandFactory;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LineOrientedLexicalAnalyzer;
+import com.scriptbasic.log.Logger;
+import com.scriptbasic.log.LoggerFactory;
 import com.scriptbasic.utility.FactoryUtility;
 
 public final class BasicCommandFactory implements CommandFactory {

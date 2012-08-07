@@ -33,6 +33,10 @@ public abstract class AbstractBinaryFullCircuitNumericOperator<T extends Number>
             final RightValue rightOperand) throws BasicRuntimeException {
         Number a, b;
         RightValue result = null;
+        if (leftOperand == null || rightOperand == null) {
+            throw new BasicRuntimeException(
+                    "Can not execute the operation on undefined value.");
+        }
         if (leftOperand.isNumeric() && rightOperand.isNumeric()) {
             a = ((AbstractNumericRightValue<Number>) leftOperand).getValue();
             b = ((AbstractNumericRightValue<Number>) rightOperand).getValue();

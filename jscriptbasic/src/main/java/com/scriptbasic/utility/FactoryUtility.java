@@ -1,8 +1,5 @@
 package com.scriptbasic.utility;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.CommandFactory;
@@ -20,6 +17,8 @@ import com.scriptbasic.interfaces.SimpleLeftValueAnalyzer;
 import com.scriptbasic.interfaces.SimpleLeftValueListAnalyzer;
 import com.scriptbasic.interfaces.SyntaxAnalyzer;
 import com.scriptbasic.interfaces.TagAnalyzer;
+import com.scriptbasic.log.Logger;
+import com.scriptbasic.log.LoggerFactory;
 
 public final class FactoryUtility {
 

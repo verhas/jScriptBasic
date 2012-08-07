@@ -5,9 +5,6 @@ import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.exceptions.BasicLexicalException;
 import com.scriptbasic.exceptions.GenericSyntaxException;
@@ -19,6 +16,8 @@ import com.scriptbasic.interfaces.LexicalElementAnalyzer;
 import com.scriptbasic.interfaces.LineOrientedLexicalAnalyzer;
 import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.interfaces.SourceProvider;
+import com.scriptbasic.log.Logger;
+import com.scriptbasic.log.LoggerFactory;
 import com.scriptbasic.readers.GenericHierarchicalReader;
 import com.scriptbasic.utility.CharUtils;
 

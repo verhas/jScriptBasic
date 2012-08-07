@@ -138,8 +138,7 @@
 			<artifactId>powermock-api-mockito</artifactId>
 			<version>${powermock.version}</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
+		</dependency><!-- 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-core</artifactId>
 			<version>1.0.1</version>
@@ -154,6 +153,6 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>1.6.4</version>
 		</dependency>
-
+-->
 	</dependencies>
 </project>
