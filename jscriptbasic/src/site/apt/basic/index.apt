@@ -1,0 +1,63 @@
+  ----------------------------------
+  jScriptBasic Project Documentation
+  ----------------------------------
+  Peter Verhas
+  ----------------------------------
+  2012-8-11
+  ----------------------------------
+  
+The BASIC language implemented
+
+  The BASIC language implemented by the interpreter are not different from the usual BASIC implementations
+  and it was created to be as simple as possible. Usually when you see a construct and you feel you understand
+  what it is: it usually is.
+  
+  The language has
+  
+  * variables, global and local in subroutines
+  
+  * assignment operator
+  
+  * conditional statements (<<<IF>>>/<<<THEN>>>/<<<ELSE>>>/<<<ENDIF>>>)
+  
+  * loops (<<<WHILE>>>/<<<WEND>>> and <<<FOR>>>/<<<NEXT>>>)
+  
+  * <<<PRINT>>> statement
+  
+  * subroutines
+  
+  * and declarations to call external, java methods
+ 
+ The language itself is very simple. There are no file, time and other commands implemented because these are provided by the
+ java environment.
+  
+ Variables are not typed: they can store string, integer (java Long), float numbers (java Double),
+ character (java Character), boolean (java Boolean) or reference to Java objects. One at a time of course.
+ Variables can also hold array values and the arrays are allocated automatically.
+ 
+ The simplest ever BASIC program is the hello world, which looks
+ 
+%{snippet|id=x|file=src/site/apt/basic/helloWorld.sb}
+ 
+ And the output of this run on the development machine 
+ 
++------------------------------------------------------------------------------------------------------------------- 
+ verhasp:jscriptbasic verhasp$ java -jar target/jscriptbasic-1.0.0-SNAPSHOT.jar src/site/apt/basic/helloWorld.sb 
+hello worldverhasp:jscriptbasic verhasp$
++------------------------------------------------------------------------------------------------------------------- 
+
+ You can see that the interpreter was executed from the command line. The JAR file is not only a library
+ that you can place on the classpath so that the java SeviceLoader finds it when the application calls the JSR-223
+ interface methods, but also contains a main class so that the BASIC interpreter can be started from the command line
+ and thus simple script can easily be tested.
+ 
+ 
+ 
+ To see different samples describing the different features of the implemented BASIC language look at the following files:
+ 
+ * {{{./forloop.html}<<<for>>> loops}}
+ 
+ * {{{./while.html}<<<while>>> loops}}
+ 
+ 
+ 

@@ -1,0 +1,15 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+.metadata
+.classpath
+.settings
+.project
+.gitignore
+.checkstyle
+doc/
+target/
+reports/

@@ -1,0 +1,22 @@
+  ----------------------------------
+  jScriptBasic Project Documentation
+  ----------------------------------
+  Peter Verhas
+  ----------------------------------
+  2012-8-11
+  ----------------------------------
+  
+  For loops are very common in BASIC. They iterare over consecurive numbers. The simplest example is:
+   
+%{snippet|id=simple|file=src/site/apt/basic/forDemo.sb}
+
+  which will print the numbers from 1 to 9 to the output. For loops can not only step from one number to the next one.
+  You can define a step so that the next version will print out only the odd numbers.
+  
+%{snippet|id=stepped|file=src/site/apt/basic/forDemo.sb}
+  
+  It is also possible to use floating point numbers in the loop:
+  
+%{snippet|id=float1|file=src/site/apt/basic/forDemo.sb}
+
+  
