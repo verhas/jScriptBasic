@@ -13,6 +13,7 @@
 		<name>Verhas and Verhas Software Craftsmen</name>
 		<url>http://www.verhas.com</url>
 	</organization>
+	<description>ScriptBasic for Java is an implementation of ScriptBasic for the Java technology, language and users</description>
 	<properties>
 		<powermock.version>1.4.12</powermock.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -169,4 +170,10 @@
 			<dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-api</artifactId> 
 			<version>1.6.4</version> </dependency> -->
 	</dependencies>
+	<scm>
+		<connection>scm:git:git@github.com:verhas/jScriptBasic.git</connection>
+		<url>https://github.com/verhas/jScriptBasic</url>
+		<developerConnection>scm:git:git@github.com:verhas/jScriptBasic.git</developerConnection>
+	</scm>
+
 </project>

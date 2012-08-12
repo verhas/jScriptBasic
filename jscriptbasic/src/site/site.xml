@@ -27,8 +27,8 @@
             <item name="ScriptBasic" href="http://scriptbasic.com"/>
         </links>
 
-        <menu name="Regular Web Site">
-            <item name="Documentation" href="index.html"/>
+        <menu name="Documentation for SB4J">
+            <item name="Name of the game" href="name.html"/>
         </menu>
 
         <menu ref="reports"/>
