@@ -108,7 +108,37 @@
         
         <div id="bodyColumn"  class="span9" >
                                   
-            <div class="section"><h2>Installing ScriptBasic for Java<a name="Installing_ScriptBasic_for_Java"></a></h2><p>There are two different uses of ScriptBasic for Java. The simpler one when you just want to start some BASIC program from the command line. The binary package of ScriptBasic is a Java JAR file that contains an appropriately configured main class that can be executed. The other use is when you want to invoke BASIC scripts from some application and you want to use ScriptBasic for Java as an embedded script language interpreter.</p><div class="section"><h3>Command line use<a name="Command_line_use"></a></h3><p><b>SHORT</b> Just start the jar file using java.</p><p><b>LONG</b> </p></div><div class="section"><h3>Embedded use <a name="Embedded_use"></a></h3></div></div>
+            <div class="section"><h2>Installing ScriptBasic for Java<a name="Installing_ScriptBasic_for_Java"></a></h2><p>There are two different uses of ScriptBasic for Java. The simpler one when you just want to start some BASIC program from the command line. The binary package of ScriptBasic is a Java JAR file that contains an appropriately configured main class that can be executed. The other use is when you want to invoke BASIC scripts from some application and you want to use ScriptBasic for Java as an embedded script language interpreter.</p><div class="section"><h3>Command line use<a name="Command_line_use"></a></h3><div class="section"><h4>SHORT<a name="SHORT"></a></h4><p>Just start the jar file using java.</p></div><div class="section"><h4>&#xa0;LONG<a name="aLONG"></a></h4><p>Check that the Java runtime environment (JRE) is installed on your system. To do that you can execute the command</p><div><pre>java -version</pre></div><p>and you should get some output like</p><div><pre>java version &quot;1.7.0_04&quot;
+Java(TM) SE Runtime Environment (build 1.7.0_04-b21)
+Java HotSpot(TM) 64-Bit Server VM (build 23.0-b21, mixed mode)</pre></div><p>The version of the build number may be different but make sure that the java version you use is 1.7 or later. SB4J requires java 7.</p><p>Locate the SB4J JAR file and the BASIC program you want to execute. Make sure that the BASIC program is in a file that has the extension <tt>sb</tt> or <tt>bas</tt>. Execute the following command line</p><div><pre>java -jar jscriptbasic-x.y.z.jar myProgram.sb</pre></div><p>where <tt>x.y.z</tt> is the version of the interpreter and is part of the file name of the jar file in the distribution. For the hello world example on the development server I execute</p><div><pre>java -jar target/jscriptbasic-1.0.0-SNAPSHOT.jar src/test/basic/hello.sb</pre></div><p>which will print <tt>hello</tt>.</p></div></div><div class="section"><h3>Embedded use<a name="Embedded_use"></a></h3><div class="section"><h4>SHORT<a name="SHORT"></a></h4><p>Place the JAR file on the classpath and use the JSR-223 standard interface to invoke ScriptBasic.</p></div><div class="section"><h4>LONG<a name="LONG"></a></h4><p>SB4J is compliant with the <a class="externalLink" href="http://www.jcp.org/en/jsr/detail?id=223">JSR-223</a> standard. If you use this interface to integrate ScriptBasic into your application you need know know anything that is specific to jScriptBasic. All you have to do it copy the JAR file to a location so that the Java class loader will find it. After that start up your application and the JRE will load ScriptBasic automatically using the standard <a class="externalLink" href="http://docs.oracle.com/javase/7/docs/api/java/util/ServiceLoader.html">ServiceLoader</a> interface.</p><p>To get a fast track to integrate jScriptBasic into an application you can have a look at the source code that implements the command line version of the interpreter and embeds the interpreter into a 'main' class.</p><p>The code is in the package <tt>com.scriptbasic.main</tt> and the class is <tt>CommandLine</tt>. The important part is:</p><div class="source"><pre class="prettyprint">ScriptEngineManager sem = new ScriptEngineManager();
+ScriptEngine se = sem.getEngineByExtension(extension);
+ScriptContext context = se.getContext();
+PrintWriter outWriter = new PrintWriter(System.out);
+context.setWriter(outWriter);
+PrintWriter errorWriter = new PrintWriter(System.err);
+context.setErrorWriter(errorWriter);
+context.setReader(new InputStreamReader(System.in));
+Reader reader = new FileReader(basicProgramFileName);
+try {
+    se.eval(reader, context);
+} catch (ScriptException sce) {
+    Exception cause = (Exception) sce.getCause();
+    if (cause == null) {
+        cause = sce;
+    }
+    if (cause.getMessage() != null) {
+        System.err.println(&quot;ERROR: &quot; + cause.getMessage());
+    } else {
+        throw sce;
+    }
+}
+outWriter.flush();
+errorWriter.flush();
+</pre></div><p>The code creates a new <tt>javax.script.ScriptEngineManager</tt> that manages the loading and the location of the interpreter. The command line version of ScriptBasic for Java asks the script engine manager to create an interpreter based on the file name extension. As a side effect you can also execute JavaScript programs from the command line using the jScriptBasic JAR. The JavaScript interpreter is included in the JRE since the version 1.7</p><p>The following few lines set the standard and error input and output for the program and finally the script is executed. At the end the output is flushed and closed so that the characters that were printed by the BASIC program are sent out to the console.</p><p>To have the interpreter on the command line you can manually copy the JAR file to the classpath, or you can add the JAR file to the build process. If you use maven use the following dependency:</p><div><pre>&lt;dependency&gt;
+        &lt;groupId&gt;com.scriptbasic&lt;/groupId&gt;
+        &lt;artifactId&gt;jscriptbasic&lt;/artifactId&gt;
+        &lt;version&gt;1.0.0&lt;/version&gt;
+&lt;/dependency&gt;</pre></div><p>At the moment the latest release is <tt>1.0.0-SNAPSHOT</tt>. For the actual state of the different releases have a look at the page <a href="./releases.html">releases</a>.</p></div></div></div>
                   </div>
             </div>
       
