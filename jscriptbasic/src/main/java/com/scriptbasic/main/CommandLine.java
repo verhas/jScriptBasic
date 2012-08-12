@@ -23,7 +23,8 @@ import javax.script.ScriptException;
 public class CommandLine {
     public static void main(String[] args) throws Exception {
         if (args.length != 1) {
-            System.err.println("usage: jscriba basicprogram.sb");
+            System.err
+                    .println("usage: java -jar jscriptbasic-x.y.z basicprogram.sb");
             System.exit(1);
         }
         Logger.getLogger("").setLevel(Level.SEVERE);
@@ -37,6 +38,8 @@ public class CommandLine {
         } else {
             extension = "";
         }
+        
+        // START SNIPPET: x
         ScriptEngineManager sem = new ScriptEngineManager();
         ScriptEngine se = sem.getEngineByExtension(extension);
         ScriptContext context = se.getContext();
@@ -61,5 +64,6 @@ public class CommandLine {
         }
         outWriter.flush();
         errorWriter.flush();
+        // END SNIPPET: x
     }
 }
