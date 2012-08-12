@@ -90,4 +90,16 @@ java -jar target/jscriptbasic-1.0.0-SNAPSHOT.jar src/test/basic/hello.sb
  is executed. At the end the output is flushed and closed so that the characters that were printed by the BASIC
  program are sent out to the console.
  
+ To have the interpreter on the command line you can manually copy the JAR file to the classpath, or you can
+ add the JAR file to the build process. If you use maven use the following dependency:
  
+---
+<dependency>
+	<groupId>com.scriptbasic</groupId>
+	<artifactId>jscriptbasic</artifactId>
+	<version>1.0.0</version>
+</dependency>
+--- 
+ 
+ At the moment the latest release is <<<1.0.0-SNAPSHOT>>>. For the actual state of the different releases
+ have a look at the page {{{./releases.html}releases}}.
