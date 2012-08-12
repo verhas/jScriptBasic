@@ -196,25 +196,21 @@ public class CommandFor extends AbstractCommand {
 
     void noStepLoopVariable(final ExtendedInterpreter interpreter)
             throws ExecutionException {
-        if (loopVariable instanceof BasicLeftValue) {
-            if (loopStep instanceof BasicLongValue) {
-                final Long step = BasicLongValue.convert(loopStep);
-                final Long loopEndValue = BasicLongValue.convert(loopEnd);
-                final Long newLoopValue = BasicLongValue.convert(getLoopVariableAsRightValue(interpreter));
-                setNextCommand(interpreter, step, newLoopValue, loopEndValue);
-            } else if (loopStep instanceof BasicDoubleValue) {
-                final Double step = BasicDoubleValue.convert(loopStep);
-                final Double loopEndValue = BasicDoubleValue.convert(loopEnd);
-                final Double newLoopValue = BasicDoubleValue
-                        .convert(getLoopVariableAsRightValue(interpreter));
-                setNextCommand(interpreter, step, newLoopValue, loopEndValue);
-            } else {
-                throw new BasicRuntimeException(
-                        "Loop step value can be long or double");
-            }
+        if (loopStep instanceof BasicLongValue) {
+            final Long step = BasicLongValue.convert(loopStep);
+            final Long loopEndValue = BasicLongValue.convert(loopEnd);
+            final Long newLoopValue = BasicLongValue
+                    .convert(getLoopVariableAsRightValue(interpreter));
+            setNextCommand(interpreter, step, newLoopValue, loopEndValue);
+        } else if (loopStep instanceof BasicDoubleValue) {
+            final Double step = BasicDoubleValue.convert(loopStep);
+            final Double loopEndValue = BasicDoubleValue.convert(loopEnd);
+            final Double newLoopValue = BasicDoubleValue
+                    .convert(getLoopVariableAsRightValue(interpreter));
+            setNextCommand(interpreter, step, newLoopValue, loopEndValue);
         } else {
             throw new BasicRuntimeException(
-                    "Loop variable is not BasicLeftValue, this is probably internal error");
+                    "Loop step value can be long or double");
         }
     }
 

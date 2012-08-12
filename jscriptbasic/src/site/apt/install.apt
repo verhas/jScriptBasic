@@ -64,7 +64,7 @@ java -jar target/jscriptbasic-1.0.0-SNAPSHOT.jar src/test/basic/hello.sb
 
  Place the JAR file on the classpath and use the JSR-223 standard interface to invoke ScriptBasic.
 
- ** LONG
+** LONG
  
  SB4J is compliant with the {{{http://www.jcp.org/en/jsr/detail?id=223}JSR-223}} standard. If you use this
  interface to integrate ScriptBasic into your application you need know know anything that is specific to
@@ -75,8 +75,19 @@ java -jar target/jscriptbasic-1.0.0-SNAPSHOT.jar src/test/basic/hello.sb
  To get a fast track to integrate jScriptBasic into an application you can have a look at the source code
  that implements the command line version of the interpreter and embeds the interpreter into a 'main' class.
  
+ The code is in the package <<<com.scriptbasic.main>>> and the class is <<<CommandLine>>>. The important
+ part is:
+ 
+%{snippet|id=x|file=src/main/java/com/scriptbasic/main/CommandLine.java}
+ 
+ The code creates a new <<<javax.script.ScriptEngineManager>>> that manages the loading and the location
+ of the interpreter. The command line version of ScriptBasic for Java asks the script engine manager to create
+ an interpreter based on the file name extension. As a side effect you can also execute JavaScript programs from
+ the command line using the jScriptBasic JAR. The JavaScript interpreter is included in the JRE since the version
+ 1.7
+ 
+ The following few lines set the standard and error input and output for the program and finally the script
+ is executed. At the end the output is flushed and closed so that the characters that were printed by the BASIC
+ program are sent out to the console.
  
  
- 
- 
-   
