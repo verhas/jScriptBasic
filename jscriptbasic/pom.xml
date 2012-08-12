@@ -13,7 +13,10 @@
 		<name>Verhas and Verhas Software Craftsmen</name>
 		<url>http://www.verhas.com</url>
 	</organization>
-	<description>ScriptBasic for Java is an implementation of ScriptBasic for the Java technology, language and users</description>
+	<description>ScriptBasic for Java is an implementation of ScriptBasic for the Java technology, language and users.
+	For more information have a look at the site documentation, and use the menu items on the left side.
+	
+	</description>
 	<issueManagement>
 		<url>https://github.com/verhas/jScriptBasic/issues</url>
 		<system>GitHub Issues</system>
@@ -61,13 +64,8 @@
 							<reports>
 							</reports>
 						</plugin>
-						<!-- 
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-javadoc-plugin</artifactId>
-							<version>2.7</version>
-						</plugin>
-						 -->
+						<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-javadoc-plugin</artifactId> 
+							<version>2.7</version> </plugin> -->
 					</reportPlugins>
 				</configuration>
 			</plugin>
