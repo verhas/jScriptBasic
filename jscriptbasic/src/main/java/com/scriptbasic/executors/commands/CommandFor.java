@@ -116,7 +116,7 @@ public class CommandFor extends AbstractCommand {
 
     private void startLoopWithLong(final ExtendedInterpreter interpreter)
             throws ExecutionException {
-        Long start = BasicLongValue.convert(loopStart);
+        final Long start = BasicLongValue.convert(loopStart);
         loopVariable.setValue(new BasicLongValue(start), interpreter);
         setNextCommand(interpreter, BasicLongValue.convert(loopStep), start,
                 BasicLongValue.convert(loopEnd));
@@ -124,7 +124,7 @@ public class CommandFor extends AbstractCommand {
 
     private void startLoopWithDouble(final ExtendedInterpreter interpreter)
             throws ExecutionException {
-        Double start = BasicDoubleValue.convert(loopStart);
+        final Double start = BasicDoubleValue.convert(loopStart);
         loopVariable.setValue(new BasicDoubleValue(start), interpreter);
         setNextCommand(interpreter, BasicDoubleValue.convert(loopStep), start,
                 BasicDoubleValue.convert(loopEnd));
@@ -136,13 +136,13 @@ public class CommandFor extends AbstractCommand {
                 ((BasicLeftValue) loopVariable).getIdentifier());
     }
 
-    private void finishTheLoop(ExtendedInterpreter interpreter) {
+    private void finishTheLoop(final ExtendedInterpreter interpreter) {
         interpreter.setNextCommand(loopEndNode.getNextCommand());
     }
 
     private <T extends Number> void setNextCommand(
-            final ExtendedInterpreter interpreter, T step, T newLoopValue,
-            T loopEndDouble) {
+            final ExtendedInterpreter interpreter, final T step,
+            final T newLoopValue, final T loopEndDouble) {
         if (NumberUtility.isPositive(step)) {
             if (NumberUtility.compare(newLoopValue, loopEndDouble) <= 0) {
                 interpreter.setNextCommand(getNextCommand());
@@ -194,6 +194,30 @@ public class CommandFor extends AbstractCommand {
         }
     }
 
+    void noStepLoopVariable(final ExtendedInterpreter interpreter)
+            throws ExecutionException {
+        if (loopVariable instanceof BasicLeftValue) {
+            if (loopStep instanceof BasicLongValue) {
+                final Long step = BasicLongValue.convert(loopStep);
+                final Long loopEndValue = BasicLongValue.convert(loopEnd);
+                final Long newLoopValue = BasicLongValue.convert(getLoopVariableAsRightValue(interpreter));
+                setNextCommand(interpreter, step, newLoopValue, loopEndValue);
+            } else if (loopStep instanceof BasicDoubleValue) {
+                final Double step = BasicDoubleValue.convert(loopStep);
+                final Double loopEndValue = BasicDoubleValue.convert(loopEnd);
+                final Double newLoopValue = BasicDoubleValue
+                        .convert(getLoopVariableAsRightValue(interpreter));
+                setNextCommand(interpreter, step, newLoopValue, loopEndValue);
+            } else {
+                throw new BasicRuntimeException(
+                        "Loop step value can be long or double");
+            }
+        } else {
+            throw new BasicRuntimeException(
+                    "Loop variable is not BasicLeftValue, this is probably internal error");
+        }
+    }
+
     private void setLoopStart(final ExtendedInterpreter interpreter)
             throws ExecutionException {
         if (loopStep instanceof BasicDoubleValue) {
@@ -232,6 +256,7 @@ public class CommandFor extends AbstractCommand {
             loopStep = new BasicLongValue(1L);
         }
         setLoopStart(interpreter);
+        noStepLoopVariable(interpreter);
     }
 
 }
