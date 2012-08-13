@@ -5,4 +5,8 @@
   ----------------------------------
   2012-08-11
   ----------------------------------
-  
+ 
+Configuring ScriptBasic for Java
+
+ First of all: ScriptBasic for Java can be executed out of the box without
+ configuration.  
