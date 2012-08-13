@@ -8,6 +8,7 @@ package com.scriptbasic.interfaces;
  * @date June 22, 2012
  * 
  */
+@SuppressWarnings("serial")
 public abstract class ExecutionException extends Exception {
 
     public ExecutionException() {

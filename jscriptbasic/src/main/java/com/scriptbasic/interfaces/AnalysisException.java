@@ -8,6 +8,7 @@ package com.scriptbasic.interfaces;
  * @date Jun 18, 2012
  * 
  */
+@SuppressWarnings("serial")
 public abstract class AnalysisException extends Exception {
 
     public AnalysisException() {

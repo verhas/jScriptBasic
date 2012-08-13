@@ -11,6 +11,28 @@ import java.lang.reflect.Method;
  * Hooks usually are extension means to implement profilers, debuggers and so
  * on.
  * <p>
+ * To implement a hook the class should implement this interface. It is
+ * recommended to extend the class {@see com.scriptbasic.hooks.SimpleHook}
+ * instead of implementing a fresh class just implementing this interface. There
+ * are a lot of methods in this interface and usually a hook class need
+ * functionality only for a subset. The class {@see
+ * com.scriptbasic.hooks.SimpleHook} gives default implementation for the
+ * methods and eases hook development providing extended methods.
+ * <p>
+ * To make a hook class used by the interpreter the class should be on the
+ * classpath during runtime and the configuration key {@code hook.}<i>N</i>
+ * should contains the FQN of the implementing class. The configuration
+ * parameter <i>N</i> should run from 0 ... and the hooks will be registered in
+ * the order they are numbered and executed in backward order. To use the hook
+ * delivered with jScriptBasic you should configure:
+ * 
+ * <pre>
+ * hook.0=com.scriptbasic.hooks.RunLimitHook
+ * </pre>
+ * 
+ * to have this hook called last (registered first). There are no hooks
+ * registered automatically.
+ * <p>
  * The hooks are in a chain and every hook method should call the same hook
  * method on the next hook object on the chain. The hooks are chained backward.
  * The last hook will be called directly by the interpreter and that hook will
@@ -73,9 +95,17 @@ public interface InterpreterHook {
      * interpreter.
      * 
      * @param alias
+     *            the name of the function as it will be known to the BASIC
+     *            program.
      * @param klass
+     *            the Java class where the static method is.
      * @param methodName
+     *            the Java name of the method
      * @param argumentTypes
+     *            the argument types of the methods. This, together with the
+     *            name of the method and the class identifies the actual method
+     *            that will be available to the BASIC programs to be called
+     *            through the name {@code alias}.
      */
     void beforeRegisteringJavaMethod(String alias, Class<?> klass,
             String methodName, Class<?>[] argumentTypes);

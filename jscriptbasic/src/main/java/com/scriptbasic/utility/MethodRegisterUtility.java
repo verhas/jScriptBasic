@@ -6,6 +6,7 @@ package com.scriptbasic.utility;
 import java.lang.reflect.Method;
 
 import com.scriptbasic.Function;
+import com.scriptbasic.interfaces.Configuration;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.ExtensionInterfaceVersion;
 import com.scriptbasic.log.Logger;
@@ -120,19 +121,53 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
     }
 
     /**
+     * Looks up the classifications in the configuration and calculates the
+     * numerical value of the different allow and deny configurations. Each
+     * configuration should have the form:
+     * 
+     * <pre>
+     *   class(com.scriptbasic.classificaton.Math)=allow 20
+     * </pre>
+     * 
+     * The numeric values are summed up: allow values are added, deny values are
+     * subtracted. If the final result is negative then the method is not
+     * allowed to be registered. If the final value is zero or positive then the
+     * method is to be registered.
+     * 
+     * 
      * @param classifications
-     * @return
+     *            the array of classification class usually fetched from the
+     *            static method annotation
+     * @return true if the configuration allows the registering of the method
      */
     private static boolean classificationsAllowRegistering(
             ExtendedInterpreter interpreter, Class<?>[] classifications) {
-        // TODO use the SecurityManager to control the access to the different
-        // Java methods
-        // Configuration config = interpreter.getConfiguration();
-        // for (Class<?> classification : classifications) {
-        // if ("deny".equals(config.getConfigValue("classification."
-        // + classification.getName(), "allow")))
-        // return false;
-        // }
-        return true;
+        Configuration config = interpreter.getConfiguration();
+        Integer allowLevel = 0;
+        for (Class<?> classification : classifications) {
+            String name = classification.getName();
+            String key = "class(" + name + ")";
+            String value = config.getConfigValue(key);
+            if (value != null) {
+                final Integer direction;
+                value = value.trim();
+                if (value.startsWith("allow ")) {
+                    value = value.substring(5).trim();
+                    direction = +1;
+                } else if (value.startsWith("deny ")) {
+                    value = value.substring(4).trim();
+                    direction = -1;
+                } else {
+                    throw new RuntimeException(
+                            "The configuration key '"
+                                    + key
+                                    + "' has bad value: '"
+                                    + value
+                                    + "' it should start with the string 'allow' or 'deny'");
+                }
+                allowLevel += direction * Integer.valueOf(value);
+            }
+        }
+        return allowLevel >= 0;
     }
 }
