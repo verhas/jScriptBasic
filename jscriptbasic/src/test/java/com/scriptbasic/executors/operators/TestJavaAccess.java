@@ -37,9 +37,9 @@ public class TestJavaAccess extends TestCase {
         return eInterpreter;
     }
 
-    private static void asserta(ExtendedInterpreter eInterpreter,
-            Object expected) throws ExecutionException {
-        Object actual = eInterpreter.getVariable("a");
+    private static void asserta(ExtendedInterpreter interpreter, Object expected)
+            throws ExecutionException {
+        Object actual = interpreter.getVariable("a");
         if (expected instanceof Integer) {
             expected = ((Integer) expected).longValue();
         }
@@ -52,9 +52,9 @@ public class TestJavaAccess extends TestCase {
 
     private static void b(final String s, Object expected)
             throws AnalysisException, ExecutionException {
-        ExtendedInterpreter eInterpreter = ana(s);
-        eInterpreter.execute();
-        asserta(eInterpreter, expected);
+        ExtendedInterpreter interpreter = ana(s);
+        interpreter.execute();
+        asserta(interpreter, expected);
     }
 
     private static String program(String... lines) {
@@ -111,6 +111,8 @@ public class TestJavaAccess extends TestCase {
         b(program("\n", "use Math from java.lang as m",
                 "method sin from java.lang.Math is (double)", "a=m.sin(1.0)"),
                 Math.sin(1.0));
+        
+        b(program("use Double from java.lang", "a=Double.valueOf(\"1.0\")"), 1.0);
 
     }
 }

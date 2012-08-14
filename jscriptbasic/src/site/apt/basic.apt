@@ -11,21 +11,22 @@ The BASIC language interpreted by ScriptBasic for Java
  The language implemented byScriptBasic for Java is a simple BASIC language. There are only a very few commands implemented
  to keep the language simple, easy to learn. The following commands are implemented:
  
- * Variable assignment, <<<LET>>> and expression with operators
+ * {{{./basic/let.html}Variable assignment}}, <<<LET>>> and expression with operators
 
- * <<<IF>>>/<<<THEN>>>/<<<ELSEIF>>>/<<<ELSE>>>/<<<ENDIF>>> conditional commands
+ * <<<IF>>>/<<<THEN>>>/<<<ELSEIF>>>/<<<ELSE>>>/<<<ENDIF>>> {{{./basic/if.html}conditional commands}}
  
- * <<<SUB>>>/<<<CALL>>>/<<<RETURN>>> subroutine and call using formal arguments and local variables
+ * <<<SUB>>>/<<<CALL>>>/<<<RETURN>>> {{{./basic/sub.html}subroutine and call}} using formal arguments and local variables
  
- * <<<FOR>>>/<<<TO>>>/<<<STEP>>>/<<<NEXT>>> loop, using integer or float loop variable. Default step is 1. Checked at the head of the loop.
+ * <<<FOR>>>/<<<TO>>>/<<<STEP>>>/<<<NEXT>>> {{{./basic/for.html}loop}}, using integer or float loop variable.
+   Default step is 1. Checked at the head of the loop
  
- * <<<WHILE>>>/<<<WEND>>> loop
+ * <<<WHILE>>>/<<<WEND>>> {{{./basic/while.html}loop}}
  
- * <<<PRINT>>> command to send output to the standard output stream
+ * <<<PRINT>>> command to {{{./basic/print.html}send output}} to the standard output stream
  
- * <<<GLOBAL>>>/<<<LOCAL>>> variable declaration
+ * <<<GLOBAL>>>/<<<LOCAL>>> {{{./basic/global.html}variable declaration}}
  
- * <<<USE>>>/<<<METHOD>>> declaration to use Java methods and objects from the BASIC code
+ * <<<USE>>>/<<<METHOD>>> {{{./basic/method.html}declaration}} to use Java methods and objects from the BASIC code
 
  The operators implemented in the language are
  

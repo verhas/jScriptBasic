@@ -120,15 +120,15 @@ public final class BasicCommandFactory implements CommandFactory {
 
     private Command createFromStartingSymbol(final String commandKeyword)
             throws AnalysisException {
-        final String loverCaseCommandKeyword = commandKeyword.toLowerCase();
+        final String lowerCaseCommandKeyword = commandKeyword.toLowerCase();
         LOG.debug("Creating command starting with the keyword '{}'",
-                loverCaseCommandKeyword);
-        if (!classMap.containsKey(loverCaseCommandKeyword)) {
+                lowerCaseCommandKeyword);
+        if (!classMap.containsKey(lowerCaseCommandKeyword)) {
             throw new KeywordNotImplementedException(commandKeyword);
         }
 
         final CommandAnalyzer commandAnalyzer = classMap
-                .get(loverCaseCommandKeyword);
+                .get(lowerCaseCommandKeyword);
         return commandAnalyzer.analyze();
     }
 
