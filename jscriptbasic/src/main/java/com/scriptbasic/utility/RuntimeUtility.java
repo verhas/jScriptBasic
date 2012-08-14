@@ -23,10 +23,6 @@ public class RuntimeUtility {
         UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
     }
 
-    // TODO separate this utility class from the one that can be used to
-    // register the methods and make the other one configurable via properties,
-    // XML and API
-
     /**
      * This method can be used to call the default constructor of a class. This,
      * of course, can only be used for classes that have default constructor.

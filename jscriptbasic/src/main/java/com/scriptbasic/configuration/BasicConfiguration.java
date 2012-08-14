@@ -26,6 +26,14 @@ public class BasicConfiguration implements Configuration {
 
     Factory factory;
 
+    public BasicConfiguration() {
+        try {
+            loadDefaultConfiguration();
+        } catch (Exception e) {
+            LOG.error("Configuration was not loaded", e);
+        }
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -85,6 +93,7 @@ public class BasicConfiguration implements Configuration {
 
     private final HashMap<String, List<String>> lists = new HashMap<>();
 
+    @Override
     public List<String> getConfigValueList(final String key) {
         if (lists.containsKey(key)) {
             return lists.get(key);

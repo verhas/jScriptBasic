@@ -126,7 +126,8 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
      * configuration should have the form:
      * 
      * <pre>
-     *   class(com.scriptbasic.classificaton.Math)=allow 20
+     *   allow(com.scriptbasic.classificaton.Math) = 20
+     *   deny(com.scriptbasic.classification.System) = 30
      * </pre>
      * 
      * The numeric values are summed up: allow values are added, deny values are
@@ -146,28 +147,16 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
         Integer allowLevel = 0;
         for (Class<?> classification : classifications) {
             String name = classification.getName();
-            String key = "class(" + name + ")";
-            String value = config.getConfigValue(key);
-            if (value != null) {
-                final Integer direction;
-                value = value.trim();
-                if (value.startsWith("allow ")) {
-                    value = value.substring(5).trim();
-                    direction = +1;
-                } else if (value.startsWith("deny ")) {
-                    value = value.substring(4).trim();
-                    direction = -1;
-                } else {
-                    throw new RuntimeException(
-                            "The configuration key '"
-                                    + key
-                                    + "' has bad value: '"
-                                    + value
-                                    + "' it should start with the string 'allow' or 'deny'");
-                }
-                allowLevel += direction * Integer.valueOf(value);
-            }
+            String allowKey = "allow(" + name + ")";
+            String denyKey = "deny(" + name + ")";
+            String allowValue = config.getConfigValue(allowKey);
+            String denyValue = config.getConfigValue(denyKey);
+            allowLevel += gIV(allowValue) - gIV(denyValue);
         }
         return allowLevel >= 0;
+    }
+
+    private static Integer gIV(String s) {
+        return s == null ? 0 : Integer.valueOf(s);
     }
 }
