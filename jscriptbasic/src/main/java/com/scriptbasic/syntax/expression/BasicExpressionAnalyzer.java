@@ -20,7 +20,7 @@ import com.scriptbasic.executors.operators.MinusOperator;
 import com.scriptbasic.executors.operators.ModuloOperator;
 import com.scriptbasic.executors.operators.MultiplyOperator;
 import com.scriptbasic.executors.operators.NotEqualOperator;
-import com.scriptbasic.executors.operators.ObjectFieldAccessOperator;
+import com.scriptbasic.executors.operators.JavaObjectFieldAccessOperator;
 import com.scriptbasic.executors.operators.PowerOperator;
 
 public final class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
@@ -50,7 +50,7 @@ public final class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
         Map<String, Class<? extends AbstractBinaryOperator>> opMap = null;
         int priority = 0;
         opMap = getStaticOperatorMap(++priority);
-        opMap.put(".", ObjectFieldAccessOperator.class);
+        opMap.put(".", JavaObjectFieldAccessOperator.class);
         opMap = getStaticOperatorMap(++priority);
         opMap.put("^", PowerOperator.class);
         opMap = getStaticOperatorMap(++priority);

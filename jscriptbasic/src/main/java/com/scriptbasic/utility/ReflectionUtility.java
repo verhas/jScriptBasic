@@ -4,14 +4,20 @@
 package com.scriptbasic.utility;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
+
+import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.RightValue;
 
 /**
  * @author Peter Verhas
  * @date Aug 2, 2012
  * 
  */
-public class BeanUtility {
-    private BeanUtility() {
+public class ReflectionUtility {
+    private ReflectionUtility() {
         UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
     }
 
@@ -54,6 +60,43 @@ public class BeanUtility {
             final Object value) throws NoSuchFieldException, SecurityException,
             IllegalArgumentException, IllegalAccessException {
         setField(null, object, fieldName, value);
+    }
+
+    /**
+     * Invoke the {@code method} on the {@code object} using the {@code args}.
+     * <p>
+     * If {@code object} is {@code null} then call the static method.
+     * <p>
+     * Before the Java method call the hook method
+     * {@code beforeCallJavaFunction} is called.
+     * <p>
+     * After the Java method call the hook method{@code afterCallJavaFunction}
+     * is called.
+     * 
+     * @param interpreter
+     *            the interpreter
+     * @param method
+     *            the method to call
+     * @param object
+     *            the object on which the call is to be performed or
+     *            {@code null} in case the method is static
+     * @param args
+     *            the arguments to the method call
+     * @return the object returned by the Java method if any.
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws InvocationTargetException
+     * @throws Exception
+     */
+    public static Object invoke(ExtendedInterpreter interpreter, Method method,
+            Object object, List<RightValue> args)
+            throws IllegalAccessException, IllegalArgumentException,
+            InvocationTargetException, Exception {
+        interpreter.getHook().beforeCallJavaFunction(method);
+        Object result = method.invoke(object,
+                ExpressionUtility.getObjectArray(args, method, interpreter));
+        result = interpreter.getHook().afterCallJavaFunction(method, result);
+        return result;
     }
 
     /**

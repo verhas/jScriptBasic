@@ -322,21 +322,28 @@ public class TestOperators extends TestCase {
         b("a=b.fff", new qqq(), 13.0);
         b("a=b.ccc.www", new qqq(), 13);
 
-        final qqq l = new qqq();
-
-        class zp {
-            public Integer zpq() {
-                log.debug("zpq() was called");
-                return 14;
-            }
-
-            public qqq oneArg(Long z) {
-                log.debug("oneArg was called: {}", z);
-                return l;
-            }
-        }
         b("a=b.zpq()", new zp(), 14);
-        b("a=b.oneArg(13)", new zp(), l);
+        zp ZP = new zp();
+        qqq Q = ZP.getQ();
+        
+        b("a=b.oneArg(13)", ZP, Q);
     }
 
+    public static class zp {
+        qqq Q = new qqq();
+
+        qqq getQ() {
+            return Q;
+        }
+
+        public Integer zpq() {
+            log.debug("zpq() was called");
+            return 14;
+        }
+
+        public qqq oneArg(Long z) {
+            log.debug("oneArg was called: {}", z);
+            return Q;
+        }
+    }
 }

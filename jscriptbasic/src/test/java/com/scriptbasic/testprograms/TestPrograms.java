@@ -3,6 +3,9 @@
  */
 package com.scriptbasic.testprograms;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import junit.framework.TestCase;
 
 import com.scriptbasic.Executor;
@@ -16,11 +19,17 @@ import com.scriptbasic.interfaces.BasicRuntimeException;
  */
 public class TestPrograms extends TestCase {
 
-    private static void codeTest(String fileName, String expectedOutput)
-            throws Exception {
+    private static void codeTest(String fileName, Map<String, Object> map,
+            String expectedOutput) throws Exception {
         Executor e = new Executor();
+        e.setMap(map);
         e.execute(fileName);
         e.assertOutput(expectedOutput);
+    }
+
+    private static void codeTest(String fileName, String expectedOutput)
+            throws Exception {
+        codeTest(fileName, null, expectedOutput);
     }
 
     private static void testSyntaxFail(String fileName) throws Exception {
@@ -34,7 +43,18 @@ public class TestPrograms extends TestCase {
         }
     }
 
+    public static class TestClass {
+        public int callMe() {
+            return 3;
+        }
+
+        public long callMe(Long s) {
+            return 2 * s;
+        }
+    }
+
     public static void testPrograms() throws Exception {
+        Map<String, Object> map;
         codeTest("TestEmpty.bas", "");
         codeTest("TestPrintHello.bas", "hello");
         codeTest("TestIf.bas", "111");
@@ -76,5 +96,10 @@ public class TestPrograms extends TestCase {
         codeTest("TestForLoop9.bas", "111213212223313233");
         codeTest("TestRuntimeFunction.bas", "1.01.5707963267948966");
         codeTest("TestNullFunction.bas", "undefundef");
+        codeTest("TestMethodCall.bas",
+                "" + Math.sin(1.0) + "\n" + Math.sin(1.0));
+        map = new HashMap<>();
+        map.put("testClass", new TestClass());
+        codeTest("TestObjectMethodCall.bas", map, "310");
     }
 }

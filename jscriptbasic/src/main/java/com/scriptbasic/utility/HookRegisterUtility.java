@@ -23,6 +23,22 @@ public class HookRegisterUtility {
     private static Logger LOG = LoggerFactory
             .getLogger(HookRegisterUtility.class);
 
+    /**
+     * Create hook instances and chain them up based on the configuration file.
+     * The configuration contains {@code hook.0}, {@code hook.1} ... properties
+     * keys and their value is the name of the class that implements the {@see
+     * com.scriptbasic.interface.InterpreterHook} interface.
+     * <p>
+     * The method loads the classes, creates a new instance of each configured
+     * class and registers the new object in the interpreter.
+     * <p>
+     * Note that registering does not include the call to the method {@see
+     * InterpreterHook#init()}. It is executed when all the hook objects are
+     * chained and the {@code init()} invocation already uses the normal
+     * chaining.
+     * 
+     * @param interpreter
+     */
     public static void registerHooks(ExtendedInterpreter interpreter) {
         List<String> hookClassNameList = interpreter.getConfiguration()
                 .getConfigValueList("hook");

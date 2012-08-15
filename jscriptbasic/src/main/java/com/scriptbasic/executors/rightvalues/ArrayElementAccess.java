@@ -16,9 +16,7 @@ public class ArrayElementAccess extends
             throws ExecutionException {
         VariableMap variableMap = interpreter.getVariables();
         RightValue value = variableMap.getVariableValue(getVariableName());
-        if( interpreter.getHook() != null ){
-            value = interpreter.getHook().variableRead(getVariableName(),value);
-        }
+        value = interpreter.getHook().variableRead(getVariableName(), value);
         for (Expression expression : getExpressionList()) {
             if (value instanceof BasicArrayValue) {
                 BasicArrayValue arrayVar = (BasicArrayValue) value;
@@ -27,7 +25,7 @@ public class ArrayElementAccess extends
                 Object object = arrayVar.get(index);
                 if (object instanceof RightValue) {
                     value = (RightValue) object;
-                }else{
+                } else {
                     value = new BasicJavaObjectValue(object);
                     arrayVar.set(index, value);
                 }

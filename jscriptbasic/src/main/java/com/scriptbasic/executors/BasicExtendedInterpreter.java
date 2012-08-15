@@ -11,6 +11,7 @@ import java.util.Stack;
 
 import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
+import com.scriptbasic.hooks.NullHook;
 import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.Configuration;
@@ -19,6 +20,7 @@ import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.HierarchicalVariableMap;
 import com.scriptbasic.interfaces.InterpreterHook;
+import com.scriptbasic.interfaces.MethodRegistry;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.memory.MixedBasicVariableMap;
 import com.scriptbasic.utility.FactoryUtility;
@@ -181,8 +183,9 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     public void execute() throws ExecutionException {
         final Command command = program.getStartCommand();
         MethodRegisterUtility.registerFunctions(RuntimeUtility.class, this);
+        registerHook(new NullHook());
         HookRegisterUtility.registerHooks(this);
-        if( hook != null ){
+        if (hook != null) {
             hook.init();
         }
         execute(command);
@@ -324,7 +327,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
         return useMap;
     }
 
-    private final MethodRegistry methodRegistry = new MethodRegistry();
+    private final MethodRegistry basicMethodRegistry = new BasicMethodRegistry();
 
     /*
      * (non-Javadoc)
@@ -336,7 +339,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     @Override
     public Method getJavaMethod(final Class<?> klass, final String methodName)
             throws ExecutionException {
-        return methodRegistry.getJavaMethod(klass, methodName);
+        return basicMethodRegistry.getJavaMethod(klass, methodName);
     }
 
     /*
@@ -353,7 +356,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
             hook.beforeRegisteringJavaMethod(alias, klass, methodName,
                     argumentTypes);
         }
-        methodRegistry.registerJavaMethod(alias, klass, methodName,
+        basicMethodRegistry.registerJavaMethod(alias, klass, methodName,
                 argumentTypes);
 
     }

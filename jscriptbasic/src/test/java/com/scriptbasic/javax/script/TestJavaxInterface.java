@@ -26,7 +26,7 @@ import com.scriptbasic.Version;
 import com.scriptbasic.factories.FactoryServiceLoader;
 import com.scriptbasic.factories.SingletonFactoryFactory;
 import com.scriptbasic.interfaces.Configuration;
-import com.scriptbasic.utility.BeanUtility;
+import com.scriptbasic.utility.ReflectionUtility;
 import com.scriptbasic.utility.FactoryUtility;
 
 /**
@@ -41,7 +41,7 @@ public class TestJavaxInterface {
     @After
     public void tearDown() {
         try {
-            BeanUtility.setField(SingletonFactoryFactory.class, "singleton",
+            ReflectionUtility.setField(SingletonFactoryFactory.class, "singleton",
                     FactoryServiceLoader.loadFactory());
         } catch (NoSuchFieldException | SecurityException
                 | IllegalArgumentException | IllegalAccessException e) {

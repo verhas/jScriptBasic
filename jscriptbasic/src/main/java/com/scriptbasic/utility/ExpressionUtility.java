@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.scriptbasic.exceptions.GenericSyntaxException;
-import com.scriptbasic.executors.operators.ObjectFieldAccessOperator;
+import com.scriptbasic.executors.operators.JavaObjectFieldAccessOperator;
 import com.scriptbasic.executors.rightvalues.BasicStringValue;
 import com.scriptbasic.executors.rightvalues.VariableAccess;
 import com.scriptbasic.interfaces.AnalysisException;
@@ -94,8 +94,8 @@ public final class ExpressionUtility {
         if (expression instanceof VariableAccess) {
             return ((VariableAccess) expression).getVariableName();
         }
-        if (expression instanceof ObjectFieldAccessOperator) {
-            ObjectFieldAccessOperator ofao = (ObjectFieldAccessOperator) expression;
+        if (expression instanceof JavaObjectFieldAccessOperator) {
+            JavaObjectFieldAccessOperator ofao = (JavaObjectFieldAccessOperator) expression;
             return convertToString(ofao.getLeftOperand()) + "."
                     + convertToString(ofao.getRightOperand());
         }

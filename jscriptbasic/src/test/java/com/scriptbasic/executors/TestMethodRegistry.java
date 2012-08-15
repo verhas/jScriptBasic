@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.interfaces.MethodRegistry;
 
 /**
  * @author Peter Verhas
@@ -20,7 +21,7 @@ import com.scriptbasic.interfaces.ExecutionException;
 public class TestMethodRegistry extends TestCase {
     @Test(expected = BasicRuntimeException.class)
     public static void testRegistry() throws ExecutionException {
-        MethodRegistry mr = new MethodRegistry();
+        MethodRegistry mr = new BasicMethodRegistry();
         mr.registerJavaMethod("alias", Object.class, "noSuchMethod",
                 new Class[] { Object.class });
         try {

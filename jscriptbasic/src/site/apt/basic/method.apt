@@ -100,28 +100,3 @@ METHOD abs FROM java.lang.Math IS (int) USE AS iabs
  Both the command <<<USE>>> and <<<METHOD>>> can be used with strings in place of the method name, alias and 
  class/package names.
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-  USE class FROM package [AS class_name]
-  
-  
-  
-  
-  
-  

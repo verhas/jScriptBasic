@@ -14,7 +14,7 @@ import com.scriptbasic.factories.SingletonFactoryFactory;
 import com.scriptbasic.interfaces.Configuration;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
-import com.scriptbasic.utility.BeanUtility;
+import com.scriptbasic.utility.ReflectionUtility;
 import com.scriptbasic.utility.FactoryUtility;
 
 /**
@@ -104,7 +104,7 @@ public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
         if (config != null && config.getConfigValue(key + "." + 0) != null) {
             try {
                 List<String> list = new ArrayList<String>();
-                BeanUtility.setField(this, keys, list);
+                ReflectionUtility.setField(this, keys, list);
                 for (int i = 0; config.getConfigValue(key + "." + i) != null; i++) {
                     if (config.getConfigValue(key + "." + i).length() > 0) {
                         list.add(config.getConfigValue(key));

@@ -208,7 +208,8 @@ public interface ExtendedInterpreter extends Interpreter {
      * method sin from java.lang.Math is (double)
      * </pre>
      * 
-     * that defines that the
+     * that defines that the method {@code sin} is in the class
+     * {@code java.lang.Math} and accepts one argument, which is {@code double}
      * 
      * @param klass
      * @param mehodName

@@ -17,6 +17,7 @@ import com.scriptbasic.interfaces.LeftValue;
 import com.scriptbasic.interfaces.LeftValueList;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.utility.ExpressionUtility;
+import com.scriptbasic.utility.ReflectionUtility;
 import com.scriptbasic.utility.RightValueUtility;
 
 public class FunctionCall extends
@@ -33,10 +34,8 @@ public class FunctionCall extends
         interpreter.disableHook();
         interpreter.setReturnValue(null);
         interpreter.enableHook();
-        if (interpreter.getHook() != null) {
-            interpreter.getHook().beforeSubroutineCall(getVariableName(),
-                    arguments, argumentValues);
-        }
+        interpreter.getHook().beforeSubroutineCall(getVariableName(),
+                arguments, argumentValues);
         interpreter.execute(commandSub.getNextCommand());
         result = interpreter.getReturnValue();
         interpreter.pop();
@@ -53,15 +52,8 @@ public class FunctionCall extends
         if (method != null) {
             Object methodResult = null;
             try {
-                if (interpreter.getHook() != null) {
-                    interpreter.getHook().beforeCallJavaFunction(method);
-                }
-                methodResult = method.invoke(null, ExpressionUtility
-                        .getObjectArray(args, method, interpreter));
-                if (interpreter.getHook() != null) {
-                    methodResult = interpreter.getHook().afterCallJavaFunction(
-                            method, methodResult);
-                }
+                methodResult = ReflectionUtility.invoke(interpreter, method,
+                        null, args);
             } catch (IllegalAccessException | IllegalArgumentException
                     | InvocationTargetException e) {
                 throw new BasicRuntimeException("Can not invoke method "

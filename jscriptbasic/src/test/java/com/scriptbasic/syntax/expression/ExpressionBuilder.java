@@ -6,7 +6,7 @@ import com.scriptbasic.executors.operators.AbstractBinaryOperator;
 import com.scriptbasic.executors.operators.AbstractUnaryOperator;
 import com.scriptbasic.executors.operators.AddOperator;
 import com.scriptbasic.executors.operators.MultiplyOperator;
-import com.scriptbasic.executors.operators.ObjectFieldAccessOperator;
+import com.scriptbasic.executors.operators.JavaObjectFieldAccessOperator;
 import com.scriptbasic.executors.operators.UnaryOperatorMinus;
 import com.scriptbasic.executors.operators.UnaryOperatorNot;
 import com.scriptbasic.executors.operators.UnaryOperatorPlus;
@@ -135,7 +135,7 @@ public class ExpressionBuilder {
     }
 
     public static Expression OBJECT_FIELD(final Expression a, final Expression b) {
-        final ObjectFieldAccessOperator ofa = new ObjectFieldAccessOperator();
+        final JavaObjectFieldAccessOperator ofa = new JavaObjectFieldAccessOperator();
         ofa.setLeftOperand(a);
         ofa.setRightOperand(b);
         return ofa;

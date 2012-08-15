@@ -71,9 +71,7 @@ public class SimpleHook implements InterpreterHook {
         interpreter.disableHook();
         beforeExecuteEx(command);
         interpreter.enableHook();
-        if (next != null) {
-            next.beforeExecute(command);
-        }
+        next.beforeExecute(command);
     }
 
     /**
@@ -94,10 +92,7 @@ public class SimpleHook implements InterpreterHook {
         interpreter.disableHook();
         afterExecuteEx(command);
         interpreter.enableHook();
-        if (next != null) {
-            next.afterExecute(command);
-        }
-
+        next.afterExecute(command);
     }
 
     /**
@@ -121,10 +116,8 @@ public class SimpleHook implements InterpreterHook {
         interpreter.disableHook();
         beforeRegisteringJavaMethodEx(alias, klass, methodName, argumentTypes);
         interpreter.enableHook();
-        if (next != null) {
-            next.beforeRegisteringJavaMethod(alias, klass, methodName,
-                    argumentTypes);
-        }
+        next.beforeRegisteringJavaMethod(alias, klass, methodName,
+                argumentTypes);
 
     }
 
@@ -151,9 +144,7 @@ public class SimpleHook implements InterpreterHook {
         interpreter.disableHook();
         beforePushEx(command);
         interpreter.enableHook();
-        if (next != null) {
-            next.beforePush(command);
-        }
+        next.beforePush(command);
     }
 
     /**
@@ -174,9 +165,7 @@ public class SimpleHook implements InterpreterHook {
         interpreter.disableHook();
         afterPushEx(command);
         interpreter.enableHook();
-        if (next != null) {
-            next.afterPush(command);
-        }
+        next.afterPush(command);
     }
 
     /**
@@ -195,9 +184,7 @@ public class SimpleHook implements InterpreterHook {
         interpreter.disableHook();
         beforePopEx();
         interpreter.enableHook();
-        if (next != null) {
-            next.beforePop();
-        }
+        next.beforePop();
     }
 
     /**
@@ -217,9 +204,7 @@ public class SimpleHook implements InterpreterHook {
         interpreter.disableHook();
         afterPopEx(command);
         interpreter.enableHook();
-        if (next != null) {
-            next.afterPop(command);
-        }
+        next.afterPop(command);
     }
 
     /**
@@ -240,9 +225,7 @@ public class SimpleHook implements InterpreterHook {
         interpreter.disableHook();
         setReturnValueEx(returnValue);
         interpreter.enableHook();
-        if (next != null) {
-            next.setReturnValue(returnValue);
-        }
+        next.setReturnValue(returnValue);
     }
 
     /**
@@ -265,9 +248,7 @@ public class SimpleHook implements InterpreterHook {
         interpreter.disableHook();
         beforeSubroutineCallEx(subroutineName, arguments, argumentValues);
         interpreter.enableHook();
-        if (next != null) {
-            next.beforeSubroutineCall(subroutineName, arguments, argumentValues);
-        }
+        next.beforeSubroutineCall(subroutineName, arguments, argumentValues);
     }
 
     /**
@@ -291,9 +272,7 @@ public class SimpleHook implements InterpreterHook {
         interpreter.disableHook();
         beforeCallJavaFunctionEx(method);
         interpreter.enableHook();
-        if (next != null) {
-            next.beforeCallJavaFunction(method);
-        }
+        next.beforeCallJavaFunction(method);
     }
 
     /**
@@ -314,9 +293,7 @@ public class SimpleHook implements InterpreterHook {
         interpreter.disableHook();
         Object hookedResult = afterCallJavaFunctionEx(method, result);
         interpreter.enableHook();
-        if (next != null) {
-            hookedResult = next.afterCallJavaFunction(method, hookedResult);
-        }
+        hookedResult = next.afterCallJavaFunction(method, hookedResult);
         return hookedResult;
     }
 
@@ -342,9 +319,7 @@ public class SimpleHook implements InterpreterHook {
         interpreter.disableHook();
         RightValue hookedValue = variableReadEx(variableName, value);
         interpreter.enableHook();
-        if (next != null) {
-            hookedValue = next.variableRead(variableName, hookedValue);
-        }
+        hookedValue = next.variableRead(variableName, hookedValue);
         return hookedValue;
     }
 
@@ -369,9 +344,7 @@ public class SimpleHook implements InterpreterHook {
         interpreter.disableHook();
         initEx();
         interpreter.enableHook();
-        if (next != null) {
-            next.init();
-        }
+        next.init();
 
     }
 

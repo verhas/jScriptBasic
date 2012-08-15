@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Map;
 
 import junit.framework.TestCase;
 
@@ -30,6 +31,11 @@ import com.scriptbasic.utility.FactoryUtility;
 public class Executor extends AbstractStringIOPojo {
 
     private Factory factory = new BasicFactory();
+    private Map<String, Object> map = null;
+
+    public void setMap(Map<String, Object> map) {
+        this.map = map;
+    }
 
     public void execute(String resourceName) throws AnalysisException,
             ExecutionException, ClassNotFoundException {
@@ -45,18 +51,23 @@ public class Executor extends AbstractStringIOPojo {
         final LexicalAnalyzer lexicalAnalyzer = FactoryUtility
                 .getLexicalAnalyzer(factory);
         lexicalAnalyzer.set(reader);
-        ExtendedInterpreter eInterpreter = FactoryUtility
+        ExtendedInterpreter interpreter = FactoryUtility
                 .getExtendedInterpreter(factory);
-        eInterpreter.setProgram(FactoryUtility.getSyntaxAnalyzer(factory)
+        interpreter.setProgram(FactoryUtility.getSyntaxAnalyzer(factory)
                 .analyze());
         StringWriter writer = new StringWriter();
-        eInterpreter.setWriter(writer);
+        interpreter.setWriter(writer);
         StringWriter errorWriter = new StringWriter();
-        eInterpreter.setErrorWriter(errorWriter);
+        interpreter.setErrorWriter(errorWriter);
         StringReader inputReader = getSStdin() == null ? null
                 : new StringReader(getSStdin());
-        eInterpreter.setReader(inputReader);
-        eInterpreter.execute();
+        interpreter.setReader(inputReader);
+        if (map != null) {
+            for (String key : map.keySet()) {
+                interpreter.setVariable(key, map.get(key));
+            }
+        }
+        interpreter.execute();
         setSStdout(writer.toString());
     }
 
