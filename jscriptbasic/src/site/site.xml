@@ -30,6 +30,7 @@
 		<menu name="Documentation for SB4J">
 			<item name="Introduction" href="intro.html" />
 			<item name="Name of the game" href="name.html" />
+			<item name="History and Design Goals" href="design.html"/>
 			<item name="Basic Language Implemented" href="basic.html" />
 			<item name="Installation" href="install.html" />
 			<item name="Configuration" href="configure.html" />

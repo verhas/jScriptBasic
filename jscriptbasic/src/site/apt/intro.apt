@@ -17,28 +17,29 @@ What is ScriptBasic for Java
 * No freak out language 
  
  Business analysts, domain experts who use an application can learn Groovy, JavaScript, Scala or some other
- scripting language. In case of BASIC this learning is not needed. If anything is known by such a user BASIC is.
- This also means that the "freak out" factor is minimal. Your prospective customers may freak out hearing that
+ scripting language to program the scripting possibilities of the application. They probably will not learn.
+ In case of BASIC this learning is not needed. If anything is known by such a user BASIC is.
+ This also means that the "freak out" factor is minimal. Your prospective users may freak out hearing that
  the application can be scripted using Groovy or Scala or JavaScript which all are considered geek languages.
  In case of BASIC this does not happen. If the prospective user has minimal affinity to programming
  he or she has some experience using Excel and its BASIC, Visual Basic or just any other BASIC.
  
  For the same reason the language implemented is very simple. It implements only a very limited set
- of commands and operators. All command is implemented that is needed to create embedded scripts but nothing more.
+ of commands and operators. Each command is implemented that is needed to create embedded scripts but nothing more.
  You can assign values to variables, loop, execute conditional code (IF statement), print to the standard output
- and call subroutines. These are the internal things to execute a script. To communicate with the embedding application
+ and call subroutines. You can handle arrays. Anything else you need in a BASIC script? To communicate with the embedding application
  more than just printing to the output the program can call Java static methods or instance methods in case an
- object is stored in a BASIC variable. To that he usual <<<object.method(params)>>> format can be used, or just
- <<<method(params)>>> in case of static functions.
+ object is stored in a BASIC variable. To do that the usual <<<object.method(params)>>> format can be used, or just
+ <<<method(params)>>> when it is not ambiguous.
  
-* Control at the hand of the application
+* Control remains at the hand of the application
 
- Script languages many time if not properly configured pose security risks. When you start a script it can
+ Script languages may pose security risks if not properly configured . When you start a script it can
  access the application Java objects, methods and so on. You have to pay great attention to execute other
- language scripts securely setting up SecurityManager.
+ language scripts securely setting up SecurityManager. To avoid a hacking script get feral.
  
  To execute jScriptBasic all you have to do is to configure the optional RunLimitHook included in the
- interpreter JAR file to limit the execution to your security needs.
+ interpreter JAR file to limit the execution and specify what the script is allowed to do and what it is not allowed to do.
  
 * Standard Interface
 
@@ -50,12 +51,15 @@ What is ScriptBasic for Java
  of ScriptBasic for Java. It just happens to be a fact that using the JSR-223 interface if the extension of
  the script file is <<<.js>>> then the Rhino interpreter will start.
  
+ If an application properly uses the JRS-223 interface, integrating jScriptBasic as another scripting language
+ to the application is simply copying the <<<jscriptbasic-x.y.z.jar>>> file on the classpath and restart the application.
+ 
 * Command line tool
 
- You can execute BASIC programs from the command line. All you have to do is issue the command line
+ You can also execute BASIC programs from the command line. All you have to do is issue the command line
  
 ---
-java -jar jscriptbasic.jar basicProgram.sb
+java -jar jscriptbasic-x.y.z.jar basicProgram.sb
 ---        
 
  and the program in the file <<<basicProgram.sb>>> will execute.

@@ -3,5 +3,57 @@
   ----------------------------------
   Peter Verhas
   ----------------------------------
-  2012-08-14
+  2012-08-16
   ----------------------------------
+
+FOR loop
+
+ ScriptBasic for Java supports the classical <<<FOR>>> loop. The syntax of this looping construct is
+ 
+~~23456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+--------------------------------------------------------------------------------
+FOR loop_variable = start_expression TO end_expression [ STEP step_expression ]
+  commands
+NEXT [ loop_variable ]  
+--------------------------------------------------------------------------------
+
+ The optional <<<STEP step_expression>>> may be missing. In that case the step
+ value used to increment  the loop variable is 1.
+ 
+ When the loop starts the expressions are evaluated and the loop variable gets
+ the value of the <<<start_expression>>>. At each iteration of the loop before
+ the <<<commands>>> start the command <<<FOR>>> checks that the current <<<loop_variable>>>
+ is still between the start and end values including the boundaries. To make this decision the
+ the signum value of the <<<step_expression>>> is taken into account.
+ 
+ In other words the loop variable value will run from the start till the end but if the start value
+ is already larger than the end value and the step value is positive, or if the 
+ start value is already smaller than the end value and thes tep value is negative at the
+ start of the loop then the <<<commands>>> parts are not executed at all.
+ 
+ Still in other words: the <<<FOR>>> loop checks the condition at the start. For example
+ 
+%{snippet|id=x|file=src/test/basic/fordemo.sb}
+
+ does not print out any number.
+ 
+ The expressions can be integer or floating point type numbers.
+ 
+ Then end of the loop is denoted with the command <<<NEXT>>>. When this command is reached
+ the execution goes to the start of the loop, the loop variable is stepped by the step value and
+ the execution of the loop body is started again unless the loop is ended. The command keyword
+ <<<NEXT>>> is optionally followed by the loop variable. It is optional. You can just write
+ 
+%{snippet|id=y|file=src/test/basic/fordemo.sb}
+
+ to print the numbers from 1 to 10. However if you present the variable following the keyword
+ <<<NEXT>>> it has to be the same as the one used in the command <<<FOR>>>.
+ 
+ The loop variable is not protected inside the loop. You can modify the loop variable
+ even though it is a bad practice. The loop
+ 
+%{snippet|id=z|file=src/test/basic/fordemo.sb}
+ 
+ will print out only the number 1 and after that it will exit the loop.
+ 
+ 
