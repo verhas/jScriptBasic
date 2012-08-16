@@ -45,12 +45,19 @@ public abstract class AbstractBasicProgramPostprocessing implements
      * location of subroutines based on name.
      * 
      * @param startCommand
+     * @throws GenericSyntaxException 
      */
-    private void collectSubroutines() {
+    private void collectSubroutines() throws GenericSyntaxException {
         for (Command command = getFirstCommand(); command != null; command = command
                 .getNextCommand()) {
             if (command instanceof CommandSub) {
-                getSubroutineMap().put(((CommandSub) command).getSubName(),
+                CommandSub commandSub = (CommandSub) command;
+                if (getSubroutineMap().containsKey(commandSub.getSubName())) {
+                    throw new GenericSyntaxException("The subroutine '"
+                            + commandSub.getSubName()
+                            + "' is defined more than once");
+                }
+                getSubroutineMap().put(commandSub.getSubName(),
                         (CommandSub) command);
             }
         }
@@ -164,7 +171,6 @@ public abstract class AbstractBasicProgramPostprocessing implements
         startCommand = getFirstCommand();
         checkLocalAndGlobalDeclarations();
 
-
         skipDeclarations();
         collectSubroutines();
         // TODO rearrange the commands so that the subroutines are out of order
@@ -172,7 +178,7 @@ public abstract class AbstractBasicProgramPostprocessing implements
         // code
         // TODO rearrange the USE and METHOD commands so that they appear at the
         // start of the program, no matter where they are
-        //TODO optimize expression:
+        // TODO optimize expression:
         // 1. execute constant integer arithmetic
         // 2. execute constant string concatenation
         // 3. execute constant boolean arithmentic

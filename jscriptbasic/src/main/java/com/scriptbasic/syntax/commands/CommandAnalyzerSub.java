@@ -28,6 +28,7 @@ public class CommandAnalyzerSub extends AbstractCommandAnalyzer {
             lexicalAnalyzer.get();
             if (isKeyWord(")")) {
                 node.setArguments(null);
+                lexicalAnalyzer.get();
             } else {
                 LeftValueList arguments = analyzeSimpleLeftValueList();
                 node.setArguments(arguments);
