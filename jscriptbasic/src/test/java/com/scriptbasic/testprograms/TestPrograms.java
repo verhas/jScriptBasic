@@ -75,13 +75,22 @@ public class TestPrograms extends TestCase {
         codeTest("TestSub3.bas", "21undef");
         codeTest("TestSub4.bas", "123\n123\n123\n123\n");
         codeTest("TestSub5.bas", "1111");
+        codeTest("TestWhile1.bas", "89");
 
+        testSyntaxFail("ErrorTestSub1.bas");
         testSyntaxFail("NestedSub.bas");
         testSyntaxFail("DisplacedGlobal.bas");
         testSyntaxFail("DisplacedLocal.bas");
         testSyntaxFail("LocalUse.bas");
         testSyntaxFail("LocalMethod.bas");
         testSyntaxFail("GlobalLocal.bas");
+        testSyntaxFail("ErrorTestUse1.bas");
+        testSyntaxFail("ErrorTestUse2.bas");
+        testSyntaxFail("ErrorNext.bas");
+        testSyntaxFail("ErrorTotalCrap.bas");
+        testSyntaxFail("ErrorCallClosingParenthesisMissing.bas");
+
+        codeTest("SimpleCall.bas", "");
         codeTest("TestForLoop.bas", "");
         codeTest("TestForLoop1.bas", "123456789");
         codeTest("TestForLoop2.bas", "123456789");

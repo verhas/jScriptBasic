@@ -33,8 +33,8 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
     protected abstract String getName();
 
     /**
-     * Check that the left values are simple (no modifiers, aka simply
-     * variables) and are teh same variables (have the same name).
+     * Check that the left values are simple (no modifiers, a.k.a. simply
+     * variables) and are the same variables (have the same name).
      * 
      * @param a
      *            variable one

@@ -23,6 +23,6 @@ public class CommandAnalyzerWend extends AbstractCommandAnalyzer {
 
     @Override
 	protected String getName() {
-        return "WHILE";
+        return "WEND";
     }
 }

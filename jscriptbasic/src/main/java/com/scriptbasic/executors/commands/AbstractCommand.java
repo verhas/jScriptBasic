@@ -1,13 +1,10 @@
 package com.scriptbasic.executors.commands;
 
-import java.security.Permission;
-
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.Executor;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.NestedStructure;
-import com.scriptbasic.security.CommandPermission;
 
 public abstract class AbstractCommand implements Executor, Command,
         NestedStructure {
@@ -16,19 +13,8 @@ public abstract class AbstractCommand implements Executor, Command,
     public abstract void execute(ExtendedInterpreter interpreter)
             throws ExecutionException;
 
-    private Permission permission = new CommandPermission(this
-            .getClass());
-
-    private void assertCommandSecurity() {
-        SecurityManager sm = System.getSecurityManager();
-        if (sm != null) {
-            sm.checkPermission(permission);
-        }
-    }
-
     public void checkedExecute(ExtendedInterpreter interpreter)
             throws ExecutionException {
-        assertCommandSecurity();
         execute(interpreter);
     }
 

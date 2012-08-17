@@ -23,7 +23,7 @@ public class CommandAnalyzerElseIf extends AbstractCommandAnalyzerIfKind {
      */
     @Override
     protected String getName() {
-        return "IF";
+        return "ELSEIF";
     }
 
     protected Command createNode(Expression condition) throws AnalysisException {

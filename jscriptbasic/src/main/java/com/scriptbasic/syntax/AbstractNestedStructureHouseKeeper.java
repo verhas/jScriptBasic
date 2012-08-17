@@ -76,8 +76,9 @@ public abstract class AbstractNestedStructureHouseKeeper implements
     @Override
     public <T extends NestedStructure> T pop(Class<T> expectedClass)
             throws AnalysisException {
-        Structure stackFrame = stack.peek();
-        if (!expectedClass.isAssignableFrom(stackFrame.getElementType())) {
+        Structure stackFrame = stack.isEmpty() ? null : stack.peek();
+        if (stackFrame == null
+                || !expectedClass.isAssignableFrom(stackFrame.getElementType())) {
             stackIsHealthy = false;
             SyntaxException se = new GenericSyntaxException(
                     "Bad nested structures");

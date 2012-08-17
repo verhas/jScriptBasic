@@ -22,6 +22,6 @@ public class CommandAnalyzerEndSub extends AbstractCommandAnalyzer {
 
     @Override
     protected String getName() {
-        return "ELSE";
+        return "ENDSUB";
     }
 }
