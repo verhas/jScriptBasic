@@ -15,7 +15,7 @@ public class NumberUtility {
     final private static Logger LOG = LoggerFactory
             .getLogger(NumberUtility.class);
 
-    public NumberUtility() {
+    private NumberUtility() {
         UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
     }
 

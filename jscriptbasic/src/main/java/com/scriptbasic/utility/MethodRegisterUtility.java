@@ -18,7 +18,7 @@ import com.scriptbasic.log.LoggerFactory;
  * 
  */
 public class MethodRegisterUtility implements ExtensionInterfaceVersion {
-    public MethodRegisterUtility() {
+    private MethodRegisterUtility() {
         UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
     }
 

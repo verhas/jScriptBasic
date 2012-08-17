@@ -252,7 +252,7 @@ public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
             argsS = sep + arg;
             sep = ",";
         }
-        return String.format("%s.%s(%s)", obj, argsS);
+        return String.format("%s.%s(%s)", obj, m, argsS);
     }
 
     /*

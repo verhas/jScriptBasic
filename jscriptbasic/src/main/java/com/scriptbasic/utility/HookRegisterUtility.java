@@ -16,7 +16,7 @@ import com.scriptbasic.log.LoggerFactory;
  * 
  */
 public class HookRegisterUtility {
-    public HookRegisterUtility() {
+    private HookRegisterUtility() {
         UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
     }
 

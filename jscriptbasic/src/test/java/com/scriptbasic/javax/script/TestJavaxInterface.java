@@ -18,16 +18,18 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import javax.script.SimpleBindings;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.scriptbasic.Version;
 import com.scriptbasic.factories.FactoryServiceLoader;
 import com.scriptbasic.factories.SingletonFactoryFactory;
 import com.scriptbasic.interfaces.Configuration;
-import com.scriptbasic.utility.ReflectionUtility;
 import com.scriptbasic.utility.FactoryUtility;
+import com.scriptbasic.utility.ReflectionUtility;
 
 /**
  * @author Peter Verhas
@@ -41,8 +43,8 @@ public class TestJavaxInterface {
     @After
     public void tearDown() {
         try {
-            ReflectionUtility.setField(SingletonFactoryFactory.class, "singleton",
-                    FactoryServiceLoader.loadFactory());
+            ReflectionUtility.setField(SingletonFactoryFactory.class,
+                    "singleton", FactoryServiceLoader.loadFactory());
         } catch (NoSuchFieldException | SecurityException
                 | IllegalArgumentException | IllegalAccessException e) {
             e.printStackTrace();
@@ -126,5 +128,25 @@ public class TestJavaxInterface {
         Long z = (Long) bindings.get("A");
         assertEquals(new Long(13), z);
         assertEquals("hiha", writer.toString());
+    }
+
+    @Test
+    public void testQueries() {
+        com.scriptbasic.javax.script.ScriptEngineFactory sef = new com.scriptbasic.javax.script.ScriptEngineFactory();
+        Bindings b = new SimpleBindings();
+        sef.setGlobalScopeBinding(b);
+        Assert.assertEquals(sef.getGlobalScopeBinding(), b);
+        sef.getEngineVersion();
+        sef.getParameter(ScriptEngine.ENGINE);
+        sef.getParameter(ScriptEngine.ENGINE_VERSION);
+        sef.getParameter(ScriptEngine.NAME);
+        sef.getParameter(ScriptEngine.LANGUAGE);
+        sef.getParameter(ScriptEngine.LANGUAGE_VERSION);
+        sef.getParameter("THREADING");
+        Assert.assertNull(sef.getParameter("abrakadabra"));
+        sef.getMethodCallSyntax(null, "method", "a", "b", "c");
+        sef.getMethodCallSyntax(null, "method");
+        sef.getOutputStatement("hello word");
+        sef.getProgram("rem","rem");
     }
 }
