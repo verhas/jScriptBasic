@@ -1,6 +1,6 @@
-com.bdd
 com.scriptbasic
 com.scriptbasic.coverage
+com.scriptbasic.error
 com.scriptbasic.exceptions
 com.scriptbasic.executors
 com.scriptbasic.executors.operators
@@ -10,12 +10,15 @@ com.scriptbasic.interfaces
 com.scriptbasic.javax.script
 com.scriptbasic.lexer
 com.scriptbasic.log
+com.scriptbasic.main
 com.scriptbasic.memory
 com.scriptbasic.rightvalues
 com.scriptbasic.sourceproviders
 com.scriptbasic.syntax
+com.scriptbasic.syntax.commands
 com.scriptbasic.syntax.expression
 com.scriptbasic.syntax.leftvalue
 com.scriptbasic.syntax.program
+com.scriptbasic.test.aux
 com.scriptbasic.testprograms
 com.scriptbasic.utility
