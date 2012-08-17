@@ -47,13 +47,46 @@ ENDSUB
  Both approaches are equally good. However when you use a subroutine in an expression you can not omit the
  opening and closing parentheses. If you do so, the interpreter will treat the identifier as an undeclared
  variable and will not call the subroutine. Instead you will probably get <<<undef>>> value. It is generally
- bad practice to use the same identifier to name a subroutine and a variable, but ScriptBasic for Java does not prevent you.
+ bad practice to use the same identifier to name a subroutine and a variable, but ScriptBasic for Java does
+ not prevent you.
  
  If you have arguments they behave like local variables. If there are arguments for your subroutine you have to
  provide those values when you call the subroutine. You have to provide exactly that many arguments as many the
  subroutine expects otherwise you will receive runtime error. (Note that later versions will check this during
  compile time.)
  
+ To invoke a subroutine you can use the name of the subroutine in an expression followed by <<<(>>> and <<<)>>> and
+ an expression list between the parentheses, like
  
-  
-  
+---------------------------------------------------------------------------------------------------------
+a = 1 + mySubroutine(13,"apple","pie")
+---------------------------------------------------------------------------------------------------------
+ 
+ If your subroutine does not return any value then the special value <<<undef>>> will be used as return value.
+ If your subroutine is more a real subroutine than a function call you can call it using the keyword <<<CALL>>>:
+
+---------------------------------------------------------------------------------------------------------
+CALL mySubroutine(13,"apple","pie")
+---------------------------------------------------------------------------------------------------------
+ 
+ ScriptBasic for Java is quite liberal with the keyword <<<CALL>>> making it optional. Thus you can also write
+ 
+---------------------------------------------------------------------------------------------------------
+mySubroutine(13,"apple","pie")
+---------------------------------------------------------------------------------------------------------
+ 
+ You can also omit the opening and closing parentheses, thus it becomes:
+ 
+---------------------------------------------------------------------------------------------------------
+CALL mySubroutine 13,"apple","pie"
+---------------------------------------------------------------------------------------------------------
+   
+ or
+
+---------------------------------------------------------------------------------------------------------
+mySubroutine 13,"apple","pie"
+---------------------------------------------------------------------------------------------------------
+
+ with this features ScriptBasic for Java can be used as a simple domain specific language implementation. 
+
+   

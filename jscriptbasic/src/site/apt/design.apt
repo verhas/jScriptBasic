@@ -5,3 +5,7 @@
   ----------------------------------
   2012-08-16
   ----------------------------------
+
+Design Considerations
+
+ This document summarizes some of the design considerations that we followed developing ScriptBasic for Java.
