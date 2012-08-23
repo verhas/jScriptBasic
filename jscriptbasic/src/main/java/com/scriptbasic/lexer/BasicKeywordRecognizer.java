@@ -6,6 +6,11 @@ import java.util.Set;
 import com.scriptbasic.interfaces.KeywordRecognizer;
 import com.scriptbasic.interfaces.ScriptBasicKeyWords;
 
+/**
+ * This class 
+ * @author verhasp
+ *
+ */
 public class BasicKeywordRecognizer implements KeywordRecognizer,
         ScriptBasicKeyWords {
     private Set<String> keywords = new HashSet<>();

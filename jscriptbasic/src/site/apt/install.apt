@@ -103,3 +103,13 @@ java -jar target/jscriptbasic-1.0.0-SNAPSHOT.jar src/test/basic/hello.sb
  
  At the moment the latest release is <<<1.0.0-SNAPSHOT>>>. For the actual state of the different releases
  have a look at the page {{{./releases.html}releases}}.
+
+
+
+ Starting on the {{{./advanced/jsr223tutorial.html}page}} you will find a detailed tutorial on how to embed ScriptBasic for Java using the
+ JSR223 standard interface.
+ 
+* Advanced
+ 
+ The advanced use of ScriptBasic for Java invoking the special functionalities that are not available through
+ the JSR223 standard interface are detailed in a series of separate {{{./advanced/index.html}pages here}}.
