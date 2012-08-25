@@ -259,7 +259,6 @@ public class TestOperators extends TestCase {
         b("z[12]=b", b, null);
     }
 
-    @SuppressWarnings("unused")
     public static void testObjectAccess() throws AnalysisException,
             ExecutionException, NoSuchMethodException, SecurityException,
             IllegalAccessException, IllegalArgumentException,
