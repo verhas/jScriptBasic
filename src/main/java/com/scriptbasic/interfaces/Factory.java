@@ -4,7 +4,7 @@ package com.scriptbasic.interfaces;
  * Generic factory interface to create and get objects, as factories do.
  * 
  * @author Peter Verhas
- * @date Jun 7, 2012
+ * date Jun 7, 2012
  */
 public interface Factory {
 

@@ -9,7 +9,7 @@ import junit.framework.Assert;
 
 /**
  * @author Peter Verhas
- * @date Aug 7, 2012
+ * date Aug 7, 2012
  * 
  */
 public class TestLogger {

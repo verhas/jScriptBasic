@@ -19,7 +19,7 @@ import com.scriptbasic.utility.FactoryUtility;
  * </pre>
  * 
  * @author Peter Verhas
- * @date July 15, 2012
+ * date July 15, 2012
  */
 public class BasicSimpleLeftValueAnalyzer implements
         LeftValueAnalyzer, SimpleLeftValueAnalyzer {

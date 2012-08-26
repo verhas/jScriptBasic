@@ -6,7 +6,7 @@ import com.scriptbasic.interfaces.FactoryManaged;
  * test the error handling of the factory.
  * 
  * @author Peter Verhas
- * @date Jul 9, 2012
+ * date Jul 9, 2012
  * 
  */
 public interface ThrowErrorConstructorInterface extends FactoryManaged {

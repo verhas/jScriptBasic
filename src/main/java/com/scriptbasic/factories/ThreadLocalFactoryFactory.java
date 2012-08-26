@@ -10,7 +10,7 @@ import com.scriptbasic.interfaces.Factory;
  * class {@see FactoryFactory} to get a new instance.
  * 
  * @author Peter Verhas
- * @date Aug 1, 2012
+ * date Aug 1, 2012
  * 
  */
 public final class ThreadLocalFactoryFactory {

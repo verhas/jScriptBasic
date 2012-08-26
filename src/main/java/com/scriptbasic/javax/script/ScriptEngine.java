@@ -25,7 +25,7 @@ import com.scriptbasic.utility.FactoryUtility;
 
 /**
  * @author Peter Verhas
- * @date Jul 26, 2012
+ * date Jul 26, 2012
  * 
  */
 public class ScriptEngine extends AbstractScriptEngine {

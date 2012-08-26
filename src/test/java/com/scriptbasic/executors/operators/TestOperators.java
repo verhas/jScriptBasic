@@ -21,7 +21,7 @@ import com.scriptbasic.utility.FactoryUtility;
 
 /**
  * @author Peter Verhas
- * @date June 23, 2012
+ * date June 23, 2012
  * 
  */
 public class TestOperators extends TestCase {

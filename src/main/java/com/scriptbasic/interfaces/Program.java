@@ -12,7 +12,7 @@ import java.util.Collection;
  * be thread safe and immutable after it was created by the syntax analysis.
  * 
  * @author Peter Verhas
- * @date June 15, 2012
+ * date June 15, 2012
  */
 public interface Program {
     Command getStartCommand();

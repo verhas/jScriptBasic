@@ -7,7 +7,7 @@ package com.scriptbasic.interfaces;
  * procedures and so on.
  * 
  * @author Peter Verhas
- * @date June 8, 2012
+ * date June 8, 2012
  */
 public interface NestedStructureHouseKeeper extends FactoryManaged {
 

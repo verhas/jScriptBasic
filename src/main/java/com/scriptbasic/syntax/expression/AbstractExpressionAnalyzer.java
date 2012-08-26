@@ -4,7 +4,6 @@ import java.util.Map;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.exceptions.GenericSyntaxException;
-import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.executors.operators.AbstractBinaryOperator;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Expression;

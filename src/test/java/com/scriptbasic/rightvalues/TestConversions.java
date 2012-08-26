@@ -18,7 +18,7 @@ import com.scriptbasic.utility.RightValueUtility;
 
 /**
  * @author Peter Verhas
- * @date Jul 13, 2012
+ * date Jul 13, 2012
  * 
  */
 public class TestConversions extends TestCase {

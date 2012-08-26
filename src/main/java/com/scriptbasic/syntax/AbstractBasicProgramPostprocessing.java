@@ -20,7 +20,7 @@ import com.scriptbasic.log.LoggerFactory;
 
 /**
  * @author Peter Verhas
- * @date Jul 18, 2012
+ * date Jul 18, 2012
  * 
  */
 public abstract class AbstractBasicProgramPostprocessing implements

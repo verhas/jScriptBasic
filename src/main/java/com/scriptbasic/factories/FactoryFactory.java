@@ -10,7 +10,7 @@ import com.scriptbasic.interfaces.Factory;
  * single instance and manages that single instance.
  * 
  * @author Peter Verhas
- * @date Aug 1, 2012
+ * date Aug 1, 2012
  * 
  */
 public final class FactoryFactory {

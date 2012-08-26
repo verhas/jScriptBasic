@@ -19,7 +19,7 @@ import com.scriptbasic.interfaces.FactoryManaged;
  * interface and not a class.
  * 
  * @author Peter Verhas
- * @date June 8, 2012
+ * date June 8, 2012
  * 
  */
 public class BasicFactory implements Factory {

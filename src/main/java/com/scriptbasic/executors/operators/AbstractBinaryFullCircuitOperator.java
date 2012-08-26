@@ -12,7 +12,7 @@ import com.scriptbasic.interfaces.RightValue;
  * operand only if the first operand is true and/or false.
  * 
  * @author Peter Verhas
- * @date May 31, 2012
+ * date May 31, 2012
  */
 public abstract class AbstractBinaryFullCircuitOperator extends
         AbstractBinaryOperator {

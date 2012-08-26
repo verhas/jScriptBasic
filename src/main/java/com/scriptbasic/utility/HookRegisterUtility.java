@@ -12,7 +12,7 @@ import com.scriptbasic.log.LoggerFactory;
 
 /**
  * @author Peter Verhas
- * @date Aug 4, 2012
+ * date Aug 4, 2012
  * 
  */
 public class HookRegisterUtility {

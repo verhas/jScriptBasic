@@ -10,7 +10,7 @@ import java.io.InputStream;
  * source, or programatically.
  * 
  * @author Peter Verhas
- * @date Jul 23, 2012
+ * date Jul 23, 2012
  * 
  */
 public interface ConfigurationBuilder {

@@ -14,7 +14,7 @@ import com.scriptbasic.interfaces.BasicRuntimeException;
 
 /**
  * @author Peter Verhas
- * @date July 13, 2012
+ * date July 13, 2012
  * 
  */
 public class TestPrograms extends TestCase {

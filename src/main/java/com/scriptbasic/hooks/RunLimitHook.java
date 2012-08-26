@@ -13,7 +13,7 @@ import com.scriptbasic.interfaces.Configuration;
  * program. The limits are read from the configuration file.
  * 
  * @author Peter Verhas
- * @date Aug 4, 2012
+ * date Aug 4, 2012
  * 
  */
 public class RunLimitHook extends SimpleHook {

@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author Peter Verhas
- * @date July 26, 2012
+ * date July 26, 2012
  * 
  */
 public class Version {

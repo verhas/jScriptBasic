@@ -12,7 +12,7 @@ import junit.framework.TestCase;
  * check manually the coverage and see what is not covered.
  * 
  * @author Peter Verhas
- * @date Jun 8, 2012
+ * date Jun 8, 2012
  */
 public class TestToExtendCoverage extends TestCase {
     @SuppressWarnings("static-method")

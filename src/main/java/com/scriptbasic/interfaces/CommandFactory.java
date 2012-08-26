@@ -6,7 +6,7 @@ package com.scriptbasic.interfaces;
  * {@code Command} that is the result of the analysis.
  * 
  * @author Peter Verhas
- * @date June 15, 2012
+ * date June 15, 2012
  * 
  */
 public interface CommandFactory extends FactoryManaged {

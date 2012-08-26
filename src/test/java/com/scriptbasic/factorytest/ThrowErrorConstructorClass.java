@@ -8,7 +8,7 @@ import com.scriptbasic.interfaces.Factory;
  * test the error handling of the factory.
  * 
  * @author Peter Verhas
- * @date Jul 9, 2012
+ * date Jul 9, 2012
  * 
  */
 public final class ThrowErrorConstructorClass implements

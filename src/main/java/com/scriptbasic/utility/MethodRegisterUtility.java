@@ -14,7 +14,7 @@ import com.scriptbasic.log.LoggerFactory;
 
 /**
  * @author Peter Verhas
- * @date Jul 22, 2012
+ * date Jul 22, 2012
  * 
  */
 public class MethodRegisterUtility implements ExtensionInterfaceVersion {

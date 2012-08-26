@@ -16,7 +16,7 @@ import com.scriptbasic.utility.NumberUtility;
 
 /**
  * @author Peter Verhas
- * @date July 20, 2012
+ * date July 20, 2012
  * 
  */
 public class CommandFor extends AbstractCommand {

@@ -5,7 +5,7 @@ package com.scriptbasic.interfaces;
 
 /**
  * @author Peter Verhas
- * @date June 22, 2012
+ * date June 22, 2012
  * 
  */
 @SuppressWarnings("serial")

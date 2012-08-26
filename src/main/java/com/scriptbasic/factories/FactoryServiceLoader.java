@@ -12,7 +12,7 @@ import com.scriptbasic.interfaces.Factory;
  * <p>
  * 
  * @author Peter Verhas
- * @date Aug 1, 2012
+ * date Aug 1, 2012
  * 
  */
 public final class FactoryServiceLoader {

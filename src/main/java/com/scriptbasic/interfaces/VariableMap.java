@@ -19,7 +19,7 @@ package com.scriptbasic.interfaces;
  * variables. jScriptBasic believes that both practices are bad.
  * 
  * @author Peter Verhas
- * @date June 22, 2012
+ * date June 22, 2012
  * 
  */
 public interface VariableMap {

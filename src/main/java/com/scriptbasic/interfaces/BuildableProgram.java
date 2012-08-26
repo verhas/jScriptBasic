@@ -5,7 +5,7 @@ package com.scriptbasic.interfaces;
  * needed to build up the program code during the BASIC source code analysis.
  * 
  * @author Peter Verhas
- * @date June 15, 2012
+ * date June 15, 2012
  * 
  */
 public interface BuildableProgram extends FactoryManaged, Program {

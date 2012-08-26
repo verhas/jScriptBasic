@@ -8,7 +8,7 @@ package com.scriptbasic.classification;
  * annotated with this classification.
  * 
  * @author Peter Verhas
- * @date Jul 22, 2012
+ * date Jul 22, 2012
  * 
  */
 public interface System {

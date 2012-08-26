@@ -7,7 +7,7 @@ import com.scriptbasic.interfaces.ExpressionList;
 
 /**
  * @author Peter Verhas
- * @date June 13, 2012
+ * date June 13, 2012
  * 
  */
 public class ArrayElementAccessLeftValueModifier extends LeftValueModifier {

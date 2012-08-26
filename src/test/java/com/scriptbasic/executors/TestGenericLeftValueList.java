@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 
 /**
  * @author Peter Verhas
- * @date Jul 1, 2012
+ * date Jul 1, 2012
  * 
  */
 public class TestGenericLeftValueList extends TestCase {

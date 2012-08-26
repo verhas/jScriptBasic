@@ -13,7 +13,7 @@ import com.scriptbasic.interfaces.RightValue;
  * Handle the local variable in a hierarchical stack of Maps
  * 
  * @author Peter Verhas
- * @date June 22, 2012
+ * date June 22, 2012
  * 
  */
 public class BasicLocalVariableMap extends BasicVariableMap implements

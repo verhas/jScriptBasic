@@ -1,0 +1,20 @@
+  ----------------------------------
+  jScriptBasic Project Documentation
+  ----------------------------------
+  Peter Verhas
+  ----------------------------------
+  2012-08-26
+  ----------------------------------
+  
+How to embed ScriptBasic for Java using the Native API
+
+ Even though most of the features can be used using the JSR223 ineterface of ScriptBasic for Java,
+ there are some features that are not available via the standard interface. The reason for this is
+ that these features are above the functionality of what the standard can handle.
+ 
+ For example the standard interfaces do not provide any possibility to define for a script to refer to
+ other script. When you want to execute a script that 'includes' or 'imports' other scripts then there
+ has to be some way to define where the included script is. It can be on the local disk on the file system,
+ in a database or somewhere over the network. There is no such feature in the standard interface.
+ 
+  

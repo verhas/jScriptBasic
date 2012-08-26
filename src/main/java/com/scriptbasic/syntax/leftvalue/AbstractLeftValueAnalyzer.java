@@ -25,7 +25,7 @@ import com.scriptbasic.utility.FactoryUtility;
  * </pre>
  * 
  * @author Peter Verhas
- * @date June 12, 2012
+ * date June 12, 2012
  */
 public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
     private Factory factory;

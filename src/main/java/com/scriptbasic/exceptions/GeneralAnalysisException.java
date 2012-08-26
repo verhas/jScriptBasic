@@ -8,7 +8,7 @@ import com.scriptbasic.interfaces.LexicalElement;
 
 /**
  * @author Peter Verhas
- * @date June 15, 2012
+ * date June 15, 2012
  * 
  */
 public abstract class GeneralAnalysisException extends AnalysisException {

@@ -14,7 +14,7 @@ import com.scriptbasic.interfaces.RightValue;
 
 /**
  * @author Peter Verhas
- * @date Aug 2, 2012
+ * date Aug 2, 2012
  * 
  */
 public class ReflectionUtility {

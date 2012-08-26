@@ -5,7 +5,7 @@ package com.scriptbasic.interfaces;
 
 /**
  * @author Peter Verhas
- * @date June 26, 2012
+ * date June 26, 2012
  * 
  */
 public interface ScriptBasicKeyWords {

@@ -23,7 +23,7 @@ import com.scriptbasic.utility.FactoryUtility;
 
 /**
  * @author Peter Verhas
- * @date Aug 5, 2012
+ * date Aug 5, 2012
  * 
  */
 

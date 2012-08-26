@@ -12,7 +12,7 @@ package com.scriptbasic.interfaces;
  * analysis implements this interface.
  * 
  * @author Peter Verhas
- * @date May 31, 2012
+ * date May 31, 2012
  */
 public interface AnalysisResult {
 

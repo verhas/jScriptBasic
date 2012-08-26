@@ -8,7 +8,7 @@ import com.scriptbasic.interfaces.ExtendedInterpreter;
 
 /**
  * @author Peter Verhas
- * @date Jul 20, 2012
+ * date Jul 20, 2012
  * 
  */
 public class CommandNext extends AbstractCommand {

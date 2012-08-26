@@ -8,7 +8,7 @@ import com.scriptbasic.log.LoggerFactory;
  * Utility class to compare Number variables, Long or Double.
  * 
  * @author Peter Verhas
- * @date Jul 21, 2012
+ * date Jul 21, 2012
  * 
  */
 public class NumberUtility {

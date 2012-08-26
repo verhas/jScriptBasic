@@ -20,7 +20,7 @@ package com.scriptbasic.interfaces;
  * evaluated.
  * 
  * @author Peter Verhas
- * @date June 15, 2012
+ * date June 15, 2012
  * 
  */
 public interface Command extends AnalysisResult, Executor {

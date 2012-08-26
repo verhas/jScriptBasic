@@ -14,7 +14,7 @@ import com.scriptbasic.interfaces.RightValue;
  * variable map is used.
  * 
  * @author Peter Verhas
- * @date June 22, 2012
+ * date June 22, 2012
  * 
  */
 public class MixedBasicVariableMap extends BasicLocalVariableMap implements

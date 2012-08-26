@@ -7,7 +7,7 @@ import com.scriptbasic.interfaces.ExtendedInterpreter;
 
 /**
  * @author Peter Verhas
- * @date Jul 12, 2012
+ * date Jul 12, 2012
  * 
  */
 public abstract class AbstractCommandIfElseKind extends AbstractCommand {

@@ -22,7 +22,7 @@ import com.scriptbasic.interfaces.RightValue;
 
 /**
  * @author Peter Verhas
- * @date June 28, 2012
+ * date June 28, 2012
  * 
  */
 public final class ExpressionUtility {

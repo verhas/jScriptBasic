@@ -5,7 +5,7 @@ package com.scriptbasic.interfaces;
  * value.
  * 
  * @author Peter Verhas
- * @date June 15, 2012
+ * date June 15, 2012
  * 
  */
 public interface Evaluator {

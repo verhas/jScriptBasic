@@ -15,7 +15,7 @@ import com.scriptbasic.interfaces.MethodRegistry;
 
 /**
  * @author Peter Verhas
- * @date June 30, 2012
+ * date June 30, 2012
  * 
  */
 public class TestMethodRegistry extends TestCase {

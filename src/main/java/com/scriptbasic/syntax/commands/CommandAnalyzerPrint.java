@@ -10,7 +10,7 @@ import com.scriptbasic.interfaces.ExpressionList;
 
 /**
  * @author Peter Verhas
- * @date Jul 12, 2012
+ * date Jul 12, 2012
  * 
  */
 public class CommandAnalyzerPrint extends AbstractCommandAnalyzer {

@@ -7,7 +7,7 @@ import com.scriptbasic.interfaces.LeftValueList;
 
 /**
  * @author Peter Verhas
- * @date Jul 14, 2012
+ * date Jul 14, 2012
  * 
  */
 public abstract class AbstractCommandLeftValueListed extends AbstractCommand {

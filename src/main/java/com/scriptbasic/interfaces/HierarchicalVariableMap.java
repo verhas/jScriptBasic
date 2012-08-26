@@ -9,7 +9,7 @@ package com.scriptbasic.interfaces;
  * also the global variables should be handled.
  * 
  * @author Peter Verhas
- * @date Jul 12, 2012
+ * date Jul 12, 2012
  * 
  */
 public interface HierarchicalVariableMap extends LocalVariableMap {

@@ -17,7 +17,7 @@ import javax.script.ScriptException;
 
 /**
  * @author Peter Verhas
- * @date Aug 6, 2012
+ * date Aug 6, 2012
  * 
  */
 public class CommandLine {

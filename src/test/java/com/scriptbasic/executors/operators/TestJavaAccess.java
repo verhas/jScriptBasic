@@ -19,7 +19,7 @@ import com.scriptbasic.utility.FactoryUtility;
 
 /**
  * @author Peter Verhas
- * @date June 28, 2012
+ * date June 28, 2012
  * 
  */
 public class TestJavaAccess extends TestCase {

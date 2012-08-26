@@ -55,7 +55,7 @@ import java.lang.reflect.Method;
  * registry.
  * 
  * @author Peter Verhas
- * @date June 28, 2012
+ * date June 28, 2012
  * 
  */
 public interface MethodRegistry {

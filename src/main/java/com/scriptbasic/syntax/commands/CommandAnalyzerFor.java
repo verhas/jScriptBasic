@@ -11,7 +11,7 @@ import com.scriptbasic.utility.FactoryUtility;
 
 /**
  * @author Peter Verhas
- * @date June 16, 2012
+ * date June 16, 2012
  * 
  */
 public class CommandAnalyzerFor extends AbstractCommandAnalyzer {

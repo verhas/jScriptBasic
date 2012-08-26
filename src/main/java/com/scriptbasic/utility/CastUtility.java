@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * @author Peter Verhas
- * @date Jun 30, 2012
+ * date Jun 30, 2012
  * 
  */
 public final class CastUtility {

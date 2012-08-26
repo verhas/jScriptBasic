@@ -20,7 +20,7 @@ import com.scriptbasic.utility.RightValueUtility;
 /**
  * 
  * @author Peter Verhas
- * @date June 13, 2012
+ * date June 13, 2012
  * 
  */
 public class BasicLeftValue extends AbstractLeftValue {

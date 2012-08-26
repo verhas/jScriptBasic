@@ -5,7 +5,7 @@ package com.scriptbasic.executors.leftvalues;
 
 /**
  * @author Peter Verhas
- * @date June 13, 2012
+ * date June 13, 2012
  * 
  */
 public class ObjectFieldAccessLeftValueModifier extends LeftValueModifier {

@@ -11,7 +11,7 @@ import com.scriptbasic.interfaces.FactoryManaged;
  * certain interface is requested the existing instance will be given.
  * 
  * @author Peter Verhas
- * @date June 8, 2012
+ * date June 8, 2012
  */
 public class ManagedObjectsStore {
 

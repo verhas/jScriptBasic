@@ -18,7 +18,7 @@ import com.scriptbasic.utility.LexUtility;
  * separated by commas.
  * 
  * @author Peter Verhas
- * @date June 14, 2012
+ * date June 14, 2012
  * 
  * @param <T>
  *            is the interface that defines the list of something

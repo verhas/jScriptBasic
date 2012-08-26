@@ -19,7 +19,7 @@ import com.scriptbasic.interfaces.RightValue;
  * need not check if there is a next hook object in the chain.
  * 
  * @author Peter Verhas
- * @date Aug 15, 2012
+ * date Aug 15, 2012
  * 
  */
 public class NullHook implements InterpreterHook {

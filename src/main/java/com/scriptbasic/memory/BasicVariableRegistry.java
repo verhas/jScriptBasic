@@ -8,7 +8,7 @@ import com.scriptbasic.interfaces.ExecutionException;
 
 /**
  * @author Peter Verhas
- * @date June 25, 2012
+ * date June 25, 2012
  * 
  */
 class BasicVariableRegistry extends BasicVariableMap {

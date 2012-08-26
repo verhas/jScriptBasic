@@ -19,7 +19,7 @@ import com.scriptbasic.log.LoggerFactory;
 
 /**
  * @author Peter Verhas
- * @date June 23, 2012
+ * date June 23, 2012
  * 
  */
 public class TestVariableMaps extends TestCase {

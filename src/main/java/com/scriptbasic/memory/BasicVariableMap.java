@@ -18,7 +18,7 @@ import com.scriptbasic.interfaces.VariableMap;
  * 
  * 
  * @author Peter Verhas
- * @date June 22, 2012
+ * date June 22, 2012
  * 
  */
 class BasicVariableMap implements VariableMap {

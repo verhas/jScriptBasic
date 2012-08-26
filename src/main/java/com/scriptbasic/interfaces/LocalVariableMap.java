@@ -9,7 +9,7 @@ package com.scriptbasic.interfaces;
  * of the stack.
  * 
  * @author Peter Verhas
- * @date June 22, 2012
+ * date June 22, 2012
  * 
  */
 public interface LocalVariableMap extends VariableMap {

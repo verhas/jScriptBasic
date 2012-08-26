@@ -8,7 +8,7 @@ package com.scriptbasic.interfaces;
  * 
  * 
  * @author Peter Verhas
- * @date June 8, 2012
+ * date June 8, 2012
  */
 public interface NestedStructure {
 

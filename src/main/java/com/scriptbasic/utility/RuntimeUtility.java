@@ -15,7 +15,7 @@ import com.scriptbasic.classification.System;
  * functions like BASIC built in functions.
  * 
  * @author Peter Verhas
- * @date July 15, 2012
+ * date July 15, 2012
  * 
  */
 public class RuntimeUtility {

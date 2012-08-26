@@ -23,7 +23,7 @@ import com.scriptbasic.interfaces.RightValue;
  * need not care about not to break the chain.
  * 
  * @author Peter Verhas
- * @date Aug 3, 2012
+ * date Aug 3, 2012
  * 
  */
 public class SimpleHook implements InterpreterHook {

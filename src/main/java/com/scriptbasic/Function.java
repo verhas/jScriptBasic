@@ -17,7 +17,7 @@ import java.lang.annotation.RetentionPolicy;
  * annotated methods of the class specified.
  * 
  * @author Peter Verhas
- * @date July 22, 2012
+ * date July 22, 2012
  * 
  */
 @Retention(RetentionPolicy.RUNTIME)

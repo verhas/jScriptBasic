@@ -13,7 +13,7 @@ import com.scriptbasic.utility.LexUtility;
 
 /**
  * @author Peter Verhas
- * @date Jun 27, 2012
+ * date Jun 27, 2012
  * 
  */
 public class CommandAnalyzerUse extends AbstractCommandAnalyzer {

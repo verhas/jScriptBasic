@@ -25,7 +25,7 @@ import com.scriptbasic.utility.FactoryUtility;
  * stderr are string builders.
  * 
  * @author Peter Verhas
- * @date Jul 13, 2012
+ * date Jul 13, 2012
  * 
  */
 public class Executor extends AbstractStringIOPojo {

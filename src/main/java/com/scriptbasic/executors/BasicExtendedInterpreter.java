@@ -31,7 +31,7 @@ import com.scriptbasic.utility.RuntimeUtility;
 
 /**
  * @author Peter Verhas
- * @date June 22, 2012
+ * date June 22, 2012
  * 
  */
 public final class BasicExtendedInterpreter implements ExtendedInterpreter {

@@ -12,7 +12,7 @@ import com.scriptbasic.interfaces.LexicalElement;
 
 /**
  * @author Peter Verhas
- * @date Jun 28, 2012
+ * date Jun 28, 2012
  * 
  */
 public final class LexUtility {

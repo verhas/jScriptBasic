@@ -9,7 +9,7 @@ import com.scriptbasic.interfaces.Expression;
 
 /**
  * @author Peter Verhas
- * @date Jul 13, 2012
+ * date Jul 13, 2012
  * 
  */
 public abstract class AbstractCommandAnalyzerIfKind extends

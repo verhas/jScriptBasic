@@ -12,3 +12,5 @@ How to embed ScriptBasic for Java
  different types of applications.
  
  * {{{./jsr223tutorial.html} How to embed ScriptBasic for Java using the JSR233}} standard way.
+ 
+ * {{{./nativeapi.html} How to embed ScriptBasic for Java using the native API}}

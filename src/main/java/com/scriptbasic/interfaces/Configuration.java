@@ -18,7 +18,7 @@ import java.util.Properties;
  * configuration properties.
  * 
  * @author Peter Verhas
- * @date Jul 23, 2012
+ * date Jul 23, 2012
  * 
  */
 public interface Configuration extends FactoryManaged {

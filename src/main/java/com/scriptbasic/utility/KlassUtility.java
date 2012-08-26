@@ -11,7 +11,7 @@ import com.scriptbasic.interfaces.ExecutionException;
 
 /**
  * @author Peter Verhas
- * @date June 28, 2012
+ * date June 28, 2012
  * 
  */
 public final class KlassUtility {

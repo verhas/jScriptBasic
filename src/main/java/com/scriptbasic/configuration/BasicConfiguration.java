@@ -17,7 +17,7 @@ import com.scriptbasic.log.LoggerFactory;
 
 /**
  * @author Peter Verhas
- * @date July 23, 2012
+ * date July 23, 2012
  * 
  */
 public class BasicConfiguration implements Configuration {
