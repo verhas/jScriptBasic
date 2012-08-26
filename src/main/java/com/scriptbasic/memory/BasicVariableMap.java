@@ -24,7 +24,7 @@ import com.scriptbasic.interfaces.VariableMap;
 class BasicVariableMap implements VariableMap {
 
     private final Map<String, RightValue> variableMap = new HashMap<String, RightValue>();
-    private final Set<String> variableNameSet = new HashSet<>();
+    private final Set<String> variableNameSet = new HashSet<String>();
 
     private boolean variableNamesAreCaseSensitive = false;
     private boolean variableNamesAreStrictCased = false;

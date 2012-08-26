@@ -5,44 +5,44 @@ import org.junit.Test;
 import com.scriptbasic.utility.RuntimeUtility;
 
 public class TestRuntimeUtility {
-    @Test
-    public void testExMethods() throws ClassNotFoundException,
-            InstantiationException, IllegalAccessException {
-        Object o = RuntimeUtility.newObject("java.lang.Object");
+	@Test
+	public void testExMethods() throws ClassNotFoundException,
+			InstantiationException, IllegalAccessException {
+		RuntimeUtility.newObject("java.lang.Object");
 
-        double d, x = 0.0;
-        d = RuntimeUtility.acos(x);
+		double x = 0.0;
+		RuntimeUtility.acos(x);
 
-        d = RuntimeUtility.asin(x);
+		RuntimeUtility.asin(x);
 
-        d = RuntimeUtility.atan(x);
+		RuntimeUtility.atan(x);
 
-        d = RuntimeUtility.atan2(x, x);
+		RuntimeUtility.atan2(x, x);
 
-        d = RuntimeUtility.cbrt(x);
+		RuntimeUtility.cbrt(x);
 
-        d = RuntimeUtility.ceil(x);
+		RuntimeUtility.ceil(x);
 
-        d = RuntimeUtility.cos(x);
+		RuntimeUtility.cos(x);
 
-        d = RuntimeUtility.cosh(x);
+		RuntimeUtility.cosh(x);
 
-        d = RuntimeUtility.floor(x);
+		RuntimeUtility.floor(x);
 
-        d = RuntimeUtility.hypot(x);
+		RuntimeUtility.hypot(x);
 
-        d = RuntimeUtility.log(x);
+		RuntimeUtility.log(x);
 
-        d = RuntimeUtility.log10(x);
+		RuntimeUtility.log10(x);
 
-        d = RuntimeUtility.pow(x);
+		RuntimeUtility.pow(x);
 
-        d = RuntimeUtility.round(x);
+		RuntimeUtility.round(x);
 
-        d = RuntimeUtility.tan(x);
+		RuntimeUtility.tan(x);
 
-        d = RuntimeUtility.tanh(x);
+		RuntimeUtility.tanh(x);
 
-        Object on = RuntimeUtility.nullFunction();
-    }
+		RuntimeUtility.nullFunction();
+	}
 }

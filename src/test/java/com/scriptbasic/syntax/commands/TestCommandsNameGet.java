@@ -12,7 +12,7 @@ public class TestCommandsNameGet {
     @Test
     public void testCommandGetName() throws InstantiationException,
             IllegalAccessException {
-        List<Class<? extends AbstractCommandAnalyzer>> classes = new LinkedList<>();
+        List<Class<? extends AbstractCommandAnalyzer>> classes = new LinkedList<Class<? extends AbstractCommandAnalyzer>>();
         classes.add(CommandAnalyzerCall.class);
         classes.add(CommandAnalyzerElse.class);
         classes.add(CommandAnalyzerElseIf.class);

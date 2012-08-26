@@ -15,20 +15,20 @@ import com.scriptbasic.interfaces.FactoryManaged;
  */
 public class ManagedObjectsStore {
 
-    private final Map<Class<? extends FactoryManaged>, FactoryManaged> factoryManagedObjectMap = new HashMap<>();
+	private final Map<Class<? extends FactoryManaged>, FactoryManaged> factoryManagedObjectMap = new HashMap<Class<? extends FactoryManaged>, FactoryManaged>();
 
-    public void clean() {
-        factoryManagedObjectMap.clear();
-    }
+	public void clean() {
+		factoryManagedObjectMap.clear();
+	}
 
-    <T extends FactoryManaged> void set(final Class<T> klass,
-            final T factoryManagedObject) {
-        factoryManagedObjectMap.put(klass, factoryManagedObject);
-    }
+	<T extends FactoryManaged> void set(final Class<T> klass,
+			final T factoryManagedObject) {
+		factoryManagedObjectMap.put(klass, factoryManagedObject);
+	}
 
-    @SuppressWarnings("unchecked")
-    public <T extends FactoryManaged> T get(final Class<T> klass) {
-        return (T) factoryManagedObjectMap.get(klass);
-    }
+	@SuppressWarnings("unchecked")
+	public <T extends FactoryManaged> T get(final Class<T> klass) {
+		return (T) factoryManagedObjectMap.get(klass);
+	}
 
 }

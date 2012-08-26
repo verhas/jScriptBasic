@@ -17,17 +17,17 @@ public class Version {
     public static final Long MINOR = 0L;
     public static final Long BUGFIX = 0L;
     public static final String version = MAJOR + "." + MINOR + "." + BUGFIX;
-    public static final List<String> extensions = new LinkedList<>();
+    public static final List<String> extensions = new LinkedList<String>();
     static {
         extensions.add("bas");
         extensions.add("sb");
     }
-    public static final List<String> mimeTypes = new LinkedList<>();
+    public static final List<String> mimeTypes = new LinkedList<String>();
     static {
         mimeTypes.add("application/x-scriptbasic");
         mimeTypes.add("application/x-basic");
     }
-    public static final List<String> names = new LinkedList<>();
+    public static final List<String> names = new LinkedList<String>();
     static {
         names.add("basic");
         names.add("sb4j");

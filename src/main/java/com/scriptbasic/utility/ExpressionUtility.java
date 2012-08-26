@@ -54,7 +54,7 @@ public final class ExpressionUtility {
         }
         ArrayList<Object> result = null;
         if (args != null) {
-            result = new ArrayList<>();
+            result = new ArrayList<Object>();
             int parameterIndex = 0;
             for (RightValue arg : args) {
                 Object object = CastUtility.cast(
@@ -72,7 +72,7 @@ public final class ExpressionUtility {
             ExpressionList expressionList) throws ExecutionException {
         List<RightValue> args = null;
         if (expressionList != null) {
-            args = new LinkedList<>();
+            args = new LinkedList<RightValue>();
             for (Expression expression : expressionList) {
                 args.add(expression.evaluate(extendedInterpreter));
             }

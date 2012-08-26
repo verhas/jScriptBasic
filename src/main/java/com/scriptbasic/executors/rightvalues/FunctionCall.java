@@ -1,6 +1,5 @@
 package com.scriptbasic.executors.rightvalues;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
@@ -21,113 +20,105 @@ import com.scriptbasic.utility.ReflectionUtility;
 import com.scriptbasic.utility.RightValueUtility;
 
 public class FunctionCall extends
-        AbstractIdentifieredExpressionListedExpression {
+		AbstractIdentifieredExpressionListedExpression {
 
-    private RightValue callBasicFunction(ExtendedInterpreter interpreter)
-            throws ExecutionException {
-        RightValue result = null;
-        RightValue[] argumentValues = evaluateArguments(getExpressionList(),
-                interpreter);
-        interpreter.push();
-        LeftValueList arguments = commandSub.getArguments();
-        registerLocalVariablesWithValues(arguments, argumentValues, interpreter);
-        interpreter.disableHook();
-        interpreter.setReturnValue(null);
-        interpreter.enableHook();
-        interpreter.getHook().beforeSubroutineCall(getVariableName(),
-                arguments, argumentValues);
-        interpreter.execute(commandSub.getNextCommand());
-        result = interpreter.getReturnValue();
-        interpreter.pop();
-        return result;
-    }
+	private RightValue callBasicFunction(ExtendedInterpreter interpreter)
+			throws ExecutionException {
+		RightValue result = null;
+		RightValue[] argumentValues = evaluateArguments(getExpressionList(),
+				interpreter);
+		interpreter.push();
+		LeftValueList arguments = commandSub.getArguments();
+		registerLocalVariablesWithValues(arguments, argumentValues, interpreter);
+		interpreter.disableHook();
+		interpreter.setReturnValue(null);
+		interpreter.enableHook();
+		interpreter.getHook().beforeSubroutineCall(getVariableName(),
+				arguments, argumentValues);
+		interpreter.execute(commandSub.getNextCommand());
+		result = interpreter.getReturnValue();
+		interpreter.pop();
+		return result;
+	}
 
-    private RightValue callJavaFunction(ExtendedInterpreter interpreter)
-            throws ExecutionException {
-        RightValue result = null;
-        String functionName = getVariableName();
-        List<RightValue> args = ExpressionUtility.evaluateExpressionList(
-                interpreter, getExpressionList());
-        Method method = interpreter.getJavaMethod(null, functionName);
-        if (method != null) {
-            Object methodResult = null;
-            try {
-                methodResult = ReflectionUtility.invoke(interpreter, method,
-                        null, args);
-            } catch (IllegalAccessException | IllegalArgumentException
-                    | InvocationTargetException e) {
-                throw new BasicRuntimeException("Can not invoke method "
-                        + functionName, e);
-            } catch (Exception e) {
-                throw new BasicRuntimeException("Invoking function '"
-                        + functionName + "' throws exception:", e);
-            }
-            result = RightValueUtility.createRightValue(methodResult);
-        }
-        return result;
-    }
+	private RightValue callJavaFunction(ExtendedInterpreter interpreter)
+			throws ExecutionException {
+		RightValue result = null;
+		String functionName = getVariableName();
+		List<RightValue> args = ExpressionUtility.evaluateExpressionList(
+				interpreter, getExpressionList());
+		Method method = interpreter.getJavaMethod(null, functionName);
+		if (method != null) {
+			Object methodResult = null;
+			methodResult = ReflectionUtility.invoke(functionName, interpreter,
+					method, null, args);
 
-    private boolean commandNeedLookup = true;
-    private CommandSub commandSub = null;
+			result = RightValueUtility.createRightValue(methodResult);
+		}
+		return result;
+	}
 
-    private void lookUpCommandSub(ExtendedInterpreter interpreter) {
-        if (commandNeedLookup) {
-            commandNeedLookup = false;
-            commandSub = interpreter.getSubroutine(getVariableName());
-        }
-    }
+	private boolean commandNeedLookup = true;
+	private CommandSub commandSub = null;
 
-    private static RightValue[] evaluateArguments(ExpressionList argumentList,
-            ExtendedInterpreter interpreter) throws ExecutionException {
-        RightValue[] argumentValues;
-        if (argumentList == null) {
-            argumentValues = null;
-        } else {
-            Iterator<Expression> expressionIterator = argumentList.iterator();
-            argumentValues = new RightValue[argumentList.size()];
-            for (int i = 0; i < argumentValues.length; i++) {
-                argumentValues[i] = expressionIterator.next().evaluate(
-                        interpreter);
-            }
-        }
-        return argumentValues;
-    }
+	private void lookUpCommandSub(ExtendedInterpreter interpreter) {
+		if (commandNeedLookup) {
+			commandNeedLookup = false;
+			commandSub = interpreter.getSubroutine(getVariableName());
+		}
+	}
 
-    /**
-     * @param arguments
-     * @param argumentValues
-     * @throws ExecutionException
-     */
-    private static void registerLocalVariablesWithValues(
-            LeftValueList arguments, RightValue[] argumentValues,
-            ExtendedInterpreter interpreter) throws ExecutionException {
-        if (arguments != null) {
-            Iterator<LeftValue> argumentIterator = arguments.iterator();
-            for (int i = 0; i < argumentValues.length; i++) {
-                LeftValue argument = argumentIterator.next();
-                if (argument instanceof BasicLeftValue) {
-                    String name = ((BasicLeftValue) argument).getIdentifier();
-                    interpreter.getVariables().registerLocalVariable(name);
-                    interpreter.setVariable(name, argumentValues[i]);
-                } else {
-                    throw new BasicRuntimeException(
-                            "subroutine formal argument is erroneous");
-                }
-            }
-        }
-    }
+	private static RightValue[] evaluateArguments(ExpressionList argumentList,
+			ExtendedInterpreter interpreter) throws ExecutionException {
+		RightValue[] argumentValues;
+		if (argumentList == null) {
+			argumentValues = null;
+		} else {
+			Iterator<Expression> expressionIterator = argumentList.iterator();
+			argumentValues = new RightValue[argumentList.size()];
+			for (int i = 0; i < argumentValues.length; i++) {
+				argumentValues[i] = expressionIterator.next().evaluate(
+						interpreter);
+			}
+		}
+		return argumentValues;
+	}
 
-    @Override
-    public RightValue evaluate(ExtendedInterpreter interpreter)
-            throws ExecutionException {
+	/**
+	 * @param arguments
+	 * @param argumentValues
+	 * @throws ExecutionException
+	 */
+	private static void registerLocalVariablesWithValues(
+			LeftValueList arguments, RightValue[] argumentValues,
+			ExtendedInterpreter interpreter) throws ExecutionException {
+		if (arguments != null) {
+			Iterator<LeftValue> argumentIterator = arguments.iterator();
+			for (int i = 0; i < argumentValues.length; i++) {
+				LeftValue argument = argumentIterator.next();
+				if (argument instanceof BasicLeftValue) {
+					String name = ((BasicLeftValue) argument).getIdentifier();
+					interpreter.getVariables().registerLocalVariable(name);
+					interpreter.setVariable(name, argumentValues[i]);
+				} else {
+					throw new BasicRuntimeException(
+							"subroutine formal argument is erroneous");
+				}
+			}
+		}
+	}
 
-        lookUpCommandSub(interpreter);
-        RightValue result = null;
-        if (commandSub == null) {
-            result = callJavaFunction(interpreter);
-        } else {
-            result = callBasicFunction(interpreter);
-        }
-        return result;
-    }
+	@Override
+	public RightValue evaluate(ExtendedInterpreter interpreter)
+			throws ExecutionException {
+
+		lookUpCommandSub(interpreter);
+		RightValue result = null;
+		if (commandSub == null) {
+			result = callJavaFunction(interpreter);
+		} else {
+			result = callBasicFunction(interpreter);
+		}
+		return result;
+	}
 }

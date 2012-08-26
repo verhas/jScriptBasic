@@ -91,14 +91,14 @@ public class BasicConfiguration implements Configuration {
         return configValue == null ? defaultValue : configValue;
     }
 
-    private final HashMap<String, List<String>> lists = new HashMap<>();
+    private final HashMap<String, List<String>> lists = new HashMap<String, List<String>>();
 
     @Override
     public List<String> getConfigValueList(final String key) {
         if (lists.containsKey(key)) {
             return lists.get(key);
         }
-        List<String> list = new LinkedList<>();
+        List<String> list = new LinkedList<String>();
         String keyi;
         String value;
         for (int i = 0; (keyi = key + "." + i) != null

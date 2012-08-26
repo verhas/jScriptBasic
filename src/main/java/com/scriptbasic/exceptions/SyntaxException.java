@@ -9,7 +9,9 @@ package com.scriptbasic.exceptions;
  */
 public abstract class SyntaxException extends GeneralAnalysisException {
 
-    public SyntaxException() {
+	private static final long serialVersionUID = 1L;
+
+	public SyntaxException() {
         super();
     }
 

@@ -53,7 +53,7 @@ public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
         } else {
             alias = methodName;
         }
-        ArrayList<Class<?>> argClasses = new ArrayList<>();
+        ArrayList<Class<?>> argClasses = new ArrayList<Class<?>>();
         for (Expression expression : argExpressions) {
             String argClassName = ExpressionUtility.convertToString(expression);
             argClasses.add(KlassUtility.forNameEx(argClassName));

@@ -13,7 +13,9 @@ import com.scriptbasic.interfaces.LexicalElement;
  */
 public abstract class GeneralAnalysisException extends AnalysisException {
 
-    public GeneralAnalysisException() {
+	private static final long serialVersionUID = 1L;
+
+	public GeneralAnalysisException() {
         super();
     }
 

@@ -12,7 +12,7 @@ import java.util.Map;
  * 
  */
 public class LoggerFactory {
-    private final static Map<Class<?>, Logger> loggers = new HashMap<>();
+    private final static Map<Class<?>, Logger> loggers = new HashMap<Class<?>, Logger>();
 
     public static synchronized Logger getLogger(Class<?> klass) {
         Logger logger = null;

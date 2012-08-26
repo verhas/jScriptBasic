@@ -13,7 +13,7 @@ import com.scriptbasic.interfaces.ScriptBasicKeyWords;
  */
 public class BasicKeywordRecognizer implements KeywordRecognizer,
         ScriptBasicKeyWords {
-    private Set<String> keywords = new HashSet<>();
+    private Set<String> keywords = new HashSet<String>();
 
     public BasicKeywordRecognizer() {
         for (String keyword : BASIC_KEYWORDS) {

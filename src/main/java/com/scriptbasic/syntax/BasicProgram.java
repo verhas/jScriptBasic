@@ -56,7 +56,7 @@ public final class BasicProgram extends AbstractBasicProgramPostprocessing {
         return commands;
     }
 
-    private Map<String, CommandSub> subroutineMap = new HashMap<>();
+    private Map<String, CommandSub> subroutineMap = new HashMap<String, CommandSub>();
 
     /**
      * @return the subroutineMap

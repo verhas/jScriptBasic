@@ -107,7 +107,7 @@ public class TestPrograms extends TestCase {
         codeTest("TestNullFunction.bas", "undefundef");
         codeTest("TestMethodCall.bas",
                 "" + Math.sin(1.0) + "\n" + Math.sin(1.0));
-        map = new HashMap<>();
+        map = new HashMap<String, Object>();
         map.put("testClass", new TestClass());
         codeTest("TestObjectMethodCall.bas", map, "310");
     }

@@ -9,7 +9,9 @@ package com.scriptbasic.exceptions;
  */
 public abstract class LexicalException extends GeneralAnalysisException {
 
-    public LexicalException() {
+	private static final long serialVersionUID = 1L;
+
+	public LexicalException() {
         super();
     }
 
