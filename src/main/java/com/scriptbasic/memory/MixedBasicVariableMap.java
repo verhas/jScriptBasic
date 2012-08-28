@@ -7,6 +7,7 @@ import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.HierarchicalVariableMap;
 import com.scriptbasic.interfaces.RightValue;
+import com.scriptbasic.interfaces.VariableMap;
 
 /**
  * Handle the global and the local variable maps. If a variable exists, defined
@@ -24,6 +25,11 @@ public class MixedBasicVariableMap extends BasicLocalVariableMap implements
     private final BasicVariableRegistry globalVariableRegistry = new BasicVariableRegistry(
             globalVariableMap);
 
+    @Override
+    public VariableMap getGlobalMap(){
+    	return globalVariableMap;
+    }
+    
     /*
      * (non-Javadoc)
      * 

@@ -37,23 +37,6 @@ public class NumberUtility {
 
     public static boolean isPositive(Number a) {
         LOG.debug("a {} is instance of Long = {}", a, a instanceof Long);
-        //
-        // Number zero = a instanceof Long ? 0L : 0.0;
-        //
-        // The 1.7.0_04 and the 1.6.0_33 javac compiler generated code that
-        // always resulted double:
-        //
-        // 0: aload_0
-        // 1: instanceof #2 // class java/lang/Long
-        // 4: ifeq 11
-        // 7: dconst_1
-        // 8: goto 12
-        // 11: dconst_1
-        // 12: invokestatic #3 // Method
-        // java/lang/Double.valueOf:(D)Ljava/lang/Double;
-        // 15: areturn
-        //
-        //
         Number zero;
         if (a instanceof Long) {
             zero = 0L;

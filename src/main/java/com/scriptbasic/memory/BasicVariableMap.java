@@ -26,7 +26,12 @@ class BasicVariableMap implements VariableMap {
     private final Map<String, RightValue> variableMap = new HashMap<String, RightValue>();
     private final Set<String> variableNameSet = new HashSet<String>();
 
-    private boolean variableNamesAreCaseSensitive = false;
+    @Override
+    public Set<String> getVariableNameSet() {
+		return variableNameSet;
+	}
+
+	private boolean variableNamesAreCaseSensitive = false;
     private boolean variableNamesAreStrictCased = false;
 
     BasicVariableMap() {

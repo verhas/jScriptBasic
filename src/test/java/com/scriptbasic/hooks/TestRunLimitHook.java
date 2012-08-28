@@ -10,7 +10,6 @@ import java.util.Properties;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 
 import org.junit.After;
 import org.junit.Assert;

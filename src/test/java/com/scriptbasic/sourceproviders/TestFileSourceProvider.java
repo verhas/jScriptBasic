@@ -14,7 +14,7 @@ public class TestFileSourceProvider extends TestCase {
     }
 
     private static final String tempDir = System.getProperty("java.io.tmpdir");
-    private static final String ps = System.getProperty("path.separator");
+    private static final String ps = File.separator;
     private static final String testFileName = "testFileName";
     private static final String testStringToFile = "hallo hallo";
 

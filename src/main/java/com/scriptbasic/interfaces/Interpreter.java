@@ -55,7 +55,7 @@ public interface Interpreter extends FactoryManaged {
      * @return the returned object, or {@code null} if the function does not
      *         return value
      */
-    Object call(String functionName, Object[] arguments);
+    Object call(String functionName, Object[] arguments) throws ExecutionException;
 
     /**
      * @see javax.script.ScriptContext#setReader(java.io.Reader)

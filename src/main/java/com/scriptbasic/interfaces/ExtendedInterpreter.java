@@ -101,7 +101,7 @@ public interface ExtendedInterpreter extends Interpreter {
     Command getCurrentCommand();
 
     /**
-     * Get the variables of the program.
+     * Get the global variables of the program.
      * 
      * @return the variables.
      */

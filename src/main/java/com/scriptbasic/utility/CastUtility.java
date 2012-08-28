@@ -6,9 +6,11 @@ package com.scriptbasic.utility;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
+import com.scriptbasic.interfaces.RightValue;
+
 /**
- * @author Peter Verhas
- * date Jun 30, 2012
+ * @author Peter Verhas date Jun 30, 2012
  * 
  */
 public final class CastUtility {
@@ -117,5 +119,11 @@ public final class CastUtility {
 		} catch (ClassCastException cce) {
 		}
 		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static Object toObject(RightValue rightValue) {
+		return rightValue == null ? null
+				: ((AbstractPrimitiveRightValue<Object>) rightValue).getValue();
 	}
 }

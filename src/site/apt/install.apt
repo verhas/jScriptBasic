@@ -62,9 +62,16 @@ java -jar target/jscriptbasic-1.0.0-SNAPSHOT.jar src/test/basic/hello.sb
 
 ** SHORT
 
- Place the JAR file on the classpath and use the JSR-223 standard interface to invoke ScriptBasic.
+ Place the JAR file on the classpath and use the JSR-223 standard interface to invoke ScriptBasic or
+ use the ScriptBasic for Java native interface.
 
 ** LONG
+ 
+ Place the JAR file on the classpath and use the native interface
+ 
+%{snippet|id=helloWorldString|file=src/test/java/com/scriptbasic/TestEngine.java}
+
+ to evaluate some JavaScript. {{{./advanced/nativeapi.html}... more on the native api}}. 
  
  SB4J is compliant with the {{{http://www.jcp.org/en/jsr/detail?id=223}JSR-223}} standard. If you use this
  interface to integrate ScriptBasic into your application you need know know anything that is specific to

@@ -33,6 +33,7 @@
 			<item name="History and Design Goals" href="design.html"/>
 			<item name="Basic Language Implemented" href="basic.html" />
 			<item name="Installation" href="install.html" />
+			<item name="Embedding API" href="advanced/index.html"/>
 			<item name="Configuration" href="configure.html" />
 		</menu>
 

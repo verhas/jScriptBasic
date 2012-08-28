@@ -63,7 +63,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
 
     @Override
     public void resetLine() {
-        this.lexicalElementQueueIterator = this.lexicalElementQueue.iterator();
+        lexicalElementQueueIterator = this.lexicalElementQueue.iterator();
     }
 
     private void emptyLexicalElementQueue() {
@@ -86,12 +86,12 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     @Override
     public LexicalElement peek() throws AnalysisException {
         if (this.peekElement == null) {
-            if (!this.lexicalElementQueueIterator.hasNext()) {
+            if (!lexicalElementQueueIterator.hasNext()) {
                 readTheNextLine();
                 resetLine();
             }
             if (!this.lexicalElementQueue.isEmpty()) {
-                this.peekElement = this.lexicalElementQueueIterator.next();
+                this.peekElement = lexicalElementQueueIterator.next();
             }
         }
         return this.peekElement;
@@ -165,14 +165,14 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
         resetLine();
         final GenericHierarchicalReader hreader = (GenericHierarchicalReader) this.reader;
         if (!this.lexicalElementQueue.isEmpty()) {
-            LexicalElement lexicalElement = this.lexicalElementQueueIterator
+            LexicalElement lexicalElement = lexicalElementQueueIterator
                     .next();
             if (isIncludeOrImport(lexicalElement)) {
-                lexicalElement = this.lexicalElementQueueIterator.next();
+				lexicalElement = lexicalElementQueueIterator.next();
                 if (lexicalElement.isString()) {
-                    LexicalElement newLine = this.lexicalElementQueueIterator
-                            .next();
-                    if (newLine == null || !newLine.isLineTerminator()) {
+                    LexicalElement newLine = lexicalElementQueueIterator.hasNext() ? lexicalElementQueueIterator
+                            .next() : null;
+                    if (newLine != null && !newLine.isLineTerminator()) {
                         LOG.error("There are extra characters on the line after the include file name string");
                         throw new GenericSyntaxException(
                                 "There are extra chars at the end of the INCLUDE statement");

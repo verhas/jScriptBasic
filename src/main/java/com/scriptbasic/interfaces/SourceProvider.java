@@ -3,19 +3,19 @@ package com.scriptbasic.interfaces;
 import java.io.IOException;
 
 /**
- * A source provider gives a reader for a source given its name.
+ * A source provider gives a reader for a source based upon the name of the source.
  * <p>
  * When source files reference each other the source provider may alter its
  * behavior finding the source based on which source is referencing the other
  * source.
  * <p>
  * For example you want to get a reader to the source named {@code myProg.sb}
- * This program may include using the include statement {@code inc/incProg.sb}.
+ * This program may include using the {@code include} statement {@code inc/incProg.sb}.
  * The second file is in the directory {@code inc}. If that file includes
- * {@code myProg.sb} then source provider my provide a reader to the file
+ * {@code myProg.sb} then source provider may provide a reader to the file
  * {@code inc/myProg.sb}.
  * <p>
- * Source providers may be provide readers reading the source from files,
+ * Source providers may provide readers reading the source from files,
  * database, svn and other locations.
  * 
  * @author Peter Verhas
