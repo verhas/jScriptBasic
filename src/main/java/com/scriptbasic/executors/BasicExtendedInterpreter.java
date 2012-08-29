@@ -175,6 +175,23 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
 		MethodRegisterUtility.registerFunctions(klass, this);
 	}
 
+	private boolean executePreTask = true;
+
+	private void preExecuteTask() throws ExecutionException {
+		if (executePreTask) {
+			if (program == null) {
+				throw new BasicRuntimeException("Program code was not loaded");
+			}
+			MethodRegisterUtility.registerFunctions(RuntimeUtility.class, this);
+			registerHook(new NullHook());
+			HookRegisterUtility.registerHooks(this);
+			if (hook != null) {
+				hook.init();
+			}
+			executePreTask = false;
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -182,13 +199,8 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
 	 */
 	@Override
 	public void execute() throws ExecutionException {
+		preExecuteTask();
 		final Command command = program.getStartCommand();
-		MethodRegisterUtility.registerFunctions(RuntimeUtility.class, this);
-		registerHook(new NullHook());
-		HookRegisterUtility.registerHooks(this);
-		if (hook != null) {
-			hook.init();
-		}
 		execute(command);
 	}
 
@@ -201,6 +213,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
 	 */
 	@Override
 	public void execute(final Command startCommand) throws ExecutionException {
+		preExecuteTask();
 		Command command = startCommand;
 		while (command != null) {
 			nextCommand = command.getNextCommand();
@@ -249,13 +262,15 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
 	@Override
 	public Object call(final String functionName, final Object[] arguments)
 			throws ExecutionException {
+		preExecuteTask();
 		final CommandSub commandSub = getSubroutine(functionName);
 		if (commandSub == null) {
 			throw new BasicRuntimeException("There is no such subroutine '"
 					+ functionName + "'");
 		}
 		return CastUtility.toObject(ExpressionUtility.callBasicFunction(this,
-				RightValueUtility.createRightValues(arguments), commandSub, functionName));
+				RightValueUtility.createRightValues(arguments), commandSub,
+				functionName));
 	}
 
 	/*
