@@ -7,7 +7,11 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
 
+import com.scriptbasic.errors.BasicInterpreterInternalError;
+import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.factories.FactoryFactory;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.EngineApi;
@@ -17,6 +21,7 @@ import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.HierarchicalReader;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.ScriptBasicException;
+import com.scriptbasic.interfaces.Subroutine;
 import com.scriptbasic.interfaces.SourcePath;
 import com.scriptbasic.interfaces.SourceProvider;
 import com.scriptbasic.readers.GenericHierarchicalReader;
@@ -75,7 +80,7 @@ public class Engine implements EngineApi {
 		this.error = error;
 	}
 
-	private void eval(final Reader reader, String fileName,
+	private void loadHelper(final Reader reader, String fileName,
 			SourceProvider sourceProvider) throws ScriptBasicException {
 		try {
 			final com.scriptbasic.interfaces.Reader sourceReader;
@@ -98,37 +103,63 @@ public class Engine implements EngineApi {
 			interpreter.setWriter(output);
 			interpreter.setErrorWriter(error);
 			interpreter.setReader(input);
-			interpreter.execute();
-		} catch (AnalysisException e) {
-			throw new ScriptBasicException(e);
-		} catch (ExecutionException e) {
-			throw new ScriptBasicException(e);
 		} catch (IOException e) {
+			throw new ScriptBasicException(e);
+		} catch (AnalysisException e) {
 			throw new ScriptBasicException(e);
 		}
 	}
 
 	@Override
+	public void execute() throws ScriptBasicException {
+		try {
+			interpreter.execute();
+		} catch (ExecutionException e) {
+			throw new ScriptBasicException(e);
+		}
+
+	}
+
+	@Override
+	public void load(final String sourceCode) throws ScriptBasicException {
+		loadHelper(new StringReader(sourceCode), null, null);
+	}
+
+	@Override
 	public void eval(final String sourceCode) throws ScriptBasicException {
-		eval(new StringReader(sourceCode), null, null);
+		load(sourceCode);
+		execute();
+	}
+
+	@Override
+	public void load(final Reader reader) throws ScriptBasicException {
+		loadHelper(reader, null, null);
 	}
 
 	@Override
 	public void eval(final Reader reader) throws ScriptBasicException {
-		eval(reader, null, null);
+		load(reader);
+		execute();
 	}
 
 	@Override
-	public void eval(final File sourceFile) throws ScriptBasicException {
+	public void load(final File sourceFile) throws ScriptBasicException {
 		try {
-			eval(new FileReader(sourceFile), sourceFile.getAbsolutePath(), null);
+			loadHelper(new FileReader(sourceFile),
+					sourceFile.getAbsolutePath(), null);
 		} catch (FileNotFoundException e) {
 			throw new ScriptBasicException(e);
 		}
 	}
 
 	@Override
-	public void eval(String sourceFileName, String... path)
+	public void eval(final File sourceFile) throws ScriptBasicException {
+		load(sourceFile);
+		execute();
+	}
+
+	@Override
+	public void load(String sourceFileName, String... path)
 			throws ScriptBasicException {
 		FileSourceProvider sourceProvider = new FileSourceProvider();
 		BasicSourcePath sourcePath = new BasicSourcePath();
@@ -136,21 +167,42 @@ public class Engine implements EngineApi {
 			sourcePath.add(p);
 		}
 		sourceProvider.setSourcePath(sourcePath);
-		eval(null, sourceFileName, sourceProvider);
+		loadHelper(null, sourceFileName, sourceProvider);
+	}
+
+	@Override
+	public void eval(String sourceFileName, String... path)
+			throws ScriptBasicException {
+		load(sourceFileName, path);
+		execute();
+	}
+
+	@Override
+	public void load(final String sourceFileName, final SourcePath path)
+			throws ScriptBasicException {
+		FileSourceProvider sourceProvider = new FileSourceProvider();
+		sourceProvider.setSourcePath(path);
+		loadHelper(null, sourceFileName, sourceProvider);
 	}
 
 	@Override
 	public void eval(final String sourceFileName, final SourcePath path)
 			throws ScriptBasicException {
-		FileSourceProvider sourceProvider = new FileSourceProvider();
-		sourceProvider.setSourcePath(path);
-		eval(null, sourceFileName, sourceProvider);
+		load(sourceFileName, path);
+		execute();
+	}
+
+	@Override
+	public void load(final String sourceName, final SourceProvider provider)
+			throws ScriptBasicException {
+		loadHelper(null, sourceName, provider);
 	}
 
 	@Override
 	public void eval(final String sourceName, final SourceProvider provider)
 			throws ScriptBasicException {
-		eval(null, sourceName, provider);
+		load(sourceName, provider);
+		execute();
 	}
 
 	public void setVariable(final String name, final Object value)
@@ -186,4 +238,97 @@ public class Engine implements EngineApi {
 			throw new ScriptBasicException(e);
 		}
 	}
+
+	@Override
+	public Iterable<String> getSubroutineNames() {
+		return interpreter.getProgram().getNamedCommandNames();
+	}
+
+	private boolean theMapHasToBeFilled = true;
+
+	private void SubroutineDoesNotExistWTF(Exception e) {
+		throw new BasicInterpreterInternalError(
+				"An already located subroutine does not exist", e);
+	}
+
+	@Override
+	public Iterable<Subroutine> getSubroutines() {
+		if (theMapHasToBeFilled) {
+			for (String s : getSubroutineNames()) {
+				try {
+					getSubroutine(s);
+				} catch (ScriptBasicException e) {
+					SubroutineDoesNotExistWTF(e);
+				}
+			}
+			theMapHasToBeFilled = false;
+		}
+		return subroutines.values();
+	}
+
+	private CommandSub getCommandSub(String subroutineName)
+			throws ScriptBasicException {
+		CommandSub commandSub = interpreter.getSubroutine(subroutineName);
+		if (commandSub == null) {
+			throw new ScriptBasicException("Sobroutine '" + subroutineName
+					+ "' is not defined in the program");
+		}
+		return commandSub;
+	}
+
+	@Override
+	public int getNumberOfArguments(String subroutineName)
+			throws ScriptBasicException {
+		CommandSub commandSub = getCommandSub(subroutineName);
+		final int size;
+		if (commandSub.getArguments() != null) {
+			size = commandSub.getArguments().size();
+		} else {
+			size = 0;
+		}
+		return size;
+	}
+
+	private final Map<String, Subroutine> subroutines = new HashMap<String, Subroutine>();
+
+	@Override
+	public Subroutine getSubroutine(String subroutineName)
+			throws ScriptBasicException {
+		if (subroutines.containsKey(subroutineName)) {
+			return subroutines.get(subroutineName);
+		}
+		CommandSub commandSub = getCommandSub(subroutineName);
+		Subroutine sub = new Sub(commandSub.getSubName());
+		subroutines.put(subroutineName, sub);
+		return sub;
+	}
+
+	public class Sub implements Subroutine {
+		private String name;
+
+		Sub(String n) {
+			name = n;
+		}
+
+		@Override
+		public int getNumberOfArguments() {
+			try {
+				return Engine.this.getNumberOfArguments(name);
+			} catch (ScriptBasicException e) {
+				SubroutineDoesNotExistWTF(e);
+				return 0;// will not get here
+			}
+		}
+
+		@Override
+		public String getName() {
+			return name;
+		}
+
+		@Override
+		public Object call(Object... args) throws ScriptBasicException {
+			return Engine.this.call(name, args);
+		}
+	}
+
 }

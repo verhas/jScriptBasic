@@ -4,6 +4,18 @@ import java.io.File;
 import java.io.Reader;
 import java.io.Writer;
 
+/**
+ * ScriptBasic for Java embedding interface.
+ * <p>
+ * This interface defines the native methods that can be used to embed
+ * ScriptBasic into applications. Using the methods of this API you can load,
+ * execute BASIC programs, define how the interpreter can get access to other
+ * sources that are included by the script, set and get global variables and
+ * call subroutines.
+ * 
+ * @author Peter Verhas
+ * 
+ */
 public interface EngineApi {
 
 	/**
@@ -71,6 +83,79 @@ public interface EngineApi {
 	 * @param output
 	 */
 	public void setError(Writer error);
+
+	/**
+	 * Load a string as a BASIC program.
+	 * 
+	 * @param sourceCode
+	 *            contains the source code as string
+	 * @throws ScriptBasicException
+	 */
+	void load(String sourceCode) throws ScriptBasicException;
+
+	/**
+	 * Read the content of a stream provided by the reader and interpret this as
+	 * a BASIC program. This method does not execute the code.
+	 * 
+	 * @param reader
+	 *            the reader to supply the BASIC program characters.
+	 * @throws ScriptBasicException
+	 */
+	void load(java.io.Reader reader) throws ScriptBasicException;
+
+	/**
+	 * Evaluate the content of a file. The file has to contain the BASIC
+	 * program. This method does not execute the code.
+	 * 
+	 * @param sourceFile
+	 *            the file handler pointing to the file that the interpreter
+	 *            will read to get the source code.
+	 * @throws ScriptBasicException
+	 */
+	void load(File sourceFile) throws ScriptBasicException;
+
+	/**
+	 * Read the content of the file and execute it. If there is any other script
+	 * included then use the path to search for the file. This method does not
+	 * execute the code.
+	 * 
+	 * @param sourceFileName
+	 *            the file that contains the script
+	 * @param path
+	 *            the array of path elements that are searched for included
+	 *            files
+	 */
+	public void load(String sourceFileName, String... path)
+			throws ScriptBasicException;
+
+	/**
+	 * Read the content of the file and execute it. If there is any other script
+	 * included then use the path to search for the file. This method does not
+	 * execute the code.
+	 * 
+	 * @param sourceFileName
+	 *            the file that contains the script
+	 * @param path
+	 *            the path where included files are located
+	 * @throws ScriptBasicException
+	 */
+	void load(String sourceFileName, SourcePath path)
+			throws ScriptBasicException;
+
+	/**
+	 * Read the content of the source from the file, db... whatever named by the
+	 * argument {@code sourceName} using the provider. This method does not
+	 * execute the code.
+	 * 
+	 * @param sourceName
+	 *            the name of the source file where the source is. The syntax of
+	 *            the name depends on the provider.
+	 * @param provider
+	 *            the source provider that helps the reader to read the content
+	 * @throws ScriptBasicException
+	 */
+	void load(String sourceName, SourceProvider provider)
+			throws ScriptBasicException;
 
 	/**
 	 * Evaluate a string as a BASIC program.
@@ -142,14 +227,27 @@ public interface EngineApi {
 	void eval(String sourceName, SourceProvider provider)
 			throws ScriptBasicException;
 
+	/**
+	 * Execute a previously loaded code.
+	 * 
+	 * @throws ScriptBasicException
+	 */
+	public void execute() throws ScriptBasicException;
+
 	void setVariable(String name, Object value) throws ScriptBasicException;
 
 	Object getVariable(String name) throws ScriptBasicException;
 
 	Iterable<String> getVariablesIterator();
-	
-	Object call(String subroutineName, Object ... args) throws ScriptBasicException;
-	
-	// TODO get the names of the subroutines
-	// TODO get the number of arguments for a subroutine 
+
+	Subroutine getSubroutine(String subroutineName) throws ScriptBasicException;
+
+	Iterable<Subroutine> getSubroutines();
+
+	Object call(String subroutineName, Object... args)
+			throws ScriptBasicException;
+
+	Iterable<String> getSubroutineNames();
+
+	int getNumberOfArguments(String subroutineName) throws ScriptBasicException;
 }
