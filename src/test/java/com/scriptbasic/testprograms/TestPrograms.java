@@ -11,6 +11,7 @@ import junit.framework.TestCase;
 import com.scriptbasic.Executor;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.interfaces.ExecutionException;
 
 /**
  * @author Peter Verhas
@@ -42,7 +43,16 @@ public class TestPrograms extends TestCase {
             // OK
         }
     }
-
+    private static void testRuntimeFail(String fileName) throws Exception {
+        try {
+            codeTest(fileName, null);
+            assertTrue(false);
+        } catch (ExecutionException e) {
+            @SuppressWarnings("unused")
+            Exception ex = e;
+            // OK
+        }
+    }
     public static class TestClass {
         public int callMe() {
             return 3;
@@ -110,5 +120,9 @@ public class TestPrograms extends TestCase {
         map = new HashMap<String, Object>();
         map.put("testClass", new TestClass());
         codeTest("TestObjectMethodCall.bas", map, "310");
+        
+        testRuntimeFail("TestBadArray1.bas");
+        codeTest("TestBadArray2.bas","");
+        codeTest("TestBadArray3.bas","");
     }
 }
