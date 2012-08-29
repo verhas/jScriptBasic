@@ -15,7 +15,7 @@ package com.scriptbasic.interfaces;
  * <p>
  * The data that may be stored in a command is referential data to other
  * Commands that are in the same program. For example a command implementing
- * 'while' may have a program counter that points to the corresponding 'wend',
+ * 'while' has an object that points to the corresponding 'wend',
  * but should not contain any data that holds the value of the expression
  * evaluated.
  * 
