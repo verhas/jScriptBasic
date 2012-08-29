@@ -101,7 +101,7 @@ How to embed ScriptBasic for Java using the Native API
 
  Note that the sample above is included from a junit test file. When you use this API
  you will much easier get to your file name than <<<this.getClass().getResource("hello.bas").getFile()>>>.
- 
+
 ** Including files
 
  When a BASIC file includes another you can not use the above methods. Even though the method
@@ -208,6 +208,16 @@ How to embed ScriptBasic for Java using the Native API
  The value returned by the method <<<engine.getVariablesIterator()>>> is an iterator that you can use in <<<for>>> loops
  or in any other Java way to iterate through the names of the global variables.
  
+** Loading code
+
+ If you want to load a BASIC program ready for execution, but do not want to execute yet, you can call the method <<<load()>>>.
+ For every method <<<eval()>>> there is a method names <<<load()>>> handling the same type of arguments. The method <<<load()>>>
+ only loads the code, performs all analysis that are needed to execute the code, but does not execute it. To execute the code
+ you can call the method <<<execute()>>>. It is possible to call this method multiple times.
+ 
+ Using the methods <<<load()>>> is also possible when you do not want to execute the main code of a BASIC script, you only
+ want to call subroutines without the execution of the main code.
+ 
 ** Calling a subroutine
 
  After the code was executed and returned you can call subroutines defined in the BASIC program. Note
@@ -224,9 +234,19 @@ How to embed ScriptBasic for Java using the Native API
 %{snippet|id=subroutineCallWArgumentsWRetval|file=src/test/java/com/scriptbasic/TestEngine.java}
  
  If the argument list is too long, you will get an exception. If the argument list is too short then the
- final arguments not matched by the passed values will be undefined.
+ final arguments not matched by the passed values will be undefined. To get the number of arguments a subroutine
+ expects you should call the method <<<getNumberOfArguments(String name)>>> with the subroutine name as argument.
+ To get all the subroutines the BASIC program defines you should call the method <<<getSubroutineNames()>>>: 
  
+%{snippet|id=subroutineList|file=src/test/java/com/scriptbasic/TestEngine.java}
  
+** Calling a subroutine object oriented way
+
+ The API calling a subroutine described above is not really object oriented. It helps a lot to write short implementations
+ but for those that are keen on programming in OO style there is another interface in the native ScriptBasic for Java API
+ <<<Subroutine>>>. This interface represents a subroutine in a BASIC program and is tied to an <<<Engine>>>.
+ To get an instance you have to call the <<<Engine>>> method <<<getSubroutine(String name)>>>. When you have the
+ instance you can call <<<call(Object ... args)>>>, <<<getName()>>> and <<<getNumberOfArguments()>>> methods.
  
  
  

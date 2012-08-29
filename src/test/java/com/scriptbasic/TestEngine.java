@@ -16,6 +16,7 @@ import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.interfaces.ScriptBasicException;
 import com.scriptbasic.interfaces.SourcePath;
 import com.scriptbasic.interfaces.SourceProvider;
+import com.scriptbasic.interfaces.Subroutine;
 import com.scriptbasic.readers.GenericReader;
 import com.scriptbasic.sourceproviders.BasicSourcePath;
 
@@ -242,5 +243,231 @@ public class TestEngine {
 		Assert.assertEquals("hello world", a);
 		Assert.assertEquals((Long) 6L, ret);
 		// END SNIPPET: subroutineCallWArgumentsWRetval
+	}
+
+	@Test
+	public void testSubroutineList() throws Exception {
+		// START SNIPPET: subroutineList
+		EngineApi engine = new Engine();
+		engine.eval("sub applePie(b)\nEndSub\nsub anotherSubroutine\nEndSub\n");
+		int i = 0;
+		for (@SuppressWarnings("unused")
+		String subName : engine.getSubroutineNames()) {
+			i++;
+		}
+		Assert.assertEquals(2, i);
+		Assert.assertEquals(1, engine.getNumberOfArguments("applePie"));
+		Assert.assertEquals(0, engine.getNumberOfArguments("anotherSubroutine"));
+		// END SNIPPET: subroutineList
+	}
+
+	@Test
+	public void testSubroutineCallWArgumentsWRetval2007() throws Exception {
+		EngineApi engine = new Engine();
+		engine.eval("sub applePie(b,c)\nglobal a\na = c\nreturn 6\nEndSub");
+		String a = (String) engine.getVariable("a");
+		Subroutine sub = engine.getSubroutine("applePie");
+		sub.call("hello world");
+		a = (String) engine.getVariable("a");
+		Assert.assertNull(a);
+	}
+
+	@Test
+	public void testSubroutineCallWArgumentsWRetval007() throws Exception {
+		EngineApi engine = new Engine();
+		engine.load("sub applePie(b)\nglobal a\na = b\nreturn 6\nEndSub");
+		String a = (String) engine.getVariable("a");
+		Assert.assertNull(a);
+		Subroutine sub = engine.getSubroutine("applePie");
+		Long ret = (Long) sub.call("hello world");
+		a = (String) engine.getVariable("a");
+		Assert.assertEquals("hello world", a);
+		Assert.assertEquals((Long) 6L, ret);
+	}
+
+	@Test
+	public void testSubroutineList007() throws Exception {
+		EngineApi engine = new Engine();
+		engine.load("sub applePie(b)\nEndSub\nsub anotherSubroutine\nEndSub\n");
+		int i = 0;
+		for (@SuppressWarnings("unused")
+		Subroutine sub : engine.getSubroutines()) {
+			i++;
+		}
+		Assert.assertEquals(2, i);
+		Subroutine applePie = engine.getSubroutine("applePie");
+		Assert.assertEquals(1, applePie.getNumberOfArguments());
+		Subroutine anotherSubroutine = engine
+				.getSubroutine("anotherSubroutine");
+		Assert.assertEquals(0, anotherSubroutine.getNumberOfArguments());
+	}
+
+	@Test
+	public void testSubroutineGetName() throws Exception {
+		EngineApi engine = new Engine();
+		engine.eval("sub applePie(b)\nEndSub\n");
+		Subroutine applePie = engine.getSubroutine("applePie");
+		Assert.assertEquals("applePie", applePie.getName());
+	}
+
+	@Test
+	public void testExceptions1() throws ScriptBasicException {
+		Engine engine = new Engine();
+		try {
+			engine.eval("ajdjkajkladsadsadjkls");
+			Assert.fail();
+		} catch (ScriptBasicException e) {
+		}
+		try {
+			engine.eval("call applePie");
+			Assert.fail();
+		} catch (ScriptBasicException e) {
+		}
+		try {
+			engine.eval(new File("this file is totally nonexistent"));
+			Assert.fail();
+		} catch (ScriptBasicException e) {
+		}
+		try {
+			engine.eval("kakukk.bas", new SourceProvider() {
+
+				@Override
+				public Reader get(String sourceName, String referencingSource)
+						throws IOException {
+					throw new IOException();
+				}
+
+				@Override
+				public Reader get(String sourceName) throws IOException {
+					throw new IOException();
+				}
+			});
+			Assert.fail();
+		} catch (ScriptBasicException e) {
+		}
+	}
+
+	@Test
+	public void testLoadString() throws Exception {
+		EngineApi engine = new Engine();
+		engine.load("print \"hello world\"");
+		engine.execute();
+	}
+
+	@Test
+	public void testLoadStringSW() throws Exception {
+		EngineApi engine = new Engine();
+		StringWriter sw = new StringWriter(10);
+		engine.setOutput(sw);
+		engine.load("print \"hello world\"");
+		engine.execute();
+
+		sw.close();
+		Assert.assertEquals("hello world", sw.toString());
+	}
+
+	@Test
+	public void testLoadReader() throws Exception {
+		EngineApi engine = new Engine();
+		StringWriter sw = new StringWriter(10);
+		engine.setOutput(sw);
+		StringReader sr = new StringReader("print \"hello world\"");
+		engine.load(sr);
+		engine.execute();
+
+		sw.close();
+		Assert.assertEquals("hello world", sw.toString());
+	}
+
+	@Test
+	public void testLoadFile() throws Exception {
+		EngineApi engine = new Engine();
+		StringWriter sw = new StringWriter(10);
+		engine.setOutput(sw);
+		File file = new File(getClass().getResource("hello.bas").getFile());
+		engine.load(file);
+		engine.execute();
+
+		sw.close();
+		Assert.assertEquals("hello world", sw.toString());
+	}
+
+	@Test
+	public void testLoadPath() throws Exception {
+		EngineApi engine = new Engine();
+		StringWriter sw = new StringWriter(10);
+		engine.setOutput(sw);
+		String path = new File(getClass().getResource("hello.bas").getFile())
+				.getParent();
+		engine.load("include.bas", path);
+		engine.execute();
+
+		sw.close();
+		Assert.assertEquals("hello world", sw.toString());
+	}
+
+	@Test
+	public void testLoadSourcePath() throws Exception {
+		EngineApi engine = new Engine();
+		StringWriter sw = new StringWriter(10);
+		engine.setOutput(sw);
+		String path = new File(getClass().getResource("hello.bas").getFile())
+				.getParent();
+		SourcePath sourcePath = new BasicSourcePath();
+		sourcePath.add(path);
+		engine.load("include.bas", sourcePath);
+		engine.execute();
+		sw.close();
+		Assert.assertEquals("hello world", sw.toString());
+	}
+
+	@Test
+	public void testLoadSourceProvider() throws Exception {
+		EngineApi engine = new Engine();
+		StringWriter sw = new StringWriter(10);
+		engine.setOutput(sw);
+		SourceProvider provider = new SourceProvider() {
+			private Map<String, String> source = new HashMap<String, String>();
+			{
+				source.put("hello.bas", "print \"hello world\"");
+				source.put("include.bas", "include \"hello.bas\"");
+			}
+
+			@Override
+			public Reader get(String sourceName, String referencingSource)
+					throws IOException {
+				return get(sourceName);
+			}
+
+			@Override
+			public Reader get(String sourceName) throws IOException {
+				GenericReader reader = new GenericReader();
+				reader.setSourceProvider(this);
+				reader.set(new StringReader(source.get(sourceName)));
+				return reader;
+			}
+		};
+		engine.load("include.bas", provider);
+		engine.execute();
+		sw.close();
+		Assert.assertEquals("hello world", sw.toString());
+	}
+
+	@Test
+	public void testLoadStringSWMultipleExecute() throws Exception {
+		EngineApi engine = new Engine();
+		StringWriter sw = new StringWriter(10);
+		engine.setOutput(sw);
+		engine.load("print \"hello world\"");
+		engine.execute();
+		engine.execute();
+		sw.close();
+		Assert.assertEquals("hello worldhello world", sw.toString());
+	}
+
+	@Test(expected = ScriptBasicException.class)
+	public void testNoLoadStringSWMultipleExecute() throws Exception {
+		EngineApi engine = new Engine();
+		engine.execute();
 	}
 }

@@ -18,38 +18,37 @@ import com.scriptbasic.utility.FactoryUtility;
  * SIMPLE LEFTVALUE ::= identifier
  * </pre>
  * 
- * @author Peter Verhas
- * date July 15, 2012
+ * @author Peter Verhas date July 15, 2012
  */
-public class BasicSimpleLeftValueAnalyzer implements
-        LeftValueAnalyzer, SimpleLeftValueAnalyzer {
+public class BasicSimpleLeftValueAnalyzer implements LeftValueAnalyzer,
+		SimpleLeftValueAnalyzer {
 
-    private Factory factory;
+	private Factory factory;
 
-    public Factory getFactory() {
-        return factory;
-    }
+	public Factory getFactory() {
+		return factory;
+	}
 
-    @Override
-    public void setFactory(Factory factory) {
-        this.factory = factory;
-    }
+	@Override
+	public void setFactory(Factory factory) {
+		this.factory = factory;
+	}
 
-    @Override
-    public LeftValue analyze() throws AnalysisException {
-        BasicLeftValue leftValue = null;
-        LexicalAnalyzer lexicalAnalyzer = FactoryUtility
-                .getLexicalAnalyzer(getFactory());
-        LexicalElement lexicalElement = lexicalAnalyzer.peek();
-        if (lexicalElement.isIdentifier()) {
-            lexicalAnalyzer.get();
-            leftValue = new BasicLeftValue();
-            leftValue.setIdentifier(lexicalElement.getLexeme());
-        } else {
-            throw new GenericSyntaxException(
-                    "left value should start with an identifier",
-                    lexicalElement, null);
-        }
-        return leftValue;
-    }
+	@Override
+	public LeftValue analyze() throws AnalysisException {
+		BasicLeftValue leftValue = null;
+		LexicalAnalyzer lexicalAnalyzer = FactoryUtility
+				.getLexicalAnalyzer(getFactory());
+		LexicalElement lexicalElement = lexicalAnalyzer.peek();
+		if (lexicalElement != null && lexicalElement.isIdentifier()) {
+			lexicalAnalyzer.get();
+			leftValue = new BasicLeftValue();
+			leftValue.setIdentifier(lexicalElement.getLexeme());
+		} else {
+			throw new GenericSyntaxException(
+					"left value should start with an identifier",
+					lexicalElement, null);
+		}
+		return leftValue;
+	}
 }

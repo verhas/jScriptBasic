@@ -5,3 +5,8 @@
   ----------------------------------
   2012-08-17
   ----------------------------------
+  
+ScriptBasic for Java Arrays
+
+ The language implemented by ScriptBasic for Java can handle arrays. The arrays are
+ allocated on the fly and are indexed from zero up to their limits.  
