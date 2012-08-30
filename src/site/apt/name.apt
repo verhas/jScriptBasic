@@ -16,8 +16,11 @@ ScriptBasic for Java, The Name
  ScriptBasic for Java does not need configuration generally though.)
  
  "ScriptBasic" without the starting <<<j>>> or without saying that this is for java denotes the
- classic version of ScriptBasic. The classic version was developed by the same authors from 1997 till 2006. Sometimes
- we distinguish that version written in C from the Java version. In such situation we
+ classic version of ScriptBasic. The classic version was developed by the same authors from 1997 till 2006 and was and is still used
+ by many application as an embedded language. To name two: Sarian routers can be programmed using ScriptBasic and the company
+ EZ-R Stats uses ScriptBasic to develop audit routines into their application.
+   
+ Sometimes we distinguish that version written in C from the Java version. In such situation we
  refer to the C version as ScriptBasic C or ScriptBasic Classic.
  
  Scriba or <<<scriba>>> is the name of the executable of the classic version.
