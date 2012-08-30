@@ -124,5 +124,6 @@ public class TestPrograms extends TestCase {
         testRuntimeFail("TestBadArray1.bas");
         codeTest("TestBadArray2.bas","");
         codeTest("TestBadArray3.bas","");
+        codeTest("BubbleSort.bas","-1\n0\n2\n3\n7\n58\n99\n");
     }
 }

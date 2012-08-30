@@ -12,6 +12,32 @@ ScriptBasic for Java Arrays
  allocated on the fly and are indexed from zero up to their limits. If you try to index
  an array above the actual limit the array is automatically extended.
  
+ The following program creates an array and sorts it with the simplest possible bubble sort:
+ 
+---
+	a[0] = 3
+	a[1] = 2
+	a[2] = 7
+	a[3] = -1
+	a[4] = 58
+	a[5] = 0
+	a[6] = 99
+	
+	for i=0 to 6
+	for j=0 to 6
+	 if a[i] < a[j] then
+	   x = a[i]
+	   a[i] = a[j]
+	   a[j] = x
+	 endif
+	next j
+	next i
+	
+	for i=0 to 6
+	  print a[i],"\n"
+	next i
+---
+ 
  For safety reasons you can not use a variable as an array that already has some value.
  For example the following code will result error:
  
@@ -21,7 +47,8 @@ ScriptBasic for Java Arrays
 			a = 55
 ---
 
- On the other hand you can use a variable to hold a value that was storing a variable before:
+ This will prevent programming errors and avoid some misbehaving scripts.
+ On the other hand you can use a variable to hold a value that was storing an array before:
  
 ---
 			' This code works fine
