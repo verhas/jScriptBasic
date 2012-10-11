@@ -29,6 +29,7 @@ import com.scriptbasic.readers.GenericReader;
 import com.scriptbasic.sourceproviders.BasicSourcePath;
 import com.scriptbasic.sourceproviders.FileSourceProvider;
 import com.scriptbasic.utility.FactoryUtility;
+import com.scriptbasic.utility.MethodRegisterUtility;
 import com.scriptbasic.utility.RightValueUtility;
 
 public class Engine implements EngineApi {
@@ -80,14 +81,14 @@ public class Engine implements EngineApi {
 		this.error = error;
 	}
 
-	private void loadHelper(final Reader reader, String fileName,
-			SourceProvider sourceProvider) throws ScriptBasicException {
+	private void loadHelper(final Reader reader, final String fileName,
+			final SourceProvider sourceProvider) throws ScriptBasicException {
 		try {
 			final com.scriptbasic.interfaces.Reader sourceReader;
 			if (reader == null && sourceProvider != null) {
 				sourceReader = sourceProvider.get(fileName);
 			} else {
-				GenericReader genericReader = new GenericReader();
+				final GenericReader genericReader = new GenericReader();
 				genericReader.set(reader);
 				genericReader.setSourceProvider(sourceProvider);
 				sourceReader = genericReader;
@@ -95,7 +96,7 @@ public class Engine implements EngineApi {
 			sourceReader.set((String) fileName);
 			final LexicalAnalyzer lexicalAnalyzer = FactoryUtility
 					.getLexicalAnalyzer(factory);
-			HierarchicalReader hReader = new GenericHierarchicalReader();
+			final HierarchicalReader hReader = new GenericHierarchicalReader();
 			hReader.include(sourceReader);
 			lexicalAnalyzer.set(hReader);
 			interpreter.setProgram(FactoryUtility.getSyntaxAnalyzer(factory)
@@ -103,9 +104,9 @@ public class Engine implements EngineApi {
 			interpreter.setWriter(output);
 			interpreter.setErrorWriter(error);
 			interpreter.setReader(input);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			throw new ScriptBasicException(e);
-		} catch (AnalysisException e) {
+		} catch (final AnalysisException e) {
 			throw new ScriptBasicException(e);
 		}
 	}
@@ -114,7 +115,7 @@ public class Engine implements EngineApi {
 	public void execute() throws ScriptBasicException {
 		try {
 			interpreter.execute();
-		} catch (ExecutionException e) {
+		} catch (final ExecutionException e) {
 			throw new ScriptBasicException(e);
 		}
 
@@ -147,7 +148,7 @@ public class Engine implements EngineApi {
 		try {
 			loadHelper(new FileReader(sourceFile),
 					sourceFile.getAbsolutePath(), null);
-		} catch (FileNotFoundException e) {
+		} catch (final FileNotFoundException e) {
 			throw new ScriptBasicException(e);
 		}
 	}
@@ -159,11 +160,11 @@ public class Engine implements EngineApi {
 	}
 
 	@Override
-	public void load(String sourceFileName, String... path)
+	public void load(final String sourceFileName, final String... path)
 			throws ScriptBasicException {
-		FileSourceProvider sourceProvider = new FileSourceProvider();
-		BasicSourcePath sourcePath = new BasicSourcePath();
-		for (String p : path) {
+		final FileSourceProvider sourceProvider = new FileSourceProvider();
+		final BasicSourcePath sourcePath = new BasicSourcePath();
+		for (final String p : path) {
 			sourcePath.add(p);
 		}
 		sourceProvider.setSourcePath(sourcePath);
@@ -171,7 +172,7 @@ public class Engine implements EngineApi {
 	}
 
 	@Override
-	public void eval(String sourceFileName, String... path)
+	public void eval(final String sourceFileName, final String... path)
 			throws ScriptBasicException {
 		load(sourceFileName, path);
 		execute();
@@ -180,7 +181,7 @@ public class Engine implements EngineApi {
 	@Override
 	public void load(final String sourceFileName, final SourcePath path)
 			throws ScriptBasicException {
-		FileSourceProvider sourceProvider = new FileSourceProvider();
+		final FileSourceProvider sourceProvider = new FileSourceProvider();
 		sourceProvider.setSourcePath(path);
 		loadHelper(null, sourceFileName, sourceProvider);
 	}
@@ -210,7 +211,7 @@ public class Engine implements EngineApi {
 		try {
 			interpreter.getVariables().setVariable(name,
 					RightValueUtility.createRightValue(value));
-		} catch (ExecutionException e) {
+		} catch (final ExecutionException e) {
 			throw new ScriptBasicException(e);
 		}
 	}
@@ -219,7 +220,7 @@ public class Engine implements EngineApi {
 	public Object getVariable(final String name) throws ScriptBasicException {
 		try {
 			return interpreter.getVariable(name);
-		} catch (ExecutionException e) {
+		} catch (final ExecutionException e) {
 			throw new ScriptBasicException(e);
 		}
 	}
@@ -230,11 +231,11 @@ public class Engine implements EngineApi {
 	}
 
 	@Override
-	public Object call(String subroutineName, Object... args)
+	public Object call(final String subroutineName, final Object... args)
 			throws ScriptBasicException {
 		try {
 			return interpreter.call(subroutineName, args);
-		} catch (ExecutionException e) {
+		} catch (final ExecutionException e) {
 			throw new ScriptBasicException(e);
 		}
 	}
@@ -246,7 +247,7 @@ public class Engine implements EngineApi {
 
 	private boolean theMapHasToBeFilled = true;
 
-	private void SubroutineDoesNotExistWTF(Exception e) {
+	private void SubroutineDoesNotExistWTF(final Exception e) {
 		throw new BasicInterpreterInternalError(
 				"An already located subroutine does not exist", e);
 	}
@@ -254,10 +255,10 @@ public class Engine implements EngineApi {
 	@Override
 	public Iterable<Subroutine> getSubroutines() {
 		if (theMapHasToBeFilled) {
-			for (String s : getSubroutineNames()) {
+			for (final String s : getSubroutineNames()) {
 				try {
 					getSubroutine(s);
-				} catch (ScriptBasicException e) {
+				} catch (final ScriptBasicException e) {
 					SubroutineDoesNotExistWTF(e);
 				}
 			}
@@ -266,9 +267,9 @@ public class Engine implements EngineApi {
 		return subroutines.values();
 	}
 
-	private CommandSub getCommandSub(String subroutineName)
+	private CommandSub getCommandSub(final String subroutineName)
 			throws ScriptBasicException {
-		CommandSub commandSub = interpreter.getSubroutine(subroutineName);
+		final CommandSub commandSub = interpreter.getSubroutine(subroutineName);
 		if (commandSub == null) {
 			throw new ScriptBasicException("Sobroutine '" + subroutineName
 					+ "' is not defined in the program");
@@ -277,9 +278,9 @@ public class Engine implements EngineApi {
 	}
 
 	@Override
-	public int getNumberOfArguments(String subroutineName)
+	public int getNumberOfArguments(final String subroutineName)
 			throws ScriptBasicException {
-		CommandSub commandSub = getCommandSub(subroutineName);
+		final CommandSub commandSub = getCommandSub(subroutineName);
 		final int size;
 		if (commandSub.getArguments() != null) {
 			size = commandSub.getArguments().size();
@@ -292,21 +293,21 @@ public class Engine implements EngineApi {
 	private final Map<String, Subroutine> subroutines = new HashMap<String, Subroutine>();
 
 	@Override
-	public Subroutine getSubroutine(String subroutineName)
+	public Subroutine getSubroutine(final String subroutineName)
 			throws ScriptBasicException {
 		if (subroutines.containsKey(subroutineName)) {
 			return subroutines.get(subroutineName);
 		}
-		CommandSub commandSub = getCommandSub(subroutineName);
-		Subroutine sub = new Sub(commandSub.getSubName());
+		final CommandSub commandSub = getCommandSub(subroutineName);
+		final Subroutine sub = new Sub(commandSub.getSubName());
 		subroutines.put(subroutineName, sub);
 		return sub;
 	}
 
 	public class Sub implements Subroutine {
-		private String name;
+		private final String name;
 
-		Sub(String n) {
+		Sub(final String n) {
 			name = n;
 		}
 
@@ -314,7 +315,7 @@ public class Engine implements EngineApi {
 		public int getNumberOfArguments() {
 			try {
 				return Engine.this.getNumberOfArguments(name);
-			} catch (ScriptBasicException e) {
+			} catch (final ScriptBasicException e) {
 				SubroutineDoesNotExistWTF(e);
 				return 0;// will not get here
 			}
@@ -326,9 +327,20 @@ public class Engine implements EngineApi {
 		}
 
 		@Override
-		public Object call(Object... args) throws ScriptBasicException {
+		public Object call(final Object... args) throws ScriptBasicException {
 			return Engine.this.call(name, args);
 		}
+
+		@Override
+		public Object call() throws ScriptBasicException {
+			return call((Object[]) null);
+		}
+	}
+
+	@Override
+	public void registerExtension(final Class<?> klass)
+			throws ScriptBasicException {
+		MethodRegisterUtility.registerFunctions(klass, interpreter);
 	}
 
 }

@@ -59,10 +59,12 @@ What is ScriptBasic for Java
  You can also execute BASIC programs from the command line. All you have to do is issue the command line
  
 ---
-java -jar jscriptbasic-x.y.z.jar basicProgram.sb
+java -jar jscriptbasic-${project.version}.jar basicProgram.sb
 ---        
 
- and the program in the file <<<basicProgram.sb>>> will execute.
+ and the program in the file <<<basicProgram.sb>>> will execute. (Note that the line above uses the latest version
+ ${project.version} which may not be the latest released version. If it finishes with the postfix <<<-SNAPSHOT>>>
+ then the version is a development version. Instead use the name of the JAR file you downloaded.)
  
 * License is Open Source
 

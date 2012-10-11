@@ -73,7 +73,7 @@ RunLimitHook.allowJavaMethods=false
  
 ------------------------------------------------------------------------------------------------------------
 deny(com.scriptbasic.classification.System)=1
-deny(com.scriptbasic.classification.Math.class)=1
+deny(com.scriptbasic.classification.Math)=1
 deny(com.scriptbasic.classification.Constant)=1
 ------------------------------------------------------------------------------------------------------------
 
@@ -96,7 +96,7 @@ deny(com.scriptbasic.classification.Constant)=1
 
 ------------------------------------------------------------------------------------------------------------
 deny(com.scriptbasic.classification.System)=1
-allow(com.scriptbasic.classification.Math.class)=2
+allow(com.scriptbasic.classification.Math)=2
 deny(com.scriptbasic.classification.Constant)=1
 ------------------------------------------------------------------------------------------------------------
 

@@ -18,8 +18,8 @@ public interface Subroutine {
 
 	/**
 	 * Get the name of the subroutine. Even though the instance of the interface
-	 * is usually acquired knowing the name of the subroutine this method can be used to
-	 * access this information.
+	 * is usually acquired knowing the name of the subroutine this method can be
+	 * used to access this information.
 	 * 
 	 * @return the name of the subroutine
 	 */
@@ -28,9 +28,20 @@ public interface Subroutine {
 	/**
 	 * Call the subroutine.
 	 * 
-	 * @param args the arguments passed to the subroutine
+	 * @param args
+	 *            the arguments passed to the subroutine
 	 * @return the return value of the subroutine
-	 * @throws ScriptBasicException when an BASIC error happens during the execution of the subroutine
+	 * @throws ScriptBasicException
+	 *             when an BASIC error happens during the execution of the
+	 *             subroutine
 	 */
 	Object call(Object... args) throws ScriptBasicException;
+
+	/**
+	 * Call a subroutine without any argument.
+	 * 
+	 * @return the return value of the subroutine
+	 * @throws ScriptBasicException
+	 */
+	Object call() throws ScriptBasicException;
 }

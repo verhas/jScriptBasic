@@ -31,5 +31,5 @@ Design Considerations
  ScriptBasic for Java was developed with similar design goals in mind. We wanted a BASIC interpreter in Java so that
  Java application can access a BASIC interpreter as a scripting extension to their application to be used by the
  business experts. We believe in free software and thus we release ScriptBasic for Java as GPL (note that ScriptBasic
- Classic is LGPL). 
+ Classic is LGPL).
  

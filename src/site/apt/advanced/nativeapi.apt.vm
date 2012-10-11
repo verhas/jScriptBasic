@@ -24,14 +24,15 @@ How to embed ScriptBasic for Java using the Native API
  
 * Using Maven
 
- If you use Maven then you can simply define in your POM file that references the actual version of ScriptBasic for Java:
+ If you use Maven then you can simply define in your POM file that references the actual
+ version of ScriptBasic for Java:
  
 ---
 	<dependencies>
 		<dependency>
 	        <groupId>com.scriptbasic</groupId>
 	        <artifactId>jscriptbasic</artifactId>
-	        <version>x.y.z</version>
+	        <version>${project.version}</version>
 		</dependency>
 	</dependencies>
 --- 
@@ -43,7 +44,7 @@ How to embed ScriptBasic for Java using the Native API
  Go to the web interface of the central repository of Sonatype and download the artifact
  
 ---
-  http://central.maven.org/maven2/com/scriptbasic/jscriptbasic/x.y.z/jscriptbasic-x.y.z.jar 
+  http://central.maven.org/maven2/com/scriptbasic/jscriptbasic/${project.version}/jscriptbasic-${project.version}.jar 
 ---
 
  place it to where the other library files are.
@@ -85,7 +86,8 @@ How to embed ScriptBasic for Java using the Native API
 %{snippet|id=helloWorldString|file=src/test/java/com/scriptbasic/TestEngine.java}
 
  This code creates a new <<<Engine>>> object, then calls the method <<<eval>>> with the string that contains the
- program code. If you want to have the output of the program in a <<<String>>> you can create a <<<StringWriter>>>
+ program code. Note that <<<EngineApi>>> is an interface and <<<Engine>>> is the implementation.
+ If you want to have the output of the program in a <<<String>>> you can create a <<<StringWriter>>>
  and redirect the standard output of the program to there:
  
 %{snippet|id=helloWorldStringSW|file=src/test/java/com/scriptbasic/TestEngine.java}
@@ -248,6 +250,12 @@ How to embed ScriptBasic for Java using the Native API
  To get an instance you have to call the <<<Engine>>> method <<<getSubroutine(String name)>>>. When you have the
  instance you can call <<<call(Object ... args)>>>, <<<getName()>>> and <<<getNumberOfArguments()>>> methods.
  
+%{snippet|id=subroutineCallWOArgumentsWORetvalOO|file=src/test/java/com/scriptbasic/TestEngine.java}
+  
+  This sample above is the object oriented version of the sample before. Also see the following
+  sample how to call a subroutine in OO way that returns some value:
+ 
+%{snippet|id=subroutineCallWArgumentsWRetvalOO|file=src/test/java/com/scriptbasic/TestEngine.java}
  
  
  

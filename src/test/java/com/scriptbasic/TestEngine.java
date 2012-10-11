@@ -176,6 +176,7 @@ public class TestEngine {
 		// END SNIPPET: listGlobalVariable
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testSubroutineCallWOArgumentsWORetvalLocalVarIsLocal()
 			throws Exception {
@@ -188,6 +189,7 @@ public class TestEngine {
 		Assert.assertNull(a);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testSubroutineCallWOArgumentsWORetval() throws Exception {
 		// START SNIPPET: subroutineCallWOArgumentsWORetval
@@ -201,6 +203,7 @@ public class TestEngine {
 		// END SNIPPET: subroutineCallWOArgumentsWORetval
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testSubroutineCallWArgumentsWORetval() throws Exception {
 		// START SNIPPET: subroutineCallWArgumentsWORetval
@@ -214,6 +217,35 @@ public class TestEngine {
 		// END SNIPPET: subroutineCallWArgumentsWORetval
 	}
 
+	@Test
+	public void testSubroutineCallWOArgumentsWORetvalOO() throws Exception {
+		// START SNIPPET: subroutineCallWOArgumentsWORetvalOO
+		EngineApi engine = new Engine();
+		engine.eval("sub applePie\nglobal a\na = \"hello world\"\nEndSub");
+		String a = (String) engine.getVariable("a");
+		Assert.assertNull(a);
+		Subroutine applePie = engine.getSubroutine("applePie");
+		applePie.call((Object[]) null);
+		a = (String) engine.getVariable("a");
+		Assert.assertEquals("hello world", a);
+		// END SNIPPET: subroutineCallWOArgumentsWORetvalOO
+	}
+
+	@Test
+	public void testSubroutineCallWArgumentsWORetvalOO() throws Exception {
+		// START SNIPPET: subroutineCallWArgumentsWORetvalOO
+		EngineApi engine = new Engine();
+		engine.eval("sub applePie(b)\nglobal a\na = b\nEndSub");
+		String a = (String) engine.getVariable("a");
+		Assert.assertNull(a);
+		Subroutine applePie = engine.getSubroutine("applePie");
+		applePie.call("hello world");
+		a = (String) engine.getVariable("a");
+		Assert.assertEquals("hello world", a);
+		// END SNIPPET: subroutineCallWArgumentsWORetvalOO
+	}
+
+	@SuppressWarnings("deprecation")
 	@Test(expected = ScriptBasicException.class)
 	public void testSubroutineCallWArgumentsWRetval1() throws Exception {
 		EngineApi engine = new Engine();
@@ -221,6 +253,7 @@ public class TestEngine {
 		engine.call("applePie", "hello world", "mama");
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testSubroutineCallWArgumentsWRetval2() throws Exception {
 		EngineApi engine = new Engine();
@@ -238,6 +271,7 @@ public class TestEngine {
 		engine.eval("sub applePie(b)\nglobal a\na = b\nreturn 6\nEndSub");
 		String a = (String) engine.getVariable("a");
 		Assert.assertNull(a);
+		@SuppressWarnings("deprecation")
 		Long ret = (Long) engine.call("applePie", "hello world");
 		a = (String) engine.getVariable("a");
 		Assert.assertEquals("hello world", a);
@@ -245,6 +279,22 @@ public class TestEngine {
 		// END SNIPPET: subroutineCallWArgumentsWRetval
 	}
 
+	@Test
+	public void testSubroutineCallWArgumentsWRetvalOO() throws Exception {
+		// START SNIPPET: subroutineCallWArgumentsWRetvalOO
+		EngineApi engine = new Engine();
+		engine.eval("sub applePie(b)\nglobal a\na = b\nreturn 6\nEndSub");
+		String a = (String) engine.getVariable("a");
+		Assert.assertNull(a);
+		Subroutine applePie = engine.getSubroutine("applePie");
+		Long ret = (Long) applePie.call("hello world");
+		a = (String) engine.getVariable("a");
+		Assert.assertEquals("hello world", a);
+		Assert.assertEquals((Long) 6L, ret);
+		// END SNIPPET: subroutineCallWArgumentsWRetvalOO
+	}
+
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testSubroutineList() throws Exception {
 		// START SNIPPET: subroutineList
@@ -469,5 +519,27 @@ public class TestEngine {
 	public void testNoLoadStringSWMultipleExecute() throws Exception {
 		EngineApi engine = new Engine();
 		engine.execute();
+	}
+
+	// START SNIPPET: testExtensionClass
+	public static class TestExtensionClass {
+		@Function(alias = "javaFunction", classification = (java.lang.Long.class), requiredVersion = 1)
+		public static Long fiftyFive() {
+			return 55L;
+		}
+	}
+
+	// END SNIPPET: testExtensionClass
+
+	@Test
+	public void testRegisterExtension() throws Exception {
+		// START SNIPPET: testExtensionMethod
+		EngineApi engine = new Engine();
+		engine.registerExtension(TestExtensionClass.class);
+		engine.load("Sub aPie\nreturn javaFunction()\nEndSub\n");
+		engine.execute();
+		Long z = (Long) engine.getSubroutine("aPie").call();
+		Assert.assertEquals((Long) 55L, z);
+		// END SNIPPET: testExtensionMethod
 	}
 }

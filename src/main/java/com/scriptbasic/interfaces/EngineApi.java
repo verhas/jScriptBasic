@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.Reader;
 import java.io.Writer;
 
+import com.scriptbasic.Function;
+
 /**
  * ScriptBasic for Java embedding interface.
  * <p>
@@ -234,20 +236,122 @@ public interface EngineApi {
 	 */
 	public void execute() throws ScriptBasicException;
 
+	/**
+	 * Set the value of a global variable of the BASIC program.
+	 * 
+	 * @param name
+	 *            of the variable as it is used in the BASIC program
+	 * @param value
+	 *            the value of the variable. The value is converted
+	 *            automatically to be a BASIC value.
+	 * @throws ScriptBasicException
+	 */
 	void setVariable(String name, Object value) throws ScriptBasicException;
 
+	/**
+	 * Get the value of a global variable after the BASIC program was executed.
+	 * 
+	 * @param name
+	 *            of the variable
+	 * @return the value of the variable converted to Java. Thus there is no
+	 *         need to deal with ScriptBasic internal classes. If the variable
+	 *         contains an integer then this method will return a {@code Long},
+	 *         if it is a string then it will be a {@code String} and so on.
+	 * @throws ScriptBasicException
+	 */
 	Object getVariable(String name) throws ScriptBasicException;
 
+	/**
+	 * Get an iterator that iterates through the names of the global variables.
+	 * 
+	 * @return the iterator to fetch the names of the global variables one by
+	 *         one.
+	 */
 	Iterable<String> getVariablesIterator();
 
+	/**
+	 * Get the subroutine object of a named subroutine. This object can later be
+	 * used to call the subroutine after the code was executed.
+	 * 
+	 * @param subroutineName
+	 *            the name of the subroutine for which the object is to be
+	 *            fetched.
+	 * @return the subroutine object.
+	 * @throws ScriptBasicException
+	 */
 	Subroutine getSubroutine(String subroutineName) throws ScriptBasicException;
 
+	/**
+	 * Get all the subroutine objects in an iterator.
+	 * 
+	 * @return an iterator that can be used to access all subroutine objects.
+	 */
 	Iterable<Subroutine> getSubroutines();
 
+	/**
+	 * Call the named subroutine with the arguments.
+	 * <p>
+	 * It is recommended to call subroutines via a
+	 * {@link com.scriptbasic.interfaces.Subroutine} object.
+	 * 
+	 * @param subroutineName
+	 *            the name of the subroutine to be called.
+	 * @param args
+	 *            the arguments to be passed to the subroutine. Note that there
+	 *            has to be that many arguments passed as many arguments are
+	 *            needed by the subroutine. If there are less number of actual
+	 *            arguments the rest of the arguments will be undefined. If you
+	 *            pass more actual arguments than the subroutine expects you
+	 *            will get an exception.
+	 * @return the value returned by the subroutine. Note that this value is
+	 *         already converted to Java object and not a raw ScriptBasic
+	 *         {@code RightValue} but rather a {@code Long}, {@code Double},
+	 *         {@code String} or similar.
+	 * @throws ScriptBasicException
+	 * @deprecated
+	 */
 	Object call(String subroutineName, Object... args)
 			throws ScriptBasicException;
 
+	/**
+	 * Get the names of all subroutines.
+	 * 
+	 * @return the iterator that can be used to iterate through the names of all
+	 *         the subroutines defined in the program.
+	 */
 	Iterable<String> getSubroutineNames();
 
+	/**
+	 * Get the number of expected argument of the named subroutine.
+	 * <p>
+	 * It is recommended to call subroutines via a
+	 * {@link com.scriptbasic.interfaces.Subroutine} object.
+	 * 
+	 * @param subroutineName
+	 *            the name of the subroutine.
+	 * @return the number of arguments the subroutine expects.
+	 * @throws ScriptBasicException
+	 * @deprecated
+	 */
 	int getNumberOfArguments(String subroutineName) throws ScriptBasicException;
+
+	/**
+	 * Register the static methods of the class as BASIC functions. After the
+	 * registration the methods can be called from BASIC just as if they were
+	 * built-in functions in the language or just like if they were defined as
+	 * BASIC subroutines.
+	 * <p>
+	 * The registration process uses only the methods that are annotated as
+	 * {@link Function} and only if their {@link Function#classification()}
+	 * parameter is not configured in the configuration file as forbidden.
+	 * <p>
+	 * Even though the static methods are called via reflection they have to be
+	 * callable from the BASIC interpreter. Simply saying they have to be
+	 * {@code public}.
+	 * 
+	 * @param klass
+	 *            the class to parse.
+	 * @throws ScriptBasicException
+	 */
+	void registerExtension(Class<?> klass) throws ScriptBasicException;
 }
