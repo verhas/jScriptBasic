@@ -127,5 +127,8 @@ public class TestPrograms extends TestCase {
 		codeTest("TestBadArray3.bas", "");
 		codeTest("BubbleSort.bas", "-1\n0\n2\n3\n7\n58\n99\n");
 		codeTest("TestStringFormat.bas", "314");
+		codeTest("TestAbs.bas","131355.377.7");
+		codeTest("TestChomp.bas","ttt");
+		codeTest("TestConvert.bas","0.9074467814501962");
 	}
 }
