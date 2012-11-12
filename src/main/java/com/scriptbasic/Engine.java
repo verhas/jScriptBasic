@@ -21,15 +21,14 @@ import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.HierarchicalReader;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.ScriptBasicException;
-import com.scriptbasic.interfaces.Subroutine;
 import com.scriptbasic.interfaces.SourcePath;
 import com.scriptbasic.interfaces.SourceProvider;
+import com.scriptbasic.interfaces.Subroutine;
 import com.scriptbasic.readers.GenericHierarchicalReader;
 import com.scriptbasic.readers.GenericReader;
 import com.scriptbasic.sourceproviders.BasicSourcePath;
 import com.scriptbasic.sourceproviders.FileSourceProvider;
 import com.scriptbasic.utility.FactoryUtility;
-import com.scriptbasic.utility.MethodRegisterUtility;
 import com.scriptbasic.utility.RightValueUtility;
 
 public class Engine implements EngineApi {
@@ -340,7 +339,7 @@ public class Engine implements EngineApi {
 	@Override
 	public void registerExtension(final Class<?> klass)
 			throws ScriptBasicException {
-		MethodRegisterUtility.registerFunctions(klass, interpreter);
+		interpreter.registerFunctions(klass);
 	}
 
 }

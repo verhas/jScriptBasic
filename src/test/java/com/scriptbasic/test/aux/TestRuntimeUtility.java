@@ -11,13 +11,14 @@ public class TestRuntimeUtility {
 		RuntimeUtility.newObject("java.lang.Object");
 
 		double x = 0.0;
+		double y = 1.0;
 		RuntimeUtility.acos(x);
 
 		RuntimeUtility.asin(x);
 
 		RuntimeUtility.atan(x);
 
-		RuntimeUtility.atan2(x, x);
+		RuntimeUtility.atan2(x, y);
 
 		RuntimeUtility.cbrt(x);
 
@@ -29,13 +30,13 @@ public class TestRuntimeUtility {
 
 		RuntimeUtility.floor(x);
 
-		RuntimeUtility.hypot(x);
+		RuntimeUtility.hypot(x,y);
 
 		RuntimeUtility.log(x);
 
 		RuntimeUtility.log10(x);
 
-		RuntimeUtility.pow(x);
+		RuntimeUtility.pow(x,y);
 
 		RuntimeUtility.round(x);
 

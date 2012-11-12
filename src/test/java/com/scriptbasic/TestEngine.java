@@ -523,7 +523,7 @@ public class TestEngine {
 
 	// START SNIPPET: testExtensionClass
 	public static class TestExtensionClass {
-		@Function(alias = "javaFunction", classification = (java.lang.Long.class), requiredVersion = 1)
+		@Function(alias = "javaFunction", classification = java.lang.Long.class, requiredVersion = 1)
 		public static Long fiftyFive() {
 			return 55L;
 		}

@@ -195,9 +195,10 @@ public interface ExtendedInterpreter extends Interpreter {
 	 * @param klass
 	 * @param methodName
 	 * @param argumentTypes
+	 * @throws BasicRuntimeException 
 	 */
 	void registerJavaMethod(String alias, Class<?> klass, String methodName,
-			Class<?>[] argumentTypes);
+			Class<?>[] argumentTypes) throws BasicRuntimeException;
 
 	/**
 	 * Get the method named from the klass based on the declaration given in a

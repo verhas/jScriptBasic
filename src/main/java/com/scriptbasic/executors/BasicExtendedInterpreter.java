@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.hooks.NullHook;
 import com.scriptbasic.interfaces.BasicRuntimeException;
@@ -172,7 +173,17 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
 
 	@Override
 	public void registerFunctions(final Class<?> klass) {
-		MethodRegisterUtility.registerFunctions(klass, this);
+		try {
+			MethodRegisterUtility.registerFunctions(klass, this);
+		} catch (BasicRuntimeException e) {
+			throw new BasicInterpreterInternalError(
+					"Registering functions from class '"
+							+ klass
+							+ "' caused exception. Probably double defining a function alias. "
+							+ "Since this declared in Java code and not in BASIC this is an internal error of "
+							+ "the embedding application. For more detail have a look at the exception that caused this.",
+					e);
+		}
 	}
 
 	private boolean executePreTask = true;
@@ -369,7 +380,8 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
 	 */
 	@Override
 	public void registerJavaMethod(final String alias, final Class<?> klass,
-			final String methodName, final Class<?>[] argumentTypes) {
+			final String methodName, final Class<?>[] argumentTypes)
+			throws BasicRuntimeException {
 		if (hook != null) {
 			hook.beforeRegisteringJavaMethod(alias, klass, methodName,
 					argumentTypes);

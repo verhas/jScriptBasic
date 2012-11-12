@@ -10,9 +10,9 @@ import com.scriptbasic.classification.System;
 /**
  * Static methods in this class are registered in the interpreter when the
  * interpreter starts. The interpreter calls the static method {@see
- * #registerFunctions(MethodRegistry)} and that function registers the methods
- * in this class with their own name so that BASIC programs can call the
- * functions like BASIC built in functions.
+ * MethodRegisterUtility#registerFunctions(MethodRegistry)} and that function
+ * registers the methods in this class with their own name so that BASIC
+ * programs can call the functions like BASIC built in functions.
  * 
  * @author Peter Verhas date July 15, 2012
  * 
@@ -183,11 +183,6 @@ public class RuntimeUtility {
 	}
 
 	@Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
-	static public double hypot(double x) {
-		return 0.0;
-	}
-
-	@Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
 	public static double hypot(double x, double y) {
 		return 0.0;
 	}
@@ -268,11 +263,6 @@ public class RuntimeUtility {
 	@Function(alias = "undef", classification = Constant.class)
 	static public Object nullFunction() {
 		return null;
-	}
-
-	@Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
-	static public double pow(double x) {
-		return 0.0;
 	}
 
 	@Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)

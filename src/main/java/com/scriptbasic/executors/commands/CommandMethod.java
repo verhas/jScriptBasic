@@ -1,11 +1,12 @@
 package com.scriptbasic.executors.commands;
 
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 
 public class CommandMethod extends AbstractCommand {
 
     @Override
-    public void execute(final ExtendedInterpreter interpreter) {
+    public void execute(final ExtendedInterpreter interpreter) throws BasicRuntimeException {
         interpreter.registerJavaMethod(alias, klass, methodName, argumentTypes);
     }
 
