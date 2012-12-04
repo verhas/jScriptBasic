@@ -7,7 +7,6 @@ import com.scriptbasic.executors.rightvalues.BasicLongValue;
 import com.scriptbasic.executors.rightvalues.BasicStringValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.RightValue;
-import com.scriptbasic.main.TestCommandLine.MySecurityManager;
 
 public class AddOperator extends AbstractBinaryFullCircuitHalfDoubleOperator {
 
