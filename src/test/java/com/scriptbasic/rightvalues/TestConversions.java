@@ -5,7 +5,6 @@ package com.scriptbasic.rightvalues;
 
 import junit.framework.TestCase;
 
-import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
 import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
@@ -33,11 +32,8 @@ public class TestConversions extends TestCase {
 		}
 		rv = RightValueUtility.createRightValue('a');
 		rv = RightValueUtility.createRightValue(true);
-		try {
-			RightValueUtility.getValueObject(new BasicArrayValue(null));
-			assertFalse(true);
-		} catch (BasicInterpreterInternalError e) {
-		}
+		BasicArrayValue bav = new BasicArrayValue();
+		assertEquals(bav, RightValueUtility.getValueObject(bav));
 	}
 
 	public static void testConversion() throws Exception {

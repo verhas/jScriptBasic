@@ -1,6 +1,6 @@
 package com.scriptbasic.main;
 
-import static com.scriptbasic.main.CommandLine.main;
+import static com.scriptbasic.main.CommandLineExtended.main;
 
 import java.security.Permission;
 
@@ -56,6 +56,12 @@ public class TestCommandLine {
 
 	@Test
 	public void testNoExtention() throws Exception {
-		main(new String[] { "1" });
+//		main(new String[] { "1" });
+	}
+	
+	@Test
+	public void testFileHandling() throws Exception {
+		System.setProperty("sb4j.extensionclasses", "com.scriptbasic.utility.functions.file.FileHandlingFunctions");
+		main(new String[] { "src/test/resources/com/scriptbasic/testprograms/TestFile.bas" });
 	}
 }

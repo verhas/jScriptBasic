@@ -39,6 +39,7 @@ next i
 file = open("file.list.txt","w")
 println file,files
 close file
+deleteFile "file.list.txt"
  
 a[0] = 1
 a[1] = 2

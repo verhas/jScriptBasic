@@ -64,8 +64,9 @@ public class CommandLine {
 			}
 			outWriter.flush();
 			errorWriter.flush();
-		}else{
-			System.err.println("ERROR: There is no suitable interpreter for that file.");
+		} else {
+			System.err
+					.println("ERROR: There is no suitable interpreter for that file.");
 		}
 		// END SNIPPET: x
 	}
