@@ -60,4 +60,7 @@ The BASIC language interpreted by ScriptBasic for Java
  BASIC defined subroutines.
  
  {{{./basic/arrays.html}Arrays}} can be accessed using the <<<[>>> and <<<]>>> brackets. Multidimensional array indices are separated by <<<,>>> comma. There is
- no array of arrays. 
+ no array of arrays.
+ 
+ {{{./basic/file.html}File handling}} is available via an extension class. This extension class is not loaded by default. The
+ embedding application should register this extension class. The command line version does register this class.

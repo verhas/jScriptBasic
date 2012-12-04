@@ -1,0 +1,96 @@
+  ----------------------------------
+  jScriptBasic Project Documentation
+  ----------------------------------
+  Peter Verhas
+  ----------------------------------
+  2012-12-04
+  ----------------------------------
+  
+ScriptBasic for Java File Handling
+
+ ScriptBasic for Java contains an extension class that can be used from BASIC programs
+ to perform file operations. This extension class is <<NOT>> registered by default. The embedding
+ application has to register this class explicitly calling the method
+ 
+---
+interpreter.registerFunctions(FileHandlingFunctions.class);
+--- 
+
+ The command line version does register this class before executing a script, thus you need not specify
+ this class on the command line using the <<<-Dsb4j.extensionclasses>>> command line option.
+ 
+* Opening and Closing a File
+
+ To open a file the function <<<open>>> has to be used.
+ 
+---
+file = open(fileName,mode)
+---
+
+ A file can be opened in four different ways. They can be read or write and each can be text or binary. The default is
+ read and text. The parameter <<<fileName>>> should specify the name of the file and the parameter <<<mode>>> is a two letter
+ text: <<<"rt">>> to read in text mode, <<<"wt">>> write in text mode, <<<"rb">>> read in binary mode,
+ <<<"wb">>> write in binary mode. If the mode is read then this is enoug to specify <<<"t">>> to read in text mode, or
+ <<<"b">>> to read in binary mode. Furthermore if the mode is read in text mode then an empty string <<<"">>> can be used
+ as the <<<mode>>> parameter.
+ 
+ Currently there is no way to open a file in read/write mixed mode. Also the operations you can perform on a text file
+ are separated from the operations available for binary file handling.
+ 
+ The return value of the function <<<open>>> is a file handler that the BASIC program should not use in any other
+ way than passing to other extension functions that are prepared to accept a file handler as argument. This simplest
+ example is he <<<close>>> function:
+ 
+---
+close file
+---
+
+ This function closes the file handle.
+ 
+* Reading a text file
+
+ Reading a text file is available line by line. The function to read a line from a text file is <<<readLine>>>:
+ 
+---
+line = readLine(file)
+---
+
+ The argument to this function has to be the handle returned by the function <<<open>>>. The function reads a line 
+ from the file and returns the line as a string without the line termination character or characters. 
+ 
+ If there is no more line to read the function returns undefined value that you can check calling the functions
+ <<<isDefined>>> or <<<isUndef>>>.
+ 
+* Writing to text file
+
+ Writing to text file is possible using two functions: <<<printfln>>> and <<<printf>>>. Both of the functions
+ accept a file handle and s single string argument. The function <<<printf>>> writes the argument string to the
+ file. The function <<<printfln>>> writes the argument string to the file and also a line ending. This may
+ not be a simple line-feed or carriage return character. The behaviour is operating system dependent, therefore
+ it is safer to use <<<printfln file, string>>> than <<<printf file, string +"\n">>>.
+ 
+* Reading Binary File
+
+* Writing Binary File
+
+* Other File Operations
+
+** Deleting a File
+
+ To delete a file you can use the function
+ 
+---
+deleteFile fileName
+---
+ 
+ The argument to the function is the name of the file.
+ 
+** Listing the Files in a Directory
+
+ To get the names of the files that are in a directory you have to use the function
+---
+fileList = listFiles(directoryName)
+---
+
+ The argument to the function is the name of the directory. The return value is an array of string values
+ containing the names of the files that are in the named directory.

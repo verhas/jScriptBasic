@@ -66,6 +66,16 @@ java -jar jscriptbasic-${project.version}.jar basicProgram.sb
  ${project.version} which may not be the latest released version. If it finishes with the postfix <<<-SNAPSHOT>>>
  then the version is a development version. Instead use the name of the JAR file you downloaded.)
  
+ Starting with the version 1.0.4 it is possible to specify extension classes for the command line version of the
+ interpreter. To do that you have to use the command line option
+ 
+---
+-Dextensionclasses=comma separated list of fully qualified java extension class names
+--- 
+ 
+ When you specify an extension class you wrote you also have to use the standard Java command line option
+ <<<-cp>>> to specify the location of the classes.
+ 
 * License is Open Source
 
  ScriptBasic for Java is licensed with the GPLv3 license. If you need commercial license contact the developers.

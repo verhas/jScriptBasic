@@ -62,6 +62,7 @@ public class CommandLineExtended {
 		lexicalAnalyzer.set(reader);
 		final ExtendedInterpreter interpreter = FactoryUtility
 				.getExtendedInterpreter(factory);
+		interpreter.registerFunctions(FileHandlingFunctions.class);
 		final String classes = System.getProperty("sb4j.extensionclasses");
 		if (classes != null && classes.length() > 0) {
 			String[] classNames = classes.split(",");

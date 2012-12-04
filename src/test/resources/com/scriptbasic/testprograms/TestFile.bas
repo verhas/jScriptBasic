@@ -1,11 +1,14 @@
 
 file = open("test.txt","w")
-println file,"hello"
+printfln file,"hello"
 close file
 
 file = open("test.txt","r")
 line = readLine(file)
+eof = readLine(file)
 close file
+assert "eof is not undef",isUndef(eof)
+
 assert "file read was not the same as written", line = "hello"
 deleteFile "test.txt"
 
@@ -37,7 +40,7 @@ for i = 0 to length(fileList)-1
 next i
 
 file = open("file.list.txt","w")
-println file,files
+printfln file,files
 close file
 deleteFile "file.list.txt"
  

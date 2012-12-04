@@ -213,7 +213,7 @@ public class FileHandlingFunctions {
 	}
 
 	@Function(classification = { com.scriptbasic.classification.File.class })
-	public static void println(FileHandler fh, String line)
+	public static void printfln(FileHandler fh, String line)
 			throws IOException, BasicRuntimeException {
 		printf(fh, line);
 		((TextFileWriter) fh).newLine();
