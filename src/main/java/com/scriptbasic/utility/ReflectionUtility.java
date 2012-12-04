@@ -8,13 +8,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.RightValue;
 
 /**
- * @author Peter Verhas
- * date Aug 2, 2012
+ * @author Peter Verhas date Aug 2, 2012
  * 
  */
 public class ReflectionUtility {
@@ -92,9 +92,12 @@ public class ReflectionUtility {
 		interpreter.getHook().beforeCallJavaFunction(method);
 		final Object javaCallResult;
 		try {
-			javaCallResult = method
-					.invoke(object, ExpressionUtility.getObjectArray(args,
-							method, interpreter));
+			Object[] argArray = ExpressionUtility.getObjectArray(args, method,
+					interpreter);
+			javaCallResult = method.invoke(object, argArray);
+			if( javaCallResult instanceof BasicArrayValue ){
+				((BasicArrayValue)javaCallResult).setInterpreter(interpreter);
+			}
 		} catch (Exception e) {
 			if (e instanceof InvocationTargetException
 					|| e instanceof IllegalArgumentException

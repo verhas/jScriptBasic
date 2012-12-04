@@ -6,6 +6,7 @@ package com.scriptbasic.utility;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.rightvalues.AbstractNumericRightValue;
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
+import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
 import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
 import com.scriptbasic.executors.rightvalues.BasicJavaObjectValue;
@@ -29,6 +30,8 @@ public final class RightValueUtility {
 		Object object;
 		if (arg instanceof AbstractPrimitiveRightValue<?>) {
 			object = ((AbstractPrimitiveRightValue<Object>) arg).getValue();
+		} else if (arg instanceof BasicArrayValue) {
+			object = arg;
 		} else {
 			throw new BasicInterpreterInternalError(
 					"The class of the object "

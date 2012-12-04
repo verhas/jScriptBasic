@@ -78,7 +78,8 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
 			return requiredVersion <= EXTENSION_INTERFACE_VERSION;
 		}
 
-		void register(ExtendedInterpreter interpreter) throws BasicRuntimeException {
+		void register(ExtendedInterpreter interpreter)
+				throws BasicRuntimeException {
 			if (versionIsCompatible()) {
 				if (classificationsAllowRegistering(interpreter,
 						classifications)) {
@@ -97,6 +98,18 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
 		}
 	}
 
+	/**
+	 * Register all annotated methods of the class {@code klass} so that they
+	 * can be accessed from BASIC.
+	 * 
+	 * @param klass
+	 *            the class that contains the static methods to register
+	 * @param interpreter
+	 *            the interpreter to register the methods into as BASIC
+	 *            functions
+	 * @throws BasicRuntimeException
+	 *             when a function is double defined and not an identical manner
+	 */
 	public static void registerFunctions(Class<?> klass,
 			ExtendedInterpreter interpreter) throws BasicRuntimeException {
 

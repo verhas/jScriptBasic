@@ -16,9 +16,9 @@ import com.scriptbasic.utility.MethodRegisterUtility;
 import com.scriptbasic.utility.NumberUtility;
 import com.scriptbasic.utility.ReflectionUtility;
 import com.scriptbasic.utility.RightValueUtility;
-import com.scriptbasic.utility.RuntimeUtility;
 import com.scriptbasic.utility.SyntaxExceptionUtility;
 import com.scriptbasic.utility.UtilityUtility;
+import com.scriptbasic.utility.functions.UtilityFunctions;
 
 public class TestFactoryClasses {
     @Test
@@ -39,7 +39,7 @@ public class TestFactoryClasses {
         UtilityClassDefaultConstructorTester.test(NumberUtility.class);
         UtilityClassDefaultConstructorTester.test(ReflectionUtility.class);
         UtilityClassDefaultConstructorTester.test(RightValueUtility.class);
-        UtilityClassDefaultConstructorTester.test(RuntimeUtility.class);
+        UtilityClassDefaultConstructorTester.test(UtilityFunctions.class);
         UtilityClassDefaultConstructorTester.test(SyntaxExceptionUtility.class);
         UtilityClassDefaultConstructorTester.test(UtilityUtility.class);
 

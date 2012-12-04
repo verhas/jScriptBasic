@@ -1,30 +1,32 @@
-/**
- * 
- */
-package com.scriptbasic.utility;
+package com.scriptbasic.utility.functions;
 
 import com.scriptbasic.Function;
-import com.scriptbasic.classification.Constant;
-import com.scriptbasic.classification.System;
+import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.utility.CastUtility;
+import com.scriptbasic.utility.UtilityUtility;
 
 /**
- * Static methods in this class are registered in the interpreter when the
- * interpreter starts. The interpreter calls the static method {@see
- * MethodRegisterUtility#registerFunctions(MethodRegistry)} and that function
- * registers the methods in this class with their own name so that BASIC
- * programs can call the functions like BASIC built in functions.
+ * This class contains static methods that are place holders to register the
+ * methods of the class {@code java.lang.Math} for the BASIC programs. If the
+ * documentation of the method does not specify different then the method in
+ * this class can be invoked directly from a BASIC program and does exactly the
+ * same as the method of the same name in the class {@code java.lang.Math}.
+ * <p>
+ * When a method accepts {@code Number} arguments it means that the BASIC can
+ * call the function with integer or with floating point arguments.
  * 
- * @author Peter Verhas date July 15, 2012
+ * @author Peter Verhas
  * 
  */
-public class RuntimeUtility {
+public class MathFunctions {
 
-	private RuntimeUtility() {
+	private MathFunctions() {
 		UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
 	}
 
 	@Function(classification = com.scriptbasic.classification.Math.class)
-	static public Number abs(Number x) {
+	static public Number abs(Number x) throws ExecutionException {
 		if (x instanceof Double) {
 			return Math.abs((Double) x);
 		}
@@ -32,7 +34,9 @@ public class RuntimeUtility {
 			return ((Long) x) > 0 ? x : -((Long) x);
 
 		}
-		return null;
+		throw new BasicRuntimeException(
+				"MathFunctions.abs(Number x) was called with an argument that is neither Double, nor Long: "
+						+ x.toString() + "of type " + x.getClass().toString());
 	}
 
 	@Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
@@ -65,79 +69,6 @@ public class RuntimeUtility {
 		return 0.0;
 	}
 
-	@Function(classification = { com.scriptbasic.classification.String.class,
-			com.scriptbasic.classification.Utility.class })
-	static public String chomp(String s) {
-		return s.replaceAll("\\n*$", "");
-	}
-
-	@Function(classification = { com.scriptbasic.classification.String.class,
-			com.scriptbasic.classification.Utility.class })
-	static public String ltrim(String s) {
-		return s.replaceAll("^\\s*", "");
-	}
-
-	@Function(classification = { com.scriptbasic.classification.String.class,
-			com.scriptbasic.classification.Utility.class })
-	static public String rtrim(String s) {
-		return s.replaceAll("\\s*$", "");
-	}
-
-	@Function(classification = { com.scriptbasic.classification.String.class,
-			com.scriptbasic.classification.Utility.class })
-	static public String mid(String s, int start, int len) {
-		return s.substring(start, start + len);
-	}
-
-	@Function(classification = { com.scriptbasic.classification.String.class,
-			com.scriptbasic.classification.Utility.class })
-	static public String right(String s, int len) {
-		return s.length() > len ? s.substring(s.length() - len) : s;
-	}
-
-	@Function(classification = { com.scriptbasic.classification.String.class,
-			com.scriptbasic.classification.Utility.class })
-	static public String space(int len) {
-		StringBuilder sb = new StringBuilder(len);
-		for (int i = 0; i < len; i++) {
-			sb.append(" ");
-		}
-		return sb.toString();
-	}
-
-	@Function(classification = { com.scriptbasic.classification.String.class,
-			com.scriptbasic.classification.Utility.class })
-	static public String string(int len, String s) {
-		s = s.substring(0, 1);
-		StringBuilder sb = new StringBuilder(len);
-		for (int i = 0; i < len; i++) {
-			sb.append(s);
-		}
-		return sb.toString();
-	}
-
-	@Function(classification = { com.scriptbasic.classification.String.class,
-			com.scriptbasic.classification.Utility.class })
-	static public String strreverse(String s) {
-		StringBuilder sb = new StringBuilder(s.length());
-		for (int i = s.length(); i > 0; i--) {
-			sb.append(s.substring(i, i + 1));
-		}
-		return sb.toString();
-	}
-
-	@Function(classification = { com.scriptbasic.classification.String.class,
-			com.scriptbasic.classification.Utility.class })
-	static public String ucase(String s) {
-		return s.toUpperCase();
-	}
-
-	@Function(classification = { com.scriptbasic.classification.String.class,
-			com.scriptbasic.classification.Utility.class })
-	static public String lcase(String s) {
-		return s.toLowerCase();
-	}
-
 	@Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
 	public static double copySign(double magnitude, double sign) {
 		return 0.0;
@@ -163,10 +94,51 @@ public class RuntimeUtility {
 		return 0.0;
 	}
 
+	/**
+	 * Convert a value to floating point. This method can be called directly
+	 * from the BASIC program and it will return a java Double, that is
+	 * internally a BASIC float. (Note that ScriptBasic for Java does not use
+	 * float or int, only Long and Double.)
+	 * <p>
+	 * Use this function from the BASIC program if the BASIC interpreter does
+	 * not convert automatically a number to floating point but you need a
+	 * floating point number and not an integer.
+	 * 
+	 * @param s
+	 *            the number to convert
+	 * @return the converted number or {@code null}, which means undefined in
+	 *         BASIC in case the parameter {@code s} passed can not be converted
+	 *         to floating point
+	 */
 	@Function(classification = { com.scriptbasic.classification.Utility.class }, alias = "float")
 	static public Double floatF(Object s) {
 		try {
 			return (Double) CastUtility.cast(s, Double.class);
+		} catch (ClassCastException cce) {
+			return null;
+		}
+	}
+
+	/**
+	 * Convert a value to integer. This method can be called directly from the
+	 * BASIC program and it will return a java Long, that is internally a BASIC
+	 * integer. (Note that ScriptBasic for Java does not use float or int, only
+	 * Long and Double.)
+	 * <p>
+	 * Use this function from the BASIC program if the BASIC interpreter does
+	 * not convert automatically a number to integer but you need an integer
+	 * number and not a floating point number.
+	 * 
+	 * @param s
+	 *            the number to convert
+	 * @return the converted number or {@code null}, which means undefined in
+	 *         BASIC in case the parameter {@code s} passed can not be converted
+	 *         to integer
+	 */
+	@Function(classification = { com.scriptbasic.classification.Utility.class })
+	static public Long integer(Object s) {
+		try {
+			return (Long) CastUtility.cast(s, Long.class);
 		} catch (ClassCastException cce) {
 			return null;
 		}
@@ -190,15 +162,6 @@ public class RuntimeUtility {
 	@Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
 	public static double IEEEremainder(double f1, double f2) {
 		return 0.0;
-	}
-
-	@Function(classification = { com.scriptbasic.classification.Utility.class })
-	static public Long integer(Object s) {
-		try {
-			return (Long) CastUtility.cast(s, Long.class);
-		} catch (ClassCastException cce) {
-			return null;
-		}
 	}
 
 	@Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
@@ -237,31 +200,6 @@ public class RuntimeUtility {
 			return Math.min((Long) a, (Long) b);
 
 		}
-		return null;
-	}
-
-	/**
-	 * This method can be used to call the default (parameter less) constructor
-	 * of a class. This, of course, can only be used for classes that have
-	 * default constructor.
-	 * <p>
-	 * 
-	 * 
-	 * @param klass
-	 *            the class to instantiate
-	 * @return the new object instance
-	 * @throws ClassNotFoundException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 */
-	@Function(alias = "new", classification = System.class)
-	public static Object newObject(String klass) throws ClassNotFoundException,
-			InstantiationException, IllegalAccessException {
-		return Class.forName(klass).newInstance();
-	}
-
-	@Function(alias = "undef", classification = Constant.class)
-	static public Object nullFunction() {
 		return null;
 	}
 
@@ -329,13 +267,4 @@ public class RuntimeUtility {
 	public static double toRadians(double angdeg) {
 		return 0.0;
 	}
-
-	@Function(classification = { com.scriptbasic.classification.String.class,
-			com.scriptbasic.classification.Utility.class })
-	static public String trim(String s) {
-		return s.trim();
-	}
-
-	// TODO create functions for regular expression handling
-
 }

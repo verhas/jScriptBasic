@@ -6,6 +6,8 @@ package com.scriptbasic.testprograms;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Test;
+
 import junit.framework.TestCase;
 
 import com.scriptbasic.Executor;
@@ -64,7 +66,8 @@ public class TestPrograms extends TestCase {
 		}
 	}
 
-	public static void testPrograms() throws Exception {
+	@Test
+	public void testPrograms() throws Exception {
 		Map<String, Object> map;
 		codeTest("TestEmpty.bas", "");
 		codeTest("TestPrintHello.bas", "hello");
@@ -127,8 +130,9 @@ public class TestPrograms extends TestCase {
 		codeTest("TestBadArray3.bas", "");
 		codeTest("BubbleSort.bas", "-1\n0\n2\n3\n7\n58\n99\n");
 		codeTest("TestStringFormat.bas", "314");
-		codeTest("TestAbs.bas","131355.377.7");
-		codeTest("TestChomp.bas","ttt");
-		codeTest("TestConvert.bas","0.9074467814501962");
+		codeTest("TestAbs.bas", "131355.377.7");
+		codeTest("TestChomp.bas", "ttt");
+		codeTest("TestConvert.bas", "0.9074467814501962");
+		codeTest("TestFile.bas", "");
 	}
 }

@@ -15,7 +15,7 @@ public final class UtilityUtility {
         throwExceptionToEnsureNobodyCallsIt();
     }
 
-    static void throwExceptionToEnsureNobodyCallsIt() {
+    public static void throwExceptionToEnsureNobodyCallsIt() {
         throw new BasicInterpreterInternalError(
                 "Should not instantiate utility class");
     }

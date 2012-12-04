@@ -30,7 +30,8 @@ import com.scriptbasic.utility.FactoryUtility;
 import com.scriptbasic.utility.HookRegisterUtility;
 import com.scriptbasic.utility.MethodRegisterUtility;
 import com.scriptbasic.utility.RightValueUtility;
-import com.scriptbasic.utility.RuntimeUtility;
+import com.scriptbasic.utility.functions.BasicRuntimeFunctionRegisterer;
+import com.scriptbasic.utility.functions.UtilityFunctions;
 
 /**
  * @author Peter Verhas date June 22, 2012
@@ -193,7 +194,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
 			if (program == null) {
 				throw new BasicRuntimeException("Program code was not loaded");
 			}
-			MethodRegisterUtility.registerFunctions(RuntimeUtility.class, this);
+			BasicRuntimeFunctionRegisterer.registerBasicRuntimeFunctions(this);
 			registerHook(new NullHook());
 			HookRegisterUtility.registerHooks(this);
 			if (hook != null) {

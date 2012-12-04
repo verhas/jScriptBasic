@@ -23,8 +23,8 @@ ScriptBasic for Java Arrays
 	a[5] = 0
 	a[6] = 99
 	
-	for i=0 to 6
-	for j=0 to 6
+	for i=0 to length(a)-1
+	for j=0 to length(a)-1
 	 if a[i] < a[j] then
 	   x = a[i]
 	   a[i] = a[j]
@@ -33,12 +33,13 @@ ScriptBasic for Java Arrays
 	next j
 	next i
 	
-	for i=0 to 6
+	for i=0 to length(a)-1
 	  print a[i],"\n"
 	next i
 ---
  
- For safety reasons you can not use a variable as an array that already has some value.
+ For safety reasons you can not use a variable to store a non array value that
+ already stores an array.
  For example the following code will result error:
  
 ---
@@ -48,7 +49,7 @@ ScriptBasic for Java Arrays
 ---
 
  This will prevent programming errors and avoid some misbehaving scripts.
- On the other hand you can use a variable to hold a value that was storing an array before:
+ On the other hand you can use a variable to hold an array that was storing some value before:
  
 ---
 			' This code works fine
@@ -67,4 +68,12 @@ ScriptBasic for Java Arrays
 ---
 
  Note that the word <<<undef>>> is not a reserved word, or a special constant. It is simply a
- variable that was not used before, and no value was assigned to it.
+ variable that was not used before, and no value was assigned to it, therefore its value is undefined.
+ 
+ The length of an array can be retrieved using the function <<<length()>>>. Note that arrays are
+ indexed from zero up. This means that the index values that hold meaningful values are from <<<0>>> to
+ <<<length(array)-1>>>. When you use an index that is larger that <<<length(array)-1>>> the array will
+ automatically be extended and all undefined elements will hold the undefined value. Therefore it is very
+ easy to allocate really great amount of memory in ScriptBasic for Java using some large index values when
+ setting or reading array elements.
+ 

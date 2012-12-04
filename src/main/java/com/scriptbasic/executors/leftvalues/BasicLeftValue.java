@@ -68,7 +68,7 @@ public class BasicLeftValue extends AbstractLeftValue {
             // variables in the release version should NOT be converted to be
             // arrays on the fly
             if (variable == null) {
-                variable = new BasicArrayValue();
+                variable = new BasicArrayValue(extendedInterpreter);
                 variableMap.setVariable(getIdentifier(), variable);
             }
             Iterator<LeftValueModifier> modifierIterator = modifiers.iterator();
@@ -212,7 +212,7 @@ public class BasicLeftValue extends AbstractLeftValue {
             if (object instanceof RightValue) {
                 arrayElement = (RightValue) object;
             } else {
-                arrayElement = new BasicArrayValue();
+                arrayElement = new BasicArrayValue(extendedInterpreter);
                 variable.set(index, arrayElement);
             }
             return arrayElement;
