@@ -24,3 +24,5 @@ com.scriptbasic.syntax.commands
 com.scriptbasic.syntax.expression
 com.scriptbasic.syntax.leftvalue
 com.scriptbasic.utility
+com.scriptbasic.utility.functions
+com.scriptbasic.utility.functions.file
