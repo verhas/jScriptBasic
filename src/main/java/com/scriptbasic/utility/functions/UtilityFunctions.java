@@ -15,7 +15,7 @@ import com.scriptbasic.utility.UtilityUtility;
 
 /**
  * Static methods in this class are registered in the interpreter when the
- * interpreter starts. The interpreter calls the static method {@see
+ * interpreter starts. The interpreter calls the static method {@link
  * MethodRegisterUtility#registerFunctions(MethodRegistry)} and that function
  * registers the methods in this class with their own name so that BASIC
  * programs can call the functions like BASIC built in functions.
@@ -101,7 +101,7 @@ public class UtilityFunctions {
 	@Function(classification = Utility.class)
 	public static void setByte(byte[] buffer, Long i, Long v)
 			throws BasicRuntimeException {
-		if (v < 0) {
+		if (v < 0 && v > -128) {
 			v += 128;
 		}
 		if (v < 0 || v > 255) {
@@ -128,15 +128,17 @@ public class UtilityFunctions {
 		return new String(buffer, "utf-8");
 	}
 
-	@Function(classification = Utility.class)
+	@Function(classification = Utility.class, requiredVersion = 2L)
 	public static Long length(Object arg) {
 		if (arg instanceof BasicArrayValue) {
 			BasicArrayValue array = (BasicArrayValue) arg;
 			return array.getLength();
-		}
-		if (arg instanceof String) {
+		} else if (arg instanceof String) {
 			String string = (String) arg;
 			return new Long(string.length());
+		} else if (arg instanceof byte[]) {
+			byte[] byteArray = (byte[]) arg;
+			return new Long(byteArray.length);
 		}
 		return null;
 	}

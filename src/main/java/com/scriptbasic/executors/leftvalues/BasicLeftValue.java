@@ -131,7 +131,7 @@ public class BasicLeftValue extends AbstractLeftValue {
 
     /**
      * Handle variable access modifier in case when the modifier is object field
-     * access. {@see #handleAccessModifier(RightValue, LeftValueModifier,
+     * access. {@link #handleAccessModifier(RightValue, LeftValueModifier,
      * boolean, RightValue)}.
      * 
      * @param variable
@@ -166,7 +166,7 @@ public class BasicLeftValue extends AbstractLeftValue {
 
     /**
      * Handle variable access modifier in case when the modifier is array
-     * element access. {@see #handleAccessModifier(RightValue,
+     * element access. {@link #handleAccessModifier(RightValue,
      * LeftValueModifier, boolean, RightValue)}.
      * 
      * @param variable

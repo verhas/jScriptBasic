@@ -5,7 +5,7 @@ package com.scriptbasic.interfaces;
 
 /**
  * A variable map structure that can manage many maps in a stack structure. Any
- * call to methods inherited from {@see VariableMap} works on the map at the top
+ * call to methods inherited from {@link VariableMap} works on the map at the top
  * of the stack.
  * 
  * @author Peter Verhas
@@ -46,7 +46,7 @@ public interface LocalVariableMap extends VariableMap {
 
     /**
      * Define the variable as a local variable in a local environment. For more
-     * information see the documentation of the method {@se
+     * information see the documentation of the method {@link
      * #registerGlobalVariable(String)}
      * 
      * @param variableName

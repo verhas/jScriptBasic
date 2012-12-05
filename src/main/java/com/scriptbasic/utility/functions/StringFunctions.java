@@ -209,11 +209,12 @@ public class StringFunctions {
 	 * 
 	 * @param s1
 	 * @param s2
+	 * @param i
 	 * @return
 	 */
 	@Function(classification = { com.scriptbasic.classification.String.class })
-	static public Long indexAfter(String s1, int i) {
-		return (long) s1.indexOf(s1, i);
+	static public Long indexAfter(String s1, String s2, int i) {
+		return (long) s1.indexOf(s2, i);
 	}
 
 	/**
@@ -221,11 +222,12 @@ public class StringFunctions {
 	 * 
 	 * @param s1
 	 * @param s2
+	 * @param i
 	 * @return
 	 */
 	@Function(classification = { com.scriptbasic.classification.String.class })
-	static public Long lastIndexAfter(String s1, int i) {
-		return (long) s1.lastIndexOf(s1, i);
+	static public Long lastIndexAfter(String s1, String s2, int i) {
+		return (long) s1.lastIndexOf(s2, i);
 	}
 
 	/**

@@ -15,7 +15,7 @@ import com.scriptbasic.interfaces.ExtensionInterfaceVersion;
  * <p>
  * Each {@code public static} method that is supposed to be reachable from BASIC
  * should have the annotation {@code @Function}. The implementation of the
- * interface {@see Interpreter} provides method that registers all the such
+ * interface {@link Interpreter} provides method that registers all the such
  * annotated methods of the class specified.
  * 
  * @author Peter Verhas date July 22, 2012
@@ -94,7 +94,7 @@ public @interface Function {
 
 	/**
 	 * Using this parameter you can specify an alternative method instead of the
-	 * annotated one. See the documentation of {@see #substituteClass()}.
+	 * annotated one. See the documentation of {@link #substituteClass()}.
 	 */
 	String substituteMethod() default "";
 }

@@ -7,8 +7,8 @@ import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.interfaces.Factory;
 
 /**
- * Using the standard {@see java.util.ServiceLoader} this utility class loads a
- * new instance of the implementation of the interface {@see Factory}.
+ * Using the standard {@link java.util.ServiceLoader} this utility class loads a
+ * new instance of the implementation of the interface {@link Factory}.
  * <p>
  * 
  * @author Peter Verhas
@@ -24,12 +24,12 @@ public final class FactoryServiceLoader {
 
     /**
      * Load and create a new instance of the implementation of the interface
-     * {@see Factory}. If there are multiple implementations then the first one
+     * {@link Factory}. If there are multiple implementations then the first one
      * will be loaded. (The first as it is loaded by the standard Java
      * ServiceLoader class.)
      * 
-     * @return a new {@see Factory} instance or {@code null} if there is no
-     *         implementation of the interface {@see Factory}.
+     * @return a new {@link Factory} instance or {@code null} if there is no
+     *         implementation of the interface {@link Factory}.
      */
     public static Factory loadFactory() {
         ServiceLoader<Factory> loader = ServiceLoader.load(Factory.class);

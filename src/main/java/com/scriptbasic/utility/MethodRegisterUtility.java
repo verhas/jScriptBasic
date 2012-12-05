@@ -4,6 +4,7 @@
 package com.scriptbasic.utility;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 import com.scriptbasic.Function;
 import com.scriptbasic.interfaces.BasicRuntimeException;
@@ -116,9 +117,16 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
 		FunctionLoadParameters method = new FunctionLoadParameters();
 
 		for (Method methodObj : klass.getMethods()) {
-
 			method.initParameters(methodObj, klass);
 			if (method.isFunctionAnnotated()) {
+				if (!Modifier.isStatic(methodObj.getModifiers())) {
+					LOG.error(
+							"Method {}, {} , {}, {} is NOT STATIC, CAN NOT BE REGISTERED",
+							method.alias, method.methodName, method.klass,
+							method.classifications);
+					throw new BasicRuntimeException("Method " + methodObj
+							+ " is not static.");
+				}
 				method.setAlias();
 
 				method.setMethodName();

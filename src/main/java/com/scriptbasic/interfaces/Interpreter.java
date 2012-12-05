@@ -36,8 +36,8 @@ public interface Interpreter extends FactoryManaged {
      * Get the value of a global variable. Since this is not a BASIC interpreter
      * method, but rather a method that helps the embedding of the interpreter
      * the returned value is a raw Java object and not a RightValue. Thus if the
-     * variable value is for example a {@see BasicDoubleValue} then the
-     * implementation should return a {@see Double}.
+     * variable value is for example a {@link BasicDoubleValue} then the
+     * implementation should return a {@link Double}.
      * 
      * @param name
      *            the name of the variable

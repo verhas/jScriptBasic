@@ -2,8 +2,8 @@ package com.scriptbasic.interfaces;
 
 /**
  * Every object that represents a structure that is nested in the source code
- * should implement this interface. For example {@see CommandWhile} implements
- * this and as such any new instance of it can be stored by a {@see
+ * should implement this interface. For example {@link CommandWhile} implements
+ * this and as such any new instance of it can be stored by a {@link
  * NestedStructureHouseKeeper} object during compilation.
  * 
  * 

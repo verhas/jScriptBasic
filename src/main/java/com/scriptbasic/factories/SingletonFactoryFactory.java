@@ -5,9 +5,9 @@ import com.scriptbasic.interfaces.Factory;
 
 /**
  * This utility class manages a single instance of an implementation of the
- * {@see Factory} interface.
+ * {@link Factory} interface.
  * <p>
- * The class {@see BasicFactory} is not singleton, however this class creates a
+ * The class {@link BasicFactory} is not singleton, however this class creates a
  * single instance and manages that single instance.
  * 
  * @author Peter Verhas

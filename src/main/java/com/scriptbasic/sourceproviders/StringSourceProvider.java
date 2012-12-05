@@ -36,7 +36,7 @@ public class StringSourceProvider extends
     /**
      * {@inheritDoc}
      * 
-     * This implementation returns a {@see GenericReader}.
+     * This implementation returns a {@link GenericReader}.
      */
     @Override
     public Reader getSource(final String sourceName) throws IOException {

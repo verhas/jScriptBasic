@@ -4,9 +4,9 @@ import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.interfaces.Factory;
 
 /**
- * This utility class manages instances of the {@see BasicFactory} class.
+ * This utility class manages instances of the {@link BasicFactory} class.
  * <p>
- * The class {@see BasicFactory} is not singleton, however this class creates a
+ * The class {@link BasicFactory} is not singleton, however this class creates a
  * single instance and manages that single instance.
  * 
  * @author Peter Verhas

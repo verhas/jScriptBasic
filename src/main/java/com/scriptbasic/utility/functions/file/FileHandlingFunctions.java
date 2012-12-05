@@ -335,7 +335,7 @@ public class FileHandlingFunctions {
 	}
 
 	@Function(classification = { com.scriptbasic.classification.File.class })
-	public static Long fileLeLong(String fileName) {
+	public static Long fileLength(String fileName) {
 		return new File(fileName).length();
 	}
 
@@ -349,9 +349,7 @@ public class FileHandlingFunctions {
 			throws ExecutionException {
 		String[] files = new File(fileName).list();
 		BasicArrayValue result = new BasicArrayValue();
-		for (int i = 0; i < files.length; i++) {
-			result.set(i, files[i]);
-		}
+		result.setArray(files);
 		return result;
 	}
 }

@@ -29,8 +29,8 @@ public interface LexicalAnalyzer extends FactoryManaged {
 
     /**
      * Peek at the next lexical element and do not remove it from the input
-     * stream. Consecutive calls to {@code peek()} without calling {@see #get()}
-     * will return the same lexical element. Calling {@see #get()} will return
+     * stream. Consecutive calls to {@code peek()} without calling {@link #get()}
+     * will return the same lexical element. Calling {@link #get()} will return
      * the same lexical element as the last call to {@code peek()}.
      */
     LexicalElement peek() throws AnalysisException;

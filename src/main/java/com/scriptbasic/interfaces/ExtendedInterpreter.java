@@ -70,7 +70,7 @@ public interface ExtendedInterpreter extends Interpreter {
 	void push(Command command);
 
 	/**
-	 * Same as {@see #push(Command)} and pushes the currently executing command
+	 * Same as {@link #push(Command)} and pushes the currently executing command
 	 * on the stack.
 	 */
 	void push();
@@ -189,7 +189,7 @@ public interface ExtendedInterpreter extends Interpreter {
 	 * </pre>
 	 * 
 	 * {@code registerJavaMethod()} registers the basic function alias, class,
-	 * java method name and the argument types so that later call to {@see
+	 * java method name and the argument types so that later call to {@link
 	 * #getJavaMethod(Class, String)} can find the appropriate method.
 	 * 
 	 * @param klass
@@ -221,18 +221,18 @@ public interface ExtendedInterpreter extends Interpreter {
 			throws ExecutionException;
 
 	/**
-	 * {@see javax.script.ScriptContext#getReader()}
+	 * {@link javax.script.ScriptContext#getReader()}
 	 * 
 	 */
 	java.io.Reader getReader();
 
 	/**
-	 * {@see javax.script.ScriptContext#getWriter()}
+	 * {@link javax.script.ScriptContext#getWriter()}
 	 */
 	java.io.Writer getWriter();
 
 	/**
-	 * {@see javax.script.ScriptContext#getReader()}
+	 * {@link javax.script.ScriptContext#getReader()}
 	 * 
 	 * @return
 	 */
@@ -240,14 +240,14 @@ public interface ExtendedInterpreter extends Interpreter {
 
 	/**
 	 * Temporarily disable the hooks. Following this call the hooks will not be
-	 * called until the {@see #enableHook()} is called.
+	 * called until the {@link #enableHook()} is called.
 	 * <p>
 	 * Hook disabling was designed with the special case in mind when a hook
 	 * wants to alter the return value returned from a subroutine. To do so the
-	 * hook method has to invoke the {@see
+	 * hook method has to invoke the {@link
 	 * ExtendedInterpreter#setReturnValue(RightValue)} method, which was
 	 * actually calling the hook. To avoid the infinite loop and not to confuse
-	 * the other hook methods that are in the list sooner the hook method {@see
+	 * the other hook methods that are in the list sooner the hook method {@link
 	 * InterpreterHook#setReturnValue(RightValue)} should first disable the hook
 	 * mechanism, call back to the interpreter object and the enable the hook
 	 * mechanism again.
@@ -256,7 +256,7 @@ public interface ExtendedInterpreter extends Interpreter {
 
 	/**
 	 * Enable the hook calls. This method has to be called after the call to
-	 * {@see #disableHook()} to enable again the calling mechanism.
+	 * {@link #disableHook()} to enable again the calling mechanism.
 	 */
 	void enableHook();
 

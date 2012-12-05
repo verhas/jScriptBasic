@@ -38,7 +38,7 @@ public class ReflectionUtility {
 	 * 
 	 * @param object
 	 *            the object in which the field has to be set. Note that if the
-	 *            object is a {@code Class<?>} then the method {@see
+	 *            object is a {@code Class<?>} then the method {@link
 	 *            #setField(Class, String, Object)} will be invoked.
 	 * @param fieldName
 	 *            the name of the field
@@ -116,11 +116,11 @@ public class ReflectionUtility {
 
 	/**
 	 * Set the named static field in the class {@code klass}. This method
-	 * performs the same function as {@see #setField(Object, String, Object)}
+	 * performs the same function as {@link #setField(Object, String, Object)}
 	 * except that it sets static fields.
 	 * <p>
 	 * For more information on the arguments and the exceptions see the
-	 * documentation of the method {@see #setField(Object, String, Object)}.
+	 * documentation of the method {@link #setField(Object, String, Object)}.
 	 * 
 	 * @param klass
 	 *            the class of which the static field to be set.

@@ -50,12 +50,12 @@ public interface Configuration extends FactoryManaged {
     String getConfigValue(String key);
 
     /**
-     * Complimentary method calling {@see #getConfigValue(String)} but returning
+     * Complimentary method calling {@link #getConfigValue(String)} but returning
      * the {@code defaultValue} instead of {@code null} if the {@code key} is
      * not configured.
      * 
      * @param key
-     *            the configuration key, same as in {@see
+     *            the configuration key, same as in {@link
      *            #getConfigValue(String)}.
      * @param defaultValue
      *            is the default value string to return if the configuration key

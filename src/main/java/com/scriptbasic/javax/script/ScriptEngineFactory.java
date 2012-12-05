@@ -58,13 +58,13 @@ public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
 
 	/**
 	 * Load the configuration keys into the private fields. The parameters
-	 * requested by the {@see ScriptEngineManager}, {@code names},
+	 * requested by the {@link ScriptEngineManager}, {@code names},
 	 * {@code mimeTypes}, {@code extensions} are stored in private
 	 * {@code List<String>}fields in this class and returned by the methods
-	 * defined by the interface {@see javax.script.ScriptEngineFactory}.
+	 * defined by the interface {@link javax.script.ScriptEngineFactory}.
 	 * <p>
 	 * Unless configured these fields are filled in the object constructor from
-	 * the constants defined in the class {@see Version}.
+	 * the constants defined in the class {@link Version}.
 	 * <p>
 	 * When the configuration defines these values then they replace the values
 	 * defined in the class {@code Version}.
@@ -120,7 +120,7 @@ public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
 
 	/**
 	 * The constructor reads the configuration and fills the constants that are
-	 * requested by the {@see ScriptEngineManager}.
+	 * requested by the {@link ScriptEngineManager}.
 	 */
 	public ScriptEngineFactory() {
 

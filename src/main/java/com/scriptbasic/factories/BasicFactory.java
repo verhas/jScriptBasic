@@ -8,11 +8,11 @@ import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.FactoryManaged;
 
 /**
- * Implementing the interface {@see com.scriptbasic.interfaces.Factory} this
- * class instantiates the objects using the JDK standard {@see
+ * Implementing the interface {@link com.scriptbasic.interfaces.Factory} this
+ * class instantiates the objects using the JDK standard {@link
  * java.util.ServiceLoader}. A single factory instance will maintain a single
  * instance of each class and subsequent call on the same factory object to the
- * method {@see #get(Class)} will return the same class instance for the same
+ * method {@link #get(Class)} will return the same class instance for the same
  * interface.
  * <p>
  * The implementation also checks that the argument passed to the method is an

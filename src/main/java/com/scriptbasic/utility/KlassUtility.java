@@ -10,8 +10,7 @@ import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
 
 /**
- * @author Peter Verhas
- * date June 28, 2012
+ * @author Peter Verhas date June 28, 2012
  * 
  */
 public final class KlassUtility {
@@ -22,7 +21,7 @@ public final class KlassUtility {
 	/**
 	 * @param object
 	 * @param fieldName
-	 * @param rightValue
+	 * @param valueObject
 	 * @throws BasicRuntimeException
 	 */
 	public static void setField(Object object, String fieldName,
@@ -94,9 +93,9 @@ public final class KlassUtility {
 	}
 
 	/**
-	 * Returns a class based on its name just like the method {@see
-	 * java.lang.Class#forName(String)}. The search for the class is extended.
-	 * For example if this method is called
+	 * Returns a class based on its name just like the method
+	 * {@link java.lang.Class#forName(String)}. The search for the class is
+	 * extended. For example if this method is called
 	 * 
 	 * <pre>
 	 * Class&lt;?&gt; klass = KlassUtility.forName(&quot;a.b.c.d&quot;);
@@ -148,8 +147,8 @@ public final class KlassUtility {
 	}
 
 	/**
-	 * Returns a class based on its name just like the method {@see
-	 * java.lang.Class#forName(String)}. If the name of the class is
+	 * Returns a class based on its name just like the method
+	 * {@link java.lang.Class#forName(String)}. If the name of the class is
 	 * 
 	 * <pre>
 	 * byte
@@ -163,7 +162,7 @@ public final class KlassUtility {
 	 * </pre>
 	 * 
 	 * then the method will return the primitive class named. Otherwise it calls
-	 * {@see #forName(String)} to load the class.
+	 * {@link #forName(String)} to load the class.
 	 * 
 	 * @param s
 	 * @return

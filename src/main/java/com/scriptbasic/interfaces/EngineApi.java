@@ -82,7 +82,7 @@ public interface EngineApi {
 	 * Set the output writer used to write the error output of the BASIC
 	 * program.
 	 * 
-	 * @param output
+	 * @param error
 	 */
 	public void setError(Writer error);
 

@@ -67,7 +67,7 @@ public final class RightValueUtility {
 	 * creates a Basic object that holds a Long, Double, String or Boolean
 	 * value.
 	 * <p>
-	 * In other cases the method will return a {@see BasicJavaObjectValue}.
+	 * In other cases the method will return a {@link BasicJavaObjectValue}.
 	 * 
 	 * @param value
 	 *            the original value to convert to a right value

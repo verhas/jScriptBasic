@@ -27,8 +27,6 @@ public class Decimal extends AbstractElementAnalyzer {
      * Thus {@code 1.12E2} is a double number and not a long containing
      * {@code 112}.
      * 
-     * @param ch
-     *            one character that was already read from the input
      * @return the lexical element containing the long or double value
      */
     @Override

@@ -11,7 +11,7 @@ public interface LineOrientedLexicalAnalyzer extends LexicalAnalyzer {
     /**
      * Resets the state of the lexical analyzer so that the internal lexeme
      * pointer is reset to the first lexeme of the actual line and the next call
-     * to {@see #get()} will return again the first lexeme of the line.
+     * to {@link #get()} will return again the first lexeme of the line.
      */
     void resetLine();
 }

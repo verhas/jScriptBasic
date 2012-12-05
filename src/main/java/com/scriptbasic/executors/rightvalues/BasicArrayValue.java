@@ -21,7 +21,7 @@ public class BasicArrayValue extends AbstractRightValue {
 	 * for extension methods and is not used by the interpreter. This method can
 	 * be used when the array is available from some calculation and it would be
 	 * waste of resource to copy the elements of the array one by one calling
-	 * {@ref #set(Integer, Object)}.
+	 * {@link #set(Integer, Object)}.
 	 * 
 	 * @param array
 	 *            the array

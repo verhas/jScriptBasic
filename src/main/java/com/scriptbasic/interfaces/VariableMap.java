@@ -12,7 +12,7 @@ import java.util.Set;
  * MixedBasicVariableMap that manages the global and the local variables
  * transparently.
  * <p>
- * The methods may throw {@see ExecutionException}. The interface provides this
+ * The methods may throw {@link ExecutionException}. The interface provides this
  * possibility to implement features like denying case sensitive reuse of
  * variable names. For example jScriptBasic does not allow you to use the
  * variable {@code Apple} is ever you already used {@code apple}. In other basic

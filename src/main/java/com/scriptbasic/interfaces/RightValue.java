@@ -11,7 +11,6 @@ public interface RightValue extends Value {
 
 	Boolean isBoolean();
 
-	// TODO is this OK?
 	Boolean isArray();
 
 	Boolean isJavaObject();

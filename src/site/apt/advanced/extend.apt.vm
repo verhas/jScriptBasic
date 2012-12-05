@@ -30,11 +30,39 @@ How to extend ScriptBasic for Java with external Java Methods
  is annotated with the annotation <<<@Function>>> that signals for the registering process that this method is a candidate
  for being called from BASIC.
  
- The parameters for the annotation are all optional. The arguments are defined in the {{{../apidocs/com/scriptbasic/Function.html}JavaDoc API}}.
+ The parameters for the annotation are all optional. The arguments are defined in the 
+ {{{../apidocs/com/scriptbasic/Function.html}JavaDoc API}}.
  
  The declared function can be called after that from BASIC the following way:
  
 %{snippet|id=testExtensionMethod|file=src/test/java/com/scriptbasic/TestEngine.java}
+
+ Note that extension methods should be <<<static>>>. If a non-static method is annotated in the registered class using the
+ annotation <<<@Function>>> then the registering process will throw exception. The return value and the arguments can be
+ any Java type. The interpreter will convert the BASIC value passed as actual parameter doing its best. Thus you can
+ accept <<<int>>>, <<<long>> and other primitive parameters, just as well as <<<Integer>>>, <<<Long>>> and so on. When a
+ function returns some complex object the interpreter will use it without conversion and if it is stored in a variable
+ then it is possible to pass the object to other Java methods that expect the type.
+ 
+ Because BASIC internally uses <<<Long>>> to store integer values, <<<Double>>> to store floating point values,
+ <<<Boolean>>> to store boolean values, if you write a method that is specifically designed to be an extension function
+ it is recommended that you use these classes instead of <<<Integer>>>, <<<int>>>, <<<Float>>>, <<<float>>>, <<<double>>>
+ and so on.
+ 
+ Generally speaking you need not care about the internal data structures of ScriptBasic for Java when you write an extension
+ method. The only exception is when you accept an array as an argument and when you return an array as an argument.
+ 
+ When the extension function handles an array as an argument the actual Java type should be compatible with
+ <<<BasicArrayValue>>>. Simply saying: it can be <<<BasicArrayValue>>> or <<<Object>>>.
+ 
+ When you return an array it has to be <<<BasicArrayValue>>>. Note that the elements of the array need not be
+ an object that implements <<<RightValue>>> as defined in the interpreter. It can be any Java object that will be
+ converted by the interpreter when the array element is used in an expression in the BASIC program. This is different
+ from returning a primitive value, which will be converted when the method returns. In this case the array in the
+ BASIC program will contain Java objects and the conversion will happen only later when the value is used.
+ 
+ For more information on how to use the <<<BasicArrayValue>>> have a look at the
+ {{{../apidocs/com/scriptbasic/executors/rightvalues/BasicArrayValue.html}JavaDoc API}}.
 
 * alias
 
@@ -53,8 +81,12 @@ How to extend ScriptBasic for Java with external Java Methods
 
  <<<requiredVersion>>> is an integer value denoting the required version of the embedding interface of ScriptBasic.
  In the current version <<<1.0.3>>> of ScriptBasic for Java this is 1. The default version for this parameter is 1.
- This parameter is described in detail in the {{{../apidocs/com/scriptbasic/Function.html}JavaDoc API}}. As for now it is
- sufficient if you set this value to 1.
+ This parameter is described in detail in the {{{../apidocs/com/scriptbasic/Function.html}JavaDoc API}}.
+ 
+ ScriptBasic version 1.0.4 adds functionality to the interface, thus the interface version number in this version is
+ already 2.
+ 
+ For more information on the differences between the versions see the page {{{./requiredVersion.html}versions}}. 
 
 * substitueClass
 

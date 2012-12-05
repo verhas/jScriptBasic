@@ -12,10 +12,10 @@ import java.lang.reflect.Method;
  * on.
  * <p>
  * To implement a hook the class should implement this interface. It is
- * recommended to extend the class {@see com.scriptbasic.hooks.SimpleHook}
+ * recommended to extend the class {@link com.scriptbasic.hooks.SimpleHook}
  * instead of implementing a fresh class just implementing this interface. There
  * are a lot of methods in this interface and usually a hook class need
- * functionality only for a subset. The class {@see
+ * functionality only for a subset. The class {@link
  * com.scriptbasic.hooks.SimpleHook} gives default implementation for the
  * methods and eases hook development providing extended methods.
  * <p>
@@ -133,8 +133,8 @@ public interface InterpreterHook {
     /**
      * This method is called after a subroutine has set its return value. It is
      * possible to modify the return value calling back to the interpreter but
-     * it has to be only invoked together with {@see
-     * ExtendedInterpreter#disableHook()} and {@see
+     * it has to be only invoked together with {@link
+     * ExtendedInterpreter#disableHook()} and {@link
      * ExtendedInterpreter#enableHook()}.
      * 
      * @param returnValue
