@@ -241,7 +241,8 @@ bytes = freeSpace(partitionName)
  
 ** Getting and Setting the Time a File was Modified
 
- The function 
+ The function
+  
 ---
 setLastModified(fileName, time)
 ---
