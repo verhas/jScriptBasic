@@ -1,4 +1,4 @@
-package com.scriptbasic.test.aux;
+package com.scriptbasic.test.auxilliary;
 
 import junit.framework.Assert;
 
