@@ -14,7 +14,8 @@ import junit.framework.TestCase;
  * 
  */
 public class Test extends TestCase {
-    public static void test() {
+    @SuppressWarnings("serial")
+	public static void test() {
         GeneralAnalysisException gae = new GeneralAnalysisException() {
         };
         gae.setFileName("fileName");

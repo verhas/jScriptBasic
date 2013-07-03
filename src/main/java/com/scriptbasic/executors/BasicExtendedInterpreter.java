@@ -31,7 +31,6 @@ import com.scriptbasic.utility.HookRegisterUtility;
 import com.scriptbasic.utility.MethodRegisterUtility;
 import com.scriptbasic.utility.RightValueUtility;
 import com.scriptbasic.utility.functions.BasicRuntimeFunctionRegisterer;
-import com.scriptbasic.utility.functions.UtilityFunctions;
 
 /**
  * @author Peter Verhas date June 22, 2012

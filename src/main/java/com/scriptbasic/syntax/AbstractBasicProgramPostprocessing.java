@@ -181,7 +181,7 @@ public abstract class AbstractBasicProgramPostprocessing implements
         // TODO optimize expression:
         // 1. execute constant integer arithmetic
         // 2. execute constant string concatenation
-        // 3. execute constant boolean arithmentic
+        // 3. execute constant boolean arithmetic
 
     }
 }

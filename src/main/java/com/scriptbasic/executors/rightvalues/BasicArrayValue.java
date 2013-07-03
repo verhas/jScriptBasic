@@ -14,6 +14,7 @@ public class BasicArrayValue extends AbstractRightValue {
 	// TODO implement a function in the interpreter that can limit the
 	// allocation of arrays
 	// perhaps only the size of the individual arrays
+	@SuppressWarnings("unused")
 	private ExtendedInterpreter interpreter;
 
 	/**

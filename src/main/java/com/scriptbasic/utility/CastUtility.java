@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
-import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 import com.scriptbasic.interfaces.RightValue;
 
 /**

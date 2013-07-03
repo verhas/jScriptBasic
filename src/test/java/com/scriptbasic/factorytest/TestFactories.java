@@ -33,9 +33,8 @@ public class TestFactories extends TestCase {
         }
     }
 
-    @SuppressWarnings("static-method")
     public void testThreadLocalFactory() throws Exception {
-        Factory fm = ThreadLocalFactoryFactory.getFactory();
+        ThreadLocalFactoryFactory.getFactory();
     }
 
     @SuppressWarnings("static-method")

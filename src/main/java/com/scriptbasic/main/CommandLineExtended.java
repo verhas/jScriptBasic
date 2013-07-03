@@ -4,19 +4,10 @@
 package com.scriptbasic.main;
 
 import java.io.FileReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.script.ScriptContext;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 
 import com.scriptbasic.factories.BasicFactory;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
@@ -40,15 +31,6 @@ public class CommandLineExtended {
 		}
 		Logger.getLogger("").setLevel(Level.SEVERE);
 		final String basicProgramFileName = args[0];
-		final int extensionDotPosition = basicProgramFileName
-				.indexOf((int) '.');
-		final String extension;
-		if (extensionDotPosition > -1) {
-			extension = basicProgramFileName
-					.substring(extensionDotPosition + 1);
-		} else {
-			extension = "";
-		}
 
 		// START SNIPPET: x
 		final Factory factory = new BasicFactory();
