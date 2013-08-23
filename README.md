@@ -8,3 +8,5 @@ experts a language to extend/modify the functionality of your application. The i
 a scripting language that is simple. If you use groovy, scala, clojure as an embedded scripting language the script creation task
 still may be a burden on developers of high cost. When this is BASIC even the "once-IT-guy" managers will be able and will dare to
 play with it lowering your support cost and increasing customer satisfaction.
+
+http://verhas.github.io/jScriptBasic/
