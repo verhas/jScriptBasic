@@ -95,7 +95,7 @@ public class UtilityFunctions {
 	public static Long getByte(byte[] buffer, Long i) {
 		if (i < 0 || i >= buffer.length)
 			return null;
-		return new Long((int) buffer[i.intValue()]);
+		return Long.valueOf((int) buffer[i.intValue()]);
 	}
 
 	@Function(classification = Utility.class)
