@@ -17,7 +17,7 @@ public class Version {
     public static final Long MINOR = 0L;
     public static final Long BUGFIX = 0L;
     public static final String version = MAJOR + "." + MINOR + "." + BUGFIX;
-    public static final List<String> extensions = new LinkedList<String>();
+    public static final List<String> extensions = new LinkedList<>();
     static {
         extensions.add("bas");
         extensions.add("sb");

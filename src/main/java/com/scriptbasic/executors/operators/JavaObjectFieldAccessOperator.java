@@ -34,15 +34,13 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
 		Object object = getLeftOperandObject(extendedInterpreter);
 		AbstractIdentifieredExpression rightOp = (AbstractIdentifieredExpression) getRightOperand();
 		String fieldName = rightOp.getVariableName();
-		Object fieldObject = KlassUtility.getField(object, fieldName);
-		return fieldObject;
+		return KlassUtility.getField(object, fieldName);
 	}
 
 	private RightValue fetchField(ExtendedInterpreter extendedInterpreter)
 			throws ExecutionException {
 		Object fieldObject = fetchFieldObject(extendedInterpreter);
-		RightValue rightValue = RightValueUtility.createRightValue(fieldObject);
-		return rightValue;
+		return RightValueUtility.createRightValue(fieldObject);
 	}
 
 	private static Class<?>[] getClassArray(List<RightValue> args) {

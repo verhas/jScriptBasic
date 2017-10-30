@@ -47,7 +47,6 @@ public class TestJavaxInterface {
 					"singleton", FactoryServiceLoader.loadFactory());
 		} catch (Exception e) {
 			e.printStackTrace();
-			return;
 		}
 	}
 

@@ -3,15 +3,15 @@
  */
 package com.scriptbasic.utility;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.List;
-
 import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.RightValue;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * @author Peter Verhas date Aug 2, 2012
@@ -109,9 +109,8 @@ public class ReflectionUtility {
 						+ symbolicName + "' throws exception:", e);
 			}
 		}
-		final Object result = interpreter.getHook().afterCallJavaFunction(
+		return interpreter.getHook().afterCallJavaFunction(
 				method, javaCallResult);
-		return result;
 	}
 
 	/**

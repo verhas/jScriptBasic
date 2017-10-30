@@ -27,11 +27,13 @@ public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
                 .getSimpleLeftValueAnalyzer(getFactory()).analyze())
                 .getIdentifier());
         lexicalElement = lexicalAnalyzer.peek();
-        boolean needClosing = false;
+        final boolean needClosing;
         if (lexicalElement != null && lexicalElement.isSymbol("(")) {
             lexicalAnalyzer.get();
             needClosing = true;
             lexicalElement = lexicalAnalyzer.peek();
+        }else{
+            needClosing = false;
         }
 
         if ((needClosing && lexicalElement != null && !lexicalElement

@@ -46,7 +46,7 @@ public class GenericReader implements Reader {
         return this.position;
     }
 
-    private Deque<Integer> charsAhead = new LinkedList<Integer>();
+    private Deque<Integer> charsAhead = new LinkedList<>();
 
     /**
      * {@inheritDoc}
@@ -71,7 +71,9 @@ public class GenericReader implements Reader {
         }
 
         try {
-            nextChar = this.sourceReader.read();
+            do {
+                nextChar = this.sourceReader.read();
+            }while(isIgnored(nextChar));
             if (nextChar == -1) {
                 nextChar = null;
             }
@@ -85,6 +87,10 @@ public class GenericReader implements Reader {
         this.position++;
         this.lastChar = nextChar;
         return this.lastChar;
+    }
+
+    private boolean isIgnored(Integer nextChar) {
+        return nextChar == 13;
     }
 
     public void setSourceProvider(final SourceProvider sourceProvider) {

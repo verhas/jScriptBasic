@@ -8,11 +8,11 @@ import java.lang.reflect.Method;
  * be overloaded and BASIC functions can not. To overcome this issue the BASIC
  * program has to declare a function name for each method it wants to call. For
  * example:
- * 
+ *
  * <pre>
  * method sin from java.lang.Math is (double) use as sinus
  * </pre>
- * 
+ *
  * Here the method {@code sin} is to be used from the java package
  * {@code java.lang.Math} and the alias is {@code sinus}. The
  * {@code use as sinus} part is optional. If this is missing then the name of
@@ -53,16 +53,16 @@ import java.lang.reflect.Method;
  * with that alias. If there is then the alias is not global, can not be used
  * without an object or class reference and it is removed from the global
  * registry.
- * 
+ *
  * @author Peter Verhas date June 28, 2012
- * 
+ *
  */
 public interface MethodRegistry {
 
 	/**
 	 * Get the method for a given alias used to name a method in a specific Java
 	 * class.
-	 * 
+	 *
 	 * @param klass
 	 *            the class where the method is. If this parameter is
 	 *            {@code null} then the class will be fetched from the global
@@ -77,12 +77,12 @@ public interface MethodRegistry {
 	 *             method or accessing the method violates java security (e.g.
 	 *             the method is private)
 	 */
-	public abstract Method getJavaMethod(Class<?> klass, String alias)
+	 Method getJavaMethod(Class<?> klass, String alias)
 			throws ExecutionException;
 
 	/**
 	 * Register a java method.
-	 * 
+	 *
 	 * @param alias
 	 *            the alias of the method. This is the name how the BASIC
 	 *            program will refer to the method. Although the BASIC source
@@ -102,7 +102,7 @@ public interface MethodRegistry {
 	 *             the actual interpreter. You can not register a name for a
 	 *             method and then later the same alias for a different method.
 	 */
-	public abstract void registerJavaMethod(String alias, Class<?> klass,
+	 void registerJavaMethod(String alias, Class<?> klass,
 			String methodName, Class<?>[] argumentTypes)
 			throws BasicRuntimeException;
 

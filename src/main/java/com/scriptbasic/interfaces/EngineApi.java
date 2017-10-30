@@ -36,7 +36,7 @@ public interface EngineApi {
 	 * 
 	 * @return the factory instance
 	 */
-	public Factory getBasicFactory();
+	Factory getBasicFactory();
 
 	/**
 	 * Get the reader from where the BASIC program reads the standard input
@@ -44,7 +44,7 @@ public interface EngineApi {
 	 * 
 	 * @return
 	 */
-	public Reader getInput();
+	Reader getInput();
 
 	/**
 	 * Set the reader from where the BASIC program reads the standard input
@@ -52,7 +52,7 @@ public interface EngineApi {
 	 * 
 	 * @param input
 	 */
-	public void setInput(Reader input);
+	void setInput(Reader input);
 
 	/**
 	 * Get the output writer used to write the standard output of the BASIC
@@ -60,7 +60,7 @@ public interface EngineApi {
 	 * 
 	 * @return
 	 */
-	public Writer getOutput();
+	Writer getOutput();
 
 	/**
 	 * Set the output writer used to write the standard output of the BASIC
@@ -68,7 +68,7 @@ public interface EngineApi {
 	 * 
 	 * @param output
 	 */
-	public void setOutput(Writer output);
+	void setOutput(Writer output);
 
 	/**
 	 * Get the output writer used to write the error output of the BASIC
@@ -76,7 +76,7 @@ public interface EngineApi {
 	 * 
 	 * @return
 	 */
-	public Writer getError();
+	Writer getError();
 
 	/**
 	 * Set the output writer used to write the error output of the BASIC
@@ -84,7 +84,7 @@ public interface EngineApi {
 	 * 
 	 * @param error
 	 */
-	public void setError(Writer error);
+	void setError(Writer error);
 
 	/**
 	 * Load a string as a BASIC program.
@@ -127,7 +127,7 @@ public interface EngineApi {
 	 *            the array of path elements that are searched for included
 	 *            files
 	 */
-	public void load(String sourceFileName, String... path)
+	void load(String sourceFileName, String... path)
 			throws ScriptBasicException;
 
 	/**
@@ -199,7 +199,7 @@ public interface EngineApi {
 	 *            the array of path elements that are searched for included
 	 *            files
 	 */
-	public void eval(String sourceFileName, String... path)
+	void eval(String sourceFileName, String... path)
 			throws ScriptBasicException;
 
 	/**
@@ -234,7 +234,7 @@ public interface EngineApi {
 	 * 
 	 * @throws ScriptBasicException
 	 */
-	public void execute() throws ScriptBasicException;
+	void execute() throws ScriptBasicException;
 
 	/**
 	 * Set the value of a global variable of the BASIC program.

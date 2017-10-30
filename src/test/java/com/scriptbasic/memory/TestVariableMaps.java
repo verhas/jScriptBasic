@@ -3,10 +3,6 @@
  */
 package com.scriptbasic.memory;
 
-import java.util.EmptyStackException;
-
-import junit.framework.TestCase;
-
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
 import com.scriptbasic.executors.rightvalues.BasicLongValue;
@@ -16,6 +12,9 @@ import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
+import junit.framework.TestCase;
+
+import java.util.EmptyStackException;
 
 /**
  * @author Peter Verhas
@@ -105,32 +104,19 @@ public class TestVariableMaps extends TestCase {
     }
 
     private void LET(String name, Object v) throws ExecutionException {
-        SET: {
-            if (v == null) {
-                mixedMap.setVariable(name, null);
-                break SET;
-            }
-            if (v instanceof RightValue) {
-                mixedMap.setVariable(name, (RightValue) v);
-                break SET;
-            }
-            if (v instanceof Double) {
-                mixedMap.setVariable(name, new BasicDoubleValue((Double) v));
-                break SET;
-            }
-            if (v instanceof Long) {
-                mixedMap.setVariable(name, new BasicLongValue((Long) v));
-                break SET;
-            }
-            if (v instanceof Integer) {
-                mixedMap.setVariable(name,
-                        new BasicLongValue(((Integer) v).longValue()));
-                break SET;
-            }
-            if (v instanceof String) {
-                mixedMap.setVariable(name, new BasicStringValue((String) v));
-                break SET;
-            }
+        if (v == null) {
+            mixedMap.setVariable(name, null);
+        } else if (v instanceof RightValue) {
+            mixedMap.setVariable(name, (RightValue) v);
+        } else if (v instanceof Double) {
+            mixedMap.setVariable(name, new BasicDoubleValue((Double) v));
+        } else if (v instanceof Long) {
+            mixedMap.setVariable(name, new BasicLongValue((Long) v));
+        } else if (v instanceof Integer) {
+            mixedMap.setVariable(name,
+                    new BasicLongValue(((Integer) v).longValue()));
+        } else if (v instanceof String) {
+            mixedMap.setVariable(name, new BasicStringValue((String) v));
         }
     }
 

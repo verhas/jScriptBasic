@@ -29,8 +29,6 @@ public abstract class AbstractCommandIfKind extends AbstractCommandIfElseKind {
     protected Boolean theConditionIsTrue(ExtendedInterpreter interpreter)
             throws ExecutionException {
         RightValue conditionRightValue = getCondition().evaluate(interpreter);
-        Boolean conditionBoolean = BasicBooleanValue
-                .convert(conditionRightValue);
-        return conditionBoolean;
+        return BasicBooleanValue.convert(conditionRightValue);
     }
 }
