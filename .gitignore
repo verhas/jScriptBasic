@@ -1,9 +1,9 @@
 *.class
-
 # Package Files #
 *.jar
 *.war
 *.ear
+*.iml
 .metadata
 .classpath
 .settings
@@ -13,3 +13,4 @@
 doc/
 target/
 reports/
+.idea/
