@@ -1,10 +1,6 @@
 jScriptBasic
 ============
 [![Build Status](https://travis-ci.org/verhas/jScriptBasic.svg)](https://travis-ci.org/verhas/jScriptBasic)
-[![Coverage Status](https://img.shields.io/codecov/c/github/verhas/jScriptBasic.svg)](https://codecov.io/github/verhas/jScriptBasic)
-[![MIT License](http://img.shields.io/badge/license-MIT-green.svg) ](https://github.com/jScriptBasic/jScriptBasic/blob/master/LICENSE)
-
-
 
 ScriptBasic for Java (also jScriptBasic, jsb or sb4j). This implementation is a total rewrite of the ScriptBasic ideas in Java.
 
