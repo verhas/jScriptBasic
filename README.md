@@ -1,11 +1,10 @@
 jScriptBasic
 ============
-[![Build Status](https://travis-ci.org/verhas/jScriptBasic.svg)](https://travis-ci.org/verhas/jScriptBasic) [![Coverage Status](https://img.shields.io/codecov/c/github/verhas/jScriptBasic.svg)](https://codecov.io/github/verhas/jScriptBasic) [![MIT License](http://img.shields.io/badge/license-MIT-green.svg) ](https://github.com/jScriptBasic/jScriptBasic/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/verhas/jScriptBasic.svg)](https://travis-ci.org/verhas/jScriptBasic)
+[![Coverage Status](https://img.shields.io/codecov/c/github/verhas/jScriptBasic.svg)](https://codecov.io/github/verhas/jScriptBasic)
+[![MIT License](http://img.shields.io/badge/license-MIT-green.svg) ](https://github.com/jScriptBasic/jScriptBasic/blob/master/LICENSE)
 
-[![latest release](https://img.shields.io/badge/release%20notes-2.x-yellow.svg)](https://github.com/jScriptBasic/jScriptBasic/blob/release/2.x/doc/release-notes/official.md)
-[![Bintray](https://api.bintray.com/packages/jScriptBasic/maven/jScriptBasic-development/images/download.svg)](https://bintray.com/jScriptBasic/maven)
-[![Maven Central](https://img.shields.io/maven-central/v/org.jScriptBasic/jScriptBasic-core.svg)](http://search.maven.org/#artifactdetails%7Corg.jScriptBasic%7CjScriptBasic-core%7C2.8.47%7C)
-[![Javadocs](http://www.javadoc.io/badge/org.jScriptBasic/jScriptBasic-core.svg?color=red)](http://www.javadoc.io/doc/org.jScriptBasic/jScriptBasic-core)
+
 
 ScriptBasic for Java (also jScriptBasic, jsb or sb4j). This implementation is a total rewrite of the ScriptBasic ideas in Java.
 
