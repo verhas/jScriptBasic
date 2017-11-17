@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="jscriptbasic" target="1.9" />
+      <module name="jscriptbasic" target="9" />
     </bytecodeTargetLevel>
   </component>
 </project>
