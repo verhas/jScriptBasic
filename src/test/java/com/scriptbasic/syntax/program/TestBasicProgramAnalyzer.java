@@ -1,8 +1,5 @@
 package com.scriptbasic.syntax.program;
 
-import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
-import junit.framework.TestCase;
-
 import com.scriptbasic.factories.BasicFactory;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BuildableProgram;
@@ -10,8 +7,12 @@ import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.utility.FactoryUtility;
 
+import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 @SuppressWarnings("static-method")
-public class TestBasicProgramAnalyzer extends TestCase {
+public class TestBasicProgramAnalyzer {
 
     private static Factory factory = new BasicFactory();
 

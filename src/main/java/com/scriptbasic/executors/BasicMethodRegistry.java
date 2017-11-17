@@ -35,8 +35,8 @@ public class BasicMethodRegistry implements MethodRegistry {
 		}
 	}
 
-	private Map<String, RegistryItem> registry = new HashMap<String, RegistryItem>();
-	private Map<String, RegistryItem> globalRegistry = new HashMap<String, RegistryItem>();
+	private Map<String, RegistryItem> registry = new HashMap<>();
+	private Map<String, RegistryItem> globalRegistry = new HashMap<>();
 
 	/*
 	 * (non-Javadoc)
@@ -119,7 +119,7 @@ public class BasicMethodRegistry implements MethodRegistry {
 	 * then it throws a BasicRuntimeException explaining the name collision.
 	 * <p>
 	 * Even though the functionality of evaluation of function calls is not
-	 * implemented in class or in this package if is good to note that if a
+	 * implemented in class or in this package it is good to note that if a
 	 * BASIC subroutine is defined with the same name as an alias then that will
 	 * rule.
 	 * 

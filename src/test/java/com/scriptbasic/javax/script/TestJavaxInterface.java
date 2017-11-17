@@ -24,7 +24,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.scriptbasic.Version;
+import com.scriptbasic.api.Version;
 import com.scriptbasic.factories.FactoryServiceLoader;
 import com.scriptbasic.factories.SingletonFactoryFactory;
 import com.scriptbasic.interfaces.Configuration;
@@ -79,7 +79,7 @@ public class TestJavaxInterface {
 		configProperties.put("languageVersion", "ancient");
 
 		config.setConfigProperties(configProperties);
-		ScriptEngineFactory sef = new com.scriptbasic.javax.script.ScriptEngineFactory();
+		ScriptEngineFactory sef = new com.scriptbasic.api.script.ScriptEngineFactory();
 		assertEquals("esperanto", sef.getLanguageName());
 		assertEquals("ancient", sef.getLanguageVersion());
 		assertEquals(2, sef.getNames().size());
@@ -87,7 +87,7 @@ public class TestJavaxInterface {
 		assertEquals(5, sef.getExtensions().size());
 		ScriptEngine se = sef.getScriptEngine();
 		assertNotNull(se);
-		assertTrue(se instanceof com.scriptbasic.javax.script.ScriptEngine);
+		assertTrue(se instanceof com.scriptbasic.api.script.ScriptEngine);
 	}
 
 	@SuppressWarnings("static-method")
@@ -113,7 +113,7 @@ public class TestJavaxInterface {
 		FactoryUtility.getConfiguration(SingletonFactoryFactory.getFactory());
 		ScriptEngine se = sem.getEngineByExtension("sb");
 		assertNotNull(se);
-		assertTrue(se instanceof com.scriptbasic.javax.script.ScriptEngine);
+		assertTrue(se instanceof com.scriptbasic.api.script.ScriptEngine);
 		assertNotNull(se);
 		se.eval("print \"first script\"");
 		ScriptContext context = se.getContext();
@@ -130,7 +130,7 @@ public class TestJavaxInterface {
 
 	@Test
 	public void testQueries() {
-		com.scriptbasic.javax.script.ScriptEngineFactory sef = new com.scriptbasic.javax.script.ScriptEngineFactory();
+		com.scriptbasic.api.script.ScriptEngineFactory sef = new com.scriptbasic.api.script.ScriptEngineFactory();
 		Bindings b = new SimpleBindings();
 		sef.setGlobalScopeBinding(b);
 		Assert.assertEquals(sef.getGlobalScopeBinding(), b);

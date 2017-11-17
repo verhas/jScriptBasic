@@ -1,7 +1,12 @@
 /**
- * 
+ *
  */
 package com.scriptbasic.configuration;
+
+import com.scriptbasic.interfaces.Configuration;
+import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.log.Logger;
+import com.scriptbasic.log.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,21 +15,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
-import com.scriptbasic.interfaces.Configuration;
-import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.log.Logger;
-import com.scriptbasic.log.LoggerFactory;
-
 /**
  * @author Peter Verhas
  * date July 23, 2012
- * 
  */
 public class BasicConfiguration implements Configuration {
     private static final Logger LOG = LoggerFactory
-            .getLogger(BasicConfiguration.class);
-
+            .getLogger();
+    private final HashMap<String, List<String>> lists = new HashMap<>();
     Factory factory;
+    Properties configProperties;
 
     public BasicConfiguration() {
         try {
@@ -36,7 +36,7 @@ public class BasicConfiguration implements Configuration {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * com.scriptbasic.interfaces.FactoryManaged#setFactory(com.scriptbasic.
      * interfaces.Factory)
@@ -46,11 +46,8 @@ public class BasicConfiguration implements Configuration {
         this.factory = factory;
     }
 
-    Properties configProperties;
-
     /**
-     * @param configProperties
-     *            the configProperties to set
+     * @param configProperties the configProperties to set
      */
     public void setConfigProperties(final Properties configProperties) {
         this.configProperties = configProperties;
@@ -59,7 +56,7 @@ public class BasicConfiguration implements Configuration {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.scriptbasic.interfaces.Configuration#getConfig(java.lang.String)
      */
     @Override
@@ -81,7 +78,7 @@ public class BasicConfiguration implements Configuration {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.scriptbasic.interfaces.Configuration#getConfig(java.lang.String,
      * java.lang.String)
      */
@@ -91,21 +88,19 @@ public class BasicConfiguration implements Configuration {
         return configValue == null ? defaultValue : configValue;
     }
 
-    private final HashMap<String, List<String>> lists = new HashMap<String, List<String>>();
-
     @Override
     public List<String> getConfigValueList(final String key) {
         if (lists.containsKey(key)) {
             return lists.get(key);
         }
-        List<String> list = new LinkedList<String>();
-        String keyi;
+        List<String> list = new LinkedList<>();
         String value;
-        for (int i = 0; (keyi = key + "." + i) != null
-                && (value = getConfigValue(keyi)) != null; i++) {
+        for (int i = 0;
+             (value = getConfigValue(key + "." + i)) != null;
+             i++) {
             list.add(value);
         }
-        lists.put(keyi, list);
+        lists.put(key, list);
         return list;
     }
 
@@ -113,7 +108,7 @@ public class BasicConfiguration implements Configuration {
      * The default configuration is stored in the file {@code sb4j.properties}
      * or in the file defined by the system property named
      * {@code sb4j.configuration}.
-     * 
+     *
      * @see Configuration#loadDefaultConfiguration()
      */
     @Override

@@ -3,7 +3,7 @@ package com.scriptbasic.coverage;
 import com.scriptbasic.exceptions.BasicLexicalException;
 import com.scriptbasic.lexer.BasicKeywordRecognizer;
 
-import junit.framework.TestCase;
+
 
 /**
  * This test just calls some trivial code to increase the test coverage.
@@ -14,7 +14,7 @@ import junit.framework.TestCase;
  * @author Peter Verhas
  * date Jun 8, 2012
  */
-public class TestToExtendCoverage extends TestCase {
+public class TestToExtendCoverage  {
     @SuppressWarnings("static-method")
     public void testCover() {
         BasicLexicalException bela = new BasicLexicalException();

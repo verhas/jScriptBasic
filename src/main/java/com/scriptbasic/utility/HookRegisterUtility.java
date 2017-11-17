@@ -21,7 +21,7 @@ public class HookRegisterUtility {
 	}
 
 	private static Logger LOG = LoggerFactory
-			.getLogger(HookRegisterUtility.class);
+			.getLogger();
 
 	/**
 	 * Create hook instances and chain them up based on the configuration file.

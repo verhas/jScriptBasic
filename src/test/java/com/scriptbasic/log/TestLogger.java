@@ -5,7 +5,7 @@ package com.scriptbasic.log;
 
 import org.junit.Test;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 /**
  * @author Peter Verhas

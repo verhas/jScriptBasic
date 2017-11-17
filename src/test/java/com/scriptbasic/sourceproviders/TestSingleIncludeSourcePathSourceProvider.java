@@ -2,14 +2,11 @@ package com.scriptbasic.sourceproviders;
 
 import java.io.IOException;
 
-import junit.framework.TestCase;
+
 
 import com.scriptbasic.interfaces.Reader;
 
-public class TestSingleIncludeSourcePathSourceProvider extends TestCase {
-    public TestSingleIncludeSourcePathSourceProvider(final String testName) {
-        super(testName);
-    }
+public class TestSingleIncludeSourcePathSourceProvider  {
 
     private class TestedSingleIncludeSourcePathSourceProvider extends
             AbstractSingleIncludeSourcePathSourceProvider {

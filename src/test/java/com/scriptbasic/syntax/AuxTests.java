@@ -1,6 +1,5 @@
 package com.scriptbasic.syntax;
 
-import junit.framework.TestCase;
 
 import com.scriptbasic.exceptions.CommandCanNotBeCreatedException;
 import com.scriptbasic.exceptions.GenericSyntaxException;
@@ -10,7 +9,9 @@ import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.lexer.BasicLexicalElement;
 import com.scriptbasic.utility.SyntaxExceptionUtility;
 
-public class AuxTests extends TestCase {
+import static org.junit.Assert.assertTrue;
+
+public class AuxTests {
 
     @SuppressWarnings("static-method")
     public void testExceptions() {

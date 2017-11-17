@@ -13,7 +13,7 @@ import com.scriptbasic.log.LoggerFactory;
  */
 public class NumberUtility {
     final private static Logger LOG = LoggerFactory
-            .getLogger(NumberUtility.class);
+            .getLogger();
 
     private NumberUtility() {
         UtilityUtility.throwExceptionToEnsureNobodyCallsIt();

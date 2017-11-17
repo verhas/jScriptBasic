@@ -27,7 +27,7 @@ public final class FactoryUtility {
     }
 
     private static final Logger LOG = LoggerFactory
-            .getLogger(FactoryUtility.class);
+            .getLogger();
 
     private static <T extends FactoryManaged> T get(final Factory factory,
             final Class<T> klass) {

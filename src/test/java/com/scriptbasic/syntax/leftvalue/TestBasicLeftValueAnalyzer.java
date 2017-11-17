@@ -1,16 +1,5 @@
 package com.scriptbasic.syntax.leftvalue;
 
-import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
-import static com.scriptbasic.syntax.expression.ExpressionBuilder.ID;
-import static com.scriptbasic.syntax.expression.ExpressionBuilder.LONG;
-import static com.scriptbasic.syntax.expression.ExpressionBuilder.OBJECT_FIELD;
-import static com.scriptbasic.syntax.expression.ExpressionBuilder.array;
-import static com.scriptbasic.syntax.expression.ExpressionBuilder.multiply;
-
-import java.util.Iterator;
-
-import junit.framework.TestCase;
-
 import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.exceptions.SyntaxException;
 import com.scriptbasic.executors.GenericLeftValueList;
@@ -19,16 +8,19 @@ import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.executors.leftvalues.LeftValueModifier;
 import com.scriptbasic.executors.leftvalues.ObjectFieldAccessLeftValueModifier;
 import com.scriptbasic.factories.BasicFactory;
-import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.interfaces.LeftValueAnalyzer;
-import com.scriptbasic.interfaces.LeftValueListAnalyzer;
-import com.scriptbasic.interfaces.LexicalAnalyzer;
+import com.scriptbasic.interfaces.*;
 import com.scriptbasic.syntax.expression.ExpressionComparator;
 import com.scriptbasic.utility.FactoryUtility;
 import com.scriptbasic.utility.LexUtility;
 
-public class TestBasicLeftValueAnalyzer extends TestCase {
+import java.util.Iterator;
+
+import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
+import static com.scriptbasic.syntax.expression.ExpressionBuilder.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+public class TestBasicLeftValueAnalyzer {
 
     private static Factory factory = new BasicFactory();
 
@@ -84,6 +76,21 @@ public class TestBasicLeftValueAnalyzer extends TestCase {
         } catch (SyntaxException e) {
         }
 
+    }
+
+    private static GenericLeftValueList compileList(final String s)
+            throws AnalysisException {
+        factory.clean();
+        final LexicalAnalyzer la = createStringReading(factory, s);
+        final LeftValueListAnalyzer lva = FactoryUtility
+                .getLeftValueListAnalyzer(factory);
+        final GenericLeftValueList e = (GenericLeftValueList) lva.analyze();
+        if (LexUtility.peek(la) != null) {
+            throw new GenericSyntaxException(
+                    "There are extra lexemes after the expression: "
+                            + LexUtility.peek(la).getLexeme());
+        }
+        return e;
     }
 
     @SuppressWarnings("static-method")
@@ -146,21 +153,6 @@ public class TestBasicLeftValueAnalyzer extends TestCase {
         testSyntaxExceptionLeftValue("[");
         testSyntaxExceptionLeftValue("apple[hat.het+\"kaka\".z");
 
-    }
-
-    private static GenericLeftValueList compileList(final String s)
-            throws AnalysisException {
-        factory.clean();
-        final LexicalAnalyzer la = createStringReading(factory, s);
-        final LeftValueListAnalyzer lva = FactoryUtility
-                .getLeftValueListAnalyzer(factory);
-        final GenericLeftValueList e = (GenericLeftValueList) lva.analyze();
-        if (LexUtility.peek(la) != null) {
-            throw new GenericSyntaxException(
-                    "There are extra lexemes after the expression: "
-                            + LexUtility.peek(la).getLexeme());
-        }
-        return e;
     }
 
     @SuppressWarnings("static-method")

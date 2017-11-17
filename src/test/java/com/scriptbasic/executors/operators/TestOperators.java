@@ -1,32 +1,28 @@
 /**
- * 
+ *
  */
 package com.scriptbasic.executors.operators;
 
-import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
-
-import java.lang.reflect.InvocationTargetException;
-
-import junit.framework.TestCase;
-
 import com.scriptbasic.factories.BasicFactory;
-import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.interfaces.ExecutionException;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
-import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.interfaces.*;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 import com.scriptbasic.utility.FactoryUtility;
 
+import java.lang.reflect.InvocationTargetException;
+
+import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author Peter Verhas
  * date June 23, 2012
- * 
  */
-public class TestOperators extends TestCase {
+
+public class TestOperators {
     private static Factory factory = new BasicFactory();
-    private static Logger log = LoggerFactory.getLogger(TestOperators.class);
+    private static Logger log = LoggerFactory.getLogger();
 
     private static ExtendedInterpreter ana(final String s)
             throws AnalysisException {
@@ -40,7 +36,7 @@ public class TestOperators extends TestCase {
     }
 
     private static void asserta(ExtendedInterpreter eInterpreter,
-            Object expected) throws ExecutionException {
+                                Object expected) throws ExecutionException {
         Object actual = eInterpreter.getVariable("a");
         if (expected instanceof Integer) {
             expected = ((Integer) expected).longValue();
@@ -69,7 +65,7 @@ public class TestOperators extends TestCase {
     }
 
     private static void c(final String s, Object bVal, Object cVal,
-            Object expected) throws AnalysisException, ExecutionException {
+                          Object expected) throws AnalysisException, ExecutionException {
         ExtendedInterpreter eInterpreter = ana(s);
         eInterpreter.setVariable("b", bVal);
         eInterpreter.setVariable("c", cVal);
@@ -226,22 +222,6 @@ public class TestOperators extends TestCase {
         a("sub apple(x)\nx=x+1\nreturn x\nendsub\na=apple(2)\n", 3);
     }
 
-    public static class qqq {
-        public Integer www = 13;
-        public Float fff = (float) 13.0;
-        public qq ccc = new qq();
-
-        public Integer getQwww() {
-            return ccc.www;
-        }
-    }
-
-    public static class qq {
-        public Integer www = 13;
-        public Float fff = (float) 13.0;
-        public Integer arr[] = new Integer[4];
-    }
-
     public static void testObjectSet() throws AnalysisException,
             ExecutionException, NoSuchMethodException, SecurityException,
             IllegalAccessException, IllegalArgumentException,
@@ -324,8 +304,24 @@ public class TestOperators extends TestCase {
         b("a=b.zpq()", new zp(), 14);
         zp ZP = new zp();
         qqq Q = ZP.getQ();
-        
+
         b("a=b.oneArg(13)", ZP, Q);
+    }
+
+    public static class qqq {
+        public Integer www = 13;
+        public Float fff = (float) 13.0;
+        public qq ccc = new qq();
+
+        public Integer getQwww() {
+            return ccc.www;
+        }
+    }
+
+    public static class qq {
+        public Integer www = 13;
+        public Float fff = (float) 13.0;
+        public Integer arr[] = new Integer[4];
     }
 
     public static class zp {

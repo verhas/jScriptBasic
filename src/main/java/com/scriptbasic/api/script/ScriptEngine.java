@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.scriptbasic.javax.script;
+package com.scriptbasic.api.script;
 
 import java.io.Reader;
 import java.io.StringReader;

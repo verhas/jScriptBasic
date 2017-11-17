@@ -1,12 +1,7 @@
 /**
- * 
+ *
  */
 package com.scriptbasic.executors.operators;
-
-import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
-import junit.framework.TestCase;
-
-import org.junit.Test;
 
 import com.scriptbasic.factories.BasicFactory;
 import com.scriptbasic.interfaces.AnalysisException;
@@ -16,14 +11,18 @@ import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 import com.scriptbasic.utility.FactoryUtility;
+import org.junit.Test;
+
+import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Peter Verhas
  * date June 28, 2012
- * 
  */
-public class TestJavaAccess extends TestCase {
-    private static Logger log = LoggerFactory.getLogger(TestJavaAccess.class);
+
+public class TestJavaAccess {
+    private static Logger log = LoggerFactory.getLogger();
     private static Factory factory = new BasicFactory();
 
     private static ExtendedInterpreter ana(final String s)
@@ -71,25 +70,8 @@ public class TestJavaAccess extends TestCase {
         return sb.toString();
     }
 
-    public static class OverloadedMethods {
-        public static int A(long z) {
-            log.debug("A(Long) was invoked with value {}", z);
-            return 1;
-        }
-
-        public static int A(String z) {
-            log.debug("A(String) was invoked with value {}", z);
-            return 1;
-        }
-
-        public static int A(int z) {
-            log.debug("A(int) was invoked with value {}", z);
-            return 1;
-        }
-    }
-
     @Test
-    public static void test1() throws Exception {
+    public void test1() throws Exception {
         b(program(
                 "",
                 "rem this is a command line",
@@ -111,8 +93,25 @@ public class TestJavaAccess extends TestCase {
         b(program("\n", "use Math from java.lang as m",
                 "method sin from java.lang.Math is (double)", "a=m.sin(1.0)"),
                 Math.sin(1.0));
-        
+
         b(program("use Double from java.lang", "a=Double.valueOf(\"1.0\")"), 1.0);
 
+    }
+
+    public static class OverloadedMethods {
+        public static int A(long z) {
+            log.debug("A(Long) was invoked with value {}", z);
+            return 1;
+        }
+
+        public static int A(String z) {
+            log.debug("A(String) was invoked with value {}", z);
+            return 1;
+        }
+
+        public static int A(int z) {
+            log.debug("A(int) was invoked with value {}", z);
+            return 1;
+        }
     }
 }

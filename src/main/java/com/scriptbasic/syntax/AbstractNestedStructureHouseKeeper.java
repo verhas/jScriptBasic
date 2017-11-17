@@ -17,7 +17,7 @@ import com.scriptbasic.log.LoggerFactory;
 public abstract class AbstractNestedStructureHouseKeeper implements
         NestedStructureHouseKeeper {
     private static final Logger LOG = LoggerFactory
-            .getLogger(AbstractNestedStructureHouseKeeper.class);
+            .getLogger();
 
     private Factory factory;
 

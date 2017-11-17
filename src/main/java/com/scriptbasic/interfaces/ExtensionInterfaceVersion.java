@@ -3,7 +3,7 @@
  */
 package com.scriptbasic.interfaces;
 
-import com.scriptbasic.Function;
+import com.scriptbasic.api.Function;
 
 /**
  * @author Peter Verhas date Jul 22, 2012

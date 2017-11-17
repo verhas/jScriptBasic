@@ -26,7 +26,7 @@ import com.scriptbasic.log.LoggerFactory;
 public abstract class AbstractBasicProgramPostprocessing implements
         BuildableProgram {
     final private static Logger LOG = LoggerFactory
-            .getLogger(AbstractBasicProgramPostprocessing.class);
+            .getLogger();
 
     private Command startCommand = null;
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.scriptbasic;
+package com.scriptbasic.api;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -15,7 +15,7 @@ import com.scriptbasic.interfaces.ExtensionInterfaceVersion;
  * <p>
  * Each {@code public static} method that is supposed to be reachable from BASIC
  * should have the annotation {@code @Function}. The implementation of the
- * interface {@link Interpreter} provides method that registers all the such
+ * interface {@link com.scriptbasic.interfaces.Interpreter} provides method that registers all the such
  * annotated methods of the class specified.
  * 
  * @author Peter Verhas date July 22, 2012
@@ -78,8 +78,8 @@ public @interface Function {
 
 	/**
 	 * The different methods can be classified and the configuration of the
-	 * actual interpreter registers or deny the registration of certain methods
-	 * base don the classification.
+	 * actual interpreter registers or denies the registration of certain methods
+	 * based on the classification.
 	 */
 	Class<?>[] classification() default Function.class;
 

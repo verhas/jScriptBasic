@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.scriptbasic.javax.script;
+package com.scriptbasic.api.script;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 import javax.script.Bindings;
 import javax.script.ScriptEngine;
 
-import com.scriptbasic.Version;
+import com.scriptbasic.api.Version;
 import com.scriptbasic.factories.SingletonFactoryFactory;
 import com.scriptbasic.interfaces.Configuration;
 import com.scriptbasic.log.Logger;
@@ -24,7 +24,7 @@ import com.scriptbasic.utility.FactoryUtility;
  */
 public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
 	private static final Logger LOG = LoggerFactory
-			.getLogger(ScriptEngineFactory.class);
+			.getLogger();
 	private Bindings globalScopeBinding;
 
 	/**
@@ -58,7 +58,7 @@ public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
 
 	/**
 	 * Load the configuration keys into the private fields. The parameters
-	 * requested by the {@link ScriptEngineManager}, {@code names},
+	 * requested by the {@link javax.script.ScriptEngineManager}, {@code names},
 	 * {@code mimeTypes}, {@code extensions} are stored in private
 	 * {@code List<String>}fields in this class and returned by the methods
 	 * defined by the interface {@link javax.script.ScriptEngineFactory}.
@@ -120,7 +120,7 @@ public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
 
 	/**
 	 * The constructor reads the configuration and fills the constants that are
-	 * requested by the {@link ScriptEngineManager}.
+	 * requested by the {@link javax.script.ScriptEngineManager}.
 	 */
 	public ScriptEngineFactory() {
 
@@ -289,7 +289,7 @@ public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
 	 */
 	@Override
 	public ScriptEngine getScriptEngine() {
-		return new com.scriptbasic.javax.script.ScriptEngine(this);
+		return new com.scriptbasic.api.script.ScriptEngine(this);
 	}
 
 }

@@ -21,7 +21,7 @@ import com.scriptbasic.utility.FactoryUtility;
 
 public final class BasicCommandFactory implements CommandFactory {
     private static final Logger LOG = LoggerFactory
-            .getLogger(BasicCommandFactory.class);
+            .getLogger();
     private Factory factory;
 
     public Factory getFactory() {

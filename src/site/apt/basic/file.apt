@@ -145,7 +145,7 @@ string = stringifyBuffer(byteBuffer)
 ** determine the Length of a Byte Buffer
 
  The function <<<length()>>> can be used to determine the length of a byte buffer. (Note that the same function works
- for arrays ans strings.)
+ for arrays and strings.)
 
 ---
 l = length(Object)

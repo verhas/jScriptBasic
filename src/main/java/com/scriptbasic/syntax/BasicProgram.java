@@ -13,7 +13,7 @@ import com.scriptbasic.interfaces.Factory;
 
 public final class BasicProgram extends AbstractBasicProgramPostprocessing {
 	// final private static Logger LOG = LoggerFactory
-	// .getLogger(BasicProgram.class);
+	// .getLogger();
 	private Factory factory;
 
 	public Factory getFactory() {

@@ -3,23 +3,22 @@
  */
 package com.scriptbasic.testprograms;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.junit.Test;
-
-import junit.framework.TestCase;
-
 import com.scriptbasic.Executor;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
+import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 /**
  * @author Peter Verhas date July 13, 2012
  * 
  */
-public class TestPrograms extends TestCase {
+public class TestPrograms  {
 
 	private static void codeTest(String fileName, Map<String, Object> map,
 			String expectedOutput) throws Exception {

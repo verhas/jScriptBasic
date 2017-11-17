@@ -53,8 +53,8 @@ public class TestRunLimitHook {
 		ScriptEngineManager sem = new ScriptEngineManager();
 		ScriptEngine se = sem.getEngineByExtension("sb");
 		assertNotNull(se);
-		assertTrue(se instanceof com.scriptbasic.javax.script.ScriptEngine);
-		com.scriptbasic.javax.script.ScriptEngine bse = (com.scriptbasic.javax.script.ScriptEngine) se;
+		assertTrue(se instanceof com.scriptbasic.api.script.ScriptEngine);
+		com.scriptbasic.api.script.ScriptEngine bse = (com.scriptbasic.api.script.ScriptEngine) se;
 		Factory factory = bse.getBasicFactory();
 		Configuration config = FactoryUtility.getConfiguration(factory);
 		setConfig(config);
@@ -75,8 +75,8 @@ public class TestRunLimitHook {
 		ScriptEngineManager sem = new ScriptEngineManager();
 		ScriptEngine se = sem.getEngineByExtension("sb");
 		assertNotNull(se);
-		assertTrue(se instanceof com.scriptbasic.javax.script.ScriptEngine);
-		com.scriptbasic.javax.script.ScriptEngine bse = (com.scriptbasic.javax.script.ScriptEngine) se;
+		assertTrue(se instanceof com.scriptbasic.api.script.ScriptEngine);
+		com.scriptbasic.api.script.ScriptEngine bse = (com.scriptbasic.api.script.ScriptEngine) se;
 		Factory factory = bse.getBasicFactory();
 		Configuration config = FactoryUtility.getConfiguration(factory);
 		Properties p = setConfig(config);

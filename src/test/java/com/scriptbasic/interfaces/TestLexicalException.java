@@ -1,21 +1,24 @@
 package com.scriptbasic.interfaces;
 
-import java.io.IOException;
-
 import com.scriptbasic.exceptions.LexicalException;
 
-import junit.framework.TestCase;
+import java.io.IOException;
 
-public class TestLexicalException extends TestCase {
-    public TestLexicalException(final String testName) {
-        super(testName);
-    }
+public class TestLexicalException {
 
     @SuppressWarnings("static-method")
     public void test() throws IOException {
         class TestedLexicalException extends LexicalException {
 
             private static final long serialVersionUID = 1L;
+
+            public TestedLexicalException(final Throwable arg0) {
+                super(arg0);
+            }
+
+            public TestedLexicalException() {
+                super();
+            }
 
             @Override
             public String getFileName() {
@@ -30,14 +33,6 @@ public class TestLexicalException extends TestCase {
             @Override
             public int getPosition() {
                 return 0;
-            }
-
-            public TestedLexicalException(final Throwable arg0) {
-                super(arg0);
-            }
-
-            public TestedLexicalException() {
-                super();
             }
         }
 

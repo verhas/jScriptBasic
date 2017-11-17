@@ -9,7 +9,7 @@ import static com.scriptbasic.lexer.LexTestHelper.SSTRING;
 import static com.scriptbasic.lexer.LexTestHelper.SYMBOL;
 import static com.scriptbasic.lexer.LexTestHelper.VSTRING;
 import static com.scriptbasic.lexer.LexTestHelper.assertLexicals;
-import junit.framework.TestCase;
+
 
 import com.scriptbasic.exceptions.UnterminatedStringException;
 import com.scriptbasic.factories.SingletonFactoryFactory;
@@ -18,12 +18,8 @@ import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
 
-public class TestBasicLexicalAnalyzer extends TestCase {
+public class TestBasicLexicalAnalyzer  {
     private Factory factory = SingletonFactoryFactory.getFactory();
-
-    public TestBasicLexicalAnalyzer(final String testName) {
-        super(testName);
-    }
 
     private void keywordtest(final String s) throws AnalysisException {
         assertLexicals(new LexicalElement[] { SYMBOL(s) },

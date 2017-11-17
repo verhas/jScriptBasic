@@ -3,7 +3,7 @@ package com.scriptbasic.lexer;
 import java.io.IOException;
 import java.io.StringReader;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import com.scriptbasic.factories.FactoryFactory;
 import com.scriptbasic.interfaces.AnalysisException;

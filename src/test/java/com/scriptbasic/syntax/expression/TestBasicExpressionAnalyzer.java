@@ -1,21 +1,5 @@
 package com.scriptbasic.syntax.expression;
 
-import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
-import static com.scriptbasic.syntax.expression.ExpressionBuilder.BOOL;
-import static com.scriptbasic.syntax.expression.ExpressionBuilder.DOUBLE;
-import static com.scriptbasic.syntax.expression.ExpressionBuilder.ID;
-import static com.scriptbasic.syntax.expression.ExpressionBuilder.LONG;
-import static com.scriptbasic.syntax.expression.ExpressionBuilder.OBJECT_FIELD;
-import static com.scriptbasic.syntax.expression.ExpressionBuilder.STRING;
-import static com.scriptbasic.syntax.expression.ExpressionBuilder.add;
-import static com.scriptbasic.syntax.expression.ExpressionBuilder.array;
-import static com.scriptbasic.syntax.expression.ExpressionBuilder.func;
-import static com.scriptbasic.syntax.expression.ExpressionBuilder.multiply;
-import static com.scriptbasic.syntax.expression.ExpressionBuilder.not;
-import static com.scriptbasic.syntax.expression.ExpressionBuilder.unaryMinus;
-import static com.scriptbasic.syntax.expression.ExpressionBuilder.variable;
-import junit.framework.TestCase;
-
 import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.exceptions.SyntaxException;
 import com.scriptbasic.factories.BasicFactory;
@@ -26,8 +10,12 @@ import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.utility.FactoryUtility;
 import com.scriptbasic.utility.LexUtility;
 
+import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
+import static com.scriptbasic.syntax.expression.ExpressionBuilder.*;
+import static org.junit.Assert.assertTrue;
+
 @SuppressWarnings("static-method")
-public class TestBasicExpressionAnalyzer extends TestCase {
+public class TestBasicExpressionAnalyzer {
 
     private static final Expression[] nullExpression = null;
     private static Factory factory = new BasicFactory();
@@ -118,9 +106,9 @@ public class TestBasicExpressionAnalyzer extends TestCase {
     }
 
     public void testFaultyExpressions() throws Exception {
-        final String[] expressions = new String[] { "abraka dabra", "1+\"",
+        final String[] expressions = new String[]{"abraka dabra", "1+\"",
                 "andara{12}", "No+hay+mas+de(weinte)'", "apple(pie",
-                "apple[pie", "not", "alma+(3+2", "not )" };
+                "apple[pie", "not", "alma+(3+2", "not )"};
 
         for (final String s : expressions) {
             try {

@@ -1,6 +1,6 @@
 package com.scriptbasic.utility.functions;
 
-import com.scriptbasic.Function;
+import com.scriptbasic.api.Function;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.utility.UtilityUtility;

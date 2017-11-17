@@ -16,7 +16,7 @@ LOCAL and GLOBAL
  
  Inside a subroutine all variables are local unless defined global.
  
- A variable can be declared tio be global inside a subroutine or in the main program code. <<<LOCAL>>>
+ A variable can be declared to be global inside a subroutine or in the main program code. <<<LOCAL>>>
  and <<<GLOBAL>>> declarations can be used in subroutines only before the first executable command.
  In the main program you can use <<<GLOBAL>>> anywhere.
  

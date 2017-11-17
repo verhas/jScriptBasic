@@ -25,7 +25,7 @@ import com.scriptbasic.utility.RightValueUtility;
  */
 public class BasicLeftValue extends AbstractLeftValue {
     final private static Logger LOG = LoggerFactory
-            .getLogger(BasicLeftValue.class);
+            .getLogger();
     /**
      * The identifier that is the name of the local or global variable.
      */

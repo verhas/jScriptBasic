@@ -10,25 +10,17 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.scriptbasic.api.EngineApi;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.factories.FactoryFactory;
-import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.EngineApi;
-import com.scriptbasic.interfaces.ExecutionException;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
-import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.interfaces.HierarchicalReader;
-import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.interfaces.ScriptBasicException;
-import com.scriptbasic.interfaces.SourcePath;
-import com.scriptbasic.interfaces.SourceProvider;
-import com.scriptbasic.interfaces.Subroutine;
+import com.scriptbasic.interfaces.*;
 import com.scriptbasic.readers.GenericHierarchicalReader;
 import com.scriptbasic.readers.GenericReader;
 import com.scriptbasic.sourceproviders.BasicSourcePath;
 import com.scriptbasic.sourceproviders.FileSourceProvider;
 import com.scriptbasic.utility.FactoryUtility;
+import com.scriptbasic.utility.MethodRegisterUtility;
 import com.scriptbasic.utility.RightValueUtility;
 
 public class Engine implements EngineApi {
@@ -49,6 +41,11 @@ public class Engine implements EngineApi {
 	private Reader input;
 	private Writer output;
 	private Writer error;
+
+
+	public void registerFunctions(Class<?> klass) throws BasicRuntimeException {
+		interpreter.registerFunctions(klass);
+	}
 
 	@Override
 	public Reader getInput() {

@@ -5,10 +5,10 @@ import java.io.InputStream;
 import java.util.Arrays;
 
 public class BinaryFileReader implements FileHandler {
-	private InputStream stream;
+	private final InputStream stream;
 
-	public BinaryFileReader(InputStream is) {
-		stream = is;
+	public BinaryFileReader(InputStream stream) {
+		this.stream = stream;
 	}
 
 	public void close() throws IOException {

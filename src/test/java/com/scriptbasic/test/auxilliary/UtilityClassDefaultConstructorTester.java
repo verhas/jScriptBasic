@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 /**
  * This class helps testing that a utility class conforms certain best practice

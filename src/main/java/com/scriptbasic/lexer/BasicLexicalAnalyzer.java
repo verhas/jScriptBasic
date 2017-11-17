@@ -23,7 +23,7 @@ import com.scriptbasic.utility.CharUtils;
 
 public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     private static final Logger LOG = LoggerFactory
-            .getLogger(BasicLexicalAnalyzer.class);
+            .getLogger();
     private Reader reader;
     private Factory factory;
 

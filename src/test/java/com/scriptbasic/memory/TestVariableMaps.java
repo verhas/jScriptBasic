@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.scriptbasic.memory;
 
@@ -12,18 +12,19 @@ import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
-import junit.framework.TestCase;
 
 import java.util.EmptyStackException;
+
+import static org.junit.Assert.*;
 
 /**
  * @author Peter Verhas
  * date June 23, 2012
- * 
  */
-public class TestVariableMaps extends TestCase {
+public class TestVariableMaps {
 
-    private static Logger log = LoggerFactory.getLogger(TestVariableMaps.class);
+    private static Logger log = LoggerFactory.getLogger();
+    MixedBasicVariableMap mixedMap = null;
 
     public static void testBasicLocalVariableMap() throws ExecutionException {
         BasicLocalVariableMap blvm = new BasicLocalVariableMap();
@@ -84,8 +85,6 @@ public class TestVariableMaps extends TestCase {
         } catch (EmptyStackException e) {
         }
     }
-
-    MixedBasicVariableMap mixedMap = null;
 
     private void VE(String name) throws ExecutionException {
         assertTrue(mixedMap.variableExists(name));

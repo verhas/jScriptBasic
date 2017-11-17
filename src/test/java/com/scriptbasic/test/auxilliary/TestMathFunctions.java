@@ -1,17 +1,20 @@
 package com.scriptbasic.test.auxilliary;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.Test;
 
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.utility.functions.UtilityFunctions;
+
+import java.lang.reflect.InvocationTargetException;
+
 import static com.scriptbasic.utility.functions.MathFunctions.*;
 
 public class TestMathFunctions {
 	@Test
 	public void testExMethods() throws ClassNotFoundException,
-			InstantiationException, IllegalAccessException, ExecutionException {
+			InstantiationException, IllegalAccessException, ExecutionException, NoSuchMethodException, InvocationTargetException {
 		UtilityFunctions.newObject("java.lang.Object");
 
 		double x = 0.0;

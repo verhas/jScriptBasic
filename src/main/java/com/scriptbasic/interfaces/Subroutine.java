@@ -1,5 +1,7 @@
 package com.scriptbasic.interfaces;
 
+import com.scriptbasic.api.EngineApi;
+
 /**
  * Interface to manage a BASIC subroutine. An instance of this interface can be
  * acquired calling the method {@link EngineApi#getSubroutine(String)}. It is

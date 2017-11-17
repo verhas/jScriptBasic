@@ -1,12 +1,9 @@
 /**
- * 
+ *
  */
 package com.scriptbasic.utility;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-
-import com.scriptbasic.Function;
+import com.scriptbasic.api.Function;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.Configuration;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
@@ -14,17 +11,19 @@ import com.scriptbasic.interfaces.ExtensionInterfaceVersion;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+
 /**
  * @author Peter Verhas date Jul 22, 2012
- * 
+ *
  */
 public class MethodRegisterUtility implements ExtensionInterfaceVersion {
 	private MethodRegisterUtility() {
 		UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
 	}
 
-	private static Logger LOG = LoggerFactory
-			.getLogger(MethodRegisterUtility.class);
+	private static Logger LOG = LoggerFactory.getLogger();
 
 	static class FunctionLoadParameters {
 		Class<?> klass;
@@ -71,11 +70,10 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
 		boolean versionIsCompatible() {
 			long requiredVersion = annotation.requiredVersion();
 			if (annotation.requiredVersion() > EXTENSION_INTERFACE_VERSION) {
-				LOG.error(
-						"The method {} can not be registered, because it requires the interface version {} and the implemented version is {}.",
-						new Object[] { methodName, requiredVersion,
-								EXTENSION_INTERFACE_VERSION });
-			}
+                LOG.error(
+                        "The method {} can not be registered, because it requires the interface version {} and the implemented version is {}.",
+                        methodName, requiredVersion, EXTENSION_INTERFACE_VERSION);
+            }
 			return requiredVersion <= EXTENSION_INTERFACE_VERSION;
 		}
 
@@ -102,7 +100,7 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
 	/**
 	 * Register all annotated methods of the class {@code klass} so that they
 	 * can be accessed from BASIC.
-	 * 
+	 *
 	 * @param klass
 	 *            the class that contains the static methods to register
 	 * @param interpreter
@@ -146,18 +144,18 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
 	 * Looks up the classifications in the configuration and calculates the
 	 * numerical value of the different allow and deny configurations. Each
 	 * configuration should have the form:
-	 * 
+	 *
 	 * <pre>
 	 *   allow(com.scriptbasic.classificaton.Math) = 20
 	 *   deny(com.scriptbasic.classification.System) = 30
 	 * </pre>
-	 * 
+	 *
 	 * The numeric values are summed up: allow values are added, deny values are
 	 * subtracted. If the final result is negative then the method is not
 	 * allowed to be registered. If the final value is zero or positive then the
 	 * method is to be registered.
-	 * 
-	 * 
+	 *
+	 *
 	 * @param classifications
 	 *            the array of classification class usually fetched from the
 	 *            static method annotation

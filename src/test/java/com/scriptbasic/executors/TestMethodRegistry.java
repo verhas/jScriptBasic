@@ -1,36 +1,39 @@
 /**
- * 
+ *
  */
 package com.scriptbasic.executors;
-
-import java.lang.reflect.Method;
-
-import junit.framework.TestCase;
-
-import org.junit.Test;
 
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.MethodRegistry;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.lang.reflect.Method;
+
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Peter Verhas
  * date June 30, 2012
- * 
  */
-public class TestMethodRegistry extends TestCase {
-    @Test(expected = BasicRuntimeException.class)
-    public static void testRegistry() throws ExecutionException {
+
+public class TestMethodRegistry {
+
+    @Test
+    public void returnsNullForNonRegisteredMethod() throws ExecutionException {
+        MethodRegistry mr = new BasicMethodRegistry();
+        assertNull(mr.getJavaMethod(Object.class, "alias"));
+    }
+
+    @Test
+    public void registersMethods() throws ExecutionException {
         MethodRegistry mr = new BasicMethodRegistry();
         mr.registerJavaMethod("alias", Object.class, "noSuchMethod",
-                new Class[] { Object.class });
-        try {
-            mr.getJavaMethod(Object.class, "alias");
-            assertTrue(false);
-        } catch (ExecutionException e) {
-        }
+                new Class[]{Object.class});
         mr.registerJavaMethod("sinus", java.lang.Math.class, "sin",
-                new Class<?>[] { double.class });
+                new Class<?>[]{double.class});
         @SuppressWarnings("unused")
         Method m = mr.getJavaMethod(java.lang.Math.class, "sinus");
     }

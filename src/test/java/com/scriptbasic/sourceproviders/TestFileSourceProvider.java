@@ -1,17 +1,15 @@
 package com.scriptbasic.sourceproviders;
 
+import com.scriptbasic.interfaces.Reader;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import com.scriptbasic.interfaces.Reader;
-
-public class TestFileSourceProvider extends TestCase {
-    public TestFileSourceProvider(final String testName) {
-        super(testName);
-    }
+public class TestFileSourceProvider {
 
     private static final String tempDir = System.getProperty("java.io.tmpdir");
     private static final String ps = File.separator;

@@ -1,6 +1,6 @@
 package com.scriptbasic.utility.functions;
 
-import com.scriptbasic.Function;
+import com.scriptbasic.api.Function;
 
 /**
  * This class implements string functions for the BASIC interpreter. Most of the
@@ -20,8 +20,8 @@ import com.scriptbasic.Function;
  * xyz(s, parameterlist)
  * </pre>
  * <p>
- * The documentation of the methods implemented in {@code java.langString} are
- * not repeared here. Other methods, that implement BASIC like string functions
+ * The documentation of the methods implemented in {@link java.lang.String} are
+ * not repeated here. Other methods, that implement BASIC like string functions
  * not implemented in the class {@code java.lang.String} are documented in this
  * class.
  * 

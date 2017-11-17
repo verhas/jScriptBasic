@@ -4,7 +4,7 @@ import static com.scriptbasic.main.CommandLineExtended.main;
 
 import java.security.Permission;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.Test;
 

@@ -3,7 +3,7 @@
  */
 package com.scriptbasic.log;
 
-import java.util.logging.Level;
+import java.lang.System.Logger.Level;
 
 /**
  * @author Peter Verhas
@@ -11,22 +11,22 @@ import java.util.logging.Level;
  * 
  */
 public class Logger {
-    private java.util.logging.Logger javaLogger;
+    private java.lang.System.Logger javaLogger;
 
-    protected Logger(java.util.logging.Logger javaLogger) {
+    protected Logger(java.lang.System.Logger javaLogger) {
         this.javaLogger = javaLogger;
     }
 
     public void error(String s, Throwable e) {
-        javaLogger.log(Level.SEVERE, s, e);
+        javaLogger.log(Level.ERROR, s, e);
     }
 
     public void error(String s) {
-        javaLogger.log(Level.SEVERE, s);
+        javaLogger.log(Level.ERROR, s);
     }
 
     public void debug(String s, Object... args) {
-        javaLogger.log(Level.FINE, format(s, args));
+        javaLogger.log(Level.DEBUG, format(s, args));
     }
 
     public void info(String s, Object... args) {
@@ -34,7 +34,7 @@ public class Logger {
     }
 
     public void error(String s, Object... args) {
-        javaLogger.log(Level.SEVERE, format(s, args));
+        javaLogger.log(Level.ERROR, format(s, args));
     }
 
     protected static String format(String s, Object[] args) {

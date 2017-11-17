@@ -3,12 +3,13 @@
  */
 package com.scriptbasic.main;
 
+import com.scriptbasic.log.Logger;
+import com.scriptbasic.log.LoggerFactory;
+
 import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.Reader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
@@ -26,7 +27,6 @@ public class CommandLine {
 					.println("usage: java -jar jscriptbasic-x.y.z basicprogram.sb");
 			System.exit(1);
 		}
-		Logger.getLogger("").setLevel(Level.SEVERE);
 		final String basicProgramFileName = args[0];
 		final int extensionDotPosition = basicProgramFileName
 				.indexOf((int) '.');

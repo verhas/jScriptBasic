@@ -2,12 +2,11 @@ package com.scriptbasic.utility;
 
 import java.io.IOException;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-public class TestCharUtils extends TestCase {
-    public TestCharUtils(final String testName) {
-        super(testName);
-    }
+
+public class TestCharUtils {
 
     @SuppressWarnings("static-method")
     public void test() throws IOException {

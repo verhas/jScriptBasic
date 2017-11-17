@@ -1,10 +1,11 @@
-package com.scriptbasic.interfaces;
+package com.scriptbasic.api;
 
 import java.io.File;
 import java.io.Reader;
 import java.io.Writer;
 
-import com.scriptbasic.Function;
+import com.scriptbasic.Engine;
+import com.scriptbasic.interfaces.*;
 
 /**
  * ScriptBasic for Java embedding interface.
@@ -19,6 +20,10 @@ import com.scriptbasic.Function;
  * 
  */
 public interface EngineApi {
+
+	static EngineApi getEngine(){
+		return new Engine();
+	}
 
 	/**
 	 * Get the factory used to create the different parts of the execution
@@ -37,6 +42,17 @@ public interface EngineApi {
 	 * @return the factory instance
 	 */
 	Factory getBasicFactory();
+
+    /**
+     * Register all annotated methods of the class {@code klass} so that they
+     * can be accessed from BASIC.
+     *
+     * @param klass
+     *            the class that contains the static methods to register
+     * @throws BasicRuntimeException
+     *             when a function is double defined and not an identical manner
+     */
+    void registerFunctions(Class<?> klass) throws BasicRuntimeException;
 
 	/**
 	 * Get the reader from where the BASIC program reads the standard input

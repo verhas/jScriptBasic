@@ -1,21 +1,18 @@
 /**
- * 
+ *
  */
 package com.scriptbasic.exceptions;
 
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.lexer.BasicLexicalElement;
 
-import junit.framework.TestCase;
-
 /**
  * @author Peter Verhas
  * date Jul 1, 2012
- * 
  */
-public class Test extends TestCase {
+public class Test {
     @SuppressWarnings("serial")
-	public static void test() {
+    public static void test() {
         GeneralAnalysisException gae = new GeneralAnalysisException() {
         };
         gae.setFileName("fileName");

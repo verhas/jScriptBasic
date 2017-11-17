@@ -4,19 +4,21 @@
 package com.scriptbasic.utility.functions;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
 
-import com.scriptbasic.Function;
+import com.scriptbasic.api.Function;
 import com.scriptbasic.classification.Constant;
 import com.scriptbasic.classification.System;
 import com.scriptbasic.classification.Utility;
 import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.utility.UtilityUtility;
 
 /**
  * Static methods in this class are registered in the interpreter when the
  * interpreter starts. The interpreter calls the static method {@link
- * MethodRegisterUtility#registerFunctions(MethodRegistry)} and that function
+ * com.scriptbasic.utility.MethodRegisterUtility#registerFunctions(Class, ExtendedInterpreter)} and that function
  * registers the methods in this class with their own name so that BASIC
  * programs can call the functions like BASIC built in functions.
  * 
@@ -44,9 +46,13 @@ public class UtilityFunctions {
 	 * @throws IllegalAccessException
 	 */
 	@Function(alias = "new", classification = System.class)
-	public static Object newObject(String klass) throws ClassNotFoundException,
-			InstantiationException, IllegalAccessException {
-		return Class.forName(klass).newInstance();
+	public static Object newObject(String klass) throws
+            ClassNotFoundException,
+			InstantiationException,
+            IllegalAccessException,
+            NoSuchMethodException,
+            InvocationTargetException {
+		return Class.forName(klass).getConstructor().newInstance();
 	}
 
 	/**
@@ -135,10 +141,10 @@ public class UtilityFunctions {
 			return array.getLength();
 		} else if (arg instanceof String) {
 			String string = (String) arg;
-			return new Long(string.length());
+			return Long.valueOf(string.length());
 		} else if (arg instanceof byte[]) {
 			byte[] byteArray = (byte[]) arg;
-			return new Long(byteArray.length);
+			return Long.valueOf(byteArray.length);
 		}
 		return null;
 	}
