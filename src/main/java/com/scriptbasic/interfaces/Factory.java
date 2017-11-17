@@ -16,7 +16,7 @@ public interface Factory {
 	 * @param klass
 	 *            the interface. It is an error to pass a class that is not an
 	 *            interface. In that case the implementation may throw {@link
-	 *            BasicInterpreterInternalError}.
+	 *            com.scriptbasic.errors.BasicInterpreterInternalError}.
 	 * @return the instance implementing the interface.
 	 */
 	<T extends FactoryManaged> T get(Class<T> klass);

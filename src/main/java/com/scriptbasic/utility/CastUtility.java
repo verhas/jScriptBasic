@@ -15,7 +15,7 @@ import com.scriptbasic.interfaces.RightValue;
  */
 public final class CastUtility {
 	private CastUtility() {
-		UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
+		NoInstance.isPossible();
 	}
 
 	private static class Byte {

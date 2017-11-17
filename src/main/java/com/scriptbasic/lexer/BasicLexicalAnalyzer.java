@@ -1,46 +1,49 @@
 package com.scriptbasic.lexer;
 
-import java.io.IOException;
-import java.util.Deque;
-import java.util.Iterator;
-import java.util.LinkedList;
-
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.exceptions.BasicLexicalException;
 import com.scriptbasic.exceptions.GenericSyntaxException;
-import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.interfaces.HierarchicalReader;
-import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.LexicalElementAnalyzer;
-import com.scriptbasic.interfaces.LineOrientedLexicalAnalyzer;
-import com.scriptbasic.interfaces.Reader;
-import com.scriptbasic.interfaces.SourceProvider;
+import com.scriptbasic.interfaces.*;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 import com.scriptbasic.readers.GenericHierarchicalReader;
 import com.scriptbasic.utility.CharUtils;
 
+import java.io.IOException;
+import java.util.Deque;
+import java.util.Iterator;
+import java.util.LinkedList;
+
 public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
-    private static final Logger LOG = LoggerFactory
-            .getLogger();
+    private static final Logger LOG = LoggerFactory.getLogger();
+    private final Deque<LexicalElementAnalyzer> analyzerQueue = new LinkedList<LexicalElementAnalyzer>();
     private Reader reader;
     private Factory factory;
-
-    public Factory getFactory() {
-        return factory;
-    }
-
-    @Override
-    public void setFactory(final Factory factory) {
-        this.factory = factory;
-    }
+    private Deque<LexicalElement> lexicalElementQueue = new LinkedList<LexicalElement>();
+    private Iterator<LexicalElement> lexicalElementQueueIterator = this.lexicalElementQueue.iterator();
+    private LexicalElement peekElement = null;
 
     protected BasicLexicalAnalyzer() {
         LOG.debug("constructor created {}", this);
     }
 
-    private final Deque<LexicalElementAnalyzer> analyzerQueue = new LinkedList<LexicalElementAnalyzer>();
+    private static boolean stringIsIncludeOrImport(final String s) {
+        return s.equalsIgnoreCase("INCLUDE") || s.equalsIgnoreCase("IMPORT");
+
+    }
+
+    /**
+     * Checks that the line starts with the keyword INCLUDE or IMPORT. It does
+     * work when one or both keywords are defined as keywords in the interpreter
+     * and also when these are just identifiers in the language.
+     *
+     * @param le the lexical element to examine if it is INLCUDE or IMPORT word
+     * @return {@code true} if it is include or import
+     */
+    private static boolean isIncludeOrImport(final LexicalElement le) {
+        return (le.isSymbol() || le.isIdentifier())
+                && stringIsIncludeOrImport(le.getLexeme());
+    }
 
     @Override
     public void set(final Reader reader) {
@@ -57,10 +60,6 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
         this.analyzerQueue.add(lea);
     }
 
-    private Deque<LexicalElement> lexicalElementQueue = new LinkedList<LexicalElement>();
-    private Iterator<LexicalElement> lexicalElementQueueIterator = this.lexicalElementQueue
-            .iterator();
-
     @Override
     public void resetLine() {
         lexicalElementQueueIterator = this.lexicalElementQueue.iterator();
@@ -69,8 +68,6 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     private void emptyLexicalElementQueue() {
         this.lexicalElementQueue = new LinkedList<LexicalElement>();
     }
-
-    private LexicalElement peekElement = null;
 
     @Override
     public LexicalElement get() throws AnalysisException {
@@ -105,25 +102,6 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
             characterToSkip = this.reader.get();
         }
         return characterToSkip;
-    }
-
-    private static boolean stringIsIncludeOrImport(final String s) {
-        return s.equalsIgnoreCase("INCLUDE") || s.equalsIgnoreCase("IMPORT");
-
-    }
-
-    /**
-     * Checks that the line starts with the keyword INCLUDE or IMPORT. It does
-     * work when one or both keywords are defined as keywords in the interpreter
-     * and also when these are just identifiers in the language.
-     * 
-     * @param le
-     *            the lexical element to examine if it is INLCUDE or IMPORT word
-     * @return {@code true} if it is include or import
-     */
-    private static boolean isIncludeOrImport(final LexicalElement le) {
-        return (le.isSymbol() || le.isIdentifier())
-                && stringIsIncludeOrImport(le.getLexeme());
     }
 
     private void readTheNextLine() throws AnalysisException {
@@ -168,7 +146,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
             LexicalElement lexicalElement = lexicalElementQueueIterator
                     .next();
             if (isIncludeOrImport(lexicalElement)) {
-				lexicalElement = lexicalElementQueueIterator.next();
+                lexicalElement = lexicalElementQueueIterator.next();
                 if (lexicalElement.isString()) {
                     LexicalElement newLine = lexicalElementQueueIterator.hasNext() ? lexicalElementQueueIterator
                             .next() : null;

@@ -2,6 +2,7 @@ package com.scriptbasic.factories;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.utility.NoInstance;
 
 /**
  * This utility class manages a single instance of an implementation of the
@@ -16,9 +17,7 @@ import com.scriptbasic.interfaces.Factory;
  */
 public final class SingletonFactoryFactory {
     private SingletonFactoryFactory() {
-        throw new BasicInterpreterInternalError(
-                "Do not even try to instantiate "
-                        + SingletonFactoryFactory.class.getCanonicalName());
+        NoInstance.isPossible();
     }
 
     private static Factory singleton = FactoryServiceLoader.loadFactory();

@@ -4,8 +4,11 @@
 package com.scriptbasic.interfaces;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
+import java.util.stream.Stream;
 
 /**
  * Manage the configuration of the interpreter. Configuration parameters can be
@@ -23,7 +26,7 @@ import java.util.Properties;
  */
 public interface Configuration extends FactoryManaged {
     /**
-     * Configuration of the script engine is fed from standard Java properties.
+     * Configuration of the script engine comes from standard Java properties.
      * Calling this method the caller can set the properties for the
      * configuration. The properties passed as argument will be used as
      * configuration solely and will NOT be merged with the keys and values of
@@ -47,23 +50,30 @@ public interface Configuration extends FactoryManaged {
      * @return the string value of the configuration or {@code null} if the key
      *         is not configured.
      */
-    String getConfigValue(String key);
+    Optional<String> getConfigValue(String key);
 
     /**
-     * Complimentary method calling {@link #getConfigValue(String)} but returning
-     * the {@code defaultValue} instead of {@code null} if the {@code key} is
-     * not configured.
-     * 
-     * @param key
-     *            the configuration key, same as in {@link
-     *            #getConfigValue(String)}.
-     * @param defaultValue
-     *            is the default value string to return if the configuration key
-     *            is not found
-     * @return the string value of the configuration or {@code defaultValue} if
-     *         the key is not configured.
+     * Get an indexed value. The indexed value is simple associated with the
+     * {@code key.i} property.
+     *
+     * @param key the string key
+     * @param i the index value usually goes from zero
+     * @return the configuration value
      */
-    String getConfigValue(String key, String defaultValue);
+    default Optional<String> getConfigValue(String key, int i) {
+        return getConfigValue(key + "." + i);
+    }
+
+    /**
+     * Return the configuration values assigned to a keys 'key.0', 'key.1'... 'key.n' as a stream.
+     *
+     * @param key the key to which the values are assigned using the numberic key postfix
+     *
+     * @return the stream of the values
+     */
+    default Stream<String> getConfigValueStream(String key){
+        return getConfigValueList(key).stream();
+    }
 
     /**
      * Returns a list of strings that are the values assigned to the key in the

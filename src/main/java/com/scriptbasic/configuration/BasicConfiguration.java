@@ -10,10 +10,7 @@ import com.scriptbasic.log.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * @author Peter Verhas
@@ -22,7 +19,7 @@ import java.util.Properties;
 public class BasicConfiguration implements Configuration {
     private static final Logger LOG = LoggerFactory
             .getLogger();
-    private final HashMap<String, List<String>> lists = new HashMap<>();
+    private final Map<String, List<String>> lists = new HashMap<>();
     Factory factory;
     Properties configProperties;
 
@@ -60,7 +57,7 @@ public class BasicConfiguration implements Configuration {
      * @see com.scriptbasic.interfaces.Configuration#getConfig(java.lang.String)
      */
     @Override
-    public String getConfigValue(final String key) {
+    public Optional<String> getConfigValue(final String key) {
         String configValue = null;
         final String envKey = "sb4j." + key;
         if (configProperties != null && configProperties.containsKey(key)) {
@@ -73,19 +70,7 @@ public class BasicConfiguration implements Configuration {
         if ((sysValue = System.getProperty(envKey)) != null) {
             configValue = sysValue;
         }
-        return configValue;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.scriptbasic.interfaces.Configuration#getConfig(java.lang.String,
-     * java.lang.String)
-     */
-    @Override
-    public String getConfigValue(final String key, final String defaultValue) {
-        final String configValue = getConfigValue(key);
-        return configValue == null ? defaultValue : configValue;
+        return Optional.ofNullable(configValue);
     }
 
     @Override
@@ -94,11 +79,8 @@ public class BasicConfiguration implements Configuration {
             return lists.get(key);
         }
         List<String> list = new LinkedList<>();
-        String value;
-        for (int i = 0;
-             (value = getConfigValue(key + "." + i)) != null;
-             i++) {
-            list.add(value);
+        for (int i = 0; getConfigValue(key, i).isPresent(); i++) {
+            list.add(getConfigValue(key, i).get());
         }
         lists.put(key, list);
         return list;

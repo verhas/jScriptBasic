@@ -16,7 +16,7 @@ public class NumberUtility {
             .getLogger();
 
     private NumberUtility() {
-        UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
+        NoInstance.isPossible();
     }
 
     private static void assertPreconditions(Number a, Number b) {

@@ -27,7 +27,7 @@ public class ManagedObjectsStore {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T extends FactoryManaged> T get(final Class<T> klass) {
+	public <T> T get(final Class<T> klass) {
 		return (T) factoryManagedObjectMap.get(klass);
 	}
 

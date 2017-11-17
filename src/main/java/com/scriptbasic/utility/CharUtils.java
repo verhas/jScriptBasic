@@ -2,7 +2,7 @@ package com.scriptbasic.utility;
 
 public final class CharUtils {
     private CharUtils() {
-        UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
+        NoInstance.isPossible();
     }
 
     public static boolean isNewLine(final Integer ch) {

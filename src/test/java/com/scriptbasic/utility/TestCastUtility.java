@@ -45,7 +45,7 @@ public class TestCastUtility {
         assertEquals(CastUtility.cast("DEADBEEF", Class.class), "DEADBEEF");
 
         try {
-            UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
+            NoInstance.isPossible();
             assertTrue(false);
         } catch (BasicInterpreterInternalError e) {
         }

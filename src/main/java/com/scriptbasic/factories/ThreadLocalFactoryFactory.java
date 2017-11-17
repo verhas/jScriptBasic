@@ -2,6 +2,7 @@ package com.scriptbasic.factories;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.utility.NoInstance;
 
 /**
  * Implements a factory factory that returns a new instance for each thread.
@@ -15,9 +16,7 @@ import com.scriptbasic.interfaces.Factory;
  */
 public final class ThreadLocalFactoryFactory {
     private ThreadLocalFactoryFactory() {
-        throw new BasicInterpreterInternalError(
-                "Do not even try to instantiate "
-                        + ThreadLocalFactoryFactory.class.getCanonicalName());
+        NoInstance.isPossible();
     }
 
     private static ThreadLocal<Factory> threadLocalFactory = new ThreadLocal<Factory>() {

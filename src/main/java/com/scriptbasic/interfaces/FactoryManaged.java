@@ -10,17 +10,18 @@ package com.scriptbasic.interfaces;
  * be managed by the factory should extend this interface. This will ensure that
  * the actual class implements the methods that are needed by the factory to
  * successfully manage the instances.
- * 
+ *
  * @author Peter Verhas
- * 
  */
 public interface FactoryManaged {
-	/**
-	 * When a factory creates an instance of a class implementing this interface
-	 * this method is called to register the factory that created the instance.
-	 * 
-	 * @param factory
-	 *            the factory that manages the instance.
-	 */
-	void setFactory(final Factory factory);
+    /**
+     * When a factory creates an instance of a class implementing this interface
+     * this method is called to register the factory that created the instance.
+     * <p>
+     * Default implementation does not register the factory.
+     *
+     * @param factory the factory that manages the instance.
+     */
+    default void setFactory(final Factory factory) {
+    }
 }

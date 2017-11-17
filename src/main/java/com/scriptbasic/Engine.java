@@ -1,15 +1,5 @@
 package com.scriptbasic;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.Writer;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.scriptbasic.api.EngineApi;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.commands.CommandSub;
@@ -20,323 +10,336 @@ import com.scriptbasic.readers.GenericReader;
 import com.scriptbasic.sourceproviders.BasicSourcePath;
 import com.scriptbasic.sourceproviders.FileSourceProvider;
 import com.scriptbasic.utility.FactoryUtility;
-import com.scriptbasic.utility.MethodRegisterUtility;
 import com.scriptbasic.utility.RightValueUtility;
+
+import java.io.*;
+import java.io.Reader;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Engine implements EngineApi {
 
-	private final Factory factory;
-	private final ExtendedInterpreter interpreter;
-
-	@Override
-	public Factory getBasicFactory() {
-		return factory;
-	}
-
-	public Engine() {
-		factory = FactoryFactory.getFactory();
-		interpreter = FactoryUtility.getExtendedInterpreter(factory);
-	}
-
-	private Reader input;
-	private Writer output;
-	private Writer error;
+    private final Factory factory;
+    private final ExtendedInterpreter interpreter;
+    private final Map<String, Subroutine> subroutines = new HashMap<String, Subroutine>();
+    private Reader input;
+    private Writer output;
+    private Writer error;
+    private boolean theMapHasToBeFilled = true;
 
 
-	public void registerFunctions(Class<?> klass) throws BasicRuntimeException {
-		interpreter.registerFunctions(klass);
-	}
+    public Engine() {
+        factory = FactoryFactory.getFactory();
+        interpreter = FactoryUtility.getExtendedInterpreter(factory);
+    }
 
-	@Override
-	public Reader getInput() {
-		return input;
-	}
+    @Override
+    public Factory getBasicFactory() {
+        return factory;
+    }
 
-	@Override
-	public void setInput(final Reader input) {
-		this.input = input;
-	}
+    public void registerFunctions(Class<?> klass) throws BasicRuntimeException {
+        interpreter.registerFunctions(klass);
+    }
 
-	@Override
-	public Writer getOutput() {
-		return output;
-	}
+    @Override
+    public Reader getInput() {
+        return input;
+    }
 
-	@Override
-	public void setOutput(final Writer output) {
-		this.output = output;
-	}
+    @Override
+    public void setInput(final Reader input) {
+        this.input = input;
+    }
 
-	@Override
-	public Writer getError() {
-		return error;
-	}
+    @Override
+    public Writer getOutput() {
+        return output;
+    }
 
-	@Override
-	public void setError(final Writer error) {
-		this.error = error;
-	}
+    @Override
+    public void setOutput(final Writer output) {
+        this.output = output;
+    }
 
-	private void loadHelper(final Reader reader, final String fileName,
-			final SourceProvider sourceProvider) throws ScriptBasicException {
-		try {
-			final com.scriptbasic.interfaces.Reader sourceReader;
-			if (reader == null && sourceProvider != null) {
-				sourceReader = sourceProvider.get(fileName);
-			} else {
-				final GenericReader genericReader = new GenericReader();
-				genericReader.set(reader);
-				genericReader.setSourceProvider(sourceProvider);
-				sourceReader = genericReader;
-			}
-			sourceReader.set((String) fileName);
-			final LexicalAnalyzer lexicalAnalyzer = FactoryUtility
-					.getLexicalAnalyzer(factory);
-			final HierarchicalReader hReader = new GenericHierarchicalReader();
-			hReader.include(sourceReader);
-			lexicalAnalyzer.set(hReader);
-			interpreter.setProgram(FactoryUtility.getSyntaxAnalyzer(factory)
-					.analyze());
-			interpreter.setWriter(output);
-			interpreter.setErrorWriter(error);
-			interpreter.setReader(input);
-		} catch (final IOException e) {
-			throw new ScriptBasicException(e);
-		} catch (final AnalysisException e) {
-			throw new ScriptBasicException(e);
-		}
-	}
+    @Override
+    public Writer getError() {
+        return error;
+    }
 
-	@Override
-	public void execute() throws ScriptBasicException {
-		try {
-			interpreter.execute();
-		} catch (final ExecutionException e) {
-			throw new ScriptBasicException(e);
-		}
+    @Override
+    public void setError(final Writer error) {
+        this.error = error;
+    }
 
-	}
+    private void loadHelper(final Reader reader) throws ScriptBasicException {
+        loadHelper(reader,null);
+    }
 
-	@Override
-	public void load(final String sourceCode) throws ScriptBasicException {
-		loadHelper(new StringReader(sourceCode), null, null);
-	}
+    private void loadHelper(final String fileName,
+                            final SourceProvider sourceProvider) throws ScriptBasicException {
+        final com.scriptbasic.interfaces.Reader sourceReader;
+        try {
+            sourceReader = sourceProvider.get(fileName);
+        } catch (final IOException e) {
+            throw new ScriptBasicException(e);
+        }
+        loadHelper(sourceReader, fileName);
+    }
 
-	@Override
-	public void eval(final String sourceCode) throws ScriptBasicException {
-		load(sourceCode);
-		execute();
-	}
+    private void loadHelper(final Reader reader, final String fileName) throws ScriptBasicException {
+        final com.scriptbasic.interfaces.Reader sourceReader;
+        final GenericReader genericReader = new GenericReader();
+        genericReader.set(reader);
+        genericReader.setSourceProvider(null);
+        sourceReader = genericReader;
+        loadHelper(sourceReader, fileName);
+    }
 
-	@Override
-	public void load(final Reader reader) throws ScriptBasicException {
-		loadHelper(reader, null, null);
-	}
+    private void loadHelper(final com.scriptbasic.interfaces.Reader sourceReader,
+                            final String fileName
+    ) throws ScriptBasicException {
+        try {
+            sourceReader.set(fileName);
+            final HierarchicalReader hReader = new GenericHierarchicalReader();
+            hReader.include(sourceReader);
+            final LexicalAnalyzer lexicalAnalyzer = FactoryUtility.getLexicalAnalyzer(factory);
+            lexicalAnalyzer.set(hReader);
+            interpreter.setProgram(FactoryUtility.getSyntaxAnalyzer(factory).analyze());
+            interpreter.setWriter(output);
+            interpreter.setErrorWriter(error);
+            interpreter.setReader(input);
+        } catch (final AnalysisException e) {
+            throw new ScriptBasicException(e);
+        }
+    }
 
-	@Override
-	public void eval(final Reader reader) throws ScriptBasicException {
-		load(reader);
-		execute();
-	}
+    @Override
+    public void execute() throws ScriptBasicException {
+        try {
+            interpreter.execute();
+        } catch (final ExecutionException e) {
+            throw new ScriptBasicException(e);
+        }
 
-	@Override
-	public void load(final File sourceFile) throws ScriptBasicException {
-		try {
-			loadHelper(new FileReader(sourceFile),
-					sourceFile.getAbsolutePath(), null);
-		} catch (final FileNotFoundException e) {
-			throw new ScriptBasicException(e);
-		}
-	}
+    }
 
-	@Override
-	public void eval(final File sourceFile) throws ScriptBasicException {
-		load(sourceFile);
-		execute();
-	}
+    @Override
+    public void load(final String sourceCode) throws ScriptBasicException {
+        loadHelper(new StringReader(sourceCode));
+    }
 
-	@Override
-	public void load(final String sourceFileName, final String... path)
-			throws ScriptBasicException {
-		final FileSourceProvider sourceProvider = new FileSourceProvider();
-		final BasicSourcePath sourcePath = new BasicSourcePath();
-		for (final String p : path) {
-			sourcePath.add(p);
-		}
-		sourceProvider.setSourcePath(sourcePath);
-		loadHelper(null, sourceFileName, sourceProvider);
-	}
+    @Override
+    public void eval(final String sourceCode) throws ScriptBasicException {
+        load(sourceCode);
+        execute();
+    }
 
-	@Override
-	public void eval(final String sourceFileName, final String... path)
-			throws ScriptBasicException {
-		load(sourceFileName, path);
-		execute();
-	}
+    @Override
+    public void load(final Reader reader) throws ScriptBasicException {
+        loadHelper(reader);
+    }
 
-	@Override
-	public void load(final String sourceFileName, final SourcePath path)
-			throws ScriptBasicException {
-		final FileSourceProvider sourceProvider = new FileSourceProvider();
-		sourceProvider.setSourcePath(path);
-		loadHelper(null, sourceFileName, sourceProvider);
-	}
+    @Override
+    public void eval(final Reader reader) throws ScriptBasicException {
+        load(reader);
+        execute();
+    }
 
-	@Override
-	public void eval(final String sourceFileName, final SourcePath path)
-			throws ScriptBasicException {
-		load(sourceFileName, path);
-		execute();
-	}
+    @Override
+    public void load(final File sourceFile) throws ScriptBasicException {
+        try {
+            loadHelper(new FileReader(sourceFile),
+                    sourceFile.getAbsolutePath());
+        } catch (final FileNotFoundException e) {
+            throw new ScriptBasicException(e);
+        }
+    }
 
-	@Override
-	public void load(final String sourceName, final SourceProvider provider)
-			throws ScriptBasicException {
-		loadHelper(null, sourceName, provider);
-	}
+    @Override
+    public void eval(final File sourceFile) throws ScriptBasicException {
+        load(sourceFile);
+        execute();
+    }
 
-	@Override
-	public void eval(final String sourceName, final SourceProvider provider)
-			throws ScriptBasicException {
-		load(sourceName, provider);
-		execute();
-	}
+    @Override
+    public void load(final String sourceFileName, final String... path)
+            throws ScriptBasicException {
+        final FileSourceProvider sourceProvider = new FileSourceProvider();
+        final BasicSourcePath sourcePath = new BasicSourcePath();
+        for (final String p : path) {
+            sourcePath.add(p);
+        }
+        sourceProvider.setSourcePath(sourcePath);
+        loadHelper(sourceFileName, sourceProvider);
+    }
 
-	public void setVariable(final String name, final Object value)
-			throws ScriptBasicException {
-		try {
-			interpreter.getVariables().setVariable(name,
-					RightValueUtility.createRightValue(value));
-		} catch (final ExecutionException e) {
-			throw new ScriptBasicException(e);
-		}
-	}
+    @Override
+    public void eval(final String sourceFileName, final String... path)
+            throws ScriptBasicException {
+        load(sourceFileName, path);
+        execute();
+    }
 
-	@Override
-	public Object getVariable(final String name) throws ScriptBasicException {
-		try {
-			return interpreter.getVariable(name);
-		} catch (final ExecutionException e) {
-			throw new ScriptBasicException(e);
-		}
-	}
+    @Override
+    public void load(final String sourceFileName, final SourcePath path)
+            throws ScriptBasicException {
+        final FileSourceProvider sourceProvider = new FileSourceProvider();
+        sourceProvider.setSourcePath(path);
+        loadHelper(sourceFileName, sourceProvider);
+    }
 
-	@Override
-	public Iterable<String> getVariablesIterator() {
-		return interpreter.getVariables().getGlobalMap().getVariableNameSet();
-	}
+    @Override
+    public void eval(final String sourceFileName, final SourcePath path)
+            throws ScriptBasicException {
+        load(sourceFileName, path);
+        execute();
+    }
 
-	@Override
-	public Object call(final String subroutineName, final Object... args)
-			throws ScriptBasicException {
-		try {
-			return interpreter.call(subroutineName, args);
-		} catch (final ExecutionException e) {
-			throw new ScriptBasicException(e);
-		}
-	}
+    @Override
+    public void load(final String sourceName, final SourceProvider provider)
+            throws ScriptBasicException {
+        loadHelper(sourceName, provider);
+    }
 
-	@Override
-	public Iterable<String> getSubroutineNames() {
-		return interpreter.getProgram().getNamedCommandNames();
-	}
+    @Override
+    public void eval(final String sourceName, final SourceProvider provider)
+            throws ScriptBasicException {
+        load(sourceName, provider);
+        execute();
+    }
 
-	private boolean theMapHasToBeFilled = true;
+    public void setVariable(final String name, final Object value)
+            throws ScriptBasicException {
+        try {
+            interpreter.getVariables().setVariable(name,
+                    RightValueUtility.createRightValue(value));
+        } catch (final ExecutionException e) {
+            throw new ScriptBasicException(e);
+        }
+    }
 
-	private void SubroutineDoesNotExistWTF(final Exception e) {
-		throw new BasicInterpreterInternalError(
-				"An already located subroutine does not exist", e);
-	}
+    @Override
+    public Object getVariable(final String name) throws ScriptBasicException {
+        try {
+            return interpreter.getVariable(name);
+        } catch (final ExecutionException e) {
+            throw new ScriptBasicException(e);
+        }
+    }
 
-	@Override
-	public Iterable<Subroutine> getSubroutines() {
-		if (theMapHasToBeFilled) {
-			for (final String s : getSubroutineNames()) {
-				try {
-					getSubroutine(s);
-				} catch (final ScriptBasicException e) {
-					SubroutineDoesNotExistWTF(e);
-				}
-			}
-			theMapHasToBeFilled = false;
-		}
-		return subroutines.values();
-	}
+    @Override
+    public Iterable<String> getVariablesIterator() {
+        return interpreter.getVariables().getGlobalMap().getVariableNameSet();
+    }
 
-	private CommandSub getCommandSub(final String subroutineName)
-			throws ScriptBasicException {
-		final CommandSub commandSub = interpreter.getSubroutine(subroutineName);
-		if (commandSub == null) {
-			throw new ScriptBasicException("Sobroutine '" + subroutineName
-					+ "' is not defined in the program");
-		}
-		return commandSub;
-	}
+    @Override
+    public Object call(final String subroutineName, final Object... args)
+            throws ScriptBasicException {
+        try {
+            return interpreter.call(subroutineName, args);
+        } catch (final ExecutionException e) {
+            throw new ScriptBasicException(e);
+        }
+    }
 
-	@Override
-	public int getNumberOfArguments(final String subroutineName)
-			throws ScriptBasicException {
-		final CommandSub commandSub = getCommandSub(subroutineName);
-		final int size;
-		if (commandSub.getArguments() != null) {
-			size = commandSub.getArguments().size();
-		} else {
-			size = 0;
-		}
-		return size;
-	}
+    @Override
+    public Iterable<String> getSubroutineNames() {
+        return interpreter.getProgram().getNamedCommandNames();
+    }
 
-	private final Map<String, Subroutine> subroutines = new HashMap<String, Subroutine>();
+    private void SubroutineDoesNotExistWTF(final Exception e) {
+        throw new BasicInterpreterInternalError(
+                "An already located subroutine does not exist", e);
+    }
 
-	@Override
-	public Subroutine getSubroutine(final String subroutineName)
-			throws ScriptBasicException {
-		if (subroutines.containsKey(subroutineName)) {
-			return subroutines.get(subroutineName);
-		}
-		final CommandSub commandSub = getCommandSub(subroutineName);
-		final Subroutine sub = new Sub(commandSub.getSubName());
-		subroutines.put(subroutineName, sub);
-		return sub;
-	}
+    @Override
+    public Iterable<Subroutine> getSubroutines() {
+        if (theMapHasToBeFilled) {
+            for (final String s : getSubroutineNames()) {
+                try {
+                    getSubroutine(s);
+                } catch (final ScriptBasicException e) {
+                    SubroutineDoesNotExistWTF(e);
+                }
+            }
+            theMapHasToBeFilled = false;
+        }
+        return subroutines.values();
+    }
 
-	public class Sub implements Subroutine {
-		private final String name;
+    private CommandSub getCommandSub(final String subroutineName)
+            throws ScriptBasicException {
+        final CommandSub commandSub = interpreter.getSubroutine(subroutineName);
+        if (commandSub == null) {
+            throw new ScriptBasicException("Sobroutine '" + subroutineName
+                    + "' is not defined in the program");
+        }
+        return commandSub;
+    }
 
-		Sub(final String n) {
-			name = n;
-		}
+    @Override
+    public int getNumberOfArguments(final String subroutineName)
+            throws ScriptBasicException {
+        final CommandSub commandSub = getCommandSub(subroutineName);
+        final int size;
+        if (commandSub.getArguments() != null) {
+            size = commandSub.getArguments().size();
+        } else {
+            size = 0;
+        }
+        return size;
+    }
 
-		@Override
-		public int getNumberOfArguments() {
-			try {
-				return Engine.this.getNumberOfArguments(name);
-			} catch (final ScriptBasicException e) {
-				SubroutineDoesNotExistWTF(e);
-				return 0;// will not get here
-			}
-		}
+    @Override
+    public Subroutine getSubroutine(final String subroutineName)
+            throws ScriptBasicException {
+        if (subroutines.containsKey(subroutineName)) {
+            return subroutines.get(subroutineName);
+        }
+        final CommandSub commandSub = getCommandSub(subroutineName);
+        final Subroutine sub = new Sub(commandSub.getSubName());
+        subroutines.put(subroutineName, sub);
+        return sub;
+    }
 
-		@Override
-		public String getName() {
-			return name;
-		}
+    @Override
+    public void registerExtension(final Class<?> klass)
+            throws ScriptBasicException {
+        interpreter.registerFunctions(klass);
+    }
 
-		@Override
-		public Object call(final Object... args) throws ScriptBasicException {
-			return Engine.this.call(name, args);
-		}
+    public class Sub implements Subroutine {
+        private final String name;
 
-		@Override
-		public Object call() throws ScriptBasicException {
-			return call((Object[]) null);
-		}
-	}
+        Sub(final String n) {
+            name = n;
+        }
 
-	@Override
-	public void registerExtension(final Class<?> klass)
-			throws ScriptBasicException {
-		interpreter.registerFunctions(klass);
-	}
+        @Override
+        public int getNumberOfArguments() {
+            try {
+                return Engine.this.getNumberOfArguments(name);
+            } catch (final ScriptBasicException e) {
+                SubroutineDoesNotExistWTF(e);
+                return 0;// will not get here
+            }
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public Object call(final Object... args) throws ScriptBasicException {
+            return Engine.this.call(name, args);
+        }
+
+        @Override
+        public Object call() throws ScriptBasicException {
+            return call((Object[]) null);
+        }
+    }
 
 }

@@ -22,7 +22,7 @@ import com.scriptbasic.interfaces.RightValue;
  */
 public final class RightValueUtility {
 	private RightValueUtility() {
-		UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
+		NoInstance.isPossible();
 	}
 
 	@SuppressWarnings("unchecked")

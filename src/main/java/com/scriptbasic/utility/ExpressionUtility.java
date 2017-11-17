@@ -31,7 +31,7 @@ import com.scriptbasic.interfaces.RightValue;
  */
 public final class ExpressionUtility {
 	private ExpressionUtility() {
-		UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
+		NoInstance.isPossible();
 	}
 
 	private static boolean parameterLengthMatch(Class<?>[] parameterTypes,

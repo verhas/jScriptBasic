@@ -1,98 +1,45 @@
 package com.scriptbasic.executors.leftvalues;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 import com.scriptbasic.executors.rightvalues.BasicJavaObjectValue;
-import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.interfaces.ExecutionException;
-import com.scriptbasic.interfaces.Expression;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
-import com.scriptbasic.interfaces.RightValue;
-import com.scriptbasic.interfaces.VariableMap;
+import com.scriptbasic.interfaces.*;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 import com.scriptbasic.utility.KlassUtility;
 import com.scriptbasic.utility.RightValueUtility;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
- * 
  * @author Peter Verhas
  * date June 13, 2012
- * 
  */
 public class BasicLeftValue extends AbstractLeftValue {
-    final private static Logger LOG = LoggerFactory
-            .getLogger();
+    final private static Logger LOG = LoggerFactory.getLogger();
+    private final List<LeftValueModifier> modifiers = new LinkedList<>();
     /**
      * The identifier that is the name of the local or global variable.
      */
     private String identifier;
 
-    public String getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(final String identifier) {
-        this.identifier = identifier;
-    }
-
-    private final List<LeftValueModifier> modifiers = new LinkedList<LeftValueModifier>();
-
-    public List<LeftValueModifier> getModifiers() {
-        return modifiers;
-    }
-
-    public boolean hasModifiers() {
-        return modifiers != null && modifiers.size() > 0;
-    }
-
-    public void addModifier(final LeftValueModifier modifier) {
-        modifiers.add(modifier);
-    }
-
-    @Override
-    public void setValue(final RightValue rightValue,
-            final ExtendedInterpreter extendedInterpreter)
-            throws ExecutionException {
-        final VariableMap variableMap = extendedInterpreter.getVariables();
-        if (modifiers == null || modifiers.isEmpty()) {
-            LOG.debug("setting the variable '{}'", getIdentifier());
-            variableMap.setVariable(getIdentifier(), rightValue);
-        } else {
-            RightValue variable = variableMap.getVariableValue(getIdentifier());
-            // TODO this has to be removed and moved to the execution of a DIM
-            // command
-            // variables in the release version should NOT be converted to be
-            // arrays on the fly
-            if (variable == null) {
-                variable = new BasicArrayValue(extendedInterpreter);
-                variableMap.setVariable(getIdentifier(), variable);
-            }
-            Iterator<LeftValueModifier> modifierIterator = modifiers.iterator();
-            do {
-                variable = handleAccessModifier(variable,
-                        modifierIterator.next(), modifierIterator.hasNext(),
-                        rightValue, extendedInterpreter);
-
-            } while (variable != null);
-        }
-    }
-
     /**
      * Handle field access modifier.
      * <p>
      * When the BASIC program has an assignment of the form:
-     * 
+     * <p>
      * <pre>
      * a[i].blabla.z[13,2] = 5
      * </pre>
-     * 
+     * <p>
      * then the {@code a[i].blabla.z} has to be evaluated as "variable" and then
      * the "variable"{@code [13,2]} should be used as store location to save the
      * right value to (in the example the long number 5).
+     * <p>
+     * jSB terminology calls the {@code [i].blabla.z[13,2]} part as modifiers. The
+     * {@code [i]} an an array index modifier, {@code .blabla} is field access modifier and so on.
+     * This terminology is a bit unfortunate colliding with the Java class member access modifiers.
      * <p>
      * If the list of modifiers has next element following the current one (
      * {@code hasNext} is {@code true}), then this is not the last modifier and
@@ -101,22 +48,21 @@ public class BasicLeftValue extends AbstractLeftValue {
      * If the list of modifiers does not have next element ({@code hasNext} is
      * {@code false}) then this is the last modifier and it has to be used to
      * store the value {@code rightValue} in the variable+modifier location.
-     * 
-     * @param variable
-     *            the variable from where the algorithm goes on or where the
-     *            value is to be stored
-     * @param modifier
-     *            the actual modifier
-     * @param hasNext
-     *            {@code true} if this is not the last modifier
-     * @param rightValue
-     *            the value to store when this is the last modifier
+     *
+     * @param variable   the variable from where the algorithm goes on or where the
+     *                   value is to be stored
+     * @param modifier   the actual modifier
+     * @param hasNext    {@code true} if this is not the last modifier
+     * @param rightValue the value to store when this is the last modifier
      * @return the next variable or {@code null} if the value was stored
      * @throws ExecutionException
      */
     private static RightValue handleAccessModifier(RightValue variable,
-            LeftValueModifier modifier, boolean hasNext, RightValue rightValue,
-            ExtendedInterpreter extendedInterpreter) throws ExecutionException {
+                                                   LeftValueModifier modifier,
+                                                   boolean hasNext,
+                                                   RightValue rightValue,
+                                                   ExtendedInterpreter extendedInterpreter)
+            throws ExecutionException {
         if (modifier instanceof ArrayElementAccessLeftValueModifier) {
             variable = handleArrayElementAccess(variable,
                     (ArrayElementAccessLeftValueModifier) modifier, hasNext,
@@ -124,16 +70,15 @@ public class BasicLeftValue extends AbstractLeftValue {
         } else if (modifier instanceof ObjectFieldAccessLeftValueModifier) {
             variable = handleObjectFieldAccess(variable,
                     (ObjectFieldAccessLeftValueModifier) modifier, hasNext,
-                    rightValue, extendedInterpreter);
+                    rightValue);
         }
         return variable;
     }
 
     /**
      * Handle variable access modifier in case when the modifier is object field
-     * access. {@link #handleAccessModifier(RightValue, LeftValueModifier,
-     * boolean, RightValue)}.
-     * 
+     * access. {@link #handleAccessModifier(RightValue, LeftValueModifier, boolean, RightValue, ExtendedInterpreter)}.
+     *
      * @param variable
      * @param modifier
      * @param hasNext
@@ -142,8 +87,9 @@ public class BasicLeftValue extends AbstractLeftValue {
      * @throws BasicRuntimeException
      */
     private static RightValue handleObjectFieldAccess(RightValue variable,
-            ObjectFieldAccessLeftValueModifier modifier, boolean hasNext,
-            RightValue rightValue, ExtendedInterpreter extendedInterpreter)
+                                                      ObjectFieldAccessLeftValueModifier modifier,
+                                                      boolean hasNext,
+                                                      RightValue rightValue)
             throws ExecutionException {
         String fieldName = modifier.getFieldName();
         if (!(variable instanceof BasicJavaObjectValue)) {
@@ -166,19 +112,23 @@ public class BasicLeftValue extends AbstractLeftValue {
 
     /**
      * Handle variable access modifier in case when the modifier is array
-     * element access. {@link #handleAccessModifier(RightValue,
-     * LeftValueModifier, boolean, RightValue)}.
-     * 
+     * element access. {@link #handleAccessModifier(RightValue, LeftValueModifier, boolean,
+     * RightValue, ExtendedInterpreter)}.
+     *
      * @param variable
      * @param modifier
      * @param hasNext
      * @param rightValue
+     * @param extendedInterpreter is used to evaluate the expression that stands between the {@code [} and {@code ]}
+     *                            characters. Note that this is not needed when a field access is evaluated.
      * @return
      * @throws ExecutionException
      */
     private static RightValue handleArrayElementAccess(RightValue variable,
-            ArrayElementAccessLeftValueModifier modifier, boolean hasNext,
-            RightValue rightValue, ExtendedInterpreter extendedInterpreter)
+                                                       ArrayElementAccessLeftValueModifier modifier,
+                                                       boolean hasNext,
+                                                       RightValue rightValue,
+                                                       ExtendedInterpreter extendedInterpreter)
             throws ExecutionException {
         Iterator<Expression> expressionIterator = modifier.getIndexList()
                 .iterator();
@@ -219,6 +169,50 @@ public class BasicLeftValue extends AbstractLeftValue {
         } else {
             variable.set(index, rightValue);
             return null;
+        }
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(final String identifier) {
+        this.identifier = identifier;
+    }
+
+    public List<LeftValueModifier> getModifiers() {
+        return modifiers;
+    }
+
+    public boolean hasModifiers() {
+        return modifiers != null && modifiers.size() > 0;
+    }
+
+    public void addModifier(final LeftValueModifier modifier) {
+        modifiers.add(modifier);
+    }
+
+    @Override
+    public void setValue(final RightValue rightValue,
+                         final ExtendedInterpreter extendedInterpreter)
+            throws ExecutionException {
+        final VariableMap variableMap = extendedInterpreter.getVariables();
+        if (modifiers == null || modifiers.isEmpty()) {
+            LOG.debug("setting the variable '{}'", getIdentifier());
+            variableMap.setVariable(getIdentifier(), rightValue);
+        } else {
+            RightValue variable = variableMap.getVariableValue(getIdentifier());
+            if (variable == null) {
+                variable = new BasicArrayValue(extendedInterpreter);
+                variableMap.setVariable(getIdentifier(), variable);
+            }
+            Iterator<LeftValueModifier> modifierIterator = modifiers.iterator();
+            do {
+                variable = handleAccessModifier(variable,
+                        modifierIterator.next(), modifierIterator.hasNext(),
+                        rightValue, extendedInterpreter);
+
+            } while (variable != null);
         }
     }
 

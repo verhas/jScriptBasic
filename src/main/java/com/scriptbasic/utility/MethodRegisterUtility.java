@@ -20,7 +20,7 @@ import java.lang.reflect.Modifier;
  */
 public class MethodRegisterUtility implements ExtensionInterfaceVersion {
 	private MethodRegisterUtility() {
-		UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
+		NoInstance.isPossible();
 	}
 
 	private static Logger LOG = LoggerFactory.getLogger();
@@ -169,8 +169,8 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
 			String name = classification.getName();
 			String allowKey = "allow(" + name + ")";
 			String denyKey = "deny(" + name + ")";
-			String allowValue = config.getConfigValue(allowKey);
-			String denyValue = config.getConfigValue(denyKey);
+			String allowValue = config.getConfigValue(allowKey).orElse(null);
+			String denyValue = config.getConfigValue(denyKey).orElse(null);
 			allowLevel += gIV(allowValue) - gIV(denyValue);
 		}
 		return allowLevel >= 0;

@@ -15,7 +15,7 @@ import com.scriptbasic.interfaces.ExecutionException;
  */
 public final class KlassUtility {
 	private KlassUtility() {
-		UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
+		NoInstance.isPossible();
 	}
 
 	/**

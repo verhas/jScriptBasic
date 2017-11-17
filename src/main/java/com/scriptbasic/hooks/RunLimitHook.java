@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.scriptbasic.hooks;
 
@@ -8,16 +8,19 @@ import com.scriptbasic.executors.commands.CommandUse;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.Configuration;
 
+import java.util.Optional;
+
 /**
  * This hook can be configured to limit the execution resources for a given
  * program. The limits are read from the configuration file.
- * 
+ *
  * @author Peter Verhas
  * date Aug 4, 2012
- * 
  */
 public class RunLimitHook extends SimpleHook {
 
+    final private static String configPrefix = "RunLimitHook.";
+    private Configuration config;
     private int stepLimit;
     private boolean stepIsLimited;
     private int currentSteps;
@@ -25,31 +28,27 @@ public class RunLimitHook extends SimpleHook {
     private boolean timeIsLimited;
     private long scriptStartTime;
     private boolean allowMethodRegistering = true;
-    final private static String configPrefix = "RunLimitHook.";
 
-    private static String X(String s) {
-        return configPrefix + s;
+    private Optional<String> hookConfig(String s) {
+        return config.getConfigValue(configPrefix + s);
     }
 
     @Override
     public void initEx() {
+        config = getInterpreter().getConfiguration();
         currentSteps = 0;
         scriptStartTime = System.currentTimeMillis();
-        Configuration config = getInterpreter().getConfiguration();
-        String stepLimitString = config.getConfigValue(X("stepLimit"));
-        stepIsLimited = stepLimitString != null;
+        Optional<String> stepLimit = hookConfig("stepLimit");
+        stepIsLimited = stepLimit.isPresent();
         if (stepIsLimited) {
-            this.stepLimit = Integer.valueOf(stepLimitString);
+            this.stepLimit = Integer.valueOf(stepLimit.get());
         }
-        String timeLimitMillisString = config
-                .getConfigValue(X("timeLimitMillis"));
-        timeIsLimited = timeLimitMillisString != null;
+        Optional<String> timeLimitMillis = hookConfig("timeLimitMillis");
+        timeIsLimited = timeLimitMillis.isPresent();
         if (timeIsLimited) {
-            this.timeLimitMillis = Long.valueOf(timeLimitMillisString);
-            this.scriptStartTime = System.currentTimeMillis();
+            this.timeLimitMillis = Long.valueOf(timeLimitMillis.get());
         }
-        allowMethodRegistering = Boolean.valueOf(config.getConfigValue(
-                X("allowJavaMethods"), "true"));
+        allowMethodRegistering = hookConfig("allowJavaMethods").map(Boolean::valueOf).orElse(true);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.scriptbasic.factories;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.utility.NoInstance;
 
 /**
  * This utility class manages instances of the {@link BasicFactory} class.
@@ -15,9 +16,7 @@ import com.scriptbasic.interfaces.Factory;
  */
 public final class FactoryFactory {
     private FactoryFactory() {
-        throw new BasicInterpreterInternalError(
-                "Do not even try to instantiate "
-                        + FactoryFactory.class.getCanonicalName());
+        NoInstance.isPossible();
     }
 
     /**

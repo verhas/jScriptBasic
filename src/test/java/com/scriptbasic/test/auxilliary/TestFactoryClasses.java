@@ -1,24 +1,11 @@
 package com.scriptbasic.test.auxilliary;
 
-import org.junit.Test;
-
 import com.scriptbasic.factories.FactoryFactory;
 import com.scriptbasic.factories.SingletonFactoryFactory;
 import com.scriptbasic.factories.ThreadLocalFactoryFactory;
-import com.scriptbasic.utility.CastUtility;
-import com.scriptbasic.utility.CharUtils;
-import com.scriptbasic.utility.ExpressionUtility;
-import com.scriptbasic.utility.FactoryUtility;
-import com.scriptbasic.utility.HookRegisterUtility;
-import com.scriptbasic.utility.KlassUtility;
-import com.scriptbasic.utility.LexUtility;
-import com.scriptbasic.utility.MethodRegisterUtility;
-import com.scriptbasic.utility.NumberUtility;
-import com.scriptbasic.utility.ReflectionUtility;
-import com.scriptbasic.utility.RightValueUtility;
-import com.scriptbasic.utility.SyntaxExceptionUtility;
-import com.scriptbasic.utility.UtilityUtility;
+import com.scriptbasic.utility.*;
 import com.scriptbasic.utility.functions.UtilityFunctions;
+import org.junit.Test;
 
 public class TestFactoryClasses {
     @Test
@@ -41,7 +28,6 @@ public class TestFactoryClasses {
         UtilityClassDefaultConstructorTester.test(RightValueUtility.class);
         UtilityClassDefaultConstructorTester.test(UtilityFunctions.class);
         UtilityClassDefaultConstructorTester.test(SyntaxExceptionUtility.class);
-        UtilityClassDefaultConstructorTester.test(UtilityUtility.class);
 
     }
 }

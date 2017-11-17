@@ -16,11 +16,12 @@ public class BinaryFileReader implements FileHandler {
 	}
 
 	public byte[] read(int len) throws IOException {
-		byte[] b = new byte[len];
+		final byte[] b = new byte[len];
 		int bytesRead = stream.read(b);
 		if (bytesRead < len) {
-			b = Arrays.copyOf(b, bytesRead);
+			return Arrays.copyOf(b, bytesRead);
+		}else {
+			return b;
 		}
-		return b;
 	}
 }

@@ -23,7 +23,7 @@ import com.scriptbasic.log.LoggerFactory;
 public final class FactoryUtility {
 
     private FactoryUtility() {
-        UtilityUtility.throwExceptionToEnsureNobodyCallsIt();
+        NoInstance.isPossible();
     }
 
     private static final Logger LOG = LoggerFactory

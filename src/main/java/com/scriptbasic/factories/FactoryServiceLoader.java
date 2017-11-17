@@ -5,6 +5,7 @@ import java.util.ServiceLoader;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.utility.NoInstance;
 
 /**
  * Using the standard {@link java.util.ServiceLoader} this utility class loads a
@@ -17,9 +18,7 @@ import com.scriptbasic.interfaces.Factory;
  */
 public final class FactoryServiceLoader {
     private FactoryServiceLoader() {
-        throw new BasicInterpreterInternalError(
-                "Do not even try to instantiate "
-                        + FactoryServiceLoader.class.getCanonicalName());
+        NoInstance.isPossible();
     }
 
     /**
