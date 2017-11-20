@@ -10,7 +10,7 @@ public abstract class AbstractElementAnalyzer implements LexicalElementAnalyzer 
     private Reader reader;
 
     public Reader getReader() {
-        return this.reader;
+        return reader;
     }
 
     @Override

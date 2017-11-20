@@ -28,7 +28,6 @@ import static org.junit.Assert.*;
 
 public class TestJavaxInterface {
 
-    @SuppressWarnings("static-method")
     @After
     public void tearDown() {
         try {
@@ -40,11 +39,6 @@ public class TestJavaxInterface {
         }
     }
 
-    public void setUp() {
-
-    }
-
-    @SuppressWarnings("static-method")
     @Test
     public void testCoverConfiguration() throws Exception {
         Configuration config = FactoryUtility
@@ -108,13 +102,13 @@ public class TestJavaxInterface {
         se.eval("print \"first script\"");
         ScriptContext context = se.getContext();
         Bindings bindings = context.getBindings(ScriptContext.ENGINE_SCOPE);
-        bindings.put("B", new Integer(13));
+        bindings.put("B", Integer.valueOf(13));
         bindings.put("A", null);
         StringWriter writer = new StringWriter();
         context.setWriter(writer);
         se.eval("A = B\nprint \"hiha\"", context);
         Long z = (Long) bindings.get("A");
-        assertEquals(new Long(13), z);
+        assertEquals(Long.valueOf(13), z);
         assertEquals("hiha", writer.toString());
     }
 

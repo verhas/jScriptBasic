@@ -15,17 +15,6 @@ import com.scriptbasic.interfaces.Expression;
  */
 public class CommandAnalyzerElseIf extends AbstractCommandAnalyzerIfKind {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.scriptbasic.syntax.commandanalyzers.AbstractCommandAnalyzer#getName()
-     */
-    @Override
-    protected String getName() {
-        return "ELSEIF";
-    }
-
     protected Command createNode(Expression condition) throws AnalysisException {
         CommandElseIf node = new CommandElseIf();
         node.setCondition(condition);

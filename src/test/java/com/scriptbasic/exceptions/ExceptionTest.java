@@ -5,14 +5,16 @@ package com.scriptbasic.exceptions;
 
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.lexer.BasicLexicalElement;
+import org.junit.Test;
 
 /**
  * @author Peter Verhas
  * date Jul 1, 2012
  */
-public class Test {
+public class ExceptionTest {
     @SuppressWarnings("serial")
-    public static void test() {
+    @Test
+    public void test() {
         GeneralAnalysisException gae = new GeneralAnalysisException() {
         };
         gae.setFileName("fileName");

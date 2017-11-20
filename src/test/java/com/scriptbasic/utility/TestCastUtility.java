@@ -5,6 +5,7 @@ package com.scriptbasic.utility;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.exceptions.GenericSyntaxException;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -15,7 +16,8 @@ import static org.junit.Assert.assertTrue;
  * date Jul 1, 2012
  */
 public class TestCastUtility {
-    public static void test() throws Exception {
+    @Test
+    public void test() throws Exception {
         assertEquals(CastUtility.cast(13.5, Byte.class), (byte) 13);
         assertEquals(CastUtility.cast(13.5, Short.class), (short) 13);
         assertEquals(CastUtility.cast(13.5, Integer.class), (int) 13);

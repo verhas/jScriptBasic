@@ -32,9 +32,10 @@ public interface LocalVariableMap extends VariableMap {
      * Register a variable as a global variable. This is needed when an
      * implementing class manages the global as well as the local variables.
      * <p>
-     * Interpreters handle variables differently. When a variable is not defined
+     * Interpreters may handle variables differently. When a variable is not defined
      * using some keyword as 'LOCAL' or 'GLOBAL' then the interpreter may treat
      * the variable default local, may treat default global or may raise error.
+     * This is configurable in ScriptBasic.
      * <p>
      * This method can be used to declare that a variable is used in the local
      * environment referring to the global variable.

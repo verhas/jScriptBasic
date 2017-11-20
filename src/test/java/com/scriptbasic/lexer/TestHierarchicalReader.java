@@ -1,7 +1,9 @@
 package com.scriptbasic.lexer;
 
+import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.LexicalElement;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 public class TestHierarchicalReader {
 
-    @SuppressWarnings("static-method")
+    @Test
     public void testOneInclude() throws AnalysisException, IOException {
         assertLexicals(new LexicalElement[]{ID("identifier"), SYMBOL("\n"),
                         SYMBOL("<"), SYMBOL("\n"), SSTRING("string")},
@@ -20,25 +22,19 @@ public class TestHierarchicalReader {
                         "<\n"}));
     }
 
-    @SuppressWarnings("static-method")
+    @Test(expected = GenericSyntaxException.class)
     public void testExtraCharsAfterInclude() throws AnalysisException,
             IOException {
-        try {
-            assertLexicals(
-                    new LexicalElement[]{ID("identifier"), SYMBOL("\n"),
-                            SYMBOL("<"), SYMBOL("\n"), SSTRING("string")},
-                    createStringArrayReading(new String[]{
-                            "main",
-                            "identifier\ninclude \"sub1\" bla bla \n\"string\"",
-                            "sub1", "<\n"}));
-            assertTrue(
-                    "extra chars after the include file name did not throw exception",
-                    false);
-        } catch (Exception e) {
-        }
+        assertLexicals(
+                new LexicalElement[]{ID("identifier"), SYMBOL("\n"),
+                        SYMBOL("<"), SYMBOL("\n"), SSTRING("string")},
+                createStringArrayReading(new String[]{
+                        "main",
+                        "identifier\ninclude \"sub1\" bla bla \n\"string\"",
+                        "sub1", "<\n"}));
     }
 
-    @SuppressWarnings("static-method")
+    @Test
     public void testFileNotFound() throws AnalysisException, IOException {
         try {
             assertLexicals(new LexicalElement[]{ID("identifier"),
@@ -72,9 +68,10 @@ public class TestHierarchicalReader {
         }
     }
 
+    @Test
     public void testMultiInclude() throws AnalysisException, IOException {
-        final ArrayList<LexicalElement> lexes = new ArrayList<LexicalElement>();
-        final ArrayList<String> files = new ArrayList<String>();
+        final ArrayList<LexicalElement> lexes = new ArrayList<>();
+        final ArrayList<String> files = new ArrayList<>();
         final int level = 20;
         addX(lexes, files, level);
         assertLexicals(
@@ -82,7 +79,7 @@ public class TestHierarchicalReader {
                 createStringArrayReading(files.toArray(new String[files.size()])));
     }
 
-    @SuppressWarnings("static-method")
+    @Test
     public void testCircularReference() throws AnalysisException, IOException {
         final ArrayList<LexicalElement> lexes = new ArrayList<LexicalElement>();
         final ArrayList<String> files = new ArrayList<String>();

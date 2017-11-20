@@ -19,9 +19,4 @@ public class CommandAnalyzerEndSub extends AbstractCommandAnalyzer {
         commandSub.setCommandEndSub(node);
         return node;
     }
-
-    @Override
-    protected String getName() {
-        return "ENDSUB";
-    }
 }

@@ -14,8 +14,4 @@ public class CommandAnalyzerElse extends AbstractCommandAnalyzerIfElseKind {
         return node;
     }
 
-    @Override
-    protected String getName() {
-        return "ELSE";
-    }
 }

@@ -1,6 +1,7 @@
 package com.scriptbasic.sourceproviders;
 
 import com.scriptbasic.interfaces.Reader;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -16,30 +17,36 @@ public class TestFileSourceProvider {
     private static final String testFileName = "testFileName";
     private static final String testStringToFile = "hallo hallo";
 
-    @SuppressWarnings("static-method")
+    @Test
     public void testFSP() throws IOException {
-        // create the test file
+        final File file = createTemporaryTestFile();
+        try {
+            // get the test file
+            final FileSourceProvider fsp = new FileSourceProvider();
+            fsp.setSourcePath(new BasicSourcePath());
+            fsp.getSourcePath().add(tempDir + ps + "abrakadabra");
+            fsp.getSourcePath().add(tempDir);
+            final Reader r = fsp.get(testFileName);
+            for (int i = 0; i < testStringToFile.length(); i++) {
+                final Integer chExpected = (int) testStringToFile.charAt(i);
+                final Integer chActual = r.get();
+                assertEquals("different characters at position " + i, chExpected,
+                        chActual);
+            }
+        } finally {
+            file.delete();
+        }
+    }
+
+    private File createTemporaryTestFile() throws IOException {
         final File file = new File(tempDir + ps + testFileName);
         final FileWriter fw = new FileWriter(file);
         fw.write(testStringToFile);
         fw.close();
-
-        // get the test file
-        final FileSourceProvider fsp = new FileSourceProvider();
-        fsp.setSourcePath(new BasicSourcePath());
-        fsp.getSourcePath().add(tempDir + ps + "abrakadabra");
-        fsp.getSourcePath().add(tempDir);
-        final Reader r = fsp.get(testFileName);
-        for (int i = 0; i < testStringToFile.length(); i++) {
-            final Integer chExpected = (int) testStringToFile.charAt(i);
-            final Integer chActual = r.get();
-            assertEquals("different characters at position " + i, chExpected,
-                    chActual);
-        }
-        file.delete();
+        return file;
     }
 
-    @SuppressWarnings("static-method")
+    @Test
     public void testFSPFileNotFound() {
         final FileSourceProvider fsp = new FileSourceProvider();
         fsp.setSourcePath(new BasicSourcePath());

@@ -28,15 +28,4 @@ public class CommandAnalyzerPrint extends AbstractCommandAnalyzer {
         return node;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.scriptbasic.syntax.commandanalyzers.AbstractCommandAnalyzer#getName()
-     */
-    @Override
-    protected String getName() {
-        return "PRINT";
-    }
-
 }

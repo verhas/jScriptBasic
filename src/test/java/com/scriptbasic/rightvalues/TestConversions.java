@@ -7,6 +7,7 @@ import com.scriptbasic.executors.rightvalues.*;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.utility.RightValueUtility;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 
@@ -15,92 +16,166 @@ import static org.junit.Assert.*;
  */
 public class TestConversions {
 
-    public static void testRightValueUtility() throws Exception {
+    @Test(expected = BasicRuntimeException.class)
+    public void rightValueUtilityThrowsExceptionConvertingArbitraryStringToNumber() throws Exception {
         RightValue rv;
-        rv = RightValueUtility.createRightValue(new Short((short) 3));
         rv = RightValueUtility.createRightValue("apple");
-        try {
-            RightValueUtility.convert2Integer(rv);
-            assertFalse(true);
-        } catch (BasicRuntimeException e) {
-        }
-        rv = RightValueUtility.createRightValue('a');
-        rv = RightValueUtility.createRightValue(true);
+        RightValueUtility.convert2Integer(rv);
+    }
+
+    @Test
+    public void rightValueUtilityReturnsBasicArrayValue() {
         BasicArrayValue bav = new BasicArrayValue();
         assertEquals(bav, RightValueUtility.getValueObject(bav));
     }
 
-    public static void testConversion() throws Exception {
-        RightValue rv = new BasicJavaObjectValue(null);
+    @Test
+    public void nullBasicBooleanValueConvertsToFalse() throws Exception {
+        final RightValue rv = new BasicJavaObjectValue(null);
         assertFalse(BasicBooleanValue.convert(rv));
-        rv = new BasicJavaObjectValue(Boolean.TRUE);
+    }
+
+    @Test
+    public void trueBasicBooleanValueConvertsToTrue() throws Exception {
+        final RightValue rv = new BasicJavaObjectValue(Boolean.TRUE);
         assertTrue(BasicBooleanValue.convert(rv));
-        rv = new BasicJavaObjectValue(new Integer(6000));
+    }
+
+    @Test
+    public void nonZeroIntegerBasicBooleanValueConvertsToTrue() throws Exception {
+        final RightValue rv = new BasicJavaObjectValue(Integer.valueOf(6000));
         assertTrue(BasicBooleanValue.convert(rv));
-        rv = new BasicStringValue("");
+    }
+
+    @Test
+    public void emtyStringBasicBooleanValueConvertsToFalse() throws Exception {
+        final RightValue rv = new BasicStringValue("");
         assertFalse(BasicBooleanValue.convert(rv));
-        rv = new BasicStringValue(null);
-        assertFalse(BasicBooleanValue.convert(rv));
+    }
+
+    @Test
+    public void nullBasicStringValueDoesNotConvertsToArray() throws Exception {
+        final RightValue rv = new BasicStringValue(null);
         assertFalse(rv.isArray());
-        rv = new BasicStringValue("apple");
-        try {
-            BasicJavaObjectValue.convert(rv);
-            assertTrue(false);
-        } catch (Exception e) {
+    }
 
-        }
-        rv = new BasicStringValue("10.3");
+    @Test(expected = BasicRuntimeException.class)
+    public void arbitraryStringBasicBooleanValueConversionToBasicJavaObjectValueThrowsException() throws Exception {
+        final RightValue rv = new BasicStringValue("apple");
+        BasicJavaObjectValue.convert(rv);
+    }
+
+    @Test
+    public void arbitraryStringBasicBooleanValueConvertsToDouble() throws Exception {
+        final RightValue rv = new BasicStringValue("10.3");
         assertEquals(10.3, BasicDoubleValue.convert(rv), 0.00001);
-        rv = new BasicStringValue(null);
+    }
+
+    @Test
+    public void nullStringBasicBooleanValueConvertsToNullDouble() throws Exception {
+        final RightValue rv = new BasicStringValue(null);
         assertNull(BasicDoubleValue.convert(rv));
-        rv = new BasicLongValue(null);
+    }
+
+    @Test
+    public void nullBasicLongValueConvertsToNullDouble() throws Exception {
+        final RightValue rv = new BasicLongValue(null);
         assertNull(BasicDoubleValue.convert(rv));
-        rv = new BasicJavaObjectValue(new Double(10.3));
+    }
+
+    @Test
+    public void basicDoubleValueConvertsToDouble() throws Exception {
+        final RightValue rv = new BasicJavaObjectValue(Double.valueOf(10.3));
         assertEquals(10.3, BasicDoubleValue.convert(rv), 0.00001);
-        rv = new BasicBooleanValue(true);
+    }
+
+    @Test
+    public void basicBooleanTrueValueConvertsTo_1_0_Double() throws Exception {
+        final RightValue rv = new BasicBooleanValue(true);
         assertEquals(1.0, BasicDoubleValue.convert(rv), 0.00001);
-        rv = new BasicBooleanValue(false);
+    }
+
+    @Test
+    public void basicBooleanFalseConvertsTo_0_0_Double() throws Exception {
+        final RightValue rv = new BasicBooleanValue(false);
         assertEquals(0.0, BasicDoubleValue.convert(rv), 0.00001);
-        rv = new BasicJavaObjectValue(new TestConversions());
-        try {
-            BasicDoubleValue.convert(rv);
-            assertTrue(false);
-        } catch (Exception e) {
+    }
 
-        }
-        rv = new BasicJavaObjectValue("apple");
+    @Test(expected = BasicRuntimeException.class)
+    public void arbitraryObjectConversionThrowsExceptionConvertingToDouble() throws Exception {
+        final RightValue rv = new BasicJavaObjectValue(new Object());
+        BasicDoubleValue.convert(rv);
+    }
+
+    @Test
+    public void basicObjectValueStringContentConvertsToString() throws Exception {
+        final RightValue rv = new BasicJavaObjectValue("apple");
         assertEquals("apple", BasicStringValue.convert(rv));
-        rv = new BasicBooleanValue(true);
+    }
+
+    @Test
+    public void basicBooleanTrueConvertsToStringLiteral_true() throws Exception {
+        final RightValue rv = new BasicBooleanValue(true);
         assertEquals("true", BasicStringValue.convert(rv));
-        rv = new BasicBooleanValue(false);
+    }
+
+    @Test
+    public void basicBooleanFalseConvertsToStringLiteral_false() throws Exception {
+        final RightValue rv = new BasicBooleanValue(false);
         assertEquals("false", BasicStringValue.convert(rv));
-        rv = new BasicStringValue("apple");
+    }
+
+    @Test
+    public void basicStringValueConvertsToString() throws Exception {
+        final RightValue rv = new BasicStringValue("apple");
         assertEquals("apple", BasicStringValue.convert(rv));
-        rv = new BasicArrayValue(null);
-        try {
-            BasicStringValue.convert(rv);
-            assertTrue(false);
-        } catch (Exception e) {
+    }
 
-        }
-        rv = new BasicBooleanValue(true);
-        assertEquals(new Long(1L), BasicLongValue.convert(rv));
-        rv = new BasicBooleanValue(false);
-        assertEquals(new Long(0L), BasicLongValue.convert(rv));
-        rv = new BasicStringValue("1300");
-        assertEquals(new Long(1300L), BasicLongValue.convert(rv));
-        rv = new BasicStringValue(null);
+    @Test(expected = BasicRuntimeException.class)
+    public void basicArrayValueNullConvertingToStringThrowsException() throws Exception {
+        final RightValue rv = new BasicArrayValue(null);
+        BasicStringValue.convert(rv);
+    }
+
+    @Test
+    public void basicBooleanValueTrueConvertsToLong_1() throws Exception {
+        final RightValue rv = new BasicBooleanValue(true);
+        assertEquals(Long.valueOf(1L), BasicLongValue.convert(rv));
+    }
+
+    @Test
+    public void basicBooleanValueFalseConvertsToLong_0() throws Exception {
+        final RightValue rv = new BasicBooleanValue(false);
+        assertEquals(Long.valueOf(0L), BasicLongValue.convert(rv));
+    }
+
+    @Test
+    public void basicStringValueContainingDecimalIntegerConvertsToLong() throws Exception {
+        final RightValue rv = new BasicStringValue("1300");
+        assertEquals(Long.valueOf(1300L), BasicLongValue.convert(rv));
+    }
+
+    @Test
+    public void basicStringValueNullConvertsTobasicLongValueNull() throws Exception {
+        final RightValue rv = new BasicStringValue(null);
         assertEquals((Long) null, BasicLongValue.convert(rv));
-        rv = new BasicDoubleValue(1300.0);
-        assertEquals(new Long(1300L), BasicLongValue.convert(rv));
-        rv = new BasicJavaObjectValue(new Long(1300));
-        assertEquals(new Long(1300L), BasicLongValue.convert(rv));
-        rv = new BasicArrayValue(null);
-        try {
-            BasicLongValue.convert(rv);
-            assertTrue(false);
-        } catch (Exception e) {
+    }
 
-        }
+    @Test
+    public void basicDoubleValueConvertsToLong() throws Exception {
+        final RightValue rv = new BasicDoubleValue(1300.0);
+        assertEquals(Long.valueOf(1300L), BasicLongValue.convert(rv));
+    }
+
+    @Test
+    public void basicJavaObjectLongConvertsToLong() throws Exception {
+        final RightValue rv = new BasicJavaObjectValue(Long.valueOf(1300));
+        assertEquals(Long.valueOf(1300L), BasicLongValue.convert(rv));
+    }
+
+    @Test(expected = BasicRuntimeException.class)
+    public void basicArrayValueNullConvertingToLongThrowsException() throws Exception {
+        final RightValue rv = new BasicArrayValue(null);
+        BasicLongValue.convert(rv);
     }
 }

@@ -21,8 +21,8 @@ public class ExpressionComparator {
         assertEqual(a.getRightOperand(), b.getRightOperand());
     }
 
-    private static void assertEqual(final AbstractUnaryOperator a,
-            final AbstractUnaryOperator b) {
+    private static void assertEqualOperand(final AbstractUnaryOperator a,
+                                           final AbstractUnaryOperator b) {
         assertEqual(a.getOperand(), b.getOperand());
     }
 
@@ -82,7 +82,7 @@ public class ExpressionComparator {
             return;
         }
         if (a instanceof AbstractUnaryOperator) {
-            assertEqual((AbstractUnaryOperator) a, (AbstractUnaryOperator) b);
+            assertEqualOperand((AbstractUnaryOperator) a, (AbstractUnaryOperator) b);
             return;
         }
         if (a instanceof AbstractIdentifieredExpressionListedExpression) {

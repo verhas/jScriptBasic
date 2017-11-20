@@ -53,7 +53,7 @@ public class GenericHierarchicalReader implements HierarchicalReader {
 
     @Override
     public void pushBack(final Integer ch) {
-        this.reader.pushBack(ch);
+        reader.pushBack(ch);
     }
 
     /**

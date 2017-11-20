@@ -17,17 +17,6 @@ public class CommandAnalyzerLocal extends AbstractCommandAnalyzerGlobalLocal {
      * (non-Javadoc)
      * 
      * @see
-     * com.scriptbasic.syntax.commandanalyzers.AbstractCommandAnalyzer#getName()
-     */
-    @Override
-    protected String getName() {
-        return "LOCAL";
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
      * com.scriptbasic.syntax.commandanalyzers.AbstractCommandAnalyzerGlobalLocal
      * #newNode()
      */

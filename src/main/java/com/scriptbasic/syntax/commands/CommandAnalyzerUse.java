@@ -56,16 +56,4 @@ public class CommandAnalyzerUse extends AbstractCommandAnalyzer {
         node.setAlias(aliasName);
         return node;
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.scriptbasic.syntax.commandanalyzers.AbstractCommandAnalyzer#getName()
-     */
-    @Override
-    protected String getName() {
-        return "USE";
-    }
-
 }

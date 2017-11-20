@@ -34,12 +34,10 @@ public class CommandLineExtended {
         final GenericReader reader = new GenericReader();
         reader.set(r);
         reader.setSourceProvider(null);
-        reader.set((String) basicProgramFileName);
-        final LexicalAnalyzer lexicalAnalyzer = FactoryUtility
-                .getLexicalAnalyzer(factory);
+        reader.set(basicProgramFileName);
+        final LexicalAnalyzer lexicalAnalyzer = FactoryUtility.getLexicalAnalyzer(factory);
         lexicalAnalyzer.set(reader);
-        final ExtendedInterpreter interpreter = FactoryUtility
-                .getExtendedInterpreter(factory);
+        final ExtendedInterpreter interpreter = FactoryUtility.getExtendedInterpreter(factory);
         interpreter.registerFunctions(FileHandlingFunctions.class);
         final String classes = System.getProperty("sb4j.extensionclasses");
         if (classes != null && classes.length() > 0) {

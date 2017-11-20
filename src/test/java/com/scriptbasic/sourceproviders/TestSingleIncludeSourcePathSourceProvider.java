@@ -5,6 +5,7 @@ import java.io.IOException;
 
 
 import com.scriptbasic.interfaces.Reader;
+import org.junit.Test;
 
 public class TestSingleIncludeSourcePathSourceProvider  {
 
@@ -35,6 +36,7 @@ public class TestSingleIncludeSourcePathSourceProvider  {
 
     }
 
+    @Test
     public void testFSPFileNotFound() throws IOException {
         final TestedSingleIncludeSourcePathSourceProvider tsispsp = new TestedSingleIncludeSourcePathSourceProvider();
         tsispsp.setSingleInclude(null);

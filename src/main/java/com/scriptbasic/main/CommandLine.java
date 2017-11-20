@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.scriptbasic.main;
 
@@ -18,7 +18,7 @@ import javax.script.ScriptException;
 
 /**
  * @author Peter Verhas date Aug 6, 2012
- * 
+ *
  */
 public class CommandLine {
 	public static void main(String[] args) throws Exception {

@@ -41,10 +41,4 @@ public class CommandAnalyzerSub extends AbstractCommandAnalyzer {
         consumeEndOfLine();
         return node;
     }
-
-    @Override
-    protected String getName() {
-        return "SUB";
-    }
-
 }

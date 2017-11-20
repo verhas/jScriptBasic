@@ -9,12 +9,13 @@ import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.utility.FactoryUtility;
 import com.scriptbasic.utility.LexUtility;
+import org.junit.Test;
 
 import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
 import static com.scriptbasic.syntax.expression.ExpressionBuilder.*;
 import static org.junit.Assert.assertTrue;
 
-@SuppressWarnings("static-method")
+
 public class TestBasicExpressionAnalyzer {
 
     private static final Expression[] nullExpression = null;
@@ -34,18 +35,19 @@ public class TestBasicExpressionAnalyzer {
         return e;
     }
 
-    private static void testAppleMultiplyBypeach(final String s)
+    private static void testAppleMultiplyByPeach(final String s)
             throws Exception {
         ExpressionComparator.assertEqual(compile(s),
                 multiply(variable("apple"), variable("peach")));
     }
 
-    public static void testappleTimespeach() throws Exception {
-        testAppleMultiplyBypeach("apple * peach");
-        testAppleMultiplyBypeach("(apple * peach)");
-        testAppleMultiplyBypeach("apple*peach  ");
-        testAppleMultiplyBypeach("(apple)*peach");
-        testAppleMultiplyBypeach("apple *( peach)");
+    @Test
+    public void testAppleTimesPeach() throws Exception {
+        testAppleMultiplyByPeach("apple * peach");
+        testAppleMultiplyByPeach("(apple * peach)");
+        testAppleMultiplyByPeach("apple*peach  ");
+        testAppleMultiplyByPeach("(apple)*peach");
+        testAppleMultiplyByPeach("apple *( peach)");
     }
 
     public void testCorrectExpressions() throws Exception {

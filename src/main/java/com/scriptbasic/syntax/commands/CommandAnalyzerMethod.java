@@ -68,15 +68,4 @@ public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
         return node;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.scriptbasic.syntax.commandanalyzers.AbstractCommandAnalyzer#getName()
-     */
-    @Override
-    protected String getName() {
-        return "METHOD";
-    }
-
 }

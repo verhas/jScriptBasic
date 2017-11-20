@@ -5,20 +5,9 @@ import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 
 public class CommandCall extends AbstractCommandExpressionListed {
-    private FunctionCall functionCall;
+    private final FunctionCall functionCall;
 
-    /**
-     * @return the functionCall
-     */
-    public FunctionCall getFunctionCall() {
-        return functionCall;
-    }
-
-    /**
-     * @param functionCall
-     *            the functionCall to set
-     */
-    public void setFunctionCall(FunctionCall functionCall) {
+    public CommandCall(final FunctionCall functionCall){
         this.functionCall = functionCall;
     }
 

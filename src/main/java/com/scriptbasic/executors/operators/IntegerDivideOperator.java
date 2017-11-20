@@ -10,7 +10,7 @@ public class IntegerDivideOperator extends
     @Override
     protected RightValue operateOnDoubleDouble(final Double a, final Double b)
             throws BasicRuntimeException {
-        return new BasicLongValue(new Double(a / b).longValue());
+        return new BasicLongValue(Double.valueOf(a / b).longValue());
     }
 
     @Override

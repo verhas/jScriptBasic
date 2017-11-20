@@ -16,10 +16,10 @@ import java.util.LinkedList;
 
 public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     private static final Logger LOG = LoggerFactory.getLogger();
-    private final Deque<LexicalElementAnalyzer> analyzerQueue = new LinkedList<LexicalElementAnalyzer>();
+    private final Deque<LexicalElementAnalyzer> analyzerQueue = new LinkedList<>();
     private Reader reader;
     private Factory factory;
-    private Deque<LexicalElement> lexicalElementQueue = new LinkedList<LexicalElement>();
+    private Deque<LexicalElement> lexicalElementQueue = new LinkedList<>();
     private Iterator<LexicalElement> lexicalElementQueueIterator = this.lexicalElementQueue.iterator();
     private LexicalElement peekElement = null;
 
@@ -94,12 +94,12 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
         return this.peekElement;
     }
 
-    private Integer skipWhiteSpaces(final Integer firstCharacter) {
+    private Integer getFirstNonWhitespaceCharacter(final Reader reader, final Integer firstCharacter) {
         Integer characterToSkip = firstCharacter;
         while (characterToSkip != null
                 && CharUtils.isWhitespace(characterToSkip)
                 && !CharUtils.isNewLine(characterToSkip)) {
-            characterToSkip = this.reader.get();
+            characterToSkip = reader.get();
         }
         return characterToSkip;
     }
@@ -108,21 +108,19 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
         Boolean lineEndFound = false;
         emptyLexicalElementQueue();
         Integer character;
-        for (character = this.reader.get(); character != null && !lineEndFound; character = this.reader
-                .get()) {
-            LexicalElement le = null;
-            character = skipWhiteSpaces(character);
+        for (character = reader.get(); character != null && !lineEndFound; character = reader.get()) {
+            character = getFirstNonWhitespaceCharacter(reader, character);
             lineEndFound = CharUtils.isNewLine(character);
             if (character != null) {
-                this.reader.pushBack(character);
+                reader.pushBack(character);
                 boolean analyzed = false;
-                for (final LexicalElementAnalyzer lea : this.analyzerQueue) {
-                    le = lea.read();
-                    if (le != null) {
+                for (final LexicalElementAnalyzer analyzer : analyzerQueue) {
+                    final LexicalElement element = analyzer.read();
+                    if (element != null) {
                         analyzed = true;
-                        LOG.debug("{} could analyze the characters", lea);
-                        LOG.debug("the result is: {}", le.toString());
-                        this.lexicalElementQueue.add(le);
+                        LOG.debug("{} could analyze the characters", analyzer);
+                        LOG.debug("the result is: {}", element.toString());
+                        this.lexicalElementQueue.add(element);
                         break;
                     }
                 }
@@ -133,8 +131,8 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
                 }
             }
         }
-        this.reader.pushBack(character);
-        if (this.reader instanceof HierarchicalReader) {
+        reader.pushBack(character);
+        if (reader instanceof HierarchicalReader) {
             processSourceInclude();
         }
     }

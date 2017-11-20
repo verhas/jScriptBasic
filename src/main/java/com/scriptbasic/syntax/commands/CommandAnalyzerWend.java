@@ -20,9 +20,4 @@ public class CommandAnalyzerWend extends AbstractCommandAnalyzer {
         commandWhile.setWendNode(node);
         return node;
     }
-
-    @Override
-	protected String getName() {
-        return "WEND";
-    }
 }

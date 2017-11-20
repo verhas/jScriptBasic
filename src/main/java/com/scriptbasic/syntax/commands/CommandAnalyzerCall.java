@@ -14,54 +14,68 @@ public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
 
     @Override
     public Command analyze() throws AnalysisException {
-        CommandCall node = new CommandCall();
-        LexicalAnalyzer lexicalAnalyzer = FactoryUtility
-                .getLexicalAnalyzer(getFactory());
-        LexicalElement lexicalElement = lexicalAnalyzer.peek();
-        if (lexicalElement != null && lexicalElement.isSymbol(getName())) {
-            lexicalAnalyzer.get();
-        }
+        LexicalAnalyzer lexicalAnalyzer = FactoryUtility.getLexicalAnalyzer(getFactory());
+        skipTheOptionalCallKeyword(lexicalAnalyzer);
 
         FunctionCall functionCall = new FunctionCall();
         functionCall.setVariableName(((BasicLeftValue) FactoryUtility
                 .getSimpleLeftValueAnalyzer(getFactory()).analyze())
                 .getIdentifier());
-        lexicalElement = lexicalAnalyzer.peek();
-        final boolean needClosing;
-        if (lexicalElement != null && lexicalElement.isSymbol("(")) {
-            lexicalAnalyzer.get();
-            needClosing = true;
-            lexicalElement = lexicalAnalyzer.peek();
-        }else{
-            needClosing = false;
-        }
+        final boolean needClosingParenthesis = argumentsAreBetweenParentheses(lexicalAnalyzer);
 
-        if ((needClosing && lexicalElement != null && !lexicalElement
-                .isSymbol(")"))
-                || ((!needClosing) && lexicalElement != null && !lexicalElement
-                        .isSymbol("\n"))) {
+        LexicalElement lexicalElement = lexicalAnalyzer.peek();
+        if (thereAreArguments(needClosingParenthesis, lexicalElement)) {
             functionCall.setExpressionList(FactoryUtility
                     .getExpressionListAnalyzer(getFactory()).analyze());
         } else {
             functionCall.setExpressionList(null);
         }
-        if (needClosing) {
-            lexicalElement = lexicalAnalyzer.peek();
-            if (lexicalElement != null && lexicalElement.isSymbol(")")) {
-                lexicalAnalyzer.get();
-            } else {
-                throw new GenericSyntaxException(
-                        "The closing ) is missing after the CALL statement");
-            }
+        if (needClosingParenthesis) {
+            consumeClosingParenthesis(lexicalAnalyzer);
         }
         consumeEndOfLine();
-        node.setFunctionCall(functionCall);
+        CommandCall node = new CommandCall(functionCall);
         return node;
     }
 
-    @Override
-    protected String getName() {
-        return "CALL";
+    private boolean thereAreArguments(boolean needClosingParenthesis, LexicalElement lexicalElement) {
+        return lexicalElement != null && !lexicalElement.isSymbol(needClosingParenthesis ? ")" : "\n");
+    }
+
+    private void consumeClosingParenthesis(LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
+        final LexicalElement closingParenthesis = lexicalAnalyzer.peek();
+        if (closingParenthesis != null && closingParenthesis.isSymbol(")")) {
+            lexicalAnalyzer.get();
+        } else {
+            throw new GenericSyntaxException("The closing ) is missing after the CALL statement");
+        }
+    }
+
+    private boolean argumentsAreBetweenParentheses(LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
+        final LexicalElement openingParenthesis = lexicalAnalyzer.peek();
+        if (openingParenthesis != null && openingParenthesis.isSymbol("(")) {
+            lexicalAnalyzer.get();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Skip over the keyword CALL.
+     * <p>
+     * Note that there is no need to check that the keyword is really 'CALL' because if it is not then the
+     * execution does not get here. The syntax analyzer invokes CommandAnalyzerCall only when the line starts
+     * as a function call.
+     *
+     * @param lexicalAnalyzer
+     * @throws AnalysisException
+     */
+    private void skipTheOptionalCallKeyword(LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
+        LexicalElement lexicalElement = lexicalAnalyzer.peek();
+        if (lexicalElement != null && lexicalElement.isSymbol(getName())) {
+            lexicalAnalyzer.get();
+        }
     }
 
 }

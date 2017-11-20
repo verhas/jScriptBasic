@@ -12,6 +12,13 @@ import java.util.Map;
 public class LoggerFactory {
     private final static Map<Class<?>, Logger> loggers = new HashMap<>();
 
+    /**
+     * Get the logger that has the name which is the same as the name of the class where the logger is used.
+     *
+     * Loggers are usually stored in static fields.
+     *
+     * @return the logger instance.
+     */
     public static synchronized Logger getLogger() {
         final Class<?> klass = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).getCallerClass();
         final Logger logger;

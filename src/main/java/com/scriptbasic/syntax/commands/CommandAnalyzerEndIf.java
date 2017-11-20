@@ -14,8 +14,4 @@ public class CommandAnalyzerEndIf extends AbstractCommandAnalyzerIfElseKind {
         return node;
     }
 
-    @Override
-    protected String getName() {
-        return "ENDIF";
-    }
 }

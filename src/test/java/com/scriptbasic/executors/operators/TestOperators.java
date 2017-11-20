@@ -8,6 +8,7 @@ import com.scriptbasic.interfaces.*;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 import com.scriptbasic.utility.FactoryUtility;
+import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -74,11 +75,13 @@ public class TestOperators {
 
     }
 
-    public static void testWhile() throws AnalysisException, ExecutionException {
+    @Test
+    public void testWhile() throws AnalysisException, ExecutionException {
         a("a=1\nwhile a < 10\na=a+1\nwend\n", 10);
     }
 
-    public static void testOperators() throws AnalysisException,
+    @Test
+    public void testOperators() throws AnalysisException,
             ExecutionException {
         a("a=1^3", (Double) 1.0);
         a("a=1*2", (Long) 2L);
@@ -218,11 +221,13 @@ public class TestOperators {
         new ModuloOperator().operatorName();
     }
 
-    public static void testFunctionCall() throws Exception {
+    @Test
+    public void testFunctionCall() throws Exception {
         a("sub apple(x)\nx=x+1\nreturn x\nendsub\na=apple(2)\n", 3);
     }
 
-    public static void testObjectSet() throws AnalysisException,
+    @Test
+    public void testObjectSet() throws AnalysisException,
             ExecutionException, NoSuchMethodException, SecurityException,
             IllegalAccessException, IllegalArgumentException,
             InvocationTargetException {
@@ -230,7 +235,8 @@ public class TestOperators {
         b("b.ccc.www=55\na=b.getQwww()", new qqq(), 55);
     }
 
-    public static void testArraySetGet() throws Exception {
+    @Test
+    public void testArraySetGet() throws Exception {
         b("c[13]=55\na=c[13]", null, 55);
         b("c[13,14]=66\n\na=c[13,14]", null, 66);
         qq b = new qq();
@@ -239,7 +245,8 @@ public class TestOperators {
         b("z[12]=b", b, null);
     }
 
-    public static void testObjectAccess() throws AnalysisException,
+    @Test
+    public void testObjectAccess() throws AnalysisException,
             ExecutionException, NoSuchMethodException, SecurityException,
             IllegalAccessException, IllegalArgumentException,
             InvocationTargetException {

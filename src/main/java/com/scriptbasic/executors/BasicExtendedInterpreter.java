@@ -311,7 +311,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
 		return currentCommand;
 	}
 
-	private final Map<String, Object> interpreterStateMap = new HashMap<String, Object>();
+	private final Map<String, Object> interpreterStateMap = new HashMap<>();
 
 	/*
 	 * (non-Javadoc)

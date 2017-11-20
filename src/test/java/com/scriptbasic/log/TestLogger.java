@@ -13,9 +13,8 @@ import org.junit.Assert;
  * 
  */
 public class TestLogger {
-    @SuppressWarnings("static-method")
     @Test
-    public void testFormat() throws Exception {
+    public void loggerFormatFormatsVariableNumberOfArgumentsProperly() throws Exception {
 
         Assert.assertEquals("a 123 b",
                 Logger.format("a {} b", new Object[] { 123 }));

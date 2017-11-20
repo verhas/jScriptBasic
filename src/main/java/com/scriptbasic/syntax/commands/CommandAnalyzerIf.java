@@ -15,21 +15,6 @@ import com.scriptbasic.interfaces.Expression;
  */
 public class CommandAnalyzerIf extends AbstractCommandAnalyzerIfKind {
 
-//    protected void handleNode(CommandIf node) throws AnalysisException {
-//        pushNode(node);
-//    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.scriptbasic.syntax.commandanalyzers.AbstractCommandAnalyzer#getName()
-     */
-    @Override
-    protected String getName() {
-        return "IF";
-    }
-
     protected Command createNode(Expression condition) throws AnalysisException {
         CommandIf node = new CommandIf();
         node.setCondition(condition);

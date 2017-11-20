@@ -17,8 +17,4 @@ public class CommandAnalyzerWhile extends AbstractCommandAnalyzer {
         return node;
     }
 
-    @Override
-    protected String getName() {
-        return "WHILE";
-    }
 }

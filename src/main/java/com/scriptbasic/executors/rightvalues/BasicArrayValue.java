@@ -101,7 +101,7 @@ public class BasicArrayValue extends AbstractRightValue {
 	 *         index of the array the BASIC program ever used.
 	 */
 	public Long getLength() {
-		return new Long(maxIndex + 1);
+		return (long)maxIndex + 1;
 	}
 
 	/**

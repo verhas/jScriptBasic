@@ -12,6 +12,8 @@ import com.scriptbasic.interfaces.*;
 import com.scriptbasic.syntax.expression.ExpressionComparator;
 import com.scriptbasic.utility.FactoryUtility;
 import com.scriptbasic.utility.LexUtility;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.Iterator;
 
@@ -68,11 +70,11 @@ public class TestBasicLeftValueAnalyzer {
         }
     }
 
-    private static void testSyntaxExceptionLeftValue(String s)
+    private static void extressionHasSyntaxError(String s)
             throws AnalysisException {
         try {
             compile(s);
-            assertTrue("Syntax exception was not trown for '" + s + "'", false);
+            Assert.fail("Syntax exception was not trown for '" + s + "'");
         } catch (SyntaxException e) {
         }
 
@@ -93,70 +95,67 @@ public class TestBasicLeftValueAnalyzer {
         return e;
     }
 
-    @SuppressWarnings("static-method")
+    private static void expressionCompilesTo(String expression, BasicLeftValue gv) throws AnalysisException {
+        BasicLeftValue lv = compile(expression);
+        compare(gv, lv);
+    }
+
+    @Test
     public void testLeftValues() throws Exception {
         BasicLeftValue lv;
         BasicLeftValue gv;
 
-        lv = compile("apple[3].apple");
-        gv = new LeftValueBuilder("apple").array(LONG(3L)).field("apple").x();
-        compare(gv, lv);
+        expressionCompilesTo("apple[3].apple",
+                LeftValue.of("apple").array(LONG(3L)).field("apple").build());
 
-        lv = compile("apple");
-        gv = new LeftValueBuilder("apple").x();
-        compare(gv, lv);
+        expressionCompilesTo("apple",
+                LeftValue.of("apple").build());
 
-        lv = compile("apple.sheep");
-        gv = new LeftValueBuilder("apple").field("sheep").x();
-        compare(gv, lv);
+        expressionCompilesTo("apple.sheep",
+                LeftValue.of("apple").field("sheep").build());
 
-        lv = compile("com.scriptbasic.syntax.leftvalue");
-        gv = new LeftValueBuilder("com").field("scriptbasic").field("syntax")
-                .field("leftvalue").x();
-        compare(gv, lv);
+        expressionCompilesTo("com.scriptbasic.syntax.leftvalue",
+                LeftValue.of("com").field("scriptbasic").field("syntax")
+                        .field("leftvalue").build());
 
-        lv = compile("apple[3]");
-        gv = new LeftValueBuilder("apple").array(LONG(3L)).x();
-        compare(gv, lv);
+        expressionCompilesTo("apple[3]",
+                LeftValue.of("apple").array(LONG(3L)).build());
 
-        lv = compile("apple[3,5]");
-        gv = new LeftValueBuilder("apple").array(LONG(3L), LONG(5L)).x();
-        compare(gv, lv);
+        expressionCompilesTo("apple[3,5]",
+                LeftValue.of("apple").array(LONG(3L), LONG(5L)).build());
 
-        lv = compile("apple[3,apple]");
-        gv = new LeftValueBuilder("apple").array(LONG(3L), ID("apple")).x();
-        compare(gv, lv);
+        expressionCompilesTo("apple[3,apple]",
+                LeftValue.of("apple").array(LONG(3L), ID("apple")).build());
 
-        lv = compile("apple[3][apple]");
-        gv = new LeftValueBuilder("apple").array(LONG(3L)).array(ID("apple"))
-                .x();
-        compare(gv, lv);
+        expressionCompilesTo("apple[3][apple]",
+                LeftValue.of("apple").array(LONG(3L)).array(ID("apple"))
+                        .build());
 
-        lv = compile("apple[3].apple.bbb[cc,dd.qq[4]*3]");
-        gv = new LeftValueBuilder("apple")
-                .array(LONG(3L))
-                .field("apple")
-                .field("bbb")
-                .array(ID("cc"),
-                        multiply(OBJECT_FIELD(ID("DD"), array("qq", LONG(4L))),
-                                LONG(3L))).x();
+        expressionCompilesTo("apple[3].apple.bbb[cc,dd.qq[4]*3]",
+                LeftValue.of("apple")
+                        .array(LONG(3L))
+                        .field("apple")
+                        .field("bbb")
+                        .array(ID("cc"),
+                                multiply(OBJECT_FIELD(ID("dd"), array("qq", LONG(4L))),
+                                        LONG(3L))).build());
 
-        testSyntaxExceptionLeftValue("apple.");
-        testSyntaxExceptionLeftValue("apple[]");
-        testSyntaxExceptionLeftValue("apple..");
-        testSyntaxExceptionLeftValue("apple[");
-        testSyntaxExceptionLeftValue("apple]");
-        testSyntaxExceptionLeftValue("apple+3");
-        testSyntaxExceptionLeftValue("apple[3");
-        testSyntaxExceptionLeftValue("apple[3)");
-        testSyntaxExceptionLeftValue("apple[3aaa");
-        testSyntaxExceptionLeftValue("[");
-        testSyntaxExceptionLeftValue("apple[hat.het+\"kaka\".z");
+        extressionHasSyntaxError("apple.");
+        extressionHasSyntaxError("apple[]");
+        extressionHasSyntaxError("apple..");
+        extressionHasSyntaxError("apple[");
+        extressionHasSyntaxError("apple]");
+        extressionHasSyntaxError("apple+3");
+        extressionHasSyntaxError("apple[3");
+        extressionHasSyntaxError("apple[3)");
+        extressionHasSyntaxError("apple[3aaa");
+        extressionHasSyntaxError("[");
+        extressionHasSyntaxError("apple[hat.het+\"kaka\".z");
 
     }
 
-    @SuppressWarnings("static-method")
-    public void testLeftValueLists() throws Exception {
+    @Test
+    public void variableNamesSeparatedByCommaCompilesToLeftValueList() throws Exception {
         compileList("a,b,c,d");
     }
 

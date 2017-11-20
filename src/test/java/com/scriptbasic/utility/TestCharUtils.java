@@ -1,5 +1,7 @@
 package com.scriptbasic.utility;
 
+import org.junit.Test;
+
 import java.io.IOException;
 
 import static org.junit.Assert.assertFalse;
@@ -8,13 +10,13 @@ import static org.junit.Assert.assertTrue;
 
 public class TestCharUtils {
 
-    @SuppressWarnings("static-method")
-    public void test() throws IOException {
+    @Test
+    public void newLineIsOnlyNewLineAndNothingElse() throws IOException {
         assertTrue(CharUtils.isNewLine((int) '\n'));
         for (int i = 0; i < 10; i++) {
             assertFalse(CharUtils.isNewLine(i));
         }
-        for (int i = 15; i < 1000; i++) {
+        for (int i = 15; i < 500; i++) {
             assertFalse(CharUtils.isNewLine(i));
         }
         assertFalse(CharUtils.isNewLine(null));

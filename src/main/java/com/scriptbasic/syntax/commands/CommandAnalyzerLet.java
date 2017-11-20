@@ -32,9 +32,4 @@ public class CommandAnalyzerLet extends AbstractCommandAnalyzer {
         return commandLet;
     }
 
-    @Override
-    protected String getName() {
-        return "LET";
-    }
-
 }

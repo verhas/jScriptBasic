@@ -30,7 +30,9 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
         this.factory = factory;
     }
 
-    protected abstract String getName();
+    protected String getName(){
+        return this.getClass().getSimpleName().substring(15).toUpperCase();
+    }
 
     /**
      * Check that the left values are simple (no modifiers, a.k.a. simply

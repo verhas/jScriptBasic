@@ -21,17 +21,6 @@ import com.scriptbasic.utility.FactoryUtility;
  */
 public class CommandAnalyzerNext extends AbstractCommandAnalyzer {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.scriptbasic.syntax.commandanalyzers.AbstractCommandAnalyzer#getName()
-     */
-    @Override
-    protected String getName() {
-        return "NEXT";
-    }
-
     @Override
     public Command analyze() throws AnalysisException {
         CommandNext node = new CommandNext();

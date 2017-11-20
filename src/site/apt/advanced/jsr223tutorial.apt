@@ -112,7 +112,7 @@ com.scriptbasic.javax.script.ScriptEngineFactory
  and you can use <<<put>>> to store values into the bindings.
         
 ----
-        bindings.put("B", new Integer(13));
+        bindings.put("B", Integer.valueOf(13));
         bindings.put("A", null);
 ---- 
  

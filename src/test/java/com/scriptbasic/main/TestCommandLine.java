@@ -1,45 +1,36 @@
 package com.scriptbasic.main;
 
-import static com.scriptbasic.main.CommandLineExtended.main;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.security.Permission;
 
-import org.junit.Assert;
-
-import org.junit.Test;
+import static com.scriptbasic.main.CommandLineExtended.main;
 
 public class TestCommandLine {
 
-	public static class MySecurityManager extends SecurityManager {
-		private boolean limit = true;
+    public static class SystemExitIsNotAllowedSecurityManager extends SecurityManager {
 
-		public void limit() {
-			limit = false;
-		}
+        @Override
+        public void checkPermission(Permission perm) {
+        }
 
-		@Override
-		public void checkPermission(Permission perm) {
-		}
-
-		@Override
-		public void checkExit(int status) {
-			if (limit) {
-				throw new SecurityException();
-			}
-		}
-	}
+        @Override
+        public void checkExit(int status) {
+            throw new SecurityException();
+        }
+    }
 
 	@Test
 	public void testNoArgs() throws Exception {
 		SecurityManager oldSm = System.getSecurityManager();
-		MySecurityManager sm = new MySecurityManager();
+		SystemExitIsNotAllowedSecurityManager sm = new SystemExitIsNotAllowedSecurityManager();
 		System.setSecurityManager(sm);
 		try {
 			main(new String[0]);
 			Assert.fail();
 		} catch (RuntimeException rte) {
 		} finally {
-			sm.limit();
 			System.setSecurityManager(oldSm);
 		}
 	}
@@ -58,7 +49,7 @@ public class TestCommandLine {
 	public void testNoExtention() throws Exception {
 //		main(new String[] { "1" });
 	}
-	
+
 	@Test
 	public void testFileHandling() throws Exception {
 		System.setProperty("sb4j.extensionclasses", "com.scriptbasic.utility.functions.file.FileHandlingFunctions");

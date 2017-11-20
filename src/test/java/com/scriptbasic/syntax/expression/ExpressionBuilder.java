@@ -130,10 +130,6 @@ public class ExpressionBuilder {
         return OBJECT_FIELD(ID(a), b);
     }
 
-    public static Expression OBJECT_FIELD(final Expression a, final String b) {
-        return OBJECT_FIELD(a, ID(b));
-    }
-
     public static Expression OBJECT_FIELD(final Expression a, final Expression b) {
         final JavaObjectFieldAccessOperator ofa = new JavaObjectFieldAccessOperator();
         ofa.setLeftOperand(a);
