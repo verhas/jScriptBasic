@@ -13,19 +13,19 @@ public class NotEqualOperator extends AbstractCompareOperator {
     @Override
     protected Boolean compareTo(final BasicDoubleValue f, final RightValue op)
             throws BasicRuntimeException {
-        return !f.getValue().equals(BasicDoubleValue.convert(op));
+        return !f.getValue().equals(BasicDoubleValue.asDouble(op));
     }
 
     @Override
     protected Boolean compareTo(final BasicLongValue f, final RightValue op)
             throws BasicRuntimeException {
-        return !f.getValue().equals(BasicLongValue.convert(op));
+        return !f.getValue().equals(BasicLongValue.asLong(op));
     }
 
     @Override
     protected Boolean compareTo(final BasicStringValue f, final RightValue op)
             throws BasicRuntimeException {
-        return f.getValue().compareTo(BasicStringValue.convert(op)) != 0;
+        return f.getValue().compareTo(BasicStringValue.asString(op)) != 0;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class NotEqualOperator extends AbstractCompareOperator {
     protected Boolean compareTo(final BasicBooleanValue f, final RightValue op)
             throws BasicRuntimeException {
         final int a = f.getValue() ? 1 : 0;
-        final int b = BasicBooleanValue.convert(op) ? 1 : 0;
+        final int b = BasicBooleanValue.asBoolean(op) ? 1 : 0;
         return a != b;
     }
 

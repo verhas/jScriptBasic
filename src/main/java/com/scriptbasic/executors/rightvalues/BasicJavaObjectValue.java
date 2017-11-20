@@ -9,7 +9,7 @@ public class BasicJavaObjectValue extends AbstractPrimitiveRightValue<Object> {
         setValue(value);
     }
 
-    public static Object convert(final RightValue arv)
+    public static Object asObject(final RightValue arv)
             throws BasicRuntimeException {
         if (arv.isJavaObject()) {
             return ((BasicJavaObjectValue) arv).getValue();

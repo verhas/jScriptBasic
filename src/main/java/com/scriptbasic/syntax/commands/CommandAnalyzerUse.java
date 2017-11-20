@@ -31,7 +31,7 @@ public class CommandAnalyzerUse extends AbstractCommandAnalyzer {
                 "Keyword 'FROM' is missing in command 'USE'");
         String packageName = ExpressionUtility
                 .convertToString(analyzeExpression());
-        String aliasName = null;
+        final String aliasName;
         if (LexUtility.isLexeme(getFactory(), "as")) {
             aliasName = ExpressionUtility.convertToString(analyzeExpression());
         } else {
@@ -43,7 +43,7 @@ public class CommandAnalyzerUse extends AbstractCommandAnalyzer {
                     "class name and alias name should not contain dot in command USE");
         }
         final String fullClassName = packageName + "." + className;
-        Class<?> klass = null;
+        final Class<?> klass;
         try {
             klass = KlassUtility.forNameEx(fullClassName);
         } catch (GenericSyntaxException e) {
@@ -51,9 +51,7 @@ public class CommandAnalyzerUse extends AbstractCommandAnalyzer {
                     "The class in the USE statement is not found.", e);
         }
 
-        CommandUse node = new CommandUse();
-        node.setKlass(klass);
-        node.setAlias(aliasName);
+        CommandUse node = new CommandUse(klass, aliasName);
         return node;
     }
 }

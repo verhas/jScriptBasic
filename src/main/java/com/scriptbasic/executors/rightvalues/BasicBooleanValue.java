@@ -23,8 +23,7 @@ public final class BasicBooleanValue extends
         return convertedValue;
     }
 
-    @SuppressWarnings("unchecked")
-    public static Boolean convert(final RightValue originalValue)
+    public static Boolean asBoolean(final RightValue originalValue)
             throws BasicRuntimeException {
         Boolean convertedValue = null;
 

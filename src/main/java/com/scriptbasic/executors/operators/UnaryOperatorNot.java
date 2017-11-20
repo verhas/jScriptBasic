@@ -11,7 +11,7 @@ public class UnaryOperatorNot extends AbstractUnaryOperator {
     public RightValue evaluate(ExtendedInterpreter extendedInterpreter)
             throws ExecutionException {
         new BasicBooleanValue(false);
-        return new BasicBooleanValue(!BasicBooleanValue.convert(getOperand()
+        return new BasicBooleanValue(!BasicBooleanValue.asBoolean(getOperand()
                 .evaluate(extendedInterpreter)));
     }
 }

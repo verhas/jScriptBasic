@@ -13,19 +13,19 @@ public class EqualsOperator extends AbstractCompareOperator {
     @Override
     protected Boolean compareTo(final BasicDoubleValue f, final RightValue op)
             throws BasicRuntimeException {
-        return f.getValue().equals(BasicDoubleValue.convert(op));
+        return f.getValue().equals(BasicDoubleValue.asDouble(op));
     }
 
     @Override
     protected Boolean compareTo(final BasicLongValue f, final RightValue op)
             throws BasicRuntimeException {
-        return f.getValue().equals(BasicLongValue.convert(op));
+        return f.getValue().equals(BasicLongValue.asLong(op));
     }
 
     @Override
     protected Boolean compareTo(final BasicStringValue f, final RightValue op)
             throws BasicRuntimeException {
-        return f.getValue().equals(BasicStringValue.convert(op));
+        return f.getValue().equals(BasicStringValue.asString(op));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class EqualsOperator extends AbstractCompareOperator {
     @Override
     protected Boolean compareTo(final BasicBooleanValue f, final RightValue op)
             throws BasicRuntimeException {
-        return f.getValue().equals(BasicBooleanValue.convert(op));
+        return f.getValue().equals(BasicBooleanValue.asBoolean(op));
     }
 
 }

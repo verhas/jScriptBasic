@@ -86,7 +86,7 @@ public class BasicLeftValue extends AbstractLeftValue {
      * @return
      * @throws BasicRuntimeException
      */
-    private static RightValue handleObjectFieldAccess(RightValue variable,
+    private static RightValue handleObjectFieldAccess(final RightValue variable,
                                                       ObjectFieldAccessLeftValueModifier modifier,
                                                       boolean hasNext,
                                                       RightValue rightValue)
@@ -101,8 +101,7 @@ public class BasicLeftValue extends AbstractLeftValue {
         Object object = bjov.getValue();
         if (hasNext) {
             Object fieldObject = KlassUtility.getField(object, fieldName);
-            variable = RightValueUtility.createRightValue(fieldObject);
-            return variable;
+            return RightValueUtility.createRightValue(fieldObject);
         } else {
             Object valueObject = RightValueUtility.getValueObject(rightValue);
             KlassUtility.setField(object, fieldName, valueObject);

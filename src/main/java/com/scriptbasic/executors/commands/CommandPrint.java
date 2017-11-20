@@ -20,7 +20,7 @@ public class CommandPrint extends AbstractCommandExpressionListed {
             try {
                 Writer writer = interpreter.getWriter();
                 if (writer != null) {
-                    writer.write(BasicStringValue.convert(rightValue));
+                    writer.write(BasicStringValue.asString(rightValue));
                 }
             } catch (IOException e) {
                 throw new BasicRuntimeException(

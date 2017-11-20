@@ -9,7 +9,7 @@ public class BasicLongValue extends AbstractNumericRightValue<Long> {
         setValue(i);
     }
 
-    public static Long convert(final RightValue rv)
+    public static Long asLong(final RightValue rv)
             throws BasicRuntimeException {
         if (rv.isBoolean()) {
             return ((BasicBooleanValue) rv).getValue() ? 1L : 0L;

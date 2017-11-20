@@ -4,36 +4,11 @@ import com.scriptbasic.interfaces.ExtendedInterpreter;
 
 public class CommandUse extends AbstractCommand {
 
-    private Class<?> klass = null;
-    private String alias = null;
+    private final Class<?> klass;
+    private final String alias;
 
-    /**
-     * @return the klass
-     */
-    public Class<?> getKlass() {
-        return klass;
-    }
-
-    /**
-     * @param klass
-     *            the klass to set
-     */
-    public void setKlass(Class<?> klass) {
+    public CommandUse(Class<?> klass, String alias) {
         this.klass = klass;
-    }
-
-    /**
-     * @return the alias
-     */
-    public String getAlias() {
-        return alias;
-    }
-
-    /**
-     * @param alias
-     *            the alias to set
-     */
-    public void setAlias(String alias) {
         this.alias = alias;
     }
 

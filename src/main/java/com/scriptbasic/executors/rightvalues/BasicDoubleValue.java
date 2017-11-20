@@ -9,7 +9,7 @@ public class BasicDoubleValue extends AbstractNumericRightValue<Double> {
         setValue(d);
     }
 
-    public static Double convert(final RightValue rv)
+    public static Double asDouble(final RightValue rv)
             throws BasicRuntimeException {
         if (rv.isBoolean()) {
             return ((BasicBooleanValue) rv).getValue() ? 1.0 : 0.0;

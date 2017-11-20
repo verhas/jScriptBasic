@@ -39,7 +39,7 @@ public class CommandWhile extends AbstractCommand {
             throws ExecutionException {
         final RightValue conditionValue = getCondition().evaluate(interpreter);
         if (conditionValue instanceof AbstractPrimitiveRightValue<?>) {
-            if (!BasicBooleanValue.convert(conditionValue)) {
+            if (!BasicBooleanValue.asBoolean(conditionValue)) {
                 jumpAfterTheWendCommand(interpreter);
             }
         } else {

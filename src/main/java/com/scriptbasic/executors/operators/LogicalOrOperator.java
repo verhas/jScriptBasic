@@ -13,10 +13,10 @@ public class LogicalOrOperator extends AbstractShortCircuitBinaryOperator {
             final RightValue leftOperand, final Expression rightOperand)
             throws ExecutionException {
         final BasicBooleanValue bbv = new BasicBooleanValue(true);
-        if (BasicBooleanValue.convert(leftOperand)) {
+        if (BasicBooleanValue.asBoolean(leftOperand)) {
             return bbv;
         } else {
-            return new BasicBooleanValue(BasicBooleanValue.convert(rightOperand
+            return new BasicBooleanValue(BasicBooleanValue.asBoolean(rightOperand
                     .evaluate(extendedInterpreter)));
         }
     }
