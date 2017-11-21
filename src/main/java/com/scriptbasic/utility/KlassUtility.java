@@ -6,8 +6,10 @@ package com.scriptbasic.utility;
 import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.interfaces.Magic;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * @author Peter Verhas date June 28, 2012
@@ -32,15 +34,25 @@ public final class KlassUtility {
     public static void setField(Object object, String fieldName,
                                 Object valueObject) throws BasicRuntimeException {
         final Class<?> klass = object.getClass();
-        try {
-            final Field field = klass.getField(fieldName);
-            final Class<?> fieldClass = field.getType();
-            final Object typeConvertedValueObject = CastUtility.cast(valueObject, fieldClass);
-            field.set(object, typeConvertedValueObject);
-        } catch (Exception e) {
-            throw new BasicRuntimeException("Object access of type "
-                    + object.getClass() + " can not set field '" + fieldName
-                    + "'", e);
+        if (Magic.Setter.class.isAssignableFrom(klass)) {
+            Magic.Setter magicBean = (Magic.Setter) object;
+            magicBean.set(fieldName, valueObject);
+        } else {
+            try {
+                final Field field = getField(klass, fieldName);
+                Method setter = getSetter(field);
+                if (setter != null) {
+                    setter.invoke(object, valueObject);
+                } else {
+                    final Class<?> fieldClass = field.getType();
+                    final Object typeConvertedValueObject = CastUtility.cast(valueObject, fieldClass);
+                    field.set(object, typeConvertedValueObject);
+                }
+            } catch (Exception e) {
+                throw new BasicRuntimeException("Object access of type "
+                        + object.getClass() + " can not set field '" + fieldName
+                        + "'", e);
+            }
         }
     }
 
@@ -72,20 +84,29 @@ public final class KlassUtility {
      * @throws ExecutionException
      */
     public static Object getField(Object object, String fieldName)
-            throws ExecutionException {
-        Class<?> klass = object.getClass();
-        Object result = null;
-        try {
-            Field field = klass.getField(fieldName);
-            result = field.get(object);
-        } catch (Exception e) {
-            throw new BasicRuntimeException("Object access of type "
-                    + object.getClass() + " can not access field '" + fieldName
-                    + "'", e);
+            throws BasicRuntimeException {
+        final Class<?> klass = object.getClass();
+        if (Magic.Getter.class.isAssignableFrom(klass)) {
+            Magic.Getter magicBean = (Magic.Getter) object;
+            return magicBean.get(fieldName);
+        } else {
+            final Object result;
+            try {
+                final Field field = getField(klass, fieldName);
+                final Method getter = getGetter(field);
+                if (getter != null) {
+                    result = getter.invoke(object);
+                } else {
+                    result = field.get(object);
+                }
+            } catch (Exception e) {
+                throw new BasicRuntimeException("Object access of type "
+                        + object.getClass() + " can not access field '" + fieldName
+                        + "'", e);
+            }
+            return result;
         }
-        return result;
     }
-
 
     /**
      * Returns a class based on its name just like the method
@@ -186,4 +207,54 @@ public final class KlassUtility {
         return klass;
     }
 
+    private static Method getSetter(Field field) {
+        final String fieldName = field.getName();
+        final String prefix = "set";
+        final int prefixLength = prefix.length();
+        StringBuilder sb = new StringBuilder(prefix).append(fieldName);
+        sb.setCharAt(prefixLength, Character.toUpperCase(sb.charAt(prefixLength)));
+        try {
+            return field.getDeclaringClass().getMethod(sb.toString(), field.getType());
+        } catch (NoSuchMethodException e) {
+            return null;
+        }
+    }
+
+    private static Method getGetter(Field field) {
+        final Method getGetter = getterPrefixed(field, "get");
+        final Method isGetter;
+        if (Boolean.class.isAssignableFrom(field.getType()) ||
+                boolean.class.isAssignableFrom(field.getType())) {
+            isGetter = getterPrefixed(field, "is");
+        } else {
+            isGetter = null;
+        }
+        if (isGetter != null) {
+            return isGetter;
+        }
+        if (getGetter != null) {
+            return getGetter;
+        }
+        return null;
+    }
+
+    private static Method getterPrefixed(Field field, String prefix) {
+        final String fieldName = field.getName();
+        final int prefixLength = prefix.length();
+        StringBuilder sb = new StringBuilder(prefix).append(fieldName);
+        sb.setCharAt(prefixLength, Character.toUpperCase(sb.charAt(prefixLength)));
+        try {
+            return field.getDeclaringClass().getMethod(sb.toString());
+        } catch (NoSuchMethodException e) {
+            return null;
+        }
+    }
+
+    private static Field getField(Class<?> klass, String fieldName) throws NoSuchFieldException {
+        try {
+            return klass.getField(fieldName);
+        } catch (NoSuchFieldException e) {
+            return klass.getDeclaredField(fieldName);
+        }
+    }
 }

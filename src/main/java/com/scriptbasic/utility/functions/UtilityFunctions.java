@@ -10,6 +10,7 @@ import com.scriptbasic.classification.Utility;
 import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.utility.MagicBean;
 import com.scriptbasic.utility.NoInstance;
 
 import java.io.UnsupportedEncodingException;
@@ -49,7 +50,11 @@ public class UtilityFunctions {
             IllegalAccessException,
             NoSuchMethodException,
             InvocationTargetException {
-        return Class.forName(klass).getConstructor().newInstance();
+        if (klass == null) {
+            return new MagicBean();
+        } else {
+            return Class.forName(klass).getConstructor().newInstance();
+        }
     }
 
     /**
