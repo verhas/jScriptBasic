@@ -7,6 +7,7 @@ import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.Magic;
+import com.scriptbasic.interfaces.NoAccess;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -33,6 +34,12 @@ public final class KlassUtility {
      */
     public static void setField(Object object, String fieldName,
                                 Object valueObject) throws BasicRuntimeException {
+        if (object != null && object instanceof NoAccess) {
+            throw new BasicRuntimeException("The filed '" +
+                    fieldName +
+                    "' is not allowed to be write in object of the type '" +
+                    object.getClass().getName());
+        }
         final Class<?> klass = object.getClass();
         if (Magic.Setter.class.isAssignableFrom(klass)) {
             Magic.Setter magicBean = (Magic.Setter) object;
@@ -85,6 +92,12 @@ public final class KlassUtility {
      */
     public static Object getField(Object object, String fieldName)
             throws BasicRuntimeException {
+        if (object != null && object instanceof NoAccess) {
+            throw new BasicRuntimeException("The filed '" +
+                    fieldName +
+                    "' is not allowed to be read in object of the type '" +
+            object.getClass().getName());
+        }
         final Class<?> klass = object.getClass();
         if (Magic.Getter.class.isAssignableFrom(klass)) {
             Magic.Getter magicBean = (Magic.Getter) object;

@@ -4,11 +4,8 @@
 package com.scriptbasic.utility;
 
 import com.scriptbasic.executors.rightvalues.BasicArrayValue;
-import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
-import com.scriptbasic.interfaces.RightValue;
+import com.scriptbasic.interfaces.*;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -25,6 +22,9 @@ public class ReflectionUtility {
      * Invoke the {@code method} on the {@code object} using the {@code args}.
      * <p>
      * If {@code object} is {@code null} then call the static method.
+     * <p>
+     * <p>
+     * If {@code object} is of a type that implements the interface {@link NoAccess} then the call will fail.
      * <p>
      * Before the Java method call the hook method {@code beforeCallJavaFunction} is called.
      * <p>
@@ -44,6 +44,13 @@ public class ReflectionUtility {
                                 Object object,
                                 List<RightValue> args)
             throws BasicRuntimeException {
+        if (object != null && object instanceof NoAccess) {
+            final Object target = object instanceof NoAccessProxy ? ((NoAccessProxy) object).target : object;
+            throw new BasicRuntimeException("It is not allowed to call  '" +
+                    symbolicName +
+                    "' on object of class '" +
+                    target.getClass().getName());
+        }
         interpreter.getHook().beforeCallJavaFunction(method);
         final Object javaCallResult;
         try {

@@ -1,0 +1,107 @@
+# Configuring ScriptBasic for Java
+
+First of all: ScriptBasic for Java can be executed out of the box without
+configuration. If you want to configure security that differs from the default or
+program hook classes then you can configure these features in a `properties` file.
+
+The name of the properties file is `sb4j.properties` by default and should be loadable
+from the classpath. If this name does not fit the installation the name itself can be defined
+by the System property `sb4j.configuration`.
+
+The configuration file is a standard `.properties` file. The following sections describe the
+different keys and values that can be used to configure ScriptBasic for Java and the provided
+interpreter hook class. Hook classes provided by third parties may also access the configuration
+file. Their use may vary and should be looked up in the documentation of third parties. The last section
+of this documentation provides guidelines that third parties should follow regarding the naming
+of their configuration keys.
+
+## Interpreter Hooks Configuration
+
+Hook classes have to be configured. By default ScriptBasic for Java does not load, instantiate and
+chain such classes into the interpreter. The hook classes should be configured in strict order
+using the keys `hook.0`, `hook.1`, ..., `hook.n`. The numbers should start with zero and
+should be continous. If there is `hook.i` but there is no `hook.(i+1)` then all possible existing
+`hook.j` configurations for all j > i will be ignored.
+
+The hook class configured in `hook.0` will be instantiated and loaded first, `hook.2` the second
+and so on. Since hooks are chained into a LIFO the methods of the last hook will be first, the last but one
+will be the second and so on.
+
+The value of the configuration for each key `hook.i` should be the fully qualified name of the class
+that implements the hook functionality and as such implements the interface `com.scriptbasic.interfaces.InterpreterHook`.
+
+The respective line that configures the only hook class that is provided currently with the interpreter
+
+```
+hook.0=com.scriptbasic.hooks.RunLimitHook
+```
+
+## Method Registering
+
+ScriptBasic for Java makes it possible to call static Java methods from BASIC. These methods can be registered
+in the BASIC program using the commands `USE` and `METHOD` or from the embedding application calling the
+ScriptBasic for Java static method
+`com.scriptbasic.utility.MethodRegisterUtility.registerFunctions(Class<?>, ExtendedInterpreter)`.
+
+If you want to secure your application denying the right from the users to execute Java method callbacks from
+from their BASIC programs you can switch off the commands `USE` and `METHOD` using the configuration key
+`RunLimitHook.allowJavaMethods`. The value of this key has to be `false` to switch off these commands and the
+`RunLimitHook` interpreter hook class has to be configured. If the configuration file contains the lines
+
+```
+hook.0=com.scriptbasic.hooks.RunLimitHook
+RunLimitHook.allowJavaMethods=false
+```
+ 
+the BASIC program will not be able to execute the `USE` and `METHOD` commands. When a BASIC program contains
+any of those commands with this configuration the hook class will throw runtime exception and this will stop the execution
+of the interpreter with error. Since these 
+
+Even if you totally deny the BASIC program to define methods, you can still provide static methods for the application
+from Java programmatically. As a matter of fact, ScriptBasic for Java itself provides some methods for the
+BASIC programs predefined that should be harmless. These static methods are defined in the class
+`com.scriptbasic.utility.RuntimeUtility`. If you want to switch off all these methods and render them unreachable
+for the BASIC program you should include the following lines into the configuration file:
+
+```
+deny(com.scriptbasic.classification.System)=1
+deny(com.scriptbasic.classification.Math)=1
+deny(com.scriptbasic.classification.Constant)=1
+```
+
+The methods are registered by the static method 
+`com.scriptbasic.utility.MethodRegisterUtility.registerFunctions(Class<?>, ExtendedInterpreter)`.
+This method looks up all the methods in the class passed as first argument and registers those that are annotated using
+the annotation interface `com.scriptbasic.Function`. This annotation makes it possible to classify the individual
+methods to be registered using Java classes. The methods presented in the class `com.scriptbasic.utility.RuntimeUtility`
+are classified with the above three classes. Setting their `deny` value to 1 makes them forbidden to be registered
+and thus the BASIC programs will not see these as functions.
+
+The annotation may specify one or more classes that classify a method. The configuration file specifies `deny` and `allow`
+values for these classes. The `deny` values are treated as negative values, the `allow` values are treated as
+positive values. These values are summed up for all the classes that a method is classified with. If the value is non negative
+then the method is allowed to be registered for the BASIC programs, otherwise not.
+
+For example a method `dummy()` may be classified with three different classes `com.scriptbasic.classification.System`,
+`com.scriptbasic.classification.Math` and `com.scriptbasic.classification.Constant`. (Note that there is no
+such method, but nothing prevents a third party to provide one.) If the configuration reads
+
+```
+deny(com.scriptbasic.classification.System)=1
+allow(com.scriptbasic.classification.Math)=2
+deny(com.scriptbasic.classification.Constant)=1
+```
+
+then the method `dummy()` will be registered, since `-1+2-1` is zero. The name of any class in the configuraiton file,
+including the classification classes should be qualified with FQN. Any class can be a classification class, that is
+available on the classpath during compile and run time.
+ 
+## Hook Classes Naming
+
+Interpreter hook classes are encouraged to use configuration keys that use their fully qualified class name as configuration key
+prefix to avoid name collision. The authors of jScriptBasic are in a privileged position to use the short name of the interpreter
+hook class name without the `com.scriptbasic.hooks` package name.
+  
+   
+  
+   

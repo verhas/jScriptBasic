@@ -30,7 +30,7 @@ public final class RightValueUtility {
             throw new BasicInterpreterInternalError(
                     "The class of the object "
                             + arg
-                            + " is not convertible type to fetchs it's value as object.");
+                            + " is not convertible type to fetch it's value as object.");
         }
         return object;
     }

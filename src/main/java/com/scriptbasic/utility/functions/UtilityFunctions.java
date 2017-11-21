@@ -14,6 +14,7 @@ import com.scriptbasic.utility.MagicBean;
 import com.scriptbasic.utility.NoInstance;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -135,15 +136,16 @@ public class UtilityFunctions {
 
     @Function(classification = Utility.class, requiredVersion = 2L)
     public static Long length(Object arg) {
-        if (arg instanceof BasicArrayValue) {
+        if (arg == null) {
+            return null;
+        } else if (arg instanceof BasicArrayValue) {
             BasicArrayValue array = (BasicArrayValue) arg;
             return array.getLength();
         } else if (arg instanceof String) {
             String string = (String) arg;
             return Long.valueOf(string.length());
-        } else if (arg instanceof byte[]) {
-            byte[] byteArray = (byte[]) arg;
-            return Long.valueOf(byteArray.length);
+        } else if (arg.getClass().isArray()) {
+            return Long.valueOf(Array.getLength(arg));
         }
         return null;
     }

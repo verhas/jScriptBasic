@@ -54,7 +54,7 @@ public final class BasicCommandFactory implements CommandFactory {
         registerCommandAnalyzer(new CommandAnalyzerCall());
     }
 
-    private Map<String, CommandAnalyzer> classMap = new HashMap<String, CommandAnalyzer>();
+    private Map<String, CommandAnalyzer> classMap = new HashMap<>();
     private List<CommandAnalyzer> classList = new LinkedList<CommandAnalyzer>();
 
     /*

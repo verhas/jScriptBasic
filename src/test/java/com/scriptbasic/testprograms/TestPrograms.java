@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -106,6 +107,7 @@ public class TestPrograms {
         codeTest("TestForLoop7.bas", "");
         codeTest("TestForLoop8.bas", "22");
         codeTest("TestForLoop9.bas", "111213212223313233");
+        codeTest("TestForLoop10.bas", "12323");
         codeTest("TestRuntimeFunction.bas", "1.01.5707963267948966");
         codeTest("TestNullFunction.bas", "undefundef");
         codeTest("TestMethodCall.bas",
@@ -123,6 +125,11 @@ public class TestPrograms {
         codeTest("TestChomp.bas", "ttt");
         codeTest("TestConvert.bas", "0.9074467814501962");
         codeTest("TestFile.bas", "");
+    }
+
+    @Test
+    public void testLength() throws Exception {
+        codeTest("TestLengthFunction.bas","");
     }
 
     @Test
