@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -129,7 +128,28 @@ public class TestPrograms {
 
     @Test
     public void testLength() throws Exception {
-        codeTest("TestLengthFunction.bas","");
+        codeTest("TestLengthFunction.bas", "");
+    }
+
+    /**
+     * This is not really a unit test because it does not check that the actual
+     * BASIC program sends the strings to the standard log output.
+     * It would be too complex and mainly pointless, since the functionality is
+     * simple and redirecting the log to a channel that can be checked during test
+     * execution is more complex than the whole functionality.
+     * <p>
+     * Just look at the log and search for the messages
+     * "this is an error message"
+     * "this is an info message"
+     * "this is a debug message"
+     * <p>
+     * Note that some may be missing in case the logging is configured not to emit debug messages
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testLogging() throws Exception {
+        codeTest("TestLogging.bas", "");
     }
 
     @Test

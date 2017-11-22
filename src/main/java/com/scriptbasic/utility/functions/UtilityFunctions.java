@@ -10,6 +10,8 @@ import com.scriptbasic.classification.Utility;
 import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.log.Logger;
+import com.scriptbasic.log.LoggerFactory;
 import com.scriptbasic.utility.MagicBean;
 import com.scriptbasic.utility.NoInstance;
 
@@ -27,6 +29,8 @@ import java.lang.reflect.InvocationTargetException;
  * @author Peter Verhas date July 15, 2012
  */
 public class UtilityFunctions {
+
+    private static final Logger BASIC_LOGGER = LoggerFactory.getBasicLogger();
 
     private UtilityFunctions() {
         NoInstance.isPossible();
@@ -56,6 +60,21 @@ public class UtilityFunctions {
         } else {
             return Class.forName(klass).getConstructor().newInstance();
         }
+    }
+
+    @Function(classification = System.class)
+    public static void logError(String message) {
+        BASIC_LOGGER.error(message);
+    }
+
+    @Function(classification = System.class)
+    public static void logInfo(String message) {
+        BASIC_LOGGER.info(message);
+    }
+
+    @Function(classification = System.class)
+    public static void logDebug(String message) {
+        BASIC_LOGGER.debug(message);
     }
 
     /**

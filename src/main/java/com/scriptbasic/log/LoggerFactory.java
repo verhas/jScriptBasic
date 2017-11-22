@@ -14,7 +14,7 @@ public class LoggerFactory {
 
     /**
      * Get the logger that has the name which is the same as the name of the class where the logger is used.
-     *
+     * <p>
      * Loggers are usually stored in static fields.
      *
      * @return the logger instance.
@@ -28,6 +28,26 @@ public class LoggerFactory {
             logger = new Logger(
                     java.lang.System.LoggerFinder.getLoggerFinder()
                             .getLogger(klass.getName(), klass.getModule()));
+            loggers.put(klass, logger);
+        }
+        return logger;
+    }
+
+    public static synchronized Logger getBasicLogger() {
+        Class<?> klass =
+                StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE)
+                        .walk(stream -> stream
+                                .filter(frame ->
+                                        frame.getDeclaringClass().getModule()
+                                                .equals(LoggerFactory.class.getModule())
+                                ).findFirst()).get().getDeclaringClass();
+        final Logger logger;
+        if (loggers.containsKey(klass)) {
+            logger = loggers.get(klass);
+        } else {
+            logger = new Logger(
+                    java.lang.System.LoggerFinder.getLoggerFinder()
+                            .getLogger("BASIC", klass.getModule()));
             loggers.put(klass, logger);
         }
         return logger;
