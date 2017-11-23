@@ -2,40 +2,51 @@ package com.scriptbasic.syntax.commands;
 
 import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.executors.commands.CommandCall;
+import com.scriptbasic.executors.commands.CommandLet;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.executors.rightvalues.FunctionCall;
-import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.Command;
-import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.interfaces.*;
 import com.scriptbasic.utility.FactoryUtility;
 
 public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
 
     @Override
     public Command analyze() throws AnalysisException {
-        LexicalAnalyzer lexicalAnalyzer = FactoryUtility.getLexicalAnalyzer(getFactory());
+        LineOrientedLexicalAnalyzer lexicalAnalyzer =
+                (LineOrientedLexicalAnalyzer) FactoryUtility.getLexicalAnalyzer(getFactory());
         skipTheOptionalCallKeyword(lexicalAnalyzer);
 
-        FunctionCall functionCall = new FunctionCall();
-        functionCall.setVariableName(((BasicLeftValue) FactoryUtility
-                .getSimpleLeftValueAnalyzer(getFactory()).analyze())
-                .getIdentifier());
-        final boolean needClosingParenthesis = argumentsAreBetweenParentheses(lexicalAnalyzer);
-
-        LexicalElement lexicalElement = lexicalAnalyzer.peek();
-        if (thereAreArguments(needClosingParenthesis, lexicalElement)) {
-            functionCall.setExpressionList(FactoryUtility
-                    .getExpressionListAnalyzer(getFactory()).analyze());
+        BasicLeftValue lv = (BasicLeftValue) FactoryUtility.getLeftValueAnalyzer(getFactory()).analyze();
+        if (lv.hasModifiers()) {
+            lexicalAnalyzer.resetLine();
+            CommandLet commandLet = new CommandLet();
+            commandLet.setExpression(FactoryUtility.getExpressionAnalyzer(getFactory()).analyze());
+            consumeEndOfLine();
+            return commandLet;
         } else {
-            functionCall.setExpressionList(null);
+            final String functionName = ((BasicLeftValue) lv).getIdentifier();
+            FunctionCall functionCall = new FunctionCall();
+            functionCall.setVariableName(functionName);
+
+            final boolean needClosingParenthesis = argumentsAreBetweenParentheses(lexicalAnalyzer);
+            if (needClosingParenthesis) {
+                lexicalAnalyzer.get();// jump over '('
+            }
+
+            LexicalElement lexicalElement = lexicalAnalyzer.peek();
+            if (thereAreArguments(needClosingParenthesis, lexicalElement)) {
+                functionCall.setExpressionList(FactoryUtility
+                        .getExpressionListAnalyzer(getFactory()).analyze());
+            } else {
+                functionCall.setExpressionList(null);
+            }
+            if (needClosingParenthesis) {
+                consumeClosingParenthesis(lexicalAnalyzer);
+            }
+            consumeEndOfLine();
+            CommandCall node = new CommandCall(functionCall);
+            return node;
         }
-        if (needClosingParenthesis) {
-            consumeClosingParenthesis(lexicalAnalyzer);
-        }
-        consumeEndOfLine();
-        CommandCall node = new CommandCall(functionCall);
-        return node;
     }
 
     private boolean thereAreArguments(boolean needClosingParenthesis, LexicalElement lexicalElement) {
@@ -53,12 +64,7 @@ public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
 
     private boolean argumentsAreBetweenParentheses(LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
         final LexicalElement openingParenthesis = lexicalAnalyzer.peek();
-        if (openingParenthesis != null && openingParenthesis.isSymbol("(")) {
-            lexicalAnalyzer.get();
-            return true;
-        } else {
-            return false;
-        }
+        return openingParenthesis != null && openingParenthesis.isSymbol("(");
     }
 
     /**

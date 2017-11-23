@@ -1,28 +1,24 @@
 package com.scriptbasic.syntax.commands;
 
+import com.scriptbasic.errors.BasicInterpreterInternalError;
+import com.scriptbasic.exceptions.CommandFactoryException;
+import com.scriptbasic.exceptions.KeywordNotImplementedException;
+import com.scriptbasic.interfaces.*;
+import com.scriptbasic.log.Logger;
+import com.scriptbasic.log.LoggerFactory;
+import com.scriptbasic.utility.FactoryUtility;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.scriptbasic.errors.BasicInterpreterInternalError;
-import com.scriptbasic.exceptions.CommandFactoryException;
-import com.scriptbasic.exceptions.KeywordNotImplementedException;
-import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.Command;
-import com.scriptbasic.interfaces.CommandAnalyzer;
-import com.scriptbasic.interfaces.CommandFactory;
-import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.interfaces.LineOrientedLexicalAnalyzer;
-import com.scriptbasic.log.Logger;
-import com.scriptbasic.log.LoggerFactory;
-import com.scriptbasic.utility.FactoryUtility;
-
 public final class BasicCommandFactory implements CommandFactory {
     private static final Logger LOG = LoggerFactory
             .getLogger();
     private Factory factory;
+    private Map<String, CommandAnalyzer> classMap = new HashMap<>();
+    private List<CommandAnalyzer> classList = new LinkedList<>();
 
     public Factory getFactory() {
         return factory;
@@ -53,9 +49,6 @@ public final class BasicCommandFactory implements CommandFactory {
         registerCommandAnalyzer(new CommandAnalyzerLet());
         registerCommandAnalyzer(new CommandAnalyzerCall());
     }
-
-    private Map<String, CommandAnalyzer> classMap = new HashMap<>();
-    private List<CommandAnalyzer> classList = new LinkedList<CommandAnalyzer>();
 
     /*
      * (non-Javadoc)
@@ -95,8 +88,7 @@ public final class BasicCommandFactory implements CommandFactory {
     }
 
     private Command create() throws AnalysisException {
-        LexicalAnalyzer lexicalAnalyzer = FactoryUtility
-                .getLexicalAnalyzer(getFactory());
+        LexicalAnalyzer lexicalAnalyzer = FactoryUtility.getLexicalAnalyzer(getFactory());
         if (lexicalAnalyzer instanceof LineOrientedLexicalAnalyzer) {
             LineOrientedLexicalAnalyzer loLexicalAnalyzer = (LineOrientedLexicalAnalyzer) lexicalAnalyzer;
             for (final CommandAnalyzer commandAnalyzer : classList) {

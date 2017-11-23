@@ -6,29 +6,51 @@ import com.scriptbasic.executors.leftvalues.ArrayElementAccessLeftValueModifier;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.executors.leftvalues.LeftValueModifier;
 import com.scriptbasic.executors.leftvalues.ObjectFieldAccessLeftValueModifier;
-import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.ExpressionList;
-import com.scriptbasic.interfaces.ExpressionListAnalyzer;
-import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.interfaces.LeftValue;
-import com.scriptbasic.interfaces.LeftValueAnalyzer;
-import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.interfaces.*;
 import com.scriptbasic.utility.FactoryUtility;
 
 /**
  * Left value is defined as
- * 
+ * <p>
  * <pre>
  * LEFTVALUE ::= identifier modifier*
  * modifier  ::= '[' expression_list '] | '.' id
  * </pre>
- * 
+ *
  * @author Peter Verhas
  * date June 12, 2012
  */
 public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
     private Factory factory;
+
+    private static LeftValueModifier analyzeFieldAccess(
+            LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
+        lexicalAnalyzer.get();
+        ObjectFieldAccessLeftValueModifier lvm = new ObjectFieldAccessLeftValueModifier();
+        LexicalElement lexicalElement = lexicalAnalyzer.peek();
+        if (lexicalElement != null && lexicalElement.isIdentifier()) {
+            lexicalAnalyzer.get();
+            lvm.setFieldName(lexicalElement.getLexeme());
+            return lvm;
+        }
+        throw new GenericSyntaxException(
+                "Left value . is not followed by a field name", lexicalElement,
+                null);
+    }
+
+    private static boolean isModifierStart(LexicalElement lexicalElement) {
+        return lexicalElement != null
+                && (lexicalElement.isSymbol(".") || lexicalElement
+                .isSymbol("["));
+    }
+
+    private static boolean isArrayAccessStart(LexicalElement lexicalElement) {
+        return lexicalElement != null && lexicalElement.isSymbol("[");
+    }
+
+    private static boolean isFieldAccessStart(LexicalElement lexicalElement) {
+        return lexicalElement != null && lexicalElement.isSymbol(".");
+    }
 
     public Factory getFactory() {
         return factory;
@@ -57,57 +79,27 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
                 "Left value array access does not have ]", lexicalElement, null);
     }
 
-    private static LeftValueModifier analyzeFieldAccess(
-            LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
-        lexicalAnalyzer.get();
-        ObjectFieldAccessLeftValueModifier lvm = new ObjectFieldAccessLeftValueModifier();
-        LexicalElement lexicalElement = lexicalAnalyzer.peek();
-        if (lexicalElement != null && lexicalElement.isIdentifier()) {
-            lexicalAnalyzer.get();
-            lvm.setFieldName(lexicalElement.getLexeme());
-            return lvm;
-        }
-        throw new GenericSyntaxException(
-                "Left value . is not followed by a field name", lexicalElement,
-                null);
-    }
-
-    private static boolean isModifierStart(LexicalElement lexicalElement) {
-        return lexicalElement != null
-                && (lexicalElement.isSymbol(".") || lexicalElement
-                        .isSymbol("["));
-    }
-
-    private static boolean isArrayAccessStart(LexicalElement lexicalElement) {
-        return lexicalElement != null && lexicalElement.isSymbol("[");
-    }
-
-    private static boolean isFieldAccessStart(LexicalElement lexicalElement) {
-        return lexicalElement != null && lexicalElement.isSymbol(".");
-    }
-
     @Override
     public LeftValue analyze() throws AnalysisException {
         BasicLeftValue leftValue = null;
-        LexicalAnalyzer lexicalAnalyzer = FactoryUtility
-                .getLexicalAnalyzer(getFactory());
+        LexicalAnalyzer lexicalAnalyzer = FactoryUtility.getLexicalAnalyzer(getFactory());
         LexicalElement lexicalElement = lexicalAnalyzer.peek();
-        if (lexicalElement.isIdentifier()) {
+        if (lexicalElement != null && lexicalElement.isIdentifier()) {
             lexicalAnalyzer.get();
             leftValue = new BasicLeftValue();
             leftValue.setIdentifier(lexicalElement.getLexeme());
             lexicalElement = lexicalAnalyzer.peek();
             while (isModifierStart(lexicalElement)) {
-                LeftValueModifier lvm = null;
+                final LeftValueModifier modifier;
                 if (isArrayAccessStart(lexicalElement)) {
-                    lvm = analyzeArrayAccess(lexicalAnalyzer);
+                    modifier = analyzeArrayAccess(lexicalAnalyzer);
                 } else if (isFieldAccessStart(lexicalElement)) {
-                    lvm = analyzeFieldAccess(lexicalAnalyzer);
+                    modifier = analyzeFieldAccess(lexicalAnalyzer);
                 } else {
                     throw new BasicInterpreterInternalError(
                             "left value parsing internal error, there is a modifier with unknown type");
                 }
-                leftValue.addModifier(lvm);
+                leftValue.addModifier(modifier);
                 lexicalElement = lexicalAnalyzer.peek();
             }
         } else {

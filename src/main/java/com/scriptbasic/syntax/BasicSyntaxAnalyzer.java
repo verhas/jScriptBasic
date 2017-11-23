@@ -2,17 +2,17 @@ package com.scriptbasic.syntax;
 
 import com.scriptbasic.exceptions.CommandFactoryException;
 import com.scriptbasic.exceptions.GenericSyntaxException;
-import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.BuildableProgram;
-import com.scriptbasic.interfaces.CommandFactory;
-import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.SyntaxAnalyzer;
+import com.scriptbasic.interfaces.*;
 import com.scriptbasic.utility.FactoryUtility;
 
 public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
     private Factory factory;
+    private LexicalElement lexicalElement;
+
+    private static boolean lineToIgnore(String lexString) {
+        return lexString.equals("\n") || lexString.equals("'")
+                || lexString.equalsIgnoreCase("REM");
+    }
 
     public Factory getFactory() {
         return factory;
@@ -23,8 +23,6 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
         this.factory = factory;
     }
 
-    private LexicalElement lexicalElement;
-
     public LexicalElement getLexicalElement() {
         return this.lexicalElement;
     }
@@ -33,38 +31,22 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
         this.lexicalElement = lexicalElement;
     }
 
-    private static boolean lineToIgnore(String lexString) {
-        return lexString.equals("\n") || lexString.equals("'")
-                || lexString.equalsIgnoreCase("REM");
-    }
-
     @Override
     public BuildableProgram analyze() throws AnalysisException {
         try {
-            BuildableProgram buildableProgram = FactoryUtility
-                    .getProgram(getFactory());
+            BuildableProgram buildableProgram = FactoryUtility.getProgram(getFactory());
             buildableProgram.reset();
-            LexicalAnalyzer lexicalAnalyzer = FactoryUtility
-                    .getLexicalAnalyzer(getFactory());
-            final CommandFactory commandFactory = FactoryUtility
-                    .getCommandFactory(getFactory());
-            this.lexicalElement = lexicalAnalyzer.peek();
-            while (this.lexicalElement != null) {
-                if (this.lexicalElement.isSymbol()) {
+            LexicalAnalyzer lexicalAnalyzer = FactoryUtility.getLexicalAnalyzer(getFactory());
+            final CommandFactory commandFactory = FactoryUtility.getCommandFactory(getFactory());
+            lexicalElement = lexicalAnalyzer.peek();
+            while (lexicalElement != null) {
+                if (lexicalElement.isSymbol()) {
                     lexicalAnalyzer.get();
-                    String lexString = this.lexicalElement.getLexeme();
+                    final String lexString = lexicalElement.getLexeme();
                     if (lineToIgnore(lexString)) {
-                        while (!lexString.equals("\n")) {
-                            LexicalElement le = lexicalAnalyzer.get();
-                            if (le == null) {
-                                break;
-                            } else {
-                                lexString = le.getLexeme();
-                            }
-                        }
+                        consumeIgnoredLine(lexicalAnalyzer, lexString);
                     } else {
-                        buildableProgram.addCommand(commandFactory
-                                .create(this.lexicalElement.getLexeme()));
+                        buildableProgram.addCommand(commandFactory.create(lexString));
                     }
                 } else {
                     buildableProgram.addCommand(commandFactory.create(null));
@@ -75,6 +57,17 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
             return buildableProgram;
         } catch (CommandFactoryException e) {
             throw new GenericSyntaxException(e.getMessage(), lexicalElement, e);
+        }
+    }
+
+    private void consumeIgnoredLine(LexicalAnalyzer lexicalAnalyzer, String lexString) throws AnalysisException {
+        while (!lexString.equals("\n")) {
+            LexicalElement le = lexicalAnalyzer.get();
+            if (le == null) {
+                break;
+            } else {
+                lexString = le.getLexeme();
+            }
         }
     }
 }

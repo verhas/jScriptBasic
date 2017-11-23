@@ -1,10 +1,6 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.interfaces.ExecutionException;
-import com.scriptbasic.interfaces.Expression;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
-import com.scriptbasic.interfaces.LeftValue;
+import com.scriptbasic.interfaces.*;
 
 public class CommandLet extends AbstractCommand {
     private LeftValue leftValue;
@@ -19,14 +15,26 @@ public class CommandLet extends AbstractCommand {
     }
 
     @Override
-    public void execute(final ExtendedInterpreter interpreter)
-            throws ExecutionException {
+    public void execute(final ExtendedInterpreter interpreter) throws ExecutionException {
         try {
-            this.leftValue.setValue(this.expression.evaluate(interpreter),
-                    interpreter);
+            final RightValue rv = expression.evaluate(interpreter);
+            if (resultHasToBeStored()) {
+                leftValue.setValue(rv, interpreter);
+            }
         } catch (Exception e) {
             throw new BasicRuntimeException(e);
         }
+    }
+
+    /**
+     * When there is no left value it means that we evaluate the expression but we do not store
+     * the result. It happens when a bare 'object.method()' is the command line and the result is
+     * not stored in any BASIC variable. Such a line is compiled by the CALL analyzer.
+     *
+     * @return true if we can store the result in a left value
+     */
+    private boolean resultHasToBeStored() {
+        return leftValue != null;
     }
 
 }

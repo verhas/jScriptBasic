@@ -13,8 +13,7 @@ public class CommandAnalyzerLet extends AbstractCommandAnalyzer {
     @Override
     public Command analyze() throws AnalysisException {
         CommandLet commandLet = new CommandLet();
-        LexicalAnalyzer lexicalAnalyzer = FactoryUtility
-                .getLexicalAnalyzer(getFactory());
+        LexicalAnalyzer lexicalAnalyzer = FactoryUtility.getLexicalAnalyzer(getFactory());
         LexicalElement lexicalElement = lexicalAnalyzer.peek();
         if (lexicalElement != null && lexicalElement.isSymbol(getName())) {
             lexicalAnalyzer.get();

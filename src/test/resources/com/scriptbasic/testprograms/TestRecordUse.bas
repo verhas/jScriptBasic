@@ -9,6 +9,6 @@ r.z.k.l.t = 55
 print r.z.k.l.t
 REM can be used through 'get' and 'put'
 print r.get("z").get("k").get("l").t
-o = r.set("sss","sss")
-o = r.set("xxx")
+r.set("sss","sss")
+r.set("xxx")
 print r.sss

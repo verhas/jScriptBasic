@@ -63,10 +63,11 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     @Override
     public void resetLine() {
         lexicalElementQueueIterator = this.lexicalElementQueue.iterator();
+        peekElement = null;
     }
 
     private void emptyLexicalElementQueue() {
-        this.lexicalElementQueue = new LinkedList<LexicalElement>();
+        this.lexicalElementQueue = new LinkedList<>();
     }
 
     @Override
