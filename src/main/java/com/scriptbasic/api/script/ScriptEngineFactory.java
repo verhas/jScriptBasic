@@ -33,8 +33,7 @@ public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
     // standard scripting interface does not provide any mean to define a
     // specific interface for the different engine instances that may
     // concurrently exist in the JVM
-    private Configuration config = FactoryUtility
-            .getConfiguration(SingletonFactoryFactory.getFactory());
+    private Configuration config = FactoryUtility.getConfiguration(SingletonFactoryFactory.getFactory());
 
     /**
      * The constructor reads the configuration and fills the constants that are

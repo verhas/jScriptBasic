@@ -17,8 +17,7 @@ import java.util.*;
  * date July 23, 2012
  */
 public class BasicConfiguration implements Configuration {
-    private static final Logger LOG = LoggerFactory
-            .getLogger();
+    private static final Logger LOG = LoggerFactory.getLogger();
     private final Map<String, List<String>> lists = new HashMap<>();
     Factory factory;
     Properties configProperties;

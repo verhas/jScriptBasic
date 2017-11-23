@@ -213,7 +213,7 @@ public interface ExtendedInterpreter extends Interpreter {
 	 * {@code java.lang.Math} and accepts one argument, which is {@code double}
 	 * 
 	 * @param klass
-	 * @param mehodName
+	 * @param methodName
 	 * @return
 	 * @throws ExecutionException
 	 */

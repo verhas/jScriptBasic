@@ -26,7 +26,7 @@ import com.scriptbasic.interfaces.RightValue;
  * date Aug 3, 2012
  * 
  */
-public class SimpleHook implements InterpreterHook {
+public abstract class SimpleHook implements InterpreterHook {
 
     private InterpreterHook next;
     private ExtendedInterpreter interpreter;

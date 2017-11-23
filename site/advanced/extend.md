@@ -15,9 +15,15 @@
  used by the BASIC program.
  
  For example we can have the following class in an application:
- 
-%{snippet|id=testExtensionClass|file=src/test/java/com/scriptbasic/TestEngine.java}
 
+``` 
+	public static class TestExtensionClass {
+		@Function(alias = "javaFunction", classification = java.lang.Long.class, requiredVersion = 1)
+		public static Long fiftyFive() {
+			return 55L;
+		}
+	}
+```
  This class contains a single `static` method that is very simple: it only returns a `Long` value: 55. This method
  is annotated with the annotation `@Function` that signals for the registering process that this method is a candidate
  for being called from BASIC.
@@ -27,7 +33,14 @@
  
  The declared function can be called after that from BASIC the following way:
  
-%{snippet|id=testExtensionMethod|file=src/test/java/com/scriptbasic/TestEngine.java}
+```
+		EngineApi engine = EngineApi.getEngine();
+		engine.registerExtension(TestExtensionClass.class);
+		engine.load("Sub aPie\nreturn javaFunction()\nEndSub\n");
+		engine.execute();
+		Long z = (Long) engine.getSubroutine("aPie").call();
+		Assert.assertEquals((Long) 55L, z);
+```
 
  Note that extension methods should be `static`. If a non-static method is annotated in the registered class using the
  annotation `@Function` then the registering process will throw exception. The return value and the arguments can be
@@ -56,7 +69,7 @@
  For more information on how to use the `BasicArrayValue` have a look at the
  [JavaDoc API](../apidocs/com/scriptbasic/executors/rightvalues/BasicArrayValue.md).
 
-* alias
+ ## alias
 
  The `alias` of a method is the name of the BASIC function. In the example above the `alias` "javaFunction" is used and accordingly
  this name is used in the BASIC program. If the annotation parameter `alias` is not used then the actual name of the Java
@@ -69,7 +82,7 @@
  Another use of the parameter `alias` is to define a BASIC friendly name to the method that is more appealing or more
  common for the BASIC programmers.
 
-* requiredVersion
+ ## requiredVersion
 
  `requiredVersion` is an integer value denoting the required version of the embedding interface of ScriptBasic.
  In the current version `1.0.3` of ScriptBasic for Java this is 1. The default version for this parameter is 1.
@@ -80,7 +93,7 @@
  
  For more information on the differences between the versions see the page [versions](./requiredVersion.md).
 
-* substitueClass
+ ## substitueClass
 
  Using the annotations you can register methods that are in different classes. It can happen that the class you want to make
  usable by the BASIC program is defined in a package that you import into your project and you do not have the source code or
@@ -93,7 +106,7 @@
  `com.scriptbasic.utility.RuntimeUtility` where this annotation is used to declare some of the methods of the class
  `java.lang.Math` usable from BASIC.
 
-* substitueMethod
+ ## substitueMethod
 
  Using this annotation you can specify an alternate method instead of the one annotated. In this case the actual
  name, parameters, return type of the method annotated is ignored and the one specified in the annotation is used. You can
@@ -101,7 +114,7 @@
  of the same method. The names, which are the names of the Java methods or are defined in the annotation `alias` are
  interchangeably used in the BASIC program.
 
-* classification
+ ## classification
 
  Classification helps the security system of ScriptBasic for Java. You can classify a method into several groups. 
  These classification groups classify the nature of the method and help the installation to decide if the invocation
