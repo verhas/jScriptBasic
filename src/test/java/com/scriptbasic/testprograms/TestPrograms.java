@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.scriptbasic.testprograms;
 
 import com.scriptbasic.Executor;
@@ -111,7 +108,7 @@ public class TestPrograms {
         codeTest("TestNullFunction.bas", "undefundef");
         codeTest("TestMethodCall.bas",
                 "" + Math.sin(1.0) + "\n" + Math.sin(1.0));
-        map = new HashMap<String, Object>();
+        map = new HashMap<>();
         map.put("testClass", new TestClass());
         codeTest("TestObjectMethodCall.bas", map, "310");
 

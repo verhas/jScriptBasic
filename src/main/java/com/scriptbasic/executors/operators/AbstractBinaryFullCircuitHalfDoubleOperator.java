@@ -9,13 +9,13 @@ public abstract class AbstractBinaryFullCircuitHalfDoubleOperator extends
     @Override
     protected final RightValue operateOnDoubleLong(final Double a, final Long b)
             throws BasicRuntimeException {
-        return operateOnDoubleDouble(a.doubleValue(), b.doubleValue());
+        return operateOnDoubleDouble(a, b.doubleValue());
     }
 
     @Override
     protected final RightValue operateOnLongDouble(final Long a, final Double b)
             throws BasicRuntimeException {
-        return operateOnDoubleDouble(a.doubleValue(), b.doubleValue());
+        return operateOnDoubleDouble(a.doubleValue(), b);
     }
 
 }

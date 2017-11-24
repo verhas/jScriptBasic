@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.scriptbasic.interfaces;
 
 import com.scriptbasic.api.Function;

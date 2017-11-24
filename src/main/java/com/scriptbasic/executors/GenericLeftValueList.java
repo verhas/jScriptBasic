@@ -9,7 +9,7 @@ import com.scriptbasic.interfaces.LeftValueList;
 
 public class GenericLeftValueList implements LeftValueList {
 
-	private final List<LeftValue> leftValueList = new LinkedList<LeftValue>();
+	private final List<LeftValue> leftValueList = new LinkedList<>();
 
 	@Override
 	public void add(final LeftValue expression) {

@@ -25,7 +25,7 @@ public final class BasicProgram extends AbstractBasicProgramPostprocessing {
 		this.factory = factory;
 	}
 
-	private final List<Command> commands = new ArrayList<Command>();
+	private final List<Command> commands = new ArrayList<>();
 	private AbstractCommand lastCommand = null;
 
 	@Override
@@ -55,7 +55,7 @@ public final class BasicProgram extends AbstractBasicProgramPostprocessing {
 		return commands;
 	}
 
-	private Map<String, CommandSub> subroutineMap = new HashMap<String, CommandSub>();
+	private Map<String, CommandSub> subroutineMap = new HashMap<>();
 
 	@Override
 	public Iterable<String> getNamedCommandNames() {

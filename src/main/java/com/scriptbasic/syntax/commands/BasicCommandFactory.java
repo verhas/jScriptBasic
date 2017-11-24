@@ -70,7 +70,7 @@ public final class BasicCommandFactory implements CommandFactory {
                 throw new BasicInterpreterInternalError(
                         "BasicCommandFactory's factory is null, not initialized yet");
             }
-            ((AbstractCommandAnalyzer) analyzer).setFactory(getFactory());
+            analyzer.setFactory(getFactory());
         }
     }
 

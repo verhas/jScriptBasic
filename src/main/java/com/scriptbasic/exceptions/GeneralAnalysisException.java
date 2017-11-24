@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.scriptbasic.exceptions;
 
 import com.scriptbasic.interfaces.AnalysisException;

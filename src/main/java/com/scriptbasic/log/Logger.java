@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.scriptbasic.log;
 
 import java.lang.System.Logger.Level;

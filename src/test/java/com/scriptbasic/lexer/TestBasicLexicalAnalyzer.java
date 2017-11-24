@@ -56,8 +56,8 @@ public class TestBasicLexicalAnalyzer {
             // works only in multi-line string
             if (multiline) {
                 assertLexicals(
-                        new LexicalElement[]{VSTRING("\" ", "\" ", multiline)},
-                        createVStringReading("\" ", multiline));
+                        new LexicalElement[]{VSTRING("\" ", "\" ", true)},
+                        createVStringReading("\" ", true));
             }
             // string with a " and a space escaping the "
             assertLexicals(

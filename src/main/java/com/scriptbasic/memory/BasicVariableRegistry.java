@@ -23,7 +23,7 @@ class BasicVariableRegistry extends BasicVariableMap {
         this.that = that;
     }
 
-    private final Map<String, VariableType> registrationMap = new HashMap<String, VariableType>();
+    private final Map<String, VariableType> registrationMap = new HashMap<>();
 
     /**
      * Assert that a variable is not registered to be local and global at the

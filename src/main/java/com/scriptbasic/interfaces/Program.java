@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.scriptbasic.interfaces;
 
 import java.util.Collection;

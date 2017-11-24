@@ -19,12 +19,7 @@ public final class ThreadLocalFactoryFactory {
         NoInstance.isPossible();
     }
 
-    private static ThreadLocal<Factory> threadLocalFactory = new ThreadLocal<Factory>() {
-        @Override
-        protected Factory initialValue() {
-            return FactoryFactory.getFactory();
-        }
-    };
+    private static ThreadLocal<Factory> threadLocalFactory = ThreadLocal.withInitial(() -> FactoryFactory.getFactory());
 
     public static Factory getFactory() {
         return threadLocalFactory.get();

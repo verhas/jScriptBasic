@@ -56,7 +56,7 @@ public abstract class AbstractNestedStructureHouseKeeper implements
         }
     }
 
-    private Stack<Structure> stack = new Stack<Structure>();
+    private Stack<Structure> stack = new Stack<>();
 
     private boolean stackIsHealthy = true;
 

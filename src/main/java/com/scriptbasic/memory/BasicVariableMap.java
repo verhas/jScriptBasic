@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.scriptbasic.memory;
 
 import java.util.HashMap;
@@ -23,8 +20,8 @@ import com.scriptbasic.interfaces.VariableMap;
  */
 class BasicVariableMap implements VariableMap {
 
-    private final Map<String, RightValue> variableMap = new HashMap<String, RightValue>();
-    private final Set<String> variableNameSet = new HashSet<String>();
+    private final Map<String, RightValue> variableMap = new HashMap<>();
+    private final Set<String> variableNameSet = new HashSet<>();
 
     @Override
     public Set<String> getVariableNameSet() {

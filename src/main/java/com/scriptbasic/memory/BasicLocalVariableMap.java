@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.scriptbasic.memory;
 
 import java.util.Stack;
@@ -51,8 +48,8 @@ public class BasicLocalVariableMap extends BasicVariableMap implements
         actualMap.setVariable(variableName, rightValue);
     }
 
-    private Stack<BasicVariableMap> localMapStack = new Stack<BasicVariableMap>();
-    private Stack<BasicVariableRegistry> localRegistryStack = new Stack<BasicVariableRegistry>();
+    private Stack<BasicVariableMap> localMapStack = new Stack<>();
+    private Stack<BasicVariableRegistry> localRegistryStack = new Stack<>();
 
     /*
      * (non-Javadoc)

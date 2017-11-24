@@ -24,7 +24,7 @@ public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
             consumeEndOfLine();
             return commandLet;
         } else {
-            final String functionName = ((BasicLeftValue) lv).getIdentifier();
+            final String functionName = lv.getIdentifier();
             FunctionCall functionCall = new FunctionCall();
             functionCall.setVariableName(functionName);
 

@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.scriptbasic.utility;
 
 import com.scriptbasic.exceptions.GenericSyntaxException;
@@ -61,14 +58,14 @@ public final class ExpressionUtility {
             ExtendedInterpreter interpreter) throws ExecutionException {
         if (arguments != null) {
             Iterator<LeftValue> argumentIterator = arguments.iterator();
-            for (int i = 0; i < argumentValues.length; i++) {
+            for (RightValue argumentValue : argumentValues) {
                 if (argumentIterator.hasNext()) {
                     LeftValue argument = argumentIterator.next();
                     if (argument instanceof BasicLeftValue) {
                         String name = ((BasicLeftValue) argument)
                                 .getIdentifier();
                         interpreter.getVariables().registerLocalVariable(name);
-                        interpreter.setVariable(name, argumentValues[i]);
+                        interpreter.setVariable(name, argumentValue);
                     } else {
                         throw new BasicRuntimeException(
                                 "subroutine formal argument list is too long");
@@ -119,7 +116,7 @@ public final class ExpressionUtility {
             ExpressionList expressionList) throws ExecutionException {
         List<RightValue> args = null;
         if (expressionList != null) {
-            args = new LinkedList<RightValue>();
+            args = new LinkedList<>();
             for (Expression expression : expressionList) {
                 args.add(expression.evaluate(extendedInterpreter));
             }

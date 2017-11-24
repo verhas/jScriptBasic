@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.scriptbasic.api;
 
 import java.util.Arrays;

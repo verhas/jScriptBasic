@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.scriptbasic.memory;
 
 import com.scriptbasic.interfaces.BasicRuntimeException;

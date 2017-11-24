@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.scriptbasic.executors;
 
 import java.io.Writer;
@@ -344,7 +341,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
 		this.factory = factory;
 	}
 
-	private final Map<String, Class<?>> useMap = new HashMap<String, Class<?>>();
+	private final Map<String, Class<?>> useMap = new HashMap<>();
 
 	/*
 	 * (non-Javadoc)
@@ -391,8 +388,8 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
 
 	}
 
-	private final Stack<Command> commandStack = new Stack<Command>();
-	private final Stack<Command> nextCommandStack = new Stack<Command>();
+	private final Stack<Command> commandStack = new Stack<>();
+	private final Stack<Command> nextCommandStack = new Stack<>();
 
 	/*
 	 * (non-Javadoc)

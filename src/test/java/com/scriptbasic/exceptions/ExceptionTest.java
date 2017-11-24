@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.scriptbasic.exceptions;
 
 import com.scriptbasic.interfaces.LexicalElement;
@@ -24,6 +21,6 @@ public class ExceptionTest {
         new CommandFactoryException();
         new CommandFactoryException("");
         new CommandFactoryException((Exception) null);
-        new CommandFactoryException("", (Throwable) null);
+        new CommandFactoryException("", null);
     }
 }

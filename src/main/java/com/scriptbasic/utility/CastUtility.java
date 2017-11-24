@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.scriptbasic.utility;
 
 import java.util.HashMap;
@@ -54,7 +51,7 @@ public final class CastUtility {
 		}
 	}
 
-	private static final Map<String, java.lang.Integer> castTypeNames = new HashMap<String, java.lang.Integer>();
+	private static final Map<String, java.lang.Integer> castTypeNames = new HashMap<>();
 	static {
 		int i = 1;
 		for (String name : new String[] { "byte", "short", "int", "long",

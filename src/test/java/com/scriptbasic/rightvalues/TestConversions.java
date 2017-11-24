@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.scriptbasic.rightvalues;
 
 import com.scriptbasic.executors.rightvalues.*;
@@ -43,7 +40,7 @@ public class TestConversions {
 
     @Test
     public void nonZeroIntegerBasicBooleanValueConvertsToTrue() throws Exception {
-        final RightValue rv = new BasicJavaObjectValue(Integer.valueOf(6000));
+        final RightValue rv = new BasicJavaObjectValue(6000);
         assertTrue(BasicBooleanValue.asBoolean(rv));
     }
 
@@ -85,7 +82,7 @@ public class TestConversions {
 
     @Test
     public void basicDoubleValueConvertsToDouble() throws Exception {
-        final RightValue rv = new BasicJavaObjectValue(Double.valueOf(10.3));
+        final RightValue rv = new BasicJavaObjectValue(10.3);
         assertEquals(10.3, BasicDoubleValue.asDouble(rv), 0.00001);
     }
 
@@ -158,7 +155,7 @@ public class TestConversions {
     @Test
     public void basicStringValueNullConvertsTobasicLongValueNull() throws Exception {
         final RightValue rv = new BasicStringValue(null);
-        assertEquals((Long) null, BasicLongValue.asLong(rv));
+        assertEquals(null, BasicLongValue.asLong(rv));
     }
 
     @Test
@@ -169,7 +166,7 @@ public class TestConversions {
 
     @Test
     public void basicJavaObjectLongConvertsToLong() throws Exception {
-        final RightValue rv = new BasicJavaObjectValue(Long.valueOf(1300));
+        final RightValue rv = new BasicJavaObjectValue(1300L);
         assertEquals(Long.valueOf(1300L), BasicLongValue.asLong(rv));
     }
 

@@ -81,8 +81,8 @@ public class TestHierarchicalReader {
 
     @Test
     public void testCircularReference() throws AnalysisException, IOException {
-        final ArrayList<LexicalElement> lexes = new ArrayList<LexicalElement>();
-        final ArrayList<String> files = new ArrayList<String>();
+        final ArrayList<LexicalElement> lexes = new ArrayList<>();
+        final ArrayList<String> files = new ArrayList<>();
         files.add("foo");
         files.add("include \"bar\"\n");
         files.add("bar");

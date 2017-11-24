@@ -1,5 +1,6 @@
 package com.scriptbasic.lexer;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,12 +14,10 @@ import com.scriptbasic.interfaces.ScriptBasicKeyWords;
  */
 public class BasicKeywordRecognizer implements KeywordRecognizer,
         ScriptBasicKeyWords {
-    private Set<String> keywords = new HashSet<String>();
+    private Set<String> keywords = new HashSet<>();
 
     public BasicKeywordRecognizer() {
-        for (String keyword : BASIC_KEYWORDS) {
-            keywords.add(keyword);
-        }
+        Collections.addAll(keywords, BASIC_KEYWORDS);
     }
 
     public Set<String> getKeywords() {

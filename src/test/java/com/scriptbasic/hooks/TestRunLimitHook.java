@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.scriptbasic.hooks;
 
 import static org.junit.Assert.assertNotNull;

@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.scriptbasic.memory;
 
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
@@ -209,14 +206,14 @@ public class TestVariableMaps {
         mixedMap.setCaseSensitive();
         LET("var1", 1);
         LET("VAR1", 2);
-        assertEquals((Long) 1L, (Long) VALUE("var1"));
-        assertEquals((Long) 2L, (Long) VALUE("VAR1"));
+        assertEquals((Long) 1L, VALUE("var1"));
+        assertEquals((Long) 2L, VALUE("VAR1"));
 
         mixedMap = new MixedBasicVariableMap();
         mixedMap.setCaseIgnorant();
         LET("var1", 1);
         LET("VAR1", 2);
-        assertEquals((Long) 2L, (Long) VALUE("VaR1"));
+        assertEquals((Long) 2L, VALUE("VaR1"));
 
         mixedMap = new MixedBasicVariableMap();
         mixedMap.setCaseFreak();
@@ -227,7 +224,7 @@ public class TestVariableMaps {
         } catch (BasicRuntimeException bre) {
             log.debug("this exception has to be thrown " + bre);
         }
-        assertEquals((Long) 1L, (Long) VALUE("var1"));
+        assertEquals((Long) 1L, VALUE("var1"));
 
         mixedMap = new MixedBasicVariableMap();
         mixedMap.setCaseSensitive();
@@ -236,8 +233,8 @@ public class TestVariableMaps {
         LET("var1", 1);
         LET("VAR1", 2);
         POP();
-        assertEquals((Long) 1L, (Long) VALUE("var1"));
-        assertEquals((Long) 2L, (Long) VALUE("VAR1"));
+        assertEquals((Long) 1L, VALUE("var1"));
+        assertEquals((Long) 2L, VALUE("VAR1"));
 
         mixedMap = new MixedBasicVariableMap();
         mixedMap.setCaseFreak();
@@ -250,7 +247,7 @@ public class TestVariableMaps {
         } catch (BasicRuntimeException bre) {
             log.debug("this exception has to be thrown " + bre);
         }
-        assertEquals((Long) 1L, (Long) VALUE("var1"));
+        assertEquals((Long) 1L, VALUE("var1"));
         POP();
         VNE("var1");
 
@@ -266,10 +263,10 @@ public class TestVariableMaps {
         } catch (BasicRuntimeException bre) {
             log.debug("this exception has to be thrown " + bre);
         }
-        assertEquals((Long) 1L, (Long) VALUE("var1"));
+        assertEquals((Long) 1L, VALUE("var1"));
         POP();
         VE("var1");
-        assertEquals((Long) 1L, (Long) VALUE("var1"));
+        assertEquals((Long) 1L, VALUE("var1"));
 
         mixedMap = new MixedBasicVariableMap();
         mixedMap.setCaseFreak();
@@ -295,10 +292,10 @@ public class TestVariableMaps {
         } catch (BasicRuntimeException bre) {
             log.debug("this exception has to be thrown " + bre);
         }
-        assertEquals((Long) 1L, (Long) VALUE("var1"));
+        assertEquals((Long) 1L, VALUE("var1"));
         POP();
         VE("var1");
-        assertEquals((Long) 1L, (Long) VALUE("var1"));
+        assertEquals((Long) 1L, VALUE("var1"));
 
     }
 

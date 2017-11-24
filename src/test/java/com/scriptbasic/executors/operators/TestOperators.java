@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.factories.BasicFactory;
@@ -83,14 +80,14 @@ public class TestOperators {
     @Test
     public void testOperators() throws AnalysisException,
             ExecutionException {
-        a("a=1^3", (Double) 1.0);
-        a("a=1*2", (Long) 2L);
-        a("a=1.0*2", (Double) 2.0);
-        a("a=1.0-2", (Double) (-1.0));
-        a("a=2/2", (Long) 1L);
-        a("a= 3/2", (Double) 3.0 / 2.0);
-        a("a= 3.2/2.0", (Double) 3.2 / 2.0);
-        a("a= 3.2/2", (Double) 3.2 / 2.0);
+        a("a=1^3", 1.0);
+        a("a=1*2", 2L);
+        a("a=1.0*2", 2.0);
+        a("a=1.0-2", -1.0);
+        a("a=2/2", 1L);
+        a("a= 3/2", 3.0 / 2.0);
+        a("a= 3.2/2.0", 3.2 / 2.0);
+        a("a= 3.2/2", 3.2 / 2.0);
         a("a=3-2", 1);
         a("a=3+2", 5);
         a("a=3%2", 1);
@@ -98,8 +95,8 @@ public class TestOperators {
         a("a= 3 % 2.0", 1.0);
         a("a= 3.0 % 2", 1.0);
         a("a=+3-3", 0);
-        a("a=+3.2+-2", (Double) 1.2);
-        a("a=-3.4", (Double) (-3.4));
+        a("a=+3.2+-2", 1.2);
+        a("a=-3.4", -3.4);
         a("a= not a", true);
         a("a= not false", true);
         a("a= not true", false);
@@ -269,7 +266,7 @@ public class TestOperators {
 
             @Override
             public int compareTo(ttt o) {
-                return t < o.t ? -1 : t == o.t ? 0 : +1;
+                return Integer.compare(t, o.t);
             }
 
         }

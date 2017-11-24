@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.scriptbasic.hooks;
 
 import java.lang.reflect.Method;

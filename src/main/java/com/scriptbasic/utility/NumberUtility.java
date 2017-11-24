@@ -45,7 +45,7 @@ public class NumberUtility {
         }
         LOG.debug(
                 "Calling compare with arguments '{}' '{}' of classes '{}' and '{}'",
-                new Object[] { a, zero, a.getClass(), zero.getClass() });
+                a, zero, a.getClass(), zero.getClass());
         return compare(a, zero) > 0;
     }
 

@@ -15,7 +15,7 @@ public class GenericHierarchicalReader implements HierarchicalReader {
 
     private Reader reader;
 
-    private final Stack<Reader> readerStack = new Stack<Reader>();
+    private final Stack<Reader> readerStack = new Stack<>();
 
     /**
      * Include a new reader into the chain and start to use that child reader so

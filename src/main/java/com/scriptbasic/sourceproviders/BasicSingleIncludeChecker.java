@@ -14,7 +14,7 @@ import com.scriptbasic.interfaces.SingleIncludeChecker;
  * @author Peter Verhas
  */
 public class BasicSingleIncludeChecker implements SingleIncludeChecker {
-    private final Set<String> keySet = new HashSet<String>();
+    private final Set<String> keySet = new HashSet<>();
 
     /**
      * {@inheritDoc}

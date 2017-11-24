@@ -62,7 +62,7 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
         this.factory = factory;
     }
 
-    private static Map<String, Class<? extends AbstractUnaryOperator>> unaryOperatorMap = new HashMap<String, Class<? extends AbstractUnaryOperator>>();
+    private static Map<String, Class<? extends AbstractUnaryOperator>> unaryOperatorMap = new HashMap<>();
     static {
         unaryOperatorMap.put("+", UnaryOperatorPlus.class);
         unaryOperatorMap.put("-", UnaryOperatorMinus.class);

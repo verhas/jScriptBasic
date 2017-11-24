@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.scriptbasic.main;
 
 import com.scriptbasic.log.Logger;

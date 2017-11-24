@@ -113,7 +113,7 @@ public class TestEngine {
 		StringWriter sw = new StringWriter(10);
 		engine.setOutput(sw);
 		SourceProvider provider = new SourceProvider() {
-			private Map<String, String> source = new HashMap<String, String>();
+			private Map<String, String> source = new HashMap<>();
 			{
 				source.put("hello.bas", "print \"hello world\"");
 				source.put("include.bas", "include \"hello.bas\"");
@@ -478,7 +478,7 @@ public class TestEngine {
 		StringWriter sw = new StringWriter(10);
 		engine.setOutput(sw);
 		SourceProvider provider = new SourceProvider() {
-			private Map<String, String> source = new HashMap<String, String>();
+			private Map<String, String> source = new HashMap<>();
 			{
 				source.put("hello.bas", "print \"hello world\"");
 				source.put("include.bas", "include \"hello.bas\"");

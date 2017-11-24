@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.scriptbasic.api.script;
 
 import com.scriptbasic.api.Version;
@@ -46,15 +43,9 @@ public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
         language = config.getConfigValue("language").orElse(language);
         languageVersion = config.getConfigValue("languageVersion").orElse(languageVersion);
 
-        loadKeys("extension", x -> {
-            extensions = x;
-        });
-        loadKeys("mimeType", x -> {
-            mimeTypes = x;
-        });
-        loadKeys("name", x -> {
-            names = x;
-        });
+        loadKeys("extension", x -> extensions = x);
+        loadKeys("mimeType", x -> mimeTypes = x);
+        loadKeys("name", x -> names = x);
 
     }
 

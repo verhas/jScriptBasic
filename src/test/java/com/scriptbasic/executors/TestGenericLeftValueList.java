@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.scriptbasic.executors;
 
 import org.junit.Test;

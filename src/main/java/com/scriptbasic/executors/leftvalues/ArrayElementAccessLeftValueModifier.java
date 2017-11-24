@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.scriptbasic.executors.leftvalues;
 
 import com.scriptbasic.interfaces.ExpressionList;

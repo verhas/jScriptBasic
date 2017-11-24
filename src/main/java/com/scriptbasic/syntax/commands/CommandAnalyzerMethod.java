@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.scriptbasic.syntax.commands;
 
 import java.util.ArrayList;
@@ -53,7 +50,7 @@ public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
         } else {
             alias = methodName;
         }
-        ArrayList<Class<?>> argClasses = new ArrayList<Class<?>>();
+        ArrayList<Class<?>> argClasses = new ArrayList<>();
         for (Expression expression : argExpressions) {
             String argClassName = ExpressionUtility.convertToString(expression);
             argClasses.add(KlassUtility.forNameEx(argClassName));

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.scriptbasic.api.script;
 
 import java.io.Reader;
@@ -76,9 +73,7 @@ public class ScriptEngine extends AbstractScriptEngine {
 					context.getBindings(ScriptContext.ENGINE_SCOPE));
 			unmergeBindings(interpreter,
 					context.getBindings(ScriptContext.GLOBAL_SCOPE));
-		} catch (ExecutionException e) {
-			throw new ScriptException(e);
-		} catch (AnalysisException e) {
+		} catch (ExecutionException | AnalysisException e) {
 			throw new ScriptException(e);
 		}
 		return null;

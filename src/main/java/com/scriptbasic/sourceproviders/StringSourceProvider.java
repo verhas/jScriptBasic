@@ -17,7 +17,7 @@ import com.scriptbasic.readers.GenericReader;
 public class StringSourceProvider extends
         SingleIncludeNonRelativeSourceProvider {
 
-    private final Map<String, String> sourceMap = new HashMap<String, String>();
+    private final Map<String, String> sourceMap = new HashMap<>();
 
     /**
      * Add a new source to the set of available sources.

@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.scriptbasic.hooks;
 
 import com.scriptbasic.executors.commands.CommandMethod;

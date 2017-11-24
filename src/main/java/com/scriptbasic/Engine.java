@@ -21,7 +21,7 @@ public class Engine implements EngineApi {
 
     private final Factory factory;
     private final ExtendedInterpreter interpreter;
-    private final Map<String, Subroutine> subroutines = new HashMap<String, Subroutine>();
+    private final Map<String, Subroutine> subroutines = new HashMap<>();
     private Reader input;
     private Writer output;
     private Writer error;

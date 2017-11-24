@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.scriptbasic.javax.script;
 
 import com.scriptbasic.api.Version;
@@ -102,7 +99,7 @@ public class TestJavaxInterface {
         se.eval("print \"first script\"");
         ScriptContext context = se.getContext();
         Bindings bindings = context.getBindings(ScriptContext.ENGINE_SCOPE);
-        bindings.put("B", Integer.valueOf(13));
+        bindings.put("B", 13);
         bindings.put("A", null);
         StringWriter writer = new StringWriter();
         context.setWriter(writer);

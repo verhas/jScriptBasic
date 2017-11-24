@@ -13,7 +13,7 @@ import com.scriptbasic.interfaces.SourcePath;
  * 
  */
 public class BasicSourcePath implements SourcePath {
-    private Deque<String> sourcePath = new LinkedList<String>();
+    private Deque<String> sourcePath = new LinkedList<>();
 
     @Override
     public void setSourcePath(final Deque<String> sourcePath) {

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.scriptbasic.executors.commands;
 
 import com.scriptbasic.executors.rightvalues.BasicBooleanValue;

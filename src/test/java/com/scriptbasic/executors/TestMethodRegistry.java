@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.scriptbasic.executors;
 
 import com.scriptbasic.interfaces.ExecutionException;

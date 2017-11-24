@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.scriptbasic;
 
 import com.scriptbasic.factories.BasicFactory;
@@ -41,7 +38,7 @@ public class Executor extends AbstractStringIOPojo {
         final GenericReader reader = new GenericReader();
         reader.set(r);
         reader.setSourceProvider(null);
-        reader.set((String) resourceName);
+        reader.set(resourceName);
         final LexicalAnalyzer lexicalAnalyzer = FactoryUtility
                 .getLexicalAnalyzer(factory);
         lexicalAnalyzer.set(reader);

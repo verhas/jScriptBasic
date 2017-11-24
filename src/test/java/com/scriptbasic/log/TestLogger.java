@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.scriptbasic.log;
 
 import org.junit.Test;

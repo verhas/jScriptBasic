@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.factories.BasicFactory;

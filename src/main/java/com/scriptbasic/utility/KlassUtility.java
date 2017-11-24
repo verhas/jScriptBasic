@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.scriptbasic.utility;
 
 import com.scriptbasic.exceptions.GenericSyntaxException;
@@ -194,28 +191,38 @@ public final class KlassUtility {
     public static Class<?> forNameEx(final String s)
             throws GenericSyntaxException {
         Class<?> klass = null;
-        if (s.equals("byte")) {
-            klass = byte.class;
-        } else if (s.equals("short")) {
-            klass = short.class;
-        } else if (s.equals("char")) {
-            klass = char.class;
-        } else if (s.equals("double")) {
-            klass = double.class;
-        } else if (s.equals("float")) {
-            klass = float.class;
-        } else if (s.equals("long")) {
-            klass = long.class;
-        } else if (s.equals("int")) {
-            klass = int.class;
-        } else if (s.equals("boolean")) {
-            klass = boolean.class;
-        } else {
-            try {
-                klass = forName(s);
-            } catch (ClassNotFoundException e) {
-                throw new GenericSyntaxException("Can not get class " + s, e);
-            }
+        switch (s) {
+            case "byte":
+                klass = byte.class;
+                break;
+            case "short":
+                klass = short.class;
+                break;
+            case "char":
+                klass = char.class;
+                break;
+            case "double":
+                klass = double.class;
+                break;
+            case "float":
+                klass = float.class;
+                break;
+            case "long":
+                klass = long.class;
+                break;
+            case "int":
+                klass = int.class;
+                break;
+            case "boolean":
+                klass = boolean.class;
+                break;
+            default:
+                try {
+                    klass = forName(s);
+                } catch (ClassNotFoundException e) {
+                    throw new GenericSyntaxException("Can not get class " + s, e);
+                }
+                break;
         }
         return klass;
     }

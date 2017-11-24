@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.scriptbasic.configuration;
 
 import com.scriptbasic.interfaces.Configuration;

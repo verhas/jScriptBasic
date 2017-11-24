@@ -15,7 +15,7 @@ import com.scriptbasic.interfaces.FactoryManaged;
  */
 public class ManagedObjectsStore {
 
-	private final Map<Class<? extends FactoryManaged>, FactoryManaged> factoryManagedObjectMap = new HashMap<Class<? extends FactoryManaged>, FactoryManaged>();
+	private final Map<Class<? extends FactoryManaged>, FactoryManaged> factoryManagedObjectMap = new HashMap<>();
 
 	public void clean() {
 		factoryManagedObjectMap.clear();
