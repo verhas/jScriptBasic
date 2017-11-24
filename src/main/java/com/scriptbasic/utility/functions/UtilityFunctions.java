@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.scriptbasic.utility.functions;
 
 import com.scriptbasic.api.Function;
@@ -17,7 +14,6 @@ import com.scriptbasic.utility.NoInstance;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * Static methods in this class are registered in the interpreter when the
@@ -36,30 +32,9 @@ public class UtilityFunctions {
         NoInstance.isPossible();
     }
 
-    /**
-     * This method can be used to call the default (parameter less) constructor
-     * of a class. This, of course, can only be used for classes that have
-     * parameter-less constructor.
-     * <p>
-     *
-     * @param klass the class to instantiate
-     * @return the new object instance
-     * @throws ClassNotFoundException
-     * @throws InstantiationException
-     * @throws IllegalAccessException
-     */
-    @Function(alias = "new", classification = System.class)
-    public static Object newObject(String klass) throws
-            ClassNotFoundException,
-            InstantiationException,
-            IllegalAccessException,
-            NoSuchMethodException,
-            InvocationTargetException {
-        if (klass == null) {
-            return new MagicBean();
-        } else {
-            return Class.forName(klass).getConstructor().newInstance();
-        }
+    @Function(alias = "newRecord", classification = System.class)
+    public static Object newMagicBean() {
+        return new MagicBean();
     }
 
     @Function(classification = System.class)
@@ -80,7 +55,7 @@ public class UtilityFunctions {
     /**
      * This function returns the undef value.
      *
-     * @return
+     * @return the undef value
      */
     @Function(classification = Constant.class)
     static public Object undef() {
@@ -88,7 +63,7 @@ public class UtilityFunctions {
     }
 
     /**
-     * @param s
+     * @param s is some value or object
      * @return true if the parameter is undefined
      */
     @Function(classification = Constant.class)
@@ -97,7 +72,7 @@ public class UtilityFunctions {
     }
 
     /**
-     * @param s
+     * @param s is some value or object
      * @return true if the parameter is defined (not isUndef).
      */
     @Function(classification = Constant.class)
@@ -120,7 +95,7 @@ public class UtilityFunctions {
     public static Long getByte(byte[] buffer, Long i) {
         if (i < 0 || i >= buffer.length)
             return null;
-        return Long.valueOf((int) buffer[i.intValue()]);
+        return (long) (int) buffer[i.intValue()];
     }
 
     @Function(classification = Utility.class)
@@ -162,9 +137,9 @@ public class UtilityFunctions {
             return array.getLength();
         } else if (arg instanceof String) {
             String string = (String) arg;
-            return Long.valueOf(string.length());
+            return (long) string.length();
         } else if (arg.getClass().isArray()) {
-            return Long.valueOf(Array.getLength(arg));
+            return (long) Array.getLength(arg);
         }
         return null;
     }

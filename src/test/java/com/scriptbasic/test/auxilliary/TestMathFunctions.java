@@ -15,7 +15,6 @@ public class TestMathFunctions {
 	@Test
 	public void testExMethods() throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException, ExecutionException, NoSuchMethodException, InvocationTargetException {
-		UtilityFunctions.newObject("java.lang.Object");
 
 		double x = 0.0;
 		double y = 1.0;

@@ -1,7 +1,7 @@
-R = new()
+R = newRecord()
 R.alma = 3
 print R.alma
-R.alma = new()
+R.alma = newRecord()
 r.alma.korte = "haho"
 print r.alma.korte
 REM magically creates the sub records

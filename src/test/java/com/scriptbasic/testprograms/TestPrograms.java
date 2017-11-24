@@ -156,10 +156,7 @@ public class TestPrograms {
     public void testRecordUse() throws Exception {
         codeTest("TestRecordUse.bas", "3haho5555sss");
     }
-    @Test
-    public void testNew() throws Exception {
-        codeTest("TestNew.bas", "6");
-    }
+
     public static class TestClass {
         public int callMe() {
             return 3;
