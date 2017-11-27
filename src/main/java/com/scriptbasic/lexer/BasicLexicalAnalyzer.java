@@ -17,13 +17,14 @@ import java.util.LinkedList;
 public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     private static final Logger LOG = LoggerFactory.getLogger();
     private final Deque<LexicalElementAnalyzer> analyzerQueue = new LinkedList<>();
-    private Reader reader;
+    private final Reader reader;
     private Factory factory;
     private Deque<LexicalElement> lexicalElementQueue = new LinkedList<>();
     private Iterator<LexicalElement> lexicalElementQueueIterator = this.lexicalElementQueue.iterator();
     private LexicalElement peekElement = null;
 
-    protected BasicLexicalAnalyzer() {
+    protected BasicLexicalAnalyzer(Reader reader) {
+        this.reader = reader;
         LOG.debug("constructor created {}", this);
     }
 
@@ -46,17 +47,8 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     }
 
     @Override
-    public void set(final Reader reader) {
-        this.reader = reader;
-        for (final LexicalElementAnalyzer lea : this.analyzerQueue) {
-            lea.setReader(reader);
-        }
-    }
-
-    @Override
     public void registerElementAnalyzer(final LexicalElementAnalyzer lea) {
         LOG.debug("lexical element analyzer {} was registered", lea);
-        lea.setReader(reader);
         this.analyzerQueue.add(lea);
     }
 

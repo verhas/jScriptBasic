@@ -16,8 +16,6 @@ package com.scriptbasic.interfaces;
  */
 public interface Reader extends FactoryManaged, SourceLocationBound {
 
-    void set(String sourceFileName);
-
     /**
      * Readers should support lexical analyzers offering the possibility to push
      * some characters back to the input stream, when a lexical analyzer can not

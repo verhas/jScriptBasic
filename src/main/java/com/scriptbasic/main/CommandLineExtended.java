@@ -28,12 +28,8 @@ public class CommandLineExtended {
         // START SNIPPET: x
         final Factory factory = new BasicFactory();
         final java.io.Reader r = new FileReader(basicProgramFileName);
-        final GenericReader reader = new GenericReader();
-        reader.set(r);
-        reader.setSourceProvider(null);
-        reader.set(basicProgramFileName);
+        final GenericReader reader = new GenericReader(r, basicProgramFileName);
         final LexicalAnalyzer lexicalAnalyzer = FactoryUtility.getLexicalAnalyzer(factory);
-        lexicalAnalyzer.set(reader);
         final ExtendedInterpreter interpreter = FactoryUtility.getExtendedInterpreter(factory);
         interpreter.registerFunctions(FileHandlingFunctions.class);
         final String classes = System.getProperty("sb4j.extensionclasses");

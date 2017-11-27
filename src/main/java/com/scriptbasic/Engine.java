@@ -73,7 +73,7 @@ public class Engine implements EngineApi {
     }
 
     private void loadHelper(final Reader reader) throws ScriptBasicException {
-        loadHelper(reader,null);
+        loadHelper(reader, null);
     }
 
     private void loadHelper(final String fileName,
@@ -84,27 +84,18 @@ public class Engine implements EngineApi {
         } catch (final IOException e) {
             throw new ScriptBasicException(e);
         }
-        loadHelper(sourceReader, fileName);
+        loadHelper(sourceReader);
     }
 
     private void loadHelper(final Reader reader, final String fileName) throws ScriptBasicException {
-        final com.scriptbasic.interfaces.Reader sourceReader;
-        final GenericReader genericReader = new GenericReader();
-        genericReader.set(reader);
-        genericReader.setSourceProvider(null);
-        sourceReader = genericReader;
-        loadHelper(sourceReader, fileName);
+        loadHelper(new GenericReader(reader, fileName));
     }
 
-    private void loadHelper(final com.scriptbasic.interfaces.Reader sourceReader,
-                            final String fileName
-    ) throws ScriptBasicException {
+    private void loadHelper(final com.scriptbasic.interfaces.Reader sourceReader) throws ScriptBasicException {
         try {
-            sourceReader.set(fileName);
-            final HierarchicalReader hReader = new GenericHierarchicalReader();
+            final HierarchicalReader hReader = new GenericHierarchicalReader(sourceReader);
             hReader.include(sourceReader);
             final LexicalAnalyzer lexicalAnalyzer = FactoryUtility.getLexicalAnalyzer(factory);
-            lexicalAnalyzer.set(hReader);
             interpreter.setProgram(FactoryUtility.getSyntaxAnalyzer(factory).analyze());
             interpreter.setWriter(output);
             interpreter.setErrorWriter(error);

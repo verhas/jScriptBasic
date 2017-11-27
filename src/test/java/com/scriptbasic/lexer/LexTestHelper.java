@@ -153,12 +153,11 @@ public class LexTestHelper {
     public static LexicalAnalyzer createStringReading(final Factory factory,
                                                       final String s) {
         final java.io.Reader r = new StringReader(s);
-        final GenericReader reader = new GenericReader();
+        final GenericReader reader = new GenericReader(sourceReader, sourceFileName);
         reader.set(r);
         reader.setSourceProvider(null);
         reader.set((String) null);
         final LexicalAnalyzer la = FactoryUtility.getLexicalAnalyzer(factory);
-        la.set(reader);
         return la;
     }
 
@@ -193,11 +192,10 @@ public class LexTestHelper {
 
         final Reader reader = ssp.get(s[0]);
 
-        final GenericHierarchicalReader hreader = new GenericHierarchicalReader();
+        final GenericHierarchicalReader hreader = new GenericHierarchicalReader(reader);
         hreader.include(reader);
         final LexicalAnalyzer la = FactoryFactory.getFactory().get(
                 LexicalAnalyzer.class);
-        la.set(hreader);
         return la;
     }
 }

@@ -16,7 +16,6 @@ import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.readers.GenericReader;
 import com.scriptbasic.utility.FactoryUtility;
 
@@ -103,13 +102,7 @@ public class ScriptEngine extends AbstractScriptEngine {
 
 	private void execute(Reader r, Reader input, Writer output, Writer error)
 			throws AnalysisException, ExecutionException {
-		final GenericReader reader = new GenericReader();
-		reader.set(r);
-		reader.setSourceProvider(null);
-		reader.set((String) null);// no file name
-		final LexicalAnalyzer lexicalAnalyzer = FactoryUtility
-				.getLexicalAnalyzer(factory);
-		lexicalAnalyzer.set(reader);
+		final GenericReader reader = new GenericReader(r,null);
 		ExtendedInterpreter interpreter = FactoryUtility
 				.getExtendedInterpreter(factory);
 		interpreter.setProgram(FactoryUtility.getSyntaxAnalyzer(factory)

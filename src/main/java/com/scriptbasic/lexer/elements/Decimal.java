@@ -2,12 +2,17 @@ package com.scriptbasic.lexer.elements;
 
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
 import com.scriptbasic.lexer.BasicLexicalElement;
 
 public class Decimal extends AbstractElementAnalyzer {
 
     private static final int DECIMAL_NUMBER_STRINGBUILDER_INITIAL_CAPACITY = 20;
+
+    public Decimal(Reader reader) {
+        super(reader);
+    }
 
     /**
      * Read a decimal number from the input. The next character following the

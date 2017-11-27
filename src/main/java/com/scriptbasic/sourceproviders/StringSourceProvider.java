@@ -44,10 +44,7 @@ public class StringSourceProvider extends
             throw new IOException("The source '" + sourceName
                     + "' was not set.");
         }
-        final GenericReader reader = new GenericReader();
-        reader.set(sourceName);
-        reader.setSourceProvider(this);
-        reader.set(new StringReader(this.sourceMap.get(sourceName)));
+        final GenericReader reader = new GenericReader(new StringReader(this.sourceMap.get(sourceName)), sourceName);
         return reader;
     }
 }

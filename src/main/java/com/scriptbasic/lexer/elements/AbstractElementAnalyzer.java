@@ -7,15 +7,14 @@ import com.scriptbasic.interfaces.Reader;
 
 public abstract class AbstractElementAnalyzer implements LexicalElementAnalyzer {
 
-    private Reader reader;
+    private final Reader reader;
+
+    protected AbstractElementAnalyzer(Reader reader) {
+        this.reader = reader;
+    }
 
     public Reader getReader() {
         return reader;
-    }
-
-    @Override
-    public void setReader(final Reader reader) {
-        this.reader = reader;
     }
 
     @Override

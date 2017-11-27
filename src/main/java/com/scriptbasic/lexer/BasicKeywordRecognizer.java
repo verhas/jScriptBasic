@@ -8,7 +8,8 @@ import com.scriptbasic.interfaces.KeywordRecognizer;
 import com.scriptbasic.interfaces.ScriptBasicKeyWords;
 
 /**
- * This class 
+ * This class recognizes a reserved keyword.
+ *
  * @author verhasp
  *
  */
@@ -18,14 +19,6 @@ public class BasicKeywordRecognizer implements KeywordRecognizer,
 
     public BasicKeywordRecognizer() {
         Collections.addAll(keywords, BASIC_KEYWORDS);
-    }
-
-    public Set<String> getKeywords() {
-        return keywords;
-    }
-
-    public void setKeywords(final Set<String> kwords) {
-        keywords = kwords;
     }
 
     @Override

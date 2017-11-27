@@ -2,7 +2,6 @@ package com.scriptbasic.test.auxilliary;
 
 import com.scriptbasic.factories.FactoryFactory;
 import com.scriptbasic.factories.SingletonFactoryFactory;
-import com.scriptbasic.factories.ThreadLocalFactoryFactory;
 import com.scriptbasic.utility.*;
 import com.scriptbasic.utility.functions.UtilityFunctions;
 import org.junit.Assert;
@@ -139,7 +138,6 @@ public class TestFactoryClasses {
     public void testFactories() {
         test(SingletonFactoryFactory.class);
         test(FactoryFactory.class);
-        test(ThreadLocalFactoryFactory.class);
         test(CastUtility.class);
         test(CharUtils.class);
         test(ExpressionUtility.class);

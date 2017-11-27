@@ -3,10 +3,15 @@ package com.scriptbasic.lexer.elements;
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.exceptions.UnterminatedStringException;
 import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
 import com.scriptbasic.lexer.BasicLexicalElement;
 
 public class BasicString extends AbstractElementAnalyzer {
+
+    public BasicString(Reader reader) {
+        super(reader);
+    }
 
     @Override
     public LexicalElement read() throws LexicalException {

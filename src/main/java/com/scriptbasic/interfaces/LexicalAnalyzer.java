@@ -12,12 +12,6 @@ package com.scriptbasic.interfaces;
  * 
  */
 public interface LexicalAnalyzer extends FactoryManaged {
-    /**
-     * Set the reader from where the lexical analyzer has to read the input.
-     * 
-     * @param reader
-     */
-    void set(Reader reader);
 
     /**
      * Get the next lexical element from the input stream. If there are no more

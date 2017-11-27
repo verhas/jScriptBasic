@@ -2,11 +2,16 @@ package com.scriptbasic.lexer.elements;
 
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
 import com.scriptbasic.lexer.BasicLexicalElement;
 import com.scriptbasic.utility.CharUtils;
 
 public class OneCharacter extends AbstractElementAnalyzer {
+
+    public OneCharacter(Reader reader) {
+        super(reader);
+    }
 
     @Override
     public LexicalElement read() throws LexicalException {

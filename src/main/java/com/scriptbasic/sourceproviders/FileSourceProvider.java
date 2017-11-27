@@ -25,7 +25,7 @@ public class FileSourceProvider extends
 			final String sourceFileName = path + PATH_SEPARATOR + sourceName;
 			final File sourceFile = new File(sourceFileName);
 			if (sourceFile.exists()) {
-				final GenericReader reader = new GenericReader();
+				final GenericReader reader = new GenericReader(sourceReader, sourceFileName);
 				reader.set(sourceFileName);
 				reader.setSourceProvider(this);
 				reader.set(new FileReader(sourceFile));

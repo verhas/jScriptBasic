@@ -2,7 +2,6 @@ package com.scriptbasic.factorytest;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.factories.BasicFactory;
-import com.scriptbasic.factories.ThreadLocalFactoryFactory;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.FactoryManaged;
 import com.scriptbasic.readers.GenericHierarchicalReader;
@@ -11,10 +10,6 @@ import com.scriptbasic.utility.FactoryUtility;
 import static org.junit.Assert.assertTrue;
 
 public class TestFactories {
-
-    public void testThreadLocalFactory() throws Exception {
-        ThreadLocalFactoryFactory.getFactory();
-    }
 
     @SuppressWarnings("static-method")
     public void testFactories() throws Exception {
@@ -59,7 +54,7 @@ public class TestFactories {
         @SuppressWarnings("unchecked")
         @Override
         public <T extends FactoryManaged> T get(Class<T> klass) {
-            return (T) new GenericHierarchicalReader();
+            return (T) new GenericHierarchicalReader(reader);
         }
     }
 }

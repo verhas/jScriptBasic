@@ -27,7 +27,6 @@ public class TestToExtendCoverage  {
         new BasicLexicalException("");
         new BasicLexicalException((Throwable) null);
         new BasicLexicalException("", null);
-        new BasicKeywordRecognizer().setKeywords(new BasicKeywordRecognizer().getKeywords());
-        
+
     }
 }

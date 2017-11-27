@@ -35,13 +35,8 @@ public class Executor extends AbstractStringIOPojo {
         InputStream is = Class.forName(stackTrace[2].getClassName())
                 .getResourceAsStream(resourceName);
         final java.io.Reader r = new InputStreamReader(is);
-        final GenericReader reader = new GenericReader();
-        reader.set(r);
-        reader.setSourceProvider(null);
+        final GenericReader reader = new GenericReader(r, sourceFileName);
         reader.set(resourceName);
-        final LexicalAnalyzer lexicalAnalyzer = FactoryUtility
-                .getLexicalAnalyzer(factory);
-        lexicalAnalyzer.set(reader);
         ExtendedInterpreter interpreter = FactoryUtility
                 .getExtendedInterpreter(factory);
         interpreter.registerFunctions(FileHandlingFunctions.class);

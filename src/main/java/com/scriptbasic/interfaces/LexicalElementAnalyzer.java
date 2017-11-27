@@ -15,13 +15,6 @@ package com.scriptbasic.interfaces;
 public interface LexicalElementAnalyzer {
 
     /**
-     * Set the reader to read from.
-     * 
-     * @param reader
-     */
-    void setReader(Reader reader);
-
-    /**
      * Reads a lexeme and returns the created lexical element.
      * <p>
      * If the characters read from the reader show that the lexeme is not the

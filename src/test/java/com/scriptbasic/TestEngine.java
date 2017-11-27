@@ -127,8 +127,7 @@ public class TestEngine {
 
 			@Override
 			public Reader get(String sourceName) throws IOException {
-				GenericReader reader = new GenericReader();
-				reader.setSourceProvider(this);
+				GenericReader reader = new GenericReader(this, sourceFileName);
 				reader.set(new StringReader(source.get(sourceName)));
 				return reader;
 			}
@@ -492,8 +491,7 @@ public class TestEngine {
 
 			@Override
 			public Reader get(String sourceName) throws IOException {
-				GenericReader reader = new GenericReader();
-				reader.setSourceProvider(this);
+				GenericReader reader = new GenericReader(this, sourceFileName);
 				reader.set(new StringReader(source.get(sourceName)));
 				return reader;
 			}

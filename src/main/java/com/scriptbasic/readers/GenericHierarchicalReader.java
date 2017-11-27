@@ -9,6 +9,10 @@ import com.scriptbasic.interfaces.SourceProvider;
 
 public class GenericHierarchicalReader implements HierarchicalReader {
 
+    public GenericHierarchicalReader(Reader reader) {
+        this.reader = reader;
+    }
+
     @Override
 	public void setFactory(Factory factory) {
     }
@@ -29,11 +33,6 @@ public class GenericHierarchicalReader implements HierarchicalReader {
             this.readerStack.push(this.reader);
         }
         this.reader = reader;
-    }
-
-    @Override
-    public void set(final String sourceFileName) {
-        this.reader.set(sourceFileName);
     }
 
     @Override
