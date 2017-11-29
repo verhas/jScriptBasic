@@ -30,6 +30,12 @@ public class GenericReader implements Reader {
         this.sourceProvider = sourceProvider;
     }
 
+    public GenericReader(java.io.Reader sourceReader,SourceProvider sourceProvider, String sourceFileName) {
+        this.sourceFileName = sourceFileName;
+        this.sourceReader = sourceReader;
+        this.sourceProvider = sourceProvider;
+    }
+
     @Override
     public void setFactory(Factory factory) {
     }
@@ -53,7 +59,7 @@ public class GenericReader implements Reader {
      * {@inheritDoc}
      * <p>
      * This implementation will not track the position properly when a new line
-     * character is pushed back
+     * character is pushed back. Such a push back does not happen when using Basic lexical analysis.
      */
     @Override
     public void pushBack(final Integer ch) {
@@ -63,6 +69,9 @@ public class GenericReader implements Reader {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Integer get() {
         Integer nextChar;

@@ -9,8 +9,8 @@ import com.scriptbasic.readers.GenericReader;
 
 /**
  * A source provider that reads the sources from files. This provider includes a
- * file only once and does not support relative file name including. Also this
- * implementation uses the SourcePath to find a file.
+ * file only once and does not support relative file name 'include'. Also this
+ * implementation uses the {@link com.scriptbasic.interfaces.SourcePath} to find a file.
  * 
  * @author Peter Verhas
  * 
@@ -25,10 +25,7 @@ public class FileSourceProvider extends
 			final String sourceFileName = path + PATH_SEPARATOR + sourceName;
 			final File sourceFile = new File(sourceFileName);
 			if (sourceFile.exists()) {
-				final GenericReader reader = new GenericReader(sourceReader, sourceFileName);
-				reader.set(sourceFileName);
-				reader.setSourceProvider(this);
-				reader.set(new FileReader(sourceFile));
+				final GenericReader reader = new GenericReader(new FileReader(sourceFile),this, sourceFileName);
 				return reader;
 			}
 		}
