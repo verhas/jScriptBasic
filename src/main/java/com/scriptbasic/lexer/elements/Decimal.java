@@ -2,7 +2,7 @@ package com.scriptbasic.lexer.elements;
 
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.Reader;
+import com.scriptbasic.interfaces.SourceReader;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
 import com.scriptbasic.lexer.BasicLexicalElement;
 
@@ -10,7 +10,7 @@ public class Decimal extends AbstractElementAnalyzer {
 
     private static final int DECIMAL_NUMBER_STRINGBUILDER_INITIAL_CAPACITY = 20;
 
-    public Decimal(Reader reader) {
+    public Decimal(SourceReader reader) {
         super(reader);
     }
 
@@ -191,8 +191,6 @@ public class Decimal extends AbstractElementAnalyzer {
      * 
      * @param digits
      *            to append the digits to
-     * @param ch
-     *            the first digit already fetched
      */
     private void processDigits(final StringBuilder digits) {
         Integer ch = getReader().get();

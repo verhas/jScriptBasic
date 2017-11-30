@@ -1,8 +1,7 @@
 package com.scriptbasic.testprograms;
 
-import org.junit.Test;
-
 import com.scriptbasic.Executor;
+import org.junit.Test;
 
 public class TestFunctions {
 	private static void codeTest(String fileName)

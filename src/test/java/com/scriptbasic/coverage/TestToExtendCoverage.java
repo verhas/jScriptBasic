@@ -1,7 +1,6 @@
 package com.scriptbasic.coverage;
 
 import com.scriptbasic.exceptions.BasicLexicalException;
-import com.scriptbasic.lexer.BasicKeywordRecognizer;
 import org.junit.Test;
 
 

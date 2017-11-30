@@ -1,9 +1,11 @@
 package com.scriptbasic.interfaces;
 
+import com.scriptbasic.executors.commands.CommandSub;
+
+import java.io.Reader;
+import java.io.Writer;
 import java.lang.reflect.Method;
 import java.util.Map;
-
-import com.scriptbasic.executors.commands.CommandSub;
 
 /**
  * The extended interpreter is the interface that extends the functions of the
@@ -224,19 +226,19 @@ public interface ExtendedInterpreter extends Interpreter {
 	 * {@link javax.script.ScriptContext#getReader()}
 	 * 
 	 */
-	java.io.Reader getReader();
+	Reader getReader();
 
 	/**
 	 * {@link javax.script.ScriptContext#getWriter()}
 	 */
-	java.io.Writer getWriter();
+	Writer getWriter();
 
 	/**
 	 * {@link javax.script.ScriptContext#getReader()}
 	 * 
 	 * @return
 	 */
-	java.io.Writer getErrorWriter();
+	Writer getErrorWriter();
 
 	/**
 	 * Temporarily disable the hooks. Following this call the hooks will not be

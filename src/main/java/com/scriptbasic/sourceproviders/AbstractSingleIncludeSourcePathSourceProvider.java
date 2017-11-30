@@ -1,9 +1,9 @@
 package com.scriptbasic.sourceproviders;
 
-import java.io.IOException;
-
-import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.interfaces.SingleIncludeChecker;
+import com.scriptbasic.interfaces.SourceReader;
+
+import java.io.IOException;
 
 /**
  * Abstract class to be extended by source provider implementations that include
@@ -46,8 +46,8 @@ public abstract class AbstractSingleIncludeSourcePathSourceProvider extends
     }
 
     @Override
-    public final Reader get(final String sourceName) throws IOException {
-        Reader reader;
+    public final SourceReader get(final String sourceName) throws IOException {
+        SourceReader reader;
         if (this.singleInclude == null) {
             reader = null;
         } else {
@@ -58,9 +58,9 @@ public abstract class AbstractSingleIncludeSourcePathSourceProvider extends
     }
 
     @Override
-    public final Reader get(final String sourceName,
-            final String referencingSource) throws IOException {
-        Reader reader;
+    public final SourceReader get(final String sourceName,
+                                  final String referencingSource) throws IOException {
+        SourceReader reader;
         if (this.singleInclude == null) {
             reader = null;
         } else {
@@ -70,10 +70,10 @@ public abstract class AbstractSingleIncludeSourcePathSourceProvider extends
         return reader;
     }
 
-    protected abstract Reader getSource(String sourceName) throws IOException;
+    protected abstract SourceReader getSource(String sourceName) throws IOException;
 
-    protected abstract Reader getSource(String sourceName,
-            String referencingSource) throws IOException;
+    protected abstract SourceReader getSource(String sourceName,
+                                              String referencingSource) throws IOException;
 
     protected abstract String getKeyName(String sourceName);
 

@@ -1,12 +1,8 @@
 package com.scriptbasic.hooks;
 
-import java.lang.reflect.Method;
+import com.scriptbasic.interfaces.*;
 
-import com.scriptbasic.interfaces.Command;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
-import com.scriptbasic.interfaces.InterpreterHook;
-import com.scriptbasic.interfaces.LeftValueList;
-import com.scriptbasic.interfaces.RightValue;
+import java.lang.reflect.Method;
 
 /**
  * A simple implementation of the InterpreterHook.

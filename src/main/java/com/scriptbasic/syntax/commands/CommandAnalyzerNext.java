@@ -3,13 +3,11 @@ package com.scriptbasic.syntax.commands;
 import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.executors.commands.CommandFor;
 import com.scriptbasic.executors.commands.CommandNext;
+import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.LeftValue;
-import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.NestedStructureHouseKeeper;
-import com.scriptbasic.utility.FactoryUtility;
 
 /**
  * @author Peter Verhas
@@ -18,15 +16,15 @@ import com.scriptbasic.utility.FactoryUtility;
  */
 public class CommandAnalyzerNext extends AbstractCommandAnalyzer {
 
+    public CommandAnalyzerNext(Context ctx) {
+        super(ctx);
+    }
+
     @Override
     public Command analyze() throws AnalysisException {
         CommandNext node = new CommandNext();
-        LexicalAnalyzer lexicalAnalyzer = FactoryUtility
-                .getLexicalAnalyzer(getFactory());
-        LexicalElement lexicalElement = lexicalAnalyzer.peek();
-        NestedStructureHouseKeeper nshk = FactoryUtility
-                .getNestedStructureHouseKeeper(getFactory());
-        CommandFor commandFor = nshk.pop(CommandFor.class);
+        LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
+        CommandFor commandFor = ctx.nestedStructureHouseKeeper.pop(CommandFor.class);
         commandFor.setLoopEndNode(node);
         node.setLoopStartNode(commandFor);
         if (lexicalElement != null && !lexicalElement.isLineTerminator()) {

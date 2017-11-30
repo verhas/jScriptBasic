@@ -1,15 +1,20 @@
 package com.scriptbasic.lexer;
 
-import com.scriptbasic.factories.FactoryFactory;
-import com.scriptbasic.interfaces.*;
-import com.scriptbasic.readers.GenericHierarchicalReader;
-import com.scriptbasic.readers.GenericReader;
+import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.interfaces.LexicalAnalyzer;
+import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.lexer.elements.ScriptBasicLexicalAnalyzer;
+import com.scriptbasic.readers.GenericSourceReader;
 import com.scriptbasic.sourceproviders.StringSourceProvider;
 import com.scriptbasic.utility.FactoryUtility;
 import org.junit.Assert;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.io.StringReader;
+
+import static org.junit.Assert.assertTrue;
 
 public class LexTestHelper {
     static final StringBuilder apo = new StringBuilder("\"");
@@ -152,12 +157,9 @@ public class LexTestHelper {
 
     public static LexicalAnalyzer createStringReading(final Factory factory,
                                                       final String s) {
-        final java.io.Reader r = new StringReader(s);
-        final GenericReader reader = new GenericReader(sourceReader, sourceFileName);
-        reader.set(r);
-        reader.setSourceProvider(null);
-        reader.set((String) null);
-        final LexicalAnalyzer la = FactoryUtility.getLexicalAnalyzer(factory);
+        final Reader r = new StringReader(s);
+        final GenericSourceReader reader = new GenericSourceReader(r, null, null);
+        final LexicalAnalyzer la = new ScriptBasicLexicalAnalyzer(reader);
         return la;
     }
 
@@ -180,22 +182,16 @@ public class LexTestHelper {
         }
     }
 
-    static LexicalAnalyzer createStringArrayReading(final String[] s)
+    static LexicalAnalyzer createStringArrayReading(final String[] sources)
             throws IOException {
-        Assert.assertTrue("there has to be at least one file name and content",
-                s.length >= 2);
-        final StringSourceProvider ssp = new StringSourceProvider();
-        for (int i = 0; i < s.length; i++) {
-            ssp.addSource(s[i], s[i + 1]);
+        assertTrue("there has to be at least one file name and content", sources.length >= 2);
+        assertTrue("there should be a content for each 'file name'", sources.length % 2 != 0);
+        final StringSourceProvider provider = new StringSourceProvider();
+        for (int i = 0; i < sources.length; i++) {
+            provider.addSource(sources[i], sources[i + 1]);
             i++;
         }
 
-        final Reader reader = ssp.get(s[0]);
-
-        final GenericHierarchicalReader hreader = new GenericHierarchicalReader(reader);
-        hreader.include(reader);
-        final LexicalAnalyzer la = FactoryFactory.getFactory().get(
-                LexicalAnalyzer.class);
-        return la;
+        return FactoryUtility.getLexicalAnalyzer(provider, sources[0]);
     }
 }

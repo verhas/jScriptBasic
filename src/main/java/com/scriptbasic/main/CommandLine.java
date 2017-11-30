@@ -1,17 +1,13 @@
 package com.scriptbasic.main;
 
-import com.scriptbasic.log.Logger;
-import com.scriptbasic.log.LoggerFactory;
-
-import java.io.FileReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.Reader;
-
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.Reader;
 
 /**
  * @author Peter Verhas date Aug 6, 2012

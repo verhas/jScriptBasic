@@ -1,11 +1,11 @@
 package com.scriptbasic.executors;
 
+import com.scriptbasic.interfaces.LeftValue;
+import com.scriptbasic.interfaces.LeftValueList;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import com.scriptbasic.interfaces.LeftValue;
-import com.scriptbasic.interfaces.LeftValueList;
 
 public class GenericLeftValueList implements LeftValueList {
 

@@ -1,12 +1,14 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.exceptions.CommandFactoryException;
 import com.scriptbasic.exceptions.KeywordNotImplementedException;
-import com.scriptbasic.interfaces.*;
+import com.scriptbasic.factories.Context;
+import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.Command;
+import com.scriptbasic.interfaces.CommandAnalyzer;
+import com.scriptbasic.interfaces.CommandFactory;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
-import com.scriptbasic.utility.FactoryUtility;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -16,38 +18,33 @@ import java.util.Map;
 public final class BasicCommandFactory implements CommandFactory {
     private static final Logger LOG = LoggerFactory
             .getLogger();
-    private Factory factory;
+    private final Context ctx;
     private Map<String, CommandAnalyzer> classMap = new HashMap<>();
     private List<CommandAnalyzer> classList = new LinkedList<>();
 
-    public Factory getFactory() {
-        return factory;
-    }
-
-    @Override
-    public void setFactory(Factory factory) {
-        this.factory = factory;
-        registerCommandAnalyzer("while", new CommandAnalyzerWhile());
-        registerCommandAnalyzer("wend", new CommandAnalyzerWend());
-        registerCommandAnalyzer("if", new CommandAnalyzerIf());
-        registerCommandAnalyzer("else", new CommandAnalyzerElse());
-        registerCommandAnalyzer("elseif", new CommandAnalyzerElseIf());
-        registerCommandAnalyzer("endif", new CommandAnalyzerEndIf());
-        registerCommandAnalyzer("use", new CommandAnalyzerUse());
-        registerCommandAnalyzer("method", new CommandAnalyzerMethod());
-        registerCommandAnalyzer("sub", new CommandAnalyzerSub());
-        registerCommandAnalyzer("endsub", new CommandAnalyzerEndSub());
-        registerCommandAnalyzer("return", new CommandAnalyzerReturn());
-        registerCommandAnalyzer("print", new CommandAnalyzerPrint());
-        registerCommandAnalyzer("local", new CommandAnalyzerLocal());
-        registerCommandAnalyzer("global", new CommandAnalyzerGlobal());
-        registerCommandAnalyzer("call", new CommandAnalyzerCall());
-        registerCommandAnalyzer("let", new CommandAnalyzerLet());
-        registerCommandAnalyzer("for", new CommandAnalyzerFor());
-        registerCommandAnalyzer("next", new CommandAnalyzerNext());
+    public BasicCommandFactory(Context ctx) {
+        this.ctx = ctx;
+        registerCommandAnalyzer("while", new CommandAnalyzerWhile(ctx));
+        registerCommandAnalyzer("wend", new CommandAnalyzerWend(ctx));
+        registerCommandAnalyzer("if", new CommandAnalyzerIf(ctx));
+        registerCommandAnalyzer("else", new CommandAnalyzerElse(ctx));
+        registerCommandAnalyzer("elseif", new CommandAnalyzerElseIf(ctx));
+        registerCommandAnalyzer("endif", new CommandAnalyzerEndIf(ctx));
+        registerCommandAnalyzer("use", new CommandAnalyzerUse(ctx));
+        registerCommandAnalyzer("method", new CommandAnalyzerMethod(ctx));
+        registerCommandAnalyzer("sub", new CommandAnalyzerSub(ctx));
+        registerCommandAnalyzer("endsub", new CommandAnalyzerEndSub(ctx));
+        registerCommandAnalyzer("return", new CommandAnalyzerReturn(ctx));
+        registerCommandAnalyzer("print", new CommandAnalyzerPrint(ctx));
+        registerCommandAnalyzer("local", new CommandAnalyzerLocal(ctx));
+        registerCommandAnalyzer("global", new CommandAnalyzerGlobal(ctx));
+        registerCommandAnalyzer("call", new CommandAnalyzerCall(ctx));
+        registerCommandAnalyzer("let", new CommandAnalyzerLet(ctx));
+        registerCommandAnalyzer("for", new CommandAnalyzerFor(ctx));
+        registerCommandAnalyzer("next", new CommandAnalyzerNext(ctx));
         //
-        registerCommandAnalyzer(new CommandAnalyzerLet());
-        registerCommandAnalyzer(new CommandAnalyzerCall());
+        registerCommandAnalyzer(new CommandAnalyzerLet(ctx));
+        registerCommandAnalyzer(new CommandAnalyzerCall(ctx));
     }
 
     /*
@@ -65,13 +62,6 @@ public final class BasicCommandFactory implements CommandFactory {
         } else {
             classMap.put(keyword, analyzer);
         }
-        if (analyzer instanceof AbstractCommandAnalyzer) {
-            if (getFactory() == null) {
-                throw new BasicInterpreterInternalError(
-                        "BasicCommandFactory's factory is null, not initialized yet");
-            }
-            analyzer.setFactory(getFactory());
-        }
     }
 
     private void registerCommandAnalyzer(CommandAnalyzer analyzer) {
@@ -88,23 +78,18 @@ public final class BasicCommandFactory implements CommandFactory {
     }
 
     private Command create() throws AnalysisException {
-        LexicalAnalyzer lexicalAnalyzer = FactoryUtility.getLexicalAnalyzer(getFactory());
-        if (lexicalAnalyzer instanceof LineOrientedLexicalAnalyzer) {
-            LineOrientedLexicalAnalyzer loLexicalAnalyzer = (LineOrientedLexicalAnalyzer) lexicalAnalyzer;
-            for (final CommandAnalyzer commandAnalyzer : classList) {
-                try {
-                    LOG.info("trying to analyze the line using {}",
-                            commandAnalyzer.getClass());
-                    final Command command = commandAnalyzer.analyze();
-                    if (command != null) {
-                        return command;
-                    }
-                } catch (AnalysisException e) {
-                    LOG.info("Tried but not analyze the line using "
-                            + commandAnalyzer.getClass(), e);
+        for (final CommandAnalyzer commandAnalyzer : classList) {
+            try {
+                LOG.info("trying to analyze the line using {}", commandAnalyzer.getClass());
+                final Command command = commandAnalyzer.analyze();
+                if (command != null) {
+                    return command;
                 }
-                loLexicalAnalyzer.resetLine();
+            } catch (AnalysisException e) {
+                LOG.info("Tried but not analyze the line using "
+                        + commandAnalyzer.getClass(), e);
             }
+            ctx.lexicalAnalyzer.resetLine();
         }
         LOG.info("None of the analyzers could analyze the line");
         throw new CommandFactoryException("The line could not be analyzed");

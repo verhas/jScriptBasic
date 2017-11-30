@@ -1,10 +1,10 @@
 package com.scriptbasic.executors.rightvalues;
 
-import java.util.Arrays;
-
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
+
+import java.util.Arrays;
 
 public class BasicArrayValue extends AbstractRightValue {
 	private static final Integer INCREMENT_GAP = 100;

@@ -1,10 +1,10 @@
 package com.scriptbasic.memory;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Peter Verhas

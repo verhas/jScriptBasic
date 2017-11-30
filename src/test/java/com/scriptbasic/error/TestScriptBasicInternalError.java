@@ -1,8 +1,7 @@
 package com.scriptbasic.error;
 
-import org.junit.Test;
-
 import com.scriptbasic.errors.BasicInterpreterInternalError;
+import org.junit.Test;
 
 public class TestScriptBasicInternalError {
 	@Test

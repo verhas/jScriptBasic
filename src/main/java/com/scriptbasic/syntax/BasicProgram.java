@@ -1,29 +1,12 @@
 package com.scriptbasic.syntax;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.scriptbasic.executors.commands.AbstractCommand;
 import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.interfaces.Command;
-import com.scriptbasic.interfaces.Factory;
+
+import java.util.*;
 
 public final class BasicProgram extends AbstractBasicProgramPostprocessing {
-	// final private static Logger LOG = LoggerFactory
-	// .getLogger();
-	private Factory factory;
-
-	public Factory getFactory() {
-		return factory;
-	}
-
-	@Override
-	public void setFactory(final Factory factory) {
-		this.factory = factory;
-	}
 
 	private final List<Command> commands = new ArrayList<>();
 	private AbstractCommand lastCommand = null;

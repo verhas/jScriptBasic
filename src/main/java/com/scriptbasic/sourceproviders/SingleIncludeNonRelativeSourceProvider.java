@@ -1,8 +1,8 @@
 package com.scriptbasic.sourceproviders;
 
-import java.io.IOException;
+import com.scriptbasic.interfaces.SourceReader;
 
-import com.scriptbasic.interfaces.Reader;
+import java.io.IOException;
 
 /**
  * Abstract class to be extended by source path implementations that include a
@@ -22,11 +22,11 @@ public abstract class SingleIncludeNonRelativeSourceProvider extends
         AbstractSingleIncludeSourceProvider {
 
     @Override
-    protected abstract Reader getSource(String sourceName) throws IOException;
+    protected abstract SourceReader getSource(String sourceName) throws IOException;
 
     @Override
-    protected Reader getSource(final String sourceName,
-            final String referencingSource) throws IOException {
+    protected SourceReader getSource(final String sourceName,
+                                     final String referencingSource) throws IOException {
         return getSource(sourceName);
     }
 

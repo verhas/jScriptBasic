@@ -1,9 +1,9 @@
 package com.scriptbasic.sourceproviders;
 
-import java.io.IOException;
-
-import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.interfaces.SingleIncludeChecker;
+import com.scriptbasic.interfaces.SourceReader;
+
+import java.io.IOException;
 
 /**
  * An abstract class to be extended by the source provider implementations that
@@ -31,22 +31,22 @@ public abstract class AbstractSingleIncludeSourceProvider extends
     }
 
     @Override
-    public final Reader get(final String sourceName) throws IOException {
+    public final SourceReader get(final String sourceName) throws IOException {
         this.singleInclude.check(getKeyName(sourceName));
         return getSource(sourceName);
     }
 
     @Override
-    public final Reader get(final String sourceName,
-            final String referencingSource) throws IOException {
+    public final SourceReader get(final String sourceName,
+                                  final String referencingSource) throws IOException {
         this.singleInclude.check(getKeyName(sourceName, referencingSource));
         return getSource(sourceName, referencingSource);
     }
 
-    protected abstract Reader getSource(String sourceName) throws IOException;
+    protected abstract SourceReader getSource(String sourceName) throws IOException;
 
-    protected abstract Reader getSource(String sourceName,
-            String referencingSource) throws IOException;
+    protected abstract SourceReader getSource(String sourceName,
+                                              String referencingSource) throws IOException;
 
     protected abstract String getKeyName(String sourceName);
 

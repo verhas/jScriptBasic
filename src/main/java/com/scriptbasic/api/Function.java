@@ -1,9 +1,9 @@
 package com.scriptbasic.api;
 
+import com.scriptbasic.interfaces.ExtensionInterfaceVersion;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
-import com.scriptbasic.interfaces.ExtensionInterfaceVersion;
 
 /**
  * 

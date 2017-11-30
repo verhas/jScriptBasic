@@ -5,28 +5,25 @@ package com.scriptbasic.interfaces;
  * Object implementing this interface keep track of the programming structures
  * that can be nested into each other. For example loops, functions and
  * procedures and so on.
- * 
+ *
  * @author Peter Verhas
  * date June 8, 2012
  */
-public interface NestedStructureHouseKeeper extends FactoryManaged {
+public interface NestedStructureHouseKeeper {
 
     /**
      * Push a nested structure object on the housekeeping stack.
-     * 
-     * @param element
-     *            the element to be stored on the stack.
-     * @param klass
-     *            is the class that we will expect when we pop this element off
+     *
+     * @param element the element to be stored on the stack.
+     * @param klass   is the class that we will expect when we pop this element off
      */
     void push(Class<?> klass, NestedStructure element);
 
     /**
      * Push a nested structure object on the housekeeping stack. This version of
      * push does push the object associated with the actual class of the object.
-     * 
-     * @param element
-     *            to push on the stack.
+     *
+     * @param element to push on the stack.
      */
     void push(NestedStructure element);
 
@@ -45,13 +42,11 @@ public interface NestedStructureHouseKeeper extends FactoryManaged {
      * more complex strategy to recover from such an error. In either case the
      * sole reason of further syntax analysis is to discover as many syntax
      * error as possible following the first one.
-     * 
-     * @param <T>
-     *            expected type of the element
+     *
+     * @param <T> expected type of the element
      * @return the top element
-     * @throws AnalysisException
-     *             when the top element of the stack is not the type that we
-     *             expect
+     * @throws AnalysisException when the top element of the stack is not the type that we
+     *                           expect
      */
     <T extends NestedStructure> T pop(Class<T> expectedClass)
             throws AnalysisException;

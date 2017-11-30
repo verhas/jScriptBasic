@@ -1,21 +1,24 @@
 package com.scriptbasic.hooks;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import com.scriptbasic.executors.BasicExtendedInterpreter;
+import com.scriptbasic.factories.Context;
+import com.scriptbasic.factories.ContextBuilder;
+import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.ExtendedInterpreter;
 import org.junit.Test;
 
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class TestSimpleHook {
 
     @Test
     public void testExMethods() throws IllegalAccessException,
-            IllegalArgumentException, InvocationTargetException {
+            IllegalArgumentException, InvocationTargetException, AnalysisException {
         Method[] methods = SimpleHook.class.getDeclaredMethods();
         SimpleHook simpleHook = new SimpleHook(){};
-        ExtendedInterpreter interpreter = new BasicExtendedInterpreter();
+        Context ctx = ContextBuilder.from("");
+        ExtendedInterpreter interpreter = new BasicExtendedInterpreter(ctx);
         simpleHook.setInterpreter(interpreter);
         NullHook nullHook = new NullHook();
         simpleHook.setNext(nullHook);

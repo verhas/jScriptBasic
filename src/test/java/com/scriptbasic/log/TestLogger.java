@@ -1,8 +1,7 @@
 package com.scriptbasic.log;
 
-import org.junit.Test;
-
 import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author Peter Verhas

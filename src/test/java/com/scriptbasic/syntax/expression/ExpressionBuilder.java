@@ -2,21 +2,8 @@ package com.scriptbasic.syntax.expression;
 
 import com.scriptbasic.executors.AbstractIdentifieredExpressionListedExpression;
 import com.scriptbasic.executors.GenericExpressionList;
-import com.scriptbasic.executors.operators.AbstractBinaryOperator;
-import com.scriptbasic.executors.operators.AbstractUnaryOperator;
-import com.scriptbasic.executors.operators.AddOperator;
-import com.scriptbasic.executors.operators.MultiplyOperator;
-import com.scriptbasic.executors.operators.JavaObjectFieldAccessOperator;
-import com.scriptbasic.executors.operators.UnaryOperatorMinus;
-import com.scriptbasic.executors.operators.UnaryOperatorNot;
-import com.scriptbasic.executors.operators.UnaryOperatorPlus;
-import com.scriptbasic.executors.rightvalues.ArrayElementAccess;
-import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
-import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
-import com.scriptbasic.executors.rightvalues.BasicLongValue;
-import com.scriptbasic.executors.rightvalues.BasicStringValue;
-import com.scriptbasic.executors.rightvalues.FunctionCall;
-import com.scriptbasic.executors.rightvalues.VariableAccess;
+import com.scriptbasic.executors.operators.*;
+import com.scriptbasic.executors.rightvalues.*;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.ExpressionList;
 

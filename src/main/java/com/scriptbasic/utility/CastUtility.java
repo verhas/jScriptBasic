@@ -1,10 +1,10 @@
 package com.scriptbasic.utility;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.interfaces.RightValue;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Peter Verhas date Jun 30, 2012

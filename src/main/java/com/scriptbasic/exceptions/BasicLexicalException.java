@@ -1,6 +1,6 @@
 package com.scriptbasic.exceptions;
 
-import com.scriptbasic.interfaces.Reader;
+import com.scriptbasic.interfaces.SourceReader;
 
 public class BasicLexicalException extends LexicalException {
 
@@ -26,7 +26,7 @@ public class BasicLexicalException extends LexicalException {
     private int lineNumber;
     private int position;
 
-    public void setPosition(final Reader reader) {
+    public void setPosition(final SourceReader reader) {
         this.fileName = reader.getFileName();
         this.lineNumber = reader.getLineNumber();
         this.position = reader.getPosition();

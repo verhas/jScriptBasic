@@ -1,10 +1,10 @@
 package com.scriptbasic.sourceproviders;
 
+import com.scriptbasic.interfaces.SingleIncludeChecker;
+
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-
-import com.scriptbasic.interfaces.SingleIncludeChecker;
 
 /**
  * A very simple (thus basic) single include checker implementation.

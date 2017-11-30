@@ -2,15 +2,15 @@ package com.scriptbasic.lexer.elements;
 
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.interfaces.ScriptBasicKeyWords;
+import com.scriptbasic.interfaces.SourceReader;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
 import com.scriptbasic.lexer.BasicLexicalElement;
 
 public class MultiCharacter extends AbstractElementAnalyzer implements ScriptBasicKeyWords {
 
 
-    public MultiCharacter(Reader reader) {
+    public MultiCharacter(SourceReader reader) {
         super(reader);
     }
 

@@ -11,7 +11,7 @@ package com.scriptbasic.interfaces;
  * @author Peter Verhas
  * 
  */
-public interface LexicalAnalyzer extends FactoryManaged {
+public interface LexicalAnalyzer {
 
     /**
      * Get the next lexical element from the input stream. If there are no more

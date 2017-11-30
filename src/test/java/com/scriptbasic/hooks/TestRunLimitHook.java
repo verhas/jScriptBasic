@@ -1,21 +1,18 @@
 package com.scriptbasic.hooks;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Properties;
-
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-
+import com.scriptbasic.configuration.BasicConfiguration;
+import com.scriptbasic.interfaces.Configuration;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.scriptbasic.interfaces.Configuration;
-import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.utility.FactoryUtility;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import java.util.Properties;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Peter Verhas
@@ -47,17 +44,16 @@ public class TestRunLimitHook {
 	@SuppressWarnings("static-method")
 	@Test
 	public void testLimitHookSteps() throws Exception {
-		ScriptEngineManager sem = new ScriptEngineManager();
-		ScriptEngine se = sem.getEngineByExtension("sb");
-		assertNotNull(se);
-		assertTrue(se instanceof com.scriptbasic.api.script.ScriptEngine);
-		com.scriptbasic.api.script.ScriptEngine bse = (com.scriptbasic.api.script.ScriptEngine) se;
-		Factory factory = bse.getBasicFactory();
-		Configuration config = FactoryUtility.getConfiguration(factory);
+		ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
+		ScriptEngine scriptEngine = scriptEngineManager.getEngineByExtension("sb");
+		assertNotNull(scriptEngine);
+		assertTrue(scriptEngine instanceof com.scriptbasic.api.script.ScriptEngine);
+		com.scriptbasic.api.script.ScriptEngine bse = (com.scriptbasic.api.script.ScriptEngine) scriptEngine;
+		Configuration config = new BasicConfiguration();
 		setConfig(config);
-		assertNotNull(se);
+		assertNotNull(scriptEngine);
 		try {
-			se.eval("while true\nwend\n");
+			scriptEngine.eval("while true\nwend\n");
 			Assert.fail("infinite loop did not throw exception");
 		} catch (RuntimeException e) {
 			Assert.assertEquals(
@@ -69,18 +65,17 @@ public class TestRunLimitHook {
 	@SuppressWarnings("static-method")
 	@Test
 	public void testLimitHookTime() throws Exception {
-		ScriptEngineManager sem = new ScriptEngineManager();
-		ScriptEngine se = sem.getEngineByExtension("sb");
-		assertNotNull(se);
-		assertTrue(se instanceof com.scriptbasic.api.script.ScriptEngine);
-		com.scriptbasic.api.script.ScriptEngine bse = (com.scriptbasic.api.script.ScriptEngine) se;
-		Factory factory = bse.getBasicFactory();
-		Configuration config = FactoryUtility.getConfiguration(factory);
+		ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
+		ScriptEngine scriptEngine = scriptEngineManager.getEngineByExtension("sb");
+		assertNotNull(scriptEngine);
+		assertTrue(scriptEngine instanceof com.scriptbasic.api.script.ScriptEngine);
+		com.scriptbasic.api.script.ScriptEngine bse = (com.scriptbasic.api.script.ScriptEngine) scriptEngine;
+		Configuration config = new BasicConfiguration();
 		Properties p = setConfig(config);
 		p.put("RunLimitHook.stepLimit", "100000000");
-		assertNotNull(se);
+		assertNotNull(scriptEngine);
 		try {
-			se.eval("while true\nwend\n");
+			scriptEngine.eval("while true\nwend\n");
 			Assert.fail("infinite loop did not throw exception");
 		} catch (RuntimeException e) {
 			Assert.assertEquals("The code exceeded the maximum allowed time",

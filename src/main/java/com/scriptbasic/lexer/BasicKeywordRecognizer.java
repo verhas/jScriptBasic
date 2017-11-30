@@ -1,11 +1,11 @@
 package com.scriptbasic.lexer;
 
+import com.scriptbasic.interfaces.KeywordRecognizer;
+import com.scriptbasic.interfaces.ScriptBasicKeyWords;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
-import com.scriptbasic.interfaces.KeywordRecognizer;
-import com.scriptbasic.interfaces.ScriptBasicKeyWords;
 
 /**
  * This class recognizes a reserved keyword.

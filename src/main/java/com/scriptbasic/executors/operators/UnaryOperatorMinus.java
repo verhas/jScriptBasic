@@ -2,11 +2,7 @@ package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
 import com.scriptbasic.executors.rightvalues.BasicLongValue;
-import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.interfaces.ExecutionException;
-import com.scriptbasic.interfaces.Expression;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
-import com.scriptbasic.interfaces.RightValue;
+import com.scriptbasic.interfaces.*;
 
 public class UnaryOperatorMinus extends AbstractUnaryOperator {
 

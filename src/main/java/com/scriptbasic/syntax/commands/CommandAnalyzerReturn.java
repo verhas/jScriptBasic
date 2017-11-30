@@ -1,11 +1,11 @@
 package com.scriptbasic.syntax.commands;
 
 import com.scriptbasic.executors.commands.CommandReturn;
+import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.utility.FactoryUtility;
 
 /**
  * @author Peter Verhas
@@ -13,15 +13,19 @@ import com.scriptbasic.utility.FactoryUtility;
  * 
  */
 public class CommandAnalyzerReturn extends AbstractCommandAnalyzer {
+    public CommandAnalyzerReturn(Context ctx) {
+        super(ctx);
+    }
+
     /*
-     * (non-Javadoc)
-     * 
-     * @see com.scriptbasic.interfaces.Analyzer#analyze()
-     */
+         * (non-Javadoc)
+         *
+         * @see com.scriptbasic.interfaces.Analyzer#analyze()
+         */
     @Override
     public Command analyze() throws AnalysisException {
         CommandReturn node = new CommandReturn();
-        LexicalElement le = FactoryUtility.getLexicalAnalyzer(getFactory()).peek();
+        LexicalElement le = ctx.lexicalAnalyzer.peek();
         if (le != null && !le.isLineTerminator()) {
             Expression returnExpression = analyzeExpression();
             node.setReturnExpression(returnExpression);

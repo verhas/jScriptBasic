@@ -2,13 +2,8 @@ package com.scriptbasic.syntax.leftvalue;
 
 import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
-import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.interfaces.LeftValue;
-import com.scriptbasic.interfaces.LeftValueAnalyzer;
-import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.SimpleLeftValueAnalyzer;
+import com.scriptbasic.factories.Context;
+import com.scriptbasic.interfaces.*;
 import com.scriptbasic.utility.FactoryUtility;
 
 /**
@@ -23,25 +18,18 @@ import com.scriptbasic.utility.FactoryUtility;
 public class BasicSimpleLeftValueAnalyzer implements LeftValueAnalyzer,
 		SimpleLeftValueAnalyzer {
 
-	private Factory factory;
+	private final Context ctx;
 
-	public Factory getFactory() {
-		return factory;
-	}
-
-	@Override
-	public void setFactory(Factory factory) {
-		this.factory = factory;
-	}
+    public BasicSimpleLeftValueAnalyzer(Context ctx) {
+        this.ctx = ctx;
+    }
 
 	@Override
 	public LeftValue analyze() throws AnalysisException {
 		BasicLeftValue leftValue = null;
-		LexicalAnalyzer lexicalAnalyzer = FactoryUtility
-				.getLexicalAnalyzer(getFactory());
-		LexicalElement lexicalElement = lexicalAnalyzer.peek();
+		LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
 		if (lexicalElement != null && lexicalElement.isIdentifier()) {
-			lexicalAnalyzer.get();
+			ctx.lexicalAnalyzer.get();
 			leftValue = new BasicLeftValue();
 			leftValue.setIdentifier(lexicalElement.getLexeme());
 		} else {

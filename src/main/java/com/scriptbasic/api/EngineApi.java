@@ -1,11 +1,11 @@
 package com.scriptbasic.api;
 
+import com.scriptbasic.Engine;
+import com.scriptbasic.interfaces.*;
+
 import java.io.File;
 import java.io.Reader;
 import java.io.Writer;
-
-import com.scriptbasic.Engine;
-import com.scriptbasic.interfaces.*;
 
 /**
  * ScriptBasic for Java embedding interface.
@@ -24,24 +24,6 @@ public interface EngineApi {
 	static EngineApi getEngine(){
 		return new Engine();
 	}
-
-	/**
-	 * Get the factory used to create the different parts of the execution
-	 * environment for this engine. The factory can be requested to return the
-	 * reader, lexical analyzer and other objects that are used internally to
-	 * manage the execution of the program. To use the ScriptBasic Engine there
-	 * is no need for this method This method provides a way to access the
-	 * objects that are below this facade and is available for advanced
-	 * programmers who are not satisfied with the features provided with this
-	 * facade.
-	 * <p>
-	 * If ever you need to use this method, do use it at your own risk, and
-	 * inform the developers of your need so that they may consider extending
-	 * this facade to accommodate your needs.
-	 * 
-	 * @return the factory instance
-	 */
-	Factory getBasicFactory();
 
     /**
      * Register all annotated methods of the class {@code klass} so that they
@@ -119,7 +101,7 @@ public interface EngineApi {
 	 *            the reader to supply the BASIC program characters.
 	 * @throws ScriptBasicException
 	 */
-	void load(java.io.Reader reader) throws ScriptBasicException;
+	void load(Reader reader) throws ScriptBasicException;
 
 	/**
 	 * Evaluate the content of a file. The file has to contain the BASIC
@@ -192,7 +174,7 @@ public interface EngineApi {
 	 *            the reader to supply the BASIC program characters.
 	 * @throws ScriptBasicException
 	 */
-	void eval(java.io.Reader reader) throws ScriptBasicException;
+	void eval(Reader reader) throws ScriptBasicException;
 
 	/**
 	 * Evaluate the content of a file. The file has to contain the BASIC

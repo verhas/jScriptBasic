@@ -1,10 +1,6 @@
 package com.scriptbasic.memory;
 
-import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.interfaces.ExecutionException;
-import com.scriptbasic.interfaces.HierarchicalVariableMap;
-import com.scriptbasic.interfaces.RightValue;
-import com.scriptbasic.interfaces.VariableMap;
+import com.scriptbasic.interfaces.*;
 
 /**
  * Handle the global and the local variable maps. If a variable exists, defined

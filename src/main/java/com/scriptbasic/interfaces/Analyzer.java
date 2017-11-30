@@ -10,7 +10,7 @@ package com.scriptbasic.interfaces;
  * 
  * @param <T>
  */
-public interface Analyzer<T extends AnalysisResult> extends FactoryManaged {
+public interface Analyzer<T extends AnalysisResult> {
     
     /**
      * 

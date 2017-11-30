@@ -2,8 +2,8 @@ package com.scriptbasic.interfaces;
 
 /**
  * Source code reader. This class is almost works as the usual
- * {@code java.io.Reader} and the implementation {@link GenericReader} actually
- * wraps the standard {@code java.io.Reader} class. The extra functionality is
+ * {@code Reader} and the implementation {@link com.scriptbasic.readers.GenericSourceReader} actually
+ * wraps the standard {@code Reader} class. The extra functionality is
  * keeping track of the file name, the line number and the position to help
  * error reporting of lexical and syntax analyzers and to allow character push
  * back when the lexical analyzer needs to push back some characters.
@@ -14,7 +14,7 @@ package com.scriptbasic.interfaces;
  * @author Peter Verhas
  * 
  */
-public interface Reader extends FactoryManaged, SourceLocationBound {
+public interface SourceReader extends SourceLocationBound {
 
     /**
      * Readers should support lexical analyzers offering the possibility to push

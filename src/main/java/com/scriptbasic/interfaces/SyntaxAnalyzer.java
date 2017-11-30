@@ -8,7 +8,7 @@ package com.scriptbasic.interfaces;
  * @author Peter Verhas
  * 
  */
-public interface SyntaxAnalyzer extends FactoryManaged {
+public interface SyntaxAnalyzer {
 
     /**
      * Perform the syntax analysis.

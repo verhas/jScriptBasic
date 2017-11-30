@@ -10,9 +10,9 @@ package com.scriptbasic.interfaces;
  * <p>
  * 
  * <pre>
- * Reader reader = someSourceProvider.get(&quot;some source name&quot;);
+ * SourceReader reader = someSourceProvider.get(&quot;some source name&quot;);
  * 
- * HierarchicalReader hierarchicalReader = new SomeHierarchicalReader();
+ * HierarchicalSourceReader hierarchicalReader = new SomeHierarchicalReader();
  * hierarchicalReader.include(reader);
  * 
  * LexicalAnalyzer lexicalAnalyzer = new ScriptBasicLexicalAnalyzer();
@@ -22,6 +22,6 @@ package com.scriptbasic.interfaces;
  * @author Peter Verhas
  * 
  */
-public interface HierarchicalReader extends Reader {
-    void include(Reader reader);
+public interface HierarchicalSourceReader extends SourceReader {
+    void include(SourceReader reader);
 }

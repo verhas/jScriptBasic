@@ -1,6 +1,7 @@
 package com.scriptbasic.syntax.commands;
 
 import com.scriptbasic.executors.commands.CommandElseIf;
+import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.Expression;
@@ -11,6 +12,10 @@ import com.scriptbasic.interfaces.Expression;
  * 
  */
 public class CommandAnalyzerElseIf extends AbstractCommandAnalyzerIfKind {
+
+    public CommandAnalyzerElseIf(Context ctx) {
+        super(ctx);
+    }
 
     protected Command createNode(Expression condition) throws AnalysisException {
         CommandElseIf node = new CommandElseIf();

@@ -1,11 +1,9 @@
 package com.scriptbasic.test.auxilliary;
 
-import org.junit.Assert;
-
-import org.junit.Test;
-
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.utility.functions.UtilityFunctions;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 

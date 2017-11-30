@@ -9,7 +9,7 @@ package com.scriptbasic.interfaces;
  * date June 15, 2012
  * 
  */
-public interface CommandFactory extends FactoryManaged {
+public interface CommandFactory {
     /**
      * Create a Command that starts with the keyword.
      * 

@@ -1,6 +1,5 @@
 package com.scriptbasic.factories;
 
-import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.utility.NoInstance;
 

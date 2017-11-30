@@ -1,6 +1,6 @@
 package com.scriptbasic.lexer;
 
-import com.scriptbasic.interfaces.Reader;
+import com.scriptbasic.interfaces.SourceReader;
 
 /**
  * Factory to create a new BasicLexicalElement initializing some fields from the
@@ -21,7 +21,7 @@ public final class BasicLexialElementFactory {
      * 
      * @return a new and initialized lexical element object
      */
-    public static BasicLexicalElement create(final Reader reader) {
+    public static BasicLexicalElement create(final SourceReader reader) {
         final BasicLexicalElement lexicalElement = new BasicLexicalElement();
         lexicalElement.setFileName(reader.getFileName());
         lexicalElement.setLineNumber(reader.getLineNumber());
@@ -29,7 +29,7 @@ public final class BasicLexialElementFactory {
         return lexicalElement;
     }
 
-    public static BasicLexicalElement create(final Reader reader, final int type) {
+    public static BasicLexicalElement create(final SourceReader reader, final int type) {
         final BasicLexicalElement lexicalElement = create(reader);
         lexicalElement.setType(type);
         return lexicalElement;

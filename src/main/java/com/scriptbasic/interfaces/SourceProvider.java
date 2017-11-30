@@ -17,31 +17,26 @@ import java.io.IOException;
  * <p>
  * Source providers may provide readers reading the source from files,
  * database, svn and other locations.
- * 
+ *
  * @author Peter Verhas
- * 
  */
 public interface SourceProvider {
     /**
      * Get a reader to a source when there is no referencing source. This is the
      * main source.
-     * 
-     * @param sourceName
-     *            the name of the source
+     *
+     * @param sourceName the name of the source
      * @return reader reading the source file.
      */
-    Reader get(String sourceName) throws IOException;
+    SourceReader get(String sourceName) throws IOException;
 
     /**
      * Get a reader to a source specifying the source that references this
      * source.
-     * 
-     * @param sourceName
-     *            the name of the source to get the reader to.
-     * @param referencingSource
-     *            the name of the source that is referencing the source to read.
+     *
+     * @param sourceName        the name of the source to get the reader to.
+     * @param referencingSource the name of the source that is referencing the source to read.
      * @return
      */
-    Reader get(String sourceName, String referencingSource)
-            throws IOException;
+    SourceReader get(String sourceName, String referencingSource) throws IOException;
 }

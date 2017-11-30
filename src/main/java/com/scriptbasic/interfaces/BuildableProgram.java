@@ -8,7 +8,7 @@ package com.scriptbasic.interfaces;
  * date June 15, 2012
  * 
  */
-public interface BuildableProgram extends FactoryManaged, Program {
+public interface BuildableProgram extends Program {
 
     /**
      * Calling this method will remove all previously built code from the

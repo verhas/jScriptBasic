@@ -2,12 +2,7 @@ package com.scriptbasic.executors.commands;
 
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
-import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.interfaces.Command;
-import com.scriptbasic.interfaces.ExecutionException;
-import com.scriptbasic.interfaces.Expression;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
-import com.scriptbasic.interfaces.RightValue;
+import com.scriptbasic.interfaces.*;
 
 public class CommandWhile extends AbstractCommand {
     private Command wendNode;

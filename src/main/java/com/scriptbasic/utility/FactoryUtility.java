@@ -1,24 +1,14 @@
 package com.scriptbasic.utility;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
-import com.scriptbasic.interfaces.BuildableProgram;
-import com.scriptbasic.interfaces.CommandFactory;
-import com.scriptbasic.interfaces.Configuration;
-import com.scriptbasic.interfaces.ExpressionAnalyzer;
-import com.scriptbasic.interfaces.ExpressionListAnalyzer;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
-import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.interfaces.FactoryManaged;
-import com.scriptbasic.interfaces.LeftValueAnalyzer;
-import com.scriptbasic.interfaces.LeftValueListAnalyzer;
-import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.interfaces.NestedStructureHouseKeeper;
-import com.scriptbasic.interfaces.SimpleLeftValueAnalyzer;
-import com.scriptbasic.interfaces.SimpleLeftValueListAnalyzer;
-import com.scriptbasic.interfaces.SyntaxAnalyzer;
-import com.scriptbasic.interfaces.TagAnalyzer;
+import com.scriptbasic.interfaces.*;
+import com.scriptbasic.lexer.BasicLexicalAnalyzer;
+import com.scriptbasic.lexer.elements.ScriptBasicLexicalAnalyzer;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
+import com.scriptbasic.readers.GenericHierarchicalSourceReader;
+
+import java.io.IOException;
 
 public final class FactoryUtility {
 
@@ -29,7 +19,7 @@ public final class FactoryUtility {
     private static final Logger LOG = LoggerFactory
             .getLogger();
 
-    private static <T extends FactoryManaged> T get(final Factory factory,
+    private static <T> T get(final Factory factory,
             final Class<T> klass) {
         final T object = factory.get(klass);
         if (object == null) {
@@ -46,15 +36,17 @@ public final class FactoryUtility {
         return object;
     }
 
+    public static LexicalAnalyzer getLexicalAnalyzer(SourceProvider provider, String fileName) throws IOException {
+        final SourceReader reader = provider.get(fileName);
+        final GenericHierarchicalSourceReader hreader = new GenericHierarchicalSourceReader(reader);
+        return new ScriptBasicLexicalAnalyzer(hreader);
+    }
+
     public static LexicalAnalyzer getLexicalAnalyzer(Factory factory) {
         LOG.debug("getting lexical analyzer from {}", factory);
         return get(factory, LexicalAnalyzer.class);
     }
 
-    public static BuildableProgram getProgram(Factory factory) {
-        LOG.debug("getting program from {}", factory);
-        return get(factory, BuildableProgram.class);
-    }
 
     public static SyntaxAnalyzer getSyntaxAnalyzer(Factory factory) {
         LOG.debug("getting syntax analyzer from {}", factory);
@@ -81,11 +73,6 @@ public final class FactoryUtility {
             Factory factory) {
         LOG.debug("getting nested structure house keeper from {}", factory);
         return get(factory, NestedStructureHouseKeeper.class);
-    }
-
-    public static CommandFactory getCommandFactory(Factory factory) {
-        LOG.debug("getting command factory from {}", factory);
-        return get(factory, CommandFactory.class);
     }
 
     public static LeftValueAnalyzer getLeftValueAnalyzer(Factory factory) {

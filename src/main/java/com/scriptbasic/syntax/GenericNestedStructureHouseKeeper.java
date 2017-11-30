@@ -2,6 +2,7 @@ package com.scriptbasic.syntax;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.NestedStructure;
 
 /**
@@ -12,6 +13,10 @@ import com.scriptbasic.interfaces.NestedStructure;
  */
 public final class GenericNestedStructureHouseKeeper extends
         AbstractNestedStructureHouseKeeper {
+
+    public GenericNestedStructureHouseKeeper(LexicalAnalyzer analyzer) {
+        super(analyzer);
+    }
 
     @Override
     public <T extends NestedStructure> T pop(final Class<T> expectedClass)

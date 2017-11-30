@@ -1,11 +1,9 @@
 package com.scriptbasic.sourceproviders;
 
-import java.io.IOException;
-
-
-
-import com.scriptbasic.interfaces.Reader;
+import com.scriptbasic.interfaces.SourceReader;
 import org.junit.Test;
+
+import java.io.IOException;
 
 public class TestSingleIncludeSourcePathSourceProvider  {
 
@@ -13,13 +11,13 @@ public class TestSingleIncludeSourcePathSourceProvider  {
             AbstractSingleIncludeSourcePathSourceProvider {
 
         @Override
-        protected Reader getSource(final String sourceName) throws IOException {
+        protected SourceReader getSource(final String sourceName) throws IOException {
             return null;
         }
 
         @Override
-        protected Reader getSource(final String sourceName,
-                final String referencingSource) throws IOException {
+        protected SourceReader getSource(final String sourceName,
+                                         final String referencingSource) throws IOException {
             return null;
         }
 

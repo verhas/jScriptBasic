@@ -1,25 +1,21 @@
 package com.scriptbasic.readers;
 
+import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.interfaces.HierarchicalSourceReader;
+import com.scriptbasic.interfaces.SourceProvider;
+import com.scriptbasic.interfaces.SourceReader;
+
 import java.util.Stack;
 
-import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.interfaces.HierarchicalReader;
-import com.scriptbasic.interfaces.Reader;
-import com.scriptbasic.interfaces.SourceProvider;
+public class GenericHierarchicalSourceReader implements HierarchicalSourceReader {
 
-public class GenericHierarchicalReader implements HierarchicalReader {
-
-    public GenericHierarchicalReader(Reader reader) {
+    public GenericHierarchicalSourceReader(SourceReader reader) {
         this.reader = reader;
     }
 
-    @Override
-	public void setFactory(Factory factory) {
-    }
+    private SourceReader reader;
 
-    private Reader reader;
-
-    private final Stack<Reader> readerStack = new Stack<>();
+    private final Stack<SourceReader> readerStack = new Stack<>();
 
     /**
      * Include a new reader into the chain and start to use that child reader so
@@ -28,7 +24,7 @@ public class GenericHierarchicalReader implements HierarchicalReader {
      * @param reader
      */
     @Override
-    public void include(final Reader reader) {
+    public void include(final SourceReader reader) {
         if (this.reader != null) {
             this.readerStack.push(this.reader);
         }

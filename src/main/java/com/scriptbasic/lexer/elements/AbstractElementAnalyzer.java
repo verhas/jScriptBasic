@@ -3,17 +3,17 @@ package com.scriptbasic.lexer.elements;
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.LexicalElementAnalyzer;
-import com.scriptbasic.interfaces.Reader;
+import com.scriptbasic.interfaces.SourceReader;
 
 public abstract class AbstractElementAnalyzer implements LexicalElementAnalyzer {
 
-    private final Reader reader;
+    private final SourceReader reader;
 
-    protected AbstractElementAnalyzer(Reader reader) {
+    protected AbstractElementAnalyzer(SourceReader reader) {
         this.reader = reader;
     }
 
-    public Reader getReader() {
+    public SourceReader getReader() {
         return reader;
     }
 

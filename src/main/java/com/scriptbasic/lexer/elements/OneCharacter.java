@@ -2,14 +2,14 @@ package com.scriptbasic.lexer.elements;
 
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.Reader;
+import com.scriptbasic.interfaces.SourceReader;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
 import com.scriptbasic.lexer.BasicLexicalElement;
 import com.scriptbasic.utility.CharUtils;
 
 public class OneCharacter extends AbstractElementAnalyzer {
 
-    public OneCharacter(Reader reader) {
+    public OneCharacter(SourceReader reader) {
         super(reader);
     }
 

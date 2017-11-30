@@ -1,16 +1,16 @@
 package com.scriptbasic.syntax.commands;
 
-import java.util.ArrayList;
-
 import com.scriptbasic.executors.commands.CommandMethod;
+import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.ExpressionList;
 import com.scriptbasic.utility.ExpressionUtility;
-import com.scriptbasic.utility.FactoryUtility;
 import com.scriptbasic.utility.KlassUtility;
 import com.scriptbasic.utility.LexUtility;
+
+import java.util.ArrayList;
 
 /**
  * @author Peter Verhas
@@ -19,32 +19,35 @@ import com.scriptbasic.utility.LexUtility;
  */
 public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
 
+    public CommandAnalyzerMethod(Context ctx) {
+        super(ctx);
+    }
+
     /*
-     * (non-Javadoc)
-     * 
-     * @see com.scriptbasic.interfaces.Analyzer#analyze()
-     */
+         * (non-Javadoc)
+         *
+         * @see com.scriptbasic.interfaces.Analyzer#analyze()
+         */
     @Override
     public Command analyze() throws AnalysisException {
         String methodName = ExpressionUtility
                 .convertToString(analyzeExpression());
-        LexUtility.checkLexeme(getFactory(), "from",
+        LexUtility.checkLexeme(ctx.lexicalAnalyzer, "from",
                 "Keyword 'FROM' is missing in command 'METHOD'");
         String className = ExpressionUtility
                 .convertToString(analyzeExpression());
 
-        LexUtility.checkLexeme(getFactory(), "is",
+        LexUtility.checkLexeme(ctx.lexicalAnalyzer, "is",
                 "Keyword 'IS' is missing in command 'METHOD'");
-        LexUtility.checkLexeme(getFactory(), "(",
+        LexUtility.checkLexeme(ctx.lexicalAnalyzer, "(",
                 "'(' is missing in command 'METHOD' after the keyword 'IS'");
 
-        ExpressionList argExpressions = FactoryUtility
-                .getExpressionListAnalyzer(getFactory()).analyze();
-        LexUtility.checkLexeme(getFactory(), ")",
+        ExpressionList argExpressions = ctx.expressionListAnalyzer.analyze();
+        LexUtility.checkLexeme(ctx.lexicalAnalyzer, ")",
                 "')' is missing in command 'METHOD'");
         String alias = null;
-        if (LexUtility.isLexeme(getFactory(), "use")) {
-            LexUtility.checkLexeme(getFactory(), "as",
+        if (LexUtility.isLexeme(ctx.lexicalAnalyzer, "use")) {
+            LexUtility.checkLexeme(ctx.lexicalAnalyzer, "as",
                     "Keyword 'AS' is missung after 'USE in command 'METHOD'");
             alias = ExpressionUtility.convertToString(analyzeExpression());
         } else {

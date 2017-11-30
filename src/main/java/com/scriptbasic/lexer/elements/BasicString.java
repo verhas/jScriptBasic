@@ -3,13 +3,13 @@ package com.scriptbasic.lexer.elements;
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.exceptions.UnterminatedStringException;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.Reader;
+import com.scriptbasic.interfaces.SourceReader;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
 import com.scriptbasic.lexer.BasicLexicalElement;
 
 public class BasicString extends AbstractElementAnalyzer {
 
-    public BasicString(Reader reader) {
+    public BasicString(SourceReader reader) {
         super(reader);
     }
 

@@ -1,16 +1,16 @@
 package com.scriptbasic;
 
 import com.scriptbasic.factories.BasicFactory;
-import com.scriptbasic.interfaces.*;
-import com.scriptbasic.readers.GenericReader;
+import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Factory;
+import com.scriptbasic.readers.GenericSourceReader;
 import com.scriptbasic.utility.FactoryUtility;
 import com.scriptbasic.utility.functions.file.FileHandlingFunctions;
 import org.junit.Assert;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
 import java.util.Map;
 
 /**
@@ -34,21 +34,20 @@ public class Executor extends AbstractStringIOPojo {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         InputStream is = Class.forName(stackTrace[2].getClassName())
                 .getResourceAsStream(resourceName);
-        final java.io.Reader r = new InputStreamReader(is);
-        final GenericReader reader = new GenericReader(r, sourceFileName);
-        reader.set(resourceName);
+        final Reader r = new InputStreamReader(is);
+        final GenericSourceReader reader = new GenericSourceReader(r, null,resourceName);
         ExtendedInterpreter interpreter = FactoryUtility
                 .getExtendedInterpreter(factory);
         interpreter.registerFunctions(FileHandlingFunctions.class);
         interpreter.setProgram(FactoryUtility.getSyntaxAnalyzer(factory)
                 .analyze());
         StringWriter writer = new StringWriter();
-        interpreter.setWriter(writer);
+        interpreter.setOutput(writer);
         StringWriter errorWriter = new StringWriter();
-        interpreter.setErrorWriter(errorWriter);
+        interpreter.setError(errorWriter);
         StringReader inputReader = getSStdin() == null ? null
                 : new StringReader(getSStdin());
-        interpreter.setReader(inputReader);
+        interpreter.setInput(inputReader);
         if (map != null) {
             for (String key : map.keySet()) {
                 interpreter.setVariable(key, map.get(key));

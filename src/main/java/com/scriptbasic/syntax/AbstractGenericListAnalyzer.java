@@ -1,12 +1,7 @@
 package com.scriptbasic.syntax;
 
-import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.AnalysisResult;
-import com.scriptbasic.interfaces.Analyzer;
-import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.interfaces.GenericList;
-import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.ListAnalyzer;
+import com.scriptbasic.factories.Context;
+import com.scriptbasic.interfaces.*;
 import com.scriptbasic.utility.FactoryUtility;
 import com.scriptbasic.utility.LexUtility;
 
@@ -30,17 +25,19 @@ import com.scriptbasic.utility.LexUtility;
 public abstract class AbstractGenericListAnalyzer<T extends GenericList<Z>, K extends T, Z extends AnalysisResult, A extends Analyzer<Z>>
         implements ListAnalyzer<T> {
 
-    public abstract Factory getFactory();
+    protected final Context ctx;
+
+    protected AbstractGenericListAnalyzer(Context ctx) {
+        this.ctx = ctx;
+    }
 
     protected T analyze(K list, A analyzer) throws AnalysisException {
         list.add(analyzer.analyze());
-        LexicalElement lexicalElement = LexUtility.peek(FactoryUtility
-                .getLexicalAnalyzer(getFactory()));
+        LexicalElement lexicalElement = LexUtility.peek(ctx.lexicalAnalyzer);
         while (isComma(lexicalElement)) {
-            LexUtility.get(FactoryUtility.getLexicalAnalyzer(getFactory()));
+            LexUtility.get(ctx.lexicalAnalyzer);
             list.add(analyzer.analyze());
-            lexicalElement = LexUtility.peek(FactoryUtility
-                    .getLexicalAnalyzer(getFactory()));
+            lexicalElement = LexUtility.peek(ctx.lexicalAnalyzer);
         }
         return list;
     }

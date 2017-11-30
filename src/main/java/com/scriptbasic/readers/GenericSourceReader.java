@@ -1,16 +1,16 @@
 package com.scriptbasic.readers;
 
-import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.interfaces.SourceProvider;
+import com.scriptbasic.interfaces.SourceReader;
 import com.scriptbasic.utility.CharUtils;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class GenericReader implements Reader {
-    private final java.io.Reader sourceReader;
+public class GenericSourceReader implements SourceReader {
+    private final Reader sourceReader;
     private final SourceProvider sourceProvider;
     private final String sourceFileName;
     private int lineNumber = 0;
@@ -18,26 +18,10 @@ public class GenericReader implements Reader {
     private Integer lastChar = null;
     private Deque<Integer> charsAhead = new LinkedList<>();
 
-    public GenericReader(java.io.Reader sourceReader, String sourceFileName) {
-        this.sourceReader = sourceReader;
-        this.sourceFileName = sourceFileName;
-        sourceProvider = null;
-    }
-
-    public GenericReader(SourceProvider sourceProvider, String sourceFileName) {
-        this.sourceFileName = sourceFileName;
-        this.sourceReader = null;
-        this.sourceProvider = sourceProvider;
-    }
-
-    public GenericReader(java.io.Reader sourceReader,SourceProvider sourceProvider, String sourceFileName) {
+    public GenericSourceReader(Reader sourceReader, SourceProvider sourceProvider, String sourceFileName) {
         this.sourceFileName = sourceFileName;
         this.sourceReader = sourceReader;
         this.sourceProvider = sourceProvider;
-    }
-
-    @Override
-    public void setFactory(Factory factory) {
     }
 
     @Override

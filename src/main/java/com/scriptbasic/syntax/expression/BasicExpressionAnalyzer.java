@@ -1,6 +1,7 @@
 package com.scriptbasic.syntax.expression;
 
 import com.scriptbasic.executors.operators.*;
+import com.scriptbasic.factories.Context;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,10 @@ public final class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
                 "and", LogicalAndOperator.class,
                 "or", LogicalOrOperator.class));
         // XOR is not implemented in jScriptBasic by design
+    }
+
+    public BasicExpressionAnalyzer(Context ctx) {
+        super(ctx);
     }
 
     @Override

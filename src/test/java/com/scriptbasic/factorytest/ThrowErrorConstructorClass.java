@@ -18,12 +18,4 @@ public final class ThrowErrorConstructorClass implements
         throw new BasicInterpreterInternalError(null);
     }
 
-    /**
-     * Since this class is never instantiated and never used, there is nothing
-     * to be done here.
-     */
-    @Override
-    public void setFactory(Factory factory) {
-    }
-
 }

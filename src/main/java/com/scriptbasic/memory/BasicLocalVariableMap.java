@@ -1,10 +1,10 @@
 package com.scriptbasic.memory;
 
-import java.util.Stack;
-
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.LocalVariableMap;
 import com.scriptbasic.interfaces.RightValue;
+
+import java.util.Stack;
 
 /**
  * Handle the local variable in a hierarchical stack of Maps

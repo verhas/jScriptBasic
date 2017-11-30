@@ -1,7 +1,6 @@
 package com.scriptbasic.interfaces;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
@@ -21,7 +20,7 @@ import java.util.stream.Stream;
  * date Jul 23, 2012
  * 
  */
-public interface Configuration extends FactoryManaged {
+public interface Configuration {
     /**
      * Configuration of the script engine comes from standard Java properties.
      * Calling this method the caller can set the properties for the

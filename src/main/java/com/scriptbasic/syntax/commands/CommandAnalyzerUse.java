@@ -2,6 +2,7 @@ package com.scriptbasic.syntax.commands;
 
 import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.executors.commands.CommandUse;
+import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.utility.ExpressionUtility;
@@ -15,21 +16,25 @@ import com.scriptbasic.utility.LexUtility;
  */
 public class CommandAnalyzerUse extends AbstractCommandAnalyzer {
 
+    public CommandAnalyzerUse(Context ctx) {
+        super(ctx);
+    }
+
     /*
-     * (non-Javadoc)
-     * 
-     * @see com.scriptbasic.interfaces.Analyzer#analyze()
-     */
+         * (non-Javadoc)
+         *
+         * @see com.scriptbasic.interfaces.Analyzer#analyze()
+         */
     @Override
     public Command analyze() throws AnalysisException {
         String className = ExpressionUtility
                 .convertToString(analyzeExpression());
-        LexUtility.checkLexeme(getFactory(), "from",
+        LexUtility.checkLexeme(ctx.lexicalAnalyzer, "from",
                 "Keyword 'FROM' is missing in command 'USE'");
         String packageName = ExpressionUtility
                 .convertToString(analyzeExpression());
         final String aliasName;
-        if (LexUtility.isLexeme(getFactory(), "as")) {
+        if (LexUtility.isLexeme(ctx.lexicalAnalyzer, "as")) {
             aliasName = ExpressionUtility.convertToString(analyzeExpression());
         } else {
             aliasName = className;

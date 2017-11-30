@@ -1,12 +1,12 @@
 package com.scriptbasic.sourceproviders;
 
+import com.scriptbasic.interfaces.SourceReader;
+import com.scriptbasic.readers.GenericSourceReader;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.scriptbasic.interfaces.Reader;
-import com.scriptbasic.readers.GenericReader;
 
 /**
  * This implementation provides the source from strings.
@@ -36,15 +36,15 @@ public class StringSourceProvider extends
     /**
      * {@inheritDoc}
      * 
-     * This implementation returns a {@link GenericReader}.
+     * This implementation returns a {@link GenericSourceReader}.
      */
     @Override
-    public Reader getSource(final String sourceName) throws IOException {
+    public SourceReader getSource(final String sourceName) throws IOException {
         if (!this.sourceMap.containsKey(sourceName)) {
             throw new IOException("The source '" + sourceName
                     + "' was not set.");
         }
-        final GenericReader reader = new GenericReader(new StringReader(this.sourceMap.get(sourceName)), sourceName);
+        final GenericSourceReader reader = new GenericSourceReader(new StringReader(this.sourceMap.get(sourceName)), null,sourceName);
         return reader;
     }
 }

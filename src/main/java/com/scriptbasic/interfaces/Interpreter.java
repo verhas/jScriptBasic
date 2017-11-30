@@ -1,12 +1,15 @@
 package com.scriptbasic.interfaces;
 
+import java.io.Reader;
+import java.io.Writer;
+
 /**
  * An interpreter instance executes a program.
  * 
  * @author Peter Verhas
  * 
  */
-public interface Interpreter extends FactoryManaged {
+public interface Interpreter {
     
     void registerHook(InterpreterHook hook);
     
@@ -36,7 +39,7 @@ public interface Interpreter extends FactoryManaged {
      * Get the value of a global variable. Since this is not a BASIC interpreter
      * method, but rather a method that helps the embedding of the interpreter
      * the returned value is a raw Java object and not a RightValue. Thus if the
-     * variable value is for example a {@link BasicDoubleValue} then the
+     * variable value is for example a {@link com.scriptbasic.executors.rightvalues.BasicDoubleValue} then the
      * implementation should return a {@link Double}.
      * 
      * @param name
@@ -58,25 +61,25 @@ public interface Interpreter extends FactoryManaged {
     Object call(String functionName, Object[] arguments) throws ExecutionException;
 
     /**
-     * @see javax.script.ScriptContext#setReader(java.io.Reader)
+     * @see javax.script.ScriptContext#setReader(Reader)
      * 
      * @param reader
      */
-    void setReader(java.io.Reader reader);
+    void setInput(Reader reader);
 
     /**
      * @see javax.script.ScriptContext#setWriter(Writer)
      * 
      * @param writer
      */
-    void setWriter(java.io.Writer writer);
+    void setOutput(Writer writer);
 
     /**
      * @see javax.script.ScriptContext#setErrorWriter(Writer)
      * 
      * @param writer
      */
-    void setErrorWriter(java.io.Writer writer);
+    void setError(Writer writer);
 
     /**
      * Register the functions defined in the class. Functions that can be called

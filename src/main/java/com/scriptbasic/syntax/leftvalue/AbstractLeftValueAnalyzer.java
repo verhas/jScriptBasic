@@ -6,6 +6,7 @@ import com.scriptbasic.executors.leftvalues.ArrayElementAccessLeftValueModifier;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.executors.leftvalues.LeftValueModifier;
 import com.scriptbasic.executors.leftvalues.ObjectFieldAccessLeftValueModifier;
+import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.*;
 import com.scriptbasic.utility.FactoryUtility;
 
@@ -21,7 +22,11 @@ import com.scriptbasic.utility.FactoryUtility;
  * date June 12, 2012
  */
 public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
-    private Factory factory;
+    protected final Context ctx;
+
+    protected AbstractLeftValueAnalyzer(Context ctx) {
+        this.ctx = ctx;
+    }
 
     private static LeftValueModifier analyzeFieldAccess(
             LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
@@ -52,23 +57,12 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
         return lexicalElement != null && lexicalElement.isSymbol(".");
     }
 
-    public Factory getFactory() {
-        return factory;
-    }
-
-    @Override
-    public void setFactory(Factory factory) {
-        this.factory = factory;
-    }
-
     private LeftValueModifier analyzeArrayAccess(LexicalAnalyzer lexicalAnalyzer)
             throws AnalysisException {
         lexicalAnalyzer.get();
         ArrayElementAccessLeftValueModifier lvm = new ArrayElementAccessLeftValueModifier();
-        ExpressionListAnalyzer expressionListAnalyzer = FactoryUtility
-                .getExpressionListAnalyzer(getFactory());
 
-        ExpressionList indexList = expressionListAnalyzer.analyze();
+        ExpressionList indexList = ctx.expressionListAnalyzer.analyze();
         lvm.setIndexList(indexList);
         LexicalElement lexicalElement = lexicalAnalyzer.peek();
         if (lexicalElement != null && lexicalElement.isSymbol("]")) {
@@ -81,26 +75,25 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
 
     @Override
     public LeftValue analyze() throws AnalysisException {
-        BasicLeftValue leftValue = null;
-        LexicalAnalyzer lexicalAnalyzer = FactoryUtility.getLexicalAnalyzer(getFactory());
-        LexicalElement lexicalElement = lexicalAnalyzer.peek();
+        BasicLeftValue leftValue;
+        LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
         if (lexicalElement != null && lexicalElement.isIdentifier()) {
-            lexicalAnalyzer.get();
+            ctx.lexicalAnalyzer.get();
             leftValue = new BasicLeftValue();
             leftValue.setIdentifier(lexicalElement.getLexeme());
-            lexicalElement = lexicalAnalyzer.peek();
+            lexicalElement = ctx.lexicalAnalyzer.peek();
             while (isModifierStart(lexicalElement)) {
                 final LeftValueModifier modifier;
                 if (isArrayAccessStart(lexicalElement)) {
-                    modifier = analyzeArrayAccess(lexicalAnalyzer);
+                    modifier = analyzeArrayAccess(ctx.lexicalAnalyzer);
                 } else if (isFieldAccessStart(lexicalElement)) {
-                    modifier = analyzeFieldAccess(lexicalAnalyzer);
+                    modifier = analyzeFieldAccess(ctx.lexicalAnalyzer);
                 } else {
                     throw new BasicInterpreterInternalError(
                             "left value parsing internal error, there is a modifier with unknown type");
                 }
                 leftValue.addModifier(modifier);
-                lexicalElement = lexicalAnalyzer.peek();
+                lexicalElement = ctx.lexicalAnalyzer.peek();
             }
         } else {
             throw new GenericSyntaxException(

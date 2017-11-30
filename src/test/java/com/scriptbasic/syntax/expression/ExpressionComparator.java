@@ -1,10 +1,5 @@
 package com.scriptbasic.syntax.expression;
 
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
-
-import java.util.Iterator;
-
 import com.scriptbasic.executors.AbstractIdentifieredExpression;
 import com.scriptbasic.executors.AbstractIdentifieredExpressionListedExpression;
 import com.scriptbasic.executors.operators.AbstractBinaryOperator;
@@ -12,6 +7,11 @@ import com.scriptbasic.executors.operators.AbstractUnaryOperator;
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.ExpressionList;
+
+import java.util.Iterator;
+
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 
 public class ExpressionComparator {
 

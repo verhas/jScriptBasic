@@ -1,5 +1,5 @@
 package com.scriptbasic.interfaces;
 
-public interface TagAnalyzer extends FactoryManaged {
+public interface TagAnalyzer {
     Expression analyze() throws AnalysisException;
 }
