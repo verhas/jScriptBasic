@@ -7,7 +7,6 @@ import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 
 import javax.script.*;
-import javax.script.ScriptEngineFactory;
 import java.io.Reader;
 import java.io.StringReader;
 
@@ -18,10 +17,12 @@ import java.io.StringReader;
 public class ScriptEngine extends AbstractScriptEngine {
 
 
-    private Context ctx;
-    private ScriptEngineFactory scriptEngineFactory;
+    public Context ctx;
+    public final ScriptBasicEngineFactory scriptEngineFactory;
 
-    public ScriptEngine(ScriptEngineFactory scriptEngineFactory) {
+    public ScriptEngine(ScriptBasicEngineFactory scriptEngineFactory) {
+        ctx = ContextBuilder.newContext();
+        ctx.configuration = scriptEngineFactory.config;
         this.scriptEngineFactory = scriptEngineFactory;
     }
 
@@ -59,7 +60,7 @@ public class ScriptEngine extends AbstractScriptEngine {
     @Override
     public Object eval(Reader reader, ScriptContext context) throws ScriptException {
         try {
-            ctx = ContextBuilder.from(reader, context.getReader(), context.getWriter(), context.getErrorWriter());
+            ctx = ContextBuilder.from(ctx,reader, context.getReader(), context.getWriter(), context.getErrorWriter());
             mergeBinding(ctx.interpreter, context.getBindings(ScriptContext.GLOBAL_SCOPE));
             mergeBinding(ctx.interpreter, context.getBindings(ScriptContext.ENGINE_SCOPE));
             ctx.interpreter.setProgram(ctx.syntaxAnalyzer.analyze());
@@ -88,7 +89,7 @@ public class ScriptEngine extends AbstractScriptEngine {
      * @see javax.script.ScriptEngine#getFactory()
      */
     @Override
-    public ScriptEngineFactory getFactory() {
+    public ScriptBasicEngineFactory getFactory() {
         return scriptEngineFactory;
     }
 }

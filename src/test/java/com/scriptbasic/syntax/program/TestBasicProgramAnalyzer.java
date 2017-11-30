@@ -11,7 +11,7 @@ import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-@SuppressWarnings("static-method")
+
 public class TestBasicProgramAnalyzer {
 
     private static Factory factory = new BasicFactory();

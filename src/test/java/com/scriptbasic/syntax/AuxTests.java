@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 public class AuxTests {
 
-    @SuppressWarnings("static-method")
+
     public void testExceptions() {
         // new FactoryUtilities();
         new CommandCanNotBeCreatedException("bla bla", null);

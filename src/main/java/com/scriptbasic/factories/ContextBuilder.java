@@ -25,6 +25,12 @@ import java.io.Writer;
 
 public class ContextBuilder {
 
+    public static Context newContext() {
+        final Context ctx = new Context();
+        ctx.interpreter = new BasicExtendedInterpreter(ctx);
+        return ctx;
+    }
+
     public static Context from(Context existingCtx) {
         final Context ctx;
         if (existingCtx != null) {
@@ -86,6 +92,19 @@ public class ContextBuilder {
 
     public static Context from(Context existing, SourceReader reader) throws AnalysisException {
         Context ctx = from(existing);
+        createReusableComponents(ctx);
+        createReaderDependentComponents(reader, ctx);
+        return ctx;
+    }
+
+    private static void createReaderDependentComponents(SourceReader reader, Context ctx) {
+        ctx.lexicalAnalyzer = new ScriptBasicLexicalAnalyzer(reader);
+        ctx.nestedStructureHouseKeeper = new GenericNestedStructureHouseKeeper(ctx.lexicalAnalyzer);
+        final CommandFactory commandFactory = new BasicCommandFactory(ctx);
+        ctx.syntaxAnalyzer = new BasicSyntaxAnalyzer(ctx.lexicalAnalyzer, commandFactory);
+    }
+
+    private static void createReusableComponents(Context ctx) {
         if (ctx.configuration == null) {
             ctx.configuration = new BasicConfiguration();
         }
@@ -104,19 +123,8 @@ public class ContextBuilder {
         if (ctx.tagAnalyzer == null) {
             ctx.tagAnalyzer = new BasicTagAnalyzer(ctx);
         }
-        if (ctx.lexicalAnalyzer == null) {
-            ctx.lexicalAnalyzer = new ScriptBasicLexicalAnalyzer(reader);
-        }
-        if (ctx.nestedStructureHouseKeeper == null) {
-            ctx.nestedStructureHouseKeeper = new GenericNestedStructureHouseKeeper(ctx.lexicalAnalyzer);
-        }
         if (ctx.leftValueAnalyzer == null) {
             ctx.leftValueAnalyzer = new BasicLeftValueAnalyzer(ctx);
         }
-        final CommandFactory commandFactory = new BasicCommandFactory(ctx);
-        if (ctx.syntaxAnalyzer == null) {
-            ctx.syntaxAnalyzer = new BasicSyntaxAnalyzer(ctx.lexicalAnalyzer, commandFactory);
-        }
-        return ctx;
     }
 }

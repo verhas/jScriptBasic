@@ -293,7 +293,6 @@ public abstract class SimpleHook implements InterpreterHook {
     /**
      * @param method
      */
-    @SuppressWarnings("static-method")
     public Object afterCallJavaFunctionEx(final Method method,
             final Object result) {
         return result;
@@ -321,7 +320,7 @@ public abstract class SimpleHook implements InterpreterHook {
      * @param value
      * @return
      */
-    @SuppressWarnings("static-method")
+
     public RightValue variableReadEx(final String variableName,
             final RightValue value) {
         return value;
