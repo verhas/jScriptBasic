@@ -1,18 +1,20 @@
 package com.scriptbasic.syntax.expression;
 
-import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.exceptions.SyntaxException;
 import com.scriptbasic.factories.Context;
 import com.scriptbasic.factories.ContextBuilder;
 import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.ExpressionAnalyzer;
 import com.scriptbasic.utility.LexUtility;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
 import static com.scriptbasic.syntax.expression.ExpressionBuilder.*;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 
 public class TestBasicExpressionAnalyzer {
@@ -111,7 +113,7 @@ public class TestBasicExpressionAnalyzer {
         for (final String s : expressions) {
             try {
                 compile(s);
-                assertTrue(false);
+                fail();
             } catch (final SyntaxException e) {
             }
         }

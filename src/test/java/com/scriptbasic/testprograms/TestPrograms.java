@@ -1,10 +1,11 @@
 package com.scriptbasic.testprograms;
 
 import com.scriptbasic.Executor;
-import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.ExecutionException;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author Peter Verhas date July 13, 2012
@@ -34,7 +36,7 @@ public class TestPrograms {
     private static void testSyntaxFail(String fileName) throws Exception {
         try {
             codeTest(fileName, null);
-            assertTrue(false);
+            fail();
         } catch (AnalysisException e) {
             @SuppressWarnings("unused")
             Exception ex = e;
@@ -45,7 +47,7 @@ public class TestPrograms {
     private static void testRuntimeFail(String fileName) throws Exception {
         try {
             codeTest(fileName, null);
-            assertTrue(false);
+            fail();
         } catch (ExecutionException e) {
             @SuppressWarnings("unused")
             Exception ex = e;
@@ -126,22 +128,22 @@ public class TestPrograms {
 
     @Test(expected = BasicSyntaxException.class)
     public void syntaxErrorWhenThereIsNoClosingParentheseAfterFunctionCall() throws Exception {
-        codeTest("NoClosingParenAfterFunctionCall.bas","");
+        codeTest("NoClosingParenAfterFunctionCall.bas", "");
     }
 
     @Test(expected = BasicSyntaxException.class)
     public void syntaxErrorWhenNoClosingParenInExpression() throws Exception {
-        codeTest("NoClosingParenInExpression.bas","");
+        codeTest("NoClosingParenInExpression.bas", "");
     }
 
     @Test(expected = BasicSyntaxException.class)
     public void syntaxErrorWhenNoClosingBracketAccessingArrayElement() throws Exception {
-        codeTest("NoClosingBracketAccessingArrayElement.bas","");
+        codeTest("NoClosingBracketAccessingArrayElement.bas", "");
     }
 
     @Test(expected = BasicSyntaxException.class)
     public void syntaxErrorWhenSubroutineIsDefinedMoreThanOnce() throws Exception {
-        codeTest("SubroutineDoubleDefined.bas","");
+        codeTest("SubroutineDoubleDefined.bas", "");
     }
 
     @Test

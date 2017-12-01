@@ -12,7 +12,7 @@ public class GenericExpressionList implements ExpressionList {
     private final List<Expression> expressionList = new LinkedList<>();
 
     @Override
-	public void add(final Expression expression) {
+    public void add(final Expression expression) {
         this.expressionList.add(expression);
     }
 

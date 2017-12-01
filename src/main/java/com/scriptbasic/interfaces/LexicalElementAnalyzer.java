@@ -8,9 +8,8 @@ package com.scriptbasic.interfaces;
  * <p>
  * There are implementation of this interface to recognize string, symbol,
  * identifier, decimal number.
- * 
+ *
  * @author Peter Verhas
- * 
  */
 public interface LexicalElementAnalyzer {
 
@@ -24,7 +23,7 @@ public interface LexicalElementAnalyzer {
      * If the characters read from the reader show that the lexeme is the type
      * that the class implementing this interface can handle, but is erroneous,
      * then the method throws the exception.
-     * 
+     *
      * @return the created lexeme or {@code null}
      * @throws AnalysisException
      */

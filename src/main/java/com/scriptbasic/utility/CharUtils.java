@@ -1,6 +1,8 @@
 package com.scriptbasic.utility;
 
 public final class CharUtils {
+    private static final Integer NONBREAKING_SPACE = 160;
+
     private CharUtils() {
         NoInstance.isPossible();
     }
@@ -13,8 +15,6 @@ public final class CharUtils {
             return false;
         }
     }
-
-    private static final Integer NONBREAKING_SPACE = 160;
 
     public static boolean isWhitespace(final Integer ch) {
         return Character.isWhitespace(ch) || NONBREAKING_SPACE.equals(ch);

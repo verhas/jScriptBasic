@@ -1,7 +1,6 @@
 package com.scriptbasic.syntax.leftvalue;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
-import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.executors.leftvalues.ArrayElementAccessLeftValueModifier;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.executors.leftvalues.LeftValueModifier;

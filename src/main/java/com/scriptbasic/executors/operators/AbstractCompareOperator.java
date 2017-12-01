@@ -7,6 +7,19 @@ import com.scriptbasic.interfaces.RightValue;
 public abstract class AbstractCompareOperator extends
         AbstractBinaryFullCircuitOperator {
 
+    protected static int compareJavaObjectTo(final BasicJavaObjectValue f,
+                                             final RightValue op) throws BasicRuntimeException {
+        final Object o = BasicJavaObjectValue.asObject(op);
+        if (f.getValue() instanceof Comparable<?> && o instanceof Comparable<?>) {
+            @SuppressWarnings("unchecked") final Comparable<Comparable<?>> a = (Comparable<Comparable<?>>) f
+                    .getValue();
+            final Comparable<?> b = (Comparable<?>) o;
+            return a.compareTo(b);
+        }
+        throw new BasicRuntimeException(
+                "Can not compare the java objects, at least one of them is not comparable");
+    }
+
     protected abstract Boolean compareTo(BasicDoubleValue d, RightValue op)
             throws BasicRuntimeException;
 
@@ -24,7 +37,7 @@ public abstract class AbstractCompareOperator extends
 
     @Override
     protected RightValue evaluateOn(final RightValue leftOperand,
-            final RightValue rightOperand) throws BasicRuntimeException {
+                                    final RightValue rightOperand) throws BasicRuntimeException {
         if (leftOperand.isDouble()) {
             return new BasicBooleanValue(compareTo(
                     ((BasicDoubleValue) leftOperand), rightOperand));
@@ -46,19 +59,5 @@ public abstract class AbstractCompareOperator extends
                     ((BasicJavaObjectValue) leftOperand), rightOperand));
         }
         return null;
-    }
-
-    protected static int compareJavaObjectTo(final BasicJavaObjectValue f,
-            final RightValue op) throws BasicRuntimeException {
-        final Object o = BasicJavaObjectValue.asObject(op);
-        if (f.getValue() instanceof Comparable<?> && o instanceof Comparable<?>) {
-            @SuppressWarnings("unchecked")
-            final Comparable<Comparable<?>> a = (Comparable<Comparable<?>>) f
-                    .getValue();
-            final Comparable<?> b = (Comparable<?>) o;
-            return a.compareTo(b);
-        }
-        throw new BasicRuntimeException(
-                "Can not compare the java objects, at least one of them is not comparable");
     }
 }

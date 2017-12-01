@@ -8,53 +8,52 @@ import java.util.*;
 
 public final class BasicProgram extends AbstractBasicProgramPostprocessing {
 
-	private final List<Command> commands = new ArrayList<>();
-	private AbstractCommand lastCommand = null;
+    private final List<Command> commands = new ArrayList<>();
+    private AbstractCommand lastCommand = null;
+    private Map<String, CommandSub> subroutineMap = new HashMap<>();
 
-	@Override
-	public void reset() {
-		commands.clear();
-		lastCommand = null;
-	}
+    @Override
+    public void reset() {
+        commands.clear();
+        lastCommand = null;
+    }
 
-	public void addCommand(final Command command) {
-		if (lastCommand != null) {
-			lastCommand.setNextCommand(command);
-		}
-		lastCommand = (AbstractCommand) command;
-		this.commands.add(command);
-	}
+    public void addCommand(final Command command) {
+        if (lastCommand != null) {
+            lastCommand.setNextCommand(command);
+        }
+        lastCommand = (AbstractCommand) command;
+        this.commands.add(command);
+    }
 
-	protected Command getFirstCommand() {
-		if (commands.isEmpty()) {
-			return null;
-		} else {
-			return commands.get(0);
-		}
-	}
+    protected Command getFirstCommand() {
+        if (commands.isEmpty()) {
+            return null;
+        } else {
+            return commands.get(0);
+        }
+    }
 
-	@Override
-	public Collection<Command> getCommands() {
-		return commands;
-	}
+    @Override
+    public Collection<Command> getCommands() {
+        return commands;
+    }
 
-	private Map<String, CommandSub> subroutineMap = new HashMap<>();
+    @Override
+    public Iterable<String> getNamedCommandNames() {
+        return subroutineMap.keySet();
+    }
 
-	@Override
-	public Iterable<String> getNamedCommandNames() {
-		return subroutineMap.keySet();
-	}
+    /**
+     * @return the subroutineMap
+     */
+    protected Map<String, CommandSub> getSubroutineMap() {
+        return subroutineMap;
+    }
 
-	/**
-	 * @return the subroutineMap
-	 */
-	protected Map<String, CommandSub> getSubroutineMap() {
-		return subroutineMap;
-	}
-
-	@Override
-	public Command getNamedCommand(String name) {
-		return subroutineMap.get(name);
-	}
+    @Override
+    public Command getNamedCommand(String name) {
+        return subroutineMap.get(name);
+    }
 
 }

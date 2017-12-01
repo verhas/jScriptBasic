@@ -3,7 +3,6 @@ package com.scriptbasic.interfaces;
 /**
  * @author Peter Verhas
  * date June 22, 2012
- * 
  */
 @SuppressWarnings("serial")
 public abstract class ExecutionException extends Exception {

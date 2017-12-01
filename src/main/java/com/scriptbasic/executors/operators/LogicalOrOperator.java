@@ -10,7 +10,7 @@ public class LogicalOrOperator extends AbstractShortCircuitBinaryOperator {
 
     @Override
     protected RightValue evaluateOn(ExtendedInterpreter extendedInterpreter,
-            final RightValue leftOperand, final Expression rightOperand)
+                                    final RightValue leftOperand, final Expression rightOperand)
             throws ExecutionException {
         final BasicBooleanValue bbv = new BasicBooleanValue(true);
         if (BasicBooleanValue.asBoolean(leftOperand)) {

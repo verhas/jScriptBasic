@@ -14,9 +14,8 @@ import java.io.IOException;
  * for such source provider it is indifferent which file includes the included
  * file. Still in other words it is not possible to include a source using
  * relative source (file) name.
- * 
+ *
  * @author Peter Verhas
- * 
  */
 public abstract class SingleIncludeNonRelativeSourceProvider extends
         AbstractSingleIncludeSourceProvider {
@@ -37,7 +36,7 @@ public abstract class SingleIncludeNonRelativeSourceProvider extends
 
     @Override
     protected String getKeyName(final String sourceName,
-            final String referencingSource) {
+                                final String referencingSource) {
         return getKeyName(sourceName);
     }
 

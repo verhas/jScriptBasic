@@ -44,7 +44,6 @@ public class StringSourceProvider extends
                     + "' was not set.");
         }
         final SourceReader reader = new GenericSourceReader(new StringReader(this.sourceMap.get(sourceName)), this, sourceName);
-        final HierarchicalSourceReader hreader = new GenericHierarchicalSourceReader(reader);
-        return hreader;
+        return new GenericHierarchicalSourceReader(reader);
     }
 }

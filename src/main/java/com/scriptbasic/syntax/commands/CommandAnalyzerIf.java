@@ -9,7 +9,6 @@ import com.scriptbasic.interfaces.Expression;
 /**
  * @author Peter Verhas
  * date June 16, 2012
- * 
  */
 public class CommandAnalyzerIf extends AbstractCommandAnalyzerIfKind {
 

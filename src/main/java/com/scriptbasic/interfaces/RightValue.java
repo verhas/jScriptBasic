@@ -1,17 +1,17 @@
 package com.scriptbasic.interfaces;
 
 public interface RightValue extends Value {
-	Boolean isNumeric();
+    Boolean isNumeric();
 
-	Boolean isLong();
+    Boolean isLong();
 
-	Boolean isDouble();
+    Boolean isDouble();
 
-	Boolean isString();
+    Boolean isString();
 
-	Boolean isBoolean();
+    Boolean isBoolean();
 
-	Boolean isArray();
+    Boolean isArray();
 
-	Boolean isJavaObject();
+    Boolean isJavaObject();
 }

@@ -8,9 +8,8 @@ import java.io.IOException;
 /**
  * An abstract source provider to be extended by the source provider
  * implementations.
- * 
+ *
  * @author Peter Verhas
- * 
  */
 public abstract class AbstractSourceProvider implements SourceProvider {
 

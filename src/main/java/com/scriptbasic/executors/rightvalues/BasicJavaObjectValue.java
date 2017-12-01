@@ -4,7 +4,7 @@ import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.RightValue;
 
 public class BasicJavaObjectValue extends AbstractPrimitiveRightValue<Object> {
-    
+
     public BasicJavaObjectValue(Object value) {
         setValue(value);
     }

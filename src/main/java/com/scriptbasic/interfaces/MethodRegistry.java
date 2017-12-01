@@ -8,11 +8,11 @@ import java.lang.reflect.Method;
  * be overloaded and BASIC functions can not. To overcome this issue the BASIC
  * program has to declare a function name for each method it wants to call. For
  * example:
- *
+ * <p>
  * <pre>
  * method sin from java.lang.Math is (double) use as sinus
  * </pre>
- *
+ * <p>
  * Here the method {@code sin} is to be used from the java package
  * {@code java.lang.Math} and the alias is {@code sinus}. The
  * {@code use as sinus} part is optional. If this is missing then the name of
@@ -55,55 +55,46 @@ import java.lang.reflect.Method;
  * registry.
  *
  * @author Peter Verhas date June 28, 2012
- *
  */
 public interface MethodRegistry {
 
-	/**
-	 * Get the method for a given alias used to name a method in a specific Java
-	 * class.
-	 *
-	 * @param klass
-	 *            the class where the method is. If this parameter is
-	 *            {@code null} then the class will be fetched from the global
-	 *            registry of methods.
-	 * @param alias
-	 *            the alias with which the method was registered for a specific
-	 *            signature.
-	 * @return the located method that match the name and the signature what was
-	 *         registered.
-	 * @throws ExecutionException
-	 *             if the method can not be accessed, e.g. there is no such
-	 *             method or accessing the method violates java security (e.g.
-	 *             the method is private)
-	 */
-	 Method getJavaMethod(Class<?> klass, String alias)
-			throws ExecutionException;
+    /**
+     * Get the method for a given alias used to name a method in a specific Java
+     * class.
+     *
+     * @param klass the class where the method is. If this parameter is
+     *              {@code null} then the class will be fetched from the global
+     *              registry of methods.
+     * @param alias the alias with which the method was registered for a specific
+     *              signature.
+     * @return the located method that match the name and the signature what was
+     * registered.
+     * @throws ExecutionException if the method can not be accessed, e.g. there is no such
+     *                            method or accessing the method violates java security (e.g.
+     *                            the method is private)
+     */
+    Method getJavaMethod(Class<?> klass, String alias)
+            throws ExecutionException;
 
-	/**
-	 * Register a java method.
-	 *
-	 * @param alias
-	 *            the alias of the method. This is the name how the BASIC
-	 *            program will refer to the method. Although the BASIC source
-	 *            code makes it optional to provide an alias it is not optional
-	 *            here. It may be same as the string contained in the parameter
-	 *            {@code methodName} but it should be passed here and should not
-	 *            be {@code null}
-	 * @param klass
-	 *            the class in which the method is implemented.
-	 * @param methodName
-	 *            the Java name of the method.
-	 * @param argumentTypes
-	 *            the argument classes that form the signature of the method
-	 *            together with the name and class of the method.
-	 * @throws BasicRuntimeException
-	 *             is thrown if the registration of the alias is not unique in
-	 *             the actual interpreter. You can not register a name for a
-	 *             method and then later the same alias for a different method.
-	 */
-	 void registerJavaMethod(String alias, Class<?> klass,
-			String methodName, Class<?>[] argumentTypes)
-			throws BasicRuntimeException;
+    /**
+     * Register a java method.
+     *
+     * @param alias         the alias of the method. This is the name how the BASIC
+     *                      program will refer to the method. Although the BASIC source
+     *                      code makes it optional to provide an alias it is not optional
+     *                      here. It may be same as the string contained in the parameter
+     *                      {@code methodName} but it should be passed here and should not
+     *                      be {@code null}
+     * @param klass         the class in which the method is implemented.
+     * @param methodName    the Java name of the method.
+     * @param argumentTypes the argument classes that form the signature of the method
+     *                      together with the name and class of the method.
+     * @throws BasicRuntimeException is thrown if the registration of the alias is not unique in
+     *                               the actual interpreter. You can not register a name for a
+     *                               method and then later the same alias for a different method.
+     */
+    void registerJavaMethod(String alias, Class<?> klass,
+                            String methodName, Class<?>[] argumentTypes)
+            throws BasicRuntimeException;
 
 }

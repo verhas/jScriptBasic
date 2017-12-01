@@ -1,9 +1,9 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.executors.commands.CommandLet;
 import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.LexicalElement;
 

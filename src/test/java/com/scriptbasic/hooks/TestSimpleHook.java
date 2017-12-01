@@ -16,7 +16,8 @@ public class TestSimpleHook {
     public void testExMethods() throws IllegalAccessException,
             IllegalArgumentException, InvocationTargetException, AnalysisException {
         Method[] methods = SimpleHook.class.getDeclaredMethods();
-        SimpleHook simpleHook = new SimpleHook(){};
+        SimpleHook simpleHook = new SimpleHook() {
+        };
         Context ctx = ContextBuilder.from("");
         ExtendedInterpreter interpreter = new BasicExtendedInterpreter(ctx);
         simpleHook.setInterpreter(interpreter);

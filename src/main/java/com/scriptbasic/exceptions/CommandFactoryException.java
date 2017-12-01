@@ -5,7 +5,7 @@ import com.scriptbasic.interfaces.AnalysisException;
 public class CommandFactoryException extends AnalysisException {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 

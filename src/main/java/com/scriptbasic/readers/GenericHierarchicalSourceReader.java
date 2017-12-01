@@ -8,18 +8,17 @@ import java.util.Stack;
 
 public class GenericHierarchicalSourceReader implements HierarchicalSourceReader {
 
+    private final Stack<SourceReader> readerStack = new Stack<>();
+    private SourceReader reader;
+
     public GenericHierarchicalSourceReader(SourceReader reader) {
         this.reader = reader;
     }
 
-    private SourceReader reader;
-
-    private final Stack<SourceReader> readerStack = new Stack<>();
-
     /**
      * Include a new reader into the chain and start to use that child reader so
      * long as long exhausts.
-     * 
+     *
      * @param reader
      */
     @Override
@@ -52,7 +51,7 @@ public class GenericHierarchicalSourceReader implements HierarchicalSourceReader
 
     /**
      * {@inheritDoc}
-     * 
+     * <p>
      * This version implements hierarchical reading. When a source finishes, it
      * returns to the parent reader and continues reading from there.
      */

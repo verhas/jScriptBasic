@@ -5,20 +5,19 @@ import com.scriptbasic.interfaces.SourceReader;
 /**
  * Factory to create a new BasicLexicalElement initializing some fields from the
  * reader.
- * 
+ *
  * @author Peter Verhas
- * 
  */
 public final class BasicLexialElementFactory {
 
-    private BasicLexialElementFactory(){}
+    private BasicLexialElementFactory() {
+    }
+
     /**
      * Create a new BasicLexicalElement and fill in the FileName, LineNumber and
      * the Position from the current position of the reader.
-     * 
-     * @param reader
-     *            from where we are going to read the lexical element
-     * 
+     *
+     * @param reader from where we are going to read the lexical element
      * @return a new and initialized lexical element object
      */
     public static BasicLexicalElement create(final SourceReader reader) {

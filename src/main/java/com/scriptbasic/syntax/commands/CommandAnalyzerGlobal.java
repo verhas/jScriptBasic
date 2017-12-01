@@ -7,7 +7,6 @@ import com.scriptbasic.factories.Context;
 /**
  * @author Peter Verhas
  * date Jul 12, 2012
- * 
  */
 public class CommandAnalyzerGlobal extends AbstractCommandAnalyzerGlobalLocal {
 

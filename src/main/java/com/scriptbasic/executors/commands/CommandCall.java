@@ -7,7 +7,7 @@ import com.scriptbasic.interfaces.ExtendedInterpreter;
 public class CommandCall extends AbstractCommandExpressionListed {
     private final FunctionCall functionCall;
 
-    public CommandCall(final FunctionCall functionCall){
+    public CommandCall(final FunctionCall functionCall) {
         this.functionCall = functionCall;
     }
 

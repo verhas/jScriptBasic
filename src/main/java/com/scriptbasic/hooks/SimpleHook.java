@@ -14,10 +14,9 @@ import java.lang.reflect.Method;
  * then it calls on the chain. A hook extending this class instead of
  * implementing the interface need not implement hook methods that are empty and
  * need not care about not to break the chain.
- * 
+ *
  * @author Peter Verhas
  * date Aug 3, 2012
- * 
  */
 public abstract class SimpleHook implements InterpreterHook {
 
@@ -32,8 +31,7 @@ public abstract class SimpleHook implements InterpreterHook {
     }
 
     /**
-     * @param interpreter
-     *            the interpreter to set
+     * @param interpreter the interpreter to set
      */
     @Override
     public void setInterpreter(final ExtendedInterpreter interpreter) {
@@ -104,8 +102,8 @@ public abstract class SimpleHook implements InterpreterHook {
      */
     @Override
     public void beforeRegisteringJavaMethod(final String alias,
-            final Class<?> klass, final String methodName,
-            final Class<?>[] argumentTypes) {
+                                            final Class<?> klass, final String methodName,
+                                            final Class<?>[] argumentTypes) {
         interpreter.disableHook();
         beforeRegisteringJavaMethodEx(alias, klass, methodName, argumentTypes);
         interpreter.enableHook();
@@ -121,8 +119,8 @@ public abstract class SimpleHook implements InterpreterHook {
      * @param argumentTypes
      */
     public void beforeRegisteringJavaMethodEx(final String alias,
-            final Class<?> klass, final String methodName,
-            final Class<?>[] argumentTypes) {
+                                              final Class<?> klass, final String methodName,
+                                              final Class<?>[] argumentTypes) {
     }
 
     /*
@@ -181,7 +179,7 @@ public abstract class SimpleHook implements InterpreterHook {
     }
 
     /**
-     * 
+     *
      */
     public void beforePopEx() {
     }
@@ -237,7 +235,7 @@ public abstract class SimpleHook implements InterpreterHook {
      */
     @Override
     public void beforeSubroutineCall(final String subroutineName,
-            final LeftValueList arguments, final RightValue[] argumentValues) {
+                                     final LeftValueList arguments, final RightValue[] argumentValues) {
         interpreter.disableHook();
         beforeSubroutineCallEx(subroutineName, arguments, argumentValues);
         interpreter.enableHook();
@@ -250,7 +248,7 @@ public abstract class SimpleHook implements InterpreterHook {
      * @param argumentValues
      */
     public void beforeSubroutineCallEx(final String subroutineName,
-            final LeftValueList arguments, final RightValue[] argumentValues) {
+                                       final LeftValueList arguments, final RightValue[] argumentValues) {
     }
 
     /*
@@ -294,7 +292,7 @@ public abstract class SimpleHook implements InterpreterHook {
      * @param method
      */
     public Object afterCallJavaFunctionEx(final Method method,
-            final Object result) {
+                                          final Object result) {
         return result;
     }
 
@@ -307,7 +305,7 @@ public abstract class SimpleHook implements InterpreterHook {
      */
     @Override
     public RightValue variableRead(final String variableName,
-            final RightValue value) {
+                                   final RightValue value) {
         interpreter.disableHook();
         RightValue hookedValue = variableReadEx(variableName, value);
         interpreter.enableHook();
@@ -322,7 +320,7 @@ public abstract class SimpleHook implements InterpreterHook {
      */
 
     public RightValue variableReadEx(final String variableName,
-            final RightValue value) {
+                                     final RightValue value) {
         return value;
     }
 
@@ -341,7 +339,7 @@ public abstract class SimpleHook implements InterpreterHook {
     }
 
     /**
-     * 
+     *
      */
     public void initEx() {
     }

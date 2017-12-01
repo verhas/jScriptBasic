@@ -16,8 +16,7 @@ public class CommandSub extends AbstractCommand {
     }
 
     /**
-     * @param subName
-     *            the subName to set
+     * @param subName the subName to set
      */
     public void setSubName(String subName) {
         this.subName = subName;
@@ -31,8 +30,7 @@ public class CommandSub extends AbstractCommand {
     }
 
     /**
-     * @param commandEndSub
-     *            the commandEndSub to set
+     * @param commandEndSub the commandEndSub to set
      */
     public void setCommandEndSub(CommandEndSub commandEndSub) {
         this.commandEndSub = commandEndSub;
@@ -46,8 +44,7 @@ public class CommandSub extends AbstractCommand {
     }
 
     /**
-     * @param arguments
-     *            the arguments to set
+     * @param arguments the arguments to set
      */
     public void setArguments(LeftValueList arguments) {
         this.arguments = arguments;
@@ -56,7 +53,7 @@ public class CommandSub extends AbstractCommand {
     /**
      * Just jump over to the end sub and over that. Calling the function is
      * implemented in the expressions and in command CALL.
-     * 
+     * <p>
      * {@inheritDoc}
      */
     @Override

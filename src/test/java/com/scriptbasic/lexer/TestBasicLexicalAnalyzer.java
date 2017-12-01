@@ -3,7 +3,6 @@ package com.scriptbasic.lexer;
 import com.scriptbasic.exceptions.UnterminatedStringException;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.SourceReader;
 import com.scriptbasic.lexer.elements.ScriptBasicLexicalAnalyzer;
 import org.junit.Test;
@@ -158,7 +157,7 @@ public class TestBasicLexicalAnalyzer {
     @Test
     public void spaceSeparatedTerminalsAreAnalyzedNicely() throws AnalysisException {
         assertLexicals(new ScriptBasicLexicalAnalyzer(
-                createStringReading("alma 123 körte <= >= <= 12.3 13e3 12.3e2 \"habakukk\" <")),
+                        createStringReading("alma 123 körte <= >= <= 12.3 13e3 12.3e2 \"habakukk\" <")),
                 ID("alma"), LONG("123"), ID("körte"),
                 SYMBOL("<="), SYMBOL(">="), SYMBOL("<="),
                 DOUBLE("12.3"), DOUBLE("13e3"), DOUBLE("12.3e2"),

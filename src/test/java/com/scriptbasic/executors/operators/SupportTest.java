@@ -8,7 +8,7 @@ import com.scriptbasic.interfaces.ExtendedInterpreter;
 
 import static org.junit.Assert.assertEquals;
 
-public class SupportTest {
+class SupportTest {
 
     static ExtendedInterpreter eval(final String s)
             throws AnalysisException {

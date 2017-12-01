@@ -1,12 +1,8 @@
 package com.scriptbasic.syntax;
 
-import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.exceptions.SyntaxException;
-import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.interfaces.NestedStructure;
-import com.scriptbasic.interfaces.NestedStructureHouseKeeper;
+import com.scriptbasic.interfaces.*;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 

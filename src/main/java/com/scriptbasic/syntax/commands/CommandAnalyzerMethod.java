@@ -15,7 +15,6 @@ import java.util.ArrayList;
 /**
  * @author Peter Verhas
  * date Jun 27, 2012
- * 
  */
 public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
 

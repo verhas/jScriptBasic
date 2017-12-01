@@ -5,7 +5,6 @@ import com.scriptbasic.factories.Context;
 /**
  * @author Peter Verhas
  * date June 13, 2012
- * 
  */
 public final class BasicLeftValueAnalyzer extends AbstractLeftValueAnalyzer {
 

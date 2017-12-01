@@ -78,7 +78,7 @@ public class Engine implements EngineApi {
 
     private void loadHelper(final Reader reader, final String fileName) throws ScriptBasicException {
         try {
-            ctx = ContextBuilder.from(ctx,reader, input, output, error);
+            ctx = ContextBuilder.from(ctx, reader, input, output, error);
             ctx.interpreter.setProgram(ctx.syntaxAnalyzer.analyze());
         } catch (final AnalysisException e) {
             throw new ScriptBasicException(e);
@@ -87,7 +87,7 @@ public class Engine implements EngineApi {
 
     private void loadHelper(final SourceReader sourceReader) throws ScriptBasicException {
         try {
-            ctx = ContextBuilder.from(ctx,sourceReader, input, output, error);
+            ctx = ContextBuilder.from(ctx, sourceReader, input, output, error);
             ctx.interpreter.setProgram(ctx.syntaxAnalyzer.analyze());
         } catch (final AnalysisException e) {
             throw new ScriptBasicException(e);
@@ -97,7 +97,7 @@ public class Engine implements EngineApi {
     @Override
     public void execute() throws ScriptBasicException {
         try {
-            if( ctx == null ){
+            if (ctx == null) {
                 throw new ScriptBasicException("Interpreter was not properly initialized.");
             }
             ctx.interpreter.execute();

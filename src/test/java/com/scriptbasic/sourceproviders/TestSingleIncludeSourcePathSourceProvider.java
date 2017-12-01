@@ -5,7 +5,18 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-public class TestSingleIncludeSourcePathSourceProvider  {
+public class TestSingleIncludeSourcePathSourceProvider {
+
+    @Test
+    public void testFSPFileNotFound() throws IOException {
+        final TestedSingleIncludeSourcePathSourceProvider tsispsp = new TestedSingleIncludeSourcePathSourceProvider();
+        tsispsp.setSingleInclude(null);
+        tsispsp.getSingleInclude();
+        tsispsp.get("habakukk");
+        tsispsp.get("habakukk", "kakukk");
+        tsispsp.setSingleInclude(new BasicSingleIncludeChecker());
+        tsispsp.get("habakukk", "kakukk");
+    }
 
     private class TestedSingleIncludeSourcePathSourceProvider extends
             AbstractSingleIncludeSourcePathSourceProvider {
@@ -28,20 +39,9 @@ public class TestSingleIncludeSourcePathSourceProvider  {
 
         @Override
         protected String getKeyName(final String sourceName,
-                final String referencingSource) {
+                                    final String referencingSource) {
             return null;
         }
 
-    }
-
-    @Test
-    public void testFSPFileNotFound() throws IOException {
-        final TestedSingleIncludeSourcePathSourceProvider tsispsp = new TestedSingleIncludeSourcePathSourceProvider();
-        tsispsp.setSingleInclude(null);
-        tsispsp.getSingleInclude();
-        tsispsp.get("habakukk");
-        tsispsp.get("habakukk", "kakukk");
-        tsispsp.setSingleInclude(new BasicSingleIncludeChecker());
-        tsispsp.get("habakukk", "kakukk");
     }
 }

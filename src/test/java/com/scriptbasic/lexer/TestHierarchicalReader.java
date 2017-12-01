@@ -1,7 +1,7 @@
 package com.scriptbasic.lexer;
 
-import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.LexicalElement;
 import org.junit.Test;
 

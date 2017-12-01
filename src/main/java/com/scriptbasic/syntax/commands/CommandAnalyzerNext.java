@@ -1,18 +1,13 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.executors.commands.CommandFor;
 import com.scriptbasic.executors.commands.CommandNext;
 import com.scriptbasic.factories.Context;
-import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.Command;
-import com.scriptbasic.interfaces.LeftValue;
-import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.interfaces.*;
 
 /**
  * @author Peter Verhas
  * date June 16, 2012
- * 
  */
 public class CommandAnalyzerNext extends AbstractCommandAnalyzer {
 

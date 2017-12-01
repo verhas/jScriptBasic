@@ -52,6 +52,6 @@ public final class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
     @Override
     protected Map<String, Class<? extends AbstractBinaryOperator>> getOperatorMap(
             final Integer priority) {
-        return BASIC_OPERATOR_MAPS.get(priority-1);
+        return BASIC_OPERATOR_MAPS.get(priority - 1);
     }
 }

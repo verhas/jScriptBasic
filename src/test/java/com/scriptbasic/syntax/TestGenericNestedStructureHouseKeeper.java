@@ -1,17 +1,13 @@
 package com.scriptbasic.syntax;
 
-import com.scriptbasic.interfaces.BasicSyntaxException;
-import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.interfaces.NestedStructure;
-import com.scriptbasic.interfaces.NestedStructureHouseKeeper;
+import com.scriptbasic.interfaces.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class TestGenericNestedStructureHouseKeeper {
     private final LexicalAnalyzer lexicalAnalyzer = new NullLexicalAnalyzer();
-    NestedStructure dummy = new NestedStructure() {
+    private NestedStructure dummy = new NestedStructure() {
     };
 
     private NestedStructureHouseKeeper newSut() {
@@ -37,7 +33,7 @@ public class TestGenericNestedStructureHouseKeeper {
         NestedStructureHouseKeeper sut = newSut();
         NestedStructure other = new NestedStructure() {
         };
-        sut.push(other.getClass(),dummy);
+        sut.push(other.getClass(), dummy);
         NestedStructure result = sut.pop(other.getClass());
         assertEquals(dummy, result);
     }
@@ -55,7 +51,7 @@ public class TestGenericNestedStructureHouseKeeper {
         NestedStructureHouseKeeper sut = newSut();
         NestedStructure other = new NestedStructure() {
         };
-        sut.push(other.getClass(),dummy);
+        sut.push(other.getClass(), dummy);
         sut.pop(new NestedStructure() {
         }.getClass());
     }

@@ -5,15 +5,15 @@ import com.scriptbasic.interfaces.ExtendedInterpreter;
 
 public class CommandMethod extends AbstractCommand {
 
-    @Override
-    public void execute(final ExtendedInterpreter interpreter) throws BasicRuntimeException {
-        interpreter.registerJavaMethod(alias, klass, methodName, argumentTypes);
-    }
-
     private Class<?> klass = null;
     private String methodName = null;
     private String alias = null;
     private Class<?>[] argumentTypes = null;
+
+    @Override
+    public void execute(final ExtendedInterpreter interpreter) throws BasicRuntimeException {
+        interpreter.registerJavaMethod(alias, klass, methodName, argumentTypes);
+    }
 
     /**
      * @return the klass
@@ -23,8 +23,7 @@ public class CommandMethod extends AbstractCommand {
     }
 
     /**
-     * @param klass
-     *            the klass to set
+     * @param klass the klass to set
      */
     public void setKlass(Class<?> klass) {
         this.klass = klass;
@@ -38,8 +37,7 @@ public class CommandMethod extends AbstractCommand {
     }
 
     /**
-     * @param methodName
-     *            the methodName to set
+     * @param methodName the methodName to set
      */
     public void setMethodName(String methodName) {
         this.methodName = methodName;
@@ -53,8 +51,7 @@ public class CommandMethod extends AbstractCommand {
     }
 
     /**
-     * @param argumentTypes
-     *            the argumentTypes to set
+     * @param argumentTypes the argumentTypes to set
      */
     public void setArgumentTypes(Class<?>[] argumentTypes) {
         this.argumentTypes = argumentTypes.clone();
@@ -68,8 +65,7 @@ public class CommandMethod extends AbstractCommand {
     }
 
     /**
-     * @param alias
-     *            the alias to set
+     * @param alias the alias to set
      */
     public void setAlias(String alias) {
         this.alias = alias;

@@ -29,7 +29,7 @@ public class MultiCharacter extends AbstractElementAnalyzer implements ScriptBas
     }
 
     private void pushBack(final StringBuilder stringBuilder,
-            int totalCharsToPushBack) {
+                          int totalCharsToPushBack) {
         int charsToPushBack = totalCharsToPushBack;
         int pos = stringBuilder.length() - 1;
         while (charsToPushBack > 0) {

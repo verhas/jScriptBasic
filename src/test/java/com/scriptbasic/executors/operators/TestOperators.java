@@ -1,9 +1,12 @@
 package com.scriptbasic.executors.operators;
 
+import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.interfaces.*;
+import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -11,6 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 import static com.scriptbasic.executors.operators.SupportTest.assertValueOfVariable_A;
 import static com.scriptbasic.executors.operators.SupportTest.eval;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author Peter Verhas
@@ -180,7 +184,7 @@ public class TestOperators {
 
         try {
             a("a= -\"13\"", 0);
-            assertTrue(false);
+            fail();
         } catch (BasicRuntimeException bre) {
 
         }
@@ -247,17 +251,17 @@ public class TestOperators {
         }
         try {
             b("a= b = b", new zzz(), true);
-            assertTrue(false);
+            fail();
         } catch (BasicRuntimeException bre) {
         }
         try {
             b("a= b <> b", new zzz(), true);
-            assertTrue(false);
+            fail();
         } catch (BasicRuntimeException bre) {
         }
         try {
             b("a= b < b", new zzz(), false);
-            assertTrue(false);
+            fail();
         } catch (BasicRuntimeException bre) {
         }
         c("a= b < c", new ttt(1), new ttt(2), true);

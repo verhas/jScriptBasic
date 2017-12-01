@@ -2,10 +2,12 @@ package com.scriptbasic.utility;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.interfaces.BasicSyntaxException;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 
 /**
@@ -45,7 +47,7 @@ public class TestCastUtility {
 
         try {
             NoInstance.isPossible();
-            assertTrue(false);
+            fail();
         } catch (BasicInterpreterInternalError e) {
         }
 
@@ -59,12 +61,12 @@ public class TestCastUtility {
         KlassUtility.forNameEx("boolean");
         try {
             KlassUtility.forNameEx("beef.dead.beef");
-            assertTrue(false);
+            fail();
         } catch (BasicSyntaxException e) {
         }
         try {
             KlassUtility.forName("beef.dead.beef");
-            assertTrue(false);
+            fail();
         } catch (ClassNotFoundException e) {
         }
     }

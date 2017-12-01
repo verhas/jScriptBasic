@@ -5,17 +5,16 @@ import java.io.Writer;
 
 /**
  * An interpreter instance executes a program.
- * 
+ *
  * @author Peter Verhas
- * 
  */
 public interface Interpreter {
-    
+
     void registerHook(InterpreterHook hook);
-    
+
     /**
      * Set the program to execute.
-     * 
+     *
      * @param buildableProgram
      */
     void setProgram(BuildableProgram buildableProgram);
@@ -27,11 +26,9 @@ public interface Interpreter {
 
     /**
      * Set the value of the global variable.
-     * 
-     * @param name
-     *            the name of the global variable
-     * @param value
-     *            the value to be set
+     *
+     * @param name  the name of the global variable
+     * @param value the value to be set
      */
     void setVariable(String name, Object value) throws ExecutionException;
 
@@ -41,43 +38,37 @@ public interface Interpreter {
      * the returned value is a raw Java object and not a RightValue. Thus if the
      * variable value is for example a {@link com.scriptbasic.executors.rightvalues.BasicDoubleValue} then the
      * implementation should return a {@link Double}.
-     * 
-     * @param name
-     *            the name of the variable
+     *
+     * @param name the name of the variable
      * @return the value of the variable
      */
     Object getVariable(String name) throws ExecutionException;
 
     /**
      * Call a function defined by the program passing the objects as arguments.
-     * 
-     * @param functionName
-     *            the name of the function in the program code
-     * @param arguments
-     *            the arguments to the function
+     *
+     * @param functionName the name of the function in the program code
+     * @param arguments    the arguments to the function
      * @return the returned object, or {@code null} if the function does not
-     *         return value
+     * return value
      */
     Object call(String functionName, Object[] arguments) throws ExecutionException;
 
     /**
-     * @see javax.script.ScriptContext#setReader(Reader)
-     * 
      * @param reader
+     * @see javax.script.ScriptContext#setReader(Reader)
      */
     void setInput(Reader reader);
 
     /**
-     * @see javax.script.ScriptContext#setWriter(Writer)
-     * 
      * @param writer
+     * @see javax.script.ScriptContext#setWriter(Writer)
      */
     void setOutput(Writer writer);
 
     /**
-     * @see javax.script.ScriptContext#setErrorWriter(Writer)
-     * 
      * @param writer
+     * @see javax.script.ScriptContext#setErrorWriter(Writer)
      */
     void setError(Writer writer);
 
@@ -87,9 +78,8 @@ public interface Interpreter {
      * registered for the interpreter. The easiest way to define these methods
      * are to create a class and annotate the methods that serve as BASIC
      * functions with the annotation {@code @BasicFunction}
-     * 
-     * @param klass
-     *            the class the defines the functions.
+     *
+     * @param klass the class the defines the functions.
      */
     void registerFunctions(Class<?> klass);
 }

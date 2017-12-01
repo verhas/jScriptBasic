@@ -16,7 +16,7 @@ public final class BasicSimpleLeftValueListAnalyzer
 
     @Override
     public LeftValueList analyze() throws AnalysisException {
-        return super.analyze(new GenericLeftValueList(),ctx.simpleLeftValueAnalyzer);
+        return super.analyze(new GenericLeftValueList(), ctx.simpleLeftValueAnalyzer);
     }
 
 }

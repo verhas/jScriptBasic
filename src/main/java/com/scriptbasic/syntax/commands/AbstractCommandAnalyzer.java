@@ -1,6 +1,5 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.*;

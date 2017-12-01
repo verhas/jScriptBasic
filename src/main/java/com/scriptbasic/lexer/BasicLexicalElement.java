@@ -8,22 +8,10 @@ public class BasicLexicalElement extends AbstractLexicalElement {
     private int position;
     private int type;
     private String lexeme;
-
-    public void setLexeme(final String lexeme) {
-        this.lexeme = lexeme;
-    }
-
-    public void setType(final int type) {
-        this.type = type;
-    }
-
-    public void setLineNumber(final int lineNumber) {
-        this.lineNumber = lineNumber;
-    }
-
-    public void setFileName(final String fileName) {
-        this.fileName = fileName;
-    }
+    private String stringValue;
+    private Long longValue;
+    private Double doubleValue;
+    private Boolean booleanValue;
 
     @Override
     public int getPosition() {
@@ -39,9 +27,17 @@ public class BasicLexicalElement extends AbstractLexicalElement {
         return this.lexeme;
     }
 
+    public void setLexeme(final String lexeme) {
+        this.lexeme = lexeme;
+    }
+
     @Override
     public String getFileName() {
         return this.fileName;
+    }
+
+    public void setFileName(final String fileName) {
+        this.fileName = fileName;
     }
 
     @Override
@@ -49,15 +45,18 @@ public class BasicLexicalElement extends AbstractLexicalElement {
         return this.lineNumber;
     }
 
+    public void setLineNumber(final int lineNumber) {
+        this.lineNumber = lineNumber;
+    }
+
     @Override
     public int getType() {
         return this.type;
     }
 
-    private String stringValue;
-    private Long longValue;
-    private Double doubleValue;
-    private Boolean booleanValue;
+    public void setType(final int type) {
+        this.type = type;
+    }
 
     private void resetValues() {
         this.stringValue = null;
@@ -145,31 +144,31 @@ public class BasicLexicalElement extends AbstractLexicalElement {
     public String toString() {
         String buffer;
         switch (type) {
-        case TYPE_BOOLEAN:
-            buffer = "Boolean(" + booleanValue + ")";
-            break;
-        case TYPE_DOUBLE:
-            buffer = "Double(" + doubleValue + ")";
-            break;
-        case TYPE_LONG:
-            buffer = "Long(" + longValue + ")";
-            break;
-        case TYPE_STRING:
-            buffer = "String(\"" + stringValue + "\")";
-            break;
-        case TYPE_IDENTIFIER:
-            buffer = "'" + lexeme + "'";
-            break;
-        case TYPE_SYMBOL:
-            if (isLineTerminator()) {
-                buffer = "new-line";
-            } else {
-                buffer = lexeme;
-            }
-            break;
-        default:
-            buffer = "INVALID-TYPE";
-            break;
+            case TYPE_BOOLEAN:
+                buffer = "Boolean(" + booleanValue + ")";
+                break;
+            case TYPE_DOUBLE:
+                buffer = "Double(" + doubleValue + ")";
+                break;
+            case TYPE_LONG:
+                buffer = "Long(" + longValue + ")";
+                break;
+            case TYPE_STRING:
+                buffer = "String(\"" + stringValue + "\")";
+                break;
+            case TYPE_IDENTIFIER:
+                buffer = "'" + lexeme + "'";
+                break;
+            case TYPE_SYMBOL:
+                if (isLineTerminator()) {
+                    buffer = "new-line";
+                } else {
+                    buffer = lexeme;
+                }
+                break;
+            default:
+                buffer = "INVALID-TYPE";
+                break;
         }
         return buffer;
     }

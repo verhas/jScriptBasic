@@ -1,7 +1,6 @@
 package com.scriptbasic.syntax;
 
 import com.scriptbasic.exceptions.CommandFactoryException;
-import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.*;
 
 public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {

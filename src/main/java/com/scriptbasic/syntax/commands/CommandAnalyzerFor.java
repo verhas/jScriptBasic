@@ -8,7 +8,6 @@ import com.scriptbasic.interfaces.Command;
 /**
  * @author Peter Verhas
  * date June 16, 2012
- * 
  */
 public class CommandAnalyzerFor extends AbstractCommandAnalyzer {
 

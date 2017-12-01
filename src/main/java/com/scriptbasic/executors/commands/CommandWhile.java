@@ -1,12 +1,12 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
 import com.scriptbasic.interfaces.*;
 
 public class CommandWhile extends AbstractCommand {
     private Command wendNode;
+    private Expression condition;
 
     public Command getWendNode() {
         return wendNode;
@@ -15,8 +15,6 @@ public class CommandWhile extends AbstractCommand {
     public void setWendNode(Command wendNode) {
         this.wendNode = wendNode;
     }
-
-    private Expression condition;
 
     public Expression getCondition() {
         return condition;

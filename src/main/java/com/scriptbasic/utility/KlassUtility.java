@@ -1,10 +1,6 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.interfaces.BasicSyntaxException;
-import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.interfaces.ExecutionException;
-import com.scriptbasic.interfaces.Magic;
-import com.scriptbasic.interfaces.NoAccess;
+import com.scriptbasic.interfaces.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -93,7 +89,7 @@ public final class KlassUtility {
             throw new BasicRuntimeException("The filed '" +
                     fieldName +
                     "' is not allowed to be read in object of the type '" +
-            object.getClass().getName());
+                    object.getClass().getName());
         }
         final Class<?> klass = object.getClass();
         if (Magic.Getter.class.isAssignableFrom(klass)) {

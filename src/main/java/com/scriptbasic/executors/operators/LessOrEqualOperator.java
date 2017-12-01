@@ -26,7 +26,7 @@ public class LessOrEqualOperator extends AbstractCompareOperator {
 
     @Override
     protected Boolean compareTo(final BasicJavaObjectValue f,
-            final RightValue op) throws BasicRuntimeException {
+                                final RightValue op) throws BasicRuntimeException {
         return compareJavaObjectTo(f, op) <= 0;
     }
 

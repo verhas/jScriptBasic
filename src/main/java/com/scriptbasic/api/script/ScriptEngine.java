@@ -17,8 +17,8 @@ import java.io.StringReader;
 public class ScriptEngine extends AbstractScriptEngine {
 
 
-    public Context ctx;
     public final ScriptBasicEngineFactory scriptEngineFactory;
+    public Context ctx;
 
     public ScriptEngine(ScriptBasicEngineFactory scriptEngineFactory) {
         ctx = ContextBuilder.newContext();
@@ -60,7 +60,7 @@ public class ScriptEngine extends AbstractScriptEngine {
     @Override
     public Object eval(Reader reader, ScriptContext context) throws ScriptException {
         try {
-            ctx = ContextBuilder.from(ctx,reader, context.getReader(), context.getWriter(), context.getErrorWriter());
+            ctx = ContextBuilder.from(ctx, reader, context.getReader(), context.getWriter(), context.getErrorWriter());
             mergeBinding(ctx.interpreter, context.getBindings(ScriptContext.GLOBAL_SCOPE));
             mergeBinding(ctx.interpreter, context.getBindings(ScriptContext.ENGINE_SCOPE));
             ctx.interpreter.setProgram(ctx.syntaxAnalyzer.analyze());

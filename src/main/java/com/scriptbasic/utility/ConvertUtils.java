@@ -15,8 +15,8 @@ public class ConvertUtils {
         };
     }
 
-    public static <T> T cast(Object obj, Class<T> t){
-        return (T)obj;
+    public static <T> T cast(Object obj, Class<T> t) {
+        return (T) obj;
     }
 
     public interface ExceptionalFunction<T, R> {

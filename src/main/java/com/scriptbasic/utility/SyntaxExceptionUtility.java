@@ -1,7 +1,7 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.exceptions.SyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.LexicalElement;
 
 public final class SyntaxExceptionUtility {

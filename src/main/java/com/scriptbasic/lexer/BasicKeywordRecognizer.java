@@ -11,7 +11,6 @@ import java.util.Set;
  * This class recognizes a reserved keyword.
  *
  * @author verhasp
- *
  */
 public class BasicKeywordRecognizer implements KeywordRecognizer,
         ScriptBasicKeyWords {

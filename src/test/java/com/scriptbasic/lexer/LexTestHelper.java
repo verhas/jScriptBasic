@@ -159,8 +159,7 @@ public class LexTestHelper {
 
     public static SourceReader createStringReading(final String s) {
         final Reader r = new StringReader(s);
-        final SourceReader reader = new GenericSourceReader(r, null, null);
-        return reader;
+        return new GenericSourceReader(r, null, null);
     }
 
     static SourceReader createMultiLineStringReading(final String s) {

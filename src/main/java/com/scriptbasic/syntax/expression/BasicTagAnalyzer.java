@@ -1,7 +1,6 @@
 package com.scriptbasic.syntax.expression;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
-import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.executors.operators.AbstractUnaryOperator;
 import com.scriptbasic.executors.operators.UnaryOperatorMinus;
 import com.scriptbasic.executors.operators.UnaryOperatorNot;

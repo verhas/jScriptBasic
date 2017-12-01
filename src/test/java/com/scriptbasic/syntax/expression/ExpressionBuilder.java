@@ -70,23 +70,23 @@ public class ExpressionBuilder {
     }
 
     public static Expression func(final String name,
-            final Expression... indices) {
+                                  final Expression... indices) {
         return funOrArray(new FunctionCall(), name, indices);
     }
 
     public static Expression array(final String name,
-            final Expression... indices) {
+                                   final Expression... indices) {
         return funOrArray(new ArrayElementAccess(), name, indices);
     }
 
-    public static ExpressionList LIST(Expression ...expressions ){
-    	final GenericExpressionList expressionList =  new GenericExpressionList();
-    	for( Expression expression : expressions ){
-    		expressionList.add(expression);
-    	}
-    	return expressionList;
+    public static ExpressionList LIST(Expression... expressions) {
+        final GenericExpressionList expressionList = new GenericExpressionList();
+        for (Expression expression : expressions) {
+            expressionList.add(expression);
+        }
+        return expressionList;
     }
-    
+
     public static Expression BOOL(final Boolean b) {
         return new BasicBooleanValue(b);
     }

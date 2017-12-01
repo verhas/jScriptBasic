@@ -1,15 +1,11 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.executors.commands.CommandCall;
 import com.scriptbasic.executors.commands.CommandLet;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.executors.rightvalues.FunctionCall;
 import com.scriptbasic.factories.Context;
-import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.Command;
-import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.interfaces.*;
 
 public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
 
@@ -48,8 +44,7 @@ public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
                 consumeClosingParenthesis(ctx.lexicalAnalyzer);
             }
             consumeEndOfLine();
-            CommandCall node = new CommandCall(functionCall);
-            return node;
+            return new CommandCall(functionCall);
         }
     }
 

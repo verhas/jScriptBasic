@@ -10,10 +10,9 @@ import java.lang.reflect.Method;
  * <p>
  * This hook is used to chain into the hook chain first so that hook classes
  * need not check if there is a next hook object in the chain.
- * 
+ *
  * @author Peter Verhas
  * date Aug 15, 2012
- * 
  */
 public class NullHook implements InterpreterHook {
 
@@ -39,7 +38,7 @@ public class NullHook implements InterpreterHook {
 
     @Override
     public void beforeRegisteringJavaMethod(String alias, Class<?> klass,
-            String methodName, Class<?>[] argumentTypes) {
+                                            String methodName, Class<?>[] argumentTypes) {
     }
 
     @Override
@@ -64,7 +63,7 @@ public class NullHook implements InterpreterHook {
 
     @Override
     public void beforeSubroutineCall(String subroutineName,
-            LeftValueList arguments, RightValue[] argumentValues) {
+                                     LeftValueList arguments, RightValue[] argumentValues) {
     }
 
     @Override

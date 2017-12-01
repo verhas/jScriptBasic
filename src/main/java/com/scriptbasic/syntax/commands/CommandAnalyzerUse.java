@@ -1,9 +1,9 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.executors.commands.CommandUse;
 import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.utility.ExpressionUtility;
 import com.scriptbasic.utility.KlassUtility;
@@ -12,7 +12,6 @@ import com.scriptbasic.utility.LexUtility;
 /**
  * @author Peter Verhas
  * date Jun 27, 2012
- * 
  */
 public class CommandAnalyzerUse extends AbstractCommandAnalyzer {
 
@@ -53,7 +52,6 @@ public class CommandAnalyzerUse extends AbstractCommandAnalyzer {
                     "The class in the USE statement is not found.", e);
         }
 
-        CommandUse node = new CommandUse(klass, aliasName);
-        return node;
+        return new CommandUse(klass, aliasName);
     }
 }

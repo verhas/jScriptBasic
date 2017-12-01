@@ -7,7 +7,6 @@ import com.scriptbasic.interfaces.AnalysisException;
 /**
  * @author Peter Verhas
  * date Jul 13, 2012
- * 
  */
 public abstract class AbstractCommandAnalyzerIfElseKind extends
         AbstractCommandAnalyzer {

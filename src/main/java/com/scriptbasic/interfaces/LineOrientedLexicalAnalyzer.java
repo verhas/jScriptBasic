@@ -3,9 +3,8 @@ package com.scriptbasic.interfaces;
 /**
  * A lexical analyzer that supports syntax analyzers that analyze line oriented
  * language.
- * 
+ *
  * @author Peter Verhas
- * 
  */
 public interface LineOrientedLexicalAnalyzer extends LexicalAnalyzer {
     /**

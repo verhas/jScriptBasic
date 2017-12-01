@@ -10,7 +10,6 @@ import com.scriptbasic.interfaces.LexicalElement;
 /**
  * @author Peter Verhas
  * date Jul 12, 2012
- * 
  */
 public class CommandAnalyzerReturn extends AbstractCommandAnalyzer {
     public CommandAnalyzerReturn(Context ctx) {

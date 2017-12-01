@@ -60,7 +60,7 @@ public class ContextBuilder {
         return from(null, string);
     }
 
-    public static Context from(Context existing, String string) throws AnalysisException {
+    private static Context from(Context existing, String string) throws AnalysisException {
         return from(existing, new StringReader(string));
     }
 
@@ -68,7 +68,7 @@ public class ContextBuilder {
         return from(null, reader);
     }
 
-    public static Context from(Context existing, Reader reader) throws AnalysisException {
+    private static Context from(Context existing, Reader reader) throws AnalysisException {
         final GenericSourceReader sourceReader = new GenericSourceReader(reader, null, null);
         final HierarchicalSourceReader hReader = new GenericHierarchicalSourceReader(sourceReader);
         return from(existing, hReader);
@@ -90,7 +90,7 @@ public class ContextBuilder {
         return from(null, reader);
     }
 
-    public static Context from(Context existing, SourceReader reader) throws AnalysisException {
+    private static Context from(Context existing, SourceReader reader) throws AnalysisException {
         Context ctx = from(existing);
         createReusableComponents(ctx);
         createReaderDependentComponents(reader, ctx);

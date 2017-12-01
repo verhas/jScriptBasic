@@ -1,6 +1,5 @@
 package com.scriptbasic.executors;
 
-import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.factories.Context;

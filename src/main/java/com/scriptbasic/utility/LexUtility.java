@@ -1,15 +1,14 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
 
 /**
  * @author Peter Verhas
  * date Jun 28, 2012
- * 
  */
 public final class LexUtility {
     private LexUtility() {
@@ -46,7 +45,7 @@ public final class LexUtility {
     }
 
     public static void checkLexeme(LexicalAnalyzer analyzer, String lexeme,
-            String exceptionText) throws AnalysisException {
+                                   String exceptionText) throws AnalysisException {
         if (!isLexeme(analyzer, lexeme)) {
             throw new BasicSyntaxException(exceptionText);
         }

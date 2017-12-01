@@ -3,10 +3,9 @@ package com.scriptbasic.interfaces;
 /**
  * A {@code BuildableProgram} is a {@code Program} that also provides methods
  * needed to build up the program code during the BASIC source code analysis.
- * 
+ *
  * @author Peter Verhas
  * date June 15, 2012
- * 
  */
 public interface BuildableProgram extends Program {
 
@@ -24,7 +23,7 @@ public interface BuildableProgram extends Program {
 
     /**
      * Add a new command to the list of commands.
-     * 
+     *
      * @param command
      */
     void addCommand(Command command);
@@ -44,9 +43,8 @@ public interface BuildableProgram extends Program {
      * example checking that all LOCAL and GLOBAL declarations in a SUB are
      * before any executable statement, subs are not nested...
      * </ul>
-     * 
-     * @throws AnalysisException
-     *             when the postprocessing discovers syntax errors
+     *
+     * @throws AnalysisException when the postprocessing discovers syntax errors
      */
     void postprocess() throws AnalysisException;
 }

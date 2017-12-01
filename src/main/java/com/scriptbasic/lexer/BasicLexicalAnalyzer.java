@@ -2,7 +2,6 @@ package com.scriptbasic.lexer;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.exceptions.BasicLexicalException;
-import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.*;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;

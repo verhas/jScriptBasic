@@ -1,10 +1,13 @@
 package com.scriptbasic;
 
-import com.scriptbasic.api.EngineApi;
 import com.scriptbasic.api.BasicFunction;
+import com.scriptbasic.api.EngineApi;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.api.Subroutine;
-import com.scriptbasic.interfaces.*;
+import com.scriptbasic.interfaces.HierarchicalSourceReader;
+import com.scriptbasic.interfaces.SourcePath;
+import com.scriptbasic.interfaces.SourceProvider;
+import com.scriptbasic.interfaces.SourceReader;
 import com.scriptbasic.readers.GenericHierarchicalSourceReader;
 import com.scriptbasic.readers.GenericSourceReader;
 import com.scriptbasic.sourceproviders.BasicSourcePath;
@@ -135,8 +138,7 @@ public class TestEngine {
             @Override
             public SourceReader get(String sourceName) throws IOException {
                 final SourceReader reader = new GenericSourceReader(new StringReader(source.get(sourceName)), this, sourceName);
-                final HierarchicalSourceReader hreader = new GenericHierarchicalSourceReader(reader);
-                return hreader;
+                return new GenericHierarchicalSourceReader(reader);
             }
         };
         engine.eval("include.bas", provider);
@@ -502,8 +504,7 @@ public class TestEngine {
             @Override
             public SourceReader get(String sourceName) throws IOException {
                 final SourceReader reader = new GenericSourceReader(new StringReader(source.get(sourceName)), this, sourceName);
-                final HierarchicalSourceReader hreader = new GenericHierarchicalSourceReader(reader);
-                return hreader;
+                return new GenericHierarchicalSourceReader(reader);
             }
         };
         engine.load("include.bas", provider);

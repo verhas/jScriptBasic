@@ -6,10 +6,9 @@ import com.scriptbasic.log.LoggerFactory;
 
 /**
  * Utility class to compare Number variables, Long or Double.
- * 
+ *
  * @author Peter Verhas
  * date Jul 21, 2012
- * 
  */
 public class NumberUtility {
     final private static Logger LOG = LoggerFactory
@@ -51,11 +50,9 @@ public class NumberUtility {
 
     /**
      * Compares the numbers a and b.
-     * 
-     * @param a
-     *            one of the numbers
-     * @param b
-     *            the other number
+     *
+     * @param a one of the numbers
+     * @param b the other number
      * @return 0 if a == b; 1 if a > b; and -1 if b < a
      */
     public static int compare(Number a, Number b) {

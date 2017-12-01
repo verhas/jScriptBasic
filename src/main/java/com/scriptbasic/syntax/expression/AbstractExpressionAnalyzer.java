@@ -1,13 +1,9 @@
 package com.scriptbasic.syntax.expression;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
-import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.executors.operators.AbstractBinaryOperator;
 import com.scriptbasic.factories.Context;
-import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.Expression;
-import com.scriptbasic.interfaces.ExpressionAnalyzer;
-import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.interfaces.*;
 import com.scriptbasic.syntax.AbstractAnalyzer;
 
 import java.lang.reflect.InvocationTargetException;

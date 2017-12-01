@@ -6,7 +6,6 @@ import com.scriptbasic.interfaces.ExtendedInterpreter;
 /**
  * @author Peter Verhas
  * date Jul 20, 2012
- * 
  */
 public class CommandNext extends AbstractCommand {
     private CommandFor loopStartNode;
@@ -19,8 +18,7 @@ public class CommandNext extends AbstractCommand {
     }
 
     /**
-     * @param loopStartNode
-     *            the loopStartNode to set
+     * @param loopStartNode the loopStartNode to set
      */
     public void setLoopStartNode(final CommandFor loopStartNode) {
         this.loopStartNode = loopStartNode;

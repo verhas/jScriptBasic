@@ -2,22 +2,22 @@ package com.scriptbasic.api;
 
 public class ScriptBasicException extends Exception {
 
-	public ScriptBasicException() {
-		super();
-	}
+    private static final long serialVersionUID = 1L;
 
-	public ScriptBasicException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public ScriptBasicException() {
+        super();
+    }
 
-	public ScriptBasicException(String message) {
-		super(message);
-	}
+    public ScriptBasicException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	public ScriptBasicException(Throwable cause) {
-		super(cause);
-	}
+    public ScriptBasicException(String message) {
+        super(message);
+    }
 
-	private static final long serialVersionUID = 1L;
+    public ScriptBasicException(Throwable cause) {
+        super(cause);
+    }
 
 }

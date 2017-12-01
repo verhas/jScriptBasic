@@ -12,7 +12,7 @@ public class MagicBean implements Magic.Bean {
 
     @Override
     public Object get(String fieldName) throws BasicRuntimeException {
-        if( !store.containsKey(fieldName)){
+        if (!store.containsKey(fieldName)) {
             store.put(fieldName, new MagicBean());
         }
         return store.get(fieldName);

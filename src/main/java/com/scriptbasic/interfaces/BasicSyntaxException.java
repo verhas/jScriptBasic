@@ -1,7 +1,6 @@
 package com.scriptbasic.interfaces;
 
 import com.scriptbasic.exceptions.SyntaxException;
-import com.scriptbasic.interfaces.LexicalElement;
 
 public class BasicSyntaxException extends SyntaxException {
 

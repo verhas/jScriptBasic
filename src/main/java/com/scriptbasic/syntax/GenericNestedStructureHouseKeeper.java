@@ -7,7 +7,7 @@ import com.scriptbasic.interfaces.NestedStructure;
 
 /**
  * This version just does not nothing special to recover from error.
- * 
+ *
  * @author Peter Verhas
  * date June 11, 2012
  */

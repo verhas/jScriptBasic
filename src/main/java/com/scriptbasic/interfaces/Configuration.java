@@ -15,10 +15,9 @@ import java.util.stream.Stream;
  * the values in different sources. Typical implementation will look up values
  * in the system properties and environment first before searching the
  * configuration properties.
- * 
+ *
  * @author Peter Verhas
  * date Jul 23, 2012
- * 
  */
 public interface Configuration {
     /**
@@ -32,19 +31,17 @@ public interface Configuration {
      * into account does not affect the fact that the configuration
      * implementation itself may search other sources in addition to the
      * properties to locate values for certain configuration keys.
-     * 
-     * @param configProperties
-     *            the properties to be used as configuration properties.
+     *
+     * @param configProperties the properties to be used as configuration properties.
      */
     void setConfigProperties(Properties configProperties);
 
     /**
      * Get the value of the key.
-     * 
-     * @param key
-     *            the configuration key for which the value is looked up.
+     *
+     * @param key the configuration key for which the value is looked up.
      * @return the string value of the configuration or {@code null} if the key
-     *         is not configured.
+     * is not configured.
      */
     Optional<String> getConfigValue(String key);
 
@@ -53,7 +50,7 @@ public interface Configuration {
      * {@code key.i} property.
      *
      * @param key the string key
-     * @param i the index value usually goes from zero
+     * @param i   the index value usually goes from zero
      * @return the configuration value
      */
     default Optional<String> getConfigValue(String key, int i) {
@@ -64,10 +61,9 @@ public interface Configuration {
      * Return the configuration values assigned to a keys 'key.0', 'key.1'... 'key.n' as a stream.
      *
      * @param key the key to which the values are assigned using the numberic key postfix
-     *
      * @return the stream of the values
      */
-    default Stream<String> getConfigValueStream(String key){
+    default Stream<String> getConfigValueStream(String key) {
         return getConfigValueList(key).stream();
     }
 
@@ -76,7 +72,7 @@ public interface Configuration {
      * configuration. List of strings in the configuration should be defined
      * using the notation {@code key}'.n' where 'n' starts with zero and should
      * increment by one continuously.
-     * 
+     *
      * @param key
      * @return the list of configured strings
      */
@@ -90,10 +86,9 @@ public interface Configuration {
 
     /**
      * Load the configuration from an input stream.
-     * 
-     * @param is
-     *            the input stream that is used to read the content of the
-     *            properties file.
+     *
+     * @param is the input stream that is used to read the content of the
+     *           properties file.
      */
     void loadConfiguration(final InputStream is);
 }

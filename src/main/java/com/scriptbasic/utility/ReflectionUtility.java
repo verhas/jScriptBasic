@@ -1,6 +1,5 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 import com.scriptbasic.interfaces.*;
 

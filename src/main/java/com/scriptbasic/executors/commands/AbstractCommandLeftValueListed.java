@@ -5,7 +5,6 @@ import com.scriptbasic.interfaces.LeftValueList;
 /**
  * @author Peter Verhas
  * date Jul 14, 2012
- * 
  */
 public abstract class AbstractCommandLeftValueListed extends AbstractCommand {
 
@@ -19,8 +18,7 @@ public abstract class AbstractCommandLeftValueListed extends AbstractCommand {
     }
 
     /**
-     * @param leftValueList
-     *            the leftValueList to set
+     * @param leftValueList the leftValueList to set
      */
     public void setLeftValueList(LeftValueList leftValueList) {
         this.leftValueList = leftValueList;

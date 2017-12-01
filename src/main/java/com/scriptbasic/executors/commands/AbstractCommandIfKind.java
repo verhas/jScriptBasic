@@ -9,7 +9,6 @@ import com.scriptbasic.interfaces.RightValue;
 /**
  * @author Peter Verhas
  * date Jul 12, 2012
- * 
  */
 public abstract class AbstractCommandIfKind extends AbstractCommandIfElseKind {
 

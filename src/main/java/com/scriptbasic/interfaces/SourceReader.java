@@ -10,9 +10,8 @@ package com.scriptbasic.interfaces;
  * <p>
  * When it comes to reading the only way to get character from the stream is
  * calling the method {@code get()}.
- * 
+ *
  * @author Peter Verhas
- * 
  */
 public interface SourceReader extends SourceLocationBound {
 
@@ -30,22 +29,21 @@ public interface SourceReader extends SourceLocationBound {
      * first.)
      * <p>
      * Implementation should ignore {@code null} parameter.
-     * 
-     * @param character
-     *            the character to push back
+     *
+     * @param character the character to push back
      */
     void pushBack(Integer character);
 
     /**
      * Get the next character from the input stream.
-     * 
+     *
      * @return
      */
     Integer get();
 
     /**
      * Get the source provider that provided this reader.
-     * 
+     *
      * @return the source provider object.
      */
     SourceProvider getSourceProvider();

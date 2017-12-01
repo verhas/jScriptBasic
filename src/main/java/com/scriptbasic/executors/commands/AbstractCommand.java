@@ -5,6 +5,8 @@ import com.scriptbasic.interfaces.*;
 public abstract class AbstractCommand implements Executor, Command,
         NestedStructure {
 
+    private Command nextCommand;
+
     @Override
     public abstract void execute(ExtendedInterpreter interpreter)
             throws ExecutionException;
@@ -14,12 +16,10 @@ public abstract class AbstractCommand implements Executor, Command,
         execute(interpreter);
     }
 
-    private Command nextCommand;
-
     /**
      * Get the next command that has to be executed unless some condition alters
      * this, like in case of If, While and similar.
-     * 
+     *
      * @return
      */
     @Override

@@ -34,6 +34,7 @@ public class ScriptBasicEngineFactory implements javax.script.ScriptEngineFactor
     public ScriptBasicEngineFactory() {
         this(new BasicConfiguration());
     }
+
     /**
      * The constructor reads the configuration and fills the constants that are
      * requested by the {@link javax.script.ScriptEngineManager}.

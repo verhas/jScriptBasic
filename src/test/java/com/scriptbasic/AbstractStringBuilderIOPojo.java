@@ -3,7 +3,6 @@ package com.scriptbasic;
 /**
  * @author Peter Verhas
  * date Jul 13, 2012
- *
  */
 public abstract class AbstractStringBuilderIOPojo {
     private StringBuilder stdin;
@@ -18,10 +17,24 @@ public abstract class AbstractStringBuilderIOPojo {
     }
 
     /**
+     * @param stdin the stdin to set
+     */
+    public void setStdin(StringBuilder stdin) {
+        this.stdin = stdin;
+    }
+
+    /**
      * @return the stdout
      */
     public StringBuilder getStdout() {
         return stdout;
+    }
+
+    /**
+     * @param stdout the stdout to set
+     */
+    public void setStdout(StringBuilder stdout) {
+        this.stdout = stdout;
     }
 
     /**
@@ -32,24 +45,7 @@ public abstract class AbstractStringBuilderIOPojo {
     }
 
     /**
-     * @param stdin
-     *            the stdin to set
-     */
-    public void setStdin(StringBuilder stdin) {
-        this.stdin = stdin;
-    }
-
-    /**
-     * @param stdout
-     *            the stdout to set
-     */
-    public void setStdout(StringBuilder stdout) {
-        this.stdout = stdout;
-    }
-
-    /**
-     * @param stderr
-     *            the stderr to set
+     * @param stderr the stderr to set
      */
     public void setStderr(StringBuilder stderr) {
         this.stderr = stderr;

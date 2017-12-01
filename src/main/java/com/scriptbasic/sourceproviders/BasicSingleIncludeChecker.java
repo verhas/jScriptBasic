@@ -8,9 +8,9 @@ import java.util.Set;
 
 /**
  * A very simple (thus basic) single include checker implementation.
- * 
+ * <p>
  * {@inheritDoc}
- * 
+ *
  * @author Peter Verhas
  */
 public class BasicSingleIncludeChecker implements SingleIncludeChecker {

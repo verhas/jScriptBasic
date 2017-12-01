@@ -13,9 +13,8 @@ import java.io.IOException;
  * implement the abstract methods {@code getSource()}. The method
  * {@code getSource()} is invoked only when it is ensured that the source was
  * not yet included.
- * 
+ *
  * @author Peter Verhas
- * 
  */
 public abstract class AbstractSingleIncludeSourcePathSourceProvider extends
         AbstractSourcePathSourceProvider {
@@ -23,7 +22,6 @@ public abstract class AbstractSingleIncludeSourcePathSourceProvider extends
     private SingleIncludeChecker singleInclude = new BasicSingleIncludeChecker();
 
     /**
-     * 
      * @return the actual value of the single include checker
      */
     public SingleIncludeChecker getSingleInclude() {
@@ -38,7 +36,7 @@ public abstract class AbstractSingleIncludeSourcePathSourceProvider extends
      * <p>
      * This method allows configuration of these source providers in a DI
      * container.
-     * 
+     *
      * @param singleInclude
      */
     public void setSingleInclude(final SingleIncludeChecker singleInclude) {
@@ -78,5 +76,5 @@ public abstract class AbstractSingleIncludeSourcePathSourceProvider extends
     protected abstract String getKeyName(String sourceName);
 
     protected abstract String getKeyName(String sourceName,
-            String referencingSource);
+                                         String referencingSource);
 }

@@ -9,6 +9,7 @@ import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.EmptyStackException;
@@ -144,7 +145,7 @@ public class TestVariableMaps {
 
         try {
             RLV("algo");
-            assertTrue(false);
+            fail();
         } catch (IllegalArgumentException iae) {
         }
         RGV("alga");
@@ -168,7 +169,7 @@ public class TestVariableMaps {
         RGV("olga");// must be lenient
         try {
             RLV("olga");
-            assertTrue(false);
+            fail();
         } catch (BasicRuntimeException bre) {
 
         }
@@ -220,7 +221,7 @@ public class TestVariableMaps {
         LET("var1", 1);
         try {
             LET("VAR1", 2);
-            assertTrue(false);
+            fail();
         } catch (BasicRuntimeException bre) {
             log.debug("this exception has to be thrown " + bre);
         }
@@ -243,7 +244,7 @@ public class TestVariableMaps {
         LET("var1", 1);
         try {
             LET("VAR1", 2);
-            assertTrue(false);
+            fail();
         } catch (BasicRuntimeException bre) {
             log.debug("this exception has to be thrown " + bre);
         }
@@ -259,7 +260,7 @@ public class TestVariableMaps {
         LET("var1", 1);
         try {
             LET("VAR1", 2);
-            assertTrue(false);
+            fail();
         } catch (BasicRuntimeException bre) {
             log.debug("this exception has to be thrown " + bre);
         }
@@ -274,7 +275,7 @@ public class TestVariableMaps {
         PUSH();
         try {
             LET("var1", 1);
-            assertTrue(false);
+            fail();
         } catch (BasicRuntimeException bre) {
             log.debug("this exception has to be thrown " + bre);
         }
@@ -282,13 +283,13 @@ public class TestVariableMaps {
         LET("var1", 1);
         try {
             LET("VAR1", 2);
-            assertTrue(false);
+            fail();
         } catch (BasicRuntimeException bre) {
             log.debug("this exception has to be thrown " + bre);
         }
         try {
             RGV("VAR1");
-            assertTrue(false);
+            fail();
         } catch (BasicRuntimeException bre) {
             log.debug("this exception has to be thrown " + bre);
         }

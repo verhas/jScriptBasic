@@ -8,19 +8,18 @@ package com.scriptbasic.interfaces;
  * To give the hierarchical reader to a Lexical Analyzer is done usually
  * following the pattern:
  * <p>
- * 
+ * <p>
  * <pre>
  * SourceReader reader = someSourceProvider.get(&quot;some source name&quot;);
- * 
+ *
  * HierarchicalSourceReader hierarchicalReader = new SomeHierarchicalReader();
  * hierarchicalReader.include(reader);
- * 
+ *
  * LexicalAnalyzer lexicalAnalyzer = new ScriptBasicLexicalAnalyzer();
  * la.set(hierarchicalReader);
  * </pre>
- * 
+ *
  * @author Peter Verhas
- * 
  */
 public interface HierarchicalSourceReader extends SourceReader {
     void include(SourceReader reader);
