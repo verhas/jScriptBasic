@@ -21,7 +21,7 @@ public class ScriptBasicEngineFactory implements javax.script.ScriptEngineFactor
     // standard scripting interface does not provide any mean to define a
     // specific interface for the different engine instances that may
     // concurrently exist in the JVM
-    public final Configuration config = new BasicConfiguration();
+    public final Configuration config;
     private Bindings globalScopeBinding;
     private String engineName = Version.engineName;
     private String version = Version.version;
@@ -31,12 +31,15 @@ public class ScriptBasicEngineFactory implements javax.script.ScriptEngineFactor
     private String language = Version.language;
     private String languageVersion = Version.languageVersion;
 
+    public ScriptBasicEngineFactory() {
+        this(new BasicConfiguration());
+    }
     /**
      * The constructor reads the configuration and fills the constants that are
      * requested by the {@link javax.script.ScriptEngineManager}.
      */
-    public ScriptBasicEngineFactory() {
-
+    public ScriptBasicEngineFactory(Configuration config) {
+        this.config = config;
         engineName = config.getConfigValue("engineName").orElse(engineName);
         version = config.getConfigValue("version").orElse(version);
         language = config.getConfigValue("language").orElse(language);

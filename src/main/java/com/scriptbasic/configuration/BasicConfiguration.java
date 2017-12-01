@@ -1,7 +1,6 @@
 package com.scriptbasic.configuration;
 
 import com.scriptbasic.interfaces.Configuration;
-import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 

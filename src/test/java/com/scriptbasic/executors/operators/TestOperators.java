@@ -1,8 +1,6 @@
 package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.factories.BasicFactory;
-import com.scriptbasic.factories.Context;
-import com.scriptbasic.factories.ContextBuilder;
 import com.scriptbasic.interfaces.*;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
@@ -12,7 +10,6 @@ import java.lang.reflect.InvocationTargetException;
 
 import static com.scriptbasic.executors.operators.SupportTest.assertValueOfVariable_A;
 import static com.scriptbasic.executors.operators.SupportTest.eval;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**

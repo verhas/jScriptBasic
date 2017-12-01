@@ -1,13 +1,14 @@
 package com.scriptbasic.lexer;
 
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.interfaces.SourceReader;
 import com.scriptbasic.lexer.elements.ScriptBasicLexicalAnalyzer;
+import com.scriptbasic.log.Logger;
+import com.scriptbasic.log.LoggerFactory;
 import com.scriptbasic.readers.GenericSourceReader;
 import com.scriptbasic.sourceproviders.StringSourceProvider;
-import com.scriptbasic.utility.FactoryUtility;
 import org.junit.Assert;
 
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class LexTestHelper {
     static final StringBuilder crE = new StringBuilder("\\r");
     static final StringBuilder bs = new StringBuilder("\\");
     static final StringBuilder bsE = new StringBuilder("\\\\");
+    private static final Logger LOG = LoggerFactory.getLogger();
 
     static MockLexicalElements ID(final String name) {
         return new MockLexicalElements(name, LexicalElement.TYPE_IDENTIFIER);
@@ -103,19 +105,19 @@ public class LexTestHelper {
      * Checks that the lexicalAnalyzer returns the same lexical elements that are contained in the
      * argument array expectedElements.
      *
-     * @param expectedElements the lexical elements expected to be returned by the analyzer
      * @param lexicalAnalyzer  the analyzer tested
+     * @param expectedElements the lexical elements expected to be returned by the analyzer
      * @throws AnalysisException when the analyzer can not perform the lexical analysis. This itself is a test
      *                           error because this method is to be invoked for input that can be analyzed.
      */
-    static void assertLexicals(final LexicalElement[] expectedElements,
-                               final LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
+    static void assertLexicals(final LexicalAnalyzer lexicalAnalyzer, final LexicalElement... expectedElements) throws AnalysisException {
         for (final LexicalElement lexicalElement : expectedElements) {
-            final LexicalElement lexicalElementFromAnalyzer = lexicalAnalyzer.get();
-            thereAreEnoughElements(lexicalElement, lexicalElementFromAnalyzer);
-            elementsAreOfTheSameType(lexicalElement, lexicalElementFromAnalyzer);
-            elementsHaveTheSameString(lexicalElement, lexicalElementFromAnalyzer);
-            elementsHaveTheSameValue(lexicalElement, lexicalElementFromAnalyzer);
+            final LexicalElement element = lexicalAnalyzer.get();
+            LOG.info(element.toString());
+            thereAreEnoughElements(lexicalElement, element);
+            elementsAreOfTheSameType(lexicalElement, element);
+            elementsHaveTheSameString(lexicalElement, element);
+            elementsHaveTheSameValue(lexicalElement, element);
         }
     }
 
@@ -155,43 +157,37 @@ public class LexTestHelper {
                         + lexicalElement.getLexeme(), lexicalElementFromAnalyzer);
     }
 
-    public static LexicalAnalyzer createStringReading(final Factory factory,
-                                                      final String s) {
+    public static SourceReader createStringReading(final String s) {
         final Reader r = new StringReader(s);
-        final GenericSourceReader reader = new GenericSourceReader(r, null, null);
-        final LexicalAnalyzer la = new ScriptBasicLexicalAnalyzer(reader);
-        return la;
+        final SourceReader reader = new GenericSourceReader(r, null, null);
+        return reader;
     }
 
-    static LexicalAnalyzer createMultiLineStringReading(final Factory factory,
-                                                        final String s) {
-        return createStringReading(factory, "\"\"\"" + s + "\"\"\"");
+    static SourceReader createMultiLineStringReading(final String s) {
+        return createStringReading("\"\"\"" + s + "\"\"\"");
     }
 
-    static LexicalAnalyzer createSingleLineStringReading(final Factory factory,
-                                                         final String s) {
-        return createStringReading(factory, "\"" + s + "\"");
+    static SourceReader createSingleLineStringReading(final String s) {
+        return createStringReading("\"" + s + "\"");
     }
 
-    static LexicalAnalyzer createVStringReading(final Factory factory,
-                                                final String s, final boolean multiline) {
+    static SourceReader createVStringReading(final String s, final boolean multiline) {
         if (multiline) {
-            return createMultiLineStringReading(factory, s);
+            return createMultiLineStringReading(s);
         } else {
-            return createSingleLineStringReading(factory, s);
+            return createSingleLineStringReading(s);
         }
     }
 
-    static LexicalAnalyzer createStringArrayReading(final String[] sources)
+    static LexicalAnalyzer createStringArrayReading(final String... sources)
             throws IOException {
         assertTrue("there has to be at least one file name and content", sources.length >= 2);
-        assertTrue("there should be a content for each 'file name'", sources.length % 2 != 0);
+        assertTrue("there should be a content for each 'file name'", sources.length % 2 == 0);
         final StringSourceProvider provider = new StringSourceProvider();
         for (int i = 0; i < sources.length; i++) {
             provider.addSource(sources[i], sources[i + 1]);
             i++;
         }
-
-        return FactoryUtility.getLexicalAnalyzer(provider, sources[0]);
+        return new ScriptBasicLexicalAnalyzer(provider.getSource(sources[0]));
     }
 }

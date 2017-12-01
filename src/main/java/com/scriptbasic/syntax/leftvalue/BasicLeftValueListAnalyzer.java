@@ -4,7 +4,6 @@ import com.scriptbasic.executors.GenericLeftValueList;
 import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.*;
 import com.scriptbasic.syntax.AbstractGenericListAnalyzer;
-import com.scriptbasic.utility.FactoryUtility;
 
 public final class BasicLeftValueListAnalyzer
         extends

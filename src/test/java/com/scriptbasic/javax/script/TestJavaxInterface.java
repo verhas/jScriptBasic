@@ -2,8 +2,10 @@ package com.scriptbasic.javax.script;
 
 import com.scriptbasic.api.Version;
 import com.scriptbasic.api.script.ScriptBasicEngineFactory;
+import com.scriptbasic.configuration.BasicConfiguration;
 import com.scriptbasic.factories.FactoryServiceLoader;
 import com.scriptbasic.factories.SingletonFactoryFactory;
+import com.scriptbasic.interfaces.Configuration;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
@@ -55,9 +57,9 @@ public class TestJavaxInterface {
         configProperties.put("version", "666");
         configProperties.put("language", "esperanto");
         configProperties.put("languageVersion", "ancient");
-
-        ScriptEngineFactory factory = new ScriptBasicEngineFactory();
-        ((ScriptBasicEngineFactory)factory).config.setConfigProperties(configProperties);
+        Configuration config = new BasicConfiguration();
+        config.setConfigProperties(configProperties);
+        ScriptEngineFactory factory = new ScriptBasicEngineFactory(config);
         assertEquals("esperanto", factory.getLanguageName());
         assertEquals("ancient", factory.getLanguageVersion());
         assertEquals(2, factory.getNames().size());

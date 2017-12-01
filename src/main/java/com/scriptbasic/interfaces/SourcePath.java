@@ -1,7 +1,5 @@
 package com.scriptbasic.interfaces;
 
-import java.util.Deque;
-
 /**
  * Source path is similar to Java class path. It contains source locations
  * (directories usually) where the source files are.

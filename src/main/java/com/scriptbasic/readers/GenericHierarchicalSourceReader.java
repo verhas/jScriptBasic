@@ -1,6 +1,5 @@
 package com.scriptbasic.readers;
 
-import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.interfaces.HierarchicalSourceReader;
 import com.scriptbasic.interfaces.SourceProvider;
 import com.scriptbasic.interfaces.SourceReader;

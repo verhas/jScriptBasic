@@ -2,7 +2,6 @@ package com.scriptbasic.syntax;
 
 import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.*;
-import com.scriptbasic.utility.FactoryUtility;
 import com.scriptbasic.utility.LexUtility;
 
 /**

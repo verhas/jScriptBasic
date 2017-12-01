@@ -1,7 +1,6 @@
 package com.scriptbasic.factorytest;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
-import com.scriptbasic.interfaces.Factory;
 
 /**
  * A test class that can not be handled by the factory. This is needed to unit
