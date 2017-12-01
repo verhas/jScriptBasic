@@ -53,7 +53,7 @@ public class NumberUtility {
      *
      * @param a one of the numbers
      * @param b the other number
-     * @return 0 if a == b; 1 if a > b; and -1 if b < a
+     * @return 0 if a == b; 1 if a &gt; b; and -1 if b &lt; a
      */
     public static int compare(Number a, Number b) {
         if (a == null && b == null) {

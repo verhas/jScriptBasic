@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
  * parameter <i>N</i> should run from 0 ... and the hooks will be registered in
  * the order they are numbered and executed in backward order. To use the hook
  * delivered with jScriptBasic you should configure:
- * <p>
+ * </p>
  * <pre>
  * hook.0=com.scriptbasic.hooks.RunLimitHook
  * </pre>

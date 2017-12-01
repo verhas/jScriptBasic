@@ -20,7 +20,7 @@ import java.util.Map;
  * brackets some way).
  * <p>
  * A tag is defined as the following:
- * <p>
+ * </p>
  * <pre>
  *  tag ::= UNOP tag
  *          TRUE | FALSE

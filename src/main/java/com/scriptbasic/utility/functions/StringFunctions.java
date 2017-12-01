@@ -3,19 +3,20 @@ package com.scriptbasic.utility.functions;
 import com.scriptbasic.api.BasicFunction;
 
 /**
+ * <p>
  * This class implements string functions for the BASIC interpreter. Most of the
  * methods implement a wrapper for the method of the same name in the class
  * {@code java.lang.String}. These methods in the class {@code java.lang.String}
  * are not static and therefore need a String object to work on. The wrapper
  * methods are static and take the first argument as the String object to work
  * on. In other words if in Java you would write
- * <p>
+ * </p>
  * <pre>
  * s.xyz(parameterlist)
  * </pre>
  * <p>
  * to call the method {@code xyz()} then in BASIC you will be able to call
- * <p>
+ * </p>
  * <pre>
  * xyz(s, parameterlist)
  * </pre>
@@ -24,7 +25,7 @@ import com.scriptbasic.api.BasicFunction;
  * not repeated here. Other methods, that implement BASIC like string functions
  * not implemented in the class {@code java.lang.String} are documented in this
  * class.
- *
+ * </p>
  * @author Peter Verhas
  */
 public class StringFunctions {

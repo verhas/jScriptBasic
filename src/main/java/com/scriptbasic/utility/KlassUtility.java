@@ -81,7 +81,7 @@ public final class KlassUtility {
      * @param object
      * @param fieldName
      * @return
-     * @throws ExecutionException
+     * @throws BasicRuntimeException
      */
     public static Object getField(Object object, String fieldName)
             throws BasicRuntimeException {

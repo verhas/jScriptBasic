@@ -6,7 +6,7 @@ package com.scriptbasic.interfaces;
  * line number and the character position on that line.
  *
  * @author Peter Verhas
- * @date June 15, 2012
+ * June 15, 2012
  */
 public interface SourceLocationBound {
     /**

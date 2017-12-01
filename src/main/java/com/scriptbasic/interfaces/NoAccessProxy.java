@@ -7,7 +7,7 @@ package com.scriptbasic.interfaces;
  * can be embedded in a {@code NoAccessProxy}. Since this proxy implements the NoAccess interface the BASIC program
  * will not be able to access the field 'target'.
  *
- * @param <T>
+ * @param <T> the type of the object that can not be accessed by the BASIC program
  */
 public class NoAccessProxy<T> implements NoAccess {
     public T target;

@@ -3,12 +3,13 @@ package com.scriptbasic.interfaces;
 import java.lang.reflect.Method;
 
 /**
+ * <p>
  * Keep a registry of methods. The Java methods (either class or object method)
  * can be called from interpreted script. The problem is that Java methods can
  * be overloaded and BASIC functions can not. To overcome this issue the BASIC
  * program has to declare a function name for each method it wants to call. For
  * example:
- * <p>
+ * </p>
  * <pre>
  * method sin from java.lang.Math is (double) use as sinus
  * </pre>
@@ -19,9 +20,11 @@ import java.lang.reflect.Method;
  * the method will be used as the name of the BASIC function and no alias is
  * used. If this part is defined then the alias will be used as the name of the
  * function.
+ * </p>
  * <p>
  * If there are two methods of the same name, with different signature, you have
  * to define different aliases for the different methods.
+ * </p>
  * <p>
  * You can use the same alias for different methods in different packages. This
  * can be done because the class name or alias for the class name or the
@@ -29,10 +32,11 @@ import java.lang.reflect.Method;
  * name/alias when the registered method is called. This distinguishes the
  * different methods of different class even if the aliases or the method names
  * are the same.
+ * </p>
  * <p>
  * Also note that you can also use aliases for Class names defined in the
  * statement {@code use}.
- * <p>
+ * </p>
  * The registry keeps track of the
  * <ul>
  * <li>name of the method,  
@@ -40,10 +44,11 @@ import java.lang.reflect.Method;
  * <li>the class and
  * <li>the signature.
  * </ul>
+ * <p>
  * Thus whenever there is a function call in BASIC to call a Java method in a
  * certain class this registry will know which signature to use for the certain
  * alias.
- * <p>
+ * </p>
  * Aliases can be global or class specific. When an alias is defined for a
  * single method then the alias can be used without the class specification.
  * This appears in the BASIC code as a simple function call. When a method is
