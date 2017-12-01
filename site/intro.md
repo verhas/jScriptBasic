@@ -24,7 +24,7 @@
  object is stored in a BASIC variable. To do that the usual `object.method(params)` format can be used, or just
  `method(params)` when it is not ambiguous.
  
-## Control remains at the hand of the application
+## Control remains in the hand of the application
 
  Script languages may pose security risks if not properly configured . When you start a script it can
  access the application Java objects, methods and so on. You have to pay great attention to execute other
