@@ -263,50 +263,6 @@ public interface ScriptBasic {
     Iterable<Subroutine> getSubroutines();
 
     /**
-     * Call the named subroutine with the arguments.
-     * <p>
-     * It is recommended to call subroutines via a
-     * {@link Subroutine} object.
-     *
-     * @param subroutineName the name of the subroutine to be called.
-     * @param args           the arguments to be passed to the subroutine. Note that there
-     *                       has to be that many arguments passed as many arguments are
-     *                       needed by the subroutine. If there are less number of actual
-     *                       arguments the rest of the arguments will be undefined. If you
-     *                       pass more actual arguments than the subroutine expects you
-     *                       will get an exception.
-     * @return the value returned by the subroutine. Note that this value is
-     * already converted to Java object and not a raw ScriptBasic
-     * {@code RightValue} but rather a {@code Long}, {@code Double},
-     * {@code String} or similar.
-     * @throws ScriptBasicException
-     * @deprecated
-     */
-    Object call(String subroutineName, Object... args)
-            throws ScriptBasicException;
-
-    /**
-     * Get the names of all subroutines.
-     *
-     * @return the iterator that can be used to iterate through the names of all
-     * the subroutines defined in the program.
-     */
-    Iterable<String> getSubroutineNames();
-
-    /**
-     * Get the number of expected argument of the named subroutine.
-     * <p>
-     * It is recommended to call subroutines via a
-     * {@link Subroutine} object.
-     *
-     * @param subroutineName the name of the subroutine.
-     * @return the number of arguments the subroutine expects.
-     * @throws ScriptBasicException
-     * @deprecated
-     */
-    int getNumberOfArguments(String subroutineName) throws ScriptBasicException;
-
-    /**
      * Register the static methods of the class as BASIC functions. After the
      * registration the methods can be called from BASIC just as if they were
      * built-in functions in the language or just like if they were defined as

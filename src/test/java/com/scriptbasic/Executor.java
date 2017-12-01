@@ -9,6 +9,7 @@ import org.junit.Assert;
 
 import java.io.*;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Execute a BASIC program available in the resource file. stdin, stdout and
@@ -26,27 +27,33 @@ public class Executor extends AbstractStringIOPojo {
 
     public void execute(String resourceName) throws AnalysisException,
             ExecutionException, ClassNotFoundException {
-        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        InputStream is = Class.forName(stackTrace[2].getClassName())
-                .getResourceAsStream(resourceName);
-        final Reader r = new InputStreamReader(is);
-        final Context ctx = ContextBuilder.from(r);
-        ctx.interpreter.registerFunctions(FileHandlingFunctions.class);
-        ctx.interpreter.setProgram(ctx.syntaxAnalyzer.analyze());
-        StringWriter writer = new StringWriter();
-        ctx.interpreter.setOutput(writer);
-        StringWriter errorWriter = new StringWriter();
-        ctx.interpreter.setError(errorWriter);
-        StringReader inputReader = getSStdin() == null ? null
-                : new StringReader(getSStdin());
-        ctx.interpreter.setInput(inputReader);
-        if (map != null) {
-            for (String key : map.keySet()) {
-                ctx.interpreter.setVariable(key, map.get(key));
+        Optional<StackWalker.StackFrame> frame =
+                StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).walk(s -> s.skip(1).findFirst());
+        if (frame.isPresent()) {
+
+            InputStream is = Class.forName(frame.get().getClassName())
+                    .getResourceAsStream(resourceName);
+            final Reader r = new InputStreamReader(is);
+            final Context ctx = ContextBuilder.from(r);
+            ctx.interpreter.registerFunctions(FileHandlingFunctions.class);
+            ctx.interpreter.setProgram(ctx.syntaxAnalyzer.analyze());
+            StringWriter writer = new StringWriter();
+            ctx.interpreter.setOutput(writer);
+            StringWriter errorWriter = new StringWriter();
+            ctx.interpreter.setError(errorWriter);
+            StringReader inputReader = getSStdin() == null ? null
+                    : new StringReader(getSStdin());
+            ctx.interpreter.setInput(inputReader);
+            if (map != null) {
+                for (String key : map.keySet()) {
+                    ctx.interpreter.setVariable(key, map.get(key));
+                }
             }
+            ctx.interpreter.execute();
+            setSStdout(writer.toString());
+        } else {
+            throw new ClassNotFoundException();
         }
-        ctx.interpreter.execute();
-        setSStdout(writer.toString());
     }
 
     public void assertOutput(String s) {

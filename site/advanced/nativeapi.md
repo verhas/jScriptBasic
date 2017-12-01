@@ -331,7 +331,7 @@ arguments and getting return values.
         engine.eval("sub applePie\nglobal a\na = \"hello world\"\nEndSub");
         String a = (String) engine.getVariable("a");
         assertNull(a);
-        engine.call("applePie", (Object[]) null);
+        engine.getSubroutine("applePie").call( (Object[]) null);
         a = (String) engine.getVariable("a");
         assertEquals("hello world", a);
 ```
@@ -345,7 +345,7 @@ arguments and getting return values.
         String a = (String) engine.getVariable("a");
         assertNull(a);
         @SuppressWarnings("deprecation")
-        Long ret = (Long) engine.call("applePie", "hello world");
+        Long ret = (Long) engine.getSubroutine("applePie").call( "hello world");
         a = (String) engine.getVariable("a");
         assertEquals("hello world", a);
         assertEquals((Long) 6L, ret);

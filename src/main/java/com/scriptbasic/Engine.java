@@ -217,22 +217,9 @@ public class Engine implements ScriptBasic {
         return ctx.interpreter.getVariables().getGlobalMap().getVariableNameSet();
     }
 
-    @Override
-    public Object call(final String subroutineName, final Object... args)
-            throws ScriptBasicException {
-        try {
-            return ctx.interpreter.call(subroutineName, args);
-        } catch (final ExecutionException e) {
-            throw new ScriptBasicException(e);
-        }
-    }
 
-    @Override
-    public Iterable<String> getSubroutineNames() {
-        return ctx.interpreter.getProgram().getNamedCommandNames();
-    }
 
-    private void SubroutineDoesNotExistWTF(final Exception e) {
+    private void SNAFU_SubroutineDoesNotExist(final Exception e) {
         throw new BasicInterpreterInternalError(
                 "An already located subroutine does not exist", e);
     }
@@ -240,11 +227,11 @@ public class Engine implements ScriptBasic {
     @Override
     public Iterable<Subroutine> getSubroutines() {
         if (theMapHasToBeFilled) {
-            for (final String s : getSubroutineNames()) {
+            for (final String s : ctx.interpreter.getProgram().getNamedCommandNames()) {
                 try {
                     getSubroutine(s);
                 } catch (final ScriptBasicException e) {
-                    SubroutineDoesNotExistWTF(e);
+                    SNAFU_SubroutineDoesNotExist(e);
                 }
             }
             theMapHasToBeFilled = false;
@@ -262,8 +249,7 @@ public class Engine implements ScriptBasic {
         return commandSub;
     }
 
-    @Override
-    public int getNumberOfArguments(final String subroutineName)
+    private int getNumberOfArguments(final String subroutineName)
             throws ScriptBasicException {
         final CommandSub commandSub = getCommandSub(subroutineName);
         final int size;
@@ -305,7 +291,7 @@ public class Engine implements ScriptBasic {
             try {
                 return Engine.this.getNumberOfArguments(name);
             } catch (final ScriptBasicException e) {
-                SubroutineDoesNotExistWTF(e);
+                SNAFU_SubroutineDoesNotExist(e);
                 return 0;// will not get here
             }
         }
@@ -317,7 +303,11 @@ public class Engine implements ScriptBasic {
 
         @Override
         public Object call(final Object... args) throws ScriptBasicException {
-            return Engine.this.call(name, args);
+            try {
+                return ctx.interpreter.call(name, args);
+            } catch (final ExecutionException e) {
+                throw new ScriptBasicException(e);
+            }
         }
 
         @Override
