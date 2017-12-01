@@ -28,9 +28,9 @@ public class TestHierarchicalReader {
                 createStringArrayReading(
                         "main",
                         "identifier\ninclude \"sub1\" bla bla \n\"string\"",
-                        "sub1", "<\n"), new LexicalElement[]{ID("identifier"), SYMBOL("\n"),
-                        SYMBOL("<"), SYMBOL("\n"), SSTRING("string")}
-        );
+                        "sub1", "<\n"),
+                ID("identifier"), SYMBOL("\n"),
+                SYMBOL("<"), SYMBOL("\n"), SSTRING("string"));
     }
 
     @Test(expected = AnalysisException.class)

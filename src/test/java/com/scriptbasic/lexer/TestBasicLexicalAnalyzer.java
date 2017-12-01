@@ -158,10 +158,10 @@ public class TestBasicLexicalAnalyzer {
     @Test
     public void spaceSeparatedTerminalsAreAnalyzedNicely() throws AnalysisException {
         assertLexicals(new ScriptBasicLexicalAnalyzer(
-                createStringReading("alma 123 körte <= >= <= 12.3 13e3 12.3e2 \"habakukk\" <")), new LexicalElement[]{ID("alma"), LONG("123"), ID("körte"),
+                createStringReading("alma 123 körte <= >= <= 12.3 13e3 12.3e2 \"habakukk\" <")),
+                ID("alma"), LONG("123"), ID("körte"),
                 SYMBOL("<="), SYMBOL(">="), SYMBOL("<="),
                 DOUBLE("12.3"), DOUBLE("13e3"), DOUBLE("12.3e2"),
-                SSTRING("habakukk"), SYMBOL("<")}
-        );
+                SSTRING("habakukk"), SYMBOL("<"));
     }
 }
