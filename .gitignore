@@ -8,7 +8,6 @@
 .classpath
 .settings
 .project
-.gitignore
 .checkstyle
 doc/
 target/
