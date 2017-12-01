@@ -1,6 +1,6 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.AnalysisException;
@@ -22,7 +22,7 @@ public class CommandAnalyzerSub extends AbstractCommandAnalyzer {
             String subName = lexicalElement.getLexeme();
             node.setSubName(subName);
         } else {
-            throw new GenericSyntaxException(
+            throw new BasicSyntaxException(
                     "subroutine name has to follow the keyword " + getName());
         }
         if (isKeyWord("(")) {

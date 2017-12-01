@@ -1,6 +1,6 @@
 package com.scriptbasic.utility.functions;
 
-import com.scriptbasic.api.Function;
+import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.utility.CastUtility;
@@ -24,7 +24,7 @@ public class MathFunctions {
         NoInstance.isPossible();
     }
 
-    @Function(classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(classification = com.scriptbasic.classification.Math.class)
     static public Number abs(Number x) throws ExecutionException {
         if (x instanceof Double) {
             return Math.abs((Double) x);
@@ -38,57 +38,57 @@ public class MathFunctions {
                         + x.toString() + "of type " + x.getClass().toString());
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     static public double acos(double x) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     static public double asin(double x) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     static public double atan(double x) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     static public double atan2(double x, double y) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     static public double cbrt(double x) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     static public double ceil(double x) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     public static double copySign(double magnitude, double sign) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     static public double cos(double x) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     static public double cosh(double x) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     public static double exp(double a) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     public static double expm1(double x) {
         return 0.0;
     }
@@ -108,7 +108,7 @@ public class MathFunctions {
      * BASIC in case the parameter {@code s} passed can not be converted
      * to floating point
      */
-    @Function(classification = {com.scriptbasic.classification.Utility.class}, alias = "float")
+    @BasicFunction(classification = {com.scriptbasic.classification.Utility.class}, alias = "float")
     static public Double floatF(Object s) {
         try {
             return (Double) CastUtility.cast(s, Double.class);
@@ -132,7 +132,7 @@ public class MathFunctions {
      * BASIC in case the parameter {@code s} passed can not be converted
      * to integer
      */
-    @Function(classification = {com.scriptbasic.classification.Utility.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.Utility.class})
     static public Long integer(Object s) {
         try {
             return (Long) CastUtility.cast(s, Long.class);
@@ -141,42 +141,42 @@ public class MathFunctions {
         }
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     static public double floor(double x) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     public static Long getExponent(double d) {
         return (Long) (long) Math.getExponent(d);
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     public static double hypot(double x, double y) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     public static double IEEEremainder(double f1, double f2) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     static public double log(double x) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     static public double log10(double x) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     public static double log1p(double x) {
         return 0.0;
     }
 
-    @Function(classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(classification = com.scriptbasic.classification.Math.class)
     public static Number max(Number a, Number b) {
         if (a instanceof Double && b instanceof Double) {
             return Math.max((Double) a, (Double) b);
@@ -188,7 +188,7 @@ public class MathFunctions {
         return null;
     }
 
-    @Function(classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(classification = com.scriptbasic.classification.Math.class)
     public static Number min(Number a, Number b) {
         if (a instanceof Double && b instanceof Double) {
             return Math.min((Double) a, (Double) b);
@@ -200,67 +200,67 @@ public class MathFunctions {
         return null;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     public static double pow(double a, double b) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     public static double random() {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     public static double rint(double a) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     static public double round(double x) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     public static double scalb(double d, int scaleFactor) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     public static double signum(double d) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     static public double sin(double x) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     public static double sinh(double x) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     public static double sqrt(double a) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     static public double tan(double x) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     static public double tanh(double x) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     public static double toDegrees(double angrad) {
         return 0.0;
     }
 
-    @Function(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
+    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
     public static double toRadians(double angdeg) {
         return 0.0;
     }

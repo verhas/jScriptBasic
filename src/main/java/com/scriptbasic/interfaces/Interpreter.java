@@ -86,7 +86,7 @@ public interface Interpreter {
      * from a BASIC program but implemented in Java are static methods that are
      * registered for the interpreter. The easiest way to define these methods
      * are to create a class and annotate the methods that serve as BASIC
-     * functions with the annotation {@code @Function}
+     * functions with the annotation {@code @BasicFunction}
      * 
      * @param klass
      *            the class the defines the functions.

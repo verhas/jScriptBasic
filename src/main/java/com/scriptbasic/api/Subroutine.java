@@ -1,6 +1,7 @@
-package com.scriptbasic.interfaces;
+package com.scriptbasic.api;
 
 import com.scriptbasic.api.EngineApi;
+import com.scriptbasic.api.ScriptBasicException;
 
 /**
  * Interface to manage a BASIC subroutine. An instance of this interface can be

@@ -11,7 +11,7 @@ import java.lang.annotation.RetentionPolicy;
  * to be called from BASIC code.
  * <p>
  * Each {@code public static} method that is supposed to be reachable from BASIC
- * should have the annotation {@code @Function}. The implementation of the
+ * should have the annotation {@code @BasicFunction}. The implementation of the
  * interface {@link com.scriptbasic.interfaces.Interpreter} provides method that registers all the such
  * annotated methods of the class specified.
  * 
@@ -19,7 +19,7 @@ import java.lang.annotation.RetentionPolicy;
  * 
  */
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Function {
+public @interface BasicFunction {
 
 	/**
 	 * The alias name of the function to be used in the BASIC program. If this
@@ -78,7 +78,7 @@ public @interface Function {
 	 * actual interpreter registers or denies the registration of certain methods
 	 * based on the classification.
 	 */
-	Class<?>[] classification() default Function.class;
+	Class<?>[] classification() default BasicFunction.class;
 
 	/**
 	 * It may happen that the you want to register methods that are not in your
@@ -87,7 +87,7 @@ public @interface Function {
 	 * alternative class where the method you want to register instead of the
 	 * annotated one is.
 	 */
-	Class<?> substituteClass() default Function.class;
+	Class<?> substituteClass() default BasicFunction.class;
 
 	/**
 	 * Using this parameter you can specify an alternative method instead of the

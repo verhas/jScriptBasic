@@ -2,7 +2,7 @@ package com.scriptbasic.syntax;
 
 
 import com.scriptbasic.exceptions.CommandCanNotBeCreatedException;
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.exceptions.KeywordNotImplementedException;
 import com.scriptbasic.exceptions.SyntaxException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
@@ -18,7 +18,7 @@ public class AuxTests {
         // new FactoryUtilities();
         new CommandCanNotBeCreatedException("bla bla", null);
         new KeywordNotImplementedException("hukk");
-        final SyntaxException c = new GenericSyntaxException("hull",
+        final SyntaxException c = new BasicSyntaxException("hull",
                 (Throwable) null);
         c.setLocation(new BasicLexicalElement());
         c.getFileName();

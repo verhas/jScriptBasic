@@ -1,7 +1,7 @@
 package com.scriptbasic.syntax.leftvalue;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.executors.leftvalues.ArrayElementAccessLeftValueModifier;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.executors.leftvalues.LeftValueModifier;
@@ -37,7 +37,7 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
             lvm.setFieldName(lexicalElement.getLexeme());
             return lvm;
         }
-        throw new GenericSyntaxException(
+        throw new BasicSyntaxException(
                 "Left value . is not followed by a field name", lexicalElement,
                 null);
     }
@@ -68,7 +68,7 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
             lexicalAnalyzer.get();
             return lvm;
         }
-        throw new GenericSyntaxException(
+        throw new BasicSyntaxException(
                 "Left value array access does not have ]", lexicalElement, null);
     }
 
@@ -95,7 +95,7 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
                 lexicalElement = ctx.lexicalAnalyzer.peek();
             }
         } else {
-            throw new GenericSyntaxException(
+            throw new BasicSyntaxException(
                     "left value should start with an identifier",
                     lexicalElement, null);
         }

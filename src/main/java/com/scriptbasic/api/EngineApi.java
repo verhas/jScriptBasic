@@ -31,10 +31,10 @@ public interface EngineApi {
      *
      * @param klass
      *            the class that contains the static methods to register
-     * @throws BasicRuntimeException
+     * @throws ScriptBasicException
      *             when a function is double defined and not an identical manner
      */
-    void registerFunctions(Class<?> klass) throws BasicRuntimeException;
+    void registerFunctions(Class<?> klass) throws ScriptBasicException;
 
 	/**
 	 * Get the reader from where the BASIC program reads the standard input
@@ -290,7 +290,7 @@ public interface EngineApi {
 	 * Call the named subroutine with the arguments.
 	 * <p>
 	 * It is recommended to call subroutines via a
-	 * {@link com.scriptbasic.interfaces.Subroutine} object.
+	 * {@link Subroutine} object.
 	 * 
 	 * @param subroutineName
 	 *            the name of the subroutine to be called.
@@ -323,7 +323,7 @@ public interface EngineApi {
 	 * Get the number of expected argument of the named subroutine.
 	 * <p>
 	 * It is recommended to call subroutines via a
-	 * {@link com.scriptbasic.interfaces.Subroutine} object.
+	 * {@link Subroutine} object.
 	 * 
 	 * @param subroutineName
 	 *            the name of the subroutine.
@@ -340,7 +340,7 @@ public interface EngineApi {
 	 * BASIC subroutines.
 	 * <p>
 	 * The registration process uses only the methods that are annotated as
-	 * {@link Function} and only if their {@link Function#classification()}
+	 * {@link BasicFunction} and only if their {@link BasicFunction#classification()}
 	 * parameter is not configured in the configuration file as forbidden.
 	 * <p>
 	 * Even though the static methods are called via reflection they have to be

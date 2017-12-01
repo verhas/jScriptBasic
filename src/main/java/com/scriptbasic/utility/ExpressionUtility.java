@@ -1,6 +1,7 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.executors.operators.JavaObjectFieldAccessOperator;
@@ -144,7 +145,7 @@ public final class ExpressionUtility {
         if (expression instanceof BasicStringValue) {
             return ((BasicStringValue) expression).getValue();
         }
-        throw new GenericSyntaxException(
+        throw new BasicSyntaxException(
                 "class, package or symbol name are not vaid in command USE");
     }
 }

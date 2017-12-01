@@ -1,5 +1,6 @@
 package com.scriptbasic.memory;
 
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.*;
 
 /**

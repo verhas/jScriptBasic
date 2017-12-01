@@ -1,5 +1,6 @@
 package com.scriptbasic.executors.commands;
 
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.*;
 
 public class CommandLet extends AbstractCommand {

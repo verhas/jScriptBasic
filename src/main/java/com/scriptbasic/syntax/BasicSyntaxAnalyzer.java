@@ -1,7 +1,7 @@
 package com.scriptbasic.syntax;
 
 import com.scriptbasic.exceptions.CommandFactoryException;
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.*;
 
 public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
@@ -49,7 +49,7 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
             buildableProgram.postprocess();
             return buildableProgram;
         } catch (CommandFactoryException e) {
-            throw new GenericSyntaxException(e.getMessage(), lexicalElement, e);
+            throw new BasicSyntaxException(e.getMessage(), lexicalElement, e);
         }
     }
 

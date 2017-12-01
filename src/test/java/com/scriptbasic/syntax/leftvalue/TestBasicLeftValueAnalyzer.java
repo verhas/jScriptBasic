@@ -1,6 +1,6 @@
 package com.scriptbasic.syntax.leftvalue;
 
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.exceptions.SyntaxException;
 import com.scriptbasic.executors.leftvalues.ArrayElementAccessLeftValueModifier;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
@@ -31,7 +31,7 @@ public class TestBasicLeftValueAnalyzer {
         final LeftValueAnalyzer leftValueAnalyzer = ctx.leftValueAnalyzer;
         final BasicLeftValue e = (BasicLeftValue) leftValueAnalyzer.analyze();
         if (LexUtility.peek(ctx.lexicalAnalyzer) != null) {
-            throw new GenericSyntaxException(
+            throw new BasicSyntaxException(
                     "There are extra lexemes after the expression: "
                             + LexUtility.peek(ctx.lexicalAnalyzer).getLexeme());
         }

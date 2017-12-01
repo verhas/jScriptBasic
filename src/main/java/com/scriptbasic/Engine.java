@@ -1,6 +1,8 @@
 package com.scriptbasic;
 
 import com.scriptbasic.api.EngineApi;
+import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.api.Subroutine;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.factories.Context;
@@ -26,7 +28,7 @@ public class Engine implements EngineApi {
     public Engine() {
     }
 
-    public void registerFunctions(Class<?> klass) throws BasicRuntimeException {
+    public void registerFunctions(Class<?> klass) throws ScriptBasicException {
         ctx.interpreter.registerFunctions(klass);
     }
 

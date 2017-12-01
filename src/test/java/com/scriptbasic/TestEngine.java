@@ -1,7 +1,9 @@
 package com.scriptbasic;
 
 import com.scriptbasic.api.EngineApi;
-import com.scriptbasic.api.Function;
+import com.scriptbasic.api.BasicFunction;
+import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.api.Subroutine;
 import com.scriptbasic.interfaces.*;
 import com.scriptbasic.readers.GenericHierarchicalSourceReader;
 import com.scriptbasic.readers.GenericSourceReader;
@@ -544,7 +546,7 @@ public class TestEngine {
 
     // START SNIPPET: testExtensionClass
     public static class TestExtensionClass {
-        @Function(alias = "javaFunction", classification = java.lang.Long.class, requiredVersion = 1)
+        @BasicFunction(alias = "javaFunction", classification = java.lang.Long.class, requiredVersion = 1)
         public static Long fiftyFive() {
             return 55L;
         }

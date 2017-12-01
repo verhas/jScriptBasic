@@ -1,6 +1,6 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.executors.commands.CommandLet;
 import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.AnalysisException;
@@ -23,7 +23,7 @@ public class CommandAnalyzerLet extends AbstractCommandAnalyzer {
         commandLet.setLeftValue(ctx.leftValueAnalyzer.analyze());
         lexicalElement = ctx.lexicalAnalyzer.get();
         if (lexicalElement == null || !lexicalElement.isSymbol("=")) {
-            throw new GenericSyntaxException("Assignment does not contain '='",
+            throw new BasicSyntaxException("Assignment does not contain '='",
                     lexicalElement, null);
         }
         commandLet.setExpression(ctx.expressionAnalyzer.analyze());

@@ -1,6 +1,6 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.*;
@@ -78,7 +78,7 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
     protected void assertKeyWord(String keyword) throws AnalysisException {
         if (!isKeyWord(keyword)) {
             LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
-            throw new GenericSyntaxException("There is no '" + keyword
+            throw new BasicSyntaxException("There is no '" + keyword
                     + "' after the '" + getName() + "'", lexicalElement, null);
         } else {
             ctx.lexicalAnalyzer.get();

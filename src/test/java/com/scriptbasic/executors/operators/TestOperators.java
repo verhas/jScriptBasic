@@ -1,6 +1,6 @@
 package com.scriptbasic.executors.operators;
 
-import com.scriptbasic.factories.BasicFactory;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.*;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
@@ -18,7 +18,6 @@ import static org.junit.Assert.assertTrue;
  */
 
 public class TestOperators {
-    private static Factory factory = new BasicFactory();
     private static Logger log = LoggerFactory.getLogger();
 
 

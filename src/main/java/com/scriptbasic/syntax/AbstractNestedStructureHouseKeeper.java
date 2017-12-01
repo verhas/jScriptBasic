@@ -1,6 +1,6 @@
 package com.scriptbasic.syntax;
 
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.exceptions.SyntaxException;
 import com.scriptbasic.interfaces.AnalysisException;
@@ -51,7 +51,7 @@ public abstract class AbstractNestedStructureHouseKeeper implements NestedStruct
         Structure stackFrame = stack.isEmpty() ? MATCH_NOTHING : stack.peek();
         if (!stackFrame.match(expectedClass)) {
             stackIsHealthy = false;
-            final SyntaxException se = new GenericSyntaxException("Bad nested structures");
+            final SyntaxException se = new BasicSyntaxException("Bad nested structures");
             try {
                 se.setLocation(analyzer.peek());
             } catch (LexicalException e) {

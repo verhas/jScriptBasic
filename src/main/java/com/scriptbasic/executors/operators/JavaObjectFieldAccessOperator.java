@@ -1,5 +1,6 @@
 package com.scriptbasic.executors.operators;
 
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.executors.AbstractIdentifieredExpression;
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.executors.rightvalues.ArrayElementAccess;

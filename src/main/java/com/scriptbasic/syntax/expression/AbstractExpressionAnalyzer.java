@@ -1,7 +1,7 @@
 package com.scriptbasic.syntax.expression;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.executors.operators.AbstractBinaryOperator;
 import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.AnalysisException;
@@ -79,7 +79,7 @@ public abstract class AbstractExpressionAnalyzer extends
                 }
             }
         } catch (final AnalysisException e) {
-            throw new GenericSyntaxException(e);
+            throw new BasicSyntaxException(e);
         } catch (final Exception e) {
             throw new BasicInterpreterInternalError(
                     "Can not instantiate the operator class", e);

@@ -1,6 +1,6 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.executors.commands.CommandUse;
 import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.AnalysisException;
@@ -41,15 +41,15 @@ public class CommandAnalyzerUse extends AbstractCommandAnalyzer {
         }
         consumeEndOfLine();
         if (className.indexOf('.') != -1 || aliasName.indexOf('.') != -1) {
-            throw new GenericSyntaxException(
+            throw new BasicSyntaxException(
                     "class name and alias name should not contain dot in command USE");
         }
         final String fullClassName = packageName + "." + className;
         final Class<?> klass;
         try {
             klass = KlassUtility.forNameEx(fullClassName);
-        } catch (GenericSyntaxException e) {
-            throw new GenericSyntaxException(
+        } catch (BasicSyntaxException e) {
+            throw new BasicSyntaxException(
                     "The class in the USE statement is not found.", e);
         }
 

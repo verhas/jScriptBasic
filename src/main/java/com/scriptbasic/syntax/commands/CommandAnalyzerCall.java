@@ -1,6 +1,6 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.executors.commands.CommandCall;
 import com.scriptbasic.executors.commands.CommandLet;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
@@ -62,7 +62,7 @@ public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
         if (closingParenthesis != null && closingParenthesis.isSymbol(")")) {
             lexicalAnalyzer.get();
         } else {
-            throw new GenericSyntaxException("The closing ) is missing after the CALL statement");
+            throw new BasicSyntaxException("The closing ) is missing after the CALL statement");
         }
     }
 

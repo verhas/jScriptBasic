@@ -1,6 +1,6 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.executors.commands.CommandFor;
 import com.scriptbasic.executors.commands.CommandNext;
 import com.scriptbasic.factories.Context;
@@ -31,7 +31,7 @@ public class CommandAnalyzerNext extends AbstractCommandAnalyzer {
             LeftValue loopVariableB = analyzeSimpleLeftValue();
             LeftValue loopVariableA = commandFor.getLoopVariable();
             if (!equal(loopVariableA, loopVariableB)) {
-                throw new GenericSyntaxException(
+                throw new BasicSyntaxException(
                         "The variable following the command "
                                 + getName()
                                 + " does not match the loop variable of the corresponging command FOR",

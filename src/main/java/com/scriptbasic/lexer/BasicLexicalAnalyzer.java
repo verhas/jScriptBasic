@@ -2,7 +2,7 @@ package com.scriptbasic.lexer;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.exceptions.BasicLexicalException;
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.*;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
@@ -148,7 +148,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
                     ((HierarchicalSourceReader) reader).include(childReader);
                 } else {
                     LOG.error("Cannot include or import with normal reader.");
-                    throw new GenericSyntaxException("INCLUDE or IMPORT is not allowed in this environment.");
+                    throw new BasicSyntaxException("INCLUDE or IMPORT is not allowed in this environment.");
                 }
                 emptyLexicalElementQueue();
                 readTheNextLine();
@@ -157,20 +157,20 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
         }
     }
 
-    private void assertThereAreNoExtraCharactersAtTheEndOfTheLine() throws GenericSyntaxException {
+    private void assertThereAreNoExtraCharactersAtTheEndOfTheLine() throws BasicSyntaxException {
         LexicalElement newLine = elements.hasNext() ?
                 elements.next() : null;
         if (newLine != null && !newLine.isLineTerminator()) {
             LOG.error("There are extra characters on the line after the include file name string");
-            throw new GenericSyntaxException(
+            throw new BasicSyntaxException(
                     "There are extra chars at the end of the INCLUDE statement");
         }
     }
 
-    private void assertIncludeFileIsSpecifiedAsString(LexicalElement lexicalElement) throws GenericSyntaxException {
+    private void assertIncludeFileIsSpecifiedAsString(LexicalElement lexicalElement) throws BasicSyntaxException {
         if (!lexicalElement.isString()) {
             LOG.error("This is not a string following the keyword INCLUDE");
-            throw new GenericSyntaxException("String has to be used after import or include.");
+            throw new BasicSyntaxException("String has to be used after import or include.");
         }
     }
 }

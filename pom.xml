@@ -124,7 +124,7 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Main-Class>com.scriptbasic.main.CommandLineExtended</Main-Class>
+                            <Main-Class>com.scriptbasic.main.CommandLine</Main-Class>
                         </manifestEntries>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>

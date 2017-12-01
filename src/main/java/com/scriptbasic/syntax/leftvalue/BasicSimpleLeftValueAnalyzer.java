@@ -1,6 +1,6 @@
 package com.scriptbasic.syntax.leftvalue;
 
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.*;
@@ -32,7 +32,7 @@ public class BasicSimpleLeftValueAnalyzer implements LeftValueAnalyzer,
 			leftValue = new BasicLeftValue();
 			leftValue.setIdentifier(lexicalElement.getLexeme());
 		} else {
-			throw new GenericSyntaxException(
+			throw new BasicSyntaxException(
 					"left value should start with an identifier",
 					lexicalElement, null);
 		}

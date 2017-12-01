@@ -1,7 +1,7 @@
 package com.scriptbasic.utility;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -60,7 +60,7 @@ public class TestCastUtility {
         try {
             KlassUtility.forNameEx("beef.dead.beef");
             assertTrue(false);
-        } catch (GenericSyntaxException e) {
+        } catch (BasicSyntaxException e) {
         }
         try {
             KlassUtility.forName("beef.dead.beef");

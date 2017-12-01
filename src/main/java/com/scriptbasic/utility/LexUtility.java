@@ -1,6 +1,6 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
@@ -21,7 +21,7 @@ public final class LexUtility {
         try {
             return lexicalAnalyzer.peek();
         } catch (final LexicalException e) {
-            throw new GenericSyntaxException(e);
+            throw new BasicSyntaxException(e);
         }
     }
 
@@ -30,7 +30,7 @@ public final class LexUtility {
         try {
             return lexicalAnalyzer.get();
         } catch (final LexicalException e) {
-            throw new GenericSyntaxException(e);
+            throw new BasicSyntaxException(e);
         }
     }
 
@@ -48,7 +48,7 @@ public final class LexUtility {
     public static void checkLexeme(LexicalAnalyzer analyzer, String lexeme,
             String exceptionText) throws AnalysisException {
         if (!isLexeme(analyzer, lexeme)) {
-            throw new GenericSyntaxException(exceptionText);
+            throw new BasicSyntaxException(exceptionText);
         }
     }
 }

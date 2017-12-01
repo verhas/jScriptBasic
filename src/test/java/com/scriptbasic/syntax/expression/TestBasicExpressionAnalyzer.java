@@ -1,6 +1,6 @@
 package com.scriptbasic.syntax.expression;
 
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.exceptions.SyntaxException;
 import com.scriptbasic.factories.Context;
 import com.scriptbasic.factories.ContextBuilder;
@@ -24,7 +24,7 @@ public class TestBasicExpressionAnalyzer {
         final ExpressionAnalyzer bea = ctx.expressionAnalyzer;
         final Expression e = bea.analyze();
         if (LexUtility.peek(ctx.lexicalAnalyzer) != null) {
-            throw new GenericSyntaxException(
+            throw new BasicSyntaxException(
                     "There are extra lexemes after the expression: "
                             + LexUtility.peek(ctx.lexicalAnalyzer).getLexeme());
         }

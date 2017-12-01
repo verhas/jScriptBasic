@@ -3,17 +3,13 @@ package com.scriptbasic.javax.script;
 import com.scriptbasic.api.Version;
 import com.scriptbasic.api.script.ScriptBasicEngineFactory;
 import com.scriptbasic.configuration.BasicConfiguration;
-import com.scriptbasic.factories.FactoryServiceLoader;
-import com.scriptbasic.factories.SingletonFactoryFactory;
 import com.scriptbasic.interfaces.Configuration;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
 import javax.script.*;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Properties;
 
@@ -25,17 +21,6 @@ import static org.junit.Assert.*;
  */
 
 public class TestJavaxInterface {
-
-    @After
-    public void tearDown() {
-        try {
-            Field field = SingletonFactoryFactory.class.getDeclaredField("singleton");
-            field.setAccessible(true);
-            field.set(null, FactoryServiceLoader.loadFactory());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Test
     public void testCoverConfiguration() throws Exception {

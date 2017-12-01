@@ -1,5 +1,6 @@
 package com.scriptbasic.executors.commands;
 
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.executors.rightvalues.BasicStringValue;
 import com.scriptbasic.interfaces.*;
 

@@ -1,6 +1,7 @@
 package com.scriptbasic.testprograms;
 
 import com.scriptbasic.Executor;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
@@ -121,6 +122,26 @@ public class TestPrograms {
         codeTest("TestChomp.bas", "ttt");
         codeTest("TestConvert.bas", "0.9074467814501962");
         codeTest("TestFile.bas", "");
+    }
+
+    @Test(expected = BasicSyntaxException.class)
+    public void syntaxErrorWhenThereIsNoClosingParentheseAfterFunctionCall() throws Exception {
+        codeTest("NoClosingParenAfterFunctionCall.bas","");
+    }
+
+    @Test(expected = BasicSyntaxException.class)
+    public void syntaxErrorWhenNoClosingParenInExpression() throws Exception {
+        codeTest("NoClosingParenInExpression.bas","");
+    }
+
+    @Test(expected = BasicSyntaxException.class)
+    public void syntaxErrorWhenNoClosingBracketAccessingArrayElement() throws Exception {
+        codeTest("NoClosingBracketAccessingArrayElement.bas","");
+    }
+
+    @Test(expected = BasicSyntaxException.class)
+    public void syntaxErrorWhenSubroutineIsDefinedMoreThanOnce() throws Exception {
+        codeTest("SubroutineDoubleDefined.bas","");
     }
 
     @Test

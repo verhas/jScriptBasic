@@ -1,6 +1,6 @@
 package com.scriptbasic.lexer;
 
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.LexicalElement;
 import org.junit.Test;
@@ -21,7 +21,7 @@ public class TestHierarchicalReader {
                 SYMBOL("<"), SYMBOL("\n"), SSTRING("string"));
     }
 
-    @Test(expected = GenericSyntaxException.class)
+    @Test(expected = BasicSyntaxException.class)
     public void testExtraCharsAfterInclude() throws AnalysisException,
             IOException {
         assertLexicals(

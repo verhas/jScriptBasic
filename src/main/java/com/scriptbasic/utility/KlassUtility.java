@@ -1,6 +1,6 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.exceptions.GenericSyntaxException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.Magic;
@@ -186,10 +186,10 @@ public final class KlassUtility {
      *
      * @param s
      * @return
-     * @throws GenericSyntaxException
+     * @throws BasicSyntaxException
      */
     public static Class<?> forNameEx(final String s)
-            throws GenericSyntaxException {
+            throws BasicSyntaxException {
         Class<?> klass = null;
         switch (s) {
             case "byte":
@@ -220,7 +220,7 @@ public final class KlassUtility {
                 try {
                     klass = forName(s);
                 } catch (ClassNotFoundException e) {
-                    throw new GenericSyntaxException("Can not get class " + s, e);
+                    throw new BasicSyntaxException("Can not get class " + s, e);
                 }
                 break;
         }

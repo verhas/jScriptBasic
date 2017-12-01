@@ -1,4 +1,4 @@
-package com.scriptbasic.interfaces;
+package com.scriptbasic.api;
 
 public class ScriptBasicException extends Exception {
 
