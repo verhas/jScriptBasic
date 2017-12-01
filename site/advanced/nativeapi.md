@@ -81,18 +81,18 @@ arguments and getting return values.
  The simplest ever use of the ScriptBasic for Java native API is to execute a script that is available in a string:
 
 ```
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("print \"hello world\"");
 ``` 
 
 
  This code creates a new `Engine` object, then calls the method `eval` with the string that contains the
- program code. Note that `EngineApi` is an interface and `Engine` is the implementation.
+ program code. Note that `ScriptBasic` is an interface and `Engine` is the implementation.
  If you want to have the output of the program in a `String` you can create a `StringWriter`
  and redirect the standard output of the program to there:
  
 ```
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         engine.eval("print \"hello world\"");
@@ -105,7 +105,7 @@ arguments and getting return values.
  program from a `java.io.Reader`:
  
 ```
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         StringReader sr = new StringReader("print \"hello world\"");
@@ -117,7 +117,7 @@ arguments and getting return values.
  or from a `java.io.File`:
  
 ```
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         File file = new File(getClass().getResource("hello.bas").getFile());
@@ -155,7 +155,7 @@ arguments and getting return values.
  To specify the directories where the files are use the following piece of code:
  
 ```
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         String path = new File(getClass().getResource("hello.bas").getFile())
@@ -169,7 +169,7 @@ arguments and getting return values.
  as many `String` parameters as you like:
  
 ```
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("include.bas", ".", "..", "/usr/include/scriptbasic");
 ```
  
@@ -177,7 +177,7 @@ arguments and getting return values.
  shows you a very simple use of this approach:
  
 ```
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         String path = new File(getClass().getResource("hello.bas").getFile())
@@ -201,7 +201,7 @@ arguments and getting return values.
  this is the following:
  
 ```
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         SourceProvider provider = new SourceProvider() {
@@ -252,7 +252,7 @@ arguments and getting return values.
  for the script exactly as it was set by some BASIC code. To do so the following sample can be used:
  
 ```
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         engine.setVariable("a", 13);
@@ -272,7 +272,7 @@ arguments and getting return values.
  After the code was executed you are able to query the values of the global variables:
  
 ```
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("a = \"hello world\"");
         String a = (String) engine.getVariable("a");
         assertEquals("hello world", a);
@@ -294,7 +294,7 @@ arguments and getting return values.
  the execution of the code programmatically:
  
 ```
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("a = \"hello world\"\nb=13");
         String varnames = "";
         for (String varname : engine.getVariablesIterator()) {
@@ -327,7 +327,7 @@ arguments and getting return values.
  To call a subroutine you have to know the name of the subroutine and you should call the method `call()`:
  
 ```
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie\nglobal a\na = \"hello world\"\nEndSub");
         String a = (String) engine.getVariable("a");
         assertNull(a);
@@ -340,7 +340,7 @@ arguments and getting return values.
   The next example shows how to pass arguments and how to get the return value:
  
 ```
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie(b)\nglobal a\na = b\nreturn 6\nEndSub");
         String a = (String) engine.getVariable("a");
         assertNull(a);
@@ -357,7 +357,7 @@ arguments and getting return values.
  To get all the subroutines the BASIC program defines you should call the method `getSubroutineNames()`:
  
 ```
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie(b)\nEndSub\nsub anotherSubroutine\nEndSub\n");
         int i = 0;
         for (@SuppressWarnings("unused")
@@ -378,7 +378,7 @@ arguments and getting return values.
  instance you can call `call(Object ... args)`, `getName()` and `getNumberOfArguments()` methods.
  
 ```
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie\nglobal a\na = \"hello world\"\nEndSub");
         String a = (String) engine.getVariable("a");
         assertNull(a);
@@ -392,7 +392,7 @@ arguments and getting return values.
   sample how to call a subroutine in OO way that returns some value:
  
 ```
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie(b)\nglobal a\na = b\nreturn 6\nEndSub");
         String a = (String) engine.getVariable("a");
         assertNull(a);

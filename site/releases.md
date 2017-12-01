@@ -16,8 +16,11 @@ of a release is `M.m.b` where `M` is the major version, `m` is the minor version
 * `b` is increased if there is some bugfix but the features of the language and the interpreter did not change.
 
 
-## 1.0.0-SNAPSHOT
-The current development version. This is not a release version.
+## 1.0.0
+The first release in 2012
+
+## 1.0.4
+
 
 ## 1.0.5-SNAPSHOT
 Version that supports Java 9. 

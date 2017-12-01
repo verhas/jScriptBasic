@@ -8,14 +8,14 @@ import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.lexer.BasicLexicalElement;
 import com.scriptbasic.utility.SyntaxExceptionUtility;
+import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
 public class AuxTests {
 
-
+    @Test
     public void testExceptions() {
-        // new FactoryUtilities();
         new CommandCanNotBeCreatedException("bla bla", null);
         new KeywordNotImplementedException("hukk");
         final SyntaxException c = new BasicSyntaxException("hull",

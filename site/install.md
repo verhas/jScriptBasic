@@ -63,7 +63,7 @@ use the ScriptBasic for Java native interface.
 Place the JAR file on the classpath and use the native interface
  
 ```
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("print \"hello world\"");
 ```
 

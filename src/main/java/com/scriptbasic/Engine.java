@@ -1,6 +1,6 @@
 package com.scriptbasic;
 
-import com.scriptbasic.api.EngineApi;
+import com.scriptbasic.api.ScriptBasic;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.api.Subroutine;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
@@ -16,7 +16,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Engine implements EngineApi {
+public class Engine implements ScriptBasic {
 
     private final Map<String, Subroutine> subroutines = new HashMap<>();
     private Reader input;

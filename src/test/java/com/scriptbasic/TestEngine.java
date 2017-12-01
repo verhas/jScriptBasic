@@ -1,10 +1,9 @@
 package com.scriptbasic;
 
 import com.scriptbasic.api.BasicFunction;
-import com.scriptbasic.api.EngineApi;
+import com.scriptbasic.api.ScriptBasic;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.api.Subroutine;
-import com.scriptbasic.interfaces.HierarchicalSourceReader;
 import com.scriptbasic.interfaces.SourcePath;
 import com.scriptbasic.interfaces.SourceProvider;
 import com.scriptbasic.interfaces.SourceReader;
@@ -28,14 +27,14 @@ public class TestEngine {
 
     @Test(expected = ScriptBasicException.class)
     public void throwsExceptionWhenInputIsTotalGarbage() throws ScriptBasicException {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("ajdjkajkladsadsadjkls");
     }
 
     @Test
     public void testEvalString() throws Exception {
         // START SNIPPET: helloWorldString
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("print \"hello world\"");
         // END SNIPPET: helloWorldString
     }
@@ -43,7 +42,7 @@ public class TestEngine {
     @Test
     public void testEvalStringSW() throws Exception {
         // START SNIPPET: helloWorldStringSW
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         engine.eval("print \"hello world\"");
@@ -55,7 +54,7 @@ public class TestEngine {
     @Test
     public void testEvalReader() throws Exception {
         // START SNIPPET: helloWorldReader
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         StringReader sr = new StringReader("print \"hello world\"");
@@ -68,7 +67,7 @@ public class TestEngine {
     @Test
     public void testEvalFile() throws Exception {
         // START SNIPPET: helloWorldFile
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         File file = new File(getClass().getResource("hello.bas").getFile());
@@ -81,7 +80,7 @@ public class TestEngine {
     @Test
     public void testEvalPath() throws Exception {
         // START SNIPPET: helloWorldPath
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         String path = new File(getClass().getResource("hello.bas").getFile())
@@ -94,7 +93,7 @@ public class TestEngine {
 
     public void documentOnlyForTheSnippetNotCalledEver() throws Exception {
         // START SNIPPET: helloWorldPathMultiple
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("include.bas", ".", "..", "/usr/include/scriptbasic");
         // END SNIPPET: helloWorldPathMultiple
     }
@@ -102,7 +101,7 @@ public class TestEngine {
     @Test
     public void testEvalSourcePath() throws Exception {
         // START SNIPPET: helloWorldSourcePath
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         String path = new File(getClass().getResource("hello.bas").getFile())
@@ -118,7 +117,7 @@ public class TestEngine {
     @Test
     public void testEvalSourceProvider() throws Exception {
         // START SNIPPET: helloWorldSourceProvider
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         SourceProvider provider = new SourceProvider() {
@@ -150,7 +149,7 @@ public class TestEngine {
     @Test
     public void testSetGlobalVariable() throws Exception {
         // START SNIPPET: setGlobalVariable
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         engine.setVariable("a", 13);
@@ -163,7 +162,7 @@ public class TestEngine {
     @Test
     public void testGetGlobalVariable() throws Exception {
         // START SNIPPET: getGlobalVariable
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("a = \"hello world\"");
         String a = (String) engine.getVariable("a");
         assertEquals("hello world", a);
@@ -173,7 +172,7 @@ public class TestEngine {
     @Test
     public void testListGlobalVariable() throws Exception {
         // START SNIPPET: listGlobalVariable
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("a = \"hello world\"\nb=13");
         String varnames = "";
         for (String varname : engine.getVariablesIterator()) {
@@ -189,7 +188,7 @@ public class TestEngine {
     @Test
     public void testSubroutineCallWOArgumentsWORetvalLocalVarIsLocal()
             throws Exception {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie\na = \"hello world\"\nEndSub");
         String a = (String) engine.getVariable("a");
         assertNull(a);
@@ -202,7 +201,7 @@ public class TestEngine {
     @Test
     public void testSubroutineCallWOArgumentsWORetval() throws Exception {
         // START SNIPPET: subroutineCallWOArgumentsWORetval
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie\nglobal a\na = \"hello world\"\nEndSub");
         String a = (String) engine.getVariable("a");
         assertNull(a);
@@ -216,7 +215,7 @@ public class TestEngine {
     @Test
     public void testSubroutineCallWArgumentsWORetval() throws Exception {
         // START SNIPPET: subroutineCallWArgumentsWORetval
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie(b)\nglobal a\na = b\nEndSub");
         String a = (String) engine.getVariable("a");
         assertNull(a);
@@ -229,7 +228,7 @@ public class TestEngine {
     @Test
     public void testSubroutineCallWOArgumentsWORetvalOO() throws Exception {
         // START SNIPPET: subroutineCallWOArgumentsWORetvalOO
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie\nglobal a\na = \"hello world\"\nEndSub");
         String a = (String) engine.getVariable("a");
         assertNull(a);
@@ -243,7 +242,7 @@ public class TestEngine {
     @Test
     public void testSubroutineCallWArgumentsWORetvalOO() throws Exception {
         // START SNIPPET: subroutineCallWArgumentsWORetvalOO
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie(b)\nglobal a\na = b\nEndSub");
         String a = (String) engine.getVariable("a");
         assertNull(a);
@@ -257,7 +256,7 @@ public class TestEngine {
     @SuppressWarnings("deprecation")
     @Test(expected = ScriptBasicException.class)
     public void testSubroutineCallWArgumentsWRetval1() throws Exception {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie(b)\nglobal a\na = b\nreturn 6\nEndSub");
         engine.call("applePie", "hello world", "mama");
     }
@@ -265,7 +264,7 @@ public class TestEngine {
     @SuppressWarnings("deprecation")
     @Test
     public void testSubroutineCallWArgumentsWRetval2() throws Exception {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie(b,c)\nglobal a\na = c\nreturn 6\nEndSub");
         String a = (String) engine.getVariable("a");
         engine.call("applePie", "hello world");
@@ -276,7 +275,7 @@ public class TestEngine {
     @Test
     public void testSubroutineCallWArgumentsWRetval() throws Exception {
         // START SNIPPET: subroutineCallWArgumentsWRetval
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie(b)\nglobal a\na = b\nreturn 6\nEndSub");
         String a = (String) engine.getVariable("a");
         assertNull(a);
@@ -291,7 +290,7 @@ public class TestEngine {
     @Test
     public void testSubroutineCallWArgumentsWRetvalOO() throws Exception {
         // START SNIPPET: subroutineCallWArgumentsWRetvalOO
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie(b)\nglobal a\na = b\nreturn 6\nEndSub");
         String a = (String) engine.getVariable("a");
         assertNull(a);
@@ -307,7 +306,7 @@ public class TestEngine {
     @Test
     public void testSubroutineList() throws Exception {
         // START SNIPPET: subroutineList
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie(b)\nEndSub\nsub anotherSubroutine\nEndSub\n");
         int i = 0;
         for (@SuppressWarnings("unused")
@@ -322,7 +321,7 @@ public class TestEngine {
 
     @Test
     public void testSubroutineCallWArgumentsWRetval2007() throws Exception {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("" +
                 "sub applePie(b,c)\n" +
                 "global a\n" +
@@ -337,7 +336,7 @@ public class TestEngine {
 
     @Test
     public void testSubroutineCallWArgumentsWRetval007() throws Exception {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.load("" +
                 "sub applePie(b)\n" +
                 "global a\n" +
@@ -355,7 +354,7 @@ public class TestEngine {
 
     @Test
     public void testSubroutineList007() throws Exception {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.load("sub applePie(b)\nEndSub\nsub anotherSubroutine\nEndSub\n");
         int i = 0;
         for (@SuppressWarnings("unused")
@@ -372,7 +371,7 @@ public class TestEngine {
 
     @Test
     public void getsTheSubroutineByName() throws Exception {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie(b)\nEndSub\n");
         Subroutine applePie = engine.getSubroutine("applePie");
         assertEquals("applePie", applePie.getName());
@@ -380,19 +379,19 @@ public class TestEngine {
 
     @Test(expected = ScriptBasicException.class)
     public void throwsExceptionWhenSubroutineIsUndefined() throws ScriptBasicException {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("call applePie");
     }
 
     @Test(expected = ScriptBasicException.class)
     public void throwsExceptionWhenFileDoesNotExist() throws ScriptBasicException {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval(new File("this file is totally nonexistent"));
     }
 
     @Test(expected = ScriptBasicException.class)
     public void throwsExceptionWhenSourceProviderDoes() throws ScriptBasicException {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("kakukk.bas", new SourceProvider() {
 
             @Override
@@ -410,14 +409,14 @@ public class TestEngine {
 
     @Test
     public void testLoadString() throws Exception {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.load("print \"hello world\"");
         engine.execute();
     }
 
     @Test
     public void testLoadStringSW() throws Exception {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         engine.load("print \"hello world\"");
@@ -429,7 +428,7 @@ public class TestEngine {
 
     @Test
     public void testLoadReader() throws Exception {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         StringReader sr = new StringReader("print \"hello world\"");
@@ -442,7 +441,7 @@ public class TestEngine {
 
     @Test
     public void testLoadFile() throws Exception {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         File file = new File(getClass().getResource("hello.bas").getFile());
@@ -455,7 +454,7 @@ public class TestEngine {
 
     @Test
     public void testLoadPath() throws Exception {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         String path = new File(getClass().getResource("hello.bas").getFile())
@@ -469,7 +468,7 @@ public class TestEngine {
 
     @Test
     public void testLoadSourcePath() throws Exception {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         String path = new File(getClass().getResource("hello.bas").getFile())
@@ -484,7 +483,7 @@ public class TestEngine {
 
     @Test
     public void testLoadSourceProvider() throws Exception {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
         engine.setOutput(sw);
         SourceProvider provider = new SourceProvider() {
@@ -515,7 +514,7 @@ public class TestEngine {
 
     @Test
     public void testLoadStringSWMultipleExecute() throws Exception {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(22);
         engine.setOutput(sw);
         engine.load("print \"hello world\"");
@@ -527,14 +526,14 @@ public class TestEngine {
 
     @Test(expected = ScriptBasicException.class)
     public void testNoLoadStringSWMultipleExecute() throws Exception {
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.execute();
     }
 
     @Test
     public void testRegisterExtension() throws Exception {
         // START SNIPPET: testExtensionMethod
-        EngineApi engine = EngineApi.getEngine();
+        ScriptBasic engine = ScriptBasic.getEngine();
         engine.load("Sub aPie\nreturn javaFunction()\nEndSub\n");
         engine.registerExtension(TestExtensionClass.class);
         engine.execute();

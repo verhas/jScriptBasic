@@ -18,7 +18,7 @@
  
  For the same reason the language implemented is very simple. It implements only a very limited set
  of commands and operators. Each command is implemented that is needed to create embedded scripts but nothing more.
- You can assign values to variables, loop, execute conditional code (IF statement), print to the standard output
+ You can assign values to variables, loop, execute conditional code (`IF` statement), print to the standard output
  and call subroutines. You can handle arrays. Anything else you need in a BASIC script? To communicate with the embedding application
  more than just printing to the output the program can call Java static methods or instance methods in case an
  object is stored in a BASIC variable. To do that the usual `object.method(params)` format can be used, or just

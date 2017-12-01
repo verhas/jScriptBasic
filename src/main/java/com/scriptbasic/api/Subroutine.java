@@ -2,9 +2,9 @@ package com.scriptbasic.api;
 
 /**
  * Interface to manage a BASIC subroutine. An instance of this interface can be
- * acquired calling the method {@link EngineApi#getSubroutine(String)}. It is
+ * acquired calling the method {@link ScriptBasic#getSubroutine(String)}. It is
  * also possible to get all the subroutines calling the method {@link
- * EngineApi#getSubroutines()}.
+ * ScriptBasic#getSubroutines()}.
  *
  * @author Peter Verhas
  */

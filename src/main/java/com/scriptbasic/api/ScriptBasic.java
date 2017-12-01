@@ -19,9 +19,9 @@ import java.io.Writer;
  *
  * @author Peter Verhas
  */
-public interface EngineApi {
+public interface ScriptBasic {
 
-    static EngineApi getEngine() {
+    static ScriptBasic getEngine() {
         return new Engine();
     }
 

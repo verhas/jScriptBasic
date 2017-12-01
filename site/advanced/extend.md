@@ -6,7 +6,7 @@
  some methods that will be available to the BASIC program without `use` or `method` declarations.
  
  To register a method into the BASIC runtime and thus make it available for the BASIC program to call,
- ScriptBasic for Java provides a method `registerExtension(Class<?> klass)` in the `EngineApi` interface. Using
+ ScriptBasic for Java provides a method `registerExtension(Class<?> klass)` in the `ScriptBasic` interface. Using
  this method the embedding application can register static methods from a class. The embedding application has to
  issue a single call and it will register all the methods that are appropriately annotated.
  
@@ -34,7 +34,7 @@
  The declared function can be called after that from BASIC the following way:
  
 ```
-		EngineApi engine = EngineApi.getEngine();
+		ScriptBasic engine = ScriptBasic.getEngine();
 		engine.registerExtension(TestExtensionClass.class);
 		engine.load("Sub aPie\nreturn javaFunction()\nEndSub\n");
 		engine.execute();

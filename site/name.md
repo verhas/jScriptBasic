@@ -8,7 +8,7 @@ For example the default file name for the configuration file that ScriptBasic us
 ScriptBasic for Java does not need configuration generally though.)
 
 "ScriptBasic" without the starting `j` or without saying that this is for java denotes the
-classic version of ScriptBasic. The classic version was developed by the same authors from 1997 till 2006 and was and is still used
+classic version of ScriptBasic. The classic version was developed from 1997 till 2006 and was and is still used
 by many application as an embedded language. To name two: Sarian routers can be programmed using ScriptBasic and the company
 EZ-R Stats uses ScriptBasic to develop audit routines into their application.
   
@@ -25,3 +25,5 @@ language and interpreter in an article, blog or other human readable text.
 Use jScriptBasic only if the repetitive use of the long name would distract the reader.
 
 Use `sb4j` when the notation is used in software.
+
+Anyway: you are free to use any name so long as long others understand what you mean.
