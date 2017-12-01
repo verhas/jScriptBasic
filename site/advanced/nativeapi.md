@@ -1,33 +1,30 @@
-  ```
-  jScriptBasic Project Documentation
-  ```
-  Peter Verhas
-  ```
-  2012-08-26
-  ```
-  
-How to embed ScriptBasic for Java using the Native API
+# How to embed ScriptBasic for Java using the Native API
 
- Even though most of the features can be used using the JSR223 ineterface of ScriptBasic for Java,
- there are some features that are not available via the standard interface. The reason for this is
- that these features are above the functionality of what the standard can handle.
+Even though most of the features can be used using the JSR223 interface of ScriptBasic for Java,
+there are some features that are not available via the standard interface. The reason for this is
+that these features are above the functionality of what the standard can handle.
  
- For example the standard interfaces do not provide any possibility to define for a script to refer to
- other script. When you want to execute a script that 'includes' or 'imports' other scripts then there
- has to be some way to define where the included script is. It can be on the local disk on the file system,
- in a database or somewhere over the network. There is no such feature in the standard interface.
- 
- To use ScriptBasic for Java using the native API you have to have the ScriptBasic for Java JAR file
- on the classpath during execution as well as using development. You may recall that using ScriptBasic
- for Java via the standard interface does not require any ScriptBasic specific in the development environment.
- In case of the native API you need the JAR.
- 
-* Using Maven
+For example the standard interface does not provide any possibility to refer to
+other script. When you want to execute a script that contain `include` or `import` statements
+ to include or import other scripts then there
+has to be some way to define where the included scripts are. It can be on the
+local disk on the file system,
+in a database or somewhere over the network. There is no such feature in the standard interface.
+This is only one, albeit important feature that need the native API.
 
- If you use Maven then you can simply define in your POM file that references the actual
- version of ScriptBasic for Java:
+To use ScriptBasic for Java using the native API you have to have the ScriptBasic for Java JAR file
+on the classpath during execution as well as during development. You may recall that using ScriptBasic
+for Java via the standard interface does not require any ScriptBasic specific in the development environment.
+In case of the native API you need the JAR.
+
+## Development dependencies
+
+### Using Maven
+
+If you use Maven then you can simply define in your POM file that references the actual
+version of ScriptBasic for Java:
  
----
+```
 	<dependencies>
 		<dependency>
 	        <groupId>com.scriptbasic</groupId>
@@ -35,71 +32,99 @@ How to embed ScriptBasic for Java using the Native API
 	        <version>${project.version}</version>
 		</dependency>
 	</dependencies>
---- 
+```
 
- The artifacts are uploaded into the central repository maintained by Sonatype.
+The artifacts are uploaded into the central repository maintained by Sonatype.
 
-* Using ANT
+### Using ANT
 
- Go to the web interface of the central repository of Sonatype and download the artifact
+Go to the web interface of the central repository of Sonatype and download the artifact
  
----
+```
   http://central.maven.org/maven2/com/scriptbasic/jscriptbasic/${project.version}/jscriptbasic-${project.version}.jar 
----
+```
 
- place it to where the other library files are.
+place it to where the other library files are and compile your application embedding ScriptBasic.
  
-* Embedding API
+## Embedding API
  
- Using the native API of ScriptBasic for Java you should use the methods defined in the interface
- `com.scriptbasic.interfaces.EngineApi`. This interface is implemented by the class
- `com.scriptbasic.Engine`. In the following sections we will have a look at how to
- use this class 
+Using the native API of ScriptBasic for Java you should use the methods defined in the interface
+`com.scriptbasic.api.ScriptBasic`. This interface is implemented by the class
+`com.scriptbasic.Engine`. In the following sections we will have a look at how to
+use this class 
+
+* to execute a program
+
+  - from a string
  
- * to execute a program
+   - from a `java.io.Reader`
  
-  ** from a string
-  
-  ** from a `java.io.Reader`
-  
-  ** from a file (`java.io.File`)
-  
- * execute a program that includes other files
+   - from a file (`java.io.File`)
  
-  ** specifying directories as path
-  
-  ** specifying a ScriptBasic specific `SourcePath`, which is something similar to the java ClassPath
-  
-  ** specifying a ScriptBasic specific `SourceProvider`, which is something similar to a Java ClassLoader
+* execute a program that includes other files
+
+   - specifying directories as path
  
- []
+   - specifying a ScriptBasic specific `SourcePath`, which is something similar to the java ClassPath
  
- We will also have a look at how to set global variables before executing the program, and how to get values
- of global variables after the code was executed. We will also see how to list all the global variables and
- also how to invoke a subroutine after the code was executed. Calling subroutines is possible passing
- arguments and getting return values.
- 
-** Hello world
+   - specifying a ScriptBasic specific `SourceProvider`, which is something similar to a Java ClassLoader
+
+
+
+We will also have a look at how to set global variables before executing the program, and how to get values
+of global variables after the code was executed. We will also see how to list all the global variables and
+also how to invoke a subroutine after the code was executed. Calling subroutines is possible passing
+arguments and getting return values.
+
+### Hello world
 
  The simplest ever use of the ScriptBasic for Java native API is to execute a script that is available in a string:
- 
-%{snippet|id=helloWorldString|file=src/test/java/com/scriptbasic/TestEngine.java}
+
+```
+        EngineApi engine = EngineApi.getEngine();
+        engine.eval("print \"hello world\"");
+``` 
+
 
  This code creates a new `Engine` object, then calls the method `eval` with the string that contains the
  program code. Note that `EngineApi` is an interface and `Engine` is the implementation.
  If you want to have the output of the program in a `String` you can create a `StringWriter`
  and redirect the standard output of the program to there:
  
-%{snippet|id=helloWorldStringSW|file=src/test/java/com/scriptbasic/TestEngine.java}
+```
+        EngineApi engine = EngineApi.getEngine();
+        StringWriter sw = new StringWriter(10);
+        engine.setOutput(sw);
+        engine.eval("print \"hello world\"");
+        sw.close();
+        assertEquals("hello world", sw.toString());
+```
+
 
  When you do not have the code in a string you can tell the interpreter to execute the code reading the BASIC
  program from a `java.io.Reader`:
  
-%{snippet|id=helloWorldReader|file=src/test/java/com/scriptbasic/TestEngine.java}
+```
+        EngineApi engine = EngineApi.getEngine();
+        StringWriter sw = new StringWriter(10);
+        engine.setOutput(sw);
+        StringReader sr = new StringReader("print \"hello world\"");
+        engine.eval(sr);
+        sw.close();
+        assertEquals("hello world", sw.toString());
+```
  
  or from a `java.io.File`:
  
-%{snippet|id=helloWorldFile|file=src/test/java/com/scriptbasic/TestEngine.java}
+```
+        EngineApi engine = EngineApi.getEngine();
+        StringWriter sw = new StringWriter(10);
+        engine.setOutput(sw);
+        File file = new File(getClass().getResource("hello.bas").getFile());
+        engine.eval(file);
+        sw.close();
+        assertEquals("hello world", sw.toString());
+```
 
  Note that the sample above is included from a junit test file. When you use this API
  you will much easier get to your file name than `this.getClass().getResource("hello.bas").getFile()`.
@@ -129,17 +154,40 @@ How to embed ScriptBasic for Java using the Native API
  
  To specify the directories where the files are use the following piece of code:
  
-%{snippet|id=helloWorldPath|file=src/test/java/com/scriptbasic/TestEngine.java}
+```
+        EngineApi engine = EngineApi.getEngine();
+        StringWriter sw = new StringWriter(10);
+        engine.setOutput(sw);
+        String path = new File(getClass().getResource("hello.bas").getFile())
+                .getParent();
+        engine.eval("include.bas", path);
+        sw.close();
+        assertEquals("hello world", sw.toString());
+```
  
  Since the last parameter is variable argument, you can use there `String[]` array, or simply
  as many `String` parameters as you like:
  
-%{snippet|id=helloWorldPathMultiple|file=src/test/java/com/scriptbasic/TestEngine.java}
+```
+        EngineApi engine = EngineApi.getEngine();
+        engine.eval("include.bas", ".", "..", "/usr/include/scriptbasic");
+```
  
  The second possibility is to provide a `SourcePath` object. The following sample
  shows you a very simple use of this approach:
  
-%{snippet|id=helloWorldSourcePath|file=src/test/java/com/scriptbasic/TestEngine.java}
+```
+        EngineApi engine = EngineApi.getEngine();
+        StringWriter sw = new StringWriter(10);
+        engine.setOutput(sw);
+        String path = new File(getClass().getResource("hello.bas").getFile())
+                .getParent();
+        SourcePath sourcePath = new BasicSourcePath();
+        sourcePath.add(path);
+        engine.eval("include.bas", sourcePath);
+        sw.close();
+        assertEquals("hello world", sw.toString());
+```
  
  Actually this way of use has no advantage of this method over the previous one where
  you provided the path values as strings. However there is nothing to stop you to
@@ -152,7 +200,34 @@ How to embed ScriptBasic for Java using the Native API
  code because the file may include other BASIC files. The sample code that does
  this is the following:
  
-%{snippet|id=helloWorldSourceProvider|file=src/test/java/com/scriptbasic/TestEngine.java}
+```
+        EngineApi engine = EngineApi.getEngine();
+        StringWriter sw = new StringWriter(10);
+        engine.setOutput(sw);
+        SourceProvider provider = new SourceProvider() {
+            private Map<String, String> source = new HashMap<>();
+
+            {
+                source.put("hello.bas", "print \"hello world\"");
+                source.put("include.bas", "include \"hello.bas\"");
+            }
+
+            @Override
+            public SourceReader get(String sourceName, String referencingSource)
+                    throws IOException {
+                return get(sourceName);
+            }
+
+            @Override
+            public SourceReader get(String sourceName) throws IOException {
+                final SourceReader reader = new GenericSourceReader(new StringReader(source.get(sourceName)), this, sourceName);
+                return new GenericHierarchicalSourceReader(reader);
+            }
+        };
+        engine.eval("include.bas", provider);
+        sw.close();
+        assertEquals("hello world", sw.toString());
+```
 
  This sample code implements an anonymous class of the interface `SourceProvider` implementing
  both of the `get` methods. Note that these methods return a BASIC `Reader` and not
@@ -176,7 +251,15 @@ How to embed ScriptBasic for Java using the Native API
  Before executing the program you can set the values of certain global variables. These variables will be available
  for the script exactly as it was set by some BASIC code. To do so the following sample can be used:
  
-%{snippet|id=setGlobalVariable|file=src/test/java/com/scriptbasic/TestEngine.java}
+```
+        EngineApi engine = EngineApi.getEngine();
+        StringWriter sw = new StringWriter(10);
+        engine.setOutput(sw);
+        engine.setVariable("a", 13);
+        engine.eval("print a + \"hello world\"");
+        sw.close();
+        assertEquals("13hello world", sw.toString());
+```
  
  To set the variable you should pass a Java `Object` to the method. Whenever you pass a primitive it
  will be autoboxed to an `Object` and ScriptBasic for Java will convert it to a BASIC object. The conversion is
@@ -188,7 +271,12 @@ How to embed ScriptBasic for Java using the Native API
  
  After the code was executed you are able to query the values of the global variables:
  
-%{snippet|id=getGlobalVariable|file=src/test/java/com/scriptbasic/TestEngine.java}
+```
+        EngineApi engine = EngineApi.getEngine();
+        engine.eval("a = \"hello world\"");
+        String a = (String) engine.getVariable("a");
+        assertEquals("hello world", a);
+```
  
  In this way the BASIC object represented by the ScriptBasic for Java internal class `RightValue` is converted
  to a plain Java object. This plain java object can be `Long`, `Double`, `Character`, `String` or `Boolean`.
@@ -205,7 +293,17 @@ How to embed ScriptBasic for Java using the Native API
  If you do not know the name of the global variable beforehand you can list the names of the global variables after
  the execution of the code programmatically:
  
-%{snippet|id=listGlobalVariable|file=src/test/java/com/scriptbasic/TestEngine.java}
+```
+        EngineApi engine = EngineApi.getEngine();
+        engine.eval("a = \"hello world\"\nb=13");
+        String varnames = "";
+        for (String varname : engine.getVariablesIterator()) {
+            varnames += varname;
+        }
+        Assert.assertTrue(varnames.indexOf('a') != -1);
+        Assert.assertTrue(varnames.indexOf('b') != -1);
+        assertEquals(2, varnames.length());
+```
 
  The value returned by the method `engine.getVariablesIterator()` is an iterator that you can use in `for` loops
  or in any other Java way to iterate through the names of the global variables.
@@ -228,19 +326,48 @@ How to embed ScriptBasic for Java using the Native API
  
  To call a subroutine you have to know the name of the subroutine and you should call the method `call()`:
  
-%{snippet|id=subroutineCallWOArgumentsWORetval|file=src/test/java/com/scriptbasic/TestEngine.java}
+```
+        EngineApi engine = EngineApi.getEngine();
+        engine.eval("sub applePie\nglobal a\na = \"hello world\"\nEndSub");
+        String a = (String) engine.getVariable("a");
+        assertNull(a);
+        engine.call("applePie", (Object[]) null);
+        a = (String) engine.getVariable("a");
+        assertEquals("hello world", a);
+```
   
   This sample shows you how to call a subroutine that does not need any parameter and does not return any value.
   The next example shows how to pass arguments and how to get the return value:
  
-%{snippet|id=subroutineCallWArgumentsWRetval|file=src/test/java/com/scriptbasic/TestEngine.java}
+```
+        EngineApi engine = EngineApi.getEngine();
+        engine.eval("sub applePie(b)\nglobal a\na = b\nreturn 6\nEndSub");
+        String a = (String) engine.getVariable("a");
+        assertNull(a);
+        @SuppressWarnings("deprecation")
+        Long ret = (Long) engine.call("applePie", "hello world");
+        a = (String) engine.getVariable("a");
+        assertEquals("hello world", a);
+        assertEquals((Long) 6L, ret);
+```
  
  If the argument list is too long, you will get an exception. If the argument list is too short then the
  final arguments not matched by the passed values will be undefined. To get the number of arguments a subroutine
  expects you should call the method `getNumberOfArguments(String name)` with the subroutine name as argument.
  To get all the subroutines the BASIC program defines you should call the method `getSubroutineNames()`:
  
-%{snippet|id=subroutineList|file=src/test/java/com/scriptbasic/TestEngine.java}
+```
+        EngineApi engine = EngineApi.getEngine();
+        engine.eval("sub applePie(b)\nEndSub\nsub anotherSubroutine\nEndSub\n");
+        int i = 0;
+        for (@SuppressWarnings("unused")
+                String subName : engine.getSubroutineNames()) {
+            i++;
+        }
+        assertEquals(2, i);
+        assertEquals(1, engine.getNumberOfArguments("applePie"));
+        assertEquals(0, engine.getNumberOfArguments("anotherSubroutine"));
+```
  
 ** Calling a subroutine object oriented way
 
@@ -250,12 +377,31 @@ How to embed ScriptBasic for Java using the Native API
  To get an instance you have to call the `Engine` method `getSubroutine(String name)`. When you have the
  instance you can call `call(Object ... args)`, `getName()` and `getNumberOfArguments()` methods.
  
-%{snippet|id=subroutineCallWOArgumentsWORetvalOO|file=src/test/java/com/scriptbasic/TestEngine.java}
+```
+        EngineApi engine = EngineApi.getEngine();
+        engine.eval("sub applePie\nglobal a\na = \"hello world\"\nEndSub");
+        String a = (String) engine.getVariable("a");
+        assertNull(a);
+        Subroutine applePie = engine.getSubroutine("applePie");
+        applePie.call((Object[]) null);
+        a = (String) engine.getVariable("a");
+        assertEquals("hello world", a);
+```
   
   This sample above is the object oriented version of the sample before. Also see the following
   sample how to call a subroutine in OO way that returns some value:
  
-%{snippet|id=subroutineCallWArgumentsWRetvalOO|file=src/test/java/com/scriptbasic/TestEngine.java}
+```
+        EngineApi engine = EngineApi.getEngine();
+        engine.eval("sub applePie(b)\nglobal a\na = b\nreturn 6\nEndSub");
+        String a = (String) engine.getVariable("a");
+        assertNull(a);
+        Subroutine applePie = engine.getSubroutine("applePie");
+        Long ret = (Long) applePie.call("hello world");
+        a = (String) engine.getVariable("a");
+        assertEquals("hello world", a);
+        assertEquals((Long) 6L, ret);
+```
  
  
  

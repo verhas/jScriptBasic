@@ -1,9 +1,7 @@
-# jScriptBasic Project Documentation
+# The BASIC language interpreted by ScriptBasic for Java
 
-
-The BASIC language interpreted by ScriptBasic for Java
-
-The language implemented byScriptBasic for Java is a simple BASIC language. There are only a very few commands implemented
+The language implemented byScriptBasic for Java is a simple BASIC language.
+There are only a very few commands implemented
 to keep the language simple, easy to learn. The following commands are implemented:
 
 * [Variable assignment](./basic/let.md), `LET` and expression with operators

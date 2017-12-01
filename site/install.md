@@ -62,7 +62,10 @@ use the ScriptBasic for Java native interface.
  
 Place the JAR file on the classpath and use the native interface
  
-%{snippet|id=helloWorldString|file=src/test/java/com/scriptbasic/TestEngine.java}
+```
+        EngineApi engine = EngineApi.getEngine();
+        engine.eval("print \"hello world\"");
+```
 
 to evaluate some BASIC. [... more on the native api](./advanced/nativeapi.md).
 
@@ -78,7 +81,29 @@ that implements the command line version of the interpreter and embeds the inter
 The code is in the package `com.scriptbasic.main` and the class is `CommandLine`. The important
 part is:
  
-%{snippet|id=x|file=src/main/java/com/scriptbasic/main/CommandLine.java}
+```
+        final PrintWriter output = new PrintWriter(System.out);
+        final PrintWriter error = new PrintWriter(System.err);
+        try {
+            final InputStreamReader input = new InputStreamReader(System.in);
+            final Context ctx = ContextBuilder.from(new FileReader(basicProgramFileName),
+                                                    input, output, error);
+            ctx.interpreter.registerFunctions(FileHandlingFunctions.class);
+            registerSystemPropertyDefinedClasses(ctx);
+            ctx.interpreter.setProgram(ctx.syntaxAnalyzer.analyze());
+            ctx.interpreter.execute();
+        } catch (final Exception exception) {
+            Throwable cause = Optional.ofNullable(exception.getCause()).orElse(exception);
+            if (cause.getMessage() != null) {
+                System.err.println("ERROR: " + cause.getMessage());
+            } else {
+                throw exception;
+            }
+        } finally {
+            output.flush();
+            error.flush();
+        }
+```
 
 The code creates a new `javax.script.ScriptEngineManager` that manages the loading and the location
 of the interpreter. The command line version of ScriptBasic for Java asks the script engine manager to create
@@ -109,5 +134,5 @@ JSR223 standard interface.
  
 ## Advanced
  
-The advanced use of ScriptBasic for Java invoking the special functionalities that are not available through
+The advanced use of ScriptBasic for Java invoking the special functionality that are not available through
 the JSR223 standard interface are detailed in a series of separate [pages here](./advanced/index.md).
