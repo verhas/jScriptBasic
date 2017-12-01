@@ -7,9 +7,8 @@ import com.scriptbasic.interfaces.SourceProvider;
 /**
  * An abstract source provider extended by all the source provider
  * implementations that rely on a SourcePath implementation.
- * 
+ *
  * @author Peter Verhas
- * 
  */
 public abstract class AbstractSourcePathSourceProvider extends
         AbstractSourceProvider implements SourcePathProvider, SourceProvider {

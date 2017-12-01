@@ -1,8 +1,8 @@
 package com.scriptbasic.sourceproviders;
 
-import java.io.IOException;
+import com.scriptbasic.interfaces.SourceReader;
 
-import com.scriptbasic.interfaces.Reader;
+import java.io.IOException;
 
 /**
  * Abstract class to be extended by source path implementations that include a
@@ -14,19 +14,18 @@ import com.scriptbasic.interfaces.Reader;
  * for such source provider it is indifferent which file includes the included
  * file. Still in other words it is not possible to include a source using
  * relative source (file) name.
- * 
+ *
  * @author Peter Verhas
- * 
  */
 public abstract class SingleIncludeNonRelativeSourceProvider extends
         AbstractSingleIncludeSourceProvider {
 
     @Override
-    protected abstract Reader getSource(String sourceName) throws IOException;
+    protected abstract SourceReader getSource(String sourceName) throws IOException;
 
     @Override
-    protected Reader getSource(final String sourceName,
-            final String referencingSource) throws IOException {
+    protected SourceReader getSource(final String sourceName,
+                                     final String referencingSource) throws IOException {
         return getSource(sourceName);
     }
 
@@ -37,7 +36,7 @@ public abstract class SingleIncludeNonRelativeSourceProvider extends
 
     @Override
     protected String getKeyName(final String sourceName,
-            final String referencingSource) {
+                                final String referencingSource) {
         return getKeyName(sourceName);
     }
 

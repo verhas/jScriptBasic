@@ -3,15 +3,14 @@ package com.scriptbasic.exceptions;
 /**
  * Exception to throw when there is some error during the syntax analysis
  * related to the analysis itself and not the reading of the source.
- * 
+ *
  * @author Peter Verhas
- * 
  */
 public abstract class SyntaxException extends GeneralAnalysisException {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public SyntaxException() {
+    public SyntaxException() {
         super();
     }
 

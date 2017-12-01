@@ -1,23 +1,24 @@
 package com.scriptbasic.memory;
 
-import java.util.Stack;
-
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.LocalVariableMap;
 import com.scriptbasic.interfaces.RightValue;
 
+import java.util.Stack;
+
 /**
  * Handle the local variable in a hierarchical stack of Maps
- * 
+ *
  * @author Peter Verhas
  * date June 22, 2012
- * 
  */
 public class BasicLocalVariableMap extends BasicVariableMap implements
         LocalVariableMap {
 
     private BasicVariableMap actualMap = null;
     private BasicVariableRegistry actualRegistry = null;
+    private Stack<BasicVariableMap> localMapStack = new Stack<>();
+    private Stack<BasicVariableRegistry> localRegistryStack = new Stack<>();
 
     @Override
     public RightValue getVariableValue(String variableName)
@@ -48,9 +49,6 @@ public class BasicLocalVariableMap extends BasicVariableMap implements
         actualMap.setVariable(variableName, rightValue);
     }
 
-    private Stack<BasicVariableMap> localMapStack = new Stack<>();
-    private Stack<BasicVariableRegistry> localRegistryStack = new Stack<>();
-
     /*
      * (non-Javadoc)
      * 
@@ -78,7 +76,7 @@ public class BasicLocalVariableMap extends BasicVariableMap implements
     /**
      * Returns true if the current scope is global, there no no any local stack
      * frame open.
-     * 
+     *
      * @return
      */
     public boolean currentScopeIsGlobal() {

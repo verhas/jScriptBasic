@@ -7,22 +7,15 @@ package com.scriptbasic.interfaces;
  * <p>
  * The actual implementation specifies what lexical elements that identifies and
  * returns.
- * 
+ *
  * @author Peter Verhas
- * 
  */
-public interface LexicalAnalyzer extends FactoryManaged {
-    /**
-     * Set the reader from where the lexical analyzer has to read the input.
-     * 
-     * @param reader
-     */
-    void set(Reader reader);
+public interface LexicalAnalyzer {
 
     /**
      * Get the next lexical element from the input stream. If there are no more
      * lexical elements then return {@code null}
-     * 
+     *
      * @return
      */
     LexicalElement get() throws AnalysisException;
@@ -38,7 +31,7 @@ public interface LexicalAnalyzer extends FactoryManaged {
     /**
      * Register a lexical element analyzer. The lexical element analyzers are
      * consulted in the order they are registered to match a lexeme.
-     * 
+     *
      * @param lea
      */
     void registerElementAnalyzer(LexicalElementAnalyzer lea);

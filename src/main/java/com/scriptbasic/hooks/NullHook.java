@@ -1,12 +1,8 @@
 package com.scriptbasic.hooks;
 
-import java.lang.reflect.Method;
+import com.scriptbasic.interfaces.*;
 
-import com.scriptbasic.interfaces.Command;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
-import com.scriptbasic.interfaces.InterpreterHook;
-import com.scriptbasic.interfaces.LeftValueList;
-import com.scriptbasic.interfaces.RightValue;
+import java.lang.reflect.Method;
 
 /**
  * The simplest implementation of the InterfaceHook interface. This implements
@@ -14,10 +10,9 @@ import com.scriptbasic.interfaces.RightValue;
  * <p>
  * This hook is used to chain into the hook chain first so that hook classes
  * need not check if there is a next hook object in the chain.
- * 
+ *
  * @author Peter Verhas
  * date Aug 15, 2012
- * 
  */
 public class NullHook implements InterpreterHook {
 
@@ -43,7 +38,7 @@ public class NullHook implements InterpreterHook {
 
     @Override
     public void beforeRegisteringJavaMethod(String alias, Class<?> klass,
-            String methodName, Class<?>[] argumentTypes) {
+                                            String methodName, Class<?>[] argumentTypes) {
     }
 
     @Override
@@ -68,7 +63,7 @@ public class NullHook implements InterpreterHook {
 
     @Override
     public void beforeSubroutineCall(String subroutineName,
-            LeftValueList arguments, RightValue[] argumentValues) {
+                                     LeftValueList arguments, RightValue[] argumentValues) {
     }
 
     @Override

@@ -1,10 +1,5 @@
 package com.scriptbasic.syntax.expression;
 
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
-
-import java.util.Iterator;
-
 import com.scriptbasic.executors.AbstractIdentifieredExpression;
 import com.scriptbasic.executors.AbstractIdentifieredExpressionListedExpression;
 import com.scriptbasic.executors.operators.AbstractBinaryOperator;
@@ -12,11 +7,18 @@ import com.scriptbasic.executors.operators.AbstractUnaryOperator;
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.ExpressionList;
+import org.junit.Assert;
+
+import java.util.Iterator;
+
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class ExpressionComparator {
 
     private static void assertEqual(final AbstractBinaryOperator a,
-            final AbstractBinaryOperator b) {
+                                    final AbstractBinaryOperator b) {
         assertEqual(a.getLeftOperand(), b.getLeftOperand());
         assertEqual(a.getRightOperand(), b.getRightOperand());
     }
@@ -27,7 +29,7 @@ public class ExpressionComparator {
     }
 
     public static void assertEqual(final ExpressionList a,
-            final ExpressionList b) {
+                                   final ExpressionList b) {
         if (a == null && b == null) {
             return;
         }
@@ -52,13 +54,13 @@ public class ExpressionComparator {
     }
 
     private static void assertEqual(final AbstractPrimitiveRightValue<?> a,
-            final AbstractPrimitiveRightValue<?> b) {
+                                    final AbstractPrimitiveRightValue<?> b) {
         assertTrue(a.getValue() + "!=" + b.getValue(),
                 a.getValue().equals(b.getValue()));
     }
 
     private static void assertEqual(final AbstractIdentifieredExpression a,
-            final AbstractIdentifieredExpression b) {
+                                    final AbstractIdentifieredExpression b) {
         assertTrue(a.getVariableName().equals(b.getVariableName()));
     }
 
@@ -95,6 +97,6 @@ public class ExpressionComparator {
                     (AbstractIdentifieredExpression) b);
             return;
         }
-        assertTrue(false);
+        fail();
     }
 }

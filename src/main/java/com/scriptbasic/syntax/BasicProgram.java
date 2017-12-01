@@ -1,77 +1,59 @@
 package com.scriptbasic.syntax;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.scriptbasic.executors.commands.AbstractCommand;
 import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.interfaces.Command;
-import com.scriptbasic.interfaces.Factory;
+
+import java.util.*;
 
 public final class BasicProgram extends AbstractBasicProgramPostprocessing {
-	// final private static Logger LOG = LoggerFactory
-	// .getLogger();
-	private Factory factory;
 
-	public Factory getFactory() {
-		return factory;
-	}
+    private final List<Command> commands = new ArrayList<>();
+    private AbstractCommand lastCommand = null;
+    private Map<String, CommandSub> subroutineMap = new HashMap<>();
 
-	@Override
-	public void setFactory(final Factory factory) {
-		this.factory = factory;
-	}
+    @Override
+    public void reset() {
+        commands.clear();
+        lastCommand = null;
+    }
 
-	private final List<Command> commands = new ArrayList<>();
-	private AbstractCommand lastCommand = null;
+    public void addCommand(final Command command) {
+        if (lastCommand != null) {
+            lastCommand.setNextCommand(command);
+        }
+        lastCommand = (AbstractCommand) command;
+        this.commands.add(command);
+    }
 
-	@Override
-	public void reset() {
-		commands.clear();
-		lastCommand = null;
-	}
+    protected Command getFirstCommand() {
+        if (commands.isEmpty()) {
+            return null;
+        } else {
+            return commands.get(0);
+        }
+    }
 
-	public void addCommand(final Command command) {
-		if (lastCommand != null) {
-			lastCommand.setNextCommand(command);
-		}
-		lastCommand = (AbstractCommand) command;
-		this.commands.add(command);
-	}
+    @Override
+    public Collection<Command> getCommands() {
+        return commands;
+    }
 
-	protected Command getFirstCommand() {
-		if (commands.isEmpty()) {
-			return null;
-		} else {
-			return commands.get(0);
-		}
-	}
+    @Override
+    public Iterable<String> getNamedCommandNames() {
+        return subroutineMap.keySet();
+    }
 
-	@Override
-	public Collection<Command> getCommands() {
-		return commands;
-	}
+    /**
+     * @return the subroutineMap
+     */
+    protected Map<String, CommandSub> getSubroutineMap() {
+        return subroutineMap;
+    }
 
-	private Map<String, CommandSub> subroutineMap = new HashMap<>();
-
-	@Override
-	public Iterable<String> getNamedCommandNames() {
-		return subroutineMap.keySet();
-	}
-
-	/**
-	 * @return the subroutineMap
-	 */
-	protected Map<String, CommandSub> getSubroutineMap() {
-		return subroutineMap;
-	}
-
-	@Override
-	public Command getNamedCommand(String name) {
-		return subroutineMap.get(name);
-	}
+    @Override
+    public Command getNamedCommand(String name) {
+        return subroutineMap.get(name);
+    }
 
 }

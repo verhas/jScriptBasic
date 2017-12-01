@@ -2,9 +2,14 @@ package com.scriptbasic.lexer.elements;
 
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.interfaces.SourceReader;
 import com.scriptbasic.lexer.BasicLexicalElement;
 
 public class ConstAwareIdentifier extends Identifier {
+
+    public ConstAwareIdentifier(SourceReader reader) {
+        super(reader);
+    }
 
     @Override
     public LexicalElement read() throws LexicalException {

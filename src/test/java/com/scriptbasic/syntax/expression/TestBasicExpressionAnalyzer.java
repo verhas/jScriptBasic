@@ -1,36 +1,34 @@
 package com.scriptbasic.syntax.expression;
 
-import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.exceptions.SyntaxException;
-import com.scriptbasic.factories.BasicFactory;
+import com.scriptbasic.factories.Context;
+import com.scriptbasic.factories.ContextBuilder;
 import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.Expression;
-import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.utility.FactoryUtility;
+import com.scriptbasic.interfaces.ExpressionAnalyzer;
 import com.scriptbasic.utility.LexUtility;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
 import static com.scriptbasic.syntax.expression.ExpressionBuilder.*;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 
 public class TestBasicExpressionAnalyzer {
 
     private static final Expression[] nullExpression = null;
-    private static Factory factory = new BasicFactory();
 
     private static Expression compile(final String s) throws AnalysisException {
-        factory.clean();
-        final LexicalAnalyzer la = createStringReading(factory, s);
-        final BasicExpressionAnalyzer bea = (BasicExpressionAnalyzer) FactoryUtility
-                .getExpressionAnalyzer(factory);
+        Context ctx = ContextBuilder.from(createStringReading(s));
+        final ExpressionAnalyzer bea = ctx.expressionAnalyzer;
         final Expression e = bea.analyze();
-        if (LexUtility.peek(la) != null) {
-            throw new GenericSyntaxException(
+        if (LexUtility.peek(ctx.lexicalAnalyzer) != null) {
+            throw new BasicSyntaxException(
                     "There are extra lexemes after the expression: "
-                            + LexUtility.peek(la).getLexeme());
+                            + LexUtility.peek(ctx.lexicalAnalyzer).getLexeme());
         }
         return e;
     }
@@ -115,7 +113,7 @@ public class TestBasicExpressionAnalyzer {
         for (final String s : expressions) {
             try {
                 compile(s);
-                assertTrue(false);
+                fail();
             } catch (final SyntaxException e) {
             }
         }

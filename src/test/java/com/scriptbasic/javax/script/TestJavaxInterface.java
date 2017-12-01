@@ -1,18 +1,15 @@
 package com.scriptbasic.javax.script;
 
 import com.scriptbasic.api.Version;
-import com.scriptbasic.factories.FactoryServiceLoader;
-import com.scriptbasic.factories.SingletonFactoryFactory;
+import com.scriptbasic.api.script.ScriptBasicEngineFactory;
+import com.scriptbasic.configuration.BasicConfiguration;
 import com.scriptbasic.interfaces.Configuration;
-import com.scriptbasic.utility.FactoryUtility;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
 import javax.script.*;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Properties;
 
@@ -25,21 +22,8 @@ import static org.junit.Assert.*;
 
 public class TestJavaxInterface {
 
-    @After
-    public void tearDown() {
-        try {
-            Field field = SingletonFactoryFactory.class.getDeclaredField("singleton");
-            field.setAccessible(true);
-            field.set(null, FactoryServiceLoader.loadFactory());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Test
     public void testCoverConfiguration() throws Exception {
-        Configuration config = FactoryUtility
-                .getConfiguration(SingletonFactoryFactory.getFactory());
         Properties configProperties = new Properties();
         configProperties.put("extension.0", "b0");
         configProperties.put("extension.1", "b1");
@@ -58,44 +42,43 @@ public class TestJavaxInterface {
         configProperties.put("version", "666");
         configProperties.put("language", "esperanto");
         configProperties.put("languageVersion", "ancient");
-
+        Configuration config = new BasicConfiguration();
         config.setConfigProperties(configProperties);
-        ScriptEngineFactory sef = new com.scriptbasic.api.script.ScriptEngineFactory();
-        assertEquals("esperanto", sef.getLanguageName());
-        assertEquals("ancient", sef.getLanguageVersion());
-        assertEquals(2, sef.getNames().size());
-        assertEquals(6, sef.getMimeTypes().size());
-        assertEquals(5, sef.getExtensions().size());
-        ScriptEngine se = sef.getScriptEngine();
+        ScriptEngineFactory factory = new ScriptBasicEngineFactory(config);
+        assertEquals("esperanto", factory.getLanguageName());
+        assertEquals("ancient", factory.getLanguageVersion());
+        assertEquals(2, factory.getNames().size());
+        assertEquals(6, factory.getMimeTypes().size());
+        assertEquals(5, factory.getExtensions().size());
+        ScriptEngine se = factory.getScriptEngine();
         assertNotNull(se);
         assertTrue(se instanceof com.scriptbasic.api.script.ScriptEngine);
     }
 
-    @SuppressWarnings("static-method")
+
     @Test
     public void testRun1() throws ScriptException, IOException {
-        ScriptEngineManager sem = new ScriptEngineManager();
-        List<ScriptEngineFactory> sefs = sem.getEngineFactories();
+        ScriptEngineManager manager = new ScriptEngineManager();
+        List<ScriptEngineFactory> factories = manager.getEngineFactories();
         boolean sbWasFound = false;
-        for (ScriptEngineFactory sef : sefs) {
-            if (sef.getEngineName() != null
-                    && sef.getEngineName().equals(Version.engineName)) {
+        for (ScriptEngineFactory factory : factories) {
+            if (factory.getEngineName() != null
+                    && factory.getEngineName().equals(Version.engineName)) {
                 sbWasFound = true;
-                assertEquals(Version.language, sef.getLanguageName());
-                assertEquals(Version.languageVersion, sef.getLanguageVersion());
-                assertEquals(Version.names.size(), sef.getNames().size());
-                assertEquals(Version.mimeTypes.size(), sef.getMimeTypes()
+                assertEquals(Version.language, factory.getLanguageName());
+                assertEquals(Version.languageVersion, factory.getLanguageVersion());
+                assertEquals(Version.names.size(), factory.getNames().size());
+                assertEquals(Version.mimeTypes.size(), factory.getMimeTypes()
                         .size());
-                assertEquals(Version.extensions.size(), sef.getExtensions()
+                assertEquals(Version.extensions.size(), factory.getExtensions()
                         .size());
             }
         }
         assertTrue(sbWasFound);
-        FactoryUtility.getConfiguration(SingletonFactoryFactory.getFactory());
-        ScriptEngine se = sem.getEngineByExtension("sb");
+
+        ScriptEngine se = manager.getEngineByExtension("sb");
         assertNotNull(se);
         assertTrue(se instanceof com.scriptbasic.api.script.ScriptEngine);
-        assertNotNull(se);
         se.eval("print \"first script\"");
         ScriptContext context = se.getContext();
         Bindings bindings = context.getBindings(ScriptContext.ENGINE_SCOPE);
@@ -111,7 +94,7 @@ public class TestJavaxInterface {
 
     @Test
     public void testQueries() {
-        com.scriptbasic.api.script.ScriptEngineFactory sef = new com.scriptbasic.api.script.ScriptEngineFactory();
+        ScriptBasicEngineFactory sef = new ScriptBasicEngineFactory();
         Bindings b = new SimpleBindings();
         sef.setGlobalScopeBinding(b);
         Assert.assertEquals(sef.getGlobalScopeBinding(), b);

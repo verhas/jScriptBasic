@@ -3,6 +3,7 @@ package com.scriptbasic.lexer.elements;
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.KeywordRecognizer;
 import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.interfaces.SourceReader;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
 import com.scriptbasic.lexer.BasicLexicalElement;
 
@@ -10,6 +11,10 @@ public class Identifier extends AbstractElementAnalyzer {
 
     private static final int IDENTIFIER_STRINGBUILDER_INITIAL_CAPACITY = 32;
     private KeywordRecognizer keywordRecognizer = null;
+
+    public Identifier(SourceReader reader) {
+        super(reader);
+    }
 
     public void setKeywordRecognizer(final KeywordRecognizer keywordRecognizer) {
         this.keywordRecognizer = keywordRecognizer;

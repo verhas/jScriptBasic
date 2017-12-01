@@ -1,9 +1,9 @@
 package com.scriptbasic.sourceproviders;
 
-import java.io.IOException;
-
-import com.scriptbasic.interfaces.Reader;
 import com.scriptbasic.interfaces.SingleIncludeChecker;
+import com.scriptbasic.interfaces.SourceReader;
+
+import java.io.IOException;
 
 /**
  * Abstract class to be extended by source provider implementations that include
@@ -13,9 +13,8 @@ import com.scriptbasic.interfaces.SingleIncludeChecker;
  * implement the abstract methods {@code getSource()}. The method
  * {@code getSource()} is invoked only when it is ensured that the source was
  * not yet included.
- * 
+ *
  * @author Peter Verhas
- * 
  */
 public abstract class AbstractSingleIncludeSourcePathSourceProvider extends
         AbstractSourcePathSourceProvider {
@@ -23,7 +22,6 @@ public abstract class AbstractSingleIncludeSourcePathSourceProvider extends
     private SingleIncludeChecker singleInclude = new BasicSingleIncludeChecker();
 
     /**
-     * 
      * @return the actual value of the single include checker
      */
     public SingleIncludeChecker getSingleInclude() {
@@ -38,7 +36,7 @@ public abstract class AbstractSingleIncludeSourcePathSourceProvider extends
      * <p>
      * This method allows configuration of these source providers in a DI
      * container.
-     * 
+     *
      * @param singleInclude
      */
     public void setSingleInclude(final SingleIncludeChecker singleInclude) {
@@ -46,8 +44,8 @@ public abstract class AbstractSingleIncludeSourcePathSourceProvider extends
     }
 
     @Override
-    public final Reader get(final String sourceName) throws IOException {
-        Reader reader;
+    public final SourceReader get(final String sourceName) throws IOException {
+        SourceReader reader;
         if (this.singleInclude == null) {
             reader = null;
         } else {
@@ -58,9 +56,9 @@ public abstract class AbstractSingleIncludeSourcePathSourceProvider extends
     }
 
     @Override
-    public final Reader get(final String sourceName,
-            final String referencingSource) throws IOException {
-        Reader reader;
+    public final SourceReader get(final String sourceName,
+                                  final String referencingSource) throws IOException {
+        SourceReader reader;
         if (this.singleInclude == null) {
             reader = null;
         } else {
@@ -70,13 +68,13 @@ public abstract class AbstractSingleIncludeSourcePathSourceProvider extends
         return reader;
     }
 
-    protected abstract Reader getSource(String sourceName) throws IOException;
+    protected abstract SourceReader getSource(String sourceName) throws IOException;
 
-    protected abstract Reader getSource(String sourceName,
-            String referencingSource) throws IOException;
+    protected abstract SourceReader getSource(String sourceName,
+                                              String referencingSource) throws IOException;
 
     protected abstract String getKeyName(String sourceName);
 
     protected abstract String getKeyName(String sourceName,
-            String referencingSource);
+                                         String referencingSource);
 }

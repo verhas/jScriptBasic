@@ -1,11 +1,10 @@
 package com.scriptbasic.api.script;
 
 import com.scriptbasic.api.Version;
-import com.scriptbasic.factories.SingletonFactoryFactory;
+import com.scriptbasic.configuration.BasicConfiguration;
 import com.scriptbasic.interfaces.Configuration;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
-import com.scriptbasic.utility.FactoryUtility;
 
 import javax.script.Bindings;
 import javax.script.ScriptEngine;
@@ -16,8 +15,13 @@ import java.util.function.Consumer;
  * @author Peter Verhas
  * date Jul 26, 2012
  */
-public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
+public class ScriptBasicEngineFactory implements javax.script.ScriptEngineFactory {
     private static final Logger LOG = LoggerFactory.getLogger();
+    // configuration is more or less factory independent, at least the
+    // standard scripting interface does not provide any mean to define a
+    // specific interface for the different engine instances that may
+    // concurrently exist in the JVM
+    public final Configuration config;
     private Bindings globalScopeBinding;
     private String engineName = Version.engineName;
     private String version = Version.version;
@@ -26,18 +30,17 @@ public class ScriptEngineFactory implements javax.script.ScriptEngineFactory {
     private List<String> names = Version.names;
     private String language = Version.language;
     private String languageVersion = Version.languageVersion;
-    // configuration is more or less factory independent, at least the
-    // standard scripting interface does not provide any mean to define a
-    // specific interface for the different engine instances that may
-    // concurrently exist in the JVM
-    private Configuration config = FactoryUtility.getConfiguration(SingletonFactoryFactory.getFactory());
+
+    public ScriptBasicEngineFactory() {
+        this(new BasicConfiguration());
+    }
 
     /**
      * The constructor reads the configuration and fills the constants that are
      * requested by the {@link javax.script.ScriptEngineManager}.
      */
-    public ScriptEngineFactory() {
-
+    public ScriptBasicEngineFactory(Configuration config) {
+        this.config = config;
         engineName = config.getConfigValue("engineName").orElse(engineName);
         version = config.getConfigValue("version").orElse(version);
         language = config.getConfigValue("language").orElse(language);

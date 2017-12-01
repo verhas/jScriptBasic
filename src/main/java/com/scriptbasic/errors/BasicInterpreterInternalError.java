@@ -6,7 +6,8 @@ public class BasicInterpreterInternalError extends RuntimeException {
     public BasicInterpreterInternalError(final String arg0) {
         super(arg0);
     }
-    public BasicInterpreterInternalError(final String arg0,Throwable e) {
-        super(arg0,e);
+
+    public BasicInterpreterInternalError(final String arg0, Throwable e) {
+        super(arg0, e);
     }
 }

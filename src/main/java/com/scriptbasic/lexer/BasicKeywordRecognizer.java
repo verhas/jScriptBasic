@@ -1,16 +1,16 @@
 package com.scriptbasic.lexer;
 
+import com.scriptbasic.interfaces.KeywordRecognizer;
+import com.scriptbasic.interfaces.ScriptBasicKeyWords;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.scriptbasic.interfaces.KeywordRecognizer;
-import com.scriptbasic.interfaces.ScriptBasicKeyWords;
-
 /**
- * This class 
- * @author verhasp
+ * This class recognizes a reserved keyword.
  *
+ * @author verhasp
  */
 public class BasicKeywordRecognizer implements KeywordRecognizer,
         ScriptBasicKeyWords {
@@ -18,14 +18,6 @@ public class BasicKeywordRecognizer implements KeywordRecognizer,
 
     public BasicKeywordRecognizer() {
         Collections.addAll(keywords, BASIC_KEYWORDS);
-    }
-
-    public Set<String> getKeywords() {
-        return keywords;
-    }
-
-    public void setKeywords(final Set<String> kwords) {
-        keywords = kwords;
     }
 
     @Override

@@ -1,26 +1,22 @@
 package com.scriptbasic.syntax.program;
 
-import com.scriptbasic.factories.BasicFactory;
+import com.scriptbasic.factories.Context;
+import com.scriptbasic.factories.ContextBuilder;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.BuildableProgram;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
-import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.utility.FactoryUtility;
 
 import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-@SuppressWarnings("static-method")
+
 public class TestBasicProgramAnalyzer {
 
-    private static Factory factory = new BasicFactory();
 
-    private static BuildableProgram compile(final String s)
+    private static Context compile(final String s)
             throws AnalysisException {
-        factory.clean();
-        createStringReading(factory, s);
-        return FactoryUtility.getSyntaxAnalyzer(factory).analyze();
+        Context ctx = ContextBuilder.from(createStringReading(s));
+        ctx.interpreter.setProgram(ctx.syntaxAnalyzer.analyze());
+        return ctx;
     }
 
     public void testCorrectProgram() throws Exception {
@@ -31,28 +27,22 @@ public class TestBasicProgramAnalyzer {
     }
 
     public void testOneStepProgramExcute() throws Exception {
-        BuildableProgram program = compile("a=1");
-        ExtendedInterpreter eInterpreter = FactoryUtility
-                .getExtendedInterpreter(factory);
-        eInterpreter.setProgram(program);
-        eInterpreter.execute();
-        Object o = eInterpreter.getVariable("a");
+        Context ctx = compile("a=1");
+        ctx.interpreter.execute();
+        Object o = ctx.interpreter.getVariable("a");
         assertTrue(o instanceof Long);
         long l = (Long) o;
         assertEquals(l, 1L);
     }
 
     public void test2StepsProgramExcute() throws Exception {
-        BuildableProgram program = compile("a=1\nb=1+1");
-        ExtendedInterpreter eInterpreter = FactoryUtility
-                .getExtendedInterpreter(factory);
-        eInterpreter.setProgram(program);
-        eInterpreter.execute();
-        Object o1 = eInterpreter.getVariable("a");
+        Context ctx = compile("a=1\nb=1+1");
+        ctx.interpreter.execute();
+        Object o1 = ctx.interpreter.getVariable("a");
         assertTrue(o1 instanceof Long);
         long l1 = (Long) o1;
         assertEquals(l1, 1L);
-        Object o2 = eInterpreter.getVariable("b");
+        Object o2 = ctx.interpreter.getVariable("b");
         assertTrue(o2 instanceof Long);
         long l2 = (Long) o2;
         assertEquals(l2, 2L);

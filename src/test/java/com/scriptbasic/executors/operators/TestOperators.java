@@ -1,17 +1,20 @@
 package com.scriptbasic.executors.operators;
 
-import com.scriptbasic.factories.BasicFactory;
-import com.scriptbasic.interfaces.*;
+import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
-import com.scriptbasic.utility.FactoryUtility;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 
-import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
-import static org.junit.Assert.assertEquals;
+import static com.scriptbasic.executors.operators.SupportTest.assertValueOfVariable_A;
+import static com.scriptbasic.executors.operators.SupportTest.eval;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author Peter Verhas
@@ -19,56 +22,32 @@ import static org.junit.Assert.assertTrue;
  */
 
 public class TestOperators {
-    private static Factory factory = new BasicFactory();
     private static Logger log = LoggerFactory.getLogger();
 
-    private static ExtendedInterpreter ana(final String s)
-            throws AnalysisException {
-        factory.clean();
-        createStringReading(factory, s);
-        ExtendedInterpreter eInterpreter = FactoryUtility
-                .getExtendedInterpreter(factory);
-        eInterpreter.setProgram(FactoryUtility.getSyntaxAnalyzer(factory)
-                .analyze());
-        return eInterpreter;
-    }
-
-    private static void asserta(ExtendedInterpreter eInterpreter,
-                                Object expected) throws ExecutionException {
-        Object actual = eInterpreter.getVariable("a");
-        if (expected instanceof Integer) {
-            expected = ((Integer) expected).longValue();
-        }
-        if (expected instanceof Double) {
-            assertEquals((Double) expected, (Double) actual, 0.000001);
-        } else {
-            assertEquals(expected, actual);
-        }
-    }
 
     private static void a(final String s, Object expected)
             throws AnalysisException, ExecutionException {
-        ExtendedInterpreter eInterpreter = ana(s);
+        ExtendedInterpreter eInterpreter = eval(s);
         eInterpreter.execute();
-        asserta(eInterpreter, expected);
+        assertValueOfVariable_A(eInterpreter, expected);
     }
 
     private static void b(final String s, Object bVal, Object expected)
             throws AnalysisException, ExecutionException {
-        ExtendedInterpreter eInterpreter = ana(s);
+        ExtendedInterpreter eInterpreter = eval(s);
         eInterpreter.setVariable("b", bVal);
         eInterpreter.execute();
-        asserta(eInterpreter, expected);
+        assertValueOfVariable_A(eInterpreter, expected);
 
     }
 
     private static void c(final String s, Object bVal, Object cVal,
                           Object expected) throws AnalysisException, ExecutionException {
-        ExtendedInterpreter eInterpreter = ana(s);
+        ExtendedInterpreter eInterpreter = eval(s);
         eInterpreter.setVariable("b", bVal);
         eInterpreter.setVariable("c", cVal);
         eInterpreter.execute();
-        asserta(eInterpreter, expected);
+        assertValueOfVariable_A(eInterpreter, expected);
 
     }
 
@@ -205,7 +184,7 @@ public class TestOperators {
 
         try {
             a("a= -\"13\"", 0);
-            assertTrue(false);
+            fail();
         } catch (BasicRuntimeException bre) {
 
         }
@@ -272,17 +251,17 @@ public class TestOperators {
         }
         try {
             b("a= b = b", new zzz(), true);
-            assertTrue(false);
+            fail();
         } catch (BasicRuntimeException bre) {
         }
         try {
             b("a= b <> b", new zzz(), true);
-            assertTrue(false);
+            fail();
         } catch (BasicRuntimeException bre) {
         }
         try {
             b("a= b < b", new zzz(), false);
-            assertTrue(false);
+            fail();
         } catch (BasicRuntimeException bre) {
         }
         c("a= b < c", new ttt(1), new ttt(2), true);

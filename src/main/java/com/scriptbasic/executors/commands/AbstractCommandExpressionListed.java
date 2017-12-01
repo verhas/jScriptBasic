@@ -5,7 +5,6 @@ import com.scriptbasic.interfaces.ExpressionList;
 /**
  * @author Peter Verhas
  * date Jul 14, 2012
- *
  */
 public abstract class AbstractCommandExpressionListed extends AbstractCommand {
 
@@ -19,8 +18,7 @@ public abstract class AbstractCommandExpressionListed extends AbstractCommand {
     }
 
     /**
-     * @param expressionList
-     *            the expressionList to set
+     * @param expressionList the expressionList to set
      */
     public void setExpressionList(ExpressionList expressionList) {
         this.expressionList = expressionList;

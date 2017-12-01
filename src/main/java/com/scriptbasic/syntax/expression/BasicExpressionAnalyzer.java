@@ -1,6 +1,7 @@
 package com.scriptbasic.syntax.expression;
 
 import com.scriptbasic.executors.operators.*;
+import com.scriptbasic.factories.Context;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,10 @@ public final class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
         // XOR is not implemented in jScriptBasic by design
     }
 
+    public BasicExpressionAnalyzer(Context ctx) {
+        super(ctx);
+    }
+
     @Override
     protected Integer getMaximumPriority() {
         return MAXIMUM_PRIORITY;
@@ -47,6 +52,6 @@ public final class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
     @Override
     protected Map<String, Class<? extends AbstractBinaryOperator>> getOperatorMap(
             final Integer priority) {
-        return BASIC_OPERATOR_MAPS.get(priority-1);
+        return BASIC_OPERATOR_MAPS.get(priority - 1);
     }
 }

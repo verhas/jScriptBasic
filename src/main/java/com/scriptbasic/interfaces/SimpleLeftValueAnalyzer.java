@@ -1,6 +1,6 @@
 package com.scriptbasic.interfaces;
 
 
-public interface SimpleLeftValueAnalyzer extends FactoryManaged, Analyzer<LeftValue> {
+public interface SimpleLeftValueAnalyzer extends Analyzer<LeftValue> {
 
 }

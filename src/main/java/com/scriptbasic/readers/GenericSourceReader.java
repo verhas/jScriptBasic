@@ -1,34 +1,27 @@
 package com.scriptbasic.readers;
 
+import com.scriptbasic.interfaces.SourceProvider;
+import com.scriptbasic.interfaces.SourceReader;
+import com.scriptbasic.utility.CharUtils;
+
 import java.io.IOException;
+import java.io.Reader;
 import java.util.Deque;
 import java.util.LinkedList;
 
-import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.interfaces.Reader;
-import com.scriptbasic.interfaces.SourceProvider;
-import com.scriptbasic.utility.CharUtils;
-
-public class GenericReader implements Reader {
-    @Override
-    public void setFactory(Factory factory) {
-    }
-
-    private java.io.Reader sourceReader;
-    private String sourceFileName = null;
+public class GenericSourceReader implements SourceReader {
+    private final Reader sourceReader;
+    private final SourceProvider sourceProvider;
+    private final String sourceFileName;
     private int lineNumber = 0;
     private int position = 0;
-    private SourceProvider sourceProvider = null;
-
     private Integer lastChar = null;
+    private Deque<Integer> charsAhead = new LinkedList<>();
 
-    public void set(final java.io.Reader sourceReader) {
-        this.sourceReader = sourceReader;
-    }
-
-    @Override
-    public void set(final String sourceFileName) {
+    public GenericSourceReader(Reader sourceReader, SourceProvider sourceProvider, String sourceFileName) {
         this.sourceFileName = sourceFileName;
+        this.sourceReader = sourceReader;
+        this.sourceProvider = sourceProvider;
     }
 
     @Override
@@ -46,13 +39,11 @@ public class GenericReader implements Reader {
         return this.position;
     }
 
-    private Deque<Integer> charsAhead = new LinkedList<>();
-
     /**
      * {@inheritDoc}
-     * 
+     * <p>
      * This implementation will not track the position properly when a new line
-     * character is pushed back
+     * character is pushed back. Such a push back does not happen when using Basic lexical analysis.
      */
     @Override
     public void pushBack(final Integer ch) {
@@ -62,6 +53,9 @@ public class GenericReader implements Reader {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Integer get() {
         Integer nextChar;
@@ -73,7 +67,7 @@ public class GenericReader implements Reader {
         try {
             do {
                 nextChar = this.sourceReader.read();
-            }while(isIgnored(nextChar));
+            } while (isIgnored(nextChar));
             if (nextChar == -1) {
                 nextChar = null;
             }
@@ -91,10 +85,6 @@ public class GenericReader implements Reader {
 
     private boolean isIgnored(Integer nextChar) {
         return nextChar == 13;
-    }
-
-    public void setSourceProvider(final SourceProvider sourceProvider) {
-        this.sourceProvider = sourceProvider;
     }
 
     @Override

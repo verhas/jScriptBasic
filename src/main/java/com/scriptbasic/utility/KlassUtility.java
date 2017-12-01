@@ -1,10 +1,6 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.exceptions.GenericSyntaxException;
-import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.interfaces.ExecutionException;
-import com.scriptbasic.interfaces.Magic;
-import com.scriptbasic.interfaces.NoAccess;
+import com.scriptbasic.interfaces.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -93,7 +89,7 @@ public final class KlassUtility {
             throw new BasicRuntimeException("The filed '" +
                     fieldName +
                     "' is not allowed to be read in object of the type '" +
-            object.getClass().getName());
+                    object.getClass().getName());
         }
         final Class<?> klass = object.getClass();
         if (Magic.Getter.class.isAssignableFrom(klass)) {
@@ -186,10 +182,10 @@ public final class KlassUtility {
      *
      * @param s
      * @return
-     * @throws GenericSyntaxException
+     * @throws BasicSyntaxException
      */
     public static Class<?> forNameEx(final String s)
-            throws GenericSyntaxException {
+            throws BasicSyntaxException {
         Class<?> klass = null;
         switch (s) {
             case "byte":
@@ -220,7 +216,7 @@ public final class KlassUtility {
                 try {
                     klass = forName(s);
                 } catch (ClassNotFoundException e) {
-                    throw new GenericSyntaxException("Can not get class " + s, e);
+                    throw new BasicSyntaxException("Can not get class " + s, e);
                 }
                 break;
         }

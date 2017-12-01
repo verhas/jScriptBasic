@@ -1,54 +1,40 @@
 package com.scriptbasic.syntax.leftvalue;
 
-import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
-import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.Factory;
-import com.scriptbasic.interfaces.LeftValue;
-import com.scriptbasic.interfaces.LeftValueAnalyzer;
-import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.SimpleLeftValueAnalyzer;
-import com.scriptbasic.utility.FactoryUtility;
+import com.scriptbasic.factories.Context;
+import com.scriptbasic.interfaces.*;
 
 /**
  * Simple Left value is defined as
- * 
+ * <p>
  * <pre>
  * SIMPLE LEFTVALUE ::= identifier
  * </pre>
- * 
+ *
  * @author Peter Verhas date July 15, 2012
  */
 public class BasicSimpleLeftValueAnalyzer implements LeftValueAnalyzer,
-		SimpleLeftValueAnalyzer {
+        SimpleLeftValueAnalyzer {
 
-	private Factory factory;
+    private final Context ctx;
 
-	public Factory getFactory() {
-		return factory;
-	}
+    public BasicSimpleLeftValueAnalyzer(Context ctx) {
+        this.ctx = ctx;
+    }
 
-	@Override
-	public void setFactory(Factory factory) {
-		this.factory = factory;
-	}
-
-	@Override
-	public LeftValue analyze() throws AnalysisException {
-		BasicLeftValue leftValue = null;
-		LexicalAnalyzer lexicalAnalyzer = FactoryUtility
-				.getLexicalAnalyzer(getFactory());
-		LexicalElement lexicalElement = lexicalAnalyzer.peek();
-		if (lexicalElement != null && lexicalElement.isIdentifier()) {
-			lexicalAnalyzer.get();
-			leftValue = new BasicLeftValue();
-			leftValue.setIdentifier(lexicalElement.getLexeme());
-		} else {
-			throw new GenericSyntaxException(
-					"left value should start with an identifier",
-					lexicalElement, null);
-		}
-		return leftValue;
-	}
+    @Override
+    public LeftValue analyze() throws AnalysisException {
+        BasicLeftValue leftValue = null;
+        LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
+        if (lexicalElement != null && lexicalElement.isIdentifier()) {
+            ctx.lexicalAnalyzer.get();
+            leftValue = new BasicLeftValue();
+            leftValue.setIdentifier(lexicalElement.getLexeme());
+        } else {
+            throw new BasicSyntaxException(
+                    "left value should start with an identifier",
+                    lexicalElement, null);
+        }
+        return leftValue;
+    }
 }

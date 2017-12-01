@@ -1,6 +1,6 @@
 package com.scriptbasic.utility.functions.file;
 
-import com.scriptbasic.api.Function;
+import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
@@ -148,7 +148,7 @@ public class FileHandlingFunctions {
      * @param mode     the mode how to open the file
      * @return
      */
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static FileHandler open(String fileName, String mode) {
         FileHandler result = null;
         StringBuilder sb = new StringBuilder(mode);
@@ -163,7 +163,7 @@ public class FileHandlingFunctions {
         return result;
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static String readLine(FileHandler fh) throws BasicRuntimeException,
             IOException {
         if (fh instanceof TextFileReader) {
@@ -175,7 +175,7 @@ public class FileHandlingFunctions {
         }
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static byte[] read(FileHandler fh, int len)
             throws BasicRuntimeException, IOException {
         if (fh instanceof BinaryFileReader) {
@@ -187,7 +187,7 @@ public class FileHandlingFunctions {
         }
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static void printf(FileHandler fh, String line)
             throws BasicRuntimeException, IOException {
         if (fh instanceof TextFileWriter) {
@@ -199,14 +199,14 @@ public class FileHandlingFunctions {
         }
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static void printfln(FileHandler fh, String line)
             throws IOException, BasicRuntimeException {
         printf(fh, line);
         ((TextFileWriter) fh).newLine();
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static void write(FileHandler fh, byte[] buffer)
             throws BasicRuntimeException, IOException {
         if (fh instanceof BinaryFileWriter) {
@@ -218,120 +218,120 @@ public class FileHandlingFunctions {
         }
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static void close(FileHandler fh) throws Exception {
         fh.close();
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static void deleteFile(String fileName) {
         new File(fileName).delete();
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static boolean fileExists(String fileName) {
         return new File(fileName).exists();
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static boolean fileCanExecute(String fileName) {
         return new File(fileName).canExecute();
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static boolean fileIsReadable(String fileName) {
         return new File(fileName).canRead();
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static boolean fileIsWritable(String fileName) {
         return new File(fileName).canWrite();
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static boolean fileIsExecutable(String fileName) {
         return new File(fileName).canExecute();
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static boolean isDirectory(String fileName) {
         return new File(fileName).isDirectory();
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static boolean isFile(String fileName) {
         return new File(fileName).isDirectory();
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static String absoluteFileName(String fileName) {
         return new File(fileName).getAbsolutePath();
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static Long freeSpace(String fileName) {
         return new File(fileName).getFreeSpace();
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static String parentDirectory(String fileName) {
         return new File(fileName).getParentFile().getAbsolutePath();
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static boolean isHidden(String fileName) {
         return new File(fileName).isHidden();
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static boolean mkdir(String fileName) {
         return new File(fileName).mkdirs();
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static boolean renameFile(String fileNameFrom, String fileNameTo) {
         return new File(fileNameFrom).renameTo(new File(fileNameTo));
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static boolean setExecutable(String fileName, boolean executable,
                                         boolean ownerOnly) {
         return new File(fileName).setExecutable(executable, ownerOnly);
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static boolean setReadable(String fileName, boolean readable,
                                       boolean ownerOnly) {
         return new File(fileName).setReadable(readable, ownerOnly);
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static boolean setWritable(String fileName, boolean writable,
                                       boolean ownerOnly) {
         return new File(fileName).setWritable(writable, ownerOnly);
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static boolean setRedOnly(String fileName) {
         return new File(fileName).setReadOnly();
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static Long lastModified(String fileName) {
         return new File(fileName).lastModified();
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static Long fileLength(String fileName) {
         return new File(fileName).length();
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static boolean setLastModified(String fileName, Long time) {
         return new File(fileName).setLastModified(time);
     }
 
-    @Function(classification = {com.scriptbasic.classification.File.class})
+    @BasicFunction(classification = {com.scriptbasic.classification.File.class})
     public static BasicArrayValue listFiles(String fileName)
             throws ExecutionException {
         String[] files = new File(fileName).list();

@@ -1,16 +1,16 @@
 package com.scriptbasic.syntax.leftvalue;
 
-import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.exceptions.SyntaxException;
-import com.scriptbasic.executors.GenericLeftValueList;
 import com.scriptbasic.executors.leftvalues.ArrayElementAccessLeftValueModifier;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.executors.leftvalues.LeftValueModifier;
 import com.scriptbasic.executors.leftvalues.ObjectFieldAccessLeftValueModifier;
-import com.scriptbasic.factories.BasicFactory;
-import com.scriptbasic.interfaces.*;
+import com.scriptbasic.factories.Context;
+import com.scriptbasic.factories.ContextBuilder;
+import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
+import com.scriptbasic.interfaces.LeftValueAnalyzer;
 import com.scriptbasic.syntax.expression.ExpressionComparator;
-import com.scriptbasic.utility.FactoryUtility;
 import com.scriptbasic.utility.LexUtility;
 import org.junit.Assert;
 import org.junit.Test;
@@ -24,19 +24,16 @@ import static org.junit.Assert.assertTrue;
 
 public class TestBasicLeftValueAnalyzer {
 
-    private static Factory factory = new BasicFactory();
 
     private static BasicLeftValue compile(final String s)
             throws AnalysisException {
-        factory.clean();
-        final LexicalAnalyzer la = createStringReading(factory, s);
-        final LeftValueAnalyzer lva = FactoryUtility
-                .getLeftValueAnalyzer(factory);
-        final BasicLeftValue e = (BasicLeftValue) lva.analyze();
-        if (LexUtility.peek(la) != null) {
-            throw new GenericSyntaxException(
+        Context ctx = ContextBuilder.from(createStringReading(s));
+        final LeftValueAnalyzer leftValueAnalyzer = ctx.leftValueAnalyzer;
+        final BasicLeftValue e = (BasicLeftValue) leftValueAnalyzer.analyze();
+        if (LexUtility.peek(ctx.lexicalAnalyzer) != null) {
+            throw new BasicSyntaxException(
                     "There are extra lexemes after the expression: "
-                            + LexUtility.peek(la).getLexeme());
+                            + LexUtility.peek(ctx.lexicalAnalyzer).getLexeme());
         }
         return e;
     }
@@ -78,21 +75,6 @@ public class TestBasicLeftValueAnalyzer {
         } catch (SyntaxException e) {
         }
 
-    }
-
-    private static GenericLeftValueList compileList(final String s)
-            throws AnalysisException {
-        factory.clean();
-        final LexicalAnalyzer la = createStringReading(factory, s);
-        final LeftValueListAnalyzer lva = FactoryUtility
-                .getLeftValueListAnalyzer(factory);
-        final GenericLeftValueList e = (GenericLeftValueList) lva.analyze();
-        if (LexUtility.peek(la) != null) {
-            throw new GenericSyntaxException(
-                    "There are extra lexemes after the expression: "
-                            + LexUtility.peek(la).getLexeme());
-        }
-        return e;
     }
 
     private static void expressionCompilesTo(String expression, BasicLeftValue gv) throws AnalysisException {
@@ -152,11 +134,6 @@ public class TestBasicLeftValueAnalyzer {
         extressionHasSyntaxError("[");
         extressionHasSyntaxError("apple[hat.het+\"kaka\".z");
 
-    }
-
-    @Test
-    public void variableNamesSeparatedByCommaCompilesToLeftValueList() throws Exception {
-        compileList("a,b,c,d");
     }
 
 }

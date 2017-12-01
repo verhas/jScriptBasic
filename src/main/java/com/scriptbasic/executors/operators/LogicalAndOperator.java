@@ -10,7 +10,7 @@ public class LogicalAndOperator extends AbstractShortCircuitBinaryOperator {
 
     @Override
     protected RightValue evaluateOn(ExtendedInterpreter extendedInterpreter,
-            RightValue leftOperand, final Expression rightOperand)
+                                    RightValue leftOperand, final Expression rightOperand)
             throws ExecutionException {
         final BasicBooleanValue bbv = new BasicBooleanValue(false);
         if (BasicBooleanValue.asBoolean(leftOperand)) {

@@ -16,8 +16,7 @@ public class CommandReturn extends AbstractCommand {
     }
 
     /**
-     * @param returnExpression
-     *            the returnExpression to set
+     * @param returnExpression the returnExpression to set
      */
     public void setReturnExpression(Expression returnExpression) {
         this.returnExpression = returnExpression;

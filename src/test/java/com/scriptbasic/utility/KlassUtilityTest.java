@@ -38,6 +38,7 @@ public class KlassUtilityTest {
         Assert.assertSame(objToSet, testObject.value);
         Assert.assertEquals("obj", testObject.name);
     }
+
     @Test
     public void canSetFieldUsingSetter() throws BasicRuntimeException {
         class TestObject {

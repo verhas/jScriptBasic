@@ -1,6 +1,7 @@
 package com.scriptbasic.syntax.commands;
 
 import com.scriptbasic.executors.commands.AbstractCommandLeftValueListed;
+import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.LeftValueList;
@@ -8,10 +9,12 @@ import com.scriptbasic.interfaces.LeftValueList;
 /**
  * @author Peter Verhas
  * date Jul 14, 2012
- * 
  */
-public abstract class AbstractCommandAnalyzerGlobalLocal extends
-        AbstractCommandAnalyzer {
+public abstract class AbstractCommandAnalyzerGlobalLocal extends AbstractCommandAnalyzer {
+
+    public AbstractCommandAnalyzerGlobalLocal(Context ctx) {
+        super(ctx);
+    }
 
     abstract protected AbstractCommandLeftValueListed newNode();
 

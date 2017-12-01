@@ -20,7 +20,7 @@ public abstract class AbstractBinaryFullCircuitNumericOperator<T extends Number>
             throws BasicRuntimeException;
 
     protected RightValue operateOnValues(final RightValue leftOperand,
-            final RightValue rightOperand) throws BasicRuntimeException {
+                                         final RightValue rightOperand) throws BasicRuntimeException {
         throw new BasicRuntimeException(operatorName()
                 + " operator applied to non numeric argument");
     }
@@ -30,7 +30,7 @@ public abstract class AbstractBinaryFullCircuitNumericOperator<T extends Number>
     @SuppressWarnings("unchecked")
     @Override
     protected final RightValue evaluateOn(final RightValue leftOperand,
-            final RightValue rightOperand) throws BasicRuntimeException {
+                                          final RightValue rightOperand) throws BasicRuntimeException {
         Number a, b;
         RightValue result = null;
         if (leftOperand == null || rightOperand == null) {

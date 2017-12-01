@@ -1,10 +1,6 @@
 package com.scriptbasic.executors.operators;
 
-import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
-import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
-import com.scriptbasic.executors.rightvalues.BasicJavaObjectValue;
-import com.scriptbasic.executors.rightvalues.BasicLongValue;
-import com.scriptbasic.executors.rightvalues.BasicStringValue;
+import com.scriptbasic.executors.rightvalues.*;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.RightValue;
 
@@ -30,7 +26,7 @@ public class GreaterThanOperator extends AbstractCompareOperator {
 
     @Override
     protected Boolean compareTo(final BasicJavaObjectValue f,
-            final RightValue op) throws BasicRuntimeException {
+                                final RightValue op) throws BasicRuntimeException {
         return compareJavaObjectTo(f, op) > 0;
     }
 

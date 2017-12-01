@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class TestLexicalException {
 
-    @SuppressWarnings("static-method")
+
     public void test() throws IOException {
         class TestedLexicalException extends LexicalException {
 

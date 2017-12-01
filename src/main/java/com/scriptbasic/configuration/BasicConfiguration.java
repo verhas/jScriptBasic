@@ -1,7 +1,6 @@
 package com.scriptbasic.configuration;
 
 import com.scriptbasic.interfaces.Configuration;
-import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 
@@ -16,7 +15,6 @@ import java.util.*;
 public class BasicConfiguration implements Configuration {
     private static final Logger LOG = LoggerFactory.getLogger();
     private final Map<String, List<String>> lists = new HashMap<>();
-    Factory factory;
     Properties configProperties;
 
     public BasicConfiguration() {
@@ -25,18 +23,6 @@ public class BasicConfiguration implements Configuration {
         } catch (Exception e) {
             LOG.error("Configuration was not loaded", e);
         }
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * com.scriptbasic.interfaces.FactoryManaged#setFactory(com.scriptbasic.
-     * interfaces.Factory)
-     */
-    @Override
-    public void setFactory(final Factory factory) {
-        this.factory = factory;
     }
 
     /**

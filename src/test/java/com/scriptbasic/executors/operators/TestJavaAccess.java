@@ -1,17 +1,17 @@
 package com.scriptbasic.executors.operators;
 
-import com.scriptbasic.factories.BasicFactory;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
-import com.scriptbasic.interfaces.Factory;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
-import com.scriptbasic.utility.FactoryUtility;
 import org.junit.Test;
 
-import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
-import static org.junit.Assert.assertEquals;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static com.scriptbasic.executors.operators.SupportTest.assertValueOfVariable_A;
+import static com.scriptbasic.executors.operators.SupportTest.eval;
 
 /**
  * @author Peter Verhas
@@ -20,51 +20,18 @@ import static org.junit.Assert.assertEquals;
 
 public class TestJavaAccess {
     private static Logger log = LoggerFactory.getLogger();
-    private static Factory factory = new BasicFactory();
 
-    private static ExtendedInterpreter ana(final String s)
-            throws AnalysisException {
-        factory.clean();
-        createStringReading(factory, s);
-        ExtendedInterpreter eInterpreter = FactoryUtility
-                .getExtendedInterpreter(factory);
-        eInterpreter.setProgram(FactoryUtility.getSyntaxAnalyzer(factory)
-                .analyze());
-        return eInterpreter;
-    }
 
-    private static void asserta(ExtendedInterpreter interpreter, Object expected)
-            throws ExecutionException {
-        Object actual = interpreter.getVariable("a");
-        if (expected instanceof Integer) {
-            expected = ((Integer) expected).longValue();
-        }
-        if (expected instanceof Double) {
-            assertEquals((Double) expected, (Double) actual, 0.000001);
-        } else {
-            assertEquals(expected, actual);
-        }
-    }
-
-    private static void b(final String s, Object expected)
-            throws AnalysisException, ExecutionException {
-        ExtendedInterpreter interpreter = ana(s);
+    private static void b(final String s, Object expected) throws AnalysisException, ExecutionException {
+        ExtendedInterpreter interpreter = eval(s);
         interpreter.execute();
-        asserta(interpreter, expected);
+        assertValueOfVariable_A(interpreter, expected);
     }
 
     private static String program(String... lines) {
-        int t = 0;
-        for (String line : lines) {
-            t += line.length() + 1;
-        }
-        StringBuilder sb = new StringBuilder(t);
-        for (String line : lines) {
-            sb.append(line);
-            sb.append("\n");
-        }
-        log.debug(sb.toString());
-        return sb.toString();
+        final String code = Arrays.stream(lines).collect(Collectors.joining("\n"));
+        log.debug(code);
+        return code;
     }
 
     @Test

@@ -29,8 +29,8 @@ public final class BasicBooleanValue extends
 
         if (originalValue == null) {
             convertedValue = Boolean.FALSE;
-        } else if (originalValue instanceof AbstractNumericRightValue<?>) {
-            convertedValue = convertNumeric((AbstractNumericRightValue<Number>) originalValue);
+        } else if (originalValue instanceof AbstractNumericRightValue) {
+            convertedValue = convertNumeric((AbstractNumericRightValue) originalValue);
         } else if (originalValue.isBoolean()) {
             convertedValue = ((BasicBooleanValue) originalValue).getValue();
         } else if (originalValue.isString()) {

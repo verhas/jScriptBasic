@@ -1,26 +1,21 @@
 package com.scriptbasic.syntax;
 
 import com.scriptbasic.exceptions.CommandFactoryException;
-import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.interfaces.*;
-import com.scriptbasic.utility.FactoryUtility;
 
 public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
-    private Factory factory;
+    private final LexicalAnalyzer lexicalAnalyzer;
+    private final CommandFactory commandFactory;
     private LexicalElement lexicalElement;
+
+    public BasicSyntaxAnalyzer(LexicalAnalyzer lexicalAnalyzer, CommandFactory commandFactory) {
+        this.lexicalAnalyzer = lexicalAnalyzer;
+        this.commandFactory = commandFactory;
+    }
 
     private static boolean lineToIgnore(String lexString) {
         return lexString.equals("\n") || lexString.equals("'")
                 || lexString.equalsIgnoreCase("REM");
-    }
-
-    public Factory getFactory() {
-        return factory;
-    }
-
-    @Override
-    public void setFactory(final Factory factory) {
-        this.factory = factory;
     }
 
     public LexicalElement getLexicalElement() {
@@ -34,10 +29,7 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
     @Override
     public BuildableProgram analyze() throws AnalysisException {
         try {
-            BuildableProgram buildableProgram = FactoryUtility.getProgram(getFactory());
-            buildableProgram.reset();
-            LexicalAnalyzer lexicalAnalyzer = FactoryUtility.getLexicalAnalyzer(getFactory());
-            final CommandFactory commandFactory = FactoryUtility.getCommandFactory(getFactory());
+            BuildableProgram buildableProgram = new BasicProgram();
             lexicalElement = lexicalAnalyzer.peek();
             while (lexicalElement != null) {
                 if (lexicalElement.isSymbol()) {
@@ -56,7 +48,7 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
             buildableProgram.postprocess();
             return buildableProgram;
         } catch (CommandFactoryException e) {
-            throw new GenericSyntaxException(e.getMessage(), lexicalElement, e);
+            throw new BasicSyntaxException(e.getMessage(), lexicalElement, e);
         }
     }
 

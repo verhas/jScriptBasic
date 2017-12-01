@@ -3,14 +3,19 @@ package com.scriptbasic.lexer.elements;
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.ScriptBasicKeyWords;
+import com.scriptbasic.interfaces.SourceReader;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
 import com.scriptbasic.lexer.BasicLexicalElement;
 
 public class MultiCharacter extends AbstractElementAnalyzer implements ScriptBasicKeyWords {
 
 
+    public MultiCharacter(SourceReader reader) {
+        super(reader);
+    }
+
     private void readAhead(final StringBuilder stringBuider,
-            final int totalCharsToReadAhead) {
+                           final int totalCharsToReadAhead) {
         int charsToReadAhead = totalCharsToReadAhead;
         while (charsToReadAhead > 0) {
             final Integer ch = getReader().get();
@@ -24,7 +29,7 @@ public class MultiCharacter extends AbstractElementAnalyzer implements ScriptBas
     }
 
     private void pushBack(final StringBuilder stringBuilder,
-            int totalCharsToPushBack) {
+                          int totalCharsToPushBack) {
         int charsToPushBack = totalCharsToPushBack;
         int pos = stringBuilder.length() - 1;
         while (charsToPushBack > 0) {

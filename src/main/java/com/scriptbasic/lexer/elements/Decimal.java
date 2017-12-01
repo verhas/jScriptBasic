@@ -2,12 +2,17 @@ package com.scriptbasic.lexer.elements;
 
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.interfaces.SourceReader;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
 import com.scriptbasic.lexer.BasicLexicalElement;
 
 public class Decimal extends AbstractElementAnalyzer {
 
     private static final int DECIMAL_NUMBER_STRINGBUILDER_INITIAL_CAPACITY = 20;
+
+    public Decimal(SourceReader reader) {
+        super(reader);
+    }
 
     /**
      * Read a decimal number from the input. The next character following the
@@ -26,7 +31,7 @@ public class Decimal extends AbstractElementAnalyzer {
      * part or both, even if the resulting value could be presented as long.
      * Thus {@code 1.12E2} is a double number and not a long containing
      * {@code 112}.
-     * 
+     *
      * @return the lexical element containing the long or double value
      */
     @Override
@@ -71,9 +76,8 @@ public class Decimal extends AbstractElementAnalyzer {
      * the number and even if there is a '.' it is treated as stop character
      * that does not belong to the number and the '.' in this case is left on
      * the reader's character stream.
-     * 
-     * @param fractionPart
-     *            where the character are appended
+     *
+     * @param fractionPart where the character are appended
      * @return {@code true} when there is a fractional part
      */
     private boolean processFraction(final StringBuilder fractionPart) {
@@ -97,13 +101,10 @@ public class Decimal extends AbstractElementAnalyzer {
      * Process the {@code [eE](+|-)?\d+} part of the float number after the sign
      * character was recognized. The sign character '+' or '-' is passed in the
      * argument just as well as the 'e' or 'E' exponent character.
-     * 
-     * @param exponentCharacters
-     *            where the characters are put to form the lexeme.
-     * @param signChar
-     *            the '+' or '-' character
-     * @param expChar
-     *            the 'e' or 'E' character
+     *
+     * @param exponentCharacters where the characters are put to form the lexeme.
+     * @param signChar           the '+' or '-' character
+     * @param expChar            the 'e' or 'E' character
      */
     private void processSignedExponenChars(
             final StringBuilder exponentCharacters, final Integer signChar,
@@ -130,16 +131,14 @@ public class Decimal extends AbstractElementAnalyzer {
      * there is no '-' and/or '+' followed by a number then the 'e' or 'E'
      * (whichever is present on the input stream) is treated as stop character
      * and pushed back to the reader character stream.
-     * 
-     * @param exponentCharacters
-     *            where to put the characters
-     * @param expChar
-     *            the 'e' or 'E' character. Used only to preserve the case of
-     *            the character for the lexeme and also to push it back to the
-     *            reader stream if the characters do not form an exponent part.
+     *
+     * @param exponentCharacters where to put the characters
+     * @param expChar            the 'e' or 'E' character. Used only to preserve the case of
+     *                           the character for the lexeme and also to push it back to the
+     *                           reader stream if the characters do not form an exponent part.
      */
     private void processExponenChars(final StringBuilder exponentCharacters,
-            final Integer expChar) {
+                                     final Integer expChar) {
         Integer ch = getReader().get();
         if (ch != null && (ch.equals((int) '-') || ch.equals((int) '+'))) {
             processSignedExponenChars(exponentCharacters, ch, expChar);
@@ -160,10 +159,8 @@ public class Decimal extends AbstractElementAnalyzer {
      * <p>
      * It leaves the first character not fitting the exponent part in the input
      * so that the next call to {@code getReader().get()} can fetch it.
-     * 
-     * @param exponentCharacters
-     *            buffer to append the characters to
-     * 
+     *
+     * @param exponentCharacters buffer to append the characters to
      * @return true if there was an exponent part
      */
     private boolean processExponent(final StringBuilder exponentCharacters) {
@@ -183,11 +180,8 @@ public class Decimal extends AbstractElementAnalyzer {
      * digits are appended to the StringBuilder. The first non digit character
      * is left in the input to be fetched by the next call to
      * {@code getReader().get()}
-     * 
-     * @param digits
-     *            to append the digits to
-     * @param ch
-     *            the first digit already fetched
+     *
+     * @param digits to append the digits to
      */
     private void processDigits(final StringBuilder digits) {
         Integer ch = getReader().get();

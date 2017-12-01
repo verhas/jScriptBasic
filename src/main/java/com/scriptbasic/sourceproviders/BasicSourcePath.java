@@ -1,24 +1,18 @@
 package com.scriptbasic.sourceproviders;
 
-import java.util.Deque;
-import java.util.Iterator;
-import java.util.LinkedList;
-
 import com.scriptbasic.interfaces.SourcePath;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
- * A very simple SourcePath implementation.
- * 
+ * A simple SourcePath implementation. Maintains the path elements in a linked list.
+ *
  * @author Peter Verhas
- * 
  */
 public class BasicSourcePath implements SourcePath {
-    private Deque<String> sourcePath = new LinkedList<>();
-
-    @Override
-    public void setSourcePath(final Deque<String> sourcePath) {
-        this.sourcePath = sourcePath;
-    }
+    private final List<String> sourcePath = new LinkedList<>();
 
     @Override
     public void add(final String path) {

@@ -3,19 +3,18 @@ package com.scriptbasic.lexer.elements;
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.LexicalElementAnalyzer;
-import com.scriptbasic.interfaces.Reader;
+import com.scriptbasic.interfaces.SourceReader;
 
 public abstract class AbstractElementAnalyzer implements LexicalElementAnalyzer {
 
-    private Reader reader;
+    private final SourceReader reader;
 
-    public Reader getReader() {
-        return reader;
+    protected AbstractElementAnalyzer(SourceReader reader) {
+        this.reader = reader;
     }
 
-    @Override
-    public void setReader(final Reader reader) {
-        this.reader = reader;
+    public SourceReader getReader() {
+        return reader;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.scriptbasic.sourceproviders;
 
-import com.scriptbasic.interfaces.Reader;
+import com.scriptbasic.interfaces.SourceReader;
 import org.junit.Test;
 
 import java.io.File;
@@ -26,7 +26,7 @@ public class TestFileSourceProvider {
             fsp.setSourcePath(new BasicSourcePath());
             fsp.getSourcePath().add(tempDir + ps + "abrakadabra");
             fsp.getSourcePath().add(tempDir);
-            final Reader r = fsp.get(testFileName);
+            final SourceReader r = fsp.get(testFileName);
             for (int i = 0; i < testStringToFile.length(); i++) {
                 final Integer chExpected = (int) testStringToFile.charAt(i);
                 final Integer chActual = r.get();

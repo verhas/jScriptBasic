@@ -1,42 +1,38 @@
 package com.scriptbasic.memory;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.interfaces.VariableMap;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * Handle a variable Map.
- * 
- * 
+ *
  * @author Peter Verhas
  * date June 22, 2012
- * 
  */
 class BasicVariableMap implements VariableMap {
 
     private final Map<String, RightValue> variableMap = new HashMap<>();
     private final Set<String> variableNameSet = new HashSet<>();
-
-    @Override
-    public Set<String> getVariableNameSet() {
-		return variableNameSet;
-	}
-
-	private boolean variableNamesAreCaseSensitive = false;
+    private boolean variableNamesAreCaseSensitive = false;
     private boolean variableNamesAreStrictCased = false;
-
     BasicVariableMap() {
     }
 
     BasicVariableMap(BasicVariableMap that) {
         this.variableNamesAreCaseSensitive = that.variableNamesAreCaseSensitive;
         this.variableNamesAreStrictCased = that.variableNamesAreStrictCased;
+    }
+
+    @Override
+    public Set<String> getVariableNameSet() {
+        return variableNameSet;
     }
 
     /**
@@ -83,7 +79,7 @@ class BasicVariableMap implements VariableMap {
      * 'b' results the same string converted then 'a' and 'b' are treated from
      * some aspects as the same variable name. The generic approach is simply
      * upper casing.
-     * 
+     *
      * @param name
      * @return
      */
@@ -105,7 +101,7 @@ class BasicVariableMap implements VariableMap {
      * that the variable will be used in this format. It still may happen that
      * other checks stop the interpreter registering the variable and therefore
      * using it the way it is here.
-     * 
+     *
      * @param variableName
      * @throws ExecutionException
      */
@@ -123,7 +119,7 @@ class BasicVariableMap implements VariableMap {
     /**
      * Register the variable with the given casing. (with the given form related
      * to upper and lower case letters)
-     * 
+     *
      * @param name
      */
     void registerVariableCasing(String name) {

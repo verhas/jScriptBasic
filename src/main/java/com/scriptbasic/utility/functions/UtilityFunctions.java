@@ -1,6 +1,6 @@
 package com.scriptbasic.utility.functions;
 
-import com.scriptbasic.api.Function;
+import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.classification.Constant;
 import com.scriptbasic.classification.System;
 import com.scriptbasic.classification.Utility;
@@ -32,22 +32,22 @@ public class UtilityFunctions {
         NoInstance.isPossible();
     }
 
-    @Function(alias = "newRecord", classification = System.class)
+    @BasicFunction(alias = "newRecord", classification = System.class)
     public static Object newMagicBean() {
         return new MagicBean();
     }
 
-    @Function(classification = System.class)
+    @BasicFunction(classification = System.class)
     public static void logError(String message) {
         BASIC_LOGGER.error(message);
     }
 
-    @Function(classification = System.class)
+    @BasicFunction(classification = System.class)
     public static void logInfo(String message) {
         BASIC_LOGGER.info(message);
     }
 
-    @Function(classification = System.class)
+    @BasicFunction(classification = System.class)
     public static void logDebug(String message) {
         BASIC_LOGGER.debug(message);
     }
@@ -57,7 +57,7 @@ public class UtilityFunctions {
      *
      * @return the undef value
      */
-    @Function(classification = Constant.class)
+    @BasicFunction(classification = Constant.class)
     static public Object undef() {
         return null;
     }
@@ -66,7 +66,7 @@ public class UtilityFunctions {
      * @param s is some value or object
      * @return true if the parameter is undefined
      */
-    @Function(classification = Constant.class)
+    @BasicFunction(classification = Constant.class)
     static public Boolean isUndef(Object s) {
         return s == null;
     }
@@ -75,7 +75,7 @@ public class UtilityFunctions {
      * @param s is some value or object
      * @return true if the parameter is defined (not isUndef).
      */
-    @Function(classification = Constant.class)
+    @BasicFunction(classification = Constant.class)
     static public Boolean isDefined(Object s) {
         return s != null;
     }
@@ -86,19 +86,19 @@ public class UtilityFunctions {
      * @param len the length of the buffer allocated.
      * @return the new buffer
      */
-    @Function(classification = Utility.class)
+    @BasicFunction(classification = Utility.class)
     public static byte[] byteBuffer(int len) {
         return new byte[len];
     }
 
-    @Function(classification = Utility.class)
+    @BasicFunction(classification = Utility.class)
     public static Long getByte(byte[] buffer, Long i) {
         if (i < 0 || i >= buffer.length)
             return null;
         return (long) (int) buffer[i.intValue()];
     }
 
-    @Function(classification = Utility.class)
+    @BasicFunction(classification = Utility.class)
     public static void setByte(byte[] buffer, Long i, Long v)
             throws BasicRuntimeException {
         if (v < 0 && v > -128) {
@@ -115,20 +115,20 @@ public class UtilityFunctions {
         }
     }
 
-    @Function(classification = Utility.class)
+    @BasicFunction(classification = Utility.class)
     public static byte[] getStringBytes(String s)
             throws UnsupportedEncodingException {
         return s.getBytes("utf-8");
     }
 
-    @Function(classification = {Utility.class,
+    @BasicFunction(classification = {Utility.class,
             com.scriptbasic.classification.String.class})
     public static String stringifyBuffer(byte[] buffer)
             throws UnsupportedEncodingException {
         return new String(buffer, "utf-8");
     }
 
-    @Function(classification = Utility.class, requiredVersion = 2L)
+    @BasicFunction(classification = Utility.class, requiredVersion = 2L)
     public static Long length(Object arg) {
         if (arg == null) {
             return null;

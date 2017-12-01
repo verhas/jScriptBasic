@@ -1,6 +1,6 @@
 package com.scriptbasic.utility.functions;
 
-import com.scriptbasic.api.Function;
+import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.utility.NoInstance;
@@ -17,7 +17,7 @@ public class ErrorFunctions {
      * @param s the message in the error
      * @throws ExecutionException always
      */
-    @Function(classification = com.scriptbasic.classification.Utility.class)
+    @BasicFunction(classification = com.scriptbasic.classification.Utility.class)
     static public void error(String s) throws ExecutionException {
         throw new BasicRuntimeException(s);
     }
@@ -40,7 +40,7 @@ public class ErrorFunctions {
      * @param b
      * @throws ExecutionException
      */
-    @Function(classification = com.scriptbasic.classification.Utility.class, alias = "assert")
+    @BasicFunction(classification = com.scriptbasic.classification.Utility.class, alias = "assert")
     static public void asserT(String s, Boolean b) throws ExecutionException {
         if (!b) {
             throw new BasicRuntimeException(s);

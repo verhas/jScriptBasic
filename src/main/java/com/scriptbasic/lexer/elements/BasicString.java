@@ -3,10 +3,56 @@ package com.scriptbasic.lexer.elements;
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.exceptions.UnterminatedStringException;
 import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.interfaces.SourceReader;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
 import com.scriptbasic.lexer.BasicLexicalElement;
 
 public class BasicString extends AbstractElementAnalyzer {
+
+    private static final int SINGLE_LINE_STRINGBUILDER_INITIAL_CAPACITY = 100;
+    private static final int MULTI_LINE_STRINGBUILDER_INITIAL_CAPACITY = 1000;
+
+    public BasicString(SourceReader reader) {
+        super(reader);
+    }
+
+    /**
+     * Convert the character stored in {@code ch} to the character that this
+     * character means in a string when there is a \ before it.
+     * <p>
+     * Very simple n to \n, t to \t and r to \r. Anything else remains itself.
+     * Also " and ' and \.
+     * <p>
+     * Later versions should handle UNICODE escapes reading on from the
+     * {@code reader}. //TODO handle unicode escapes in strings
+     *
+     * @param inputCharacter the character that was following the backslash.
+     * @return the converted character.
+     */
+    private static Integer convertEscapedChar(final Integer inputCharacter) {
+        Integer outputCharacter = inputCharacter;
+        if (inputCharacter != null) {
+            switch (inputCharacter) {
+                case (int) 'n':
+                    outputCharacter = (int) '\n';
+                    break;
+                case (int) 't':
+                    outputCharacter = (int) '\t';
+                    break;
+                case (int) 'r':
+                    outputCharacter = (int) '\r';
+                    break;
+                default:
+                    break;
+            }
+        }
+        return outputCharacter;
+    }
+
+    private static void appendSeparator(final StringBuilder stringBuilder,
+                                        final boolean multiLine) {
+        stringBuilder.append(multiLine ? "\"\"\"" : "\"");
+    }
 
     @Override
     public LexicalElement read() throws LexicalException {
@@ -36,11 +82,8 @@ public class BasicString extends AbstractElementAnalyzer {
         return itIs;
     }
 
-    private static final int SINGLE_LINE_STRINGBUILDER_INITIAL_CAPACITY = 100;
-    private static final int MULTI_LINE_STRINGBUILDER_INITIAL_CAPACITY = 1000;
-
     private boolean isStringTerminated(final Integer character,
-            final boolean multiLine) throws UnterminatedStringException {
+                                       final boolean multiLine) throws UnterminatedStringException {
         boolean terminated = false;
         if (character == null) {
             throw new UnterminatedStringException(getReader());
@@ -56,54 +99,14 @@ public class BasicString extends AbstractElementAnalyzer {
     }
 
     /**
-     * Convert the character stored in {@code ch} to the character that this
-     * character means in a string when there is a \ before it.
-     * <p>
-     * Very simple n to \n, t to \t and r to \r. Anything else remains itself.
-     * Also " and ' and \.
-     * <p>
-     * Later versions should handle UNICODE escapes reading on from the
-     * {@code reader}. //TODO handle unicode escapes in strings
-     * 
-     * @param inputCharacter
-     *            the character that was following the backslash.
-     * 
-     * @return the converted character.
-     */
-    private static Integer convertEscapedChar(final Integer inputCharacter) {
-        Integer outputCharacter = inputCharacter;
-        if (inputCharacter != null) {
-            switch (inputCharacter) {
-            case (int) 'n':
-                outputCharacter = (int) '\n';
-                break;
-            case (int) 't':
-                outputCharacter = (int) '\t';
-                break;
-            case (int) 'r':
-                outputCharacter = (int) '\r';
-                break;
-            default:
-                break;
-            }
-        }
-        return outputCharacter;
-    }
-
-    private static void appendSeparator(final StringBuilder stringBuilder,
-            final boolean multiLine) {
-        stringBuilder.append(multiLine ? "\"\"\"" : "\"");
-    }
-
-    /**
      * Read a string and put it into a lexical element
-     * 
+     *
      * @param stringBufferInitialSize
      * @param multiLine
      * @return
      */
     private BasicLexicalElement readString(final int stringBufferInitialSize,
-            final boolean multiLine) throws UnterminatedStringException {
+                                           final boolean multiLine) throws UnterminatedStringException {
 
         final StringBuilder string = new StringBuilder(stringBufferInitialSize);
         final StringBuilder lexeme = new StringBuilder(stringBufferInitialSize);

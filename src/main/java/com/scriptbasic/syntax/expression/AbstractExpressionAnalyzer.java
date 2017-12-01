@@ -1,11 +1,10 @@
 package com.scriptbasic.syntax.expression;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
-import com.scriptbasic.exceptions.GenericSyntaxException;
 import com.scriptbasic.executors.operators.AbstractBinaryOperator;
+import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.*;
 import com.scriptbasic.syntax.AbstractAnalyzer;
-import com.scriptbasic.utility.FactoryUtility;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
@@ -13,16 +12,10 @@ import java.util.Map;
 public abstract class AbstractExpressionAnalyzer extends
         AbstractAnalyzer<Expression> implements ExpressionAnalyzer {
 
-    private Factory factory;
+    private final Context ctx;
 
-    @Override
-    public Factory getFactory() {
-        return factory;
-    }
-
-    @Override
-    public void setFactory(Factory factory) {
-        this.factory = factory;
+    protected AbstractExpressionAnalyzer(Context ctx) {
+        this.ctx = ctx;
     }
 
     protected abstract Integer getMaximumPriority();
@@ -36,11 +29,11 @@ public abstract class AbstractExpressionAnalyzer extends
     }
 
     private LexicalElement peekAtOperatorLexeme() throws AnalysisException {
-        return FactoryUtility.getLexicalAnalyzer(factory).peek();
+        return ctx.lexicalAnalyzer.peek();
     }
 
     private LexicalElement consumeTheOperatorLexeme() throws AnalysisException {
-        return FactoryUtility.getLexicalAnalyzer(factory).get();
+        return ctx.lexicalAnalyzer.get();
     }
 
     private boolean isOperatorWithPriority(final LexicalElement le,
@@ -82,7 +75,7 @@ public abstract class AbstractExpressionAnalyzer extends
                 }
             }
         } catch (final AnalysisException e) {
-            throw new GenericSyntaxException(e);
+            throw new BasicSyntaxException(e);
         } catch (final Exception e) {
             throw new BasicInterpreterInternalError(
                     "Can not instantiate the operator class", e);
@@ -101,7 +94,7 @@ public abstract class AbstractExpressionAnalyzer extends
      */
     private Expression analyze(final Integer priority) throws AnalysisException {
         if (priority == 0) {
-            return FactoryUtility.getTagAnalyzer(factory).analyze();
+            return ctx.tagAnalyzer.analyze();
         } else {
             return analyzeWithPositivePriority(priority);
         }

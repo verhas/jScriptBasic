@@ -1,6 +1,6 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.api.Function;
+import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.Configuration;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
@@ -103,14 +103,14 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
         String methodName;
         String alias;
         Class<?>[] parameterTypes;
-        Function annotation;
+        BasicFunction annotation;
         Class<?>[] classifications;
 
         void initParameters(Method method, Class<?> klassPar) {
             klass = klassPar;
             methodName = method.getName();
             parameterTypes = method.getParameterTypes();
-            annotation = method.getAnnotation(Function.class);
+            annotation = method.getAnnotation(BasicFunction.class);
         }
 
         void setAlias() {
@@ -127,7 +127,7 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
         }
 
         void setClass() {
-            if (annotation.substituteClass() != Function.class) {
+            if (annotation.substituteClass() != BasicFunction.class) {
                 klass = annotation.substituteClass();
             }
         }
@@ -135,7 +135,7 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
         void setClassification() {
             classifications = annotation.classification();
             if (classifications.length == 1
-                    && classifications[0] == Function.class) {
+                    && classifications[0] == BasicFunction.class) {
                 classifications = null;
             }
         }

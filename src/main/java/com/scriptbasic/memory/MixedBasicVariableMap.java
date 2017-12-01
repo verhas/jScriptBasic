@@ -1,19 +1,14 @@
 package com.scriptbasic.memory;
 
-import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.interfaces.ExecutionException;
-import com.scriptbasic.interfaces.HierarchicalVariableMap;
-import com.scriptbasic.interfaces.RightValue;
-import com.scriptbasic.interfaces.VariableMap;
+import com.scriptbasic.interfaces.*;
 
 /**
  * Handle the global and the local variable maps. If a variable exists, defined
  * in the local variable map, then that variable is used, otherwise the global
  * variable map is used.
- * 
+ *
  * @author Peter Verhas
  * date June 22, 2012
- * 
  */
 public class MixedBasicVariableMap extends BasicLocalVariableMap implements
         HierarchicalVariableMap {
@@ -21,15 +16,17 @@ public class MixedBasicVariableMap extends BasicLocalVariableMap implements
     private final BasicVariableMap globalVariableMap = new BasicVariableMap();
     private final BasicVariableRegistry globalVariableRegistry = new BasicVariableRegistry(
             globalVariableMap);
+    private boolean variablesCreatedByDefault = true;
+    private boolean defaultVariableScopeIsGlobal = false;
 
     @Override
-    public VariableMap getGlobalMap(){
-    	return globalVariableMap;
+    public VariableMap getGlobalMap() {
+        return globalVariableMap;
     }
-    
+
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * com.scriptbasic.interfaces.VariableMap#getVariableValue(java.lang.String)
      */
@@ -43,7 +40,7 @@ public class MixedBasicVariableMap extends BasicLocalVariableMap implements
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * com.scriptbasic.interfaces.VariableMap#variableExists(java.lang.String)
      */
@@ -56,7 +53,7 @@ public class MixedBasicVariableMap extends BasicLocalVariableMap implements
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * com.scriptbasic.interfaces.VariableMap#variableDefined(java.lang.String)
      */
@@ -66,9 +63,6 @@ public class MixedBasicVariableMap extends BasicLocalVariableMap implements
         return super.variableDefined(variableName)
                 || globalVariableMap.variableDefined(variableName);
     }
-
-    private boolean variablesCreatedByDefault = true;
-    private boolean defaultVariableScopeIsGlobal = false;
 
     /**
      * Inform the object that variables should not be created on the fly, but
@@ -133,7 +127,7 @@ public class MixedBasicVariableMap extends BasicLocalVariableMap implements
      */
     @Override
     public void setVariable(final String variableName,
-            final RightValue rightValue) throws ExecutionException {
+                            final RightValue rightValue) throws ExecutionException {
         if (super.isLocal(variableName)) {
             super.setVariable(variableName, rightValue);
         } else if (super.isGlobal(variableName)) {

@@ -1,45 +1,35 @@
 package com.scriptbasic;
 
 import com.scriptbasic.api.EngineApi;
+import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.api.Subroutine;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.commands.CommandSub;
-import com.scriptbasic.factories.FactoryFactory;
+import com.scriptbasic.factories.Context;
+import com.scriptbasic.factories.ContextBuilder;
 import com.scriptbasic.interfaces.*;
-import com.scriptbasic.readers.GenericHierarchicalReader;
-import com.scriptbasic.readers.GenericReader;
 import com.scriptbasic.sourceproviders.BasicSourcePath;
 import com.scriptbasic.sourceproviders.FileSourceProvider;
-import com.scriptbasic.utility.FactoryUtility;
 import com.scriptbasic.utility.RightValueUtility;
 
 import java.io.*;
-import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Engine implements EngineApi {
 
-    private final Factory factory;
-    private final ExtendedInterpreter interpreter;
     private final Map<String, Subroutine> subroutines = new HashMap<>();
     private Reader input;
     private Writer output;
     private Writer error;
     private boolean theMapHasToBeFilled = true;
-
+    private Context ctx;
 
     public Engine() {
-        factory = FactoryFactory.getFactory();
-        interpreter = FactoryUtility.getExtendedInterpreter(factory);
     }
 
-    @Override
-    public Factory getBasicFactory() {
-        return factory;
-    }
-
-    public void registerFunctions(Class<?> klass) throws BasicRuntimeException {
-        interpreter.registerFunctions(klass);
+    public void registerFunctions(Class<?> klass) throws ScriptBasicException {
+        ctx.interpreter.registerFunctions(klass);
     }
 
     @Override
@@ -73,42 +63,32 @@ public class Engine implements EngineApi {
     }
 
     private void loadHelper(final Reader reader) throws ScriptBasicException {
-        loadHelper(reader,null);
+        loadHelper(reader, null);
     }
 
-    private void loadHelper(final String fileName,
-                            final SourceProvider sourceProvider) throws ScriptBasicException {
-        final com.scriptbasic.interfaces.Reader sourceReader;
+    private void loadHelper(final String fileName, final SourceProvider sourceProvider) throws ScriptBasicException {
+        final SourceReader sourceReader;
         try {
             sourceReader = sourceProvider.get(fileName);
+            loadHelper(sourceReader);
         } catch (final IOException e) {
             throw new ScriptBasicException(e);
         }
-        loadHelper(sourceReader, fileName);
     }
 
     private void loadHelper(final Reader reader, final String fileName) throws ScriptBasicException {
-        final com.scriptbasic.interfaces.Reader sourceReader;
-        final GenericReader genericReader = new GenericReader();
-        genericReader.set(reader);
-        genericReader.setSourceProvider(null);
-        sourceReader = genericReader;
-        loadHelper(sourceReader, fileName);
+        try {
+            ctx = ContextBuilder.from(ctx, reader, input, output, error);
+            ctx.interpreter.setProgram(ctx.syntaxAnalyzer.analyze());
+        } catch (final AnalysisException e) {
+            throw new ScriptBasicException(e);
+        }
     }
 
-    private void loadHelper(final com.scriptbasic.interfaces.Reader sourceReader,
-                            final String fileName
-    ) throws ScriptBasicException {
+    private void loadHelper(final SourceReader sourceReader) throws ScriptBasicException {
         try {
-            sourceReader.set(fileName);
-            final HierarchicalReader hReader = new GenericHierarchicalReader();
-            hReader.include(sourceReader);
-            final LexicalAnalyzer lexicalAnalyzer = FactoryUtility.getLexicalAnalyzer(factory);
-            lexicalAnalyzer.set(hReader);
-            interpreter.setProgram(FactoryUtility.getSyntaxAnalyzer(factory).analyze());
-            interpreter.setWriter(output);
-            interpreter.setErrorWriter(error);
-            interpreter.setReader(input);
+            ctx = ContextBuilder.from(ctx, sourceReader, input, output, error);
+            ctx.interpreter.setProgram(ctx.syntaxAnalyzer.analyze());
         } catch (final AnalysisException e) {
             throw new ScriptBasicException(e);
         }
@@ -117,7 +97,10 @@ public class Engine implements EngineApi {
     @Override
     public void execute() throws ScriptBasicException {
         try {
-            interpreter.execute();
+            if (ctx == null) {
+                throw new ScriptBasicException("Interpreter was not properly initialized.");
+            }
+            ctx.interpreter.execute();
         } catch (final ExecutionException e) {
             throw new ScriptBasicException(e);
         }
@@ -212,7 +195,8 @@ public class Engine implements EngineApi {
     public void setVariable(final String name, final Object value)
             throws ScriptBasicException {
         try {
-            interpreter.getVariables().setVariable(name,
+            ctx = ContextBuilder.from(ctx);
+            ctx.interpreter.getVariables().setVariable(name,
                     RightValueUtility.createRightValue(value));
         } catch (final ExecutionException e) {
             throw new ScriptBasicException(e);
@@ -222,7 +206,7 @@ public class Engine implements EngineApi {
     @Override
     public Object getVariable(final String name) throws ScriptBasicException {
         try {
-            return interpreter.getVariable(name);
+            return ctx.interpreter.getVariable(name);
         } catch (final ExecutionException e) {
             throw new ScriptBasicException(e);
         }
@@ -230,14 +214,14 @@ public class Engine implements EngineApi {
 
     @Override
     public Iterable<String> getVariablesIterator() {
-        return interpreter.getVariables().getGlobalMap().getVariableNameSet();
+        return ctx.interpreter.getVariables().getGlobalMap().getVariableNameSet();
     }
 
     @Override
     public Object call(final String subroutineName, final Object... args)
             throws ScriptBasicException {
         try {
-            return interpreter.call(subroutineName, args);
+            return ctx.interpreter.call(subroutineName, args);
         } catch (final ExecutionException e) {
             throw new ScriptBasicException(e);
         }
@@ -245,7 +229,7 @@ public class Engine implements EngineApi {
 
     @Override
     public Iterable<String> getSubroutineNames() {
-        return interpreter.getProgram().getNamedCommandNames();
+        return ctx.interpreter.getProgram().getNamedCommandNames();
     }
 
     private void SubroutineDoesNotExistWTF(final Exception e) {
@@ -270,7 +254,7 @@ public class Engine implements EngineApi {
 
     private CommandSub getCommandSub(final String subroutineName)
             throws ScriptBasicException {
-        final CommandSub commandSub = interpreter.getSubroutine(subroutineName);
+        final CommandSub commandSub = ctx.interpreter.getSubroutine(subroutineName);
         if (commandSub == null) {
             throw new ScriptBasicException("Sobroutine '" + subroutineName
                     + "' is not defined in the program");
@@ -306,7 +290,7 @@ public class Engine implements EngineApi {
     @Override
     public void registerExtension(final Class<?> klass)
             throws ScriptBasicException {
-        interpreter.registerFunctions(klass);
+        ctx.interpreter.registerFunctions(klass);
     }
 
     public class Sub implements Subroutine {

@@ -1,24 +1,18 @@
 package com.scriptbasic.syntax;
 
-import java.util.Map;
-
-import com.scriptbasic.exceptions.GenericSyntaxException;
-import com.scriptbasic.executors.commands.CommandEndSub;
-import com.scriptbasic.executors.commands.CommandGlobal;
-import com.scriptbasic.executors.commands.CommandLocal;
-import com.scriptbasic.executors.commands.CommandMethod;
-import com.scriptbasic.executors.commands.CommandSub;
-import com.scriptbasic.executors.commands.CommandUse;
+import com.scriptbasic.executors.commands.*;
 import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.BuildableProgram;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 
+import java.util.Map;
+
 /**
  * @author Peter Verhas
  * date Jul 18, 2012
- * 
  */
 public abstract class AbstractBasicProgramPostprocessing implements
         BuildableProgram {
@@ -26,6 +20,36 @@ public abstract class AbstractBasicProgramPostprocessing implements
             .getLogger();
 
     private Command startCommand = null;
+
+    private static boolean commandIsSubHeadCommand(final Command command) {
+        return command instanceof CommandLocal
+                || command instanceof CommandGlobal;
+    }
+
+    private static void signalGlobalLocal() throws AnalysisException {
+        throw new BasicSyntaxException(
+                "Command 'LOCAL' can only be used inside a subroutine.");
+    }
+
+    private static void signalLocalCommandUse() throws AnalysisException {
+        throw new BasicSyntaxException(
+                "Command 'USE' should not be used inside a subroutine.");
+    }
+
+    private static void signalLocalCommandMethod() throws AnalysisException {
+        throw new BasicSyntaxException(
+                "Command 'METHOD' should not be used inside a subroutine.");
+    }
+
+    private static void signalMisplacedGlobalOrLocal() throws AnalysisException {
+        throw new BasicSyntaxException(
+                "Global and Local declarations shoud be the first definitions in the Sub");
+    }
+
+    private static void signalNestedSub() throws AnalysisException {
+        throw new BasicSyntaxException(
+                "Subroutines can not be nested into each other");
+    }
 
     @Override
     public Command getStartCommand() {
@@ -40,17 +64,16 @@ public abstract class AbstractBasicProgramPostprocessing implements
     /**
      * Collect all the subroutines and build the subroutine map to ease the
      * location of subroutines based on name.
-     * 
-     * @param startCommand
-     * @throws GenericSyntaxException 
+     *
+     * @throws BasicSyntaxException
      */
-    private void collectSubroutines() throws GenericSyntaxException {
+    private void collectSubroutines() throws BasicSyntaxException {
         for (Command command = getFirstCommand(); command != null; command = command
                 .getNextCommand()) {
             if (command instanceof CommandSub) {
                 CommandSub commandSub = (CommandSub) command;
                 if (getSubroutineMap().containsKey(commandSub.getSubName())) {
-                    throw new GenericSyntaxException("The subroutine '"
+                    throw new BasicSyntaxException("The subroutine '"
                             + commandSub.getSubName()
                             + "' is defined more than once");
                 }
@@ -124,36 +147,6 @@ public abstract class AbstractBasicProgramPostprocessing implements
                 }
             }
         }
-    }
-
-    private static boolean commandIsSubHeadCommand(final Command command) {
-        return command instanceof CommandLocal
-                || command instanceof CommandGlobal;
-    }
-
-    private static void signalGlobalLocal() throws AnalysisException {
-        throw new GenericSyntaxException(
-                "Command 'LOCAL' can only be used inside a subroutine.");
-    }
-
-    private static void signalLocalCommandUse() throws AnalysisException {
-        throw new GenericSyntaxException(
-                "Command 'USE' should not be used inside a subroutine.");
-    }
-
-    private static void signalLocalCommandMethod() throws AnalysisException {
-        throw new GenericSyntaxException(
-                "Command 'METHOD' should not be used inside a subroutine.");
-    }
-
-    private static void signalMisplacedGlobalOrLocal() throws AnalysisException {
-        throw new GenericSyntaxException(
-                "Global and Local declarations shoud be the first definitions in the Sub");
-    }
-
-    private static void signalNestedSub() throws AnalysisException {
-        throw new GenericSyntaxException(
-                "Subroutines can not be nested into each other");
     }
 
     protected abstract Command getFirstCommand();
