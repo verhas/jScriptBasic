@@ -9,7 +9,7 @@ import com.scriptbasic.utility.CharUtils;
 
 public class OneCharacter extends AbstractElementAnalyzer {
 
-    public OneCharacter(SourceReader reader) {
+    public OneCharacter(final SourceReader reader) {
         super(reader);
     }
 

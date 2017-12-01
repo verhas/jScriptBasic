@@ -71,7 +71,7 @@ public abstract class AbstractBasicProgramPostprocessing implements
         for (Command command = getFirstCommand(); command != null; command = command
                 .getNextCommand()) {
             if (command instanceof CommandSub) {
-                CommandSub commandSub = (CommandSub) command;
+                final CommandSub commandSub = (CommandSub) command;
                 if (getSubroutineMap().containsKey(commandSub.getSubName())) {
                     throw new BasicSyntaxException("The subroutine '"
                             + commandSub.getSubName()

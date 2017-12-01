@@ -18,13 +18,13 @@ public abstract class AbstractCommandIfKind extends AbstractCommandIfElseKind {
         return condition;
     }
 
-    public void setCondition(Expression condition) {
+    public void setCondition(final Expression condition) {
         this.condition = condition;
     }
 
-    protected Boolean theConditionIsTrue(ExtendedInterpreter interpreter)
+    protected Boolean theConditionIsTrue(final ExtendedInterpreter interpreter)
             throws ExecutionException {
-        RightValue conditionRightValue = getCondition().evaluate(interpreter);
+        final RightValue conditionRightValue = getCondition().evaluate(interpreter);
         return BasicBooleanValue.asBoolean(conditionRightValue);
     }
 }

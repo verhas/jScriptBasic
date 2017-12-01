@@ -11,7 +11,7 @@ public final class BasicBooleanValue extends
     }
 
     private static Boolean convertNumeric(
-            AbstractNumericRightValue<Number> originalValue) {
+            final AbstractNumericRightValue<Number> originalValue) {
         Boolean convertedValue = null;
         if (originalValue.isLong()) {
             final Long l = (Long) originalValue.getValue();

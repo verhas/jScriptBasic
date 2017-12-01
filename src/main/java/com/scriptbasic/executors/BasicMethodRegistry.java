@@ -15,7 +15,7 @@ public class BasicMethodRegistry implements MethodRegistry {
     private Map<String, RegistryItem> registry = new HashMap<>();
     private Map<String, RegistryItem> globalRegistry = new HashMap<>();
 
-    private static String formKey(String alias, Class<?> klass) {
+    private static String formKey(final String alias, final Class<?> klass) {
         return alias + "#" + klass.getName().replaceAll("\\$", ".");
     }
 
@@ -27,17 +27,17 @@ public class BasicMethodRegistry implements MethodRegistry {
      * java.lang.String)
      */
     @Override
-    public Method getJavaMethod(Class<?> klass, String alias)
+    public Method getJavaMethod(final Class<?> klass, final String alias)
             throws ExecutionException {
         Method method = null;
         if (klass == null) {
             method = getJavaMethod(alias);
         } else {
-            RegistryItem item = registry.get(formKey(alias, klass));
+            final RegistryItem item = registry.get(formKey(alias, klass));
             if (item != null) {
                 try {
                     method = item.klass.getMethod(item.methodName, item.args);
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     throw new BasicRuntimeException("Method '"
                             + item.methodName + "' from class '" + item.klass
                             + "' can not be accessed", e);
@@ -47,13 +47,13 @@ public class BasicMethodRegistry implements MethodRegistry {
         return method;
     }
 
-    private Method getJavaMethod(String alias) throws ExecutionException {
-        RegistryItem item = globalRegistry.get(alias);
+    private Method getJavaMethod(final String alias) throws ExecutionException {
+        final RegistryItem item = globalRegistry.get(alias);
         Method method = null;
         if (item != null) {
             try {
                 method = item.klass.getMethod(item.methodName, item.args);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 throw new BasicRuntimeException("Method '" + item.methodName
                         + "' from class '" + item.klass
                         + "' can not be accessed", e);
@@ -78,7 +78,7 @@ public class BasicMethodRegistry implements MethodRegistry {
      * @param b the other item to be compared
      * @return {@code true} if the two items define the same Java method.
      */
-    private boolean definitionIsTheSame(RegistryItem a, RegistryItem b) {
+    private boolean definitionIsTheSame(final RegistryItem a, final RegistryItem b) {
         return a.methodName.equals(b.methodName) && a.klass.equals(b.klass)
                 && Arrays.equals(a.args, b.args);
     }
@@ -106,7 +106,7 @@ public class BasicMethodRegistry implements MethodRegistry {
      * @param item
      * @throws BasicRuntimeException
      */
-    private void registerGlobal(String alias, RegistryItem item)
+    private void registerGlobal(final String alias, final RegistryItem item)
             throws BasicRuntimeException {
         if (globalRegistry.containsKey(alias)
                 && !definitionIsTheSame(globalRegistry.get(alias), item)) {
@@ -128,10 +128,10 @@ public class BasicMethodRegistry implements MethodRegistry {
      * .String, java.lang.Class, java.lang.String, java.lang.Class)
      */
     @Override
-    public void registerJavaMethod(String alias, Class<?> klass,
-                                   String methodName, Class<?>[] argumentTypes)
+    public void registerJavaMethod(final String alias, final Class<?> klass,
+                                   final String methodName, final Class<?>[] argumentTypes)
             throws BasicRuntimeException {
-        RegistryItem item = new RegistryItem();
+        final RegistryItem item = new RegistryItem();
         item.methodName = methodName;
         item.klass = klass;
         item.args = argumentTypes.clone();

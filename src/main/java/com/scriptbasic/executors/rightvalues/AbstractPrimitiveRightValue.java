@@ -18,7 +18,7 @@ public abstract class AbstractPrimitiveRightValue<T> extends AbstractRightValue
     }
 
     @Override
-    public RightValue evaluate(ExtendedInterpreter extendedInterpreter) throws BasicRuntimeException {
+    public RightValue evaluate(final ExtendedInterpreter extendedInterpreter) throws BasicRuntimeException {
         return this;
     }
 

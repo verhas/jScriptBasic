@@ -31,7 +31,7 @@ public class ContextBuilder {
         return ctx;
     }
 
-    public static Context from(Context existingCtx) {
+    public static Context from(final Context existingCtx) {
         final Context ctx;
         if (existingCtx != null) {
             ctx = existingCtx;
@@ -44,67 +44,67 @@ public class ContextBuilder {
         return ctx;
     }
 
-    public static Context from(Reader reader, Reader input, Writer output, Writer error) throws AnalysisException {
+    public static Context from(final Reader reader, final Reader input, final Writer output, final Writer error) throws AnalysisException {
         return from(null, reader, input, output, error);
     }
 
-    public static Context from(Context existing, Reader reader, Reader input, Writer output, Writer error) throws AnalysisException {
-        Context ctx = from(existing, reader);
+    public static Context from(final Context existing, final Reader reader, final Reader input, final Writer output, final Writer error) throws AnalysisException {
+        final Context ctx = from(existing, reader);
         ctx.interpreter.setInput(input);
         ctx.interpreter.setOutput(output);
         ctx.interpreter.setError(error);
         return ctx;
     }
 
-    public static Context from(String string) throws AnalysisException {
+    public static Context from(final String string) throws AnalysisException {
         return from(null, string);
     }
 
-    private static Context from(Context existing, String string) throws AnalysisException {
+    private static Context from(final Context existing, final String string) throws AnalysisException {
         return from(existing, new StringReader(string));
     }
 
-    public static Context from(Reader reader) throws AnalysisException {
+    public static Context from(final Reader reader) throws AnalysisException {
         return from(null, reader);
     }
 
-    private static Context from(Context existing, Reader reader) throws AnalysisException {
+    private static Context from(final Context existing, final Reader reader) throws AnalysisException {
         final GenericSourceReader sourceReader = new GenericSourceReader(reader, null, null);
         final HierarchicalSourceReader hReader = new GenericHierarchicalSourceReader(sourceReader);
         return from(existing, hReader);
     }
 
-    public static Context from(SourceReader sourceReader, Reader input, Writer output, Writer error) throws AnalysisException {
+    public static Context from(final SourceReader sourceReader, final Reader input, final Writer output, final Writer error) throws AnalysisException {
         return from(null, sourceReader, input, output, error);
     }
 
-    public static Context from(Context existing, SourceReader sourceReader, Reader input, Writer output, Writer error) throws AnalysisException {
-        Context ctx = from(existing, sourceReader);
+    public static Context from(final Context existing, final SourceReader sourceReader, final Reader input, final Writer output, final Writer error) throws AnalysisException {
+        final Context ctx = from(existing, sourceReader);
         ctx.interpreter.setInput(input);
         ctx.interpreter.setOutput(output);
         ctx.interpreter.setError(error);
         return ctx;
     }
 
-    public static Context from(SourceReader reader) throws AnalysisException {
+    public static Context from(final SourceReader reader) throws AnalysisException {
         return from(null, reader);
     }
 
-    private static Context from(Context existing, SourceReader reader) throws AnalysisException {
-        Context ctx = from(existing);
+    private static Context from(final Context existing, final SourceReader reader) throws AnalysisException {
+        final Context ctx = from(existing);
         createReusableComponents(ctx);
         createReaderDependentComponents(reader, ctx);
         return ctx;
     }
 
-    private static void createReaderDependentComponents(SourceReader reader, Context ctx) {
+    private static void createReaderDependentComponents(final SourceReader reader, final Context ctx) {
         ctx.lexicalAnalyzer = new ScriptBasicLexicalAnalyzer(reader);
         ctx.nestedStructureHouseKeeper = new GenericNestedStructureHouseKeeper(ctx.lexicalAnalyzer);
         final CommandFactory commandFactory = new BasicCommandFactory(ctx);
         ctx.syntaxAnalyzer = new BasicSyntaxAnalyzer(ctx.lexicalAnalyzer, commandFactory);
     }
 
-    private static void createReusableComponents(Context ctx) {
+    private static void createReusableComponents(final Context ctx) {
         if (ctx.configuration == null) {
             ctx.configuration = new BasicConfiguration();
         }

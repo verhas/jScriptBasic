@@ -11,13 +11,13 @@ import com.scriptbasic.interfaces.Command;
  */
 public class CommandAnalyzerFor extends AbstractCommandAnalyzer {
 
-    public CommandAnalyzerFor(Context ctx) {
+    public CommandAnalyzerFor(final Context ctx) {
         super(ctx);
     }
 
     @Override
     public Command analyze() throws AnalysisException {
-        CommandFor node = new CommandFor();
+        final CommandFor node = new CommandFor();
         node.setLoopVariable(analyzeSimpleLeftValue());
         assertKeyWord("=");
         node.setLoopStartValue(analyzeExpression());

@@ -10,7 +10,7 @@ import com.scriptbasic.lexer.BasicLexicalElement;
 public class MultiCharacter extends AbstractElementAnalyzer implements ScriptBasicKeyWords {
 
 
-    public MultiCharacter(SourceReader reader) {
+    public MultiCharacter(final SourceReader reader) {
         super(reader);
     }
 
@@ -29,7 +29,7 @@ public class MultiCharacter extends AbstractElementAnalyzer implements ScriptBas
     }
 
     private void pushBack(final StringBuilder stringBuilder,
-                          int totalCharsToPushBack) {
+                          final int totalCharsToPushBack) {
         int charsToPushBack = totalCharsToPushBack;
         int pos = stringBuilder.length() - 1;
         while (charsToPushBack > 0) {

@@ -38,17 +38,17 @@ public class UtilityFunctions {
     }
 
     @BasicFunction(classification = System.class)
-    public static void logError(String message) {
+    public static void logError(final String message) {
         BASIC_LOGGER.error(message);
     }
 
     @BasicFunction(classification = System.class)
-    public static void logInfo(String message) {
+    public static void logInfo(final String message) {
         BASIC_LOGGER.info(message);
     }
 
     @BasicFunction(classification = System.class)
-    public static void logDebug(String message) {
+    public static void logDebug(final String message) {
         BASIC_LOGGER.debug(message);
     }
 
@@ -67,7 +67,7 @@ public class UtilityFunctions {
      * @return true if the parameter is undefined
      */
     @BasicFunction(classification = Constant.class)
-    static public Boolean isUndef(Object s) {
+    static public Boolean isUndef(final Object s) {
         return s == null;
     }
 
@@ -76,7 +76,7 @@ public class UtilityFunctions {
      * @return true if the parameter is defined (not isUndef).
      */
     @BasicFunction(classification = Constant.class)
-    static public Boolean isDefined(Object s) {
+    static public Boolean isDefined(final Object s) {
         return s != null;
     }
 
@@ -87,19 +87,19 @@ public class UtilityFunctions {
      * @return the new buffer
      */
     @BasicFunction(classification = Utility.class)
-    public static byte[] byteBuffer(int len) {
+    public static byte[] byteBuffer(final int len) {
         return new byte[len];
     }
 
     @BasicFunction(classification = Utility.class)
-    public static Long getByte(byte[] buffer, Long i) {
+    public static Long getByte(final byte[] buffer, final Long i) {
         if (i < 0 || i >= buffer.length)
             return null;
         return (long) (int) buffer[i.intValue()];
     }
 
     @BasicFunction(classification = Utility.class)
-    public static void setByte(byte[] buffer, Long i, Long v)
+    public static void setByte(final byte[] buffer, final Long i, Long v)
             throws BasicRuntimeException {
         if (v < 0 && v > -128) {
             v += 128;
@@ -116,27 +116,27 @@ public class UtilityFunctions {
     }
 
     @BasicFunction(classification = Utility.class)
-    public static byte[] getStringBytes(String s)
+    public static byte[] getStringBytes(final String s)
             throws UnsupportedEncodingException {
         return s.getBytes("utf-8");
     }
 
     @BasicFunction(classification = {Utility.class,
             com.scriptbasic.classification.String.class})
-    public static String stringifyBuffer(byte[] buffer)
+    public static String stringifyBuffer(final byte[] buffer)
             throws UnsupportedEncodingException {
         return new String(buffer, "utf-8");
     }
 
     @BasicFunction(classification = Utility.class, requiredVersion = 2L)
-    public static Long length(Object arg) {
+    public static Long length(final Object arg) {
         if (arg == null) {
             return null;
         } else if (arg instanceof BasicArrayValue) {
-            BasicArrayValue array = (BasicArrayValue) arg;
+            final BasicArrayValue array = (BasicArrayValue) arg;
             return array.getLength();
         } else if (arg instanceof String) {
-            String string = (String) arg;
+            final String string = (String) arg;
             return (long) string.length();
         } else if (arg.getClass().isArray()) {
             return (long) Array.getLength(arg);

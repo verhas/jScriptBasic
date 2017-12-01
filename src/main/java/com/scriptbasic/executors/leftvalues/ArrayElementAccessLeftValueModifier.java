@@ -13,7 +13,7 @@ public class ArrayElementAccessLeftValueModifier extends LeftValueModifier {
         return indexList;
     }
 
-    public void setIndexList(ExpressionList indexList) {
+    public void setIndexList(final ExpressionList indexList) {
         this.indexList = indexList;
     }
 }

@@ -22,14 +22,14 @@ public class BasicSyntaxException extends SyntaxException {
         super(s);
     }
 
-    public BasicSyntaxException(final String s, LexicalElement le) {
+    public BasicSyntaxException(final String s, final LexicalElement le) {
         super(s);
         if (le != null) {
             setLocation(le);
         }
     }
 
-    public BasicSyntaxException(final String s, LexicalElement le,
+    public BasicSyntaxException(final String s, final LexicalElement le,
                                 final Throwable e) {
         super(s, e);
         if (le != null) {

@@ -11,7 +11,7 @@ public abstract class AbstractCommand implements Executor, Command,
     public abstract void execute(ExtendedInterpreter interpreter)
             throws ExecutionException;
 
-    public void checkedExecute(ExtendedInterpreter interpreter)
+    public void checkedExecute(final ExtendedInterpreter interpreter)
             throws ExecutionException {
         execute(interpreter);
     }

@@ -43,7 +43,7 @@ public class StringFunctions {
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
-    static public String chomp(String s) {
+    static public String chomp(final String s) {
         return s.replaceAll("\\n*$", "");
     }
 
@@ -55,7 +55,7 @@ public class StringFunctions {
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
-    static public String ltrim(String s) {
+    static public String ltrim(final String s) {
         return s.replaceAll("^\\s*", "");
     }
 
@@ -67,7 +67,7 @@ public class StringFunctions {
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
-    static public String rtrim(String s) {
+    static public String rtrim(final String s) {
         return s.replaceAll("\\s*$", "");
     }
 
@@ -82,7 +82,7 @@ public class StringFunctions {
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
-    static public String mid(String s, int start, int len) {
+    static public String mid(final String s, final int start, final int len) {
         return s.substring(start, start + len);
     }
 
@@ -96,7 +96,7 @@ public class StringFunctions {
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
-    static public String right(String s, int len) {
+    static public String right(final String s, final int len) {
         return s.length() > len ? s.substring(s.length() - len) : s;
     }
 
@@ -108,8 +108,8 @@ public class StringFunctions {
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
-    static public String space(int len) {
-        StringBuilder sb = new StringBuilder(len);
+    static public String space(final int len) {
+        final StringBuilder sb = new StringBuilder(len);
         for (int i = 0; i < len; i++) {
             sb.append(" ");
         }
@@ -126,9 +126,9 @@ public class StringFunctions {
      * @return
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public String string(int len, String s) {
+    static public String string(final int len, String s) {
         s = s.substring(0, 1);
-        StringBuilder sb = new StringBuilder(len);
+        final StringBuilder sb = new StringBuilder(len);
         for (int i = 0; i < len; i++) {
             sb.append(s);
         }
@@ -142,8 +142,8 @@ public class StringFunctions {
      * @return
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public String strreverse(String s) {
-        StringBuilder sb = new StringBuilder(s.length());
+    static public String strreverse(final String s) {
+        final StringBuilder sb = new StringBuilder(s.length());
         for (int i = s.length() - 1; i >= 0; i--) {
             sb.append(s.substring(i, i + 1));
         }
@@ -157,7 +157,7 @@ public class StringFunctions {
      * @return
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public String ucase(String s) {
+    static public String ucase(final String s) {
         return s.toUpperCase();
     }
 
@@ -168,12 +168,12 @@ public class StringFunctions {
      * @return
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public String lcase(String s) {
+    static public String lcase(final String s) {
         return s.toLowerCase();
     }
 
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public String trim(String s) {
+    static public String trim(final String s) {
         return s.trim();
     }
 
@@ -185,7 +185,7 @@ public class StringFunctions {
      * @return
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public Long index(String s1, String s2) {
+    static public Long index(final String s1, final String s2) {
         return (long) s1.indexOf(s2);
     }
 
@@ -197,7 +197,7 @@ public class StringFunctions {
      * @return
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public Long lastIndex(String s1, String s2) {
+    static public Long lastIndex(final String s1, final String s2) {
         return (long) s1.lastIndexOf(s2);
     }
 
@@ -210,7 +210,7 @@ public class StringFunctions {
      * @return
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public Long indexAfter(String s1, String s2, int i) {
+    static public Long indexAfter(final String s1, final String s2, final int i) {
         return (long) s1.indexOf(s2, i);
     }
 
@@ -223,7 +223,7 @@ public class StringFunctions {
      * @return
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public Long lastIndexAfter(String s1, String s2, int i) {
+    static public Long lastIndexAfter(final String s1, final String s2, final int i) {
         return (long) s1.lastIndexOf(s2, i);
     }
 
@@ -236,19 +236,19 @@ public class StringFunctions {
      * @return
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public String charAt(String s1, int i) {
-        char[] characterArray = new char[1];
+    static public String charAt(final String s1, final int i) {
+        final char[] characterArray = new char[1];
         characterArray[0] = s1.charAt(i);
         return new String(characterArray);
     }
 
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public String replaceAll(String s1, String regex, String s2) {
+    static public String replaceAll(final String s1, final String regex, final String s2) {
         return s1.replaceAll(regex, s2);
     }
 
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public String replaceFirst(String s1, String regex, String s2) {
+    static public String replaceFirst(final String s1, final String regex, final String s2) {
         return s1.replaceFirst(regex, s2);
     }
 
@@ -257,52 +257,52 @@ public class StringFunctions {
      * @return the length of the string
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public int strlen(String s1) {
+    static public int strlen(final String s1) {
         return s1.length();
     }
 
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public int codePointAt(String s1, int i) {
+    static public int codePointAt(final String s1, final int i) {
         return s1.codePointAt(i);
     }
 
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public int codePointBefore(String s1, int i) {
+    static public int codePointBefore(final String s1, final int i) {
         return s1.codePointBefore(i);
     }
 
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public int codePointCount(String s1, int i, int j) {
+    static public int codePointCount(final String s1, final int i, final int j) {
         return s1.codePointCount(j, j);
     }
 
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public int compareTo(String s1, String s2) {
+    static public int compareTo(final String s1, final String s2) {
         return s1.compareTo(s2);
     }
 
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public int compareToIgnoreCase(String s1, String s2) {
+    static public int compareToIgnoreCase(final String s1, final String s2) {
         return s1.compareToIgnoreCase(s2);
     }
 
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public boolean contains(String s1, String s2) {
+    static public boolean contains(final String s1, final String s2) {
         return s1.contains(s2);
     }
 
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public boolean endsWith(String s1, String s2) {
+    static public boolean endsWith(final String s1, final String s2) {
         return s1.endsWith(s2);
     }
 
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public boolean startsWith(String s1, String s2) {
+    static public boolean startsWith(final String s1, final String s2) {
         return s1.startsWith(s2);
     }
 
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public boolean isEmpty(String s1) {
+    static public boolean isEmpty(final String s1) {
         return s1.isEmpty();
     }
 }

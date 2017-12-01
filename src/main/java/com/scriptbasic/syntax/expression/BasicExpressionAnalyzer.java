@@ -40,7 +40,7 @@ public final class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
         // XOR is not implemented in jScriptBasic by design
     }
 
-    public BasicExpressionAnalyzer(Context ctx) {
+    public BasicExpressionAnalyzer(final Context ctx) {
         super(ctx);
     }
 

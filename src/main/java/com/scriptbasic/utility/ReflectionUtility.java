@@ -35,11 +35,11 @@ public class ReflectionUtility {
      * @return the object returned by the Java method if any.
      * @throws BasicRuntimeException
      */
-    public static Object invoke(String symbolicName,
-                                ExtendedInterpreter interpreter,
-                                Method method,
-                                Object object,
-                                List<RightValue> args)
+    public static Object invoke(final String symbolicName,
+                                final ExtendedInterpreter interpreter,
+                                final Method method,
+                                final Object object,
+                                final List<RightValue> args)
             throws BasicRuntimeException {
         if (object != null && object instanceof NoAccess) {
             final Object target = object instanceof NoAccessProxy ? ((NoAccessProxy) object).target : object;
@@ -51,7 +51,7 @@ public class ReflectionUtility {
         interpreter.getHook().beforeCallJavaFunction(method);
         final Object javaCallResult;
         try {
-            Object[] argArray = ExpressionUtility.getObjectArray(args, method,
+            final Object[] argArray = ExpressionUtility.getObjectArray(args, method,
                     interpreter);
             javaCallResult = method.invoke(object, argArray);
             if (javaCallResult instanceof BasicArrayValue) {
@@ -59,7 +59,7 @@ public class ReflectionUtility {
             }
         } catch (InvocationTargetException | IllegalArgumentException | IllegalAccessException e) {
             throw new BasicRuntimeException("Can not invoke method " + symbolicName, e);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new BasicRuntimeException("Invoking method '" + symbolicName + "' throws exception:", e);
         }
         return interpreter.getHook().afterCallJavaFunction(method, javaCallResult);

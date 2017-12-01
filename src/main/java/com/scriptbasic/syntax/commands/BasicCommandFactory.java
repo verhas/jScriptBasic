@@ -22,7 +22,7 @@ public final class BasicCommandFactory implements CommandFactory {
     private Map<String, CommandAnalyzer> classMap = new HashMap<>();
     private List<CommandAnalyzer> classList = new LinkedList<>();
 
-    public BasicCommandFactory(Context ctx) {
+    public BasicCommandFactory(final Context ctx) {
         this.ctx = ctx;
         registerCommandAnalyzer("while", new CommandAnalyzerWhile(ctx));
         registerCommandAnalyzer("wend", new CommandAnalyzerWend(ctx));
@@ -55,7 +55,7 @@ public final class BasicCommandFactory implements CommandFactory {
      * .lang.String, com.scriptbasic.interfaces.CommandAnalyzer)
      */
     @Override
-    public void registerCommandAnalyzer(String keyword, CommandAnalyzer analyzer) {
+    public void registerCommandAnalyzer(final String keyword, final CommandAnalyzer analyzer) {
         LOG.info("Registering command {}", keyword);
         if (keyword == null) {
             classList.add(analyzer);
@@ -64,7 +64,7 @@ public final class BasicCommandFactory implements CommandFactory {
         }
     }
 
-    private void registerCommandAnalyzer(CommandAnalyzer analyzer) {
+    private void registerCommandAnalyzer(final CommandAnalyzer analyzer) {
         registerCommandAnalyzer(null, analyzer);
     }
 
@@ -85,7 +85,7 @@ public final class BasicCommandFactory implements CommandFactory {
                 if (command != null) {
                     return command;
                 }
-            } catch (AnalysisException e) {
+            } catch (final AnalysisException e) {
                 LOG.info("Tried but not analyze the line using "
                         + commandAnalyzer.getClass(), e);
             }

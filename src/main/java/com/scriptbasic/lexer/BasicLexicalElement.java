@@ -142,7 +142,7 @@ public class BasicLexicalElement extends AbstractLexicalElement {
 
     @Override
     public String toString() {
-        String buffer;
+        final String buffer;
         switch (type) {
             case TYPE_BOOLEAN:
                 buffer = "Boolean(" + booleanValue + ")";

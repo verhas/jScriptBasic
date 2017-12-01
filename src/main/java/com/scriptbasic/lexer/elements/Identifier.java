@@ -12,7 +12,7 @@ public class Identifier extends AbstractElementAnalyzer {
     private static final int IDENTIFIER_STRINGBUILDER_INITIAL_CAPACITY = 32;
     private KeywordRecognizer keywordRecognizer = null;
 
-    public Identifier(SourceReader reader) {
+    public Identifier(final SourceReader reader) {
         super(reader);
     }
 

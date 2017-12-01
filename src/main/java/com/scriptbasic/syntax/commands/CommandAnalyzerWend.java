@@ -8,15 +8,15 @@ import com.scriptbasic.interfaces.Command;
 
 public class CommandAnalyzerWend extends AbstractCommandAnalyzer {
 
-    public CommandAnalyzerWend(Context ctx) {
+    public CommandAnalyzerWend(final Context ctx) {
         super(ctx);
     }
 
     @Override
     public Command analyze() throws AnalysisException {
-        CommandWend node = new CommandWend();
+        final CommandWend node = new CommandWend();
         consumeEndOfLine();
-        CommandWhile commandWhile = ctx.nestedStructureHouseKeeper.pop(CommandWhile.class);
+        final CommandWhile commandWhile = ctx.nestedStructureHouseKeeper.pop(CommandWhile.class);
         node.setCommandWhile(commandWhile);
         commandWhile.setWendNode(node);
         return node;

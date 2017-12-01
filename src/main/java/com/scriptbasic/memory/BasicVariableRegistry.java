@@ -14,7 +14,7 @@ class BasicVariableRegistry extends BasicVariableMap {
     private final Map<String, VariableType> registrationMap = new HashMap<>();
     private BasicVariableMap that;
 
-    BasicVariableRegistry(BasicVariableMap that) {
+    BasicVariableRegistry(final BasicVariableMap that) {
         super(that);
         this.that = that;
     }
@@ -32,10 +32,10 @@ class BasicVariableRegistry extends BasicVariableMap {
      * @throws ExecutionException when the variable was already registered with a different
      *                            type
      */
-    private void assertNoOverregistration(String variableName, VariableType type)
+    private void assertNoOverregistration(final String variableName, final VariableType type)
             throws ExecutionException {
         that.assertCorrectCasing(variableName);
-        String convertedVariableName = converted(variableName);
+        final String convertedVariableName = converted(variableName);
         if (registrationMap.containsKey(convertedVariableName)
                 && registrationMap.get(convertedVariableName) != type) {
             throw new BasicRuntimeException("Variable '" + variableName
@@ -43,29 +43,29 @@ class BasicVariableRegistry extends BasicVariableMap {
         }
     }
 
-    void registerLocal(String variableName) throws ExecutionException {
+    void registerLocal(final String variableName) throws ExecutionException {
         assertNoOverregistration(variableName, VariableType.KNOWN_LOCAL);
-        String convertedVariableName = converted(variableName);
+        final String convertedVariableName = converted(variableName);
         that.registerVariableCasing(variableName);
         registrationMap.put(convertedVariableName, VariableType.KNOWN_LOCAL);
     }
 
-    void registerGlobal(String variableName) throws ExecutionException {
+    void registerGlobal(final String variableName) throws ExecutionException {
         assertNoOverregistration(variableName, VariableType.KNOWN_GLOBAL);
-        String convertedVariableName = converted(variableName);
+        final String convertedVariableName = converted(variableName);
         that.registerVariableCasing(variableName);
         registrationMap.put(convertedVariableName, VariableType.KNOWN_GLOBAL);
     }
 
-    boolean isGlobal(String variableName) throws ExecutionException {
+    boolean isGlobal(final String variableName) throws ExecutionException {
         that.assertCorrectCasing(variableName);
-        String convertedVariableName = converted(variableName);
+        final String convertedVariableName = converted(variableName);
         return registrationMap.get(convertedVariableName) == VariableType.KNOWN_GLOBAL;
     }
 
-    boolean isLocal(String variableName) throws ExecutionException {
+    boolean isLocal(final String variableName) throws ExecutionException {
         that.assertCorrectCasing(variableName);
-        String convertedVariableName = converted(variableName);
+        final String convertedVariableName = converted(variableName);
         return registrationMap.get(convertedVariableName) == VariableType.KNOWN_LOCAL;
     }
 

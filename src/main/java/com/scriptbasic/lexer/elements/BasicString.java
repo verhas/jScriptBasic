@@ -12,7 +12,7 @@ public class BasicString extends AbstractElementAnalyzer {
     private static final int SINGLE_LINE_STRINGBUILDER_INITIAL_CAPACITY = 100;
     private static final int MULTI_LINE_STRINGBUILDER_INITIAL_CAPACITY = 1000;
 
-    public BasicString(SourceReader reader) {
+    public BasicString(final SourceReader reader) {
         super(reader);
     }
 

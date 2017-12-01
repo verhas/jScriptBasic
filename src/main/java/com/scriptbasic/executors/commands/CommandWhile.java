@@ -12,7 +12,7 @@ public class CommandWhile extends AbstractCommand {
         return wendNode;
     }
 
-    public void setWendNode(Command wendNode) {
+    public void setWendNode(final Command wendNode) {
         this.wendNode = wendNode;
     }
 
@@ -20,7 +20,7 @@ public class CommandWhile extends AbstractCommand {
         return condition;
     }
 
-    public void setCondition(Expression condition) {
+    public void setCondition(final Expression condition) {
         this.condition = condition;
     }
 

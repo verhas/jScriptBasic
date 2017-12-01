@@ -18,13 +18,13 @@ public abstract class GeneralAnalysisException extends AnalysisException {
         super();
     }
 
-    public GeneralAnalysisException(String message, Throwable cause) {
+    public GeneralAnalysisException(final String message, final Throwable cause) {
         super(message, cause);
     }
-    public GeneralAnalysisException(String message) {
+    public GeneralAnalysisException(final String message) {
         super(message);
     }
-    public GeneralAnalysisException(Throwable cause) {
+    public GeneralAnalysisException(final Throwable cause) {
         super(cause);
     }
 
@@ -38,7 +38,7 @@ public abstract class GeneralAnalysisException extends AnalysisException {
         return this.fileName;
     }
 
-    public void setFileName(String fileName) {
+    public void setFileName(final String fileName) {
         this.fileName = fileName;
     }
 
@@ -46,7 +46,7 @@ public abstract class GeneralAnalysisException extends AnalysisException {
         return this.lineNumber;
     }
 
-    public void setLineNumber(int lineNumber) {
+    public void setLineNumber(final int lineNumber) {
         this.lineNumber = lineNumber;
     }
 
@@ -54,7 +54,7 @@ public abstract class GeneralAnalysisException extends AnalysisException {
         return this.position;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(final int position) {
         this.position = position;
     }
 }

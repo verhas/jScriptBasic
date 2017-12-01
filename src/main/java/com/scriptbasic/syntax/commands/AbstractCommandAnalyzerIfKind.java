@@ -11,7 +11,7 @@ import com.scriptbasic.interfaces.Expression;
  */
 public abstract class AbstractCommandAnalyzerIfKind extends
         AbstractCommandAnalyzerIfElseKind {
-    public AbstractCommandAnalyzerIfKind(Context ctx) {
+    public AbstractCommandAnalyzerIfKind(final Context ctx) {
         super(ctx);
     }
 
@@ -28,7 +28,7 @@ public abstract class AbstractCommandAnalyzerIfKind extends
     }
 
     protected Expression analizeLine() throws AnalysisException {
-        Expression condition = analyzeExpression();
+        final Expression condition = analyzeExpression();
         assertKeyWord("THEN");
         consumeEndOfLine();
         return condition;

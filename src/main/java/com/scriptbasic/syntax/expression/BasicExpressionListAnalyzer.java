@@ -10,7 +10,7 @@ public final class BasicExpressionListAnalyzer
         AbstractGenericListAnalyzer<ExpressionList, GenericExpressionList, Expression, ExpressionAnalyzer>
         implements ExpressionListAnalyzer {
 
-    public BasicExpressionListAnalyzer(Context ctx) {
+    public BasicExpressionListAnalyzer(final Context ctx) {
         super(ctx);
     }
 

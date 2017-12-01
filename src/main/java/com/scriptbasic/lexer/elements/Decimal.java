@@ -10,7 +10,7 @@ public class Decimal extends AbstractElementAnalyzer {
 
     private static final int DECIMAL_NUMBER_STRINGBUILDER_INITIAL_CAPACITY = 20;
 
-    public Decimal(SourceReader reader) {
+    public Decimal(final SourceReader reader) {
         super(reader);
     }
 
@@ -46,7 +46,7 @@ public class Decimal extends AbstractElementAnalyzer {
                     DECIMAL_NUMBER_STRINGBUILDER_INITIAL_CAPACITY);
             processDigits(digits);
             ch = getReader().get();
-            boolean floatFormat;
+            final boolean floatFormat;
             if (((Integer) (int) '.').equals(ch)) {
                 floatFormat = processFraction(digits);
             } else {
@@ -82,7 +82,7 @@ public class Decimal extends AbstractElementAnalyzer {
      */
     private boolean processFraction(final StringBuilder fractionPart) {
         boolean floatFormat = false;
-        Integer ch = getReader().get();
+        final Integer ch = getReader().get();
         if (ch != null && Character.isDigit(ch)) {
             floatFormat = true;
             fractionPart.appendCodePoint('.');
@@ -110,7 +110,7 @@ public class Decimal extends AbstractElementAnalyzer {
             final StringBuilder exponentCharacters, final Integer signChar,
             final Integer expChar) {
 
-        Integer ch = getReader().get();
+        final Integer ch = getReader().get();
         if (ch != null && Character.isDigit(ch)) {
             exponentCharacters.appendCodePoint(expChar);
             exponentCharacters.appendCodePoint(signChar);
@@ -139,7 +139,7 @@ public class Decimal extends AbstractElementAnalyzer {
      */
     private void processExponenChars(final StringBuilder exponentCharacters,
                                      final Integer expChar) {
-        Integer ch = getReader().get();
+        final Integer ch = getReader().get();
         if (ch != null && (ch.equals((int) '-') || ch.equals((int) '+'))) {
             processSignedExponenChars(exponentCharacters, ch, expChar);
         } else {// if there is no + or -
@@ -165,7 +165,7 @@ public class Decimal extends AbstractElementAnalyzer {
      */
     private boolean processExponent(final StringBuilder exponentCharacters) {
         boolean thereWasExponentPart = true;
-        Integer ch = getReader().get();
+        final Integer ch = getReader().get();
         if (ch != null && (ch.equals((int) 'e') || ch.equals((int) 'E'))) {
             processExponenChars(exponentCharacters, ch);
         } else {

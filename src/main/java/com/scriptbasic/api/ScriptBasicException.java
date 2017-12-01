@@ -8,15 +8,15 @@ public class ScriptBasicException extends Exception {
         super();
     }
 
-    public ScriptBasicException(String message, Throwable cause) {
+    public ScriptBasicException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
-    public ScriptBasicException(String message) {
+    public ScriptBasicException(final String message) {
         super(message);
     }
 
-    public ScriptBasicException(Throwable cause) {
+    public ScriptBasicException(final Throwable cause) {
         super(cause);
     }
 

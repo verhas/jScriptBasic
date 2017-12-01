@@ -21,20 +21,20 @@ public final class ExpressionUtility {
         NoInstance.isPossible();
     }
 
-    private static boolean parameterLengthMatch(Class<?>[] parameterTypes,
-                                                List<RightValue> args) {
+    private static boolean parameterLengthMatch(final Class<?>[] parameterTypes,
+                                                final List<RightValue> args) {
         if (args == null) {
             return true;
         }
         return parameterTypes.length >= args.size();
     }
 
-    public static RightValue callBasicFunction(ExtendedInterpreter interpreter,
-                                               RightValue[] argumentValues, CommandSub commandSub,
-                                               String functionName) throws ExecutionException {
+    public static RightValue callBasicFunction(final ExtendedInterpreter interpreter,
+                                               final RightValue[] argumentValues, final CommandSub commandSub,
+                                               final String functionName) throws ExecutionException {
         RightValue result = null;
         interpreter.push();
-        LeftValueList arguments = commandSub.getArguments();
+        final LeftValueList arguments = commandSub.getArguments();
         registerLocalVariablesWithValues(arguments, argumentValues, interpreter);
         interpreter.disableHook();
         interpreter.setReturnValue(null);
@@ -53,15 +53,15 @@ public final class ExpressionUtility {
      * @throws ExecutionException
      */
     private static void registerLocalVariablesWithValues(
-            LeftValueList arguments, RightValue[] argumentValues,
-            ExtendedInterpreter interpreter) throws ExecutionException {
+            final LeftValueList arguments, final RightValue[] argumentValues,
+            final ExtendedInterpreter interpreter) throws ExecutionException {
         if (arguments != null) {
-            Iterator<LeftValue> argumentIterator = arguments.iterator();
-            for (RightValue argumentValue : argumentValues) {
+            final Iterator<LeftValue> argumentIterator = arguments.iterator();
+            for (final RightValue argumentValue : argumentValues) {
                 if (argumentIterator.hasNext()) {
-                    LeftValue argument = argumentIterator.next();
+                    final LeftValue argument = argumentIterator.next();
                     if (argument instanceof BasicLeftValue) {
-                        String name = ((BasicLeftValue) argument)
+                        final String name = ((BasicLeftValue) argument)
                                 .getIdentifier();
                         interpreter.getVariables().registerLocalVariable(name);
                         interpreter.setVariable(name, argumentValue);
@@ -77,9 +77,9 @@ public final class ExpressionUtility {
         }
     }
 
-    public static Object[] getObjectArray(List<RightValue> args, Method method,
-                                          ExtendedInterpreter extendedInterpreter) throws ExecutionException {
-        Class<?>[] parameterTypes = method.getParameterTypes();
+    public static Object[] getObjectArray(final List<RightValue> args, final Method method,
+                                          final ExtendedInterpreter extendedInterpreter) throws ExecutionException {
+        final Class<?>[] parameterTypes = method.getParameterTypes();
         // if the declaring class of the method implements the interface
         // WHATEVER //TODO find a good name for the interface that is to be
         // implemented by the embedding Java program
@@ -94,8 +94,8 @@ public final class ExpressionUtility {
         final ArrayList<Object> result = new ArrayList<>();
         int parameterIndex = 0;
         if (args != null) {
-            for (RightValue arg : args) {
-                Object object = CastUtility.cast(
+            for (final RightValue arg : args) {
+                final Object object = CastUtility.cast(
                         RightValueUtility.getValueObject(arg),
                         parameterTypes[parameterIndex]);
                 result.add(object);
@@ -111,12 +111,12 @@ public final class ExpressionUtility {
     }
 
     public static List<RightValue> evaluateExpressionList(
-            ExtendedInterpreter extendedInterpreter,
-            ExpressionList expressionList) throws ExecutionException {
+            final ExtendedInterpreter extendedInterpreter,
+            final ExpressionList expressionList) throws ExecutionException {
         List<RightValue> args = null;
         if (expressionList != null) {
             args = new LinkedList<>();
-            for (Expression expression : expressionList) {
+            for (final Expression expression : expressionList) {
                 args.add(expression.evaluate(extendedInterpreter));
             }
         }
@@ -130,13 +130,13 @@ public final class ExpressionUtility {
      * @return the string containing the dots and the identifiers
      * @throws AnalysisException when the expression does not match the format
      */
-    public static String convertToString(Expression expression)
+    public static String convertToString(final Expression expression)
             throws AnalysisException {
         if (expression instanceof VariableAccess) {
             return ((VariableAccess) expression).getVariableName();
         }
         if (expression instanceof JavaObjectFieldAccessOperator) {
-            JavaObjectFieldAccessOperator ofao = (JavaObjectFieldAccessOperator) expression;
+            final JavaObjectFieldAccessOperator ofao = (JavaObjectFieldAccessOperator) expression;
             return convertToString(ofao.getLeftOperand()) + "."
                     + convertToString(ofao.getRightOperand());
         }

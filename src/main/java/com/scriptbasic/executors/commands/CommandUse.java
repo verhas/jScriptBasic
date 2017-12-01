@@ -7,7 +7,7 @@ public class CommandUse extends AbstractCommand {
     private final Class<?> klass;
     private final String alias;
 
-    public CommandUse(Class<?> klass, String alias) {
+    public CommandUse(final Class<?> klass, final String alias) {
         this.klass = klass;
         this.alias = alias;
     }

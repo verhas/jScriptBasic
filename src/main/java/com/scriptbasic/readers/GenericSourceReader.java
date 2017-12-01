@@ -18,7 +18,7 @@ public class GenericSourceReader implements SourceReader {
     private Integer lastChar = null;
     private Deque<Integer> charsAhead = new LinkedList<>();
 
-    public GenericSourceReader(Reader sourceReader, SourceProvider sourceProvider, String sourceFileName) {
+    public GenericSourceReader(final Reader sourceReader, final SourceProvider sourceProvider, final String sourceFileName) {
         this.sourceFileName = sourceFileName;
         this.sourceReader = sourceReader;
         this.sourceProvider = sourceProvider;
@@ -83,7 +83,7 @@ public class GenericSourceReader implements SourceReader {
         return this.lastChar;
     }
 
-    private boolean isIgnored(Integer nextChar) {
+    private boolean isIgnored(final Integer nextChar) {
         return nextChar == 13;
     }
 

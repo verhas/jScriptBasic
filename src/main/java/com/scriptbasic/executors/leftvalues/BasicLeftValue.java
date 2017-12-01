@@ -58,10 +58,10 @@ public class BasicLeftValue extends AbstractLeftValue {
      * @throws ExecutionException
      */
     private static RightValue handleAccessModifier(RightValue variable,
-                                                   LeftValueModifier modifier,
-                                                   boolean hasNext,
-                                                   RightValue rightValue,
-                                                   ExtendedInterpreter extendedInterpreter)
+                                                   final LeftValueModifier modifier,
+                                                   final boolean hasNext,
+                                                   final RightValue rightValue,
+                                                   final ExtendedInterpreter extendedInterpreter)
             throws ExecutionException {
         if (modifier instanceof ArrayElementAccessLeftValueModifier) {
             variable = handleArrayElementAccess(variable,
@@ -87,23 +87,23 @@ public class BasicLeftValue extends AbstractLeftValue {
      * @throws BasicRuntimeException
      */
     private static RightValue handleObjectFieldAccess(final RightValue variable,
-                                                      ObjectFieldAccessLeftValueModifier modifier,
-                                                      boolean hasNext,
-                                                      RightValue rightValue)
+                                                      final ObjectFieldAccessLeftValueModifier modifier,
+                                                      final boolean hasNext,
+                                                      final RightValue rightValue)
             throws ExecutionException {
-        String fieldName = modifier.getFieldName();
+        final String fieldName = modifier.getFieldName();
         if (!(variable instanceof BasicJavaObjectValue)) {
             throw new BasicRuntimeException(variable
                     + " is not an object, can not access its field '"
                     + fieldName + "'");
         }
-        BasicJavaObjectValue bjov = (BasicJavaObjectValue) variable;
-        Object object = bjov.getValue();
+        final BasicJavaObjectValue bjov = (BasicJavaObjectValue) variable;
+        final Object object = bjov.getValue();
         if (hasNext) {
-            Object fieldObject = KlassUtility.getField(object, fieldName);
+            final Object fieldObject = KlassUtility.getField(object, fieldName);
             return RightValueUtility.createRightValue(fieldObject);
         } else {
-            Object valueObject = RightValueUtility.getValueObject(rightValue);
+            final Object valueObject = RightValueUtility.getValueObject(rightValue);
             KlassUtility.setField(object, fieldName, valueObject);
             return null;
         }
@@ -124,16 +124,16 @@ public class BasicLeftValue extends AbstractLeftValue {
      * @throws ExecutionException
      */
     private static RightValue handleArrayElementAccess(RightValue variable,
-                                                       ArrayElementAccessLeftValueModifier modifier,
-                                                       boolean hasNext,
-                                                       RightValue rightValue,
-                                                       ExtendedInterpreter extendedInterpreter)
+                                                       final ArrayElementAccessLeftValueModifier modifier,
+                                                       final boolean hasNext,
+                                                       final RightValue rightValue,
+                                                       final ExtendedInterpreter extendedInterpreter)
             throws ExecutionException {
-        Iterator<Expression> expressionIterator = modifier.getIndexList()
+        final Iterator<Expression> expressionIterator = modifier.getIndexList()
                 .iterator();
         while (expressionIterator.hasNext()) {
-            Expression expression = expressionIterator.next();
-            RightValue index = expression.evaluate(extendedInterpreter);
+            final Expression expression = expressionIterator.next();
+            final RightValue index = expression.evaluate(extendedInterpreter);
 
             if (variable instanceof BasicArrayValue) {
 
@@ -152,12 +152,12 @@ public class BasicLeftValue extends AbstractLeftValue {
     }
 
     private static RightValue handleBasicArrayElementAccess(
-            BasicArrayValue variable, Integer index, boolean hasNext,
-            RightValue rightValue, ExtendedInterpreter extendedInterpreter)
+            final BasicArrayValue variable, final Integer index, final boolean hasNext,
+            final RightValue rightValue, final ExtendedInterpreter extendedInterpreter)
             throws ExecutionException {
         if (hasNext) {
-            RightValue arrayElement;
-            Object object = variable.get(index);
+            final RightValue arrayElement;
+            final Object object = variable.get(index);
             if (object instanceof RightValue) {
                 arrayElement = (RightValue) object;
             } else {
@@ -205,7 +205,7 @@ public class BasicLeftValue extends AbstractLeftValue {
                 variable = new BasicArrayValue(extendedInterpreter);
                 variableMap.setVariable(getIdentifier(), variable);
             }
-            Iterator<LeftValueModifier> modifierIterator = modifiers.iterator();
+            final Iterator<LeftValueModifier> modifierIterator = modifiers.iterator();
             do {
                 variable = handleAccessModifier(variable,
                         modifierIterator.next(), modifierIterator.hasNext(),

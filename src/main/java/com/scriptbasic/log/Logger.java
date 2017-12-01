@@ -9,11 +9,11 @@ import java.lang.System.Logger.Level;
 public class Logger {
     private java.lang.System.Logger javaLogger;
 
-    protected Logger(java.lang.System.Logger javaLogger) {
+    protected Logger(final java.lang.System.Logger javaLogger) {
         this.javaLogger = javaLogger;
     }
 
-    protected static String format(String s, Object[] args) {
+    protected static String format(final String s, final Object[] args) {
         String msg = s;
         if (args != null) {
             int i = 0;
@@ -26,23 +26,23 @@ public class Logger {
         return msg;
     }
 
-    public void error(String s, Throwable e) {
+    public void error(final String s, final Throwable e) {
         javaLogger.log(Level.ERROR, s, e);
     }
 
-    public void error(String s) {
+    public void error(final String s) {
         javaLogger.log(Level.ERROR, s);
     }
 
-    public void debug(String s, Object... args) {
+    public void debug(final String s, final Object... args) {
         javaLogger.log(Level.DEBUG, format(s, args));
     }
 
-    public void info(String s, Object... args) {
+    public void info(final String s, final Object... args) {
         javaLogger.log(Level.INFO, format(s, args));
     }
 
-    public void error(String s, Object... args) {
+    public void error(final String s, final Object... args) {
         javaLogger.log(Level.ERROR, format(s, args));
     }
 }

@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class BinaryFileReader implements FileHandler {
     private final InputStream stream;
 
-    public BinaryFileReader(InputStream stream) {
+    public BinaryFileReader(final InputStream stream) {
         this.stream = stream;
     }
 
@@ -15,9 +15,9 @@ public class BinaryFileReader implements FileHandler {
         stream.close();
     }
 
-    public byte[] read(int len) throws IOException {
+    public byte[] read(final int len) throws IOException {
         final byte[] b = new byte[len];
-        int bytesRead = stream.read(b);
+        final int bytesRead = stream.read(b);
         if (bytesRead < len) {
             return Arrays.copyOf(b, bytesRead);
         } else {

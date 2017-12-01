@@ -6,7 +6,7 @@ import java.io.IOException;
 public class TextFileWriter implements FileHandler {
     private BufferedWriter writer;
 
-    public TextFileWriter(BufferedWriter bw) {
+    public TextFileWriter(final BufferedWriter bw) {
         writer = bw;
     }
 
@@ -14,7 +14,7 @@ public class TextFileWriter implements FileHandler {
         writer.close();
     }
 
-    public void print(String line) throws IOException {
+    public void print(final String line) throws IOException {
         writer.write(line);
     }
 

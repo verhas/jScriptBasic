@@ -18,7 +18,7 @@ public class CommandSub extends AbstractCommand {
     /**
      * @param subName the subName to set
      */
-    public void setSubName(String subName) {
+    public void setSubName(final String subName) {
         this.subName = subName;
     }
 
@@ -32,7 +32,7 @@ public class CommandSub extends AbstractCommand {
     /**
      * @param commandEndSub the commandEndSub to set
      */
-    public void setCommandEndSub(CommandEndSub commandEndSub) {
+    public void setCommandEndSub(final CommandEndSub commandEndSub) {
         this.commandEndSub = commandEndSub;
     }
 
@@ -46,7 +46,7 @@ public class CommandSub extends AbstractCommand {
     /**
      * @param arguments the arguments to set
      */
-    public void setArguments(LeftValueList arguments) {
+    public void setArguments(final LeftValueList arguments) {
         this.arguments = arguments;
     }
 

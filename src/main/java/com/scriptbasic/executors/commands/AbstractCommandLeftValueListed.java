@@ -20,7 +20,7 @@ public abstract class AbstractCommandLeftValueListed extends AbstractCommand {
     /**
      * @param leftValueList the leftValueList to set
      */
-    public void setLeftValueList(LeftValueList leftValueList) {
+    public void setLeftValueList(final LeftValueList leftValueList) {
         this.leftValueList = leftValueList;
     }
 

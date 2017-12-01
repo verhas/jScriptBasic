@@ -7,7 +7,7 @@ import com.scriptbasic.lexer.BasicLexicalElement;
 
 public class ConstAwareIdentifier extends Identifier {
 
-    public ConstAwareIdentifier(SourceReader reader) {
+    public ConstAwareIdentifier(final SourceReader reader) {
         super(reader);
     }
 

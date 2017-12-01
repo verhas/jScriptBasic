@@ -10,9 +10,9 @@ public final class SyntaxExceptionUtility {
         NoInstance.isPossible();
     }
 
-    public static void throwSyntaxException(String s, LexicalElement le)
+    public static void throwSyntaxException(final String s, final LexicalElement le)
             throws SyntaxException {
-        SyntaxException se = new BasicSyntaxException(s);
+        final SyntaxException se = new BasicSyntaxException(s);
         if (le != null) {
             se.setLocation(le);
         }

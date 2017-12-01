@@ -9,9 +9,9 @@ import com.scriptbasic.interfaces.VariableMap;
 public class VariableAccess extends AbstractIdentifieredExpression {
 
     @Override
-    public RightValue evaluate(ExtendedInterpreter interpreter)
+    public RightValue evaluate(final ExtendedInterpreter interpreter)
             throws ExecutionException {
-        VariableMap variableMap = interpreter.getVariables();
+        final VariableMap variableMap = interpreter.getVariables();
         RightValue value = variableMap.getVariableValue(getVariableName());
         value = interpreter.getHook().variableRead(getVariableName(), value);
         return value;

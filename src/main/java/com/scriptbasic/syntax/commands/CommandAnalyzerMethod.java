@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
 
-    public CommandAnalyzerMethod(Context ctx) {
+    public CommandAnalyzerMethod(final Context ctx) {
         super(ctx);
     }
 
@@ -29,11 +29,11 @@ public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
          */
     @Override
     public Command analyze() throws AnalysisException {
-        String methodName = ExpressionUtility
+        final String methodName = ExpressionUtility
                 .convertToString(analyzeExpression());
         LexUtility.checkLexeme(ctx.lexicalAnalyzer, "from",
                 "Keyword 'FROM' is missing in command 'METHOD'");
-        String className = ExpressionUtility
+        final String className = ExpressionUtility
                 .convertToString(analyzeExpression());
 
         LexUtility.checkLexeme(ctx.lexicalAnalyzer, "is",
@@ -41,7 +41,7 @@ public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
         LexUtility.checkLexeme(ctx.lexicalAnalyzer, "(",
                 "'(' is missing in command 'METHOD' after the keyword 'IS'");
 
-        ExpressionList argExpressions = ctx.expressionListAnalyzer.analyze();
+        final ExpressionList argExpressions = ctx.expressionListAnalyzer.analyze();
         LexUtility.checkLexeme(ctx.lexicalAnalyzer, ")",
                 "')' is missing in command 'METHOD'");
         String alias = null;
@@ -52,12 +52,12 @@ public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
         } else {
             alias = methodName;
         }
-        ArrayList<Class<?>> argClasses = new ArrayList<>();
-        for (Expression expression : argExpressions) {
-            String argClassName = ExpressionUtility.convertToString(expression);
+        final ArrayList<Class<?>> argClasses = new ArrayList<>();
+        for (final Expression expression : argExpressions) {
+            final String argClassName = ExpressionUtility.convertToString(expression);
             argClasses.add(KlassUtility.forNameEx(argClassName));
         }
-        CommandMethod node = new CommandMethod();
+        final CommandMethod node = new CommandMethod();
         node.setArgumentTypes(argClasses.toArray(new Class<?>[0]));
         node.setKlass(KlassUtility.forNameEx(className));
         node.setMethodName(methodName);

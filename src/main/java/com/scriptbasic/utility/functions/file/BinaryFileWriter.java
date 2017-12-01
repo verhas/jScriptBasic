@@ -6,7 +6,7 @@ import java.io.IOException;
 public class BinaryFileWriter implements FileHandler {
     private final BufferedOutputStream stream;
 
-    public BinaryFileWriter(BufferedOutputStream stream) {
+    public BinaryFileWriter(final BufferedOutputStream stream) {
         this.stream = stream;
     }
 
@@ -14,7 +14,7 @@ public class BinaryFileWriter implements FileHandler {
         stream.close();
     }
 
-    public void write(byte[] buffer) throws IOException {
+    public void write(final byte[] buffer) throws IOException {
         stream.write(buffer, 0, buffer.length);
     }
 }

@@ -25,7 +25,7 @@ class BasicVariableMap implements VariableMap {
     BasicVariableMap() {
     }
 
-    BasicVariableMap(BasicVariableMap that) {
+    BasicVariableMap(final BasicVariableMap that) {
         this.variableNamesAreCaseSensitive = that.variableNamesAreCaseSensitive;
         this.variableNamesAreStrictCased = that.variableNamesAreStrictCased;
     }
@@ -83,7 +83,7 @@ class BasicVariableMap implements VariableMap {
      * @param name
      * @return
      */
-    protected String converted(String name) {
+    protected String converted(final String name) {
         return variableNamesAreCaseSensitive ? name : name.toUpperCase();
     }
 
@@ -105,9 +105,9 @@ class BasicVariableMap implements VariableMap {
      * @param variableName
      * @throws ExecutionException
      */
-    void assertCorrectCasing(String variableName) throws ExecutionException {
+    void assertCorrectCasing(final String variableName) throws ExecutionException {
         if (variableNamesAreStrictCased) {
-            String convertedName = converted(variableName);
+            final String convertedName = converted(variableName);
             if (variableMap.containsKey(convertedName)
                     && !variableNameSet.contains(variableName)) {
                 throw new BasicRuntimeException("Variable '" + variableName
@@ -122,7 +122,7 @@ class BasicVariableMap implements VariableMap {
      *
      * @param name
      */
-    void registerVariableCasing(String name) {
+    void registerVariableCasing(final String name) {
         variableNameSet.add(name);
     }
 
@@ -133,7 +133,7 @@ class BasicVariableMap implements VariableMap {
      * com.scriptbasic.interfaces.VariableMap#getVariableValue(java.lang.String)
      */
     @Override
-    public RightValue getVariableValue(String variableName)
+    public RightValue getVariableValue(final String variableName)
             throws ExecutionException {
         return variableExists(variableName) ? variableMap
                 .get(converted(variableName)) : null;
@@ -146,7 +146,7 @@ class BasicVariableMap implements VariableMap {
      * com.scriptbasic.interfaces.VariableMap#variableExists(java.lang.String)
      */
     @Override
-    public Boolean variableExists(String variableName)
+    public Boolean variableExists(final String variableName)
             throws ExecutionException {
         assertCorrectCasing(variableName);
         return variableMap.containsKey(converted(variableName));
@@ -159,7 +159,7 @@ class BasicVariableMap implements VariableMap {
      * com.scriptbasic.interfaces.VariableMap#variableDefined(java.lang.String)
      */
     @Override
-    public Boolean variableDefined(String variableName)
+    public Boolean variableDefined(final String variableName)
             throws ExecutionException {
         return variableExists(variableName)
                 && getVariableValue(variableName) != null;
@@ -172,7 +172,7 @@ class BasicVariableMap implements VariableMap {
      * com.scriptbasic.interfaces.RightValue)
      */
     @Override
-    public void setVariable(String variableName, RightValue rightValue)
+    public void setVariable(final String variableName, final RightValue rightValue)
             throws ExecutionException {
         assertCorrectCasing(variableName);
         registerVariableCasing(variableName);

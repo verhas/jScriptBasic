@@ -37,7 +37,7 @@ public class HookRegisterUtility {
      *
      * @param interpreter the interpter in which the hooks are registered
      */
-    public static void registerHooks(ExtendedInterpreter interpreter) {
+    public static void registerHooks(final ExtendedInterpreter interpreter) {
         interpreter.getConfiguration().getConfigValueStream("hook")
                 .map($(Class::forName))
                 .map($(Class::getDeclaredConstructor))

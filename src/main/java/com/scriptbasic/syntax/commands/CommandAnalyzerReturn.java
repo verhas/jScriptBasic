@@ -12,7 +12,7 @@ import com.scriptbasic.interfaces.LexicalElement;
  * date Jul 12, 2012
  */
 public class CommandAnalyzerReturn extends AbstractCommandAnalyzer {
-    public CommandAnalyzerReturn(Context ctx) {
+    public CommandAnalyzerReturn(final Context ctx) {
         super(ctx);
     }
 
@@ -23,10 +23,10 @@ public class CommandAnalyzerReturn extends AbstractCommandAnalyzer {
          */
     @Override
     public Command analyze() throws AnalysisException {
-        CommandReturn node = new CommandReturn();
-        LexicalElement le = ctx.lexicalAnalyzer.peek();
+        final CommandReturn node = new CommandReturn();
+        final LexicalElement le = ctx.lexicalAnalyzer.peek();
         if (le != null && !le.isLineTerminator()) {
-            Expression returnExpression = analyzeExpression();
+            final Expression returnExpression = analyzeExpression();
             node.setReturnExpression(returnExpression);
         } else {
             node.setReturnExpression(null);

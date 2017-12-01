@@ -20,22 +20,22 @@ public class ScriptEngine extends AbstractScriptEngine {
     public final ScriptBasicEngineFactory scriptEngineFactory;
     public Context ctx;
 
-    public ScriptEngine(ScriptBasicEngineFactory scriptEngineFactory) {
+    public ScriptEngine(final ScriptBasicEngineFactory scriptEngineFactory) {
         ctx = ContextBuilder.newContext();
         ctx.configuration = scriptEngineFactory.config;
         this.scriptEngineFactory = scriptEngineFactory;
     }
 
-    private static void unmergeBindings(ExtendedInterpreter interpreter,
-                                        Bindings bindings) throws ExecutionException {
-        for (String name : bindings.keySet()) {
+    private static void unmergeBindings(final ExtendedInterpreter interpreter,
+                                        final Bindings bindings) throws ExecutionException {
+        for (final String name : bindings.keySet()) {
             bindings.put(name, interpreter.getVariable(name));
         }
     }
 
-    private static void mergeBinding(ExtendedInterpreter interpreter,
-                                     Bindings bindings) throws ExecutionException {
-        for (String name : bindings.keySet()) {
+    private static void mergeBinding(final ExtendedInterpreter interpreter,
+                                     final Bindings bindings) throws ExecutionException {
+        for (final String name : bindings.keySet()) {
             interpreter.setVariable(name, bindings.get(name));
         }
     }
@@ -47,7 +47,7 @@ public class ScriptEngine extends AbstractScriptEngine {
      * javax.script.ScriptContext)
      */
     @Override
-    public Object eval(String script, ScriptContext context) throws ScriptException {
+    public Object eval(final String script, final ScriptContext context) throws ScriptException {
         return eval(new StringReader(script), context);
     }
 
@@ -58,7 +58,7 @@ public class ScriptEngine extends AbstractScriptEngine {
      * javax.script.ScriptContext)
      */
     @Override
-    public Object eval(Reader reader, ScriptContext context) throws ScriptException {
+    public Object eval(final Reader reader, final ScriptContext context) throws ScriptException {
         try {
             ctx = ContextBuilder.from(ctx, reader, context.getReader(), context.getWriter(), context.getErrorWriter());
             mergeBinding(ctx.interpreter, context.getBindings(ScriptContext.GLOBAL_SCOPE));

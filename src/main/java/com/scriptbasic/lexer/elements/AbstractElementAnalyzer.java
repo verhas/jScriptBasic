@@ -9,7 +9,7 @@ public abstract class AbstractElementAnalyzer implements LexicalElementAnalyzer 
 
     private final SourceReader reader;
 
-    protected AbstractElementAnalyzer(SourceReader reader) {
+    protected AbstractElementAnalyzer(final SourceReader reader) {
         this.reader = reader;
     }
 

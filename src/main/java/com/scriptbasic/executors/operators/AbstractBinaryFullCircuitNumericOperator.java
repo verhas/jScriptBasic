@@ -31,7 +31,8 @@ public abstract class AbstractBinaryFullCircuitNumericOperator<T extends Number>
     @Override
     protected final RightValue evaluateOn(final RightValue leftOperand,
                                           final RightValue rightOperand) throws BasicRuntimeException {
-        Number a, b;
+        final Number a;
+        final Number b;
         RightValue result = null;
         if (leftOperand == null || rightOperand == null) {
             throw new BasicRuntimeException(

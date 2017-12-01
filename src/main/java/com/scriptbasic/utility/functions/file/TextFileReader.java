@@ -6,7 +6,7 @@ import java.io.IOException;
 public class TextFileReader implements FileHandler {
     private BufferedReader reader = null;
 
-    protected TextFileReader(BufferedReader br) {
+    protected TextFileReader(final BufferedReader br) {
         reader = br;
     }
 

@@ -8,17 +8,17 @@ public class ArrayElementAccess extends
         AbstractIdentifieredExpressionListedExpression {
 
     @Override
-    public RightValue evaluate(ExtendedInterpreter interpreter)
+    public RightValue evaluate(final ExtendedInterpreter interpreter)
             throws ExecutionException {
-        VariableMap variableMap = interpreter.getVariables();
+        final VariableMap variableMap = interpreter.getVariables();
         RightValue value = variableMap.getVariableValue(getVariableName());
         value = interpreter.getHook().variableRead(getVariableName(), value);
-        for (Expression expression : getExpressionList()) {
+        for (final Expression expression : getExpressionList()) {
             if (value instanceof BasicArrayValue) {
-                BasicArrayValue arrayVar = (BasicArrayValue) value;
-                Integer index = RightValueUtility.convert2Integer(expression
+                final BasicArrayValue arrayVar = (BasicArrayValue) value;
+                final Integer index = RightValueUtility.convert2Integer(expression
                         .evaluate(interpreter));
-                Object object = arrayVar.get(index);
+                final Object object = arrayVar.get(index);
                 if (object instanceof RightValue) {
                     value = (RightValue) object;
                 } else {

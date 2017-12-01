@@ -20,7 +20,7 @@ public abstract class AbstractCommandExpressionListed extends AbstractCommand {
     /**
      * @param expressionList the expressionList to set
      */
-    public void setExpressionList(ExpressionList expressionList) {
+    public void setExpressionList(final ExpressionList expressionList) {
         this.expressionList = expressionList;
     }
 }

@@ -13,7 +13,7 @@ public abstract class AbstractShortCircuitBinaryOperator extends
             Expression rightOperand) throws ExecutionException;
 
     @Override
-    public RightValue evaluate(ExtendedInterpreter extendedInterpreter)
+    public RightValue evaluate(final ExtendedInterpreter extendedInterpreter)
             throws ExecutionException {
         return evaluateOn(extendedInterpreter,
                 getLeftOperand().evaluate(extendedInterpreter),

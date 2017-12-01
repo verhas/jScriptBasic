@@ -11,7 +11,7 @@ public class ObjectFieldAccessLeftValueModifier extends LeftValueModifier {
         return fieldName;
     }
 
-    public void setFieldName(String fieldName) {
+    public void setFieldName(final String fieldName) {
         this.fieldName = fieldName;
     }
 }

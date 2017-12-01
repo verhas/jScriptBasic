@@ -10,7 +10,7 @@ import com.scriptbasic.factories.Context;
  */
 public class CommandAnalyzerGlobal extends AbstractCommandAnalyzerGlobalLocal {
 
-    public CommandAnalyzerGlobal(Context ctx) {
+    public CommandAnalyzerGlobal(final Context ctx) {
         super(ctx);
     }
 

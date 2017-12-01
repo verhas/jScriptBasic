@@ -12,12 +12,12 @@ import com.scriptbasic.interfaces.Expression;
  */
 public class CommandAnalyzerIf extends AbstractCommandAnalyzerIfKind {
 
-    public CommandAnalyzerIf(Context ctx) {
+    public CommandAnalyzerIf(final Context ctx) {
         super(ctx);
     }
 
-    protected Command createNode(Expression condition) throws AnalysisException {
-        CommandIf node = new CommandIf();
+    protected Command createNode(final Expression condition) throws AnalysisException {
+        final CommandIf node = new CommandIf();
         node.setCondition(condition);
         pushNode(node);
         return node;

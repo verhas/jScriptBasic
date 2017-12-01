@@ -30,12 +30,12 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
      *                    functions
      * @throws BasicRuntimeException when a function is double defined and not an identical manner
      */
-    public static void registerFunctions(Class<?> klass,
-                                         ExtendedInterpreter interpreter) throws BasicRuntimeException {
+    public static void registerFunctions(final Class<?> klass,
+                                         final ExtendedInterpreter interpreter) throws BasicRuntimeException {
 
-        FunctionLoadParameters method = new FunctionLoadParameters();
+        final FunctionLoadParameters method = new FunctionLoadParameters();
 
-        for (Method methodObj : klass.getMethods()) {
+        for (final Method methodObj : klass.getMethods()) {
             method.initParameters(methodObj, klass);
             if (method.isFunctionAnnotated()) {
                 if (!Modifier.isStatic(methodObj.getModifiers())) {
@@ -80,21 +80,21 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
      * @return true if the configuration allows the registering of the method
      */
     private static boolean classificationsAllowRegistering(
-            ExtendedInterpreter interpreter, Class<?>[] classifications) {
-        Configuration config = interpreter.getConfiguration();
+            final ExtendedInterpreter interpreter, final Class<?>[] classifications) {
+        final Configuration config = interpreter.getConfiguration();
         Integer allowLevel = 0;
-        for (Class<?> classification : classifications) {
-            String name = classification.getName();
-            String allowKey = "allow(" + name + ")";
-            String denyKey = "deny(" + name + ")";
-            String allowValue = config.getConfigValue(allowKey).orElse(null);
-            String denyValue = config.getConfigValue(denyKey).orElse(null);
+        for (final Class<?> classification : classifications) {
+            final String name = classification.getName();
+            final String allowKey = "allow(" + name + ")";
+            final String denyKey = "deny(" + name + ")";
+            final String allowValue = config.getConfigValue(allowKey).orElse(null);
+            final String denyValue = config.getConfigValue(denyKey).orElse(null);
             allowLevel += gIV(allowValue) - gIV(denyValue);
         }
         return allowLevel >= 0;
     }
 
-    private static Integer gIV(String s) {
+    private static Integer gIV(final String s) {
         return s == null ? 0 : Integer.valueOf(s);
     }
 
@@ -106,7 +106,7 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
         BasicFunction annotation;
         Class<?>[] classifications;
 
-        void initParameters(Method method, Class<?> klassPar) {
+        void initParameters(final Method method, final Class<?> klassPar) {
             klass = klassPar;
             methodName = method.getName();
             parameterTypes = method.getParameterTypes();
@@ -141,7 +141,7 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
         }
 
         boolean versionIsCompatible() {
-            long requiredVersion = annotation.requiredVersion();
+            final long requiredVersion = annotation.requiredVersion();
             if (annotation.requiredVersion() > EXTENSION_INTERFACE_VERSION) {
                 LOG.error(
                         "The method {} can not be registered, because it requires the interface version {} and the implemented version is {}.",
@@ -150,7 +150,7 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
             return requiredVersion <= EXTENSION_INTERFACE_VERSION;
         }
 
-        void register(ExtendedInterpreter interpreter)
+        void register(final ExtendedInterpreter interpreter)
                 throws BasicRuntimeException {
             if (versionIsCompatible()) {
                 if (classificationsAllowRegistering(interpreter, classifications)) {

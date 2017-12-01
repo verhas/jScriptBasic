@@ -53,7 +53,7 @@ public interface Configuration {
      * @param i   the index value usually goes from zero
      * @return the configuration value
      */
-    default Optional<String> getConfigValue(String key, int i) {
+    default Optional<String> getConfigValue(final String key, final int i) {
         return getConfigValue(key + "." + i);
     }
 
@@ -63,7 +63,7 @@ public interface Configuration {
      * @param key the key to which the values are assigned using the numberic key postfix
      * @return the stream of the values
      */
-    default Stream<String> getConfigValueStream(String key) {
+    default Stream<String> getConfigValueStream(final String key) {
         return getConfigValueList(key).stream();
     }
 

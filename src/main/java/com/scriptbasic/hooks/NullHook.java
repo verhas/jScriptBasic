@@ -21,32 +21,32 @@ public class NullHook implements InterpreterHook {
     }
 
     @Override
-    public void setNext(InterpreterHook next) {
+    public void setNext(final InterpreterHook next) {
     }
 
     @Override
-    public void setInterpreter(ExtendedInterpreter interpreter) {
+    public void setInterpreter(final ExtendedInterpreter interpreter) {
     }
 
     @Override
-    public void beforeExecute(Command command) {
+    public void beforeExecute(final Command command) {
     }
 
     @Override
-    public void afterExecute(Command command) {
+    public void afterExecute(final Command command) {
     }
 
     @Override
-    public void beforeRegisteringJavaMethod(String alias, Class<?> klass,
-                                            String methodName, Class<?>[] argumentTypes) {
+    public void beforeRegisteringJavaMethod(final String alias, final Class<?> klass,
+                                            final String methodName, final Class<?>[] argumentTypes) {
     }
 
     @Override
-    public void beforePush(Command command) {
+    public void beforePush(final Command command) {
     }
 
     @Override
-    public void afterPush(Command command) {
+    public void afterPush(final Command command) {
     }
 
     @Override
@@ -54,29 +54,29 @@ public class NullHook implements InterpreterHook {
     }
 
     @Override
-    public void afterPop(Command command) {
+    public void afterPop(final Command command) {
     }
 
     @Override
-    public void setReturnValue(RightValue returnValue) {
+    public void setReturnValue(final RightValue returnValue) {
     }
 
     @Override
-    public void beforeSubroutineCall(String subroutineName,
-                                     LeftValueList arguments, RightValue[] argumentValues) {
+    public void beforeSubroutineCall(final String subroutineName,
+                                     final LeftValueList arguments, final RightValue[] argumentValues) {
     }
 
     @Override
-    public void beforeCallJavaFunction(Method method) {
+    public void beforeCallJavaFunction(final Method method) {
     }
 
     @Override
-    public Object afterCallJavaFunction(Method method, Object result) {
+    public Object afterCallJavaFunction(final Method method, final Object result) {
         return result;
     }
 
     @Override
-    public RightValue variableRead(String variableName, RightValue value) {
+    public RightValue variableRead(final String variableName, final RightValue value) {
         return value;
     }
 

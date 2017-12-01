@@ -20,7 +20,7 @@ public class BasicConfiguration implements Configuration {
     public BasicConfiguration() {
         try {
             loadDefaultConfiguration();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOG.error("Configuration was not loaded", e);
         }
     }
@@ -60,7 +60,7 @@ public class BasicConfiguration implements Configuration {
         if (lists.containsKey(key)) {
             return lists.get(key);
         }
-        List<String> list = new LinkedList<>();
+        final List<String> list = new LinkedList<>();
         for (int i = 0; getConfigValue(key, i).isPresent(); i++) {
             list.add(getConfigValue(key, i).get());
         }

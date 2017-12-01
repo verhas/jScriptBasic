@@ -52,7 +52,7 @@ public final class BasicProgram extends AbstractBasicProgramPostprocessing {
     }
 
     @Override
-    public Command getNamedCommand(String name) {
+    public Command getNamedCommand(final String name) {
         return subroutineMap.get(name);
     }
 

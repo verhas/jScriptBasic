@@ -18,7 +18,7 @@ public class NumberUtility {
         NoInstance.isPossible();
     }
 
-    private static void assertPreconditions(Number a, Number b) {
+    private static void assertPreconditions(final Number a, final Number b) {
         if (a == null || b == null) {
             throw new BasicInterpreterInternalError(
                     "Can not compare null to something");
@@ -34,9 +34,9 @@ public class NumberUtility {
         }
     }
 
-    public static boolean isPositive(Number a) {
+    public static boolean isPositive(final Number a) {
         LOG.debug("a {} is instance of Long = {}", a, a instanceof Long);
-        Number zero;
+        final Number zero;
         if (a instanceof Long) {
             zero = 0L;
         } else {
@@ -55,15 +55,15 @@ public class NumberUtility {
      * @param b the other number
      * @return 0 if a == b; 1 if a &gt; b; and -1 if b &lt; a
      */
-    public static int compare(Number a, Number b) {
+    public static int compare(final Number a, final Number b) {
         if (a == null && b == null) {
             return 0;
         }
         assertPreconditions(a, b);
-        int retval;
+        final int retval;
         if (a instanceof Double) {
-            Double aA = (Double) a;
-            Double bB = (Double) b;
+            final Double aA = (Double) a;
+            final Double bB = (Double) b;
             if (aA > bB) {
                 retval = 1;
             } else if (aA.equals(bB)) {
@@ -72,8 +72,8 @@ public class NumberUtility {
                 retval = -1;
             }
         } else {
-            Long aA = (Long) a;
-            Long bB = (Long) b;
+            final Long aA = (Long) a;
+            final Long bB = (Long) b;
             if (aA > bB) {
                 retval = 1;
             } else if (aA.equals(bB)) {

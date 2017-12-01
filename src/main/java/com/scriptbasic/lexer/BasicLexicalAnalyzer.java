@@ -20,7 +20,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     private Iterator<LexicalElement> elements = this.allElements.iterator();
     private LexicalElement peekElement = null;
 
-    public BasicLexicalAnalyzer(SourceReader reader) {
+    public BasicLexicalAnalyzer(final SourceReader reader) {
         this.reader = reader;
         LOG.debug("constructor created {}", this);
     }
@@ -129,7 +129,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
         if (!this.allElements.isEmpty()) {
             final LexicalElement statement = elements.next();
             if (isIncludeOrImport(statement)) {
-                LexicalElement lexicalElement = elements.next();
+                final LexicalElement lexicalElement = elements.next();
                 assertIncludeFileIsSpecifiedAsString(lexicalElement);
                 assertThereAreNoExtraCharactersAtTheEndOfTheLine();
                 final SourceProvider sourceProvider = reader.getSourceProvider();
@@ -157,7 +157,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     }
 
     private void assertThereAreNoExtraCharactersAtTheEndOfTheLine() throws BasicSyntaxException {
-        LexicalElement newLine = elements.hasNext() ?
+        final LexicalElement newLine = elements.hasNext() ?
                 elements.next() : null;
         if (newLine != null && !newLine.isLineTerminator()) {
             LOG.error("There are extra characters on the line after the include file name string");
@@ -166,7 +166,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
         }
     }
 
-    private void assertIncludeFileIsSpecifiedAsString(LexicalElement lexicalElement) throws BasicSyntaxException {
+    private void assertIncludeFileIsSpecifiedAsString(final LexicalElement lexicalElement) throws BasicSyntaxException {
         if (!lexicalElement.isString()) {
             LOG.error("This is not a string following the keyword INCLUDE");
             throw new BasicSyntaxException("String has to be used after import or include.");

@@ -45,7 +45,7 @@ public abstract class AbstractSingleIncludeSourcePathSourceProvider extends
 
     @Override
     public final SourceReader get(final String sourceName) throws IOException {
-        SourceReader reader;
+        final SourceReader reader;
         if (this.singleInclude == null) {
             reader = null;
         } else {
@@ -58,7 +58,7 @@ public abstract class AbstractSingleIncludeSourcePathSourceProvider extends
     @Override
     public final SourceReader get(final String sourceName,
                                   final String referencingSource) throws IOException {
-        SourceReader reader;
+        final SourceReader reader;
         if (this.singleInclude == null) {
             reader = null;
         } else {

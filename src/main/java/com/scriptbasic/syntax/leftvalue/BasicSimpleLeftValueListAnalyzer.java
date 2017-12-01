@@ -10,7 +10,7 @@ public final class BasicSimpleLeftValueListAnalyzer
         AbstractGenericListAnalyzer<LeftValueList, GenericLeftValueList, LeftValue, SimpleLeftValueAnalyzer>
         implements SimpleLeftValueListAnalyzer {
 
-    public BasicSimpleLeftValueListAnalyzer(Context ctx) {
+    public BasicSimpleLeftValueListAnalyzer(final Context ctx) {
         super(ctx);
     }
 

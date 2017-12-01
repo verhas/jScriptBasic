@@ -7,13 +7,13 @@ import com.scriptbasic.interfaces.Command;
 
 public class CommandAnalyzerElse extends AbstractCommandAnalyzerIfElseKind {
 
-    public CommandAnalyzerElse(Context ctx) {
+    public CommandAnalyzerElse(final Context ctx) {
         super(ctx);
     }
 
     @Override
     public Command analyze() throws AnalysisException {
-        CommandElse node = new CommandElse();
+        final CommandElse node = new CommandElse();
         consumeEndOfLine();
         registerAndSwapNode(node);
         return node;

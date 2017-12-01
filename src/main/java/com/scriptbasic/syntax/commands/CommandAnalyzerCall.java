@@ -9,7 +9,7 @@ import com.scriptbasic.interfaces.*;
 
 public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
 
-    public CommandAnalyzerCall(Context ctx) {
+    public CommandAnalyzerCall(final Context ctx) {
         super(ctx);
     }
 
@@ -17,16 +17,16 @@ public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
     public Command analyze() throws AnalysisException {
         skipTheOptionalCallKeyword();
 
-        BasicLeftValue lv = (BasicLeftValue) ctx.leftValueAnalyzer.analyze();
+        final BasicLeftValue lv = (BasicLeftValue) ctx.leftValueAnalyzer.analyze();
         if (lv.hasModifiers()) {
             ctx.lexicalAnalyzer.resetLine();
-            CommandLet commandLet = new CommandLet();
+            final CommandLet commandLet = new CommandLet();
             commandLet.setExpression(ctx.expressionAnalyzer.analyze());
             consumeEndOfLine();
             return commandLet;
         } else {
             final String functionName = lv.getIdentifier();
-            FunctionCall functionCall = new FunctionCall();
+            final FunctionCall functionCall = new FunctionCall();
             functionCall.setVariableName(functionName);
 
             final boolean needClosingParenthesis = argumentsAreBetweenParentheses(ctx.lexicalAnalyzer);
@@ -34,7 +34,7 @@ public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
                 ctx.lexicalAnalyzer.get();// jump over '('
             }
 
-            LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
+            final LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
             if (thereAreArguments(needClosingParenthesis, lexicalElement)) {
                 functionCall.setExpressionList(ctx.expressionListAnalyzer.analyze());
             } else {
@@ -48,11 +48,11 @@ public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
         }
     }
 
-    private boolean thereAreArguments(boolean needClosingParenthesis, LexicalElement lexicalElement) {
+    private boolean thereAreArguments(final boolean needClosingParenthesis, final LexicalElement lexicalElement) {
         return lexicalElement != null && !lexicalElement.isSymbol(needClosingParenthesis ? ")" : "\n");
     }
 
-    private void consumeClosingParenthesis(LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
+    private void consumeClosingParenthesis(final LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
         final LexicalElement closingParenthesis = lexicalAnalyzer.peek();
         if (closingParenthesis != null && closingParenthesis.isSymbol(")")) {
             lexicalAnalyzer.get();
@@ -61,7 +61,7 @@ public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
         }
     }
 
-    private boolean argumentsAreBetweenParentheses(LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
+    private boolean argumentsAreBetweenParentheses(final LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
         final LexicalElement openingParenthesis = lexicalAnalyzer.peek();
         return openingParenthesis != null && openingParenthesis.isSymbol("(");
     }
@@ -76,7 +76,7 @@ public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
      * @throws AnalysisException
      */
     private void skipTheOptionalCallKeyword() throws AnalysisException {
-        LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
+        final LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
         if (lexicalElement != null && lexicalElement.isSymbol(getName())) {
             ctx.lexicalAnalyzer.get();
         }

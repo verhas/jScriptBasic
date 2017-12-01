@@ -11,7 +11,7 @@ public class MagicBean implements Magic.Bean {
     private final Map<String, Object> store = new HashMap<>();
 
     @Override
-    public Object get(String fieldName) throws BasicRuntimeException {
+    public Object get(final String fieldName) throws BasicRuntimeException {
         if (!store.containsKey(fieldName)) {
             store.put(fieldName, new MagicBean());
         }
@@ -19,7 +19,7 @@ public class MagicBean implements Magic.Bean {
     }
 
     @Override
-    public void set(String fieldName, Object value) throws BasicRuntimeException {
+    public void set(final String fieldName, final Object value) throws BasicRuntimeException {
         store.put(fieldName, value);
     }
 }

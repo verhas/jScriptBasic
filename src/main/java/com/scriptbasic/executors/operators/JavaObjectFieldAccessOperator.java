@@ -26,17 +26,17 @@ import java.util.stream.IntStream;
  */
 public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
 
-    private static Class<?>[] getClassArray(List<RightValue> args) {
+    private static Class<?>[] getClassArray(final List<RightValue> args) {
         final ArrayList<Class<?>> result = new ArrayList<>();
         if (args != null) {
-            for (RightValue arg : args) {
+            for (final RightValue arg : args) {
                 result.add(RightValueUtility.getValueObject(arg).getClass());
             }
         }
         return result.isEmpty() ? new Class<?>[0] : result.toArray(new Class<?>[0]);
     }
 
-    private static Object getArrayElement(Object[] array, Integer index)
+    private static Object getArrayElement(final Object[] array, final Integer index)
             throws ExecutionException {
         if (index < 0) {
             throw new BasicRuntimeException("Can not use " + index
@@ -49,17 +49,17 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
         return array[index];
     }
 
-    private Object fetchFieldObject(ExtendedInterpreter extendedInterpreter)
+    private Object fetchFieldObject(final ExtendedInterpreter extendedInterpreter)
             throws ExecutionException {
-        Object object = getLeftOperandObject(extendedInterpreter);
-        AbstractIdentifieredExpression rightOp = (AbstractIdentifieredExpression) getRightOperand();
-        String fieldName = rightOp.getVariableName();
+        final Object object = getLeftOperandObject(extendedInterpreter);
+        final AbstractIdentifieredExpression rightOp = (AbstractIdentifieredExpression) getRightOperand();
+        final String fieldName = rightOp.getVariableName();
         return KlassUtility.getField(object, fieldName);
     }
 
-    private RightValue fetchField(ExtendedInterpreter extendedInterpreter)
+    private RightValue fetchField(final ExtendedInterpreter extendedInterpreter)
             throws ExecutionException {
-        Object fieldObject = fetchFieldObject(extendedInterpreter);
+        final Object fieldObject = fetchFieldObject(extendedInterpreter);
         return RightValueUtility.createRightValue(fieldObject);
     }
 
@@ -67,10 +67,10 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
                                   final Object object, final Class<?> klass)
             throws ExecutionException {
         RightValue result = null;
-        FunctionCall rightOp = (FunctionCall) getRightOperand();
-        String methodName = rightOp.getVariableName();
-        ExpressionList expressionList = rightOp.getExpressionList();
-        List<RightValue> args = ExpressionUtility.evaluateExpressionList(
+        final FunctionCall rightOp = (FunctionCall) getRightOperand();
+        final String methodName = rightOp.getVariableName();
+        final ExpressionList expressionList = rightOp.getExpressionList();
+        final List<RightValue> args = ExpressionUtility.evaluateExpressionList(
                 interpreter, expressionList);
         final Class<?> calculatedKlass = klass == null ? object.getClass()
                 : klass;
@@ -78,7 +78,7 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
         if (method == null) {
             try {
                 method = findAppropriateMethod(calculatedKlass, methodName, args);
-            } catch (NoSuchMethodException e) {
+            } catch (final NoSuchMethodException e) {
                 throw new BasicRuntimeException("Method '" + methodName
                         + "' from class '" + klass + "' can not be accessed", e);
             }
@@ -111,9 +111,9 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
      * @throws NoSuchMethodException if there is more than one method with name and matching argument
      *                               but none of them is exact match.
      */
-    private Method findAppropriateMethod(Class<?> klass, String methodName, List<RightValue> args) throws BasicRuntimeException, NoSuchMethodException {
-        Class<?>[] argClasses = getClassArray(args);
-        List<Method> methods = Arrays.stream(klass.getMethods()).filter(method -> method.getName().equals(methodName))
+    private Method findAppropriateMethod(final Class<?> klass, final String methodName, final List<RightValue> args) throws BasicRuntimeException, NoSuchMethodException {
+        final Class<?>[] argClasses = getClassArray(args);
+        final List<Method> methods = Arrays.stream(klass.getMethods()).filter(method -> method.getName().equals(methodName))
                 .filter(method -> method.getParameterTypes().length >= argClasses.length)
                 .filter(method ->
                         !IntStream.range(0, method.getParameterTypes().length - 1)
@@ -130,9 +130,9 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
     }
 
     @SuppressWarnings("unchecked")
-    private Object getLeftOperandObject(ExtendedInterpreter extendedInterpreter)
+    private Object getLeftOperandObject(final ExtendedInterpreter extendedInterpreter)
             throws ExecutionException {
-        RightValue leftOp = getLeftOperand().evaluate(extendedInterpreter);
+        final RightValue leftOp = getLeftOperand().evaluate(extendedInterpreter);
         if (!(leftOp instanceof AbstractPrimitiveRightValue<?>)) {
             throw new BasicRuntimeException("Can not get field access from "
                     + (leftOp == null ? "null" : leftOp.getClass())
@@ -142,10 +142,10 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
         return ((AbstractPrimitiveRightValue<Object>) leftOp).getValue();
     }
 
-    private Class<?> getStaticClass(ExtendedInterpreter interpreter) {
+    private Class<?> getStaticClass(final ExtendedInterpreter interpreter) {
         Class<?> result = null;
         if (getLeftOperand() instanceof VariableAccess) {
-            String classAsName = ((VariableAccess) getLeftOperand())
+            final String classAsName = ((VariableAccess) getLeftOperand())
                     .getVariableName();
             if (interpreter.getUseMap().containsKey(classAsName)) {
                 result = interpreter.getUseMap().get(classAsName);
@@ -155,17 +155,17 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
     }
 
     @Override
-    public RightValue evaluate(ExtendedInterpreter interpreter)
+    public RightValue evaluate(final ExtendedInterpreter interpreter)
             throws ExecutionException {
         RightValue result = null;
-        Expression rightOp = getRightOperand();
+        final Expression rightOp = getRightOperand();
 
         if (rightOp instanceof VariableAccess) {
 
             result = fetchField(interpreter);
 
         } else if (rightOp instanceof FunctionCall) {
-            Class<?> klass = getStaticClass(interpreter);
+            final Class<?> klass = getStaticClass(interpreter);
             Object object = null;
             if (klass == null) {
                 object = getLeftOperandObject(interpreter);
@@ -174,10 +174,10 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
 
         } else if (rightOp instanceof ArrayElementAccess) {
             Object variable = fetchFieldObject(interpreter);
-            for (Expression expression : ((ArrayElementAccess) rightOp)
+            for (final Expression expression : ((ArrayElementAccess) rightOp)
                     .getExpressionList()) {
                 if (variable instanceof Object[]) {
-                    Integer index = RightValueUtility
+                    final Integer index = RightValueUtility
                             .convert2Integer(expression.evaluate(interpreter));
                     variable = getArrayElement((Object[]) variable, index);
                 } else {

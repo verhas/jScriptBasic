@@ -25,8 +25,8 @@ public final class KlassUtility {
      * @param valueObject
      * @throws BasicRuntimeException
      */
-    public static void setField(Object object, String fieldName,
-                                Object valueObject) throws BasicRuntimeException {
+    public static void setField(final Object object, final String fieldName,
+                                final Object valueObject) throws BasicRuntimeException {
         if (object != null && object instanceof NoAccess) {
             throw new BasicRuntimeException("The filed '" +
                     fieldName +
@@ -35,12 +35,12 @@ public final class KlassUtility {
         }
         final Class<?> klass = object.getClass();
         if (Magic.Setter.class.isAssignableFrom(klass)) {
-            Magic.Setter magicBean = (Magic.Setter) object;
+            final Magic.Setter magicBean = (Magic.Setter) object;
             magicBean.set(fieldName, valueObject);
         } else {
             try {
                 final Field field = getField(klass, fieldName);
-                Method setter = getSetter(field);
+                final Method setter = getSetter(field);
                 if (setter != null) {
                     setter.invoke(object, valueObject);
                 } else {
@@ -48,7 +48,7 @@ public final class KlassUtility {
                     final Object typeConvertedValueObject = CastUtility.cast(valueObject, fieldClass);
                     field.set(object, typeConvertedValueObject);
                 }
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 throw new BasicRuntimeException("Object access of type "
                         + object.getClass() + " can not set field '" + fieldName
                         + "'", e);
@@ -83,7 +83,7 @@ public final class KlassUtility {
      * @return
      * @throws BasicRuntimeException
      */
-    public static Object getField(Object object, String fieldName)
+    public static Object getField(final Object object, final String fieldName)
             throws BasicRuntimeException {
         if (object != null && object instanceof NoAccess) {
             throw new BasicRuntimeException("The filed '" +
@@ -93,7 +93,7 @@ public final class KlassUtility {
         }
         final Class<?> klass = object.getClass();
         if (Magic.Getter.class.isAssignableFrom(klass)) {
-            Magic.Getter magicBean = (Magic.Getter) object;
+            final Magic.Getter magicBean = (Magic.Getter) object;
             return magicBean.get(fieldName);
         } else {
             final Object result;
@@ -105,7 +105,7 @@ public final class KlassUtility {
                 } else {
                     result = field.get(object);
                 }
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 throw new BasicRuntimeException("Object access of type "
                         + object.getClass() + " can not access field '" + fieldName
                         + "'", e);
@@ -148,11 +148,11 @@ public final class KlassUtility {
         while (klass == null) {
             try {
                 klass = Class.forName(className.toString());
-            } catch (ClassNotFoundException ex) {
+            } catch (final ClassNotFoundException ex) {
                 if (firstCaughtException == null) {
                     firstCaughtException = ex;
                 }
-                int lastDotPosition = className.lastIndexOf(".");
+                final int lastDotPosition = className.lastIndexOf(".");
                 if (lastDotPosition == -1) {
                     throw firstCaughtException;
                 }
@@ -215,7 +215,7 @@ public final class KlassUtility {
             default:
                 try {
                     klass = forName(s);
-                } catch (ClassNotFoundException e) {
+                } catch (final ClassNotFoundException e) {
                     throw new BasicSyntaxException("Can not get class " + s, e);
                 }
                 break;
@@ -223,20 +223,20 @@ public final class KlassUtility {
         return klass;
     }
 
-    private static Method getSetter(Field field) {
+    private static Method getSetter(final Field field) {
         final String fieldName = field.getName();
         final String prefix = "set";
         final int prefixLength = prefix.length();
-        StringBuilder sb = new StringBuilder(prefix).append(fieldName);
+        final StringBuilder sb = new StringBuilder(prefix).append(fieldName);
         sb.setCharAt(prefixLength, Character.toUpperCase(sb.charAt(prefixLength)));
         try {
             return field.getDeclaringClass().getMethod(sb.toString(), field.getType());
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
             return null;
         }
     }
 
-    private static Method getGetter(Field field) {
+    private static Method getGetter(final Field field) {
         final Method getGetter = getterPrefixed(field, "get");
         final Method isGetter;
         if (Boolean.class.isAssignableFrom(field.getType()) ||
@@ -254,22 +254,22 @@ public final class KlassUtility {
         return null;
     }
 
-    private static Method getterPrefixed(Field field, String prefix) {
+    private static Method getterPrefixed(final Field field, final String prefix) {
         final String fieldName = field.getName();
         final int prefixLength = prefix.length();
-        StringBuilder sb = new StringBuilder(prefix).append(fieldName);
+        final StringBuilder sb = new StringBuilder(prefix).append(fieldName);
         sb.setCharAt(prefixLength, Character.toUpperCase(sb.charAt(prefixLength)));
         try {
             return field.getDeclaringClass().getMethod(sb.toString());
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
             return null;
         }
     }
 
-    private static Field getField(Class<?> klass, String fieldName) throws NoSuchFieldException {
+    private static Field getField(final Class<?> klass, final String fieldName) throws NoSuchFieldException {
         try {
             return klass.getField(fieldName);
-        } catch (NoSuchFieldException e) {
+        } catch (final NoSuchFieldException e) {
             return klass.getDeclaredField(fieldName);
         }
     }

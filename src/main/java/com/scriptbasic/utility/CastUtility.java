@@ -48,7 +48,7 @@ public final class CastUtility {
      * @param castTo the class that the result has to belong to.
      * @return the converted object.
      */
-    public static Object cast(Object object, Class<?> castTo) {
+    public static Object cast(final Object object, final Class<?> castTo) {
         Object result = object;
         try {
             if (castTypeNames.get(castTo.getName()) != null) {
@@ -75,49 +75,49 @@ public final class CastUtility {
                         break;
                 }
             }
-        } catch (ClassCastException cce) {
+        } catch (final ClassCastException cce) {
         }
         return result;
     }
 
     @SuppressWarnings("unchecked")
-    public static Object toObject(RightValue rightValue) {
+    public static Object toObject(final RightValue rightValue) {
         return rightValue == null ? null
                 : ((AbstractPrimitiveRightValue<Object>) rightValue).getValue();
     }
 
     private static class Byte {
-        static java.lang.Byte cast(Object object) {
+        static java.lang.Byte cast(final Object object) {
             return ((Number) object).byteValue();
         }
     }
 
     private static class Short {
-        static java.lang.Short cast(Object object) {
+        static java.lang.Short cast(final Object object) {
             return ((Number) object).shortValue();
         }
     }
 
     private static class Integer {
-        static java.lang.Integer cast(Object object) {
+        static java.lang.Integer cast(final Object object) {
             return ((Number) object).intValue();
         }
     }
 
     private static class Long {
-        static java.lang.Long cast(Object object) {
+        static java.lang.Long cast(final Object object) {
             return ((Number) object).longValue();
         }
     }
 
     private static class Float {
-        static java.lang.Float cast(Object object) {
+        static java.lang.Float cast(final Object object) {
             return ((Number) object).floatValue();
         }
     }
 
     private static class Double {
-        static java.lang.Double cast(Object object) {
+        static java.lang.Double cast(final Object object) {
             return ((Number) object).doubleValue();
         }
     }

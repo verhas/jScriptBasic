@@ -11,20 +11,20 @@ import com.scriptbasic.interfaces.*;
  */
 public class CommandAnalyzerNext extends AbstractCommandAnalyzer {
 
-    public CommandAnalyzerNext(Context ctx) {
+    public CommandAnalyzerNext(final Context ctx) {
         super(ctx);
     }
 
     @Override
     public Command analyze() throws AnalysisException {
-        CommandNext node = new CommandNext();
-        LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
-        CommandFor commandFor = ctx.nestedStructureHouseKeeper.pop(CommandFor.class);
+        final CommandNext node = new CommandNext();
+        final LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
+        final CommandFor commandFor = ctx.nestedStructureHouseKeeper.pop(CommandFor.class);
         commandFor.setLoopEndNode(node);
         node.setLoopStartNode(commandFor);
         if (lexicalElement != null && !lexicalElement.isLineTerminator()) {
-            LeftValue loopVariableB = analyzeSimpleLeftValue();
-            LeftValue loopVariableA = commandFor.getLoopVariable();
+            final LeftValue loopVariableB = analyzeSimpleLeftValue();
+            final LeftValue loopVariableA = commandFor.getLoopVariable();
             if (!equal(loopVariableA, loopVariableB)) {
                 throw new BasicSyntaxException(
                         "The variable following the command "

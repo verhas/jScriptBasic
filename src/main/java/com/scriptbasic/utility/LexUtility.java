@@ -33,9 +33,9 @@ public final class LexUtility {
         }
     }
 
-    public static boolean isLexeme(LexicalAnalyzer analyzer, String lexeme)
+    public static boolean isLexeme(final LexicalAnalyzer analyzer, final String lexeme)
             throws AnalysisException {
-        LexicalElement lexicalElement = analyzer.peek();
+        final LexicalElement lexicalElement = analyzer.peek();
         if (lexicalElement != null && lexicalElement.isSymbol()
                 && lexeme.equalsIgnoreCase(lexicalElement.getLexeme())) {
             analyzer.get();
@@ -44,8 +44,8 @@ public final class LexUtility {
         return false;
     }
 
-    public static void checkLexeme(LexicalAnalyzer analyzer, String lexeme,
-                                   String exceptionText) throws AnalysisException {
+    public static void checkLexeme(final LexicalAnalyzer analyzer, final String lexeme,
+                                   final String exceptionText) throws AnalysisException {
         if (!isLexeme(analyzer, lexeme)) {
             throw new BasicSyntaxException(exceptionText);
         }

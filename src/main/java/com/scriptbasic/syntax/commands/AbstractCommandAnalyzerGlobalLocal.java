@@ -12,7 +12,7 @@ import com.scriptbasic.interfaces.LeftValueList;
  */
 public abstract class AbstractCommandAnalyzerGlobalLocal extends AbstractCommandAnalyzer {
 
-    public AbstractCommandAnalyzerGlobalLocal(Context ctx) {
+    public AbstractCommandAnalyzerGlobalLocal(final Context ctx) {
         super(ctx);
     }
 
@@ -25,8 +25,8 @@ public abstract class AbstractCommandAnalyzerGlobalLocal extends AbstractCommand
      */
     @Override
     public Command analyze() throws AnalysisException {
-        AbstractCommandLeftValueListed node = newNode();
-        LeftValueList list = analyzeSimpleLeftValueList();
+        final AbstractCommandLeftValueListed node = newNode();
+        final LeftValueList list = analyzeSimpleLeftValueList();
         node.setLeftValueList(list);
         consumeEndOfLine();
         return node;

@@ -25,7 +25,7 @@ public class CommandMethod extends AbstractCommand {
     /**
      * @param klass the klass to set
      */
-    public void setKlass(Class<?> klass) {
+    public void setKlass(final Class<?> klass) {
         this.klass = klass;
     }
 
@@ -39,7 +39,7 @@ public class CommandMethod extends AbstractCommand {
     /**
      * @param methodName the methodName to set
      */
-    public void setMethodName(String methodName) {
+    public void setMethodName(final String methodName) {
         this.methodName = methodName;
     }
 
@@ -53,7 +53,7 @@ public class CommandMethod extends AbstractCommand {
     /**
      * @param argumentTypes the argumentTypes to set
      */
-    public void setArgumentTypes(Class<?>[] argumentTypes) {
+    public void setArgumentTypes(final Class<?>[] argumentTypes) {
         this.argumentTypes = argumentTypes.clone();
     }
 
@@ -67,7 +67,7 @@ public class CommandMethod extends AbstractCommand {
     /**
      * @param alias the alias to set
      */
-    public void setAlias(String alias) {
+    public void setAlias(final String alias) {
         this.alias = alias;
     }
 

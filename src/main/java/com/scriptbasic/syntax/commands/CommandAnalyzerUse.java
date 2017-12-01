@@ -15,7 +15,7 @@ import com.scriptbasic.utility.LexUtility;
  */
 public class CommandAnalyzerUse extends AbstractCommandAnalyzer {
 
-    public CommandAnalyzerUse(Context ctx) {
+    public CommandAnalyzerUse(final Context ctx) {
         super(ctx);
     }
 
@@ -26,11 +26,11 @@ public class CommandAnalyzerUse extends AbstractCommandAnalyzer {
          */
     @Override
     public Command analyze() throws AnalysisException {
-        String className = ExpressionUtility
+        final String className = ExpressionUtility
                 .convertToString(analyzeExpression());
         LexUtility.checkLexeme(ctx.lexicalAnalyzer, "from",
                 "Keyword 'FROM' is missing in command 'USE'");
-        String packageName = ExpressionUtility
+        final String packageName = ExpressionUtility
                 .convertToString(analyzeExpression());
         final String aliasName;
         if (LexUtility.isLexeme(ctx.lexicalAnalyzer, "as")) {
@@ -47,7 +47,7 @@ public class CommandAnalyzerUse extends AbstractCommandAnalyzer {
         final Class<?> klass;
         try {
             klass = KlassUtility.forNameEx(fullClassName);
-        } catch (BasicSyntaxException e) {
+        } catch (final BasicSyntaxException e) {
             throw new BasicSyntaxException(
                     "The class in the USE statement is not found.", e);
         }

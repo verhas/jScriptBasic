@@ -26,7 +26,7 @@ public class RunLimitHook extends SimpleHook {
     private long scriptStartTime;
     private boolean allowMethodRegistering = true;
 
-    private Optional<String> hookConfig(String s) {
+    private Optional<String> hookConfig(final String s) {
         return config.getConfigValue(configPrefix + s);
     }
 
@@ -35,12 +35,12 @@ public class RunLimitHook extends SimpleHook {
         config = getInterpreter().getConfiguration();
         currentSteps = 0;
         scriptStartTime = System.currentTimeMillis();
-        Optional<String> stepLimit = hookConfig("stepLimit");
+        final Optional<String> stepLimit = hookConfig("stepLimit");
         stepIsLimited = stepLimit.isPresent();
         if (stepIsLimited) {
             this.stepLimit = Integer.valueOf(stepLimit.get());
         }
-        Optional<String> timeLimitMillis = hookConfig("timeLimitMillis");
+        final Optional<String> timeLimitMillis = hookConfig("timeLimitMillis");
         timeIsLimited = timeLimitMillis.isPresent();
         if (timeIsLimited) {
             this.timeLimitMillis = Long.valueOf(timeLimitMillis.get());

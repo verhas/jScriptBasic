@@ -14,7 +14,7 @@ public abstract class AbstractExpressionAnalyzer extends
 
     private final Context ctx;
 
-    protected AbstractExpressionAnalyzer(Context ctx) {
+    protected AbstractExpressionAnalyzer(final Context ctx) {
         this.ctx = ctx;
     }
 

@@ -28,7 +28,7 @@ public class Engine implements ScriptBasic {
     public Engine() {
     }
 
-    public void registerFunctions(Class<?> klass) throws ScriptBasicException {
+    public void registerFunctions(final Class<?> klass) throws ScriptBasicException {
         ctx.interpreter.registerFunctions(klass);
     }
 

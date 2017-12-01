@@ -18,7 +18,7 @@ public class ErrorFunctions {
      * @throws ExecutionException always
      */
     @BasicFunction(classification = com.scriptbasic.classification.Utility.class)
-    static public void error(String s) throws ExecutionException {
+    static public void error(final String s) throws ExecutionException {
         throw new BasicRuntimeException(s);
     }
 
@@ -41,7 +41,7 @@ public class ErrorFunctions {
      * @throws ExecutionException
      */
     @BasicFunction(classification = com.scriptbasic.classification.Utility.class, alias = "assert")
-    static public void asserT(String s, Boolean b) throws ExecutionException {
+    static public void asserT(final String s, final Boolean b) throws ExecutionException {
         if (!b) {
             throw new BasicRuntimeException(s);
         }

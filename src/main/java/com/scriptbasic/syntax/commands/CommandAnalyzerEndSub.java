@@ -8,15 +8,15 @@ import com.scriptbasic.interfaces.Command;
 
 public class CommandAnalyzerEndSub extends AbstractCommandAnalyzer {
 
-    public CommandAnalyzerEndSub(Context ctx) {
+    public CommandAnalyzerEndSub(final Context ctx) {
         super(ctx);
     }
 
     @Override
     public Command analyze() throws AnalysisException {
-        CommandEndSub node = new CommandEndSub();
+        final CommandEndSub node = new CommandEndSub();
         consumeEndOfLine();
-        CommandSub commandSub = ctx.nestedStructureHouseKeeper.pop(CommandSub.class);
+        final CommandSub commandSub = ctx.nestedStructureHouseKeeper.pop(CommandSub.class);
         commandSub.setCommandEndSub(node);
         return node;
     }

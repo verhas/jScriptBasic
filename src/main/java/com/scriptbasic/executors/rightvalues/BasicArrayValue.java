@@ -40,7 +40,7 @@ public class BasicArrayValue extends AbstractRightValue {
      *
      * @param interpreter
      */
-    public BasicArrayValue(ExtendedInterpreter interpreter) {
+    public BasicArrayValue(final ExtendedInterpreter interpreter) {
         this.interpreter = interpreter;
     }
 
@@ -54,7 +54,7 @@ public class BasicArrayValue extends AbstractRightValue {
      * @param array the array
      * @throws NullPointerException when the array is null
      */
-    public void setArray(Object[] array) {
+    public void setArray(final Object[] array) {
         if (array == null) {
             throw new NullPointerException(
                     "BasicArrayValue embedded array cann ot be null");
@@ -77,11 +77,11 @@ public class BasicArrayValue extends AbstractRightValue {
      *
      * @param interpreter
      */
-    public void setInterpreter(ExtendedInterpreter interpreter) {
+    public void setInterpreter(final ExtendedInterpreter interpreter) {
         this.interpreter = interpreter;
     }
 
-    private void assertArraySize(Integer index) throws ExecutionException {
+    private void assertArraySize(final Integer index) throws ExecutionException {
         if (index < 0) {
             throw new BasicRuntimeException("Array index can not be negative");
         }
@@ -108,7 +108,7 @@ public class BasicArrayValue extends AbstractRightValue {
      * @param object the new value for the array
      * @throws ExecutionException
      */
-    public void set(Integer index, Object object) throws ExecutionException {
+    public void set(final Integer index, final Object object) throws ExecutionException {
         assertArraySize(index);
         array[index] = object;
         if (maxIndex < index) {
@@ -126,7 +126,7 @@ public class BasicArrayValue extends AbstractRightValue {
      * @return the array element.
      * @throws ExecutionException
      */
-    public Object get(Integer index) throws ExecutionException {
+    public Object get(final Integer index) throws ExecutionException {
         assertArraySize(index);
         return array[index];
     }

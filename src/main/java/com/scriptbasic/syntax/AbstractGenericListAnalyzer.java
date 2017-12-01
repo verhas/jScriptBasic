@@ -21,7 +21,7 @@ public abstract class AbstractGenericListAnalyzer<T extends GenericList<Z>, K ex
 
     protected final Context ctx;
 
-    protected AbstractGenericListAnalyzer(Context ctx) {
+    protected AbstractGenericListAnalyzer(final Context ctx) {
         this.ctx = ctx;
     }
 
@@ -29,7 +29,7 @@ public abstract class AbstractGenericListAnalyzer<T extends GenericList<Z>, K ex
         return lexicalElement != null && lexicalElement.isSymbol(",");
     }
 
-    protected T analyze(K list, A analyzer) throws AnalysisException {
+    protected T analyze(final K list, final A analyzer) throws AnalysisException {
         list.add(analyzer.analyze());
         LexicalElement lexicalElement = LexUtility.peek(ctx.lexicalAnalyzer);
         while (isComma(lexicalElement)) {

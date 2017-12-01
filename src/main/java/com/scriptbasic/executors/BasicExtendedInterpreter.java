@@ -39,7 +39,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     private boolean executePreTask = true;
     private RightValue returnValue;
 
-    public BasicExtendedInterpreter(Context ctx) {
+    public BasicExtendedInterpreter(final Context ctx) {
         this.ctx = ctx;
     }
 
@@ -153,7 +153,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     public void registerFunctions(final Class<?> klass) {
         try {
             MethodRegisterUtility.registerFunctions(klass, this);
-        } catch (BasicRuntimeException e) {
+        } catch (final BasicRuntimeException e) {
             throw new BasicInterpreterInternalError(
                     "Registering functions from class '"
                             + klass

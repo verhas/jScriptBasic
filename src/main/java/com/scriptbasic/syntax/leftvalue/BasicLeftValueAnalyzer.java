@@ -8,7 +8,7 @@ import com.scriptbasic.factories.Context;
  */
 public final class BasicLeftValueAnalyzer extends AbstractLeftValueAnalyzer {
 
-    public BasicLeftValueAnalyzer(Context ctx) {
+    public BasicLeftValueAnalyzer(final Context ctx) {
         super(ctx);
     }
 }

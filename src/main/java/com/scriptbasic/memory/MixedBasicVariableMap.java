@@ -58,7 +58,7 @@ public class MixedBasicVariableMap extends BasicLocalVariableMap implements
      * com.scriptbasic.interfaces.VariableMap#variableDefined(java.lang.String)
      */
     @Override
-    public Boolean variableDefined(String variableName)
+    public Boolean variableDefined(final String variableName)
             throws ExecutionException {
         return super.variableDefined(variableName)
                 || globalVariableMap.variableDefined(variableName);

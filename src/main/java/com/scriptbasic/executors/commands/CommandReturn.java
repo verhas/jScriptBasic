@@ -18,14 +18,14 @@ public class CommandReturn extends AbstractCommand {
     /**
      * @param returnExpression the returnExpression to set
      */
-    public void setReturnExpression(Expression returnExpression) {
+    public void setReturnExpression(final Expression returnExpression) {
         this.returnExpression = returnExpression;
     }
 
     @Override
     public void execute(final ExtendedInterpreter interpreter)
             throws ExecutionException {
-        RightValue returnValue = returnExpression == null ? null
+        final RightValue returnValue = returnExpression == null ? null
                 : returnExpression.evaluate(interpreter);
         interpreter.setReturnValue(returnValue);
         interpreter.setNextCommand(null);

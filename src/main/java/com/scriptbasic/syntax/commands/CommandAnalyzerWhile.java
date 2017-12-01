@@ -8,14 +8,14 @@ import com.scriptbasic.interfaces.Expression;
 
 public class CommandAnalyzerWhile extends AbstractCommandAnalyzer {
 
-    public CommandAnalyzerWhile(Context ctx) {
+    public CommandAnalyzerWhile(final Context ctx) {
         super(ctx);
     }
 
     @Override
     public Command analyze() throws AnalysisException {
-        CommandWhile node = new CommandWhile();
-        Expression condition = analyzeExpression();
+        final CommandWhile node = new CommandWhile();
+        final Expression condition = analyzeExpression();
         consumeEndOfLine();
         node.setCondition(condition);
         pushNode(node);

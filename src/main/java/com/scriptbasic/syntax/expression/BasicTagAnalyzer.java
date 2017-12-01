@@ -47,7 +47,7 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
 
     private final Context ctx;
 
-    public BasicTagAnalyzer(Context ctx) {
+    public BasicTagAnalyzer(final Context ctx) {
         this.ctx = ctx;
     }
 

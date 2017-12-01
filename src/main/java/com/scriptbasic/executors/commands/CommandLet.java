@@ -21,7 +21,7 @@ public class CommandLet extends AbstractCommand {
             if (resultHasToBeStored()) {
                 leftValue.setValue(rv, interpreter);
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new BasicRuntimeException(e);
         }
     }

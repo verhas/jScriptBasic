@@ -11,14 +11,14 @@ public class CommandPrint extends AbstractCommandExpressionListed {
     @Override
     public void execute(final ExtendedInterpreter interpreter)
             throws ExecutionException {
-        for (Expression expression : getExpressionList()) {
-            RightValue rightValue = expression.evaluate(interpreter);
+        for (final Expression expression : getExpressionList()) {
+            final RightValue rightValue = expression.evaluate(interpreter);
             try {
-                Writer writer = interpreter.getWriter();
+                final Writer writer = interpreter.getWriter();
                 if (writer != null) {
                     writer.write(BasicStringValue.asString(rightValue));
                 }
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 throw new BasicRuntimeException(
                         "can not print to the standard output", e);
             }

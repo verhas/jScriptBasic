@@ -5,7 +5,7 @@ import com.scriptbasic.interfaces.RightValue;
 
 public class BasicJavaObjectValue extends AbstractPrimitiveRightValue<Object> {
 
-    public BasicJavaObjectValue(Object value) {
+    public BasicJavaObjectValue(final Object value) {
         setValue(value);
     }
 

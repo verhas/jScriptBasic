@@ -39,7 +39,7 @@ public class ScriptBasicEngineFactory implements javax.script.ScriptEngineFactor
      * The constructor reads the configuration and fills the constants that are
      * requested by the {@link javax.script.ScriptEngineManager}.
      */
-    public ScriptBasicEngineFactory(Configuration config) {
+    public ScriptBasicEngineFactory(final Configuration config) {
         this.config = config;
         engineName = config.getConfigValue("engineName").orElse(engineName);
         version = config.getConfigValue("version").orElse(version);
@@ -62,7 +62,7 @@ public class ScriptBasicEngineFactory implements javax.script.ScriptEngineFactor
     /**
      * @param globalScopeBinding the globalScopeBinding to set
      */
-    public void setGlobalScopeBinding(Bindings globalScopeBinding) {
+    public void setGlobalScopeBinding(final Bindings globalScopeBinding) {
         this.globalScopeBinding = globalScopeBinding;
     }
 
@@ -72,9 +72,9 @@ public class ScriptBasicEngineFactory implements javax.script.ScriptEngineFactor
      * @param key    the name of the configuration key.
      * @param setter consumer that uses the list of values from the configuration
      */
-    private void loadKeys(String key, Consumer<List<String>> setter) {
+    private void loadKeys(final String key, final Consumer<List<String>> setter) {
         if (config != null) {
-            List<String> list = config.getConfigValueList(key);
+            final List<String> list = config.getConfigValueList(key);
             if (!list.isEmpty()) {
                 setter.accept(list);
             }
@@ -157,7 +157,7 @@ public class ScriptBasicEngineFactory implements javax.script.ScriptEngineFactor
      * @see javax.script.ScriptEngineFactory#getParameter(java.lang.String)
      */
     @Override
-    public Object getParameter(String key) {
+    public Object getParameter(final String key) {
         if (key.equals(ScriptEngine.ENGINE))
             return getEngineName();
         if (key.equals(ScriptEngine.ENGINE_VERSION))
@@ -181,10 +181,10 @@ public class ScriptBasicEngineFactory implements javax.script.ScriptEngineFactor
      * java.lang.String, java.lang.String[])
      */
     @Override
-    public String getMethodCallSyntax(String obj, String m, String... args) {
+    public String getMethodCallSyntax(final String obj, final String m, final String... args) {
         String sep = "";
         String argsS = "";
-        for (String arg : args) {
+        for (final String arg : args) {
             argsS = sep + arg;
             sep = ",";
         }
@@ -198,7 +198,7 @@ public class ScriptBasicEngineFactory implements javax.script.ScriptEngineFactor
      * javax.script.ScriptEngineFactory#getOutputStatement(java.lang.String)
      */
     @Override
-    public String getOutputStatement(String toDisplay) {
+    public String getOutputStatement(final String toDisplay) {
         return String.format("print \"%s\"", toDisplay);
     }
 
@@ -208,13 +208,13 @@ public class ScriptBasicEngineFactory implements javax.script.ScriptEngineFactor
      * @see javax.script.ScriptEngineFactory#getProgram(java.lang.String[])
      */
     @Override
-    public String getProgram(String... statements) {
+    public String getProgram(final String... statements) {
         int len = 0;
-        for (String line : statements) {
+        for (final String line : statements) {
             len += 1 + line.length();
         }
-        StringBuilder sb = new StringBuilder(len);
-        for (String line : statements) {
+        final StringBuilder sb = new StringBuilder(len);
+        for (final String line : statements) {
             sb.append(line).append("\n");
         }
         return sb.toString();

@@ -24,8 +24,8 @@ public class BasicRuntimeFunctionRegisterer {
      *
      * @param interpreter the interpreter to register the functions into.
      */
-    public static void registerBasicRuntimeFunctions(Interpreter interpreter) {
-        for (Class<?> klass : basicRuntimeFunctionClasses) {
+    public static void registerBasicRuntimeFunctions(final Interpreter interpreter) {
+        for (final Class<?> klass : basicRuntimeFunctionClasses) {
             interpreter.registerFunctions(klass);
         }
     }

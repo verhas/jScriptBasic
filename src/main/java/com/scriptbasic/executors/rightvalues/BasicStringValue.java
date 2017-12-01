@@ -24,7 +24,7 @@ public class BasicStringValue extends AbstractPrimitiveRightValue<String> {
                 throw new BasicRuntimeException("Can not convert value to string");
             }
             return resultString;
-        } catch (ClassCastException cce) {
+        } catch (final ClassCastException cce) {
             throw new BasicRuntimeException("Error converting to string", cce);
         }
     }

@@ -10,7 +10,7 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
         implements CommandAnalyzer {
     protected final Context ctx;
 
-    protected AbstractCommandAnalyzer(Context ctx) {
+    protected AbstractCommandAnalyzer(final Context ctx) {
         this.ctx = ctx;
     }
 
@@ -23,13 +23,13 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
      * @return {@code true} if the variables have the same name and none of them
      * has modifiers (array access or field access)
      */
-    protected static boolean equal(LeftValue a, LeftValue b) {
+    protected static boolean equal(final LeftValue a, final LeftValue b) {
         if (a == b || (a != null && a.equals(b))) {
             return true;
         }
         if (a instanceof BasicLeftValue && b instanceof BasicLeftValue) {
-            BasicLeftValue aBasic = (BasicLeftValue) a;
-            BasicLeftValue bBasic = (BasicLeftValue) b;
+            final BasicLeftValue aBasic = (BasicLeftValue) a;
+            final BasicLeftValue bBasic = (BasicLeftValue) b;
             if (aBasic.hasModifiers() || bBasic.hasModifiers()) {
                 return false;
             }
@@ -63,7 +63,7 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
         return ctx.expressionListAnalyzer.analyze();
     }
 
-    protected void pushNode(NestedStructure node) {
+    protected void pushNode(final NestedStructure node) {
         ctx.nestedStructureHouseKeeper.push(node);
     }
 
@@ -74,9 +74,9 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
      * @param keyword the keyword that has to be present on the line
      * @throws AnalysisException when the next lexeme is NOT the expected keyword.
      */
-    protected void assertKeyWord(String keyword) throws AnalysisException {
+    protected void assertKeyWord(final String keyword) throws AnalysisException {
         if (!isKeyWord(keyword)) {
-            LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
+            final LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
             throw new BasicSyntaxException("There is no '" + keyword
                     + "' after the '" + getName() + "'", lexicalElement, null);
         } else {
@@ -84,8 +84,8 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
         }
     }
 
-    protected boolean isKeyWord(String keyword) throws AnalysisException {
-        LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
+    protected boolean isKeyWord(final String keyword) throws AnalysisException {
+        final LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
         return lexicalElement != null && lexicalElement.isSymbol(keyword);
     }
 
@@ -99,7 +99,7 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
      * @throws AnalysisException when there are extra character on the actual line
      */
     protected void consumeEndOfLine() throws AnalysisException {
-        LexicalElement le = ctx.lexicalAnalyzer.get();
+        final LexicalElement le = ctx.lexicalAnalyzer.get();
         if (le != null && !le.isLineTerminator()) {
             SyntaxExceptionUtility.throwSyntaxException(
                     "There are extra characters following the expression after the '"

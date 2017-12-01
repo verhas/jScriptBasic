@@ -9,7 +9,7 @@ public class CommandWend extends AbstractCommand {
         return commandWhile;
     }
 
-    public void setCommandWhile(CommandWhile commandWhile) {
+    public void setCommandWhile(final CommandWhile commandWhile) {
         this.commandWhile = commandWhile;
     }
 

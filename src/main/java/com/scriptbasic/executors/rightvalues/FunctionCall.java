@@ -17,13 +17,13 @@ public class FunctionCall extends
     private boolean commandNeedLookup = true;
     private CommandSub commandSub = null;
 
-    private static RightValue[] evaluateArguments(ExpressionList argumentList,
-                                                  ExtendedInterpreter interpreter) throws ExecutionException {
-        RightValue[] argumentValues;
+    private static RightValue[] evaluateArguments(final ExpressionList argumentList,
+                                                  final ExtendedInterpreter interpreter) throws ExecutionException {
+        final RightValue[] argumentValues;
         if (argumentList == null) {
             argumentValues = null;
         } else {
-            Iterator<Expression> expressionIterator = argumentList.iterator();
+            final Iterator<Expression> expressionIterator = argumentList.iterator();
             argumentValues = new RightValue[argumentList.size()];
             for (int i = 0; i < argumentValues.length; i++) {
                 argumentValues[i] = expressionIterator.next().evaluate(
@@ -33,20 +33,20 @@ public class FunctionCall extends
         return argumentValues;
     }
 
-    private RightValue callBasicFunction(ExtendedInterpreter interpreter)
+    private RightValue callBasicFunction(final ExtendedInterpreter interpreter)
             throws ExecutionException {
         return ExpressionUtility.callBasicFunction(interpreter,
                 evaluateArguments(getExpressionList(), interpreter),
                 commandSub, getVariableName());
     }
 
-    private RightValue callJavaFunction(ExtendedInterpreter interpreter)
+    private RightValue callJavaFunction(final ExtendedInterpreter interpreter)
             throws ExecutionException {
         RightValue result = null;
-        String functionName = getVariableName();
-        List<RightValue> args = ExpressionUtility.evaluateExpressionList(
+        final String functionName = getVariableName();
+        final List<RightValue> args = ExpressionUtility.evaluateExpressionList(
                 interpreter, getExpressionList());
-        Method method = interpreter.getJavaMethod(null, functionName);
+        final Method method = interpreter.getJavaMethod(null, functionName);
         if (method == null) {
             throw new BasicRuntimeException("There is no callable function '"
                     + functionName + "'");
@@ -59,7 +59,7 @@ public class FunctionCall extends
         return result;
     }
 
-    private void lookUpCommandSub(ExtendedInterpreter interpreter) {
+    private void lookUpCommandSub(final ExtendedInterpreter interpreter) {
         if (commandNeedLookup) {
             commandNeedLookup = false;
             commandSub = interpreter.getSubroutine(getVariableName());
@@ -67,7 +67,7 @@ public class FunctionCall extends
     }
 
     @Override
-    public RightValue evaluate(ExtendedInterpreter interpreter)
+    public RightValue evaluate(final ExtendedInterpreter interpreter)
             throws ExecutionException {
 
         lookUpCommandSub(interpreter);

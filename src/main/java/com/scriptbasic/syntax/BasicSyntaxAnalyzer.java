@@ -8,12 +8,12 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
     private final CommandFactory commandFactory;
     private LexicalElement lexicalElement;
 
-    public BasicSyntaxAnalyzer(LexicalAnalyzer lexicalAnalyzer, CommandFactory commandFactory) {
+    public BasicSyntaxAnalyzer(final LexicalAnalyzer lexicalAnalyzer, final CommandFactory commandFactory) {
         this.lexicalAnalyzer = lexicalAnalyzer;
         this.commandFactory = commandFactory;
     }
 
-    private static boolean lineToIgnore(String lexString) {
+    private static boolean lineToIgnore(final String lexString) {
         return lexString.equals("\n") || lexString.equals("'")
                 || lexString.equalsIgnoreCase("REM");
     }
@@ -29,7 +29,7 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
     @Override
     public BuildableProgram analyze() throws AnalysisException {
         try {
-            BuildableProgram buildableProgram = new BasicProgram();
+            final BuildableProgram buildableProgram = new BasicProgram();
             lexicalElement = lexicalAnalyzer.peek();
             while (lexicalElement != null) {
                 if (lexicalElement.isSymbol()) {
@@ -47,14 +47,14 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
             }
             buildableProgram.postprocess();
             return buildableProgram;
-        } catch (CommandFactoryException e) {
+        } catch (final CommandFactoryException e) {
             throw new BasicSyntaxException(e.getMessage(), lexicalElement, e);
         }
     }
 
-    private void consumeIgnoredLine(LexicalAnalyzer lexicalAnalyzer, String lexString) throws AnalysisException {
+    private void consumeIgnoredLine(final LexicalAnalyzer lexicalAnalyzer, String lexString) throws AnalysisException {
         while (!lexString.equals("\n")) {
-            LexicalElement le = lexicalAnalyzer.get();
+            final LexicalElement le = lexicalAnalyzer.get();
             if (le == null) {
                 break;
             } else {

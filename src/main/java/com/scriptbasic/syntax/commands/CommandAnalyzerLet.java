@@ -9,13 +9,13 @@ import com.scriptbasic.interfaces.LexicalElement;
 
 public class CommandAnalyzerLet extends AbstractCommandAnalyzer {
 
-    public CommandAnalyzerLet(Context ctx) {
+    public CommandAnalyzerLet(final Context ctx) {
         super(ctx);
     }
 
     @Override
     public Command analyze() throws AnalysisException {
-        CommandLet commandLet = new CommandLet();
+        final CommandLet commandLet = new CommandLet();
         LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
         if (lexicalElement != null && lexicalElement.isSymbol(getName())) {
             ctx.lexicalAnalyzer.get();

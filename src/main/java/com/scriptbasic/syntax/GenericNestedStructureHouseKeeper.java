@@ -14,7 +14,7 @@ import com.scriptbasic.interfaces.NestedStructure;
 public final class GenericNestedStructureHouseKeeper extends
         AbstractNestedStructureHouseKeeper {
 
-    public GenericNestedStructureHouseKeeper(LexicalAnalyzer analyzer) {
+    public GenericNestedStructureHouseKeeper(final LexicalAnalyzer analyzer) {
         super(analyzer);
     }
 

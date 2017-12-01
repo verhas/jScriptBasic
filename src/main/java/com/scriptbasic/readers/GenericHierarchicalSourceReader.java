@@ -11,7 +11,7 @@ public class GenericHierarchicalSourceReader implements HierarchicalSourceReader
     private final Stack<SourceReader> readerStack = new Stack<>();
     private SourceReader reader;
 
-    public GenericHierarchicalSourceReader(SourceReader reader) {
+    public GenericHierarchicalSourceReader(final SourceReader reader) {
         this.reader = reader;
     }
 

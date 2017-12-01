@@ -22,15 +22,15 @@ import com.scriptbasic.interfaces.*;
 public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
     protected final Context ctx;
 
-    protected AbstractLeftValueAnalyzer(Context ctx) {
+    protected AbstractLeftValueAnalyzer(final Context ctx) {
         this.ctx = ctx;
     }
 
     private static LeftValueModifier analyzeFieldAccess(
-            LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
+            final LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
         lexicalAnalyzer.get();
-        ObjectFieldAccessLeftValueModifier lvm = new ObjectFieldAccessLeftValueModifier();
-        LexicalElement lexicalElement = lexicalAnalyzer.peek();
+        final ObjectFieldAccessLeftValueModifier lvm = new ObjectFieldAccessLeftValueModifier();
+        final LexicalElement lexicalElement = lexicalAnalyzer.peek();
         if (lexicalElement != null && lexicalElement.isIdentifier()) {
             lexicalAnalyzer.get();
             lvm.setFieldName(lexicalElement.getLexeme());
@@ -41,28 +41,28 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
                 null);
     }
 
-    private static boolean isModifierStart(LexicalElement lexicalElement) {
+    private static boolean isModifierStart(final LexicalElement lexicalElement) {
         return lexicalElement != null
                 && (lexicalElement.isSymbol(".") || lexicalElement
                 .isSymbol("["));
     }
 
-    private static boolean isArrayAccessStart(LexicalElement lexicalElement) {
+    private static boolean isArrayAccessStart(final LexicalElement lexicalElement) {
         return lexicalElement != null && lexicalElement.isSymbol("[");
     }
 
-    private static boolean isFieldAccessStart(LexicalElement lexicalElement) {
+    private static boolean isFieldAccessStart(final LexicalElement lexicalElement) {
         return lexicalElement != null && lexicalElement.isSymbol(".");
     }
 
-    private LeftValueModifier analyzeArrayAccess(LexicalAnalyzer lexicalAnalyzer)
+    private LeftValueModifier analyzeArrayAccess(final LexicalAnalyzer lexicalAnalyzer)
             throws AnalysisException {
         lexicalAnalyzer.get();
-        ArrayElementAccessLeftValueModifier lvm = new ArrayElementAccessLeftValueModifier();
+        final ArrayElementAccessLeftValueModifier lvm = new ArrayElementAccessLeftValueModifier();
 
-        ExpressionList indexList = ctx.expressionListAnalyzer.analyze();
+        final ExpressionList indexList = ctx.expressionListAnalyzer.analyze();
         lvm.setIndexList(indexList);
-        LexicalElement lexicalElement = lexicalAnalyzer.peek();
+        final LexicalElement lexicalElement = lexicalAnalyzer.peek();
         if (lexicalElement != null && lexicalElement.isSymbol("]")) {
             lexicalAnalyzer.get();
             return lvm;
@@ -73,7 +73,7 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
 
     @Override
     public LeftValue analyze() throws AnalysisException {
-        BasicLeftValue leftValue;
+        final BasicLeftValue leftValue;
         LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
         if (lexicalElement != null && lexicalElement.isIdentifier()) {
             ctx.lexicalAnalyzer.get();

@@ -10,9 +10,9 @@ public class CommandLocal extends AbstractCommandLeftValueListed {
     @Override
     public void execute(final ExtendedInterpreter interpreter)
             throws ExecutionException {
-        for (LeftValue variable : getLeftValueList()) {
+        for (final LeftValue variable : getLeftValueList()) {
             // TODO instance check and that the modifier list is null
-            String variableName = ((BasicLeftValue) variable).getIdentifier();
+            final String variableName = ((BasicLeftValue) variable).getIdentifier();
             interpreter.getVariables().registerLocalVariable(variableName);
         }
     }

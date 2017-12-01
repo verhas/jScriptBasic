@@ -5,17 +5,17 @@ import com.scriptbasic.factories.Context;
 import com.scriptbasic.interfaces.*;
 
 public class CommandAnalyzerSub extends AbstractCommandAnalyzer {
-    public CommandAnalyzerSub(Context ctx) {
+    public CommandAnalyzerSub(final Context ctx) {
         super(ctx);
     }
 
     @Override
     public Command analyze() throws AnalysisException {
-        CommandSub node = new CommandSub();
+        final CommandSub node = new CommandSub();
 
-        LexicalElement lexicalElement = ctx.lexicalAnalyzer.get();
+        final LexicalElement lexicalElement = ctx.lexicalAnalyzer.get();
         if (lexicalElement.isIdentifier()) {
-            String subName = lexicalElement.getLexeme();
+            final String subName = lexicalElement.getLexeme();
             node.setSubName(subName);
         } else {
             throw new BasicSyntaxException(
@@ -27,7 +27,7 @@ public class CommandAnalyzerSub extends AbstractCommandAnalyzer {
                 node.setArguments(null);
                 ctx.lexicalAnalyzer.get();
             } else {
-                LeftValueList arguments = analyzeSimpleLeftValueList();
+                final LeftValueList arguments = analyzeSimpleLeftValueList();
                 node.setArguments(arguments);
                 assertKeyWord(")");
             }

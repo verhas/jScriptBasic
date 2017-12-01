@@ -6,7 +6,7 @@ import com.scriptbasic.interfaces.RightValue;
 
 public class AddOperator extends AbstractBinaryFullCircuitHalfDoubleOperator {
 
-    private static String myToString(Object o) {
+    private static String myToString(final Object o) {
         if (o == null)
             return "null";
         return o.toString();

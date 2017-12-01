@@ -11,15 +11,15 @@ public abstract class ExecutionException extends Exception {
         super();
     }
 
-    public ExecutionException(String message, Throwable cause) {
+    public ExecutionException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
-    public ExecutionException(String message) {
+    public ExecutionException(final String message) {
         super(message);
     }
 
-    public ExecutionException(Throwable cause) {
+    public ExecutionException(final Throwable cause) {
         super(cause);
     }
 

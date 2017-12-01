@@ -33,7 +33,7 @@ public class CommandLine {
             ctx.interpreter.setProgram(ctx.syntaxAnalyzer.analyze());
             ctx.interpreter.execute();
         } catch (final Exception exception) {
-            Throwable cause = Optional.ofNullable(exception.getCause()).orElse(exception);
+            final Throwable cause = Optional.ofNullable(exception.getCause()).orElse(exception);
             if (cause.getMessage() != null) {
                 System.err.println("ERROR: " + cause.getMessage());
             } else {
@@ -46,12 +46,12 @@ public class CommandLine {
         // END SNIPPET: x
     }
 
-    private static void registerSystemPropertyDefinedClasses(Context ctx) throws ClassNotFoundException {
+    private static void registerSystemPropertyDefinedClasses(final Context ctx) throws ClassNotFoundException {
         final String classes = System.getProperty("sb4j.extensionclasses");
         if (classes != null && classes.length() > 0) {
-            String[] classNames = classes.split(",");
-            for (String className : classNames) {
-                Class<?> klass = Class.forName(className);
+            final String[] classNames = classes.split(",");
+            for (final String className : classNames) {
+                final Class<?> klass = Class.forName(className);
                 ctx.interpreter.registerFunctions(klass);
             }
         }

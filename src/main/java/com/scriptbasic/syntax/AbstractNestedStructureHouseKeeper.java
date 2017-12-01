@@ -11,7 +11,7 @@ import java.util.Stack;
 public abstract class AbstractNestedStructureHouseKeeper implements NestedStructureHouseKeeper {
     private static final Logger LOG = LoggerFactory.getLogger();
     private static final Structure MATCH_NOTHING = new Structure() {
-        public <T> boolean match(Class<T> expectedClass) {
+        public <T> boolean match(final Class<T> expectedClass) {
             return false;
         }
     };
@@ -19,7 +19,7 @@ public abstract class AbstractNestedStructureHouseKeeper implements NestedStruct
     private final LexicalAnalyzer analyzer;
     private boolean stackIsHealthy = true;
 
-    protected AbstractNestedStructureHouseKeeper(LexicalAnalyzer analyzer) {
+    protected AbstractNestedStructureHouseKeeper(final LexicalAnalyzer analyzer) {
         this.analyzer = analyzer;
     }
 
@@ -33,8 +33,8 @@ public abstract class AbstractNestedStructureHouseKeeper implements NestedStruct
     }
 
     @Override
-    public void push(Class<?> klass, NestedStructure element) {
-        Structure stackFrame = new Structure();
+    public void push(final Class<?> klass, final NestedStructure element) {
+        final Structure stackFrame = new Structure();
         stackFrame.setElementType(klass);
         stackFrame.setPushedElement(element);
         stack.push(stackFrame);
@@ -42,15 +42,15 @@ public abstract class AbstractNestedStructureHouseKeeper implements NestedStruct
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends NestedStructure> T pop(Class<T> expectedClass)
+    public <T extends NestedStructure> T pop(final Class<T> expectedClass)
             throws AnalysisException {
-        Structure stackFrame = stack.isEmpty() ? MATCH_NOTHING : stack.peek();
+        final Structure stackFrame = stack.isEmpty() ? MATCH_NOTHING : stack.peek();
         if (!stackFrame.match(expectedClass)) {
             stackIsHealthy = false;
             final SyntaxException se = new BasicSyntaxException("Bad nested structures");
             try {
                 se.setLocation(analyzer.peek());
-            } catch (LexicalException e) {
+            } catch (final LexicalException e) {
                 LOG.error("There was an error when trying to fetch the current source location", e);
             }
             throw se;
@@ -68,7 +68,7 @@ public abstract class AbstractNestedStructureHouseKeeper implements NestedStruct
             return elementType;
         }
 
-        public void setElementType(Class<?> elementType) {
+        public void setElementType(final Class<?> elementType) {
             this.elementType = elementType;
         }
 
@@ -76,11 +76,11 @@ public abstract class AbstractNestedStructureHouseKeeper implements NestedStruct
             return pushedElement;
         }
 
-        public void setPushedElement(NestedStructure pushedElement) {
+        public void setPushedElement(final NestedStructure pushedElement) {
             this.pushedElement = pushedElement;
         }
 
-        public <T> boolean match(Class<T> expectedClass) {
+        public <T> boolean match(final Class<T> expectedClass) {
             return expectedClass.isAssignableFrom(getElementType());
         }
     }

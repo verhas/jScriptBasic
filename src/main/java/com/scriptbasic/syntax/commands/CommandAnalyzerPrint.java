@@ -11,7 +11,7 @@ import com.scriptbasic.interfaces.ExpressionList;
  * date Jul 12, 2012
  */
 public class CommandAnalyzerPrint extends AbstractCommandAnalyzer {
-    public CommandAnalyzerPrint(Context ctx) {
+    public CommandAnalyzerPrint(final Context ctx) {
         super(ctx);
     }
 
@@ -22,8 +22,8 @@ public class CommandAnalyzerPrint extends AbstractCommandAnalyzer {
          */
     @Override
     public Command analyze() throws AnalysisException {
-        CommandPrint node = new CommandPrint();
-        ExpressionList expressionList = analyzeExpressionList();
+        final CommandPrint node = new CommandPrint();
+        final ExpressionList expressionList = analyzeExpressionList();
         node.setExpressionList(expressionList);
         consumeEndOfLine();
         return node;

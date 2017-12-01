@@ -9,7 +9,7 @@ import com.scriptbasic.interfaces.RightValue;
 public class LogicalOrOperator extends AbstractShortCircuitBinaryOperator {
 
     @Override
-    protected RightValue evaluateOn(ExtendedInterpreter extendedInterpreter,
+    protected RightValue evaluateOn(final ExtendedInterpreter extendedInterpreter,
                                     final RightValue leftOperand, final Expression rightOperand)
             throws ExecutionException {
         final BasicBooleanValue bbv = new BasicBooleanValue(true);

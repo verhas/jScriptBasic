@@ -12,12 +12,12 @@ import com.scriptbasic.interfaces.Expression;
  */
 public class CommandAnalyzerElseIf extends AbstractCommandAnalyzerIfKind {
 
-    public CommandAnalyzerElseIf(Context ctx) {
+    public CommandAnalyzerElseIf(final Context ctx) {
         super(ctx);
     }
 
-    protected Command createNode(Expression condition) throws AnalysisException {
-        CommandElseIf node = new CommandElseIf();
+    protected Command createNode(final Expression condition) throws AnalysisException {
+        final CommandElseIf node = new CommandElseIf();
         node.setCondition(condition);
         registerAndSwapNode(node);
         return node;

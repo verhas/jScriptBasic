@@ -31,7 +31,7 @@ public class LoggerFactory {
     }
 
     public static synchronized Logger getBasicLogger() {
-        Class<?> klass =
+        final Class<?> klass =
                 StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE)
                         .walk(stream -> stream
                                 .filter(frame ->

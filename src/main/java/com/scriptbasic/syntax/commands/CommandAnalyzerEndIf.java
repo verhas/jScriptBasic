@@ -7,13 +7,13 @@ import com.scriptbasic.interfaces.Command;
 
 public class CommandAnalyzerEndIf extends AbstractCommandAnalyzerIfElseKind {
 
-    public CommandAnalyzerEndIf(Context ctx) {
+    public CommandAnalyzerEndIf(final Context ctx) {
         super(ctx);
     }
 
     @Override
     public Command analyze() throws AnalysisException {
-        CommandEndIf node = new CommandEndIf();
+        final CommandEndIf node = new CommandEndIf();
         consumeEndOfLine();
         registerAndPopNode(node);
         return node;

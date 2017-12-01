@@ -18,14 +18,14 @@ public class BasicSimpleLeftValueAnalyzer implements LeftValueAnalyzer,
 
     private final Context ctx;
 
-    public BasicSimpleLeftValueAnalyzer(Context ctx) {
+    public BasicSimpleLeftValueAnalyzer(final Context ctx) {
         this.ctx = ctx;
     }
 
     @Override
     public LeftValue analyze() throws AnalysisException {
         BasicLeftValue leftValue = null;
-        LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
+        final LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
         if (lexicalElement != null && lexicalElement.isIdentifier()) {
             ctx.lexicalAnalyzer.get();
             leftValue = new BasicLeftValue();

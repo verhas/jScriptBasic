@@ -23,16 +23,16 @@ public abstract class AbstractCommandIfElseKind extends AbstractCommand {
      * @param interpreter
      */
     static void indicateConditionalJump(
-            ExtendedInterpreter interpreter) {
+            final ExtendedInterpreter interpreter) {
         interpreter.getMap().put(CONDITIONJUMP_KEY, Boolean.TRUE);
     }
 
-    static void jumpDone(ExtendedInterpreter interpreter) {
+    static void jumpDone(final ExtendedInterpreter interpreter) {
         interpreter.getMap().put(CONDITIONJUMP_KEY, Boolean.FALSE);
     }
 
     static Boolean itWasConditionalJump(
-            ExtendedInterpreter interpreter) {
+            final ExtendedInterpreter interpreter) {
         return interpreter.getMap().get(CONDITIONJUMP_KEY) == Boolean.TRUE;
     }
 
@@ -43,15 +43,15 @@ public abstract class AbstractCommandIfElseKind extends AbstractCommand {
      *
      * @param interpreter
      */
-    static void indicateConditionDone(ExtendedInterpreter interpreter) {
+    static void indicateConditionDone(final ExtendedInterpreter interpreter) {
         interpreter.getMap().put(CONDITIONDONE_KEY, Boolean.TRUE);
     }
 
-    protected static void doneUndone(ExtendedInterpreter interpreter) {
+    protected static void doneUndone(final ExtendedInterpreter interpreter) {
         interpreter.getMap().put(CONDITIONDONE_KEY, Boolean.FALSE);
     }
 
-    static Boolean conditionWasNotDoneYet(ExtendedInterpreter interpreter) {
+    static Boolean conditionWasNotDoneYet(final ExtendedInterpreter interpreter) {
         return !(interpreter.getMap().get(CONDITIONDONE_KEY) == Boolean.TRUE);
     }
 
@@ -65,7 +65,7 @@ public abstract class AbstractCommandIfElseKind extends AbstractCommand {
     /**
      * @param previous the previous to set
      */
-    public void setPrevious(AbstractCommandIfElseKind previous) {
+    public void setPrevious(final AbstractCommandIfElseKind previous) {
         this.previous = previous;
     }
 
@@ -79,7 +79,7 @@ public abstract class AbstractCommandIfElseKind extends AbstractCommand {
     /**
      * @param next the next to set
      */
-    public void setNext(AbstractCommandIfElseKind next) {
+    public void setNext(final AbstractCommandIfElseKind next) {
         this.next = next;
     }
 
