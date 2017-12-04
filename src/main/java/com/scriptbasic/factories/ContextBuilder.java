@@ -41,6 +41,9 @@ public class ContextBuilder {
         if (ctx.interpreter == null) {
             ctx.interpreter = new BasicExtendedInterpreter(ctx);
         }
+        if( ctx.configuration == null ){
+            ctx.configuration = new BasicConfiguration();
+        }
         return ctx;
     }
 
