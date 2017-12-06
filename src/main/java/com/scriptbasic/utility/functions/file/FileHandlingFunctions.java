@@ -1,6 +1,8 @@
 package com.scriptbasic.utility.functions.file;
 
+import com.scriptbasic.api.BasicArray;
 import com.scriptbasic.api.BasicFunction;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
@@ -332,10 +334,10 @@ public class FileHandlingFunctions {
     }
 
     @BasicFunction(classification = {com.scriptbasic.classification.File.class})
-    public static BasicArrayValue listFiles(final String fileName)
-            throws ExecutionException {
+    public static BasicArray listFiles(final String fileName)
+            throws ScriptBasicException {
         final String[] files = new File(fileName).list();
-        final BasicArrayValue result = new BasicArrayValue();
+        final BasicArray result = BasicArray.create();
         result.setArray(files);
         return result;
     }

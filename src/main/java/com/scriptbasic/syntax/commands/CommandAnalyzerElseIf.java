@@ -1,7 +1,7 @@
 package com.scriptbasic.syntax.commands;
 
 import com.scriptbasic.executors.commands.CommandElseIf;
-import com.scriptbasic.factories.Context;
+import com.scriptbasic.context.Context;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.Expression;

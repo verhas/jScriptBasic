@@ -130,7 +130,7 @@ public class TestConversions {
 
     @Test(expected = BasicRuntimeException.class)
     public void basicArrayValueNullConvertingToStringThrowsException() throws Exception {
-        final RightValue rv = new BasicArrayValue(null);
+        final RightValue rv = new BasicArrayValue();
         BasicStringValue.asString(rv);
     }
 
@@ -172,7 +172,7 @@ public class TestConversions {
 
     @Test(expected = BasicRuntimeException.class)
     public void basicArrayValueNullConvertingToLongThrowsException() throws Exception {
-        final RightValue rv = new BasicArrayValue(null);
+        final RightValue rv = new BasicArrayValue();
         BasicLongValue.asLong(rv);
     }
 }

@@ -1,6 +1,6 @@
 package com.scriptbasic.syntax.leftvalue;
 
-import com.scriptbasic.factories.Context;
+import com.scriptbasic.context.Context;
 
 /**
  * @author Peter Verhas

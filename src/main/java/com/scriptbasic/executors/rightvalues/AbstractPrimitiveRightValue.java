@@ -5,8 +5,7 @@ import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.interfaces.RightValue;
 
-public abstract class AbstractPrimitiveRightValue<T> extends AbstractRightValue
-        implements Expression {
+public abstract class AbstractPrimitiveRightValue<T> implements Expression, RightValue {
     private T value;
 
     public T getValue() {

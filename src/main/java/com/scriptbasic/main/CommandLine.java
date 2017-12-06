@@ -1,7 +1,7 @@
 package com.scriptbasic.main;
 
-import com.scriptbasic.factories.Context;
-import com.scriptbasic.factories.ContextBuilder;
+import com.scriptbasic.context.Context;
+import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.utility.functions.file.FileHandlingFunctions;
 
 import java.io.FileReader;

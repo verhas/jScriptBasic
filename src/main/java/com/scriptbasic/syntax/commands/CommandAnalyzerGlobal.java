@@ -2,7 +2,7 @@ package com.scriptbasic.syntax.commands;
 
 import com.scriptbasic.executors.commands.AbstractCommandLeftValueListed;
 import com.scriptbasic.executors.commands.CommandGlobal;
-import com.scriptbasic.factories.Context;
+import com.scriptbasic.context.Context;
 
 /**
  * @author Peter Verhas

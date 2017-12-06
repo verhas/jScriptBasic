@@ -1,14 +1,13 @@
 package com.scriptbasic.syntax.expression;
 
 import com.scriptbasic.exceptions.SyntaxException;
-import com.scriptbasic.factories.Context;
-import com.scriptbasic.factories.ContextBuilder;
+import com.scriptbasic.context.Context;
+import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.ExpressionAnalyzer;
 import com.scriptbasic.utility.LexUtility;
-import org.junit.Assert;
 import org.junit.Test;
 
 import static com.scriptbasic.lexer.LexTestHelper.createStringReading;

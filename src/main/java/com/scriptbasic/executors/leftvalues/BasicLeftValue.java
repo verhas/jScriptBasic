@@ -1,5 +1,6 @@
 package com.scriptbasic.executors.leftvalues;
 
+import com.scriptbasic.api.BasicArray;
 import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 import com.scriptbasic.executors.rightvalues.BasicJavaObjectValue;
 import com.scriptbasic.interfaces.*;
@@ -16,7 +17,7 @@ import java.util.List;
  * @author Peter Verhas
  * date June 13, 2012
  */
-public class BasicLeftValue extends AbstractLeftValue {
+public class BasicLeftValue implements LeftValue {
     final private static Logger LOG = LoggerFactory.getLogger();
     private final List<LeftValueModifier> modifiers = new LinkedList<>();
     /**
@@ -135,10 +136,10 @@ public class BasicLeftValue extends AbstractLeftValue {
             final Expression expression = expressionIterator.next();
             final RightValue index = expression.evaluate(extendedInterpreter);
 
-            if (variable instanceof BasicArrayValue) {
+            if (variable instanceof BasicArray) {
 
                 variable = handleBasicArrayElementAccess(
-                        (BasicArrayValue) variable,
+                        (BasicArray) variable,
                         RightValueUtility.convert2Integer(index),
                         (hasNext || expressionIterator.hasNext()), rightValue,
                         extendedInterpreter);
@@ -152,7 +153,7 @@ public class BasicLeftValue extends AbstractLeftValue {
     }
 
     private static RightValue handleBasicArrayElementAccess(
-            final BasicArrayValue variable, final Integer index, final boolean hasNext,
+            final BasicArray variable, final Integer index, final boolean hasNext,
             final RightValue rightValue, final ExtendedInterpreter extendedInterpreter)
             throws ExecutionException {
         if (hasNext) {
@@ -192,27 +193,56 @@ public class BasicLeftValue extends AbstractLeftValue {
     }
 
     @Override
-    public void setValue(final RightValue rightValue,
-                         final ExtendedInterpreter extendedInterpreter)
+    public void setValue(final RightValue rightValue, final ExtendedInterpreter extendedInterpreter)
             throws ExecutionException {
         final VariableMap variableMap = extendedInterpreter.getVariables();
         if (modifiers == null || modifiers.isEmpty()) {
             LOG.debug("setting the variable '{}'", getIdentifier());
             variableMap.setVariable(getIdentifier(), rightValue);
         } else {
-            RightValue variable = variableMap.getVariableValue(getIdentifier());
-            if (variable == null) {
-                variable = new BasicArrayValue(extendedInterpreter);
-                variableMap.setVariable(getIdentifier(), variable);
-            }
-            final Iterator<LeftValueModifier> modifierIterator = modifiers.iterator();
-            do {
-                variable = handleAccessModifier(variable,
-                        modifierIterator.next(), modifierIterator.hasNext(),
-                        rightValue, extendedInterpreter);
-
-            } while (variable != null);
+            RightValue variableCurrentValue = variableMap.getVariableValue(getIdentifier());
+            variableCurrentValue = emptyArrayIfUnderOrElseSelf(variableCurrentValue, extendedInterpreter);
+            handleAllAccessModifier(rightValue, extendedInterpreter, variableCurrentValue);
         }
+    }
+
+    private void handleAllAccessModifier(RightValue rightValue, ExtendedInterpreter extendedInterpreter,
+                                         RightValue variableCurrentValue) throws ExecutionException {
+        final Iterator<LeftValueModifier> modifierIterator = modifiers.iterator();
+        do {
+            variableCurrentValue = handleAccessModifier(variableCurrentValue,
+                    modifierIterator.next(), modifierIterator.hasNext(),
+                    rightValue, extendedInterpreter);
+
+        } while (variableCurrentValue != null);
+    }
+
+    /**
+     * Return the right value itself if it is not null (undefined) or
+     * a newly allocated {@link BasicArray} that will be used for
+     * further indexing to store the final right value.
+     * <p>
+     * This method is invoked when a left value contains some modifier
+     * and the value that starts the left value is undefined. That way
+     * {@code var[i] = xxx} type of assignments work fine even if the {@code var} was
+     * not used before, because arrays are allocated automatically.
+     *
+     * @param value               that is the current value of the
+     * @param extendedInterpreter used to allocate the new array
+     * @return the value or a newly allocated array, which is also stored in the current left value left identifier
+     * @throws ExecutionException
+     */
+    private RightValue emptyArrayIfUnderOrElseSelf(final RightValue value,
+                                                   final ExtendedInterpreter extendedInterpreter)
+            throws ExecutionException {
+        final RightValue newValue;
+        if (value == null) {
+            newValue = new BasicArrayValue(extendedInterpreter);
+            extendedInterpreter.getVariables().setVariable(getIdentifier(), newValue);
+        } else {
+            newValue = value;
+        }
+        return newValue;
     }
 
 }

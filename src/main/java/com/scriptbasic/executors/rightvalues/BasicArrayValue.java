@@ -1,12 +1,15 @@
 package com.scriptbasic.executors.rightvalues;
 
+import com.scriptbasic.api.BasicArray;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.RightValue;
 
 import java.util.Arrays;
 
-public class BasicArrayValue extends AbstractRightValue {
+public class BasicArrayValue implements RightValue, BasicArray {
     private static final Integer INCREMENT_GAP = 100;
     private Object[] array = new Object[INCREMENT_GAP];
 
@@ -14,7 +17,6 @@ public class BasicArrayValue extends AbstractRightValue {
     // TODO implement a function in the interpreter that can limit the
     // allocation of arrays
     // perhaps only the size of the individual arrays
-    @SuppressWarnings("unused")
     private ExtendedInterpreter interpreter;
 
     /**
@@ -44,20 +46,11 @@ public class BasicArrayValue extends AbstractRightValue {
         this.interpreter = interpreter;
     }
 
-    /**
-     * Set the array object. This method is available as a convenience method
-     * for extension methods and is not used by the interpreter. This method can
-     * be used when the array is available from some calculation and it would be
-     * waste of resource to copy the elements of the array one by one calling
-     * {@link #set(Integer, Object)}.
-     *
-     * @param array the array
-     * @throws NullPointerException when the array is null
-     */
-    public void setArray(final Object[] array) {
+    @Override
+    public void setArray(final Object[] array) throws ScriptBasicException {
         if (array == null) {
-            throw new NullPointerException(
-                    "BasicArrayValue embedded array cann ot be null");
+            throw new ScriptBasicException(
+                    "BasicArrayValue embedded array cannot be null");
         }
         this.array = array;
     }
@@ -90,24 +83,12 @@ public class BasicArrayValue extends AbstractRightValue {
         }
     }
 
-    /**
-     * Get the length of the array. This is not the length of the underlying
-     * object array but the size that the BASIC program should feel.
-     *
-     * @return the length of the array, which is n+1, where n is the maximal
-     * index of the array the BASIC program ever used.
-     */
-    public Long getLength() {
+    @Override
+    public long getLength() {
         return (long) maxIndex + 1;
     }
 
-    /**
-     * Set the index-th element of the array
-     *
-     * @param index
-     * @param object the new value for the array
-     * @throws ExecutionException
-     */
+    @Override
     public void set(final Integer index, final Object object) throws ExecutionException {
         assertArraySize(index);
         array[index] = object;
@@ -116,16 +97,7 @@ public class BasicArrayValue extends AbstractRightValue {
         }
     }
 
-    /**
-     * Get the {@code index}-th element of the array. Note that this method does
-     * NOT convert the value to an ordinary Java object. Thus when calling this
-     * method from an extension method be prepared to convert the value to
-     * ordinary Java object yourself.
-     *
-     * @param index
-     * @return the array element.
-     * @throws ExecutionException
-     */
+    @Override
     public Object get(final Integer index) throws ExecutionException {
         assertArraySize(index);
         return array[index];

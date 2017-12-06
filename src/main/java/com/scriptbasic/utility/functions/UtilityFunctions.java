@@ -1,10 +1,10 @@
 package com.scriptbasic.utility.functions;
 
+import com.scriptbasic.api.BasicArray;
 import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.classification.Constant;
 import com.scriptbasic.classification.System;
 import com.scriptbasic.classification.Utility;
-import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.log.Logger;
@@ -132,8 +132,8 @@ public class UtilityFunctions {
     public static Long length(final Object arg) {
         if (arg == null) {
             return null;
-        } else if (arg instanceof BasicArrayValue) {
-            final BasicArrayValue array = (BasicArrayValue) arg;
+        } else if (arg instanceof BasicArray) {
+            final BasicArray array = (BasicArray) arg;
             return array.getLength();
         } else if (arg instanceof String) {
             final String string = (String) arg;

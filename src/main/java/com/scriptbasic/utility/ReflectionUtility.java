@@ -54,14 +54,18 @@ public class ReflectionUtility {
             final Object[] argArray = ExpressionUtility.getObjectArray(args, method,
                     interpreter);
             javaCallResult = method.invoke(object, argArray);
-            if (javaCallResult instanceof BasicArrayValue) {
-                ((BasicArrayValue) javaCallResult).setInterpreter(interpreter);
-            }
+            setTheInterpreterIfTheResultIsBasicArray(javaCallResult, interpreter);
         } catch (InvocationTargetException | IllegalArgumentException | IllegalAccessException e) {
             throw new BasicRuntimeException("Can not invoke method " + symbolicName, e);
         } catch (final Exception e) {
             throw new BasicRuntimeException("Invoking method '" + symbolicName + "' throws exception:", e);
         }
         return interpreter.getHook().afterCallJavaFunction(method, javaCallResult);
+    }
+
+    private static void setTheInterpreterIfTheResultIsBasicArray(Object javaCallResult, ExtendedInterpreter interpreter) {
+        if (javaCallResult instanceof BasicArrayValue) {
+            ((BasicArrayValue) javaCallResult).setInterpreter(interpreter);
+        }
     }
 }

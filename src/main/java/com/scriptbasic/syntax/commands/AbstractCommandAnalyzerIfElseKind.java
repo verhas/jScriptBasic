@@ -1,7 +1,7 @@
 package com.scriptbasic.syntax.commands;
 
 import com.scriptbasic.executors.commands.AbstractCommandIfElseKind;
-import com.scriptbasic.factories.Context;
+import com.scriptbasic.context.Context;
 import com.scriptbasic.interfaces.AnalysisException;
 
 /**

@@ -1,5 +1,6 @@
 package com.scriptbasic.utility;
 
+import com.scriptbasic.api.BasicArray;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.rightvalues.*;
 import com.scriptbasic.interfaces.BasicRuntimeException;
@@ -21,7 +22,7 @@ public final class RightValueUtility {
             object = null;
         } else if (arg instanceof AbstractPrimitiveRightValue<?>) {
             object = ((AbstractPrimitiveRightValue<Object>) arg).getValue();
-        } else if (arg instanceof BasicArrayValue) {
+        } else if (arg instanceof BasicArray) {
             object = arg;
         } else {
             throw new BasicInterpreterInternalError(

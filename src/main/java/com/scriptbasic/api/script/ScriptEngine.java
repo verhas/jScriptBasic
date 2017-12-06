@@ -1,7 +1,7 @@
 package com.scriptbasic.api.script;
 
-import com.scriptbasic.factories.Context;
-import com.scriptbasic.factories.ContextBuilder;
+import com.scriptbasic.context.Context;
+import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;

@@ -1,17 +1,34 @@
 package com.scriptbasic.interfaces;
 
+import com.scriptbasic.executors.rightvalues.*;
+
 public interface RightValue extends Value {
-    Boolean isNumeric();
+    default Boolean isNumeric() {
+        return isLong() || isDouble();
+    }
 
-    Boolean isLong();
+    default Boolean isLong() {
+        return this instanceof BasicLongValue;
+    }
 
-    Boolean isDouble();
+    default Boolean isDouble() {
+        return this instanceof BasicDoubleValue;
+    }
 
-    Boolean isString();
+    default Boolean isBoolean() {
+        return this instanceof BasicBooleanValue;
+    }
 
-    Boolean isBoolean();
+    default Boolean isString() {
+        return this instanceof BasicStringValue;
+    }
 
-    Boolean isArray();
+    default Boolean isArray() {
+        return this instanceof BasicArrayValue;
+    }
 
-    Boolean isJavaObject();
+    default Boolean isJavaObject() {
+        return this instanceof BasicJavaObjectValue;
+    }
+
 }

@@ -6,7 +6,7 @@ import com.scriptbasic.executors.operators.UnaryOperatorMinus;
 import com.scriptbasic.executors.operators.UnaryOperatorNot;
 import com.scriptbasic.executors.operators.UnaryOperatorPlus;
 import com.scriptbasic.executors.rightvalues.*;
-import com.scriptbasic.factories.Context;
+import com.scriptbasic.context.Context;
 import com.scriptbasic.interfaces.*;
 import com.scriptbasic.syntax.AbstractAnalyzer;
 import com.scriptbasic.utility.LexUtility;

@@ -1,4 +1,4 @@
-package com.scriptbasic.factories;
+package com.scriptbasic.context;
 
 import com.scriptbasic.configuration.BasicConfiguration;
 import com.scriptbasic.executors.BasicExtendedInterpreter;
