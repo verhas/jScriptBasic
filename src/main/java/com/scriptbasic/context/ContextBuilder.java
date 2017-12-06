@@ -1,7 +1,7 @@
 package com.scriptbasic.context;
 
 import com.scriptbasic.configuration.BasicConfiguration;
-import com.scriptbasic.executors.BasicExtendedInterpreter;
+import com.scriptbasic.executors.BasicInterpreter;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.CommandFactory;
 import com.scriptbasic.interfaces.HierarchicalSourceReader;
@@ -27,7 +27,7 @@ public class ContextBuilder {
 
     public static Context newContext() {
         final Context ctx = new Context();
-        ctx.interpreter = new BasicExtendedInterpreter(ctx);
+        ctx.interpreter = new BasicInterpreter(ctx);
         return ctx;
     }
 
@@ -39,7 +39,7 @@ public class ContextBuilder {
             ctx = new Context();
         }
         if (ctx.interpreter == null) {
-            ctx.interpreter = new BasicExtendedInterpreter(ctx);
+            ctx.interpreter = new BasicInterpreter(ctx);
         }
         if (ctx.configuration == null) {
             ctx.configuration = new BasicConfiguration();

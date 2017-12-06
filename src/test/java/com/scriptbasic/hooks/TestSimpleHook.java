@@ -2,7 +2,7 @@ package com.scriptbasic.hooks;
 
 import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
-import com.scriptbasic.executors.BasicExtendedInterpreter;
+import com.scriptbasic.executors.BasicInterpreter;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Interpreter;
 import org.junit.Test;
@@ -19,7 +19,7 @@ public class TestSimpleHook {
         SimpleHook simpleHook = new SimpleHook() {
         };
         Context ctx = ContextBuilder.from("");
-        Interpreter interpreter = new BasicExtendedInterpreter(ctx);
+        Interpreter interpreter = new BasicInterpreter(ctx);
         simpleHook.setInterpreter(interpreter);
         NullHook nullHook = new NullHook();
         simpleHook.setNext(nullHook);

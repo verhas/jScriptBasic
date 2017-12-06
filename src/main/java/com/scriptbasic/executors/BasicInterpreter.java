@@ -19,7 +19,7 @@ import java.util.Stack;
 /**
  * @author Peter Verhas date June 22, 2012
  */
-public final class BasicExtendedInterpreter implements Interpreter {
+public final class BasicInterpreter implements Interpreter {
 
     private final MixedBasicVariableMap variables = new MixedBasicVariableMap();
     private final Map<String, Object> interpreterStateMap = new HashMap<>();
@@ -39,7 +39,7 @@ public final class BasicExtendedInterpreter implements Interpreter {
     private boolean executePreTask = true;
     private RightValue returnValue;
 
-    public BasicExtendedInterpreter(final Context ctx) {
+    public BasicInterpreter(final Context ctx) {
         this.ctx = ctx;
     }
 
