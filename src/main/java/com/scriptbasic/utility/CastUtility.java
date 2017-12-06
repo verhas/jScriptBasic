@@ -10,24 +10,6 @@ import java.util.Map;
  * @author Peter Verhas date Jun 30, 2012
  */
 public final class CastUtility {
-    private static final Map<String, java.lang.Integer> castTypeNames = new HashMap<>();
-
-    static {
-        int i = 1;
-        for (String name : new String[]{"byte", "short", "int", "long",
-                "float", "double"}) {
-            castTypeNames.put(name, i);
-            if (i == 3) {
-                name = "java.lang.Integer";
-            } else {
-                name = "java.lang." + name.substring(0, 1).toUpperCase()
-                        + name.substring(1);
-            }
-            castTypeNames.put(name, i);
-            i++;
-        }
-    }
-
     private CastUtility() {
         NoInstance.isPossible();
     }
@@ -51,29 +33,21 @@ public final class CastUtility {
     public static Object cast(final Object object, final Class<?> castTo) {
         Object result = object;
         try {
-            if (castTypeNames.get(castTo.getName()) != null) {
-                switch (castTypeNames.get(castTo.getName())) {
-                    case 1:
-                        result = Byte.cast(object);
-                        break;
-                    case 2:
-                        result = Short.cast(object);
-                        break;
-                    case 3:
-                        result = Integer.cast(object);
-                        break;
-                    case 4:
-                        result = Long.cast(object);
-                        break;
-                    case 5:
-                        result = Float.cast(object);
-                        break;
-                    case 6:
-                        result = Double.cast(object);
-                        break;
-                    default:
-                        break;
-                }
+            final String className = castTo.getName();
+            if ("byte".equals(className) || "java.lang.Byte".equals(className)) {
+                result = ((Number) object).byteValue();
+            } else if ("short".equals(className) || "java.lang.Short".equals(className)) {
+                result = ((Number) object).shortValue();
+            } else if ("int".equals(className) || "java.lang.Integer".equals(className)) {
+                result = ((Number) object).intValue();
+            } else if ("long".equals(className) || "java.lang.Long".equals(className)) {
+                result = ((Number) object).longValue();
+            } else if ("float".equals(className) || "java.lang.Float".equals(className)) {
+                result = ((Number) object).floatValue();
+            } else if ("double".equals(className) || "java.lang.Double".equals(className)) {
+                result = ((Number) object).doubleValue();
+            } else if ("char".equals(className) || "java.lang.Character".equals(className)) {
+                result = (char)((Number) object).intValue();
             }
         } catch (final ClassCastException cce) {
         }
@@ -86,39 +60,4 @@ public final class CastUtility {
                 : ((AbstractPrimitiveRightValue<Object>) rightValue).getValue();
     }
 
-    private static class Byte {
-        static java.lang.Byte cast(final Object object) {
-            return ((Number) object).byteValue();
-        }
-    }
-
-    private static class Short {
-        static java.lang.Short cast(final Object object) {
-            return ((Number) object).shortValue();
-        }
-    }
-
-    private static class Integer {
-        static java.lang.Integer cast(final Object object) {
-            return ((Number) object).intValue();
-        }
-    }
-
-    private static class Long {
-        static java.lang.Long cast(final Object object) {
-            return ((Number) object).longValue();
-        }
-    }
-
-    private static class Float {
-        static java.lang.Float cast(final Object object) {
-            return ((Number) object).floatValue();
-        }
-    }
-
-    private static class Double {
-        static java.lang.Double cast(final Object object) {
-            return ((Number) object).doubleValue();
-        }
-    }
 }

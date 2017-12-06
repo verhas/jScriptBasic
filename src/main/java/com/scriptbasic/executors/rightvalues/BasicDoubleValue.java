@@ -1,6 +1,6 @@
 package com.scriptbasic.executors.rightvalues;
 
-import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.api.BasicRuntimeException;
 import com.scriptbasic.interfaces.RightValue;
 
 public class BasicDoubleValue extends AbstractNumericRightValue<Double> {

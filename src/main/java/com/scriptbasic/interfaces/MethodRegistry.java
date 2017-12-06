@@ -1,5 +1,7 @@
 package com.scriptbasic.interfaces;
 
+import com.scriptbasic.api.BasicRuntimeException;
+
 import java.lang.reflect.Method;
 
 /**

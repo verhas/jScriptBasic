@@ -1,7 +1,7 @@
 package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.api.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.Interpreter;
 import com.scriptbasic.log.Logger;

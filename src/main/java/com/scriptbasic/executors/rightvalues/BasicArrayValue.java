@@ -2,7 +2,7 @@ package com.scriptbasic.executors.rightvalues;
 
 import com.scriptbasic.api.BasicArray;
 import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.api.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.Interpreter;
 import com.scriptbasic.interfaces.RightValue;

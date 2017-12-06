@@ -1,7 +1,7 @@
 package com.scriptbasic.rightvalues;
 
 import com.scriptbasic.executors.rightvalues.*;
-import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.api.BasicRuntimeException;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.utility.RightValueUtility;
 import org.junit.Test;

@@ -4,7 +4,7 @@ package com.scriptbasic.syntax;
 import com.scriptbasic.exceptions.CommandCanNotBeCreatedException;
 import com.scriptbasic.exceptions.KeywordNotImplementedException;
 import com.scriptbasic.exceptions.SyntaxException;
-import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.api.BasicRuntimeException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.lexer.BasicLexicalElement;
 import com.scriptbasic.utility.SyntaxExceptionUtility;

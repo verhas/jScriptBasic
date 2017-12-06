@@ -2,7 +2,7 @@ package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
 import com.scriptbasic.executors.rightvalues.BasicLongValue;
-import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.api.BasicRuntimeException;
 import com.scriptbasic.interfaces.RightValue;
 
 public class MultiplyOperator extends

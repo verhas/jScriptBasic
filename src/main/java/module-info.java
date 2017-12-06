@@ -5,4 +5,5 @@ module scriptbasic {
     provides javax.script.ScriptEngineFactory with ScriptBasicEngineFactory;
     exports com.scriptbasic.api.script;
     exports com.scriptbasic.api;
+    exports com.scriptbasic.classification;
 }

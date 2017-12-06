@@ -3,7 +3,7 @@ package com.scriptbasic.utility.functions.file;
 import com.scriptbasic.api.BasicArray;
 import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.api.BasicRuntimeException;
 import com.scriptbasic.utility.NoInstance;
 
 import java.io.*;

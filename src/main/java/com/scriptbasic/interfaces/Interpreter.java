@@ -1,5 +1,6 @@
 package com.scriptbasic.interfaces;
 
+import com.scriptbasic.api.BasicRuntimeException;
 import com.scriptbasic.executors.commands.CommandSub;
 
 import java.io.Reader;

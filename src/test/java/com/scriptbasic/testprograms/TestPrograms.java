@@ -2,7 +2,7 @@ package com.scriptbasic.testprograms;
 
 import com.scriptbasic.Executor;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.api.BasicRuntimeException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.ExecutionException;
 import org.junit.Test;

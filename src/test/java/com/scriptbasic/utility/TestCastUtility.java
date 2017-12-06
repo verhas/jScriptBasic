@@ -15,33 +15,34 @@ import static org.junit.Assert.fail;
 public class TestCastUtility {
     @Test
     public void test() throws Exception {
-        assertEquals(CastUtility.cast(13.5, Byte.class), (byte) 13);
-        assertEquals(CastUtility.cast(13.5, Short.class), (short) 13);
-        assertEquals(CastUtility.cast(13.5, Integer.class), 13);
-        assertEquals(CastUtility.cast(13.5, Long.class), (long) 13);
-        assertEquals(CastUtility.cast(13.5, Float.class), (float) 13.5);
-        assertEquals(CastUtility.cast(13.5, Double.class), 13.5);
-        assertEquals(CastUtility.cast(13.5, byte.class), (byte) 13);
-        assertEquals(CastUtility.cast(13.5, short.class), (short) 13);
-        assertEquals(CastUtility.cast(13.5, int.class), 13);
-        assertEquals(CastUtility.cast(13.5, long.class), (long) 13);
-        assertEquals(CastUtility.cast(13.5, float.class), (float) 13.5);
-        assertEquals(CastUtility.cast(13.5, double.class), 13.5);
+        assertEquals((char) 'A', CastUtility.cast(65.3, Character.class));
+        assertEquals((byte) 13, CastUtility.cast(13.5, Byte.class));
+        assertEquals((short) 13, CastUtility.cast(13.5, Short.class));
+        assertEquals(13, CastUtility.cast(13.5, Integer.class));
+        assertEquals((long) 13, CastUtility.cast(13.5, Long.class));
+        assertEquals((float) 13.5, CastUtility.cast(13.5, Float.class));
+        assertEquals(13.5, CastUtility.cast(13.5, Double.class));
+        assertEquals((byte) 13, CastUtility.cast(13.5, byte.class));
+        assertEquals((short) 13, CastUtility.cast(13.5, short.class));
+        assertEquals(13, CastUtility.cast(13.5, int.class));
+        assertEquals((long) 13, CastUtility.cast(13.5, long.class));
+        assertEquals((float) 13.5, CastUtility.cast(13.5, float.class));
+        assertEquals(13.5, CastUtility.cast(13.5, double.class));
 
-        assertEquals(CastUtility.cast("DEADBEEF", Byte.class), "DEADBEEF");
-        assertEquals(CastUtility.cast("DEADBEEF", Short.class), "DEADBEEF");
-        assertEquals(CastUtility.cast("DEADBEEF", Integer.class), "DEADBEEF");
-        assertEquals(CastUtility.cast("DEADBEEF", Long.class), "DEADBEEF");
-        assertEquals(CastUtility.cast("DEADBEEF", Float.class), "DEADBEEF");
-        assertEquals(CastUtility.cast("DEADBEEF", Double.class), "DEADBEEF");
-        assertEquals(CastUtility.cast("DEADBEEF", byte.class), "DEADBEEF");
-        assertEquals(CastUtility.cast("DEADBEEF", short.class), "DEADBEEF");
-        assertEquals(CastUtility.cast("DEADBEEF", int.class), "DEADBEEF");
-        assertEquals(CastUtility.cast("DEADBEEF", long.class), "DEADBEEF");
-        assertEquals(CastUtility.cast("DEADBEEF", float.class), "DEADBEEF");
-        assertEquals(CastUtility.cast("DEADBEEF", double.class), "DEADBEEF");
+        assertEquals("DEADBEEF", CastUtility.cast("DEADBEEF", Byte.class));
+        assertEquals("DEADBEEF", CastUtility.cast("DEADBEEF", Short.class));
+        assertEquals("DEADBEEF", CastUtility.cast("DEADBEEF", Integer.class));
+        assertEquals("DEADBEEF", CastUtility.cast("DEADBEEF", Long.class));
+        assertEquals("DEADBEEF", CastUtility.cast("DEADBEEF", Float.class));
+        assertEquals("DEADBEEF", CastUtility.cast("DEADBEEF", Double.class));
+        assertEquals("DEADBEEF", CastUtility.cast("DEADBEEF", byte.class));
+        assertEquals("DEADBEEF", CastUtility.cast("DEADBEEF", short.class));
+        assertEquals("DEADBEEF", CastUtility.cast("DEADBEEF", int.class));
+        assertEquals("DEADBEEF", CastUtility.cast("DEADBEEF", long.class));
+        assertEquals("DEADBEEF", CastUtility.cast("DEADBEEF", float.class));
+        assertEquals("DEADBEEF", CastUtility.cast("DEADBEEF", double.class));
 
-        assertEquals(CastUtility.cast("DEADBEEF", Class.class), "DEADBEEF");
+        assertEquals("DEADBEEF", CastUtility.cast("DEADBEEF", Class.class));
 
         try {
             NoInstance.isPossible();
