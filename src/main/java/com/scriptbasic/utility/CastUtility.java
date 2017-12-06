@@ -3,9 +3,6 @@ package com.scriptbasic.utility;
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.interfaces.RightValue;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author Peter Verhas date Jun 30, 2012
  */
@@ -47,7 +44,7 @@ public final class CastUtility {
             } else if ("double".equals(className) || "java.lang.Double".equals(className)) {
                 result = ((Number) object).doubleValue();
             } else if ("char".equals(className) || "java.lang.Character".equals(className)) {
-                result = (char)((Number) object).intValue();
+                result = (char) ((Number) object).intValue();
             }
         } catch (final ClassCastException cce) {
         }
