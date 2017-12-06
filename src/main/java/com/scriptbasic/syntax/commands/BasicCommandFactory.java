@@ -1,8 +1,8 @@
 package com.scriptbasic.syntax.commands;
 
+import com.scriptbasic.context.Context;
 import com.scriptbasic.exceptions.CommandFactoryException;
 import com.scriptbasic.exceptions.KeywordNotImplementedException;
-import com.scriptbasic.context.Context;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.CommandAnalyzer;

@@ -1,7 +1,7 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.context.Context;
+import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.interfaces.*;
 
 public class CommandAnalyzerSub extends AbstractCommandAnalyzer {

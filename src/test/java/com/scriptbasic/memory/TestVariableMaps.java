@@ -9,7 +9,6 @@ import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.EmptyStackException;

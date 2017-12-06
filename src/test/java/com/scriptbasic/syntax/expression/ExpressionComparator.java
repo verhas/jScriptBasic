@@ -7,7 +7,6 @@ import com.scriptbasic.executors.operators.AbstractUnaryOperator;
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.ExpressionList;
-import org.junit.Assert;
 
 import java.util.Iterator;
 

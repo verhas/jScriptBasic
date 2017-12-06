@@ -1,12 +1,12 @@
 package com.scriptbasic.syntax.leftvalue;
 
+import com.scriptbasic.context.Context;
+import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.exceptions.SyntaxException;
 import com.scriptbasic.executors.leftvalues.ArrayElementAccessLeftValueModifier;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.executors.leftvalues.LeftValueModifier;
 import com.scriptbasic.executors.leftvalues.ObjectFieldAccessLeftValueModifier;
-import com.scriptbasic.context.Context;
-import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.LeftValueAnalyzer;

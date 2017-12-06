@@ -1,7 +1,7 @@
 package com.scriptbasic.syntax.expression;
 
-import com.scriptbasic.executors.operators.*;
 import com.scriptbasic.context.Context;
+import com.scriptbasic.executors.operators.*;
 
 import java.util.ArrayList;
 import java.util.List;

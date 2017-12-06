@@ -1,8 +1,8 @@
 package com.scriptbasic.syntax.commands;
 
+import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandFor;
 import com.scriptbasic.executors.commands.CommandNext;
-import com.scriptbasic.context.Context;
 import com.scriptbasic.interfaces.*;
 
 /**

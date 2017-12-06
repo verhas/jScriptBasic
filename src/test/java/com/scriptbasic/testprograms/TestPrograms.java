@@ -5,14 +5,12 @@ import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.ExecutionException;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**

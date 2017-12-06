@@ -6,14 +6,12 @@ import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 
 import static com.scriptbasic.executors.operators.SupportTest.assertValueOfVariable_A;
 import static com.scriptbasic.executors.operators.SupportTest.eval;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**

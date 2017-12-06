@@ -2,11 +2,9 @@ package com.scriptbasic.utility;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.interfaces.BasicSyntaxException;
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 

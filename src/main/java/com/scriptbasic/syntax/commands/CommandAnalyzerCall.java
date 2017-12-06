@@ -1,10 +1,10 @@
 package com.scriptbasic.syntax.commands;
 
+import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandCall;
 import com.scriptbasic.executors.commands.CommandLet;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.executors.rightvalues.FunctionCall;
-import com.scriptbasic.context.Context;
 import com.scriptbasic.interfaces.*;
 
 public class CommandAnalyzerCall extends AbstractCommandAnalyzer {

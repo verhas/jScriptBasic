@@ -1,8 +1,8 @@
 package com.scriptbasic.syntax.commands;
 
+import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.AbstractCommandLeftValueListed;
 import com.scriptbasic.executors.commands.CommandGlobal;
-import com.scriptbasic.context.Context;
 
 /**
  * @author Peter Verhas

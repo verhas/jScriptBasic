@@ -1,8 +1,8 @@
 package com.scriptbasic.syntax.expression;
 
+import com.scriptbasic.context.Context;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.operators.AbstractBinaryOperator;
-import com.scriptbasic.context.Context;
 import com.scriptbasic.interfaces.*;
 import com.scriptbasic.syntax.AbstractAnalyzer;
 

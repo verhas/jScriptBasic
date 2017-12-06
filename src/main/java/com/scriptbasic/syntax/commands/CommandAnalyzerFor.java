@@ -1,7 +1,7 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.executors.commands.CommandFor;
 import com.scriptbasic.context.Context;
+import com.scriptbasic.executors.commands.CommandFor;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Command;
 

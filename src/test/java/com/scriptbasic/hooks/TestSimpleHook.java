@@ -1,8 +1,8 @@
 package com.scriptbasic.hooks;
 
-import com.scriptbasic.executors.BasicExtendedInterpreter;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
+import com.scriptbasic.executors.BasicExtendedInterpreter;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.ExtendedInterpreter;
 import org.junit.Test;

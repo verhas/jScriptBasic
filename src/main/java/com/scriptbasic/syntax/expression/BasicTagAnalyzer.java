@@ -1,12 +1,12 @@
 package com.scriptbasic.syntax.expression;
 
+import com.scriptbasic.context.Context;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.operators.AbstractUnaryOperator;
 import com.scriptbasic.executors.operators.UnaryOperatorMinus;
 import com.scriptbasic.executors.operators.UnaryOperatorNot;
 import com.scriptbasic.executors.operators.UnaryOperatorPlus;
 import com.scriptbasic.executors.rightvalues.*;
-import com.scriptbasic.context.Context;
 import com.scriptbasic.interfaces.*;
 import com.scriptbasic.syntax.AbstractAnalyzer;
 import com.scriptbasic.utility.LexUtility;

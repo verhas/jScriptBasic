@@ -1,8 +1,8 @@
 package com.scriptbasic.syntax.expression;
 
-import com.scriptbasic.exceptions.SyntaxException;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
+import com.scriptbasic.exceptions.SyntaxException;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.Expression;
@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
 import static com.scriptbasic.syntax.expression.ExpressionBuilder.*;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 
