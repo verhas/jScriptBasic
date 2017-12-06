@@ -18,7 +18,7 @@ public class FunctionCall extends
     private CommandSub commandSub = null;
 
     private static RightValue[] evaluateArguments(final ExpressionList argumentList,
-                                                  final ExtendedInterpreter interpreter) throws ExecutionException {
+                                                  final Interpreter interpreter) throws ExecutionException {
         final RightValue[] argumentValues;
         if (argumentList == null) {
             argumentValues = null;
@@ -33,14 +33,14 @@ public class FunctionCall extends
         return argumentValues;
     }
 
-    private RightValue callBasicFunction(final ExtendedInterpreter interpreter)
+    private RightValue callBasicFunction(final Interpreter interpreter)
             throws ExecutionException {
         return ExpressionUtility.callBasicFunction(interpreter,
                 evaluateArguments(getExpressionList(), interpreter),
                 commandSub, getVariableName());
     }
 
-    private RightValue callJavaFunction(final ExtendedInterpreter interpreter)
+    private RightValue callJavaFunction(final Interpreter interpreter)
             throws ExecutionException {
         RightValue result = null;
         final String functionName = getVariableName();
@@ -59,7 +59,7 @@ public class FunctionCall extends
         return result;
     }
 
-    private void lookUpCommandSub(final ExtendedInterpreter interpreter) {
+    private void lookUpCommandSub(final Interpreter interpreter) {
         if (commandNeedLookup) {
             commandNeedLookup = false;
             commandSub = interpreter.getSubroutine(getVariableName());
@@ -67,7 +67,7 @@ public class FunctionCall extends
     }
 
     @Override
-    public RightValue evaluate(final ExtendedInterpreter interpreter)
+    public RightValue evaluate(final Interpreter interpreter)
             throws ExecutionException {
 
         lookUpCommandSub(interpreter);

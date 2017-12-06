@@ -1,6 +1,6 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Interpreter;
 import com.scriptbasic.interfaces.InterpreterHook;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
@@ -37,7 +37,7 @@ public class HookRegisterUtility {
      *
      * @param interpreter the interpter in which the hooks are registered
      */
-    public static void registerHooks(final ExtendedInterpreter interpreter) {
+    public static void registerHooks(final Interpreter interpreter) {
         interpreter.getConfiguration().getConfigValueStream("hook")
                 .map($(Class::forName))
                 .map($(Class::getDeclaredConstructor))

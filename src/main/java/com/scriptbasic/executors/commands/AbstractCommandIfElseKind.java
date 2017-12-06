@@ -1,6 +1,6 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Interpreter;
 
 /**
  * @author Peter Verhas
@@ -23,16 +23,16 @@ public abstract class AbstractCommandIfElseKind extends AbstractCommand {
      * @param interpreter
      */
     static void indicateConditionalJump(
-            final ExtendedInterpreter interpreter) {
+            final Interpreter interpreter) {
         interpreter.getMap().put(CONDITIONJUMP_KEY, Boolean.TRUE);
     }
 
-    static void jumpDone(final ExtendedInterpreter interpreter) {
+    static void jumpDone(final Interpreter interpreter) {
         interpreter.getMap().put(CONDITIONJUMP_KEY, Boolean.FALSE);
     }
 
     static Boolean itWasConditionalJump(
-            final ExtendedInterpreter interpreter) {
+            final Interpreter interpreter) {
         return interpreter.getMap().get(CONDITIONJUMP_KEY) == Boolean.TRUE;
     }
 
@@ -43,15 +43,15 @@ public abstract class AbstractCommandIfElseKind extends AbstractCommand {
      *
      * @param interpreter
      */
-    static void indicateConditionDone(final ExtendedInterpreter interpreter) {
+    static void indicateConditionDone(final Interpreter interpreter) {
         interpreter.getMap().put(CONDITIONDONE_KEY, Boolean.TRUE);
     }
 
-    protected static void doneUndone(final ExtendedInterpreter interpreter) {
+    protected static void doneUndone(final Interpreter interpreter) {
         interpreter.getMap().put(CONDITIONDONE_KEY, Boolean.FALSE);
     }
 
-    static Boolean conditionWasNotDoneYet(final ExtendedInterpreter interpreter) {
+    static Boolean conditionWasNotDoneYet(final Interpreter interpreter) {
         return !(interpreter.getMap().get(CONDITIONDONE_KEY) == Boolean.TRUE);
     }
 

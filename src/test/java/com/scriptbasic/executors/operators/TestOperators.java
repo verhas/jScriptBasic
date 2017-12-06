@@ -3,7 +3,7 @@ package com.scriptbasic.executors.operators;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Interpreter;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 import org.junit.Test;
@@ -25,14 +25,14 @@ public class TestOperators {
 
     private static void a(final String s, Object expected)
             throws AnalysisException, ExecutionException {
-        ExtendedInterpreter eInterpreter = eval(s);
+        Interpreter eInterpreter = eval(s);
         eInterpreter.execute();
         assertValueOfVariable_A(eInterpreter, expected);
     }
 
     private static void b(final String s, Object bVal, Object expected)
             throws AnalysisException, ExecutionException {
-        ExtendedInterpreter eInterpreter = eval(s);
+        Interpreter eInterpreter = eval(s);
         eInterpreter.setVariable("b", bVal);
         eInterpreter.execute();
         assertValueOfVariable_A(eInterpreter, expected);
@@ -41,7 +41,7 @@ public class TestOperators {
 
     private static void c(final String s, Object bVal, Object cVal,
                           Object expected) throws AnalysisException, ExecutionException {
-        ExtendedInterpreter eInterpreter = eval(s);
+        Interpreter eInterpreter = eval(s);
         eInterpreter.setVariable("b", bVal);
         eInterpreter.setVariable("c", cVal);
         eInterpreter.execute();

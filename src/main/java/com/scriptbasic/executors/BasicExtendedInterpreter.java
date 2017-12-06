@@ -19,7 +19,7 @@ import java.util.Stack;
 /**
  * @author Peter Verhas date June 22, 2012
  */
-public final class BasicExtendedInterpreter implements ExtendedInterpreter {
+public final class BasicExtendedInterpreter implements Interpreter {
 
     private final MixedBasicVariableMap variables = new MixedBasicVariableMap();
     private final Map<String, Object> interpreterStateMap = new HashMap<>();
@@ -51,7 +51,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     /*
      * (non-Javadoc)
      *
-     * @see com.scriptbasic.interfaces.ExtendedInterpreter#disableHook()
+     * @see com.scriptbasic.interfaces.Interpreter#disableHook()
      */
     @Override
     public void disableHook() {
@@ -64,7 +64,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     /*
      * (non-Javadoc)
      *
-     * @see com.scriptbasic.interfaces.ExtendedInterpreter#enableHook()
+     * @see com.scriptbasic.interfaces.Interpreter#enableHook()
      */
     @Override
     public void enableHook() {
@@ -195,7 +195,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      * (non-Javadoc)
      *
      * @see
-     * com.scriptbasic.interfaces.ExtendedInterpreter#execute(com.scriptbasic
+     * com.scriptbasic.interfaces.Interpreter#execute(com.scriptbasic
      * .interfaces.Command)
      */
     @Override
@@ -263,7 +263,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     /*
      * (non-Javadoc)
      *
-     * @see com.scriptbasic.interfaces.ExtendedInterpreter#getProgram()
+     * @see com.scriptbasic.interfaces.Interpreter#getProgram()
      */
     @Override
     public BuildableProgram getProgram() {
@@ -286,7 +286,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      * (non-Javadoc)
      *
      * @see
-     * com.scriptbasic.interfaces.ExtendedInterpreter#delayedSetProgramCounter
+     * com.scriptbasic.interfaces.Interpreter#delayedSetProgramCounter
      * (java.lang.Integer)
      */
     @Override
@@ -302,7 +302,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     /*
      * (non-Javadoc)
      *
-     * @see com.scriptbasic.interfaces.ExtendedInterpreter#getMap()
+     * @see com.scriptbasic.interfaces.Interpreter#getMap()
      */
     @Override
     public Map<String, Object> getMap() {
@@ -313,7 +313,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     /*
      * (non-Javadoc)
      *
-     * @see com.scriptbasic.interfaces.ExtendedInterpreter#getUseMap()
+     * @see com.scriptbasic.interfaces.Interpreter#getUseMap()
      */
     @Override
     public Map<String, Class<?>> getUseMap() {
@@ -324,7 +324,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      * (non-Javadoc)
      *
      * @see
-     * com.scriptbasic.interfaces.ExtendedInterpreter#getJavaMethod(java.lang
+     * com.scriptbasic.interfaces.Interpreter#getJavaMethod(java.lang
      * .Class, java.lang.String)
      */
     @Override
@@ -337,7 +337,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      * (non-Javadoc)
      *
      * @see
-     * com.scriptbasic.interfaces.ExtendedInterpreter#registerJavaMethod(java
+     * com.scriptbasic.interfaces.Interpreter#registerJavaMethod(java
      * .lang.String, java.lang.Class, java.lang.String, java.lang.Class<?>[])
      */
     @Override
@@ -356,7 +356,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     /*
      * (non-Javadoc)
      *
-     * @see com.scriptbasic.interfaces.ExtendedInterpreter#push(com.scriptbasic.
+     * @see com.scriptbasic.interfaces.Interpreter#push(com.scriptbasic.
      * interfaces.Command)
      */
     @Override
@@ -375,7 +375,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     /*
      * (non-Javadoc)
      *
-     * @see com.scriptbasic.interfaces.ExtendedInterpreter#push()
+     * @see com.scriptbasic.interfaces.Interpreter#push()
      */
     public void push() {
         push(currentCommand);
@@ -384,7 +384,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     /*
      * (non-Javadoc)
      *
-     * @see com.scriptbasic.interfaces.ExtendedInterpreter#pop()
+     * @see com.scriptbasic.interfaces.Interpreter#pop()
      */
     @Override
     public Command pop() {
@@ -403,7 +403,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     /*
      * (non-Javadoc)
      *
-     * @see com.scriptbasic.interfaces.ExtendedInterpreter#getReturnValue()
+     * @see com.scriptbasic.interfaces.Interpreter#getReturnValue()
      */
     @Override
     public RightValue getReturnValue() {
@@ -414,7 +414,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
      * (non-Javadoc)
      *
      * @see
-     * com.scriptbasic.interfaces.ExtendedInterpreter#setReturnValue(com.scriptbasic
+     * com.scriptbasic.interfaces.Interpreter#setReturnValue(com.scriptbasic
      * .interfaces.RightValue)
      */
     @Override
@@ -428,7 +428,7 @@ public final class BasicExtendedInterpreter implements ExtendedInterpreter {
     /*
      * (non-Javadoc)
      *
-     * @see com.scriptbasic.interfaces.ExtendedInterpreter#getConfiguration()
+     * @see com.scriptbasic.interfaces.Interpreter#getConfiguration()
      */
     @Override
     public Configuration getConfiguration() {

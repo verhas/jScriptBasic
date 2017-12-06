@@ -8,10 +8,10 @@ public abstract class AbstractCommand implements Executor, Command,
     private Command nextCommand;
 
     @Override
-    public abstract void execute(ExtendedInterpreter interpreter)
+    public abstract void execute(Interpreter interpreter)
             throws ExecutionException;
 
-    public void checkedExecute(final ExtendedInterpreter interpreter)
+    public void checkedExecute(final Interpreter interpreter)
             throws ExecutionException {
         execute(interpreter);
     }

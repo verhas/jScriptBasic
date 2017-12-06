@@ -4,7 +4,7 @@ import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.ExecutionException;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Interpreter;
 
 import javax.script.*;
 import java.io.Reader;
@@ -26,14 +26,14 @@ public class ScriptEngine extends AbstractScriptEngine {
         this.scriptEngineFactory = scriptEngineFactory;
     }
 
-    private static void unmergeBindings(final ExtendedInterpreter interpreter,
+    private static void unmergeBindings(final Interpreter interpreter,
                                         final Bindings bindings) throws ExecutionException {
         for (final String name : bindings.keySet()) {
             bindings.put(name, interpreter.getVariable(name));
         }
     }
 
-    private static void mergeBinding(final ExtendedInterpreter interpreter,
+    private static void mergeBinding(final Interpreter interpreter,
                                      final Bindings bindings) throws ExecutionException {
         for (final String name : bindings.keySet()) {
             interpreter.setVariable(name, bindings.get(name));

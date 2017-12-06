@@ -6,7 +6,7 @@ import com.scriptbasic.classification.Constant;
 import com.scriptbasic.classification.System;
 import com.scriptbasic.classification.Utility;
 import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Interpreter;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 import com.scriptbasic.utility.MagicBean;
@@ -18,7 +18,7 @@ import java.lang.reflect.Array;
 /**
  * Static methods in this class are registered in the interpreter when the
  * interpreter starts. The interpreter calls the static method {@link
- * com.scriptbasic.utility.MethodRegisterUtility#registerFunctions(Class, ExtendedInterpreter)} and that function
+ * com.scriptbasic.utility.MethodRegisterUtility#registerFunctions(Class, Interpreter)} and that function
  * registers the methods in this class with their own name so that BASIC
  * programs can call the functions like BASIC built in functions.
  *

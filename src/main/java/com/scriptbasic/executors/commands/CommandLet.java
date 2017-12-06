@@ -15,7 +15,7 @@ public class CommandLet extends AbstractCommand {
     }
 
     @Override
-    public void execute(final ExtendedInterpreter interpreter) throws ExecutionException {
+    public void execute(final Interpreter interpreter) throws ExecutionException {
         try {
             final RightValue rv = expression.evaluate(interpreter);
             if (resultHasToBeStored()) {

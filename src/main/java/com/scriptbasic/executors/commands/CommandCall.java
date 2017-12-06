@@ -2,7 +2,7 @@ package com.scriptbasic.executors.commands;
 
 import com.scriptbasic.executors.rightvalues.FunctionCall;
 import com.scriptbasic.interfaces.ExecutionException;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Interpreter;
 
 public class CommandCall extends AbstractCommandExpressionListed {
     private final FunctionCall functionCall;
@@ -12,7 +12,7 @@ public class CommandCall extends AbstractCommandExpressionListed {
     }
 
     @Override
-    public void execute(final ExtendedInterpreter interpreter)
+    public void execute(final Interpreter interpreter)
             throws ExecutionException {
         functionCall.evaluate(interpreter);
     }

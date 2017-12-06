@@ -3,13 +3,13 @@ package com.scriptbasic.executors.operators;
 import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.Expression;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Interpreter;
 import com.scriptbasic.interfaces.RightValue;
 
 public class LogicalOrOperator extends AbstractShortCircuitBinaryOperator {
 
     @Override
-    protected RightValue evaluateOn(final ExtendedInterpreter extendedInterpreter,
+    protected RightValue evaluateOn(final Interpreter extendedInterpreter,
                                     final RightValue leftOperand, final Expression rightOperand)
             throws ExecutionException {
         final BasicBooleanValue bbv = new BasicBooleanValue(true);

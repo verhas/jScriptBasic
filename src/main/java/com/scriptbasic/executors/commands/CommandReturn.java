@@ -2,7 +2,7 @@ package com.scriptbasic.executors.commands;
 
 import com.scriptbasic.interfaces.ExecutionException;
 import com.scriptbasic.interfaces.Expression;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Interpreter;
 import com.scriptbasic.interfaces.RightValue;
 
 public class CommandReturn extends AbstractCommand {
@@ -23,7 +23,7 @@ public class CommandReturn extends AbstractCommand {
     }
 
     @Override
-    public void execute(final ExtendedInterpreter interpreter)
+    public void execute(final Interpreter interpreter)
             throws ExecutionException {
         final RightValue returnValue = returnExpression == null ? null
                 : returnExpression.evaluate(interpreter);

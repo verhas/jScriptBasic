@@ -24,12 +24,12 @@ public class CommandWhile extends AbstractCommand {
         this.condition = condition;
     }
 
-    private void jumpAfterTheWendCommand(final ExtendedInterpreter interpreter) {
+    private void jumpAfterTheWendCommand(final Interpreter interpreter) {
         interpreter.setNextCommand(getWendNode().getNextCommand());
     }
 
     @Override
-    public void execute(final ExtendedInterpreter interpreter)
+    public void execute(final Interpreter interpreter)
             throws ExecutionException {
         final RightValue conditionValue = getCondition().evaluate(interpreter);
         if (conditionValue instanceof AbstractPrimitiveRightValue<?>) {

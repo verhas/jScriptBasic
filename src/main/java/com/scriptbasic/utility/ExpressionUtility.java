@@ -29,7 +29,7 @@ public final class ExpressionUtility {
         return parameterTypes.length >= args.size();
     }
 
-    public static RightValue callBasicFunction(final ExtendedInterpreter interpreter,
+    public static RightValue callBasicFunction(final Interpreter interpreter,
                                                final RightValue[] argumentValues, final CommandSub commandSub,
                                                final String functionName) throws ExecutionException {
         RightValue result = null;
@@ -54,7 +54,7 @@ public final class ExpressionUtility {
      */
     private static void registerLocalVariablesWithValues(
             final LeftValueList arguments, final RightValue[] argumentValues,
-            final ExtendedInterpreter interpreter) throws ExecutionException {
+            final Interpreter interpreter) throws ExecutionException {
         if (arguments != null) {
             final Iterator<LeftValue> argumentIterator = arguments.iterator();
             for (final RightValue argumentValue : argumentValues) {
@@ -78,7 +78,7 @@ public final class ExpressionUtility {
     }
 
     public static Object[] getObjectArray(final List<RightValue> args, final Method method,
-                                          final ExtendedInterpreter extendedInterpreter) throws ExecutionException {
+                                          final Interpreter extendedInterpreter) throws ExecutionException {
         final Class<?>[] parameterTypes = method.getParameterTypes();
         // if the declaring class of the method implements the interface
         // WHATEVER //TODO find a good name for the interface that is to be
@@ -111,7 +111,7 @@ public final class ExpressionUtility {
     }
 
     public static List<RightValue> evaluateExpressionList(
-            final ExtendedInterpreter extendedInterpreter,
+            final Interpreter extendedInterpreter,
             final ExpressionList expressionList) throws ExecutionException {
         List<RightValue> args = null;
         if (expressionList != null) {

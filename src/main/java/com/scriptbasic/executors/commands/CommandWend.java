@@ -1,6 +1,6 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Interpreter;
 
 public class CommandWend extends AbstractCommand {
     private CommandWhile commandWhile;
@@ -14,7 +14,7 @@ public class CommandWend extends AbstractCommand {
     }
 
     @Override
-    public void execute(final ExtendedInterpreter interpreter) {
+    public void execute(final Interpreter interpreter) {
         interpreter.setNextCommand(commandWhile);
     }
 

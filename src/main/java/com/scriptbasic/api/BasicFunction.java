@@ -1,6 +1,7 @@
 package com.scriptbasic.api;
 
 import com.scriptbasic.interfaces.ExtensionInterfaceVersion;
+import com.scriptbasic.interfaces.Interpreter;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -11,7 +12,7 @@ import java.lang.annotation.RetentionPolicy;
  * <p>
  * Each {@code public static} method that is supposed to be reachable from BASIC
  * should have the annotation {@code @BasicFunction}. The implementation of the
- * interface {@link com.scriptbasic.interfaces.Interpreter} provides method that registers all the such
+ * interface {@link Interpreter} provides method that registers all the such
  * annotated methods of the class specified.
  *
  * @author Peter Verhas date July 22, 2012

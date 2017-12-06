@@ -4,13 +4,13 @@ import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.ExecutionException;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Interpreter;
 
 import static org.junit.Assert.assertEquals;
 
 class SupportTest {
 
-    static ExtendedInterpreter eval(final String s)
+    static Interpreter eval(final String s)
             throws AnalysisException {
         Context ctx = ContextBuilder.from(s);
         ctx.interpreter.setProgram(ctx.syntaxAnalyzer.analyze());
@@ -24,7 +24,7 @@ class SupportTest {
      * @param expected    the expected value of the variable 'a'
      * @throws ExecutionException
      */
-    static void assertValueOfVariable_A(ExtendedInterpreter interpreter, Object expected)
+    static void assertValueOfVariable_A(Interpreter interpreter, Object expected)
             throws ExecutionException {
         Object actual = interpreter.getVariable("a");
         if (expected instanceof Integer) {

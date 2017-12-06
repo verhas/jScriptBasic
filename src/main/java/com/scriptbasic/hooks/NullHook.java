@@ -25,7 +25,7 @@ public class NullHook implements InterpreterHook {
     }
 
     @Override
-    public void setInterpreter(final ExtendedInterpreter interpreter) {
+    public void setInterpreter(final Interpreter interpreter) {
     }
 
     @Override

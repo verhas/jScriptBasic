@@ -62,7 +62,7 @@ public class BasicLeftValue implements LeftValue {
                                                    final LeftValueModifier modifier,
                                                    final boolean hasNext,
                                                    final RightValue rightValue,
-                                                   final ExtendedInterpreter extendedInterpreter)
+                                                   final Interpreter extendedInterpreter)
             throws ExecutionException {
         if (modifier instanceof ArrayElementAccessLeftValueModifier) {
             variable = handleArrayElementAccess(variable,
@@ -78,7 +78,7 @@ public class BasicLeftValue implements LeftValue {
 
     /**
      * Handle variable access modifier in case when the modifier is object field
-     * access. {@link #handleAccessModifier(RightValue, LeftValueModifier, boolean, RightValue, ExtendedInterpreter)}.
+     * access. {@link #handleAccessModifier(RightValue, LeftValueModifier, boolean, RightValue, Interpreter)}.
      *
      * @param variable
      * @param modifier
@@ -113,7 +113,7 @@ public class BasicLeftValue implements LeftValue {
     /**
      * Handle variable access modifier in case when the modifier is array
      * element access. {@link #handleAccessModifier(RightValue, LeftValueModifier, boolean,
-     * RightValue, ExtendedInterpreter)}.
+     * RightValue, Interpreter)}.
      *
      * @param variable
      * @param modifier
@@ -128,7 +128,7 @@ public class BasicLeftValue implements LeftValue {
                                                        final ArrayElementAccessLeftValueModifier modifier,
                                                        final boolean hasNext,
                                                        final RightValue rightValue,
-                                                       final ExtendedInterpreter extendedInterpreter)
+                                                       final Interpreter extendedInterpreter)
             throws ExecutionException {
         final Iterator<Expression> expressionIterator = modifier.getIndexList()
                 .iterator();
@@ -154,7 +154,7 @@ public class BasicLeftValue implements LeftValue {
 
     private static RightValue handleBasicArrayElementAccess(
             final BasicArray variable, final Integer index, final boolean hasNext,
-            final RightValue rightValue, final ExtendedInterpreter extendedInterpreter)
+            final RightValue rightValue, final Interpreter extendedInterpreter)
             throws ExecutionException {
         if (hasNext) {
             final RightValue arrayElement;
@@ -193,7 +193,7 @@ public class BasicLeftValue implements LeftValue {
     }
 
     @Override
-    public void setValue(final RightValue rightValue, final ExtendedInterpreter extendedInterpreter)
+    public void setValue(final RightValue rightValue, final Interpreter extendedInterpreter)
             throws ExecutionException {
         final VariableMap variableMap = extendedInterpreter.getVariables();
         if (modifiers == null || modifiers.isEmpty()) {
@@ -206,7 +206,7 @@ public class BasicLeftValue implements LeftValue {
         }
     }
 
-    private void handleAllAccessModifier(RightValue rightValue, ExtendedInterpreter extendedInterpreter,
+    private void handleAllAccessModifier(RightValue rightValue, Interpreter extendedInterpreter,
                                          RightValue variableCurrentValue) throws ExecutionException {
         final Iterator<LeftValueModifier> modifierIterator = modifiers.iterator();
         do {
@@ -233,7 +233,7 @@ public class BasicLeftValue implements LeftValue {
      * @throws ExecutionException
      */
     private RightValue emptyArrayIfUnderOrElseSelf(final RightValue value,
-                                                   final ExtendedInterpreter extendedInterpreter)
+                                                   final Interpreter extendedInterpreter)
             throws ExecutionException {
         final RightValue newValue;
         if (value == null) {

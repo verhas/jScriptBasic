@@ -21,12 +21,12 @@ import java.lang.reflect.Method;
 public abstract class SimpleHook implements InterpreterHook {
 
     private InterpreterHook next;
-    private ExtendedInterpreter interpreter;
+    private Interpreter interpreter;
 
     /**
      * @return the interpreter
      */
-    protected ExtendedInterpreter getInterpreter() {
+    protected Interpreter getInterpreter() {
         return interpreter;
     }
 
@@ -34,7 +34,7 @@ public abstract class SimpleHook implements InterpreterHook {
      * @param interpreter the interpreter to set
      */
     @Override
-    public void setInterpreter(final ExtendedInterpreter interpreter) {
+    public void setInterpreter(final Interpreter interpreter) {
         this.interpreter = interpreter;
     }
 

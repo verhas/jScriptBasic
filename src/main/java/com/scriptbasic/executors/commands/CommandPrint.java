@@ -9,7 +9,7 @@ import java.io.Writer;
 public class CommandPrint extends AbstractCommandExpressionListed {
 
     @Override
-    public void execute(final ExtendedInterpreter interpreter)
+    public void execute(final Interpreter interpreter)
             throws ExecutionException {
         for (final Expression expression : getExpressionList()) {
             final RightValue rightValue = expression.evaluate(interpreter);

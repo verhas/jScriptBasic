@@ -4,5 +4,5 @@ public interface Executor {
     /**
      * @param interpreter
      */
-    void execute(ExtendedInterpreter interpreter) throws ExecutionException;
+    void execute(Interpreter interpreter) throws ExecutionException;
 }

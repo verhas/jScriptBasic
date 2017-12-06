@@ -36,7 +36,7 @@ public class ReflectionUtility {
      * @throws BasicRuntimeException
      */
     public static Object invoke(final String symbolicName,
-                                final ExtendedInterpreter interpreter,
+                                final Interpreter interpreter,
                                 final Method method,
                                 final Object object,
                                 final List<RightValue> args)
@@ -63,7 +63,7 @@ public class ReflectionUtility {
         return interpreter.getHook().afterCallJavaFunction(method, javaCallResult);
     }
 
-    private static void setTheInterpreterIfTheResultIsBasicArray(Object javaCallResult, ExtendedInterpreter interpreter) {
+    private static void setTheInterpreterIfTheResultIsBasicArray(Object javaCallResult, Interpreter interpreter) {
         if (javaCallResult instanceof BasicArrayValue) {
             ((BasicArrayValue) javaCallResult).setInterpreter(interpreter);
         }

@@ -6,7 +6,7 @@ public class Context {
     public Configuration configuration;
     public TagAnalyzer tagAnalyzer;
     public SyntaxAnalyzer syntaxAnalyzer;
-    public ExtendedInterpreter interpreter;
+    public Interpreter interpreter;
     public SimpleLeftValueListAnalyzer simpleLeftValueListAnalyzer;
     public SimpleLeftValueAnalyzer simpleLeftValueAnalyzer;
     public ExpressionAnalyzer expressionAnalyzer;

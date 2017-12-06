@@ -206,7 +206,7 @@ public class TestEngine {
         engine.eval("sub applePie\nglobal a\na = \"hello world\"\nEndSub");
         String a = (String) engine.getVariable("a");
         assertNull(a);
-        engine.getSubroutine("applePie").call( (Object[]) null);
+        engine.getSubroutine("applePie").call((Object[]) null);
         a = (String) engine.getVariable("a");
         assertEquals("hello world", a);
         // END SNIPPET: subroutineCallWOArgumentsWORetval
@@ -220,7 +220,7 @@ public class TestEngine {
         engine.eval("sub applePie(b)\nglobal a\na = b\nEndSub");
         String a = (String) engine.getVariable("a");
         assertNull(a);
-        engine.getSubroutine("applePie").call( "hello world");
+        engine.getSubroutine("applePie").call("hello world");
         a = (String) engine.getVariable("a");
         assertEquals("hello world", a);
         // END SNIPPET: subroutineCallWArgumentsWORetval
@@ -259,7 +259,7 @@ public class TestEngine {
     public void testSubroutineCallWArgumentsWRetval1() throws Exception {
         ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie(b)\nglobal a\na = b\nreturn 6\nEndSub");
-        engine.getSubroutine("applePie").call( "hello world", "mama");
+        engine.getSubroutine("applePie").call("hello world", "mama");
     }
 
     @SuppressWarnings("deprecation")
@@ -268,7 +268,7 @@ public class TestEngine {
         ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie(b,c)\nglobal a\na = c\nreturn 6\nEndSub");
         String a = (String) engine.getVariable("a");
-        engine.getSubroutine("applePie").call( "hello world");
+        engine.getSubroutine("applePie").call("hello world");
         a = (String) engine.getVariable("a");
         assertNull(a);
     }
@@ -281,7 +281,7 @@ public class TestEngine {
         String a = (String) engine.getVariable("a");
         assertNull(a);
         @SuppressWarnings("deprecation")
-        Long ret = (Long) engine.getSubroutine("applePie").call( "hello world");
+        Long ret = (Long) engine.getSubroutine("applePie").call("hello world");
         a = (String) engine.getVariable("a");
         assertEquals("hello world", a);
         assertEquals((Long) 6L, ret);
@@ -310,7 +310,7 @@ public class TestEngine {
         ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("sub applePie(b)\nEndSub\nsub anotherSubroutine\nEndSub\n");
         final AtomicInteger i = new AtomicInteger(0);
-        engine.getSubroutines().forEach( (s) ->i.incrementAndGet());
+        engine.getSubroutines().forEach((s) -> i.incrementAndGet());
         assertEquals(2, i.get());
         assertEquals(1, engine.getSubroutine("applePie").getNumberOfArguments());
         assertEquals(0, engine.getSubroutine("anotherSubroutine").getNumberOfArguments());

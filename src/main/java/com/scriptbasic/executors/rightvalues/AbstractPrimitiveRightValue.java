@@ -2,7 +2,7 @@ package com.scriptbasic.executors.rightvalues;
 
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.Expression;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Interpreter;
 import com.scriptbasic.interfaces.RightValue;
 
 public abstract class AbstractPrimitiveRightValue<T> implements Expression, RightValue {
@@ -17,7 +17,7 @@ public abstract class AbstractPrimitiveRightValue<T> implements Expression, Righ
     }
 
     @Override
-    public RightValue evaluate(final ExtendedInterpreter extendedInterpreter) throws BasicRuntimeException {
+    public RightValue evaluate(final Interpreter extendedInterpreter) throws BasicRuntimeException {
         return this;
     }
 

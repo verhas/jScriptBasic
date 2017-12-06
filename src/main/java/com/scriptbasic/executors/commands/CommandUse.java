@@ -1,6 +1,6 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Interpreter;
 
 public class CommandUse extends AbstractCommand {
 
@@ -13,7 +13,7 @@ public class CommandUse extends AbstractCommand {
     }
 
     @Override
-    public void execute(final ExtendedInterpreter interpreter) {
+    public void execute(final Interpreter interpreter) {
         interpreter.getUseMap().put(alias, klass);
     }
 

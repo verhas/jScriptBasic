@@ -4,7 +4,7 @@ import com.scriptbasic.api.BasicArray;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.ExecutionException;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Interpreter;
 import com.scriptbasic.interfaces.RightValue;
 
 import java.util.Arrays;
@@ -17,7 +17,7 @@ public class BasicArrayValue implements RightValue, BasicArray {
     // TODO implement a function in the interpreter that can limit the
     // allocation of arrays
     // perhaps only the size of the individual arrays
-    private ExtendedInterpreter interpreter;
+    private Interpreter interpreter;
 
     /**
      * This constructor can be used by extension classes to instantiate a new
@@ -42,7 +42,7 @@ public class BasicArrayValue implements RightValue, BasicArray {
      *
      * @param interpreter
      */
-    public BasicArrayValue(final ExtendedInterpreter interpreter) {
+    public BasicArrayValue(final Interpreter interpreter) {
         this.interpreter = interpreter;
     }
 
@@ -70,7 +70,7 @@ public class BasicArrayValue implements RightValue, BasicArray {
      *
      * @param interpreter
      */
-    public void setInterpreter(final ExtendedInterpreter interpreter) {
+    public void setInterpreter(final Interpreter interpreter) {
         this.interpreter = interpreter;
     }
 

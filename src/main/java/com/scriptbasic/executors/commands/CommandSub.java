@@ -1,6 +1,6 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Interpreter;
 import com.scriptbasic.interfaces.LeftValueList;
 
 public class CommandSub extends AbstractCommand {
@@ -57,7 +57,7 @@ public class CommandSub extends AbstractCommand {
      * {@inheritDoc}
      */
     @Override
-    public void execute(final ExtendedInterpreter interpreter) {
+    public void execute(final Interpreter interpreter) {
         interpreter.setNextCommand(commandEndSub.getNextCommand());
     }
 

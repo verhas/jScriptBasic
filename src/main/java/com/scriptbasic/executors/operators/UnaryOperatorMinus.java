@@ -7,7 +7,7 @@ import com.scriptbasic.interfaces.*;
 public class UnaryOperatorMinus extends AbstractUnaryOperator {
 
     @Override
-    public RightValue evaluate(final ExtendedInterpreter extendedInterpreter)
+    public RightValue evaluate(final Interpreter extendedInterpreter)
             throws ExecutionException {
         final Expression operand = getOperand();
         final RightValue rightValue = operand.evaluate(extendedInterpreter);

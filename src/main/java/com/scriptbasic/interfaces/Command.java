@@ -25,5 +25,5 @@ package com.scriptbasic.interfaces;
 public interface Command extends AnalysisResult, Executor {
     Command getNextCommand();
 
-    void checkedExecute(ExtendedInterpreter interpreter) throws ExecutionException;
+    void checkedExecute(Interpreter interpreter) throws ExecutionException;
 }

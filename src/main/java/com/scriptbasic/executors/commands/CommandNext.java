@@ -1,7 +1,7 @@
 package com.scriptbasic.executors.commands;
 
 import com.scriptbasic.interfaces.ExecutionException;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Interpreter;
 
 /**
  * @author Peter Verhas
@@ -29,10 +29,10 @@ public class CommandNext extends AbstractCommand {
      * 
      * @see
      * com.scriptbasic.executors.commands.AbstractCommand#execute(com.scriptbasic
-     * .interfaces.ExtendedInterpreter)
+     * .interfaces.Interpreter)
      */
     @Override
-    public void execute(final ExtendedInterpreter interpreter)
+    public void execute(final Interpreter interpreter)
             throws ExecutionException {
         loopStartNode.stepLoopVariable(interpreter);
     }

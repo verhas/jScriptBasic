@@ -9,7 +9,7 @@ public class ArrayElementAccess extends
         AbstractIdentifieredExpressionListedExpression {
 
     @Override
-    public RightValue evaluate(final ExtendedInterpreter interpreter)
+    public RightValue evaluate(final Interpreter interpreter)
             throws ExecutionException {
         final VariableMap variableMap = interpreter.getVariables();
         RightValue value = variableMap.getVariableValue(getVariableName());

@@ -49,7 +49,7 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
         return array[index];
     }
 
-    private Object fetchFieldObject(final ExtendedInterpreter extendedInterpreter)
+    private Object fetchFieldObject(final Interpreter extendedInterpreter)
             throws ExecutionException {
         final Object object = getLeftOperandObject(extendedInterpreter);
         final AbstractIdentifieredExpression rightOp = (AbstractIdentifieredExpression) getRightOperand();
@@ -57,13 +57,13 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
         return KlassUtility.getField(object, fieldName);
     }
 
-    private RightValue fetchField(final ExtendedInterpreter extendedInterpreter)
+    private RightValue fetchField(final Interpreter extendedInterpreter)
             throws ExecutionException {
         final Object fieldObject = fetchFieldObject(extendedInterpreter);
         return RightValueUtility.createRightValue(fieldObject);
     }
 
-    private RightValue callMethod(final ExtendedInterpreter interpreter,
+    private RightValue callMethod(final Interpreter interpreter,
                                   final Object object, final Class<?> klass)
             throws ExecutionException {
         RightValue result = null;
@@ -130,7 +130,7 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
     }
 
     @SuppressWarnings("unchecked")
-    private Object getLeftOperandObject(final ExtendedInterpreter extendedInterpreter)
+    private Object getLeftOperandObject(final Interpreter extendedInterpreter)
             throws ExecutionException {
         final RightValue leftOp = getLeftOperand().evaluate(extendedInterpreter);
         if (!(leftOp instanceof AbstractPrimitiveRightValue<?>)) {
@@ -142,7 +142,7 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
         return ((AbstractPrimitiveRightValue<Object>) leftOp).getValue();
     }
 
-    private Class<?> getStaticClass(final ExtendedInterpreter interpreter) {
+    private Class<?> getStaticClass(final Interpreter interpreter) {
         Class<?> result = null;
         if (getLeftOperand() instanceof VariableAccess) {
             final String classAsName = ((VariableAccess) getLeftOperand())
@@ -155,7 +155,7 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
     }
 
     @Override
-    public RightValue evaluate(final ExtendedInterpreter interpreter)
+    public RightValue evaluate(final Interpreter interpreter)
             throws ExecutionException {
         RightValue result = null;
         final Expression rightOp = getRightOperand();

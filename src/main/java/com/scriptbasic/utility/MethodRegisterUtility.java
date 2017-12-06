@@ -3,7 +3,7 @@ package com.scriptbasic.utility;
 import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.Configuration;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Interpreter;
 import com.scriptbasic.interfaces.ExtensionInterfaceVersion;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
@@ -31,7 +31,7 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
      * @throws BasicRuntimeException when a function is double defined and not an identical manner
      */
     public static void registerFunctions(final Class<?> klass,
-                                         final ExtendedInterpreter interpreter) throws BasicRuntimeException {
+                                         final Interpreter interpreter) throws BasicRuntimeException {
 
         final FunctionLoadParameters method = new FunctionLoadParameters();
 
@@ -80,7 +80,7 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
      * @return true if the configuration allows the registering of the method
      */
     private static boolean classificationsAllowRegistering(
-            final ExtendedInterpreter interpreter, final Class<?>[] classifications) {
+            final Interpreter interpreter, final Class<?>[] classifications) {
         final Configuration config = interpreter.getConfiguration();
         Integer allowLevel = 0;
         for (final Class<?> classification : classifications) {
@@ -150,7 +150,7 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
             return requiredVersion <= EXTENSION_INTERFACE_VERSION;
         }
 
-        void register(final ExtendedInterpreter interpreter)
+        void register(final Interpreter interpreter)
                 throws BasicRuntimeException {
             if (versionIsCompatible()) {
                 if (classificationsAllowRegistering(interpreter, classifications)) {

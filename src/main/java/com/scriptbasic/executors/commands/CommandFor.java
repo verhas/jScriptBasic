@@ -41,7 +41,7 @@ public class CommandFor extends AbstractCommand {
         this.loopStepValue = loopStepValue;
     }
 
-    private void startLoopWithLong(final ExtendedInterpreter interpreter)
+    private void startLoopWithLong(final Interpreter interpreter)
             throws ExecutionException {
         final Long start = BasicLongValue.asLong(loopStart);
         loopVariable.setValue(new BasicLongValue(start), interpreter);
@@ -49,7 +49,7 @@ public class CommandFor extends AbstractCommand {
                 BasicLongValue.asLong(loopEnd));
     }
 
-    private void startLoopWithDouble(final ExtendedInterpreter interpreter)
+    private void startLoopWithDouble(final Interpreter interpreter)
             throws ExecutionException {
         final Double start = BasicDoubleValue.asDouble(loopStart);
         loopVariable.setValue(new BasicDoubleValue(start), interpreter);
@@ -58,17 +58,17 @@ public class CommandFor extends AbstractCommand {
     }
 
     private RightValue getLoopVariableAsRightValue(
-            final ExtendedInterpreter interpreter) throws ExecutionException {
+            final Interpreter interpreter) throws ExecutionException {
         return interpreter.getVariables().getVariableValue(
                 ((BasicLeftValue) loopVariable).getIdentifier());
     }
 
-    private void finishTheLoop(final ExtendedInterpreter interpreter) {
+    private void finishTheLoop(final Interpreter interpreter) {
         interpreter.setNextCommand(loopEndNode.getNextCommand());
     }
 
     private <T extends Number> void setNextCommand(
-            final ExtendedInterpreter interpreter, final T step,
+            final Interpreter interpreter, final T step,
             final T newLoopValue, final T loopEndDouble) {
         if (NumberUtility.isPositive(step)) {
             if (NumberUtility.compare(newLoopValue, loopEndDouble) <= 0) {
@@ -85,7 +85,7 @@ public class CommandFor extends AbstractCommand {
         }
     }
 
-    private void stepLoopVariable(final ExtendedInterpreter interpreter,
+    private void stepLoopVariable(final Interpreter interpreter,
                                   final Long step) throws ExecutionException {
         final Long loopEndValue = BasicLongValue.asLong(loopEnd);
         final RightValue rv = getLoopVariableAsRightValue(interpreter);
@@ -94,7 +94,7 @@ public class CommandFor extends AbstractCommand {
         setNextCommand(interpreter, step, newLoopValue, loopEndValue);
     }
 
-    private void stepLoopVariable(final ExtendedInterpreter interpreter,
+    private void stepLoopVariable(final Interpreter interpreter,
                                   final Double step) throws ExecutionException {
         final Double loopEndValue = BasicDoubleValue.asDouble(loopEnd);
         final RightValue rv = getLoopVariableAsRightValue(interpreter);
@@ -103,7 +103,7 @@ public class CommandFor extends AbstractCommand {
         setNextCommand(interpreter, step, newLoopValue, loopEndValue);
     }
 
-    void stepLoopVariable(final ExtendedInterpreter interpreter)
+    void stepLoopVariable(final Interpreter interpreter)
             throws ExecutionException {
         if (loopVariable instanceof BasicLeftValue) {
             if (loopStep instanceof BasicLongValue) {
@@ -121,7 +121,7 @@ public class CommandFor extends AbstractCommand {
         }
     }
 
-    void noStepLoopVariable(final ExtendedInterpreter interpreter)
+    void noStepLoopVariable(final Interpreter interpreter)
             throws ExecutionException {
         if (loopStep instanceof BasicLongValue) {
             final Long step = BasicLongValue.asLong(loopStep);
@@ -141,7 +141,7 @@ public class CommandFor extends AbstractCommand {
         }
     }
 
-    private void setLoopStart(final ExtendedInterpreter interpreter)
+    private void setLoopStart(final Interpreter interpreter)
             throws ExecutionException {
         if (loopStep instanceof BasicDoubleValue) {
             if (loopStart instanceof BasicDoubleValue) {
@@ -166,10 +166,10 @@ public class CommandFor extends AbstractCommand {
      * 
      * @see
      * com.scriptbasic.executors.commands.AbstractCommand#execute(com.scriptbasic
-     * .interfaces.ExtendedInterpreter)
+     * .interfaces.Interpreter)
      */
     @Override
-    public void execute(final ExtendedInterpreter interpreter)
+    public void execute(final Interpreter interpreter)
             throws ExecutionException {
         loopStart = loopStartValue.evaluate(interpreter);
         loopEnd = loopEndValue.evaluate(interpreter);

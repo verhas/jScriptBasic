@@ -14,6 +14,6 @@ public interface LeftValue extends Value, AnalysisResult {
      * @param extendedInterpreter the interpreter controlling the action
      * @throws ExecutionException if the value can not be assigned for some reason
      */
-    void setValue(RightValue rightValue, ExtendedInterpreter extendedInterpreter)
+    void setValue(RightValue rightValue, Interpreter extendedInterpreter)
             throws ExecutionException;
 }

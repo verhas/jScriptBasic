@@ -2,7 +2,7 @@ package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.ExecutionException;
-import com.scriptbasic.interfaces.ExtendedInterpreter;
+import com.scriptbasic.interfaces.Interpreter;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 import org.junit.Test;
@@ -23,7 +23,7 @@ public class TestJavaAccess {
 
 
     private static void b(final String s, Object expected) throws AnalysisException, ExecutionException {
-        ExtendedInterpreter interpreter = eval(s);
+        Interpreter interpreter = eval(s);
         interpreter.execute();
         assertValueOfVariable_A(interpreter, expected);
     }

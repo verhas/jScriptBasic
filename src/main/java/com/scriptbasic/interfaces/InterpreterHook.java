@@ -49,7 +49,7 @@ import java.lang.reflect.Method;
  * only in {@link SimpleHook} are empty and do nothing.
  * <p>
  * More information about why disabling the hook handling is needed see
- * {@link #setReturnValue(RightValue)} and {@link ExtendedInterpreter#disableHook()}
+ * {@link #setReturnValue(RightValue)} and {@link Interpreter#disableHook()}
  *
  * @author Peter Verhas
  * date Aug 3, 2012
@@ -79,7 +79,7 @@ public interface InterpreterHook {
      *
      * @param interpreter
      */
-    void setInterpreter(ExtendedInterpreter interpreter);
+    void setInterpreter(Interpreter interpreter);
 
     /**
      * This method is called before the interpreter executes a command.
@@ -135,11 +135,11 @@ public interface InterpreterHook {
      * This method is called after a subroutine has set its return value. It is
      * possible to modify the return value calling back to the interpreter but
      * it has to be only invoked together with {@link
-     * ExtendedInterpreter#disableHook()} and {@link
-     * ExtendedInterpreter#enableHook()}.
+     * Interpreter#disableHook()} and {@link
+     * Interpreter#enableHook()}.
      *
      * @param returnValue
-     * @see ExtendedInterpreter#disableHook()
+     * @see Interpreter#disableHook()
      */
     void setReturnValue(RightValue returnValue);
 
