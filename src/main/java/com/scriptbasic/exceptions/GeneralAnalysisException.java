@@ -21,9 +21,11 @@ public abstract class GeneralAnalysisException extends AnalysisException {
     public GeneralAnalysisException(final String message, final Throwable cause) {
         super(message, cause);
     }
+
     public GeneralAnalysisException(final String message) {
         super(message);
     }
+
     public GeneralAnalysisException(final Throwable cause) {
         super(cause);
     }

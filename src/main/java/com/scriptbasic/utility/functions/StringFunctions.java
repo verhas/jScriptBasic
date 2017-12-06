@@ -26,6 +26,7 @@ import com.scriptbasic.api.BasicFunction;
  * not implemented in the class {@code java.lang.String} are documented in this
  * class.
  * </p>
+ *
  * @author Peter Verhas
  */
 public class StringFunctions {
