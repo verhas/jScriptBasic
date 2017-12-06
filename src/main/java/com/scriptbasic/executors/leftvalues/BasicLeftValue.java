@@ -62,12 +62,12 @@ public class BasicLeftValue implements LeftValue {
                                                    final LeftValueModifier modifier,
                                                    final boolean hasNext,
                                                    final RightValue rightValue,
-                                                   final Interpreter extendedInterpreter)
+                                                   final Interpreter interpreter)
             throws ExecutionException {
         if (modifier instanceof ArrayElementAccessLeftValueModifier) {
             variable = handleArrayElementAccess(variable,
                     (ArrayElementAccessLeftValueModifier) modifier, hasNext,
-                    rightValue, extendedInterpreter);
+                    rightValue, interpreter);
         } else if (modifier instanceof ObjectFieldAccessLeftValueModifier) {
             variable = handleObjectFieldAccess(variable,
                     (ObjectFieldAccessLeftValueModifier) modifier, hasNext,
@@ -119,7 +119,7 @@ public class BasicLeftValue implements LeftValue {
      * @param modifier
      * @param hasNext
      * @param rightValue
-     * @param extendedInterpreter is used to evaluate the expression that stands between the {@code [} and {@code ]}
+     * @param interpreter is used to evaluate the expression that stands between the {@code [} and {@code ]}
      *                            characters. Note that this is not needed when a field access is evaluated.
      * @return
      * @throws ExecutionException
@@ -128,13 +128,13 @@ public class BasicLeftValue implements LeftValue {
                                                        final ArrayElementAccessLeftValueModifier modifier,
                                                        final boolean hasNext,
                                                        final RightValue rightValue,
-                                                       final Interpreter extendedInterpreter)
+                                                       final Interpreter interpreter)
             throws ExecutionException {
         final Iterator<Expression> expressionIterator = modifier.getIndexList()
                 .iterator();
         while (expressionIterator.hasNext()) {
             final Expression expression = expressionIterator.next();
-            final RightValue index = expression.evaluate(extendedInterpreter);
+            final RightValue index = expression.evaluate(interpreter);
 
             if (variable instanceof BasicArray) {
 
@@ -142,7 +142,7 @@ public class BasicLeftValue implements LeftValue {
                         (BasicArray) variable,
                         RightValueUtility.convert2Integer(index),
                         (hasNext || expressionIterator.hasNext()), rightValue,
-                        extendedInterpreter);
+                        interpreter);
 
             } else {
                 throw new BasicRuntimeException(variable
@@ -154,7 +154,7 @@ public class BasicLeftValue implements LeftValue {
 
     private static RightValue handleBasicArrayElementAccess(
             final BasicArray variable, final Integer index, final boolean hasNext,
-            final RightValue rightValue, final Interpreter extendedInterpreter)
+            final RightValue rightValue, final Interpreter interpreter)
             throws ExecutionException {
         if (hasNext) {
             final RightValue arrayElement;
@@ -162,7 +162,7 @@ public class BasicLeftValue implements LeftValue {
             if (object instanceof RightValue) {
                 arrayElement = (RightValue) object;
             } else {
-                arrayElement = new BasicArrayValue(extendedInterpreter);
+                arrayElement = new BasicArrayValue(interpreter);
                 variable.set(index, arrayElement);
             }
             return arrayElement;
@@ -193,26 +193,26 @@ public class BasicLeftValue implements LeftValue {
     }
 
     @Override
-    public void setValue(final RightValue rightValue, final Interpreter extendedInterpreter)
+    public void setValue(final RightValue rightValue, final Interpreter interpreter)
             throws ExecutionException {
-        final VariableMap variableMap = extendedInterpreter.getVariables();
+        final VariableMap variableMap = interpreter.getVariables();
         if (modifiers == null || modifiers.isEmpty()) {
             LOG.debug("setting the variable '{}'", getIdentifier());
             variableMap.setVariable(getIdentifier(), rightValue);
         } else {
             RightValue variableCurrentValue = variableMap.getVariableValue(getIdentifier());
-            variableCurrentValue = emptyArrayIfUnderOrElseSelf(variableCurrentValue, extendedInterpreter);
-            handleAllAccessModifier(rightValue, extendedInterpreter, variableCurrentValue);
+            variableCurrentValue = emptyArrayIfUnderOrElseSelf(variableCurrentValue, interpreter);
+            handleAllAccessModifier(rightValue, interpreter, variableCurrentValue);
         }
     }
 
-    private void handleAllAccessModifier(RightValue rightValue, Interpreter extendedInterpreter,
+    private void handleAllAccessModifier(RightValue rightValue, Interpreter interpreter,
                                          RightValue variableCurrentValue) throws ExecutionException {
         final Iterator<LeftValueModifier> modifierIterator = modifiers.iterator();
         do {
             variableCurrentValue = handleAccessModifier(variableCurrentValue,
                     modifierIterator.next(), modifierIterator.hasNext(),
-                    rightValue, extendedInterpreter);
+                    rightValue, interpreter);
 
         } while (variableCurrentValue != null);
     }
@@ -228,17 +228,17 @@ public class BasicLeftValue implements LeftValue {
      * not used before, because arrays are allocated automatically.
      *
      * @param value               that is the current value of the
-     * @param extendedInterpreter used to allocate the new array
+     * @param interpreter used to allocate the new array
      * @return the value or a newly allocated array, which is also stored in the current left value left identifier
      * @throws ExecutionException
      */
     private RightValue emptyArrayIfUnderOrElseSelf(final RightValue value,
-                                                   final Interpreter extendedInterpreter)
+                                                   final Interpreter interpreter)
             throws ExecutionException {
         final RightValue newValue;
         if (value == null) {
-            newValue = new BasicArrayValue(extendedInterpreter);
-            extendedInterpreter.getVariables().setVariable(getIdentifier(), newValue);
+            newValue = new BasicArrayValue(interpreter);
+            interpreter.getVariables().setVariable(getIdentifier(), newValue);
         } else {
             newValue = value;
         }

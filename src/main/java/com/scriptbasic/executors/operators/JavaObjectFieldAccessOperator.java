@@ -49,17 +49,17 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
         return array[index];
     }
 
-    private Object fetchFieldObject(final Interpreter extendedInterpreter)
+    private Object fetchFieldObject(final Interpreter interpreter)
             throws ExecutionException {
-        final Object object = getLeftOperandObject(extendedInterpreter);
+        final Object object = getLeftOperandObject(interpreter);
         final AbstractIdentifieredExpression rightOp = (AbstractIdentifieredExpression) getRightOperand();
         final String fieldName = rightOp.getVariableName();
         return KlassUtility.getField(object, fieldName);
     }
 
-    private RightValue fetchField(final Interpreter extendedInterpreter)
+    private RightValue fetchField(final Interpreter interpreter)
             throws ExecutionException {
-        final Object fieldObject = fetchFieldObject(extendedInterpreter);
+        final Object fieldObject = fetchFieldObject(interpreter);
         return RightValueUtility.createRightValue(fieldObject);
     }
 
@@ -130,9 +130,9 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
     }
 
     @SuppressWarnings("unchecked")
-    private Object getLeftOperandObject(final Interpreter extendedInterpreter)
+    private Object getLeftOperandObject(final Interpreter interpreter)
             throws ExecutionException {
-        final RightValue leftOp = getLeftOperand().evaluate(extendedInterpreter);
+        final RightValue leftOp = getLeftOperand().evaluate(interpreter);
         if (!(leftOp instanceof AbstractPrimitiveRightValue<?>)) {
             throw new BasicRuntimeException("Can not get field access from "
                     + (leftOp == null ? "null" : leftOp.getClass())

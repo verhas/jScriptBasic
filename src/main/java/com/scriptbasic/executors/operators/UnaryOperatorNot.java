@@ -8,10 +8,10 @@ import com.scriptbasic.interfaces.RightValue;
 public class UnaryOperatorNot extends AbstractUnaryOperator {
 
     @Override
-    public RightValue evaluate(final Interpreter extendedInterpreter)
+    public RightValue evaluate(final Interpreter interpreter)
             throws ExecutionException {
         new BasicBooleanValue(false);
         return new BasicBooleanValue(!BasicBooleanValue.asBoolean(getOperand()
-                .evaluate(extendedInterpreter)));
+                .evaluate(interpreter)));
     }
 }

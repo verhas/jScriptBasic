@@ -9,14 +9,14 @@ public abstract class AbstractShortCircuitBinaryOperator extends
         AbstractBinaryOperator {
 
     protected abstract RightValue evaluateOn(
-            Interpreter extendedInterpreter, RightValue leftOperand,
+            Interpreter interpreter, RightValue leftOperand,
             Expression rightOperand) throws ExecutionException;
 
     @Override
-    public RightValue evaluate(final Interpreter extendedInterpreter)
+    public RightValue evaluate(final Interpreter interpreter)
             throws ExecutionException {
-        return evaluateOn(extendedInterpreter,
-                getLeftOperand().evaluate(extendedInterpreter),
+        return evaluateOn(interpreter,
+                getLeftOperand().evaluate(interpreter),
                 getRightOperand());
     }
 

@@ -21,9 +21,9 @@ public abstract class AbstractBinaryFullCircuitOperator extends
                                              RightValue rightOperand) throws BasicRuntimeException;
 
     @Override
-    public final RightValue evaluate(final Interpreter extendedInterpreter) throws ExecutionException {
-        return evaluateOn(getLeftOperand().evaluate(extendedInterpreter), getRightOperand()
-                .evaluate(extendedInterpreter));
+    public final RightValue evaluate(final Interpreter interpreter) throws ExecutionException {
+        return evaluateOn(getLeftOperand().evaluate(interpreter), getRightOperand()
+                .evaluate(interpreter));
     }
 
 }

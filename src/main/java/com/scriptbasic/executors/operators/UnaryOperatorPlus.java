@@ -7,9 +7,9 @@ import com.scriptbasic.interfaces.RightValue;
 public class UnaryOperatorPlus extends AbstractUnaryOperator {
 
     @Override
-    public RightValue evaluate(final Interpreter extendedInterpreter)
+    public RightValue evaluate(final Interpreter interpreter)
             throws ExecutionException {
-        return getOperand().evaluate(extendedInterpreter);
+        return getOperand().evaluate(interpreter);
     }
 
 }

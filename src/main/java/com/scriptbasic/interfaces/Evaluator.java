@@ -8,6 +8,6 @@ package com.scriptbasic.interfaces;
  * date June 15, 2012
  */
 public interface Evaluator {
-    RightValue evaluate(Interpreter extendedInterpreter)
+    RightValue evaluate(Interpreter interpreter)
             throws ExecutionException;
 }

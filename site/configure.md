@@ -41,7 +41,7 @@ hook.0=com.scriptbasic.hooks.RunLimitHook
 ScriptBasic for Java makes it possible to call static Java methods from BASIC. These methods can be registered
 in the BASIC program using the commands `USE` and `METHOD` or from the embedding application calling the
 ScriptBasic for Java static method
-`com.scriptbasic.utility.MethodRegisterUtility.registerFunctions(Class<?>, ExtendedInterpreter)`.
+`com.scriptbasic.utility.MethodRegisterUtility.registerFunctions(Class<?>, Interpreter)`.
 
 If you want to secure your application denying the right from the users to execute Java method callbacks from
 from their BASIC programs you can switch off the commands `USE` and `METHOD` using the configuration key
@@ -70,7 +70,7 @@ deny(com.scriptbasic.classification.Constant)=1
 ```
 
 The methods are registered by the static method 
-`com.scriptbasic.utility.MethodRegisterUtility.registerFunctions(Class<?>, ExtendedInterpreter)`.
+`com.scriptbasic.utility.MethodRegisterUtility.registerFunctions(Class<?>, Interpreter)`.
 This method looks up all the methods in the class passed as first argument and registers those that are annotated using
 the annotation interface `com.scriptbasic.Function`. This annotation makes it possible to classify the individual
 methods to be registered using Java classes. The methods presented in the class `com.scriptbasic.utility.RuntimeUtility`

@@ -78,7 +78,7 @@ public final class ExpressionUtility {
     }
 
     public static Object[] getObjectArray(final List<RightValue> args, final Method method,
-                                          final Interpreter extendedInterpreter) throws ExecutionException {
+                                          final Interpreter interpreter) throws ExecutionException {
         final Class<?>[] parameterTypes = method.getParameterTypes();
         // if the declaring class of the method implements the interface
         // WHATEVER //TODO find a good name for the interface that is to be
@@ -111,13 +111,13 @@ public final class ExpressionUtility {
     }
 
     public static List<RightValue> evaluateExpressionList(
-            final Interpreter extendedInterpreter,
+            final Interpreter interpreter,
             final ExpressionList expressionList) throws ExecutionException {
         List<RightValue> args = null;
         if (expressionList != null) {
             args = new LinkedList<>();
             for (final Expression expression : expressionList) {
-                args.add(expression.evaluate(extendedInterpreter));
+                args.add(expression.evaluate(interpreter));
             }
         }
         return args;

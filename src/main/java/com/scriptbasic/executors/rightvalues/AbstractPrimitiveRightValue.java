@@ -17,7 +17,7 @@ public abstract class AbstractPrimitiveRightValue<T> implements Expression, Righ
     }
 
     @Override
-    public RightValue evaluate(final Interpreter extendedInterpreter) throws BasicRuntimeException {
+    public RightValue evaluate(final Interpreter interpreter) throws BasicRuntimeException {
         return this;
     }
 
