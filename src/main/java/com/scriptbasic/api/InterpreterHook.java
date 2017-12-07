@@ -1,6 +1,9 @@
-package com.scriptbasic.interfaces;
+package com.scriptbasic.api;
 
-import com.scriptbasic.hooks.SimpleHook;
+import com.scriptbasic.interfaces.Command;
+import com.scriptbasic.interfaces.Interpreter;
+import com.scriptbasic.interfaces.LeftValueList;
+import com.scriptbasic.interfaces.RightValue;
 
 import java.lang.reflect.Method;
 
@@ -11,11 +14,11 @@ import java.lang.reflect.Method;
  * on.
  * <p>
  * To implement a hook the class should implement this interface. It is
- * recommended to extend the class {@link com.scriptbasic.hooks.SimpleHook}
+ * recommended to extend the class {@link SimpleHook}
  * instead of implementing a fresh class just implementing this interface. There
  * are a lot of methods in this interface and usually a hook class need
  * functionality only for a subset. The class {@link
- * com.scriptbasic.hooks.SimpleHook} gives default implementation for the
+ * SimpleHook} gives default implementation for the
  * methods and eases hook development providing extended methods.
  * <p>
  * To make a hook class used by the interpreter the class should be on the
@@ -40,7 +43,7 @@ import java.lang.reflect.Method;
  * <p>
  * A hook method can decide for some good reason to break the chain not invoking
  * the next element in the chain. When implementing a hook class extending the class
- * {@link com.scriptbasic.hooks.SimpleHook} all methods defined in this interface
+ * {@link SimpleHook} all methods defined in this interface
  * are implemented. They simply disable hook handling, call the method of the same
  * name with the extra 'Ex' at the end, enable hook handling and then call the next hook.
  * For example the method {@link SimpleHook#beforePop()} calls {@link SimpleHook#beforePopEx()}

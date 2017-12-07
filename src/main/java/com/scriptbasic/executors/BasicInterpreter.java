@@ -1,5 +1,6 @@
 package com.scriptbasic.executors;
 
+import com.scriptbasic.api.InterpreterHook;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.errors.BasicInterpreterInternalError;

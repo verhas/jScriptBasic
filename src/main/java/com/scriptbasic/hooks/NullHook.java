@@ -1,5 +1,6 @@
 package com.scriptbasic.hooks;
 
+import com.scriptbasic.api.InterpreterHook;
 import com.scriptbasic.interfaces.*;
 
 import java.lang.reflect.Method;

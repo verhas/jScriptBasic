@@ -1,5 +1,6 @@
 package com.scriptbasic.hooks;
 
+import com.scriptbasic.api.SimpleHook;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.executors.BasicInterpreter;
