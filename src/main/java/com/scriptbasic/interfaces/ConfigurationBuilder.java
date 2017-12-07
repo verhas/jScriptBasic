@@ -1,5 +1,7 @@
 package com.scriptbasic.interfaces;
 
+import com.scriptbasic.api.Configuration;
+
 import java.io.InputStream;
 
 /**

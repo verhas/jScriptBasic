@@ -1,9 +1,6 @@
 package com.scriptbasic;
 
-import com.scriptbasic.api.InterpreterHook;
-import com.scriptbasic.api.ScriptBasic;
-import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.api.Subroutine;
+import com.scriptbasic.api.*;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
@@ -317,6 +314,12 @@ public class Engine implements ScriptBasic {
     public void registerHook(InterpreterHook hook) {
         ctx = ContextBuilder.from(ctx);
         ctx.interpreter.registerHook(hook);
+    }
+
+    @Override
+    public Configuration getConfiguration() {
+        ctx = ContextBuilder.from(ctx);
+        return ctx.configuration;
     }
 
 }

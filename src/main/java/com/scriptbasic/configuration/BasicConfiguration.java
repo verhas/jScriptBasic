@@ -1,6 +1,8 @@
 package com.scriptbasic.configuration;
 
-import com.scriptbasic.interfaces.Configuration;
+import com.scriptbasic.api.Configuration;
+import com.scriptbasic.errors.BasicInterpreterInternalError;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 
@@ -15,8 +17,7 @@ import java.util.*;
 public class BasicConfiguration implements Configuration {
     private static final Logger LOG = LoggerFactory.getLogger();
     private final Map<String, List<String>> lists = new HashMap<>();
-    Properties configProperties;
-
+    private Properties configProperties;
     public BasicConfiguration() {
         try {
             loadDefaultConfiguration();
@@ -106,4 +107,16 @@ public class BasicConfiguration implements Configuration {
         }
     }
 
+    @Override
+    public void set(final String name, final String value) {
+        configProperties.put(name, value);
+    }
+    @Override
+    public void set(final String command) {
+        int index = command.indexOf("=");
+        if( index == -1 ){
+            throw new BasicInterpreterInternalError("Configuration command '"+command+"' is invalid.");
+        }
+        configProperties.put(command.substring(0,index), command.substring(index+1));
+    }
 }

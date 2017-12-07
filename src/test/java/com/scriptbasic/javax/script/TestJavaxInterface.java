@@ -3,7 +3,7 @@ package com.scriptbasic.javax.script;
 import com.scriptbasic.api.Version;
 import com.scriptbasic.api.script.ScriptBasicEngineFactory;
 import com.scriptbasic.configuration.BasicConfiguration;
-import com.scriptbasic.interfaces.Configuration;
+import com.scriptbasic.api.Configuration;
 import org.junit.Assert;
 import org.junit.Test;
 

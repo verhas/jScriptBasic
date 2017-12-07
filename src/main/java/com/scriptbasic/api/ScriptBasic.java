@@ -290,4 +290,10 @@ public interface ScriptBasic {
      * @param hook the hook instance to register
      */
     void registerHook(InterpreterHook hook);
+
+
+    /**
+     * @return the configuration object of the BASIC interpreter.
+     */
+    Configuration getConfiguration();
 }

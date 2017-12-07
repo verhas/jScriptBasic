@@ -1,9 +1,6 @@
 package com.scriptbasic.interfaces;
 
-import com.scriptbasic.api.Command;
-import com.scriptbasic.api.InterpreterHook;
-import com.scriptbasic.api.RightValue;
-import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.api.*;
 import com.scriptbasic.executors.commands.CommandSub;
 
 import java.io.Reader;

@@ -1,6 +1,6 @@
 package com.scriptbasic.hooks;
 
-import com.scriptbasic.interfaces.Configuration;
+import com.scriptbasic.api.Configuration;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,14 +19,10 @@ import static org.junit.Assert.*;
 
 public class TestRunLimitHook {
 
-    private static Properties setConfig(Configuration config) {
-        Properties configProperties = new Properties();
-        configProperties.put("hook.0", "com.scriptbasic.hooks.RunLimitHook");
-        configProperties.put("RunLimitHook.stepLimit", "10");
-        configProperties.put("RunLimitHook.timeLimitMillis", "100");
-
-        config.setConfigProperties(configProperties);
-        return configProperties;
+    private static void setConfig(Configuration config) {
+        config.set("hook.0", "com.scriptbasic.hooks.RunLimitHook");
+        config.set("RunLimitHook.stepLimit", "10");
+        config.set("RunLimitHook.timeLimitMillis", "100");
     }
 
     @After
@@ -46,7 +42,6 @@ public class TestRunLimitHook {
         assertTrue(scriptEngine instanceof com.scriptbasic.api.script.ScriptEngine);
         Configuration config = ((com.scriptbasic.api.script.ScriptEngine) scriptEngine).ctx.configuration;
         setConfig(config);
-        Properties p = setConfig(config);
         try {
             scriptEngine.eval("while true\nwend\n");
             Assert.fail("infinite loop did not throw exception");
@@ -63,8 +58,7 @@ public class TestRunLimitHook {
         assertTrue(scriptEngine instanceof com.scriptbasic.api.script.ScriptEngine);
         Configuration config = ((com.scriptbasic.api.script.ScriptEngine) scriptEngine).ctx.configuration;
         setConfig(config);
-        Properties p = setConfig(config);
-        p.put("RunLimitHook.stepLimit", "100000000");
+        config.set("RunLimitHook.stepLimit=100000000");
         try {
             scriptEngine.eval("while true\nwend\n");
             Assert.fail("infinite loop did not throw exception");

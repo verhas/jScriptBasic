@@ -1,4 +1,4 @@
-package com.scriptbasic.interfaces;
+package com.scriptbasic.api;
 
 import java.io.InputStream;
 import java.util.List;
@@ -91,4 +91,19 @@ public interface Configuration {
      *           properties file.
      */
     void loadConfiguration(final InputStream is);
+
+    /**
+     * Set the property value in the configuration. This method is available for host application to
+     * configure the interpreter programmatically.
+     * @param name configuration property name
+     * @param value configuration property value
+     */
+    void set(final String name, final String value);
+
+    /**
+     * Set the property value in the configuration. This method is available for host application to
+     * configure the interpreter programmatically.
+     * @param command the name and the value separated by '='
+     */
+    void set(final String command);
 }

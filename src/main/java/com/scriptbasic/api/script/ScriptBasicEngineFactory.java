@@ -2,7 +2,7 @@ package com.scriptbasic.api.script;
 
 import com.scriptbasic.api.Version;
 import com.scriptbasic.configuration.BasicConfiguration;
-import com.scriptbasic.interfaces.Configuration;
+import com.scriptbasic.api.Configuration;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 

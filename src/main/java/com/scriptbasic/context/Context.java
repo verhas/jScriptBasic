@@ -1,5 +1,6 @@
 package com.scriptbasic.context;
 
+import com.scriptbasic.api.Configuration;
 import com.scriptbasic.interfaces.*;
 
 public class Context {
