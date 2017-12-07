@@ -4,7 +4,7 @@ import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.interfaces.Interpreter;
+import com.scriptbasic.spi.Interpreter;
 
 import static org.junit.Assert.assertEquals;
 

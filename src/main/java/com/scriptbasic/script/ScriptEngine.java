@@ -1,10 +1,10 @@
-package com.scriptbasic.api.script;
+package com.scriptbasic.script;
 
 import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.interfaces.Interpreter;
+import com.scriptbasic.spi.Interpreter;
 
 import javax.script.*;
 import java.io.Reader;
@@ -20,10 +20,10 @@ public class ScriptEngine extends AbstractScriptEngine {
     public final ScriptBasicEngineFactory scriptEngineFactory;
     public Context ctx;
 
-    public ScriptEngine(final ScriptBasicEngineFactory scriptEngineFactory) {
+    public ScriptEngine(final ScriptBasicEngineFactory factory) {
         ctx = ContextBuilder.newContext();
-        ctx.configuration = scriptEngineFactory.config;
-        this.scriptEngineFactory = scriptEngineFactory;
+        ctx.configuration = factory.config;
+        scriptEngineFactory = factory;
     }
 
     private static void unmergeBindings(final Interpreter interpreter,

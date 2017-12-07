@@ -1,6 +1,7 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.api.RightValue;
+import com.scriptbasic.spi.Interpreter;
+import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 import com.scriptbasic.interfaces.*;

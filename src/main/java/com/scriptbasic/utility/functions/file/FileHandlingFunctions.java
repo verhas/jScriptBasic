@@ -1,6 +1,6 @@
 package com.scriptbasic.utility.functions.file;
 
-import com.scriptbasic.api.BasicArray;
+import com.scriptbasic.spi.BasicArray;
 import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.BasicRuntimeException;

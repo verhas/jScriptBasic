@@ -1,7 +1,11 @@
-package com.scriptbasic.interfaces;
+package com.scriptbasic.spi;
 
-import com.scriptbasic.api.*;
+import com.scriptbasic.api.Configuration;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.executors.commands.CommandSub;
+import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.interfaces.BuildableProgram;
+import com.scriptbasic.interfaces.HierarchicalVariableMap;
 
 import java.io.Reader;
 import java.io.Writer;

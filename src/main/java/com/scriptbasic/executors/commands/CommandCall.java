@@ -2,8 +2,7 @@ package com.scriptbasic.executors.commands;
 
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.executors.rightvalues.FunctionCall;
-import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.interfaces.Interpreter;
+import com.scriptbasic.spi.Interpreter;
 
 public class CommandCall extends AbstractCommandExpressionListed {
     private final FunctionCall functionCall;

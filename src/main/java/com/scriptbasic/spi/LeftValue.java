@@ -1,7 +1,7 @@
-package com.scriptbasic.api;
+package com.scriptbasic.spi;
 
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.AnalysisResult;
-import com.scriptbasic.interfaces.Interpreter;
 import com.scriptbasic.interfaces.Value;
 
 /**

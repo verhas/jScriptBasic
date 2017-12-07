@@ -1,4 +1,4 @@
-package com.scriptbasic.api.script;
+package com.scriptbasic.script;
 
 import com.scriptbasic.api.Version;
 import com.scriptbasic.configuration.BasicConfiguration;
@@ -227,7 +227,7 @@ public class ScriptBasicEngineFactory implements javax.script.ScriptEngineFactor
      */
     @Override
     public ScriptEngine getScriptEngine() {
-        return new com.scriptbasic.api.script.ScriptEngine(this);
+        return new com.scriptbasic.script.ScriptEngine(this);
     }
 
 }

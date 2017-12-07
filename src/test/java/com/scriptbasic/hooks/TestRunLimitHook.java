@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import java.util.Properties;
 
 import static org.junit.Assert.*;
 
@@ -39,8 +38,8 @@ public class TestRunLimitHook {
         ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
         ScriptEngine scriptEngine = scriptEngineManager.getEngineByExtension("sb");
         assertNotNull(scriptEngine);
-        assertTrue(scriptEngine instanceof com.scriptbasic.api.script.ScriptEngine);
-        Configuration config = ((com.scriptbasic.api.script.ScriptEngine) scriptEngine).ctx.configuration;
+        assertTrue(scriptEngine instanceof com.scriptbasic.script.ScriptEngine);
+        Configuration config = ((com.scriptbasic.script.ScriptEngine) scriptEngine).ctx.configuration;
         setConfig(config);
         try {
             scriptEngine.eval("while true\nwend\n");
@@ -55,8 +54,8 @@ public class TestRunLimitHook {
         ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
         ScriptEngine scriptEngine = scriptEngineManager.getEngineByExtension("sb");
         assertNotNull(scriptEngine);
-        assertTrue(scriptEngine instanceof com.scriptbasic.api.script.ScriptEngine);
-        Configuration config = ((com.scriptbasic.api.script.ScriptEngine) scriptEngine).ctx.configuration;
+        assertTrue(scriptEngine instanceof com.scriptbasic.script.ScriptEngine);
+        Configuration config = ((com.scriptbasic.script.ScriptEngine) scriptEngine).ctx.configuration;
         setConfig(config);
         config.set("RunLimitHook.stepLimit=100000000");
         try {

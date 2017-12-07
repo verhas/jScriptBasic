@@ -1,9 +1,6 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.api.LeftValue;
-import com.scriptbasic.api.LeftValueList;
-import com.scriptbasic.api.RightValue;
-import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.api.*;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
@@ -11,6 +8,10 @@ import com.scriptbasic.executors.operators.JavaObjectFieldAccessOperator;
 import com.scriptbasic.executors.rightvalues.BasicStringValue;
 import com.scriptbasic.executors.rightvalues.VariableAccess;
 import com.scriptbasic.interfaces.*;
+import com.scriptbasic.spi.Interpreter;
+import com.scriptbasic.spi.LeftValue;
+import com.scriptbasic.spi.LeftValueList;
+import com.scriptbasic.spi.RightValue;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

@@ -3,7 +3,7 @@ package com.scriptbasic.syntax.commands;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandWhile;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.api.Command;
+import com.scriptbasic.spi.Command;
 import com.scriptbasic.interfaces.Expression;
 
 public class CommandAnalyzerWhile extends AbstractCommandAnalyzer {

@@ -1,6 +1,4 @@
-package com.scriptbasic.api;
-
-import com.scriptbasic.interfaces.Interpreter;
+package com.scriptbasic.spi;
 
 import java.lang.reflect.Method;
 

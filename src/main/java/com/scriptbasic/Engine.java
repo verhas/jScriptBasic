@@ -11,6 +11,7 @@ import com.scriptbasic.interfaces.SourceProvider;
 import com.scriptbasic.interfaces.SourceReader;
 import com.scriptbasic.sourceproviders.BasicSourcePath;
 import com.scriptbasic.sourceproviders.FileSourceProvider;
+import com.scriptbasic.spi.InterpreterHook;
 import com.scriptbasic.utility.RightValueUtility;
 
 import java.io.*;

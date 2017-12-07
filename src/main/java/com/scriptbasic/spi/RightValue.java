@@ -1,4 +1,4 @@
-package com.scriptbasic.api;
+package com.scriptbasic.spi;
 
 import com.scriptbasic.executors.rightvalues.*;
 import com.scriptbasic.interfaces.Value;

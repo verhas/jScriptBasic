@@ -106,4 +106,10 @@ public interface Configuration {
      * @param command the name and the value separated by '='
      */
     void set(final String command);
+
+    /**
+     *
+     * @return the properties object that stores the configuration
+     */
+    Properties getConfigProperties();
 }

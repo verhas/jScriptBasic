@@ -1,13 +1,13 @@
 package com.scriptbasic.executors.rightvalues;
 
-import com.scriptbasic.api.RightValue;
+import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.executors.AbstractIdentifieredExpressionListedExpression;
 import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.ExpressionList;
-import com.scriptbasic.interfaces.Interpreter;
+import com.scriptbasic.spi.Interpreter;
 import com.scriptbasic.utility.ExpressionUtility;
 import com.scriptbasic.utility.ReflectionUtility;
 import com.scriptbasic.utility.RightValueUtility;

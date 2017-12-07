@@ -1,6 +1,6 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.api.Command;
+import com.scriptbasic.spi.Command;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandCall;
 import com.scriptbasic.executors.commands.CommandLet;

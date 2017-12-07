@@ -1,10 +1,10 @@
 package com.scriptbasic.executors.rightvalues;
 
-import com.scriptbasic.api.BasicValue;
+import com.scriptbasic.spi.BasicValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.Expression;
-import com.scriptbasic.interfaces.Interpreter;
-import com.scriptbasic.api.RightValue;
+import com.scriptbasic.spi.Interpreter;
+import com.scriptbasic.spi.RightValue;
 
 public abstract class AbstractPrimitiveRightValue<T> implements Expression, RightValue, BasicValue {
     private T value;

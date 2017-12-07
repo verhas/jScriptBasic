@@ -7,6 +7,10 @@ import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.hooks.NullHook;
 import com.scriptbasic.interfaces.*;
 import com.scriptbasic.memory.MixedBasicVariableMap;
+import com.scriptbasic.spi.Command;
+import com.scriptbasic.spi.Interpreter;
+import com.scriptbasic.spi.InterpreterHook;
+import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.utility.*;
 import com.scriptbasic.utility.functions.BasicRuntimeFunctionRegisterer;
 

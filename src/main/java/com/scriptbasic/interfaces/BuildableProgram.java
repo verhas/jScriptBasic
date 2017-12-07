@@ -1,6 +1,6 @@
 package com.scriptbasic.interfaces;
 
-import com.scriptbasic.api.Command;
+import com.scriptbasic.spi.Command;
 
 /**
  * A {@code BuildableProgram} is a {@code Program} that also provides methods

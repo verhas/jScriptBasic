@@ -1,11 +1,11 @@
 package com.scriptbasic.hooks;
 
-import com.scriptbasic.api.SimpleHook;
+import com.scriptbasic.spi.SimpleHook;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.executors.BasicInterpreter;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.Interpreter;
+import com.scriptbasic.spi.Interpreter;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;

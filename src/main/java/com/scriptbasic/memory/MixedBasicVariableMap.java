@@ -1,6 +1,6 @@
 package com.scriptbasic.memory;
 
-import com.scriptbasic.api.RightValue;
+import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.*;

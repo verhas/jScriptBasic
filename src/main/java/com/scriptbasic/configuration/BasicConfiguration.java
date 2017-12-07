@@ -26,6 +26,11 @@ public class BasicConfiguration implements Configuration {
         }
     }
 
+
+    public Properties getConfigProperties(){
+        return configProperties;
+    }
+
     /**
      * @param configProperties the configProperties to set
      */

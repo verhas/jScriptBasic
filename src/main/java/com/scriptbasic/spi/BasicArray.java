@@ -1,5 +1,6 @@
-package com.scriptbasic.api;
+package com.scriptbasic.spi;
 
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 
 public interface BasicArray {

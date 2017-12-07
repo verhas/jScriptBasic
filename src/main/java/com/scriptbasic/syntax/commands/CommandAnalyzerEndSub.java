@@ -4,7 +4,7 @@ import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandEndSub;
 import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.api.Command;
+import com.scriptbasic.spi.Command;
 
 public class CommandAnalyzerEndSub extends AbstractCommandAnalyzer {
 

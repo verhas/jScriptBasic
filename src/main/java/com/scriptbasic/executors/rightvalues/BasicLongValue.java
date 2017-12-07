@@ -1,7 +1,7 @@
 package com.scriptbasic.executors.rightvalues;
 
 import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.api.RightValue;
+import com.scriptbasic.spi.RightValue;
 
 public class BasicLongValue extends AbstractNumericRightValue<Long> {
 

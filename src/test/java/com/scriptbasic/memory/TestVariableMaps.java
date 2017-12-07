@@ -6,7 +6,7 @@ import com.scriptbasic.executors.rightvalues.BasicLongValue;
 import com.scriptbasic.executors.rightvalues.BasicStringValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.api.RightValue;
+import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 import org.junit.Test;

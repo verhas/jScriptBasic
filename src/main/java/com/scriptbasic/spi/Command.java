@@ -1,8 +1,8 @@
-package com.scriptbasic.api;
+package com.scriptbasic.spi;
 
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.AnalysisResult;
 import com.scriptbasic.interfaces.Executor;
-import com.scriptbasic.interfaces.Interpreter;
 
 /**
  * Classes that provide methods to execute a command implement this interface.

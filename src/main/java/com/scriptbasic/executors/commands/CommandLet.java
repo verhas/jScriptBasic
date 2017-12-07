@@ -1,7 +1,8 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.api.LeftValue;
-import com.scriptbasic.api.RightValue;
+import com.scriptbasic.spi.Interpreter;
+import com.scriptbasic.spi.LeftValue;
+import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.*;
 

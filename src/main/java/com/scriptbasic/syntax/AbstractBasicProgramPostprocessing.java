@@ -4,7 +4,7 @@ import com.scriptbasic.executors.commands.*;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.BuildableProgram;
-import com.scriptbasic.api.Command;
+import com.scriptbasic.spi.Command;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 

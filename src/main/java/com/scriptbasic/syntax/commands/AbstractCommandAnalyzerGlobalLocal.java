@@ -3,8 +3,8 @@ package com.scriptbasic.syntax.commands;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.AbstractCommandLeftValueListed;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.api.Command;
-import com.scriptbasic.api.LeftValueList;
+import com.scriptbasic.spi.Command;
+import com.scriptbasic.spi.LeftValueList;
 
 /**
  * @author Peter Verhas

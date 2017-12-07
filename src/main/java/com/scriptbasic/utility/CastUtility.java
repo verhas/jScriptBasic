@@ -1,7 +1,7 @@
 package com.scriptbasic.utility;
 
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
-import com.scriptbasic.api.RightValue;
+import com.scriptbasic.spi.RightValue;
 
 import java.util.List;
 import java.util.function.Function;

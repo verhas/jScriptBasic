@@ -1,12 +1,12 @@
 package com.scriptbasic.utility.functions;
 
-import com.scriptbasic.api.BasicArray;
+import com.scriptbasic.spi.BasicArray;
 import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.classification.Constant;
 import com.scriptbasic.classification.System;
 import com.scriptbasic.classification.Utility;
 import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.interfaces.Interpreter;
+import com.scriptbasic.spi.Interpreter;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 import com.scriptbasic.utility.MagicBean;

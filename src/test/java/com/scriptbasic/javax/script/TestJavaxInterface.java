@@ -1,7 +1,7 @@
 package com.scriptbasic.javax.script;
 
 import com.scriptbasic.api.Version;
-import com.scriptbasic.api.script.ScriptBasicEngineFactory;
+import com.scriptbasic.script.ScriptBasicEngineFactory;
 import com.scriptbasic.configuration.BasicConfiguration;
 import com.scriptbasic.api.Configuration;
 import org.junit.Assert;
@@ -52,7 +52,7 @@ public class TestJavaxInterface {
         assertEquals(5, factory.getExtensions().size());
         ScriptEngine se = factory.getScriptEngine();
         assertNotNull(se);
-        assertTrue(se instanceof com.scriptbasic.api.script.ScriptEngine);
+        assertTrue(se instanceof com.scriptbasic.script.ScriptEngine);
     }
 
 
@@ -78,7 +78,7 @@ public class TestJavaxInterface {
 
         ScriptEngine se = manager.getEngineByExtension("sb");
         assertNotNull(se);
-        assertTrue(se instanceof com.scriptbasic.api.script.ScriptEngine);
+        assertTrue(se instanceof com.scriptbasic.script.ScriptEngine);
         se.eval("print \"first script\"");
         ScriptContext context = se.getContext();
         Bindings bindings = context.getBindings(ScriptContext.ENGINE_SCOPE);

@@ -1,11 +1,11 @@
 package com.scriptbasic.executors.rightvalues;
 
-import com.scriptbasic.api.BasicArray;
-import com.scriptbasic.api.BasicValue;
-import com.scriptbasic.api.RightValue;
+import com.scriptbasic.spi.BasicArray;
+import com.scriptbasic.spi.BasicValue;
+import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.interfaces.Interpreter;
+import com.scriptbasic.spi.Interpreter;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;

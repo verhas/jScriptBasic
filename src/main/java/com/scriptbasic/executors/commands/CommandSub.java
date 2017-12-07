@@ -1,7 +1,7 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.interfaces.Interpreter;
-import com.scriptbasic.api.LeftValueList;
+import com.scriptbasic.spi.Interpreter;
+import com.scriptbasic.spi.LeftValueList;
 
 public class CommandSub extends AbstractCommand {
     private CommandEndSub commandEndSub;

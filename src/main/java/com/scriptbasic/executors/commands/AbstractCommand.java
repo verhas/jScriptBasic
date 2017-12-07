@@ -1,6 +1,7 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.api.Command;
+import com.scriptbasic.spi.Command;
+import com.scriptbasic.spi.Interpreter;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.*;
 

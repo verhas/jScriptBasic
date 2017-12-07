@@ -1,11 +1,11 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.api.BasicArray;
+import com.scriptbasic.spi.BasicArray;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.rightvalues.*;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.api.RightValue;
+import com.scriptbasic.spi.RightValue;
 
 /**
  * @author Peter Verhas date June 26, 2012

@@ -3,7 +3,7 @@ package com.scriptbasic.utility;
 import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.api.Configuration;
-import com.scriptbasic.interfaces.Interpreter;
+import com.scriptbasic.spi.Interpreter;
 import com.scriptbasic.interfaces.ExtensionInterfaceVersion;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;

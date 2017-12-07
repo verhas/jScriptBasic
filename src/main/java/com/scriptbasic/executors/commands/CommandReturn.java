@@ -2,8 +2,8 @@ package com.scriptbasic.executors.commands;
 
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.Expression;
-import com.scriptbasic.interfaces.Interpreter;
-import com.scriptbasic.api.RightValue;
+import com.scriptbasic.spi.Interpreter;
+import com.scriptbasic.spi.RightValue;
 
 public class CommandReturn extends AbstractCommand {
     private Expression returnExpression;

@@ -2,7 +2,7 @@ package com.scriptbasic.memory;
 
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.LocalVariableMap;
-import com.scriptbasic.api.RightValue;
+import com.scriptbasic.spi.RightValue;
 
 import java.util.Stack;
 

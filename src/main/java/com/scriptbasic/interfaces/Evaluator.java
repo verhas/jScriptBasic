@@ -1,6 +1,7 @@
 package com.scriptbasic.interfaces;
 
-import com.scriptbasic.api.RightValue;
+import com.scriptbasic.spi.Interpreter;
+import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.api.ScriptBasicException;
 
 /**

@@ -3,6 +3,7 @@ package com.scriptbasic.api;
 import com.scriptbasic.Engine;
 import com.scriptbasic.interfaces.SourcePath;
 import com.scriptbasic.interfaces.SourceProvider;
+import com.scriptbasic.spi.InterpreterHook;
 import com.scriptbasic.utility.functions.file.FileHandlingFunctions;
 
 import java.io.File;

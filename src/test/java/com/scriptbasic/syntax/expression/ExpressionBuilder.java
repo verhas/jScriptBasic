@@ -12,7 +12,7 @@ public class ExpressionBuilder {
     public static Expression binaryOp(
             final Class<? extends AbstractBinaryOperator> klass,
             final Expression a, final Expression b) throws Exception {
-        final AbstractBinaryOperator op = klass.newInstance();
+        final AbstractBinaryOperator op = klass.getDeclaredConstructor().newInstance();
         op.setLeftOperand(a);
         op.setRightOperand(b);
         return op;
@@ -31,7 +31,7 @@ public class ExpressionBuilder {
     public static Expression unaryOp(
             final Class<? extends AbstractUnaryOperator> klass,
             final Expression a) throws Exception {
-        final AbstractUnaryOperator op = klass.newInstance();
+        final AbstractUnaryOperator op = klass.getDeclaredConstructor().newInstance();
         op.setOperand(a);
         return op;
     }
