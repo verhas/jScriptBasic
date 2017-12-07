@@ -36,7 +36,10 @@ public interface ScriptBasic {
      * @param klass the class that contains the static methods to register
      * @throws ScriptBasicException when a function is double defined and not an identical manner
      */
-    void registerFunctions(Class<?> klass) throws ScriptBasicException;
+    public void registerFunction(final String alias,
+                                 final Class<?> klass,
+                                 final String methodName,
+                                 final Class<?>... argumentTypes) throws ScriptBasicException;
 
     /**
      * Get the reader from where the BASIC program reads the standard input

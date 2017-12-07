@@ -1,6 +1,9 @@
 package com.scriptbasic;
 
-import com.scriptbasic.api.*;
+import com.scriptbasic.api.Configuration;
+import com.scriptbasic.api.ScriptBasic;
+import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.api.Subroutine;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
@@ -30,10 +33,6 @@ public class Engine implements ScriptBasic {
     public Engine() {
     }
 
-    public void registerFunctions(final Class<?> klass) throws ScriptBasicException {
-        ctx = ContextBuilder.from(ctx);
-        ctx.interpreter.registerFunctions(klass);
-    }
 
     @Override
     public Reader getInput() {
@@ -270,11 +269,31 @@ public class Engine implements ScriptBasic {
         return sub;
     }
 
+    public void registerFunction(final String alias,
+                                 final Class<?> klass,
+                                 final String methodName,
+                                 final Class<?>... argumentTypes) throws ScriptBasicException {
+        ctx = ContextBuilder.from(ctx);
+        ctx.interpreter.registerJavaMethod(alias, klass, methodName, argumentTypes);
+    }
+
     @Override
     public void registerExtension(final Class<?> klass)
             throws ScriptBasicException {
         ctx = ContextBuilder.from(ctx);
         ctx.interpreter.registerFunctions(klass);
+    }
+
+    @Override
+    public void registerHook(InterpreterHook hook) {
+        ctx = ContextBuilder.from(ctx);
+        ctx.interpreter.registerHook(hook);
+    }
+
+    @Override
+    public Configuration getConfiguration() {
+        ctx = ContextBuilder.from(ctx);
+        return ctx.configuration;
     }
 
     public class Sub implements Subroutine {
@@ -309,18 +328,6 @@ public class Engine implements ScriptBasic {
         public Object call() throws ScriptBasicException {
             return call((Object[]) null);
         }
-    }
-
-    @Override
-    public void registerHook(InterpreterHook hook) {
-        ctx = ContextBuilder.from(ctx);
-        ctx.interpreter.registerHook(hook);
-    }
-
-    @Override
-    public Configuration getConfiguration() {
-        ctx = ContextBuilder.from(ctx);
-        return ctx.configuration;
     }
 
 }

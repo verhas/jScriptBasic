@@ -87,9 +87,13 @@ public class BasicConfiguration implements Configuration {
                 .getProperty("sb4j.configuration");
         final String configurationFileName = systemPropertyDefinedConfiguration == null ? "sb4j.properties"
                 : systemPropertyDefinedConfiguration;
+        LOG.info("Reading configuration from file {}",configurationFileName);
         final InputStream is = this.getClass().getClassLoader()
                 .getResourceAsStream(configurationFileName);
-        if (null != is) {
+        if (null == is) {
+            LOG.info("Configuration file does not exist.");
+            setConfigProperties(new Properties());
+        }else{
             loadConfiguration(is);
         }
     }
@@ -108,7 +112,7 @@ public class BasicConfiguration implements Configuration {
             setConfigProperties(configProperties);
         } catch (final IOException e) {
             LOG.error("Can not load the configuration.", e);
-            setConfigProperties(null);
+            setConfigProperties(new Properties());
         }
     }
 
