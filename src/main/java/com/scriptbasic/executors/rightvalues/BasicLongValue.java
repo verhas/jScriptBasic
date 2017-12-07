@@ -37,4 +37,13 @@ public class BasicLongValue extends AbstractNumericRightValue<Long> {
         }
         throw new BasicRuntimeException("Can not convert value to long");
     }
+
+    @Override
+    public String toString(){
+        try {
+            return asLong(this).toString();
+        } catch (BasicRuntimeException e) {
+            return super.toString();
+        }
+    }
 }

@@ -2,12 +2,13 @@ package com.scriptbasic.executors.rightvalues;
 
 import com.scriptbasic.api.BasicArray;
 import com.scriptbasic.api.BasicValue;
+import com.scriptbasic.api.RightValue;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.Interpreter;
-import com.scriptbasic.api.RightValue;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class BasicArrayValue implements RightValue, BasicArray, BasicValue {
     private static final Integer INCREMENT_GAP = 100;
@@ -111,5 +112,12 @@ public class BasicArrayValue implements RightValue, BasicArray, BasicValue {
     public Object get(final Integer index) throws ScriptBasicException {
         assertArraySize(index);
         return array[index];
+    }
+
+    @Override
+    public String toString() {
+        return "[" +
+                Arrays.stream(array).limit(maxIndex + 1).map(Object::toString).collect(Collectors.joining(","))
+                + "]";
     }
 }

@@ -16,5 +16,12 @@ public class BasicJavaObjectValue extends AbstractPrimitiveRightValue<Object> {
         }
         throw new BasicRuntimeException("Can not convert value to object");
     }
-
+    @Override
+    public String toString(){
+        try {
+            return asObject(this).toString();
+        } catch (BasicRuntimeException e) {
+            return super.toString();
+        }
+    }
 }

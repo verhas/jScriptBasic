@@ -9,8 +9,7 @@ public class BasicStringValue extends AbstractPrimitiveRightValue<String> {
     }
 
     @SuppressWarnings("unchecked")
-    public static String asString(final RightValue rv)
-            throws BasicRuntimeException {
+    public static String asString(final RightValue rv)            throws BasicRuntimeException {
         try {
             String resultString = null;
             if (rv == null
@@ -26,6 +25,15 @@ public class BasicStringValue extends AbstractPrimitiveRightValue<String> {
             return resultString;
         } catch (final ClassCastException cce) {
             throw new BasicRuntimeException("Error converting to string", cce);
+        }
+    }
+
+    @Override
+    public String toString(){
+        try {
+            return asString(this);
+        } catch (BasicRuntimeException e) {
+            return super.toString();
         }
     }
 }

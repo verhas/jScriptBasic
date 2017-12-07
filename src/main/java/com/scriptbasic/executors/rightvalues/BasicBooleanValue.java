@@ -46,4 +46,12 @@ public final class BasicBooleanValue extends AbstractPrimitiveRightValue<Boolean
         }
         return convertedValue;
     }
+    @Override
+    public String toString(){
+        try {
+            return asBoolean(this).toString();
+        } catch (BasicRuntimeException e) {
+            return super.toString();
+        }
+    }
 }

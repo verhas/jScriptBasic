@@ -41,4 +41,13 @@ public class BasicDoubleValue extends AbstractNumericRightValue<Double> {
         }
         throw new BasicRuntimeException("Can not convert value to double");
     }
+
+    @Override
+    public String toString(){
+        try {
+            return asDouble(this).toString();
+        } catch (BasicRuntimeException e) {
+            return super.toString();
+        }
+    }
 }
