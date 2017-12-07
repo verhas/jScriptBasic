@@ -43,8 +43,15 @@ public final class BasicInterpreter implements Interpreter {
     private boolean executePreTask = true;
     private RightValue returnValue;
 
+    /**
+     * Create a new interpreter using the context. Also register the null hook, so that other hooks should not
+     * worry about the 'next hook' value, it is guaranteed to be not null.
+     *
+     * @param ctx
+     */
     public BasicInterpreter(final Context ctx) {
         this.ctx = ctx;
+        registerHook(new NullHook());
     }
 
     @Override
@@ -174,7 +181,6 @@ public final class BasicInterpreter implements Interpreter {
                 throw new BasicRuntimeException("Program code was not loaded");
             }
             BasicRuntimeFunctionRegisterer.registerBasicRuntimeFunctions(this);
-            registerHook(new NullHook());
             HookRegisterUtility.registerHooks(this);
             if (hook != null) {
                 hook.init();

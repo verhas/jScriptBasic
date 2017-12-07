@@ -3,8 +3,7 @@ package com.scriptbasic.executors.rightvalues;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.api.RightValue;
 
-public final class BasicBooleanValue extends
-        AbstractPrimitiveRightValue<Boolean> {
+public final class BasicBooleanValue extends AbstractPrimitiveRightValue<Boolean> {
 
     public BasicBooleanValue(final Boolean b) {
         setValue(b);
@@ -46,6 +45,5 @@ public final class BasicBooleanValue extends
             }
         }
         return convertedValue;
-        // throw new BasicRuntimeException("Can not convert value to boolean");
     }
 }

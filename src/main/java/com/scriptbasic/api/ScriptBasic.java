@@ -283,4 +283,11 @@ public interface ScriptBasic {
      * @throws ScriptBasicException
      */
     void registerExtension(Class<?> klass) throws ScriptBasicException;
+
+    /**
+     * Register an interpreter hook class.
+     *
+     * @param hook the hook instance to register
+     */
+    void registerHook(InterpreterHook hook);
 }
