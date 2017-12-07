@@ -61,7 +61,10 @@ public interface InterpreterHook {
      * already set. The method should do its initialization and then call the
      * same method of the next hook in the chain.
      */
-    void init();
+    default void init() {
+    }
+
+    ;
 
     /**
      * When a hook is registered the registering process calls this method and
@@ -86,14 +89,20 @@ public interface InterpreterHook {
      *
      * @param command the command object to be executed
      */
-    void beforeExecute(Command command);
+    default void beforeExecute(Command command) {
+    }
+
+    ;
 
     /**
      * This method is called after the interpreter executed a command.
      *
      * @param command the command just executed.
      */
-    void afterExecute(Command command);
+    default void afterExecute(Command command) {
+    }
+
+    ;
 
     /**
      * This method is called before registering a java method into the
@@ -108,28 +117,43 @@ public interface InterpreterHook {
      *                      that will be available to the BASIC programs to be called
      *                      through the name {@code alias}.
      */
-    void beforeRegisteringJavaMethod(String alias, Class<?> klass,
-                                     String methodName, Class<?>[] argumentTypes);
+    default void beforeRegisteringJavaMethod(String alias, Class<?> klass,
+                                             String methodName, Class<?>[] argumentTypes) {
+    }
+
+    ;
 
     /**
      * @param command
      */
-    void beforePush(Command command);
+    default void beforePush(Command command) {
+    }
+
+    ;
 
     /**
      * @param command
      */
-    void afterPush(Command command);
+    default void afterPush(Command command) {
+    }
+
+    ;
 
     /**
      *
      */
-    void beforePop();
+    default void beforePop() {
+    }
+
+    ;
 
     /**
      * @param command
      */
-    void afterPop(Command command);
+    default void afterPop(Command command) {
+    }
+
+    ;
 
     /**
      * This method is called after a subroutine has set its return value. It is
@@ -141,7 +165,10 @@ public interface InterpreterHook {
      * @param returnValue
      * @see Interpreter#disableHook()
      */
-    void setReturnValue(RightValue returnValue);
+    default void setReturnValue(RightValue returnValue) {
+    }
+
+    ;
 
     /**
      * This method is called before the interpreter invokes a subroutine. At
@@ -152,13 +179,19 @@ public interface InterpreterHook {
      * @param argumentValues the argument evaluated values that were assigned to the local
      *                       variable table to the arguments
      */
-    void beforeSubroutineCall(String subroutineName, LeftValueList arguments,
-                              RightValue[] argumentValues);
+    default void beforeSubroutineCall(String subroutineName, LeftValueList arguments,
+                                      RightValue[] argumentValues) {
+    }
+
+    ;
 
     /**
      * @param method
      */
-    void beforeCallJavaFunction(Method method);
+    default void beforeCallJavaFunction(Method method) {
+    }
+
+    ;
 
     /**
      * This method is called when the interpreter was calling a Java static
@@ -169,7 +202,11 @@ public interface InterpreterHook {
      * @return the modified result or just the same object if the hook does not
      * want to modify the result
      */
-    Object afterCallJavaFunction(Method method, Object result);
+    default Object afterCallJavaFunction(Method method, Object result) {
+        return result;
+    }
+
+    ;
 
     /**
      * This hook is called when the interpreter accesses a variable.
@@ -180,5 +217,9 @@ public interface InterpreterHook {
      * alter the value used. Returning a modified value will not,
      * however alterthe value of the variable itself.
      */
-    RightValue variableRead(String variableName, RightValue value);
+    default RightValue variableRead(String variableName, RightValue value) {
+        return value;
+    }
+
+    ;
 }
