@@ -1,12 +1,12 @@
 package com.scriptbasic.testprograms;
 
-import com.scriptbasic.Executor;
+import com.scriptbasic.TestingExecutor;
 import org.junit.Test;
 
 public class TestFunctions {
     private static void codeTest(String fileName)
             throws Exception {
-        Executor e = new Executor();
+        TestingExecutor e = new TestingExecutor();
         e.setMap(null);
         e.execute(fileName);
     }

@@ -17,7 +17,7 @@ import java.util.Optional;
  *
  * @author Peter Verhas date Jul 13, 2012
  */
-public class Executor extends AbstractStringIOPojo {
+public class TestingExecutor extends AbstractStringIOPojo {
 
     private Map<String, Object> map = null;
 

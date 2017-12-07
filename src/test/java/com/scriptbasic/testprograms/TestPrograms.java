@@ -1,6 +1,6 @@
 package com.scriptbasic.testprograms;
 
-import com.scriptbasic.Executor;
+import com.scriptbasic.TestingExecutor;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
@@ -20,7 +20,7 @@ public class TestPrograms {
 
     private static void codeTest(String fileName, Map<String, Object> map,
                                  String expectedOutput) throws Exception {
-        Executor e = new Executor();
+        TestingExecutor e = new TestingExecutor();
         e.setMap(map);
         e.execute(fileName);
         e.assertOutput(expectedOutput);
