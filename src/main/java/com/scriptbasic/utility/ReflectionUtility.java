@@ -1,6 +1,6 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.api.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 import com.scriptbasic.interfaces.*;
 
@@ -34,14 +34,14 @@ public class ReflectionUtility {
      *                    {@code null} in case the method is static
      * @param args        the arguments to the method call
      * @return the object returned by the Java method if any.
-     * @throws BasicRuntimeException
+     * @throws ScriptBasicException
      */
     public static Object invoke(final String symbolicName,
                                 final Interpreter interpreter,
                                 final Method method,
                                 final Object object,
                                 final List<RightValue> args)
-            throws BasicRuntimeException {
+            throws ScriptBasicException {
         if (object != null && object instanceof NoAccess) {
             final Object target = object instanceof NoAccessProxy ? ((NoAccessProxy) object).target : object;
             throw new BasicRuntimeException("It is not allowed to call  '" +
@@ -56,7 +56,13 @@ public class ReflectionUtility {
                     interpreter);
             javaCallResult = method.invoke(object, argArray);
             setTheInterpreterIfTheResultIsBasicArray(javaCallResult, interpreter);
-        } catch (InvocationTargetException | IllegalArgumentException | IllegalAccessException e) {
+        } catch (InvocationTargetException e) {
+            if( e.getTargetException() instanceof ScriptBasicException ){
+                throw (ScriptBasicException)e.getTargetException();
+            }else{
+                throw new ScriptBasicException(e.getTargetException());
+            }
+        } catch (IllegalArgumentException | IllegalAccessException e) {
             throw new BasicRuntimeException("Can not invoke method " + symbolicName, e);
         } catch (final Exception e) {
             throw new BasicRuntimeException("Invoking method '" + symbolicName + "' throws exception:", e);
