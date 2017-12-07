@@ -16,9 +16,7 @@ import com.scriptbasic.utility.functions.BasicRuntimeFunctionRegisterer;
 import java.io.Reader;
 import java.io.Writer;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @author Peter Verhas date June 22, 2012
@@ -32,6 +30,8 @@ public final class BasicInterpreter implements Interpreter {
     private final Stack<Command> commandStack = new Stack<>();
     private final Stack<Command> nextCommandStack = new Stack<>();
     private final Context ctx;
+    private final List<Class<?>> deferredFunctionsRegistrations = new LinkedList<>();
+    private final List<DeferredJavaMethodRegistration> deferredJavaMethodRegistrations = new LinkedList<>();
     private BuildableProgram program;
     private Reader reader;
     private Writer writer;
@@ -162,30 +162,36 @@ public final class BasicInterpreter implements Interpreter {
 
     @Override
     public void registerFunctions(final Class<?> klass) {
-        try {
-            MethodRegisterUtility.registerFunctions(klass, this);
-        } catch (final BasicRuntimeException e) {
-            throw new BasicInterpreterInternalError(
-                    "Registering functions from class '"
-                            + klass
-                            + "' caused exception. Probably double defining a function alias. "
-                            + "Since this declared in Java code and not in BASIC this is an internal error of "
-                            + "the embedding application. For more detail have a look at the exception that caused this.",
-                    e);
+        if (executePreTask) {
+            deferredFunctionsRegistrations.add(klass);
+        } else {
+            try {
+                MethodRegisterUtility.registerFunctions(klass, this);
+            } catch (final BasicRuntimeException e) {
+                throw new BasicInterpreterInternalError(
+                        "Registering functions from class '"
+                                + klass
+                                + "' caused exception. Probably double defining a function alias. "
+                                + "Since this declared in Java code and not in BASIC this is an internal error of "
+                                + "the embedding application. For more detail have a look at the exception that caused this.",
+                        e);
+            }
         }
     }
 
     private void preExecuteTask() throws ScriptBasicException {
         if (executePreTask) {
+            executePreTask = false;
             if (program == null) {
                 throw new BasicRuntimeException("Program code was not loaded");
             }
-            BasicRuntimeFunctionRegisterer.registerBasicRuntimeFunctions(this);
             HookRegisterUtility.registerHooks(this);
             if (hook != null) {
                 hook.init();
             }
-            executePreTask = false;
+            deferredFunctionsRegistrations.stream().forEach(this::registerFunctions);
+            deferredJavaMethodRegistrations.stream().forEach(this::registerJavaMethod);
+            BasicRuntimeFunctionRegisterer.registerBasicRuntimeFunctions(this);
         }
     }
 
@@ -319,7 +325,6 @@ public final class BasicInterpreter implements Interpreter {
         return interpreterStateMap;
     }
 
-
     /*
      * (non-Javadoc)
      *
@@ -354,13 +359,28 @@ public final class BasicInterpreter implements Interpreter {
     public void registerJavaMethod(final String alias, final Class<?> klass,
                                    final String methodName, final Class<?>[] argumentTypes)
             throws BasicRuntimeException {
-        if (hook != null) {
-            hook.beforeRegisteringJavaMethod(alias, klass, methodName,
-                    argumentTypes);
+        if (executePreTask) {
+            deferredJavaMethodRegistrations.add(DeferredJavaMethodRegistration.of(alias, klass, methodName, argumentTypes));
+        } else {
+            hook.beforeRegisteringJavaMethod(alias, klass, methodName, argumentTypes);
+            basicMethodRegistry.registerJavaMethod(alias, klass, methodName, argumentTypes);
         }
-        basicMethodRegistry.registerJavaMethod(alias, klass, methodName,
-                argumentTypes);
 
+    }
+
+    private void registerJavaMethod(final DeferredJavaMethodRegistration registration) {
+        try {
+            registerJavaMethod(registration.alias, registration.klass, registration.methodName, registration.argumentTypes);
+        } catch (BasicRuntimeException e) {
+            throw new BasicInterpreterInternalError(
+                    "Registering method " +
+                            registration.klass.getName() + "." + registration.methodName +
+                            "' caused exception." +
+                            " Since this registration was executed from Java code before starting the" +
+                            " actual BASIC program this is likely to be internal error of" +
+                            " the embedding application. For more detail have a look at the exception that caused this.",
+                    e);
+        }
     }
 
     /*
@@ -443,6 +463,26 @@ public final class BasicInterpreter implements Interpreter {
     @Override
     public Configuration getConfiguration() {
         return ctx.configuration;
+    }
+
+    private static class DeferredJavaMethodRegistration {
+        String alias;
+        Class<?> klass;
+        String methodName;
+        Class<?>[] argumentTypes;
+
+        static DeferredJavaMethodRegistration of(String alias,
+                                                 Class<?> klass,
+                                                 String methodName,
+                                                 Class<?>[] argumentTypes
+        ) {
+            DeferredJavaMethodRegistration it = new DeferredJavaMethodRegistration();
+            it.alias = alias;
+            it.klass = klass;
+            it.methodName = methodName;
+            it.argumentTypes = argumentTypes;
+            return it;
+        }
     }
 
 }
