@@ -3,7 +3,7 @@ package com.scriptbasic;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.utility.functions.file.FileHandlingFunctions;
 import org.junit.Assert;
 
@@ -26,7 +26,7 @@ public class Executor extends AbstractStringIOPojo {
     }
 
     public void execute(String resourceName) throws AnalysisException,
-            ExecutionException, ClassNotFoundException {
+            ScriptBasicException, ClassNotFoundException {
         Optional<StackWalker.StackFrame> frame =
                 StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).walk(s -> s.skip(1).findFirst());
         if (frame.isPresent()) {

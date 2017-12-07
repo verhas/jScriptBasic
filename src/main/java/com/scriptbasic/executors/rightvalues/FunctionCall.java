@@ -1,6 +1,7 @@
 package com.scriptbasic.executors.rightvalues;
 
-import com.scriptbasic.api.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.executors.AbstractIdentifieredExpressionListedExpression;
 import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.interfaces.*;
@@ -19,7 +20,7 @@ public class FunctionCall extends
     private CommandSub commandSub = null;
 
     private static RightValue[] evaluateArguments(final ExpressionList argumentList,
-                                                  final Interpreter interpreter) throws ExecutionException {
+                                                  final Interpreter interpreter) throws ScriptBasicException {
         final RightValue[] argumentValues;
         if (argumentList == null) {
             argumentValues = null;
@@ -35,14 +36,14 @@ public class FunctionCall extends
     }
 
     private RightValue callBasicFunction(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         return ExpressionUtility.callBasicFunction(interpreter,
                 evaluateArguments(getExpressionList(), interpreter),
                 commandSub, getVariableName());
     }
 
     private RightValue callJavaFunction(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         RightValue result = null;
         final String functionName = getVariableName();
         final List<RightValue> args = ExpressionUtility.evaluateExpressionList(
@@ -69,7 +70,7 @@ public class FunctionCall extends
 
     @Override
     public RightValue evaluate(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
 
         lookUpCommandSub(interpreter);
         RightValue result = null;

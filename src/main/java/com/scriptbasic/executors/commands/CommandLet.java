@@ -1,6 +1,6 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.api.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.*;
 
 public class CommandLet extends AbstractCommand {
@@ -16,7 +16,7 @@ public class CommandLet extends AbstractCommand {
     }
 
     @Override
-    public void execute(final Interpreter interpreter) throws ExecutionException {
+    public void execute(final Interpreter interpreter) throws ScriptBasicException {
         try {
             final RightValue rv = expression.evaluate(interpreter);
             if (resultHasToBeStored()) {

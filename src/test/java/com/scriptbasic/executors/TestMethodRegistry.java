@@ -1,6 +1,6 @@
 package com.scriptbasic.executors;
 
-import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.MethodRegistry;
 import org.junit.Test;
 
@@ -16,13 +16,13 @@ import static org.junit.Assert.assertNull;
 public class TestMethodRegistry {
 
     @Test
-    public void returnsNullForNonRegisteredMethod() throws ExecutionException {
+    public void returnsNullForNonRegisteredMethod() throws ScriptBasicException {
         MethodRegistry mr = new BasicMethodRegistry();
         assertNull(mr.getJavaMethod(Object.class, "alias"));
     }
 
     @Test
-    public void registersMethods() throws ExecutionException {
+    public void registersMethods() throws ScriptBasicException {
         MethodRegistry mr = new BasicMethodRegistry();
         mr.registerJavaMethod("alias", Object.class, "noSuchMethod",
                 new Class[]{Object.class});

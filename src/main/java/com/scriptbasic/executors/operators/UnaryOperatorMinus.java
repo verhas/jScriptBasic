@@ -1,6 +1,7 @@
 package com.scriptbasic.executors.operators;
 
-import com.scriptbasic.api.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
 import com.scriptbasic.executors.rightvalues.BasicLongValue;
 import com.scriptbasic.interfaces.*;
@@ -9,7 +10,7 @@ public class UnaryOperatorMinus extends AbstractUnaryOperator {
 
     @Override
     public RightValue evaluate(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         final Expression operand = getOperand();
         final RightValue rightValue = operand.evaluate(interpreter);
         RightValue result = null;

@@ -1,8 +1,8 @@
 package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.api.BasicRuntimeException;
-import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.Interpreter;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
@@ -24,14 +24,14 @@ public class TestOperators {
 
 
     private static void a(final String s, Object expected)
-            throws AnalysisException, ExecutionException {
+            throws AnalysisException, ScriptBasicException {
         Interpreter eInterpreter = eval(s);
         eInterpreter.execute();
         assertValueOfVariable_A(eInterpreter, expected);
     }
 
     private static void b(final String s, Object bVal, Object expected)
-            throws AnalysisException, ExecutionException {
+            throws AnalysisException, ScriptBasicException {
         Interpreter eInterpreter = eval(s);
         eInterpreter.setVariable("b", bVal);
         eInterpreter.execute();
@@ -40,7 +40,7 @@ public class TestOperators {
     }
 
     private static void c(final String s, Object bVal, Object cVal,
-                          Object expected) throws AnalysisException, ExecutionException {
+                          Object expected) throws AnalysisException, ScriptBasicException {
         Interpreter eInterpreter = eval(s);
         eInterpreter.setVariable("b", bVal);
         eInterpreter.setVariable("c", cVal);
@@ -50,13 +50,13 @@ public class TestOperators {
     }
 
     @Test
-    public void testWhile() throws AnalysisException, ExecutionException {
+    public void testWhile() throws AnalysisException, ScriptBasicException {
         a("a=1\nwhile a < 10\na=a+1\nwend\n", 10);
     }
 
     @Test
     public void testOperators() throws AnalysisException,
-            ExecutionException {
+            ScriptBasicException {
         a("a=1^3", 1.0);
         a("a=1*2", 2L);
         a("a=1.0*2", 2.0);
@@ -202,7 +202,7 @@ public class TestOperators {
 
     @Test
     public void testObjectSet() throws AnalysisException,
-            ExecutionException, NoSuchMethodException, SecurityException,
+            ScriptBasicException, NoSuchMethodException, SecurityException,
             IllegalAccessException, IllegalArgumentException,
             InvocationTargetException {
         b("b.www=55\na=b.www", new qqq(), 55);
@@ -221,7 +221,7 @@ public class TestOperators {
 
     @Test
     public void testObjectAccess() throws AnalysisException,
-            ExecutionException, NoSuchMethodException, SecurityException,
+            ScriptBasicException, NoSuchMethodException, SecurityException,
             IllegalAccessException, IllegalArgumentException,
             InvocationTargetException {
         // b("program string", preset value for variable 'b', expected value of

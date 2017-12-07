@@ -3,7 +3,7 @@ package com.scriptbasic.api.script;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.Interpreter;
 
 import javax.script.*;
@@ -27,14 +27,14 @@ public class ScriptEngine extends AbstractScriptEngine {
     }
 
     private static void unmergeBindings(final Interpreter interpreter,
-                                        final Bindings bindings) throws ExecutionException {
+                                        final Bindings bindings) throws ScriptBasicException {
         for (final String name : bindings.keySet()) {
             bindings.put(name, interpreter.getVariable(name));
         }
     }
 
     private static void mergeBinding(final Interpreter interpreter,
-                                     final Bindings bindings) throws ExecutionException {
+                                     final Bindings bindings) throws ScriptBasicException {
         for (final String name : bindings.keySet()) {
             interpreter.setVariable(name, bindings.get(name));
         }
@@ -67,7 +67,7 @@ public class ScriptEngine extends AbstractScriptEngine {
             ctx.interpreter.execute();
             unmergeBindings(ctx.interpreter, context.getBindings(ScriptContext.ENGINE_SCOPE));
             unmergeBindings(ctx.interpreter, context.getBindings(ScriptContext.GLOBAL_SCOPE));
-        } catch (ExecutionException | AnalysisException e) {
+        } catch (ScriptBasicException | AnalysisException e) {
             throw new ScriptException(e);
         }
         return null;

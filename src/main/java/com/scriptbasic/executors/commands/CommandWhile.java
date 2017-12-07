@@ -1,6 +1,6 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.api.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
 import com.scriptbasic.interfaces.*;
@@ -31,7 +31,7 @@ public class CommandWhile extends AbstractCommand {
 
     @Override
     public void execute(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         final RightValue conditionValue = getCondition().evaluate(interpreter);
         if (conditionValue instanceof AbstractPrimitiveRightValue<?>) {
             if (!BasicBooleanValue.asBoolean(conditionValue)) {

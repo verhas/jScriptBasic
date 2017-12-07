@@ -1,7 +1,8 @@
 package com.scriptbasic.executors.leftvalues;
 
 import com.scriptbasic.api.BasicArray;
-import com.scriptbasic.api.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 import com.scriptbasic.executors.rightvalues.BasicJavaObjectValue;
 import com.scriptbasic.interfaces.*;
@@ -57,14 +58,14 @@ public class BasicLeftValue implements LeftValue {
      * @param hasNext    {@code true} if this is not the last modifier
      * @param rightValue the value to store when this is the last modifier
      * @return the next variable or {@code null} if the value was stored
-     * @throws ExecutionException
+     * @throws ScriptBasicException
      */
     private static RightValue handleAccessModifier(RightValue variable,
                                                    final LeftValueModifier modifier,
                                                    final boolean hasNext,
                                                    final RightValue rightValue,
                                                    final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         if (modifier instanceof ArrayElementAccessLeftValueModifier) {
             variable = handleArrayElementAccess(variable,
                     (ArrayElementAccessLeftValueModifier) modifier, hasNext,
@@ -92,7 +93,7 @@ public class BasicLeftValue implements LeftValue {
                                                       final ObjectFieldAccessLeftValueModifier modifier,
                                                       final boolean hasNext,
                                                       final RightValue rightValue)
-            throws ExecutionException {
+            throws ScriptBasicException {
         final String fieldName = modifier.getFieldName();
         if (!(variable instanceof BasicJavaObjectValue)) {
             throw new BasicRuntimeException(variable
@@ -123,14 +124,14 @@ public class BasicLeftValue implements LeftValue {
      * @param interpreter is used to evaluate the expression that stands between the {@code [} and {@code ]}
      *                            characters. Note that this is not needed when a field access is evaluated.
      * @return
-     * @throws ExecutionException
+     * @throws ScriptBasicException
      */
     private static RightValue handleArrayElementAccess(RightValue variable,
                                                        final ArrayElementAccessLeftValueModifier modifier,
                                                        final boolean hasNext,
                                                        final RightValue rightValue,
                                                        final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         final Iterator<Expression> expressionIterator = modifier.getIndexList()
                 .iterator();
         while (expressionIterator.hasNext()) {
@@ -156,7 +157,7 @@ public class BasicLeftValue implements LeftValue {
     private static RightValue handleBasicArrayElementAccess(
             final BasicArray variable, final Integer index, final boolean hasNext,
             final RightValue rightValue, final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         if (hasNext) {
             final RightValue arrayElement;
             final Object object = variable.get(index);
@@ -195,7 +196,7 @@ public class BasicLeftValue implements LeftValue {
 
     @Override
     public void setValue(final RightValue rightValue, final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         final VariableMap variableMap = interpreter.getVariables();
         if (modifiers == null || modifiers.isEmpty()) {
             LOG.debug("setting the variable '{}'", getIdentifier());
@@ -208,7 +209,7 @@ public class BasicLeftValue implements LeftValue {
     }
 
     private void handleAllAccessModifier(RightValue rightValue, Interpreter interpreter,
-                                         RightValue variableCurrentValue) throws ExecutionException {
+                                         RightValue variableCurrentValue) throws ScriptBasicException {
         final Iterator<LeftValueModifier> modifierIterator = modifiers.iterator();
         do {
             variableCurrentValue = handleAccessModifier(variableCurrentValue,
@@ -231,11 +232,11 @@ public class BasicLeftValue implements LeftValue {
      * @param value               that is the current value of the
      * @param interpreter used to allocate the new array
      * @return the value or a newly allocated array, which is also stored in the current left value left identifier
-     * @throws ExecutionException
+     * @throws ScriptBasicException
      */
     private RightValue emptyArrayIfUnderOrElseSelf(final RightValue value,
                                                    final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         final RightValue newValue;
         if (value == null) {
             newValue = new BasicArrayValue(interpreter);

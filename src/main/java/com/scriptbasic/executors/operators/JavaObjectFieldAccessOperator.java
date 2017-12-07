@@ -1,6 +1,7 @@
 package com.scriptbasic.executors.operators;
 
-import com.scriptbasic.api.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.executors.AbstractIdentifieredExpression;
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.executors.rightvalues.ArrayElementAccess;
@@ -38,7 +39,7 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
     }
 
     private static Object getArrayElement(final Object[] array, final Integer index)
-            throws ExecutionException {
+            throws ScriptBasicException {
         if (index < 0) {
             throw new BasicRuntimeException("Can not use " + index
                     + " < 0 as array index");
@@ -51,7 +52,7 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
     }
 
     private Object fetchFieldObject(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         final Object object = getLeftOperandObject(interpreter);
         final AbstractIdentifieredExpression rightOp = (AbstractIdentifieredExpression) getRightOperand();
         final String fieldName = rightOp.getVariableName();
@@ -59,14 +60,14 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
     }
 
     private RightValue fetchField(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         final Object fieldObject = fetchFieldObject(interpreter);
         return RightValueUtility.createRightValue(fieldObject);
     }
 
     private RightValue callMethod(final Interpreter interpreter,
                                   final Object object, final Class<?> klass)
-            throws ExecutionException {
+            throws ScriptBasicException {
         RightValue result = null;
         final FunctionCall rightOp = (FunctionCall) getRightOperand();
         final String methodName = rightOp.getVariableName();
@@ -132,7 +133,7 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
 
     @SuppressWarnings("unchecked")
     private Object getLeftOperandObject(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         final RightValue leftOp = getLeftOperand().evaluate(interpreter);
         if (!(leftOp instanceof AbstractPrimitiveRightValue<?>)) {
             throw new BasicRuntimeException("Can not get field access from "
@@ -157,7 +158,7 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
 
     @Override
     public RightValue evaluate(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         RightValue result = null;
         final Expression rightOp = getRightOperand();
 

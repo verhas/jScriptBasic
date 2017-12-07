@@ -1,5 +1,7 @@
 package com.scriptbasic.interfaces;
 
+import com.scriptbasic.api.ScriptBasicException;
+
 /**
  * A variable map structure that can manage many maps in a stack structure. Any
  * call to methods inherited from {@link VariableMap} works on the map at the top
@@ -37,9 +39,9 @@ public interface LocalVariableMap extends VariableMap {
      * environment referring to the global variable.
      *
      * @param variableName
-     * @throws ExecutionException
+     * @throws ScriptBasicException
      */
-    void registerGlobalVariable(String variableName) throws ExecutionException;
+    void registerGlobalVariable(String variableName) throws ScriptBasicException;
 
     /**
      * Define the variable as a local variable in a local environment. For more
@@ -47,7 +49,7 @@ public interface LocalVariableMap extends VariableMap {
      * #registerGlobalVariable(String)}
      *
      * @param variableName
-     * @throws ExecutionException
+     * @throws ScriptBasicException
      */
-    void registerLocalVariable(String variableName) throws ExecutionException;
+    void registerLocalVariable(String variableName) throws ScriptBasicException;
 }

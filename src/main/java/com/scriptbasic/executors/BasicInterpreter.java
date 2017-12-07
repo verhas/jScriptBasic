@@ -1,6 +1,6 @@
 package com.scriptbasic.executors;
 
-import com.scriptbasic.api.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.commands.CommandSub;
@@ -165,7 +165,7 @@ public final class BasicInterpreter implements Interpreter {
         }
     }
 
-    private void preExecuteTask() throws ExecutionException {
+    private void preExecuteTask() throws ScriptBasicException {
         if (executePreTask) {
             if (program == null) {
                 throw new BasicRuntimeException("Program code was not loaded");
@@ -186,7 +186,7 @@ public final class BasicInterpreter implements Interpreter {
      * @see com.scriptbasic.interfaces.Interpreter#execute()
      */
     @Override
-    public void execute() throws ExecutionException {
+    public void execute() throws ScriptBasicException {
         preExecuteTask();
         final Command command = program.getStartCommand();
         execute(command);
@@ -200,7 +200,7 @@ public final class BasicInterpreter implements Interpreter {
      * .interfaces.Command)
      */
     @Override
-    public void execute(final Command startCommand) throws ExecutionException {
+    public void execute(final Command startCommand) throws ScriptBasicException {
         preExecuteTask();
         Command command = startCommand;
         while (command != null) {
@@ -226,7 +226,7 @@ public final class BasicInterpreter implements Interpreter {
      */
     @Override
     public void setVariable(final String name, final Object value)
-            throws ExecutionException {
+            throws ScriptBasicException {
         final RightValue rightValue = RightValueUtility.createRightValue(value);
         getVariables().setVariable(name, rightValue);
     }
@@ -237,7 +237,7 @@ public final class BasicInterpreter implements Interpreter {
      * @see com.scriptbasic.interfaces.Interpreter#getVariable(java.lang.String)
      */
     @Override
-    public Object getVariable(final String name) throws ExecutionException {
+    public Object getVariable(final String name) throws ScriptBasicException {
         return CastUtility.toObject(getVariables().getVariableValue(name));
     }
 
@@ -249,7 +249,7 @@ public final class BasicInterpreter implements Interpreter {
      */
     @Override
     public Object call(final String functionName, final Object[] arguments)
-            throws ExecutionException {
+            throws ScriptBasicException {
         preExecuteTask();
         final CommandSub commandSub = getSubroutine(functionName);
         if (commandSub == null) {
@@ -330,7 +330,7 @@ public final class BasicInterpreter implements Interpreter {
      */
     @Override
     public Method getJavaMethod(final Class<?> klass, final String methodName)
-            throws ExecutionException {
+            throws ScriptBasicException {
         return basicMethodRegistry.getJavaMethod(klass, methodName);
     }
 

@@ -1,6 +1,6 @@
 package com.scriptbasic.interfaces;
 
-import com.scriptbasic.api.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.executors.commands.CommandSub;
 
 import java.io.Reader;
@@ -18,16 +18,9 @@ public interface Interpreter {
     void registerHook(InterpreterHook hook);
 
     /**
-     * Set the program to execute.
-     *
-     * @param buildableProgram
-     */
-    void setProgram(BuildableProgram buildableProgram);
-
-    /**
      * Execute the program.
      */
-    void execute() throws ExecutionException;
+    void execute() throws ScriptBasicException;
 
     /**
      * Set the value of the global variable.
@@ -35,7 +28,7 @@ public interface Interpreter {
      * @param name  the name of the global variable
      * @param value the value to be set
      */
-    void setVariable(String name, Object value) throws ExecutionException;
+    void setVariable(String name, Object value) throws ScriptBasicException;
 
     /**
      * Get the value of a global variable. Since this is not a BASIC interpreter
@@ -47,7 +40,7 @@ public interface Interpreter {
      * @param name the name of the variable
      * @return the value of the variable
      */
-    Object getVariable(String name) throws ExecutionException;
+    Object getVariable(String name) throws ScriptBasicException;
 
     /**
      * Call a function defined by the program passing the objects as arguments.
@@ -57,7 +50,7 @@ public interface Interpreter {
      * @return the returned object, or {@code null} if the function does not
      * return value
      */
-    Object call(String functionName, Object[] arguments) throws ExecutionException;
+    Object call(String functionName, Object[] arguments) throws ScriptBasicException;
 
     /**
      * @param reader
@@ -96,9 +89,16 @@ public interface Interpreter {
     BuildableProgram getProgram();
 
     /**
+     * Set the program to execute.
+     *
+     * @param buildableProgram
+     */
+    void setProgram(BuildableProgram buildableProgram);
+
+    /**
      * Execute the program starting at the command {@code startCommand}
      */
-    void execute(Command startCommand) throws ExecutionException;
+    void execute(Command startCommand) throws ScriptBasicException;
 
     /**
      * Get a subroutine by its name.
@@ -282,10 +282,10 @@ public interface Interpreter {
      * @param klass
      * @param methodName
      * @return
-     * @throws ExecutionException
+     * @throws com.scriptbasic.api.ScriptBasicException
      */
     Method getJavaMethod(Class<?> klass, String methodName)
-            throws ExecutionException;
+            throws ScriptBasicException;
 
     /**
      * {@link javax.script.ScriptContext#getReader()}

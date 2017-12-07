@@ -7,7 +7,10 @@ import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.commands.CommandSub;
-import com.scriptbasic.interfaces.*;
+import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.SourcePath;
+import com.scriptbasic.interfaces.SourceProvider;
+import com.scriptbasic.interfaces.SourceReader;
 import com.scriptbasic.sourceproviders.BasicSourcePath;
 import com.scriptbasic.sourceproviders.FileSourceProvider;
 import com.scriptbasic.utility.RightValueUtility;
@@ -98,12 +101,7 @@ public class Engine implements ScriptBasic {
     @Override
     public void execute() throws ScriptBasicException {
         assertCtxInitialized();
-        try {
-            ctx.interpreter.execute();
-        } catch (final ExecutionException e) {
-            throw new ScriptBasicException(e);
-        }
-
+        ctx.interpreter.execute();
     }
 
     private void assertCtxInitialized() throws ScriptBasicException {
@@ -199,23 +197,15 @@ public class Engine implements ScriptBasic {
 
     public void setVariable(final String name, final Object value)
             throws ScriptBasicException {
-        try {
-            ctx = ContextBuilder.from(ctx);
-            ctx.interpreter.getVariables().setVariable(name,
-                    RightValueUtility.createRightValue(value));
-        } catch (final ExecutionException e) {
-            throw new ScriptBasicException(e);
-        }
+        ctx = ContextBuilder.from(ctx);
+        ctx.interpreter.getVariables().setVariable(name,
+                RightValueUtility.createRightValue(value));
     }
 
     @Override
     public Object getVariable(final String name) throws ScriptBasicException {
         assertCtxInitialized();
-        try {
-            return ctx.interpreter.getVariable(name);
-        } catch (final ExecutionException e) {
-            throw new ScriptBasicException(e);
-        }
+        return ctx.interpreter.getVariable(name);
     }
 
     @Override
@@ -313,11 +303,7 @@ public class Engine implements ScriptBasic {
         @Override
         public Object call(final Object... args) throws ScriptBasicException {
             assertCtxInitialized();
-            try {
-                return ctx.interpreter.call(name, args);
-            } catch (final ExecutionException e) {
-                throw new ScriptBasicException(e);
-            }
+            return ctx.interpreter.call(name, args);
         }
 
         @Override

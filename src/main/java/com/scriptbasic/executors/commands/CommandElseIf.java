@@ -1,13 +1,13 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.Interpreter;
 
 public class CommandElseIf extends AbstractCommandIfKind {
 
     @Override
     public void execute(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
 
         if (itWasConditionalJump(interpreter)) {
 

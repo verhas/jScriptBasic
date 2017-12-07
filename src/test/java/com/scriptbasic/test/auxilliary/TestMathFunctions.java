@@ -1,6 +1,6 @@
 package com.scriptbasic.test.auxilliary;
 
-import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.utility.functions.UtilityFunctions;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import static com.scriptbasic.utility.functions.MathFunctions.*;
 public class TestMathFunctions {
     @Test
     public void testExMethods() throws ClassNotFoundException,
-            InstantiationException, IllegalAccessException, ExecutionException, NoSuchMethodException, InvocationTargetException {
+            InstantiationException, IllegalAccessException, ScriptBasicException, NoSuchMethodException, InvocationTargetException {
 
         double x = 0.0;
         double y = 1.0;
@@ -25,7 +25,7 @@ public class TestMathFunctions {
         try {
             abs(55);
             Assert.fail("MathFunctions.abs accepted int argument");
-        } catch (ExecutionException e) {
+        } catch (ScriptBasicException e) {
 
         }
 

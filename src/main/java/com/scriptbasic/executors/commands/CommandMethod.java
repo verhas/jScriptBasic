@@ -1,6 +1,6 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.api.BasicRuntimeException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.Interpreter;
 
 public class CommandMethod extends AbstractCommand {

@@ -1,6 +1,7 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.api.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.executors.rightvalues.BasicStringValue;
 import com.scriptbasic.interfaces.*;
 
@@ -11,7 +12,7 @@ public class CommandPrint extends AbstractCommandExpressionListed {
 
     @Override
     public void execute(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         for (final Expression expression : getExpressionList()) {
             final RightValue rightValue = expression.evaluate(interpreter);
             try {

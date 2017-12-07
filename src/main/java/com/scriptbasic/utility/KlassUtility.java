@@ -1,6 +1,6 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.api.BasicRuntimeException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.Magic;
 import com.scriptbasic.interfaces.NoAccess;

@@ -1,8 +1,8 @@
 package com.scriptbasic.utility.functions;
 
 import com.scriptbasic.api.BasicFunction;
-import com.scriptbasic.api.BasicRuntimeException;
-import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.utility.CastUtility;
 import com.scriptbasic.utility.NoInstance;
 
@@ -25,7 +25,7 @@ public class MathFunctions {
     }
 
     @BasicFunction(classification = com.scriptbasic.classification.Math.class)
-    static public Number abs(final Number x) throws ExecutionException {
+    static public Number abs(final Number x) throws ScriptBasicException {
         if (x instanceof Double) {
             return Math.abs((Double) x);
         }

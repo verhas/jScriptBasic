@@ -4,8 +4,8 @@ import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
 import com.scriptbasic.executors.rightvalues.BasicLongValue;
 import com.scriptbasic.executors.rightvalues.BasicStringValue;
-import com.scriptbasic.api.BasicRuntimeException;
-import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
@@ -25,7 +25,7 @@ public class TestVariableMaps {
     MixedBasicVariableMap mixedMap = null;
 
     @Test
-    public void testBasicLocalVariableMap() throws ExecutionException {
+    public void testBasicLocalVariableMap() throws ScriptBasicException {
         BasicLocalVariableMap blvm = new BasicLocalVariableMap();
 
         // global scope
@@ -85,23 +85,23 @@ public class TestVariableMaps {
         }
     }
 
-    private void VE(String name) throws ExecutionException {
+    private void VE(String name) throws ScriptBasicException {
         assertTrue(mixedMap.variableExists(name));
     }
 
-    private void VNE(String name) throws ExecutionException {
+    private void VNE(String name) throws ScriptBasicException {
         assertFalse(mixedMap.variableExists(name));
     }
 
-    private void VD(String name) throws ExecutionException {
+    private void VD(String name) throws ScriptBasicException {
         assertTrue(mixedMap.variableDefined(name));
     }
 
-    private void VND(String name) throws ExecutionException {
+    private void VND(String name) throws ScriptBasicException {
         assertFalse(mixedMap.variableDefined(name));
     }
 
-    private void LET(String name, Object v) throws ExecutionException {
+    private void LET(String name, Object v) throws ScriptBasicException {
         if (v == null) {
             mixedMap.setVariable(name, null);
         } else if (v instanceof RightValue) {
@@ -126,20 +126,20 @@ public class TestVariableMaps {
         mixedMap.dropFrame();
     }
 
-    private void RLV(String name) throws ExecutionException {
+    private void RLV(String name) throws ScriptBasicException {
         mixedMap.registerLocalVariable(name);
     }
 
-    private void RGV(String name) throws ExecutionException {
+    private void RGV(String name) throws ScriptBasicException {
         mixedMap.registerGlobalVariable(name);
     }
 
-    private Object VALUE(String name) throws ExecutionException {
+    private Object VALUE(String name) throws ScriptBasicException {
         return ((AbstractPrimitiveRightValue<?>) mixedMap.getVariableValue(name))
                 .getValue();
     }
 
-    public void testMixedBasicVariableMap() throws ExecutionException {
+    public void testMixedBasicVariableMap() throws ScriptBasicException {
         mixedMap = new MixedBasicVariableMap();
 
         try {
@@ -201,7 +201,7 @@ public class TestVariableMaps {
         }
     }
 
-    public void testCasing() throws ExecutionException {
+    public void testCasing() throws ScriptBasicException {
         mixedMap = new MixedBasicVariableMap();
         mixedMap.setCaseSensitive();
         LET("var1", 1);

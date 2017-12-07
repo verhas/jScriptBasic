@@ -1,6 +1,7 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.api.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.executors.operators.JavaObjectFieldAccessOperator;
@@ -32,7 +33,7 @@ public final class ExpressionUtility {
 
     public static RightValue callBasicFunction(final Interpreter interpreter,
                                                final RightValue[] argumentValues, final CommandSub commandSub,
-                                               final String functionName) throws ExecutionException {
+                                               final String functionName) throws ScriptBasicException {
         RightValue result = null;
         interpreter.push();
         final LeftValueList arguments = commandSub.getArguments();
@@ -51,11 +52,11 @@ public final class ExpressionUtility {
     /**
      * @param arguments
      * @param argumentValues
-     * @throws ExecutionException
+     * @throws ScriptBasicException
      */
     private static void registerLocalVariablesWithValues(
             final LeftValueList arguments, final RightValue[] argumentValues,
-            final Interpreter interpreter) throws ExecutionException {
+            final Interpreter interpreter) throws ScriptBasicException {
         if (arguments != null) {
             final Iterator<LeftValue> argumentIterator = arguments.iterator();
             for (final RightValue argumentValue : argumentValues) {
@@ -79,7 +80,7 @@ public final class ExpressionUtility {
     }
 
     public static Object[] getObjectArray(final List<RightValue> args, final Method method,
-                                          final Interpreter interpreter) throws ExecutionException {
+                                          final Interpreter interpreter) throws ScriptBasicException {
         final Class<?>[] parameterTypes = method.getParameterTypes();
         // if the declaring class of the method implements the interface
         // WHATEVER //TODO find a good name for the interface that is to be
@@ -113,7 +114,7 @@ public final class ExpressionUtility {
 
     public static List<RightValue> evaluateExpressionList(
             final Interpreter interpreter,
-            final ExpressionList expressionList) throws ExecutionException {
+            final ExpressionList expressionList) throws ScriptBasicException {
         List<RightValue> args = null;
         if (expressionList != null) {
             args = new LinkedList<>();

@@ -1,6 +1,7 @@
 package com.scriptbasic.memory;
 
-import com.scriptbasic.api.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.*;
 
 /**
@@ -33,7 +34,7 @@ public class MixedBasicVariableMap extends BasicLocalVariableMap implements
      */
     @Override
     public RightValue getVariableValue(final String variableName)
-            throws ExecutionException {
+            throws ScriptBasicException {
         return super.variableExists(variableName) ? super
                 .getVariableValue(variableName) : globalVariableMap
                 .getVariableValue(variableName);
@@ -47,7 +48,7 @@ public class MixedBasicVariableMap extends BasicLocalVariableMap implements
      */
     @Override
     public Boolean variableExists(final String variableName)
-            throws ExecutionException {
+            throws ScriptBasicException {
         return super.variableExists(variableName)
                 || globalVariableMap.variableExists(variableName);
     }
@@ -60,7 +61,7 @@ public class MixedBasicVariableMap extends BasicLocalVariableMap implements
      */
     @Override
     public Boolean variableDefined(final String variableName)
-            throws ExecutionException {
+            throws ScriptBasicException {
         return super.variableDefined(variableName)
                 || globalVariableMap.variableDefined(variableName);
     }
@@ -115,7 +116,7 @@ public class MixedBasicVariableMap extends BasicLocalVariableMap implements
      */
     @Override
     public void registerGlobalVariable(final String variableName)
-            throws ExecutionException {
+            throws ScriptBasicException {
         super.registerGlobalVariable(variableName);
         globalVariableRegistry.registerGlobal(variableName);
     }
@@ -128,7 +129,7 @@ public class MixedBasicVariableMap extends BasicLocalVariableMap implements
      */
     @Override
     public void setVariable(final String variableName,
-                            final RightValue rightValue) throws ExecutionException {
+                            final RightValue rightValue) throws ScriptBasicException {
         if (super.isLocal(variableName)) {
             super.setVariable(variableName, rightValue);
         } else if (super.isGlobal(variableName)) {

@@ -1,6 +1,7 @@
 package com.scriptbasic.executors.rightvalues;
 
 import com.scriptbasic.api.BasicArray;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.executors.AbstractIdentifieredExpressionListedExpression;
 import com.scriptbasic.interfaces.*;
 import com.scriptbasic.utility.RightValueUtility;
@@ -10,7 +11,7 @@ public class ArrayElementAccess extends
 
     @Override
     public RightValue evaluate(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         final VariableMap variableMap = interpreter.getVariables();
         RightValue value = variableMap.getVariableValue(getVariableName());
         value = interpreter.getHook().variableRead(getVariableName(), value);

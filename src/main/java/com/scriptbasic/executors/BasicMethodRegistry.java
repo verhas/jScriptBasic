@@ -1,7 +1,7 @@
 package com.scriptbasic.executors;
 
-import com.scriptbasic.api.BasicRuntimeException;
-import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.MethodRegistry;
 
 import java.lang.reflect.Method;
@@ -28,7 +28,7 @@ public class BasicMethodRegistry implements MethodRegistry {
      */
     @Override
     public Method getJavaMethod(final Class<?> klass, final String alias)
-            throws ExecutionException {
+            throws ScriptBasicException {
         Method method = null;
         if (klass == null) {
             method = getJavaMethod(alias);
@@ -47,7 +47,7 @@ public class BasicMethodRegistry implements MethodRegistry {
         return method;
     }
 
-    private Method getJavaMethod(final String alias) throws ExecutionException {
+    private Method getJavaMethod(final String alias) throws ScriptBasicException {
         final RegistryItem item = globalRegistry.get(alias);
         Method method = null;
         if (item != null) {

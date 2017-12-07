@@ -1,5 +1,7 @@
 package com.scriptbasic.interfaces;
 
+import com.scriptbasic.api.ScriptBasicException;
+
 import java.util.Set;
 
 /**
@@ -9,7 +11,7 @@ import java.util.Set;
  * MixedBasicVariableMap that manages the global and the local variables
  * transparently.
  * <p>
- * The methods may throw {@link ExecutionException}. The interface provides this
+ * The methods may throw {@link ScriptBasicException}. The interface provides this
  * possibility to implement features like denying case sensitive reuse of
  * variable names. For example jScriptBasic does not allow you to use the
  * variable {@code Apple} is ever you already used {@code apple}. In other basic
@@ -28,7 +30,7 @@ public interface VariableMap {
      * is not defined or does not exists.
      */
     RightValue getVariableValue(final String variableName)
-            throws ExecutionException;
+            throws ScriptBasicException, ScriptBasicException;
 
     /**
      * Checks that a variable exists in this map.
@@ -38,7 +40,7 @@ public interface VariableMap {
      * undefined value. {@code false} if the variable does not exist in
      * this map.
      */
-    Boolean variableExists(final String variableName) throws ExecutionException;
+    Boolean variableExists(final String variableName) throws ScriptBasicException;
 
     /**
      * Checks that a variable exists and has a defined value in this map.
@@ -48,7 +50,7 @@ public interface VariableMap {
      * @return {@code true} if the variable exists and has a defined value.
      */
     Boolean variableDefined(final String variableName)
-            throws ExecutionException;
+            throws ScriptBasicException;
 
     /**
      * Set the value of the variable. If the variable did not exist then the
@@ -62,7 +64,7 @@ public interface VariableMap {
      * @param rightValue   the new value of the variable
      */
     void setVariable(final String variableName, RightValue rightValue)
-            throws ExecutionException;
+            throws ScriptBasicException;
 
     /**
      * Get the set of the variables stored in the variable map so that the

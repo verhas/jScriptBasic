@@ -2,8 +2,7 @@ package com.scriptbasic.executors.rightvalues;
 
 import com.scriptbasic.api.BasicArray;
 import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.api.BasicRuntimeException;
-import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.Interpreter;
 import com.scriptbasic.interfaces.RightValue;
 
@@ -49,10 +48,20 @@ public class BasicArrayValue implements RightValue, BasicArray {
     @Override
     public void setArray(final Object[] array) throws ScriptBasicException {
         if (array == null) {
-            throw new ScriptBasicException(
-                    "BasicArrayValue embedded array cannot be null");
+            throw new ScriptBasicException("BasicArrayValue embedded array cannot be null");
         }
-        this.array = array;
+        this.array = objectArrayOf(array);
+        maxIndex = array.length - 1;
+    }
+
+    private Object[] objectArrayOf(Object[] array) {
+        final Object[] objectArray;
+        if (array.getClass() == Object[].class) {
+            objectArray = array;
+        } else {
+            objectArray = Arrays.copyOf(array, array.length, Object[].class);
+        }
+        return objectArray;
     }
 
     /**
@@ -74,7 +83,7 @@ public class BasicArrayValue implements RightValue, BasicArray {
         this.interpreter = interpreter;
     }
 
-    private void assertArraySize(final Integer index) throws ExecutionException {
+    private void assertArraySize(final Integer index) throws ScriptBasicException {
         if (index < 0) {
             throw new BasicRuntimeException("Array index can not be negative");
         }
@@ -89,7 +98,7 @@ public class BasicArrayValue implements RightValue, BasicArray {
     }
 
     @Override
-    public void set(final Integer index, final Object object) throws ExecutionException {
+    public void set(final Integer index, final Object object) throws ScriptBasicException {
         assertArraySize(index);
         array[index] = object;
         if (maxIndex < index) {
@@ -98,7 +107,7 @@ public class BasicArrayValue implements RightValue, BasicArray {
     }
 
     @Override
-    public Object get(final Integer index) throws ExecutionException {
+    public Object get(final Integer index) throws ScriptBasicException {
         assertArraySize(index);
         return array[index];
     }

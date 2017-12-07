@@ -1,7 +1,8 @@
 package com.scriptbasic.executors.operators;
 
-import com.scriptbasic.api.BasicRuntimeException;
-import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.Interpreter;
 import com.scriptbasic.interfaces.RightValue;
 
@@ -18,10 +19,10 @@ public abstract class AbstractBinaryFullCircuitOperator extends
         AbstractBinaryOperator {
 
     protected abstract RightValue evaluateOn(RightValue leftOperand,
-                                             RightValue rightOperand) throws BasicRuntimeException;
+                                             RightValue rightOperand) throws ScriptBasicException;
 
     @Override
-    public final RightValue evaluate(final Interpreter interpreter) throws ExecutionException {
+    public final RightValue evaluate(final Interpreter interpreter) throws ScriptBasicException {
         return evaluateOn(getLeftOperand().evaluate(interpreter), getRightOperand()
                 .evaluate(interpreter));
     }

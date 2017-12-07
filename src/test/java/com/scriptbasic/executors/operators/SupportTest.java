@@ -3,7 +3,7 @@ package com.scriptbasic.executors.operators;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.Interpreter;
 
 import static org.junit.Assert.assertEquals;
@@ -22,10 +22,10 @@ class SupportTest {
      *
      * @param interpreter after the execution of the test code holding the global variable 'a'
      * @param expected    the expected value of the variable 'a'
-     * @throws ExecutionException
+     * @throws ScriptBasicException
      */
     static void assertValueOfVariable_A(Interpreter interpreter, Object expected)
-            throws ExecutionException {
+            throws ScriptBasicException {
         Object actual = interpreter.getVariable("a");
         if (expected instanceof Integer) {
             expected = ((Integer) expected).longValue();

@@ -1,12 +1,16 @@
 package com.scriptbasic.api;
 
 import com.scriptbasic.executors.rightvalues.BasicArrayValue;
-import com.scriptbasic.interfaces.ExecutionException;
 
 public interface BasicArray {
 
     static BasicArray create() {
         return new BasicArrayValue();
+    }
+    static BasicArray create(Object[] array) throws ScriptBasicException {
+        BasicArray basicArray = new BasicArrayValue();
+        basicArray.setArray(array);
+        return basicArray;
     }
 
     /**
@@ -26,9 +30,9 @@ public interface BasicArray {
      *
      * @param index
      * @param object the new value for the array
-     * @throws ExecutionException
+     * @throws ScriptBasicException
      */
-    public void set(final Integer index, final Object object) throws ExecutionException;
+    public void set(final Integer index, final Object object) throws ScriptBasicException;
 
     /**
      * Get the {@code index}-th element of the array. Note that this method does
@@ -38,9 +42,9 @@ public interface BasicArray {
      *
      * @param index
      * @return the array element.
-     * @throws ExecutionException
+     * @throws ScriptBasicException
      */
-    Object get(final Integer index) throws ExecutionException;
+    Object get(final Integer index) throws ScriptBasicException;
 
     /**
      * Get the length of the array. This is not the length of the underlying

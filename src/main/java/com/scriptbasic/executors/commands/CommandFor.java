@@ -1,6 +1,7 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.api.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
 import com.scriptbasic.executors.rightvalues.BasicLongValue;
@@ -43,7 +44,7 @@ public class CommandFor extends AbstractCommand {
     }
 
     private void startLoopWithLong(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         final Long start = BasicLongValue.asLong(loopStart);
         loopVariable.setValue(new BasicLongValue(start), interpreter);
         setNextCommand(interpreter, BasicLongValue.asLong(loopStep), start,
@@ -51,7 +52,7 @@ public class CommandFor extends AbstractCommand {
     }
 
     private void startLoopWithDouble(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         final Double start = BasicDoubleValue.asDouble(loopStart);
         loopVariable.setValue(new BasicDoubleValue(start), interpreter);
         setNextCommand(interpreter, BasicDoubleValue.asDouble(loopStep), start,
@@ -59,7 +60,7 @@ public class CommandFor extends AbstractCommand {
     }
 
     private RightValue getLoopVariableAsRightValue(
-            final Interpreter interpreter) throws ExecutionException {
+            final Interpreter interpreter) throws ScriptBasicException {
         return interpreter.getVariables().getVariableValue(
                 ((BasicLeftValue) loopVariable).getIdentifier());
     }
@@ -87,7 +88,7 @@ public class CommandFor extends AbstractCommand {
     }
 
     private void stepLoopVariable(final Interpreter interpreter,
-                                  final Long step) throws ExecutionException {
+                                  final Long step) throws ScriptBasicException {
         final Long loopEndValue = BasicLongValue.asLong(loopEnd);
         final RightValue rv = getLoopVariableAsRightValue(interpreter);
         final Long newLoopValue = BasicLongValue.asLong(rv) + step;
@@ -96,7 +97,7 @@ public class CommandFor extends AbstractCommand {
     }
 
     private void stepLoopVariable(final Interpreter interpreter,
-                                  final Double step) throws ExecutionException {
+                                  final Double step) throws ScriptBasicException {
         final Double loopEndValue = BasicDoubleValue.asDouble(loopEnd);
         final RightValue rv = getLoopVariableAsRightValue(interpreter);
         final Double newLoopValue = BasicDoubleValue.asDouble(rv) + step;
@@ -105,7 +106,7 @@ public class CommandFor extends AbstractCommand {
     }
 
     void stepLoopVariable(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         if (loopVariable instanceof BasicLeftValue) {
             if (loopStep instanceof BasicLongValue) {
                 stepLoopVariable(interpreter, BasicLongValue.asLong(loopStep));
@@ -123,7 +124,7 @@ public class CommandFor extends AbstractCommand {
     }
 
     void noStepLoopVariable(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         if (loopStep instanceof BasicLongValue) {
             final Long step = BasicLongValue.asLong(loopStep);
             final Long loopEndValue = BasicLongValue.asLong(loopEnd);
@@ -143,7 +144,7 @@ public class CommandFor extends AbstractCommand {
     }
 
     private void setLoopStart(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         if (loopStep instanceof BasicDoubleValue) {
             if (loopStart instanceof BasicDoubleValue) {
                 loopVariable.setValue(loopStart, interpreter);
@@ -171,7 +172,7 @@ public class CommandFor extends AbstractCommand {
      */
     @Override
     public void execute(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         loopStart = loopStartValue.evaluate(interpreter);
         loopEnd = loopEndValue.evaluate(interpreter);
         if (loopStepValue != null) {

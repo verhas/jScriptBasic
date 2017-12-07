@@ -39,6 +39,8 @@ for i = 0 to length(fileList)-1
  files = files +","
 next i
 
+assert "there are some files", length(files) <> 0
+
 file = open("file.list.txt","w")
 printfln file,files
 close file

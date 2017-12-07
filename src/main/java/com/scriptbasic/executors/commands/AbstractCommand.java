@@ -1,5 +1,6 @@
 package com.scriptbasic.executors.commands;
 
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.*;
 
 public abstract class AbstractCommand implements Executor, Command,
@@ -9,10 +10,10 @@ public abstract class AbstractCommand implements Executor, Command,
 
     @Override
     public abstract void execute(Interpreter interpreter)
-            throws ExecutionException;
+            throws ScriptBasicException;
 
     public void checkedExecute(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         execute(interpreter);
     }
 

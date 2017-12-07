@@ -1,5 +1,7 @@
 package com.scriptbasic.interfaces;
 
+import com.scriptbasic.api.ScriptBasicException;
+
 /**
  * Classes that provide methods to execute a command implement this interface.
  * <p>
@@ -25,5 +27,5 @@ package com.scriptbasic.interfaces;
 public interface Command extends AnalysisResult, Executor {
     Command getNextCommand();
 
-    void checkedExecute(Interpreter interpreter) throws ExecutionException;
+    void checkedExecute(Interpreter interpreter) throws ScriptBasicException;
 }

@@ -2,9 +2,9 @@ package com.scriptbasic.testprograms;
 
 import com.scriptbasic.Executor;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.api.BasicRuntimeException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
-import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.api.ScriptBasicException;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -46,7 +46,7 @@ public class TestPrograms {
         try {
             codeTest(fileName, null);
             fail();
-        } catch (ExecutionException e) {
+        } catch (ScriptBasicException e) {
             @SuppressWarnings("unused")
             Exception ex = e;
             // OK

@@ -1,6 +1,6 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.Interpreter;
 import com.scriptbasic.interfaces.RightValue;
@@ -24,7 +24,7 @@ public class CommandReturn extends AbstractCommand {
 
     @Override
     public void execute(final Interpreter interpreter)
-            throws ExecutionException {
+            throws ScriptBasicException {
         final RightValue returnValue = returnExpression == null ? null
                 : returnExpression.evaluate(interpreter);
         interpreter.setReturnValue(returnValue);

@@ -1,5 +1,7 @@
 package com.scriptbasic.interfaces;
 
+import com.scriptbasic.api.ScriptBasicException;
+
 /**
  * A LeftValue is a value that can stand on the left hand side of an assignment
  * command.
@@ -12,8 +14,8 @@ public interface LeftValue extends Value, AnalysisResult {
      *
      * @param rightValue          the value that will be referenced by the left value after the assignment
      * @param interpreter the interpreter controlling the action
-     * @throws ExecutionException if the value can not be assigned for some reason
+     * @throws ScriptBasicException if the value can not be assigned for some reason
      */
     void setValue(RightValue rightValue, Interpreter interpreter)
-            throws ExecutionException;
+            throws ScriptBasicException;
 }

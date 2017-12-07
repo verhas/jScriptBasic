@@ -1,7 +1,7 @@
 package com.scriptbasic.memory;
 
-import com.scriptbasic.api.BasicRuntimeException;
-import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.RightValue;
 import com.scriptbasic.interfaces.VariableMap;
 
@@ -104,9 +104,9 @@ class BasicVariableMap implements VariableMap {
      * using it the way it is here.
      *
      * @param variableName
-     * @throws ExecutionException
+     * @throws ScriptBasicException
      */
-    void assertCorrectCasing(final String variableName) throws ExecutionException {
+    void assertCorrectCasing(final String variableName) throws ScriptBasicException {
         if (variableNamesAreStrictCased) {
             final String convertedName = converted(variableName);
             if (variableMap.containsKey(convertedName)
@@ -135,7 +135,7 @@ class BasicVariableMap implements VariableMap {
      */
     @Override
     public RightValue getVariableValue(final String variableName)
-            throws ExecutionException {
+            throws ScriptBasicException {
         return variableExists(variableName) ? variableMap
                 .get(converted(variableName)) : null;
     }
@@ -148,7 +148,7 @@ class BasicVariableMap implements VariableMap {
      */
     @Override
     public Boolean variableExists(final String variableName)
-            throws ExecutionException {
+            throws ScriptBasicException {
         assertCorrectCasing(variableName);
         return variableMap.containsKey(converted(variableName));
     }
@@ -161,7 +161,7 @@ class BasicVariableMap implements VariableMap {
      */
     @Override
     public Boolean variableDefined(final String variableName)
-            throws ExecutionException {
+            throws ScriptBasicException {
         return variableExists(variableName)
                 && getVariableValue(variableName) != null;
     }
@@ -174,7 +174,7 @@ class BasicVariableMap implements VariableMap {
      */
     @Override
     public void setVariable(final String variableName, final RightValue rightValue)
-            throws ExecutionException {
+            throws ScriptBasicException {
         assertCorrectCasing(variableName);
         registerVariableCasing(variableName);
         variableMap.put(converted(variableName), rightValue);

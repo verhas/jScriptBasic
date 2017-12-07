@@ -1,6 +1,6 @@
 package com.scriptbasic.memory;
 
-import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.LocalVariableMap;
 import com.scriptbasic.interfaces.RightValue;
 
@@ -22,26 +22,26 @@ public class BasicLocalVariableMap extends BasicVariableMap implements
 
     @Override
     public RightValue getVariableValue(final String variableName)
-            throws ExecutionException {
+            throws ScriptBasicException {
         return actualMap == null ? null : actualMap
                 .getVariableValue(variableName);
     }
 
     @Override
     public Boolean variableExists(final String variableName)
-            throws ExecutionException {
+            throws ScriptBasicException {
         return actualMap != null && actualMap.variableExists(variableName);
     }
 
     @Override
     public Boolean variableDefined(final String variableName)
-            throws ExecutionException {
+            throws ScriptBasicException {
         return actualMap != null && actualMap.variableDefined(variableName);
     }
 
     @Override
     public void setVariable(final String variableName, final RightValue rightValue)
-            throws ExecutionException {
+            throws ScriptBasicException {
         if (actualMap == null) {
             throw new IllegalArgumentException("setting local variable '"
                     + variableName + "' in non local scope");
@@ -90,7 +90,7 @@ public class BasicLocalVariableMap extends BasicVariableMap implements
      */
     @Override
     public void registerGlobalVariable(final String variableName)
-            throws ExecutionException {
+            throws ScriptBasicException {
         if (actualRegistry != null) {
             actualRegistry.registerGlobal(variableName);
         }
@@ -98,7 +98,7 @@ public class BasicLocalVariableMap extends BasicVariableMap implements
 
     @Override
     public void registerLocalVariable(final String variableName)
-            throws ExecutionException {
+            throws ScriptBasicException {
         if (actualRegistry != null) {
             actualRegistry.registerLocal(variableName);
         } else {
@@ -107,11 +107,11 @@ public class BasicLocalVariableMap extends BasicVariableMap implements
         }
     }
 
-    public boolean isGlobal(final String variableName) throws ExecutionException {
+    public boolean isGlobal(final String variableName) throws ScriptBasicException {
         return actualRegistry != null && actualRegistry.isGlobal(variableName);
     }
 
-    public boolean isLocal(final String variableName) throws ExecutionException {
+    public boolean isLocal(final String variableName) throws ScriptBasicException {
         return actualRegistry != null && actualRegistry.isLocal(variableName);
     }
 

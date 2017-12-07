@@ -3,8 +3,8 @@ package com.scriptbasic.utility;
 import com.scriptbasic.api.BasicArray;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.rightvalues.*;
-import com.scriptbasic.api.BasicRuntimeException;
-import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.RightValue;
 
 /**
@@ -39,7 +39,7 @@ public final class RightValueUtility {
      */
     @SuppressWarnings("unchecked")
     public static Integer convert2Integer(final RightValue index)
-            throws ExecutionException {
+            throws ScriptBasicException {
         Integer result = 0;
         if (index.isNumeric()) {
             result = ((AbstractNumericRightValue<Number>) index).getValue()

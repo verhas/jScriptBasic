@@ -1,7 +1,7 @@
 package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.ExecutionException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.Interpreter;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
@@ -22,7 +22,7 @@ public class TestJavaAccess {
     private static Logger log = LoggerFactory.getLogger();
 
 
-    private static void b(final String s, Object expected) throws AnalysisException, ExecutionException {
+    private static void b(final String s, Object expected) throws AnalysisException, ScriptBasicException {
         Interpreter interpreter = eval(s);
         interpreter.execute();
         assertValueOfVariable_A(interpreter, expected);
