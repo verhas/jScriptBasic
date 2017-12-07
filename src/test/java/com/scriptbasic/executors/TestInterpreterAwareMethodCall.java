@@ -32,7 +32,6 @@ public class TestInterpreterAwareMethodCall {
         sb = ScriptBasic.getEngine();
         sb.registerExtension(this.getClass());
         sb.eval("callMe 1,2");
-
     }
 
 }
