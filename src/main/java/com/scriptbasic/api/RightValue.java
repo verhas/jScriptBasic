@@ -1,6 +1,7 @@
-package com.scriptbasic.interfaces;
+package com.scriptbasic.api;
 
 import com.scriptbasic.executors.rightvalues.*;
+import com.scriptbasic.interfaces.Value;
 
 public interface RightValue extends Value {
     default Boolean isNumeric() {

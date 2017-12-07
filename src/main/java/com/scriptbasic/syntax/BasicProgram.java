@@ -2,7 +2,7 @@ package com.scriptbasic.syntax;
 
 import com.scriptbasic.executors.commands.AbstractCommand;
 import com.scriptbasic.executors.commands.CommandSub;
-import com.scriptbasic.interfaces.Command;
+import com.scriptbasic.api.Command;
 
 import java.util.*;
 

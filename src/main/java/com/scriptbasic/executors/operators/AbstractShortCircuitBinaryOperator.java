@@ -1,10 +1,9 @@
 package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.Interpreter;
-import com.scriptbasic.interfaces.RightValue;
+import com.scriptbasic.api.RightValue;
 
 public abstract class AbstractShortCircuitBinaryOperator extends
         AbstractBinaryOperator {

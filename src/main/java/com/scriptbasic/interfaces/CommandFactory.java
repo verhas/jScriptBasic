@@ -1,6 +1,8 @@
 package com.scriptbasic.interfaces;
 
 
+import com.scriptbasic.api.Command;
+
 /**
  * A {@code CommandFactory} analyzes a BASIC program line and creates a
  * {@code Command} that is the result of the analysis.

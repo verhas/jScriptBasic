@@ -1,5 +1,8 @@
 package com.scriptbasic.utility;
 
+import com.scriptbasic.api.LeftValue;
+import com.scriptbasic.api.LeftValueList;
+import com.scriptbasic.api.RightValue;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.executors.commands.CommandSub;

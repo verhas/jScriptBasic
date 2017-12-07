@@ -4,7 +4,7 @@ import com.scriptbasic.api.BasicArray;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.Interpreter;
-import com.scriptbasic.interfaces.RightValue;
+import com.scriptbasic.api.RightValue;
 
 import java.util.Arrays;
 

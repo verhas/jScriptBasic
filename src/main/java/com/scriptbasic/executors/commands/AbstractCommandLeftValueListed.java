@@ -1,6 +1,6 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.interfaces.LeftValueList;
+import com.scriptbasic.api.LeftValueList;
 
 /**
  * @author Peter Verhas

@@ -1,7 +1,7 @@
 package com.scriptbasic.executors;
 
-import com.scriptbasic.interfaces.LeftValue;
-import com.scriptbasic.interfaces.LeftValueList;
+import com.scriptbasic.api.LeftValue;
+import com.scriptbasic.api.LeftValueList;
 
 import java.util.Iterator;
 import java.util.LinkedList;

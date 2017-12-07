@@ -2,7 +2,7 @@ package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.executors.rightvalues.*;
 import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.interfaces.RightValue;
+import com.scriptbasic.api.RightValue;
 
 public class GreaterThanOperator extends AbstractCompareOperator {
 

@@ -4,7 +4,7 @@ import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandUse;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
-import com.scriptbasic.interfaces.Command;
+import com.scriptbasic.api.Command;
 import com.scriptbasic.utility.ExpressionUtility;
 import com.scriptbasic.utility.KlassUtility;
 import com.scriptbasic.utility.LexUtility;

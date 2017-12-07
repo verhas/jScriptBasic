@@ -4,7 +4,7 @@ import com.scriptbasic.context.Context;
 import com.scriptbasic.exceptions.CommandFactoryException;
 import com.scriptbasic.exceptions.KeywordNotImplementedException;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.Command;
+import com.scriptbasic.api.Command;
 import com.scriptbasic.interfaces.CommandAnalyzer;
 import com.scriptbasic.interfaces.CommandFactory;
 import com.scriptbasic.log.Logger;

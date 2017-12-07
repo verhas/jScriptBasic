@@ -3,7 +3,7 @@ package com.scriptbasic.hooks;
 import com.scriptbasic.api.SimpleHook;
 import com.scriptbasic.executors.commands.CommandMethod;
 import com.scriptbasic.executors.commands.CommandUse;
-import com.scriptbasic.interfaces.Command;
+import com.scriptbasic.api.Command;
 import com.scriptbasic.interfaces.Configuration;
 
 import java.util.Optional;

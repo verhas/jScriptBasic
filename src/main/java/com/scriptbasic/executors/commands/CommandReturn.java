@@ -3,7 +3,7 @@ package com.scriptbasic.executors.commands;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.Interpreter;
-import com.scriptbasic.interfaces.RightValue;
+import com.scriptbasic.api.RightValue;
 
 public class CommandReturn extends AbstractCommand {
     private Expression returnExpression;

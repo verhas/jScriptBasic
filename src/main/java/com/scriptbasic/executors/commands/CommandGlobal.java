@@ -3,7 +3,7 @@ package com.scriptbasic.executors.commands;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.Interpreter;
-import com.scriptbasic.interfaces.LeftValue;
+import com.scriptbasic.api.LeftValue;
 
 public class CommandGlobal extends AbstractCommandLeftValueListed {
 

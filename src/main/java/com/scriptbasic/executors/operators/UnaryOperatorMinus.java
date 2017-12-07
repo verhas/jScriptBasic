@@ -1,5 +1,6 @@
 package com.scriptbasic.executors.operators;
 
+import com.scriptbasic.api.RightValue;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.executors.rightvalues.BasicDoubleValue;

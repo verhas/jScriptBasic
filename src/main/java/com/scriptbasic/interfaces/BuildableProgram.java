@@ -1,5 +1,7 @@
 package com.scriptbasic.interfaces;
 
+import com.scriptbasic.api.Command;
+
 /**
  * A {@code BuildableProgram} is a {@code Program} that also provides methods
  * needed to build up the program code during the BASIC source code analysis.

@@ -4,7 +4,7 @@ import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.Interpreter;
-import com.scriptbasic.interfaces.RightValue;
+import com.scriptbasic.api.RightValue;
 
 public class LogicalOrOperator extends AbstractShortCircuitBinaryOperator {
 

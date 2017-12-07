@@ -1,5 +1,6 @@
 package com.scriptbasic.interfaces;
 
+import com.scriptbasic.api.RightValue;
 import com.scriptbasic.api.ScriptBasicException;
 
 import java.util.Set;

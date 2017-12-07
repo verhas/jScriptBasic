@@ -2,7 +2,7 @@ package com.scriptbasic.syntax.commands;
 
 import com.scriptbasic.context.Context;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.Command;
+import com.scriptbasic.api.Command;
 import com.scriptbasic.interfaces.Expression;
 
 /**

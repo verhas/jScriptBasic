@@ -1,9 +1,6 @@
 package com.scriptbasic.api;
 
-import com.scriptbasic.interfaces.Command;
 import com.scriptbasic.interfaces.Interpreter;
-import com.scriptbasic.interfaces.LeftValueList;
-import com.scriptbasic.interfaces.RightValue;
 
 import java.lang.reflect.Method;
 

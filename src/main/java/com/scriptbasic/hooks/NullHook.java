@@ -1,6 +1,9 @@
 package com.scriptbasic.hooks;
 
+import com.scriptbasic.api.Command;
 import com.scriptbasic.api.InterpreterHook;
+import com.scriptbasic.api.LeftValueList;
+import com.scriptbasic.api.RightValue;
 import com.scriptbasic.interfaces.*;
 
 import java.lang.reflect.Method;

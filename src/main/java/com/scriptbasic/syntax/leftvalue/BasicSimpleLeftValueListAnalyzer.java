@@ -1,5 +1,7 @@
 package com.scriptbasic.syntax.leftvalue;
 
+import com.scriptbasic.api.LeftValue;
+import com.scriptbasic.api.LeftValueList;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.GenericLeftValueList;
 import com.scriptbasic.interfaces.*;

@@ -1,5 +1,6 @@
 package com.scriptbasic.syntax.leftvalue;
 
+import com.scriptbasic.api.LeftValue;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.leftvalues.ArrayElementAccessLeftValueModifier;

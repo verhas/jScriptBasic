@@ -1,5 +1,8 @@
 package com.scriptbasic.syntax.commands;
 
+import com.scriptbasic.api.Command;
+import com.scriptbasic.api.LeftValue;
+import com.scriptbasic.api.LeftValueList;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.interfaces.*;

@@ -1,7 +1,7 @@
 package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.interfaces.RightValue;
+import com.scriptbasic.api.RightValue;
 
 public abstract class AbstractBinaryFullCircuitHalfDoubleOperator extends
         AbstractBinaryFullCircuitNumericOperator<Double> {

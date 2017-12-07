@@ -5,7 +5,7 @@ import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.rightvalues.*;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.interfaces.RightValue;
+import com.scriptbasic.api.RightValue;
 
 /**
  * @author Peter Verhas date June 26, 2012

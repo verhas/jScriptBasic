@@ -1,10 +1,8 @@
 package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.Interpreter;
-import com.scriptbasic.interfaces.RightValue;
+import com.scriptbasic.api.RightValue;
 
 /**
  * This class is extended by the operator classes that implement an operation
