@@ -1,6 +1,7 @@
 package com.scriptbasic.executors.rightvalues;
 
 import com.scriptbasic.api.BasicArray;
+import com.scriptbasic.api.BasicValue;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.Interpreter;
@@ -8,7 +9,7 @@ import com.scriptbasic.api.RightValue;
 
 import java.util.Arrays;
 
-public class BasicArrayValue implements RightValue, BasicArray {
+public class BasicArrayValue implements RightValue, BasicArray, BasicValue {
     private static final Integer INCREMENT_GAP = 100;
     private Object[] array = new Object[INCREMENT_GAP];
 
