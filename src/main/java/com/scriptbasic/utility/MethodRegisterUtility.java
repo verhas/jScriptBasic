@@ -1,6 +1,7 @@
 package com.scriptbasic.utility;
 
 import com.scriptbasic.api.BasicFunction;
+import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.api.Configuration;
 import com.scriptbasic.spi.Interpreter;
@@ -81,6 +82,10 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
      */
     private static boolean classificationsAllowRegistering(
             final Interpreter interpreter, final Class<?>[] classifications) {
+        if( classifications == null ){
+            throw new BasicInterpreterInternalError("Some of the extension functions do not have classifications."+
+            " Since this is Java code, it is an internal error of the host application.");
+        }
         final Configuration config = interpreter.getConfiguration();
         Integer allowLevel = 0;
         for (final Class<?> classification : classifications) {

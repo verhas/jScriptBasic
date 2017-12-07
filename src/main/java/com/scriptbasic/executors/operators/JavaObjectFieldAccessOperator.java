@@ -88,7 +88,7 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
             }
         }
         Object methodResultObject = null;
-        methodResultObject = ReflectionUtility.invoke(methodName, interpreter,
+        methodResultObject = ReflectionUtility.invoke(interpreter, methodName,
                 method, object, args);
 
         result = RightValueUtility.createRightValue(methodResultObject);

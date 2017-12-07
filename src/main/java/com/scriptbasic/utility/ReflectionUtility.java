@@ -38,8 +38,8 @@ public class ReflectionUtility {
      * @return the object returned by the Java method if any.
      * @throws ScriptBasicException
      */
-    public static Object invoke(final String symbolicName,
-                                final Interpreter interpreter,
+    public static Object invoke(final Interpreter interpreter,
+                                final String symbolicName,
                                 final Method method,
                                 final Object object,
                                 final List<RightValue> args)

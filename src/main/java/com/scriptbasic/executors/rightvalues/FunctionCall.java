@@ -56,7 +56,7 @@ public class FunctionCall extends AbstractIdentifieredExpressionListedExpression
                     + functionName + "'");
         } else {
             Object methodResult = null;
-            methodResult = ReflectionUtility.invoke(functionName, interpreter,
+            methodResult = ReflectionUtility.invoke(interpreter, functionName,
                     method, null, args);
             result = RightValueUtility.createRightValue(methodResult);
         }
