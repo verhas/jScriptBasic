@@ -95,11 +95,27 @@ public interface InterpreterHook {
     ;
 
     /**
+     * This method is called before the execution of the program starts.
+     */
+    default void beforeExecute() {
+    }
+
+    ;
+
+    /**
      * This method is called after the interpreter executed a command.
      *
      * @param command the command just executed.
      */
     default void afterExecute(Command command) {
+    }
+
+    ;
+
+    /**
+     * This method is called after the execution of the whole program has finished.
+     */
+    default void afterExecute() {
     }
 
     ;

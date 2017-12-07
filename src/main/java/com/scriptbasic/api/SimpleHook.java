@@ -1,6 +1,6 @@
 package com.scriptbasic.api;
 
-import com.scriptbasic.interfaces.*;
+import com.scriptbasic.interfaces.Interpreter;
 
 import java.lang.reflect.Method;
 
@@ -38,25 +38,11 @@ public abstract class SimpleHook implements InterpreterHook {
         this.interpreter = interpreter;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.scriptbasic.interfaces.InterpreterHook#setNext(com.scriptbasic.interfaces
-     * .InterpreterHook)
-     */
     @Override
     public void setNext(final InterpreterHook next) {
         this.next = next;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.scriptbasic.interfaces.InterpreterHook#beforeExecute(com.scriptbasic
-     * .interfaces.Command)
-     */
     @Override
     public void beforeExecute(final Command command) {
         interpreter.disableHook();
@@ -65,19 +51,24 @@ public abstract class SimpleHook implements InterpreterHook {
         next.beforeExecute(command);
     }
 
+
+    @Override
+    public void beforeExecute() {
+        interpreter.disableHook();
+        beforeExecuteEx();
+        interpreter.enableHook();
+        next.beforeExecute();
+    }
+
+    public void beforeExecuteEx() {
+    }
+
     /**
      * @param command
      */
     public void beforeExecuteEx(final Command command) {
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.scriptbasic.interfaces.InterpreterHook#afterExecute(com.scriptbasic
-     * .interfaces.Command)
-     */
     @Override
     public void afterExecute(final Command command) {
         interpreter.disableHook();
@@ -92,14 +83,17 @@ public abstract class SimpleHook implements InterpreterHook {
     public void afterExecuteEx(final Command command) {
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.scriptbasic.interfaces.InterpreterHook#beforeRegisteringJavaMethod
-     * (java.lang.String, java.lang.Class, java.lang.String,
-     * java.lang.Class<?>[])
-     */
+    @Override
+    public void afterExecute() {
+        interpreter.disableHook();
+        afterExecuteEx();
+        interpreter.enableHook();
+        next.afterExecute();
+    }
+
+    public void afterExecuteEx() {
+    }
+
     @Override
     public void beforeRegisteringJavaMethod(final String alias,
                                             final Class<?> klass, final String methodName,
@@ -123,13 +117,6 @@ public abstract class SimpleHook implements InterpreterHook {
                                               final Class<?>[] argumentTypes) {
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.scriptbasic.interfaces.InterpreterHook#beforePush(com.scriptbasic
-     * .interfaces.Command)
-     */
     @Override
     public void beforePush(final Command command) {
         interpreter.disableHook();
@@ -144,13 +131,6 @@ public abstract class SimpleHook implements InterpreterHook {
     public void beforePushEx(final Command command) {
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.scriptbasic.interfaces.InterpreterHook#afterPush(com.scriptbasic.
-     * interfaces.Command)
-     */
     @Override
     public void afterPush(final Command command) {
         interpreter.disableHook();
@@ -165,11 +145,6 @@ public abstract class SimpleHook implements InterpreterHook {
     public void afterPushEx(final Command command) {
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.scriptbasic.interfaces.InterpreterHook#beforePop()
-     */
     @Override
     public void beforePop() {
         interpreter.disableHook();
@@ -184,12 +159,6 @@ public abstract class SimpleHook implements InterpreterHook {
     public void beforePopEx() {
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.scriptbasic.interfaces.InterpreterHook#afterPop(com.scriptbasic.
-     * interfaces.Command)
-     */
     @Override
     public void afterPop(final Command command) {
         interpreter.disableHook();
@@ -204,13 +173,6 @@ public abstract class SimpleHook implements InterpreterHook {
     public void afterPopEx(final Command command) {
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.scriptbasic.interfaces.InterpreterHook#setReturnValue(com.scriptbasic
-     * .interfaces.RightValue)
-     */
     @Override
     public void setReturnValue(final RightValue returnValue) {
         interpreter.disableHook();
@@ -225,14 +187,6 @@ public abstract class SimpleHook implements InterpreterHook {
     public void setReturnValueEx(final RightValue returnValue) {
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.scriptbasic.interfaces.InterpreterHook#beforeSubroutineCall(java.
-     * lang.String, com.scriptbasic.interfaces.LeftValueList,
-     * com.scriptbasic.interfaces.RightValue[])
-     */
     @Override
     public void beforeSubroutineCall(final String subroutineName,
                                      final LeftValueList arguments, final RightValue[] argumentValues) {
@@ -251,13 +205,6 @@ public abstract class SimpleHook implements InterpreterHook {
                                        final LeftValueList arguments, final RightValue[] argumentValues) {
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.scriptbasic.interfaces.InterpreterHook#beforeCallJavaFunction(java
-     * .lang.reflect.Method)
-     */
     @Override
     public void beforeCallJavaFunction(final Method method) {
         interpreter.disableHook();
@@ -272,13 +219,6 @@ public abstract class SimpleHook implements InterpreterHook {
     public void beforeCallJavaFunctionEx(final Method method) {
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.scriptbasic.interfaces.InterpreterHook#afterCallJavaFunction(java
-     * .lang.reflect.Method)
-     */
     @Override
     public Object afterCallJavaFunction(final Method method, final Object result) {
         interpreter.disableHook();
@@ -296,13 +236,6 @@ public abstract class SimpleHook implements InterpreterHook {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.scriptbasic.interfaces.InterpreterHook#variableRead(java.lang.String,
-     * com.scriptbasic.interfaces.RightValue)
-     */
     @Override
     public RightValue variableRead(final String variableName,
                                    final RightValue value) {
@@ -324,11 +257,6 @@ public abstract class SimpleHook implements InterpreterHook {
         return value;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.scriptbasic.interfaces.InterpreterHook#init()
-     */
     @Override
     public void init() {
         interpreter.disableHook();
@@ -338,9 +266,6 @@ public abstract class SimpleHook implements InterpreterHook {
 
     }
 
-    /**
-     *
-     */
     public void initEx() {
     }
 

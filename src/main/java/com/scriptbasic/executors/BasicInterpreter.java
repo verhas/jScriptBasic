@@ -204,7 +204,9 @@ public final class BasicInterpreter implements Interpreter {
     public void execute() throws ScriptBasicException {
         preExecuteTask();
         final Command command = program.getStartCommand();
+        hook.beforeExecute();
         execute(command);
+        hook.afterExecute();
     }
 
     /*
