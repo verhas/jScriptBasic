@@ -7,6 +7,7 @@ import com.scriptbasic.interfaces.NoAccess;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Optional;
 
 /**
  * @author Peter Verhas date June 28, 2012
@@ -155,9 +156,7 @@ public final class KlassUtility {
             try {
                 klass = Class.forName(className.toString());
             } catch (final ClassNotFoundException ex) {
-                if (firstCaughtException == null) {
-                    firstCaughtException = ex;
-                }
+                firstCaughtException = Optional.ofNullable(firstCaughtException).orElse(ex);
                 final int lastDotPosition = className.lastIndexOf(".");
                 if (lastDotPosition == -1) {
                     throw firstCaughtException;

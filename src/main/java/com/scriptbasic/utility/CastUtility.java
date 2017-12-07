@@ -3,10 +3,22 @@ package com.scriptbasic.utility;
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.interfaces.RightValue;
 
+import java.util.List;
+import java.util.function.Function;
+
 /**
  * @author Peter Verhas date Jun 30, 2012
  */
 public final class CastUtility {
+    private static final List<P> converters = List.of(P.of(byte.class, Byte.class, object -> ((Number) object).byteValue()),
+            P.of(short.class, Short.class, object -> ((Number) object).shortValue()),
+            P.of(int.class, Integer.class, object -> ((Number) object).intValue()),
+            P.of(long.class, Long.class, object -> ((Number) object).longValue()),
+            P.of(float.class, Float.class, object -> ((Number) object).floatValue()),
+            P.of(double.class, Double.class, object -> ((Number) object).doubleValue()),
+            P.of(char.class, Character.class, object -> (char) ((Number) object).intValue())
+    );
+
     private CastUtility() {
         NoInstance.isPossible();
     }
@@ -28,33 +40,36 @@ public final class CastUtility {
      * @return the converted object.
      */
     public static Object cast(final Object object, final Class<?> castTo) {
-        Object result = object;
         try {
-            final String className = castTo.getName();
-            if ("byte".equals(className) || "java.lang.Byte".equals(className)) {
-                result = ((Number) object).byteValue();
-            } else if ("short".equals(className) || "java.lang.Short".equals(className)) {
-                result = ((Number) object).shortValue();
-            } else if ("int".equals(className) || "java.lang.Integer".equals(className)) {
-                result = ((Number) object).intValue();
-            } else if ("long".equals(className) || "java.lang.Long".equals(className)) {
-                result = ((Number) object).longValue();
-            } else if ("float".equals(className) || "java.lang.Float".equals(className)) {
-                result = ((Number) object).floatValue();
-            } else if ("double".equals(className) || "java.lang.Double".equals(className)) {
-                result = ((Number) object).doubleValue();
-            } else if ("char".equals(className) || "java.lang.Character".equals(className)) {
-                result = (char) ((Number) object).intValue();
-            }
+            return converters.stream()
+                    .filter(p -> p.primitive == castTo || p.objectClass == castTo)
+                    .map(p -> p.converter.apply(object))
+                    .findFirst()
+                    .orElse(object);
         } catch (final ClassCastException cce) {
+            return object;
         }
-        return result;
     }
 
     @SuppressWarnings("unchecked")
     public static Object toObject(final RightValue rightValue) {
         return rightValue == null ? null
                 : ((AbstractPrimitiveRightValue<Object>) rightValue).getValue();
+    }
+
+    private static class P {
+        final Class<?> primitive, objectClass;
+        final Function<Object, Object> converter;
+
+        private P(Class<?> primitive, Class<?> objectClass, Function<Object, Object> converter) {
+            this.primitive = primitive;
+            this.objectClass = objectClass;
+            this.converter = converter;
+        }
+
+        static P of(Class<?> primitive, Class<?> objectClass, Function<Object, Object> converter) {
+            return new P(primitive, objectClass, converter);
+        }
     }
 
 }
