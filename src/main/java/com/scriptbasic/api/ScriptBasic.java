@@ -79,7 +79,7 @@ public interface ScriptBasic {
      *
      * @return
      */
-    Writer getError();
+    Writer getErrorOutput();
 
     /**
      * Set the output writer used to write the error output of the BASIC
@@ -87,7 +87,7 @@ public interface ScriptBasic {
      *
      * @param error
      */
-    void setError(Writer error);
+    void setErrorOutput(Writer error);
 
     /**
      * Load a string as a BASIC program.

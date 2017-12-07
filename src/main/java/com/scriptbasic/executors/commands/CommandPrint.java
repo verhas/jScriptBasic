@@ -18,7 +18,7 @@ public class CommandPrint extends AbstractCommandExpressionListed {
         for (final Expression expression : getExpressionList()) {
             final RightValue rightValue = expression.evaluate(interpreter);
             try {
-                final Writer writer = interpreter.getWriter();
+                final Writer writer = interpreter.getOutput();
                 if (writer != null) {
                     writer.write(BasicStringValue.asString(rightValue));
                 }

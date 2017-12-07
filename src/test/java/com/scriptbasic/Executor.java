@@ -40,7 +40,7 @@ public class Executor extends AbstractStringIOPojo {
             StringWriter writer = new StringWriter();
             ctx.interpreter.setOutput(writer);
             StringWriter errorWriter = new StringWriter();
-            ctx.interpreter.setError(errorWriter);
+            ctx.interpreter.setErrorOutput(errorWriter);
             StringReader inputReader = getSStdin() == null ? null
                     : new StringReader(getSStdin());
             ctx.interpreter.setInput(inputReader);

@@ -55,12 +55,12 @@ public class Engine implements ScriptBasic {
     }
 
     @Override
-    public Writer getError() {
+    public Writer getErrorOutput() {
         return error;
     }
 
     @Override
-    public void setError(final Writer error) {
+    public void setErrorOutput(final Writer error) {
         this.error = error;
     }
 

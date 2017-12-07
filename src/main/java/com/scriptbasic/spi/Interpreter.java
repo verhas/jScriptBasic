@@ -72,7 +72,7 @@ public interface Interpreter {
      * @param writer
      * @see javax.script.ScriptContext#setErrorWriter(Writer)
      */
-    void setError(Writer writer);
+    void setErrorOutput(Writer writer);
 
     /**
      * Register the functions defined in the class. Functions that can be called
@@ -294,19 +294,19 @@ public interface Interpreter {
     /**
      * {@link javax.script.ScriptContext#getReader()}
      */
-    Reader getReader();
+    Reader getInput();
 
     /**
      * {@link javax.script.ScriptContext#getWriter()}
      */
-    Writer getWriter();
+    Writer getOutput();
 
     /**
      * {@link javax.script.ScriptContext#getReader()}
      *
      * @return
      */
-    Writer getErrorWriter();
+    Writer getErrorOutput();
 
     /**
      * Temporarily disable the hooks. Following this call the hooks will not be

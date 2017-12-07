@@ -55,7 +55,7 @@ public class ContextBuilder {
         final Context ctx = from(existing, reader);
         ctx.interpreter.setInput(input);
         ctx.interpreter.setOutput(output);
-        ctx.interpreter.setError(error);
+        ctx.interpreter.setErrorOutput(error);
         return ctx;
     }
 
@@ -85,7 +85,7 @@ public class ContextBuilder {
         final Context ctx = from(existing, sourceReader);
         ctx.interpreter.setInput(input);
         ctx.interpreter.setOutput(output);
-        ctx.interpreter.setError(error);
+        ctx.interpreter.setErrorOutput(error);
         return ctx;
     }
 

@@ -35,8 +35,8 @@ public final class BasicInterpreter implements Interpreter {
     private final List<DeferredJavaMethodRegistration> deferredJavaMethodRegistrations = new LinkedList<>();
     private BuildableProgram program;
     private Reader reader;
-    private Writer writer;
-    private Writer errorWriter;
+    private Writer output;
+    private Writer error;
     private InterpreterHook hook = null;
     private InterpreterHook hookedHook = null;
     private Command nextCommand;
@@ -103,7 +103,7 @@ public final class BasicInterpreter implements Interpreter {
      * @return the reader
      */
     @Override
-    public Reader getReader() {
+    public Reader getInput() {
         return reader;
     }
 
@@ -119,8 +119,8 @@ public final class BasicInterpreter implements Interpreter {
      * @return the writer
      */
     @Override
-    public Writer getWriter() {
-        return writer;
+    public Writer getOutput() {
+        return output;
     }
 
     /**
@@ -128,23 +128,23 @@ public final class BasicInterpreter implements Interpreter {
      */
     @Override
     public void setOutput(final Writer writer) {
-        this.writer = writer;
+        this.output = writer;
     }
 
     /**
-     * @return the errorWriter
+     * @return the error
      */
     @Override
-    public Writer getErrorWriter() {
-        return errorWriter;
+    public Writer getErrorOutput() {
+        return error;
     }
 
     /**
-     * @param errorWriter the errorWriter to set
+     * @param errorWriter the error to set
      */
     @Override
-    public void setError(final Writer errorWriter) {
-        this.errorWriter = errorWriter;
+    public void setErrorOutput(final Writer errorWriter) {
+        this.error = errorWriter;
     }
 
     @Override
