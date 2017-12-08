@@ -1,4 +1,4 @@
-package com.scriptbasic.interfaces;
+package com.scriptbasic.spi;
 
 /**
  * When a BASIC extension function implemented in Java returns an object for the sole purpose that it can be passed

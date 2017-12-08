@@ -1,6 +1,8 @@
 package com.scriptbasic.utility;
 
 import com.scriptbasic.spi.Interpreter;
+import com.scriptbasic.spi.NoAccess;
+import com.scriptbasic.spi.NoAccessProxy;
 import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.executors.rightvalues.BasicArrayValue;
@@ -44,13 +46,7 @@ public class ReflectionUtility {
                                 final Object object,
                                 final List<RightValue> args)
             throws ScriptBasicException {
-        if (object != null && object instanceof NoAccess) {
-            final Object target = object instanceof NoAccessProxy ? ((NoAccessProxy) object).target : object;
-            throw new BasicRuntimeException("It is not allowed to call  '" +
-                    symbolicName +
-                    "' on object of class '" +
-                    target.getClass().getName());
-        }
+        assertNoAccess(symbolicName, object);
         interpreter.getHook().beforeCallJavaFunction(method);
         final Object javaCallResult;
         try {
@@ -59,17 +55,39 @@ public class ReflectionUtility {
             javaCallResult = method.invoke(object, argArray);
             setTheInterpreterIfTheResultIsBasicArray(javaCallResult, interpreter);
         } catch (InvocationTargetException e) {
-            if( e.getTargetException() instanceof ScriptBasicException ){
-                throw (ScriptBasicException)e.getTargetException();
-            }else{
-                throw new ScriptBasicException(e.getTargetException());
-            }
+            throw exceptionFrom(e);
         } catch (IllegalArgumentException | IllegalAccessException e) {
             throw new BasicRuntimeException("Can not invoke method " + symbolicName, e);
         } catch (final Exception e) {
             throw new BasicRuntimeException("Invoking method '" + symbolicName + "' throws exception:", e);
         }
         return interpreter.getHook().afterCallJavaFunction(method, javaCallResult);
+    }
+
+    /**
+     * Throw a ScriptBasicException enclosing the target exception (the exception that was thrown by the
+     * reflectively called method) or if that exception was already a ScriptBasicException then throw
+     * that one without any wrapping.
+     * @param e the exception that was caught during the reflective call.
+     *
+     * @throws ScriptBasicException always, never returns
+     */
+    private static ScriptBasicException exceptionFrom(InvocationTargetException e) throws ScriptBasicException {
+        if( e.getTargetException() instanceof ScriptBasicException ){
+            return (ScriptBasicException)e.getTargetException();
+        }else{
+            return new ScriptBasicException(e.getTargetException());
+        }
+    }
+
+    private static void assertNoAccess(String symbolicName, Object object) throws BasicRuntimeException {
+        if (object != null && object instanceof NoAccess) {
+            final Object target = object instanceof NoAccessProxy ? ((NoAccessProxy) object).target : object;
+            throw new BasicRuntimeException("It is not allowed to call  '" +
+                    symbolicName +
+                    "' on object of class '" +
+                    target.getClass().getName());
+        }
     }
 
     private static void setTheInterpreterIfTheResultIsBasicArray(Object javaCallResult, Interpreter interpreter) {

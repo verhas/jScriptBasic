@@ -3,7 +3,7 @@ package com.scriptbasic.utility;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.Magic;
-import com.scriptbasic.interfaces.NoAccess;
+import com.scriptbasic.spi.NoAccess;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
