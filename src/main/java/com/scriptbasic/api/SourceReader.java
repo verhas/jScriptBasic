@@ -35,7 +35,7 @@ public interface SourceReader extends SourceLocationBound {
      *
      * @param character the character to push back
      */
-    void pushBack(Integer character);
+    void unget(Integer character);
 
     /**
      * Get the next character from the input stream.

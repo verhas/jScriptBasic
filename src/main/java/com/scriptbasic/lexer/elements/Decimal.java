@@ -38,7 +38,7 @@ public class Decimal extends AbstractElementAnalyzer {
     public LexicalElement read() throws LexicalException {
 
         Integer ch = getReader().get();
-        getReader().pushBack(ch);
+        getReader().unget(ch);
         if (ch != null && Character.isDigit(ch)) {
             final BasicLexicalElement le = BasicLexialElementFactory
                     .create(getReader());
@@ -50,7 +50,7 @@ public class Decimal extends AbstractElementAnalyzer {
             if (((Integer) (int) '.').equals(ch)) {
                 floatFormat = processFraction(digits);
             } else {
-                getReader().pushBack(ch);
+                getReader().unget(ch);
                 floatFormat = processExponent(digits);
             }
             final String s = digits.toString();
@@ -86,13 +86,13 @@ public class Decimal extends AbstractElementAnalyzer {
         if (ch != null && Character.isDigit(ch)) {
             floatFormat = true;
             fractionPart.appendCodePoint('.');
-            getReader().pushBack(ch);
+            getReader().unget(ch);
             processDigits(fractionPart);
             processExponent(fractionPart);
         } else {
             floatFormat = false;
-            getReader().pushBack(ch);
-            getReader().pushBack((int) '.');
+            getReader().unget(ch);
+            getReader().unget((int) '.');
         }
         return floatFormat;
     }
@@ -114,11 +114,11 @@ public class Decimal extends AbstractElementAnalyzer {
         if (ch != null && Character.isDigit(ch)) {
             exponentCharacters.appendCodePoint(expChar);
             exponentCharacters.appendCodePoint(signChar);
-            getReader().pushBack(ch);
+            getReader().unget(ch);
             processDigits(exponentCharacters);
         } else {
-            getReader().pushBack(signChar);
-            getReader().pushBack(expChar);
+            getReader().unget(signChar);
+            getReader().unget(expChar);
         }
     }
 
@@ -145,10 +145,10 @@ public class Decimal extends AbstractElementAnalyzer {
         } else {// if there is no + or -
             if (ch != null && Character.isDigit(ch)) {
                 exponentCharacters.appendCodePoint(expChar);
-                getReader().pushBack(ch);
+                getReader().unget(ch);
                 processDigits(exponentCharacters);
             } else {
-                getReader().pushBack(expChar);
+                getReader().unget(expChar);
             }
         }
     }
@@ -170,7 +170,7 @@ public class Decimal extends AbstractElementAnalyzer {
             processExponenChars(exponentCharacters, ch);
         } else {
             thereWasExponentPart = false;
-            getReader().pushBack(ch);
+            getReader().unget(ch);
         }
         return thereWasExponentPart;
     }
@@ -189,7 +189,7 @@ public class Decimal extends AbstractElementAnalyzer {
             digits.appendCodePoint(ch);
             ch = getReader().get();
         }
-        getReader().pushBack(ch);
+        getReader().unget(ch);
     }
 
 }

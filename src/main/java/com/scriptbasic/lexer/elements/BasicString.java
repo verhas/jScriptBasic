@@ -65,7 +65,7 @@ public class BasicString extends AbstractElementAnalyzer {
                 lexicalElement = readSingleLineString();
             }
         } else {
-            getReader().pushBack(character);
+            getReader().unget(character);
         }
         return lexicalElement;
     }
@@ -76,8 +76,8 @@ public class BasicString extends AbstractElementAnalyzer {
         final boolean itIs = ((Integer) (int) '"').equals(second)
                 && ((Integer) (int) '"').equals(third);
         if (!itIs) {
-            getReader().pushBack(third);
-            getReader().pushBack(second);
+            getReader().unget(third);
+            getReader().unget(second);
         }
         return itIs;
     }

@@ -20,7 +20,7 @@ public class MultiCharacter extends AbstractElementAnalyzer implements ScriptBas
         while (charsToReadAhead > 0) {
             final Integer ch = getReader().get();
             if (ch == null || Character.isWhitespace(ch)) {
-                getReader().pushBack(ch);
+                getReader().unget(ch);
                 break;
             }
             stringBuider.appendCodePoint(ch);
@@ -33,7 +33,7 @@ public class MultiCharacter extends AbstractElementAnalyzer implements ScriptBas
         int charsToPushBack = totalCharsToPushBack;
         int pos = stringBuilder.length() - 1;
         while (charsToPushBack > 0) {
-            getReader().pushBack((int) stringBuilder.charAt(pos));
+            getReader().unget((int) stringBuilder.charAt(pos));
             pos--;
             charsToPushBack--;
         }

@@ -104,7 +104,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
             ch = getFirstNonWhitespaceCharacter(reader, ch);
             lineEndFound = CharUtils.isNewLine(ch);
             if (ch != null) {
-                reader.pushBack(ch);
+                reader.unget(ch);
                 boolean analyzed = false;
                 for (final LexicalElementAnalyzer analyzer : analyzers) {
                     final LexicalElement element = analyzer.read();
@@ -122,7 +122,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
                 }
             }
         }
-        reader.pushBack(ch);
+        reader.unget(ch);
         processSourceInclude();
     }
 

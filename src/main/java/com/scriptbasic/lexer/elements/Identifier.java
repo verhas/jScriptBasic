@@ -30,7 +30,7 @@ public class Identifier extends AbstractElementAnalyzer {
                 identifier.appendCodePoint(ch);
                 ch = getReader().get();
             }
-            getReader().pushBack(ch);
+            getReader().unget(ch);
             final String s = identifier.toString();
 
             final BasicLexicalElement le = BasicLexialElementFactory
@@ -41,7 +41,7 @@ public class Identifier extends AbstractElementAnalyzer {
             le.setStringValue(s);
             return le;
         } else {
-            getReader().pushBack(ch);
+            getReader().unget(ch);
             return null;
         }
     }

@@ -45,8 +45,8 @@ public class GenericHierarchicalSourceReader implements HierarchicalSourceReader
     }
 
     @Override
-    public void pushBack(final Integer ch) {
-        reader.pushBack(ch);
+    public void unget(final Integer ch) {
+        reader.unget(ch);
     }
 
     /**

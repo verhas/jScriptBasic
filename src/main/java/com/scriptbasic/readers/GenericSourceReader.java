@@ -46,7 +46,7 @@ public class GenericSourceReader implements SourceReader {
      * character is pushed back. Such a push back does not happen when using Basic lexical analysis.
      */
     @Override
-    public void pushBack(final Integer ch) {
+    public void unget(final Integer ch) {
         if (ch != null) {
             this.charsAhead.addFirst(ch);
             this.position--;
