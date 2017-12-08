@@ -313,11 +313,6 @@ public final class BasicInterpreter implements Interpreter {
         this.nextCommand = nextCommand;
     }
 
-    @Override
-    public Command getCurrentCommand() {
-        return currentCommand;
-    }
-
     /*
      * (non-Javadoc)
      *
