@@ -27,7 +27,9 @@ public interface Interpreter {
     void execute() throws ScriptBasicException;
 
     /**
-     * Set the value of the global variable.
+     * Set the value of the variable. If the program is in a local scope and there is a variable
+     * with the given name in the local scope then the value of that variable is set, even if there
+     * is a global variable with that name.
      *
      * @param name  the name of the global variable
      * @param value the value to be set
@@ -35,11 +37,11 @@ public interface Interpreter {
     void setVariable(String name, Object value) throws ScriptBasicException;
 
     /**
-     * Get the value of a global variable. Since this is not a BASIC interpreter
+     * Get the value of a variable. Since this is not a BASIC interpreter
      * method, but rather a method that helps the embedding of the interpreter
      * the returned value is a raw Java object and not a RightValue. Thus if the
      * variable value is for example a {@link com.scriptbasic.executors.rightvalues.BasicDoubleValue} then the
-     * implementation should return a {@link Double}.
+     * implementation will return a {@link Double}.
      *
      * @param name the name of the variable
      * @return the value of the variable
