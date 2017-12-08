@@ -1,5 +1,5 @@
 language: java
-script: mvn -X -Dgpg.skip clean install
+script: mvn -X -Dgpg.skip=true clean install
 jdk:
  - oraclejdk9
 
