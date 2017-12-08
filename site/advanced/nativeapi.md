@@ -6,9 +6,8 @@ that these features are above the functionality of what the standard can handle.
  
 For example the standard interface does not provide any possibility to refer to
 other script. When you want to execute a script that contain `include` or `import` statements
- to include or import other scripts then there
-has to be some way to define where the included scripts are. It can be on the
-local disk on the file system,
+to include or import other scripts then there has to be some way to define where the
+included scripts are. It can be on the local disk on the file system,
 in a database or somewhere over the network. There is no such feature in the standard interface.
 This is only one, albeit important feature that need the native API.
 
@@ -129,30 +128,31 @@ arguments and getting return values.
  Note that the sample above is included from a junit test file. When you use this API
  you will much easier get to your file name than `this.getClass().getResource("hello.bas").getFile()`.
 
-** Including files
+## Including files
 
- When a BASIC file includes another you can not use the above methods. Even though the method
- `eval(File file)` could handle an include statement and include the other BASIC script
- from the same directory where the first file is, it does not and it does it for good reason.
- The reason is called security. When you use the above, simple methods you need not fear that
- your BASIC program gets feral.
- 
- When you want to execute more complex programs that rely on other BASIC codes that are `include`-ed
- or `import`-ed into the original BASIC code then you have to specify the source path where to
- look for these files. Using the native API you have three opportunities:
- 
- * define the directories as a string array (variable arguments method)
- 
- * define the directories supplying a `SourcePath` object that may calculate the list of
-   directories on the fly. 
- 
- * define a `SourceProvider` object that reads the content from any source you want.
- 
- []
- 
- The latter you select the more flexibility you have, and the more programming you face.
- 
- To specify the directories where the files are use the following piece of code:
+When a BASIC file includes another you should use a bit complex setup. Even though the method
+`eval(File file)` could handle an include statement and include the other BASIC scripts
+from the same directory where the first file is, it does not. Eval is to execute simple
+scripts that are in one file and do not need code fragments from other files. Most of the
+BASIC programs are like that, simple and short.
+
+When you want to execute more complex programs that rely on other BASIC code fragments
+that are `include`-ed or `import`-ed into the original BASIC code
+then you have to specify the source path where to
+look for these files. Using the native API you have three opportunities:
+
+* define the directories as a string array (variable arguments method)
+
+* define the directories supplying a `SourcePath` object that may calculate the list of
+  directories on the fly.
+
+* define a `SourceProvider` object that reads the content from any source you want.
+
+
+
+The latter you select the more flexibility you have, and the more programming you face.
+
+To specify the directories where the files are use the following piece of code:
  
 ```
         ScriptBasic engine = ScriptBasic.getEngine();
