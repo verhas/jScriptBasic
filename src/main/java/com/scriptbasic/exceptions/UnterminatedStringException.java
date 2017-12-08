@@ -1,6 +1,6 @@
 package com.scriptbasic.exceptions;
 
-import com.scriptbasic.interfaces.SourceReader;
+import com.scriptbasic.api.SourceReader;
 
 public class UnterminatedStringException extends BasicLexicalException {
 

@@ -1,6 +1,6 @@
 package com.scriptbasic.sourceproviders;
 
-import com.scriptbasic.interfaces.SourceReader;
+import com.scriptbasic.api.SourceReader;
 import org.junit.Test;
 
 import java.io.File;

@@ -1,6 +1,6 @@
 package com.scriptbasic.lexer;
 
-import com.scriptbasic.interfaces.SourceReader;
+import com.scriptbasic.api.SourceReader;
 
 /**
  * Factory to create a new BasicLexicalElement initializing some fields from the

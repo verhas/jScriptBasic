@@ -1,4 +1,4 @@
-package com.scriptbasic.interfaces;
+package com.scriptbasic.api;
 
 /**
  * Source path is similar to Java class path. It contains source locations

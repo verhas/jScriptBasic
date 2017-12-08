@@ -1,5 +1,7 @@
 package com.scriptbasic.lexer;
 
+import com.scriptbasic.api.SourceProvider;
+import com.scriptbasic.api.SourceReader;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.exceptions.BasicLexicalException;
 import com.scriptbasic.interfaces.*;
@@ -26,7 +28,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     }
 
     private static boolean stringIsIncludeOrImport(final String s) {
-        return s.equalsIgnoreCase("INCLUDE") || s.equalsIgnoreCase("IMPORT");
+        return s.equalsIgnoreCase("INCLUDE");
 
     }
 
@@ -147,7 +149,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
                     ((HierarchicalSourceReader) reader).include(childReader);
                 } else {
                     LOG.error("Cannot include or import with normal reader.");
-                    throw new BasicSyntaxException("INCLUDE or IMPORT is not allowed in this environment.");
+                    throw new BasicSyntaxException("INCLUDE is not allowed in this environment.");
                 }
                 emptyLexicalElementQueue();
                 readTheNextLine();

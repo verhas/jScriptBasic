@@ -1,8 +1,8 @@
 package com.scriptbasic.sourceproviders;
 
-import com.scriptbasic.interfaces.SourcePath;
+import com.scriptbasic.api.SourcePath;
 import com.scriptbasic.interfaces.SourcePathProvider;
-import com.scriptbasic.interfaces.SourceProvider;
+import com.scriptbasic.api.SourceProvider;
 
 /**
  * An abstract source provider extended by all the source provider

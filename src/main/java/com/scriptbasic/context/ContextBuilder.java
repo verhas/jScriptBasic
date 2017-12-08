@@ -5,7 +5,7 @@ import com.scriptbasic.executors.BasicInterpreter;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.CommandFactory;
 import com.scriptbasic.interfaces.HierarchicalSourceReader;
-import com.scriptbasic.interfaces.SourceReader;
+import com.scriptbasic.api.SourceReader;
 import com.scriptbasic.lexer.elements.ScriptBasicLexicalAnalyzer;
 import com.scriptbasic.readers.GenericHierarchicalSourceReader;
 import com.scriptbasic.readers.GenericSourceReader;

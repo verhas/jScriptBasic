@@ -21,6 +21,8 @@ to keep the language simple, easy to learn. The following commands are implement
 
 * `USE`/`METHOD` [declaration](./basic/method.md) to use Java methods and objects from the BASIC code
 
+* `INCLUDE` / `IMPORT` [to include](basic/include.md) basic code into the program
+
 The operators implemented in the language are
 
 * `-`, `+` and `not` unary operators.

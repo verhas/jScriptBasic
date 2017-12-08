@@ -2,7 +2,7 @@ package com.scriptbasic.lexer.elements;
 
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.interfaces.SourceReader;
+import com.scriptbasic.api.SourceReader;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
 import com.scriptbasic.lexer.BasicLexicalElement;
 import com.scriptbasic.utility.CharUtils;

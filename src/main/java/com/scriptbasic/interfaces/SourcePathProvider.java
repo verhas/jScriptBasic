@@ -1,5 +1,7 @@
 package com.scriptbasic.interfaces;
 
+import com.scriptbasic.api.SourcePath;
+
 /**
  * This interface is usually implemented some {@code SourceProvider}
  * implementations. This way the setup code can access the {@code SourcePath} to

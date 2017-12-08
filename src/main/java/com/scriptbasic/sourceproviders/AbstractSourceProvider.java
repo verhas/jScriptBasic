@@ -1,7 +1,7 @@
 package com.scriptbasic.sourceproviders;
 
-import com.scriptbasic.interfaces.SourceProvider;
-import com.scriptbasic.interfaces.SourceReader;
+import com.scriptbasic.api.SourceProvider;
+import com.scriptbasic.api.SourceReader;
 
 import java.io.IOException;
 

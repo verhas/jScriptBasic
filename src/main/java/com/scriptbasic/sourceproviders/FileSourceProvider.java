@@ -1,6 +1,7 @@
 package com.scriptbasic.sourceproviders;
 
-import com.scriptbasic.interfaces.SourceReader;
+import com.scriptbasic.api.SourcePath;
+import com.scriptbasic.api.SourceReader;
 import com.scriptbasic.readers.GenericHierarchicalSourceReader;
 import com.scriptbasic.readers.GenericSourceReader;
 
@@ -11,7 +12,7 @@ import java.io.IOException;
 /**
  * A source provider that reads the sources from files. This provider includes a
  * file only once and does not support relative file name 'include'. Also this
- * implementation uses the {@link com.scriptbasic.interfaces.SourcePath} to find a file.
+ * implementation uses the {@link SourcePath} to find a file.
  *
  * @author Peter Verhas
  */

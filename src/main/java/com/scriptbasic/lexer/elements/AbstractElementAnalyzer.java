@@ -3,7 +3,7 @@ package com.scriptbasic.lexer.elements;
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.interfaces.LexicalElementAnalyzer;
-import com.scriptbasic.interfaces.SourceReader;
+import com.scriptbasic.api.SourceReader;
 
 public abstract class AbstractElementAnalyzer implements LexicalElementAnalyzer {
 

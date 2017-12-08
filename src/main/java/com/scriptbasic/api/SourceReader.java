@@ -1,4 +1,7 @@
-package com.scriptbasic.interfaces;
+package com.scriptbasic.api;
+
+import com.scriptbasic.api.SourceProvider;
+import com.scriptbasic.interfaces.SourceLocationBound;
 
 /**
  * Source code reader. This class is almost works as the usual
