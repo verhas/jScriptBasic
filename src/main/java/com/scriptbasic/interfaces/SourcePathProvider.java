@@ -1,6 +1,6 @@
 package com.scriptbasic.interfaces;
 
-import com.scriptbasic.api.SourcePath;
+import com.scriptbasic.readers.SourcePath;
 
 /**
  * This interface is usually implemented some {@code SourceProvider}

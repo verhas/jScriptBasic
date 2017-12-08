@@ -6,5 +6,6 @@ module scriptbasic {
     exports com.scriptbasic.script;
     exports com.scriptbasic.api;
     exports com.scriptbasic.spi;
+    exports com.scriptbasic.readers;
     exports com.scriptbasic.classification;
 }

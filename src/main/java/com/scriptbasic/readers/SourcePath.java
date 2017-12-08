@@ -1,4 +1,4 @@
-package com.scriptbasic.api;
+package com.scriptbasic.readers;
 
 /**
  * Source path is similar to Java class path. It contains source locations

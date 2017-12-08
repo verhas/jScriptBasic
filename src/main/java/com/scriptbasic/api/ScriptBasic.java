@@ -1,6 +1,8 @@
 package com.scriptbasic.api;
 
 import com.scriptbasic.Engine;
+import com.scriptbasic.readers.SourcePath;
+import com.scriptbasic.readers.SourceProvider;
 import com.scriptbasic.spi.InterpreterHook;
 import com.scriptbasic.utility.functions.file.FileHandlingFunctions;
 

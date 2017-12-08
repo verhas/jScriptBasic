@@ -1,6 +1,6 @@
 package com.scriptbasic.exceptions;
 
-import com.scriptbasic.api.SourceReader;
+import com.scriptbasic.readers.SourceReader;
 
 public class BasicLexicalException extends LexicalException {
 

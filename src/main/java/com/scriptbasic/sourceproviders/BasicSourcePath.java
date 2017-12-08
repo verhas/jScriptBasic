@@ -1,6 +1,6 @@
 package com.scriptbasic.sourceproviders;
 
-import com.scriptbasic.api.SourcePath;
+import com.scriptbasic.readers.SourcePath;
 
 import java.util.Iterator;
 import java.util.LinkedList;

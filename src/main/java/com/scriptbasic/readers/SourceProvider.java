@@ -1,4 +1,4 @@
-package com.scriptbasic.api;
+package com.scriptbasic.readers;
 
 import java.io.IOException;
 

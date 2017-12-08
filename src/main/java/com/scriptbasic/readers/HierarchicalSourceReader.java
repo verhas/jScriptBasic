@@ -1,6 +1,4 @@
-package com.scriptbasic.interfaces;
-
-import com.scriptbasic.api.SourceReader;
+package com.scriptbasic.readers;
 
 /**
  * A hierarchical reader can include sources into the string of characters read

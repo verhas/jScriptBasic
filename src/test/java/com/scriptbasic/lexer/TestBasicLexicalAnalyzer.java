@@ -3,7 +3,7 @@ package com.scriptbasic.lexer;
 import com.scriptbasic.exceptions.UnterminatedStringException;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.api.SourceReader;
+import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.lexer.elements.ScriptBasicLexicalAnalyzer;
 import org.junit.Test;
 

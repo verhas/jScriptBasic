@@ -27,6 +27,14 @@ the interpreter. The first one is actually the one used by the
 before mentioned `eval(String)` method. The second gets the
 code from a `java.io.Reader` and the last one from a `java.io.File`.
 
+If you don't want BASIC programs to include other BASIC program
+code fragments and you have the BASIC programs in a location that
+is not available as `File` then the simplest way is to implement
+a `java.io.Reader` that reads the code from where it is (database, network etc)
+and provides it to the lexical analyser. If you need `INCLUDE` in your
+code and the code is not in `File` then you should read on and
+implement two interfaces as discussed below.
+
 ## Source with path
 
 These are still simple possibilities that are easy to use and to
@@ -89,7 +97,8 @@ and it defines two methods
 
 Both of these methods should be implemented by the host application
 using this feature that they return an implementation instance
-of the interface `SourceReader`. Eventually the host application
+of the interface `SourceReader` or `HierarchicalSourceReader` in case
+there is need to process included files. Eventually the host application
 should also implement this interface to provide it. This is the
 part where the host application should implement the access to the
 real source code and read it from a file, a database, from a wiki page,
@@ -111,6 +120,24 @@ than one characters and then `unget`s them, but never more than a BASIC program 
 The last method `getSourceProvider()` should return the `SourceProvider`
 instance that can be used to look for other, indluded files. This is
 usually the same as the one that retuned the `SourceReader` itself.
+
+To support the inclusion of other files the source reader implementation
+should implement the `HierarchicalSourceReader`, which itself extends the
+`SourceReader` and adds an extra method
+
+```
+    void include(SourceReader reader);
+```
+
+The implementation of this method should set aside the current source and
+should start to return characters delegating the `get()` calls to the
+new source reader until it provides characters. After that it should continue
+with the previous source provider. If you decided that you want to
+write a hierarchical source provider consult the source code of the
+class `GenericHierarchicalSourceReader` or you can just implement a
+non-hierarchical source reader and use the available
+`GenericHierarchicalSourceReader` as
+
 
 With the `SourceProvider` and `SourceReader` implemenatation the host
 application has full control over the source code location but also

@@ -1,7 +1,7 @@
 package com.scriptbasic.lexer.elements;
 
 import com.scriptbasic.interfaces.KeywordRecognizer;
-import com.scriptbasic.api.SourceReader;
+import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.lexer.BasicKeywordRecognizer;
 import com.scriptbasic.lexer.BasicLexicalAnalyzer;
 

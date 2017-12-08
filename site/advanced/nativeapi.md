@@ -137,7 +137,7 @@ scripts that are in one file and do not need code fragments from other files. Mo
 BASIC programs are like that, simple and short.
 
 When you want to execute more complex programs that rely on other BASIC code fragments
-that are `include`-ed or `import`-ed into the original BASIC code
+that are `include`d into the original BASIC code
 then you have to specify the source path where to
 look for these files. Using the native API you have three opportunities:
 
@@ -148,9 +148,8 @@ look for these files. Using the native API you have three opportunities:
 
 * define a `SourceProvider` object that reads the content from any source you want.
 
-
-
-The latter you select the more flexibility you have, and the more programming you face.
+The latter are more flexibile but the same time you face more programming task embedding
+the BASIC interpreter into your application.
 
 To specify the directories where the files are use the following piece of code:
  
@@ -165,17 +164,18 @@ To specify the directories where the files are use the following piece of code:
         assertEquals("hello world", sw.toString());
 ```
  
- Since the last parameter is variable argument, you can use there `String[]` array, or simply
- as many `String` parameters as you like:
+In this example the sample code gets the directory where the `"hello.bas`" Java resource is and then sets this
+directory as a one element source path. Since the second parameter to `eval(String, String ...)`
+ in this case is variable argument, you can use there `String[]` array, or simply as many `String` parameters as you like:
  
 ```
         ScriptBasic engine = ScriptBasic.getEngine();
         engine.eval("include.bas", ".", "..", "/usr/include/scriptbasic");
 ```
  
- The second possibility is to provide a `SourcePath` object. The following sample
- shows you a very simple use of this approach:
- 
+The second possibility is to provide a `SourcePath` object. The following sample
+shows you a very simple use of this approach:
+
 ```
         ScriptBasic engine = ScriptBasic.getEngine();
         StringWriter sw = new StringWriter(10);
@@ -189,16 +189,19 @@ To specify the directories where the files are use the following piece of code:
         assertEquals("hello world", sw.toString());
 ```
  
- Actually this way of use has no advantage of this method over the previous one where
- you provided the path values as strings. However there is nothing to stop you to
- create your own class implementing the interface `SourcePath`. In that case
- this method can be used to deliver the different locations via your class.
- 
- The third and most powerful approach is to provide your own implementation of the
- `SourceProvider`. This is the only approach when your BASIC code is not in the
- file system, and you can not simply provide a `java.io.Reader` to the source
- code because the file may include other BASIC files. The sample code that does
- this is the following:
+The example does the same as the previous one and there is no advantage to use
+the `BasicSourceProvider` implemented in ScriptBasic, but there is nothing to stop you to
+create your own class implementing the interface `SourcePath`. In that case
+this method can be used to deliver the different locations via your class. Also note that
+the class `BasicSourcePath` is implemented in a package that is not exported by ScriptBasic
+module and thus it is not usable from outside. It is here only as an example and the source
+code is available to consult.
+
+The third and most powerful approach is to provide your own implementation of the
+`SourceProvider`. This is the only approach when your BASIC code is not in the
+file system, and you can not simply provide a `java.io.Reader` to the source
+code because the file may include other BASIC files. The sample code that does
+this is the following:
  
 ```
         ScriptBasic engine = ScriptBasic.getEngine();

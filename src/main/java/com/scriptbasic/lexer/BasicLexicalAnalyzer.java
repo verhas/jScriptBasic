@@ -1,7 +1,8 @@
 package com.scriptbasic.lexer;
 
-import com.scriptbasic.api.SourceProvider;
-import com.scriptbasic.api.SourceReader;
+import com.scriptbasic.readers.HierarchicalSourceReader;
+import com.scriptbasic.readers.SourceProvider;
+import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.exceptions.BasicLexicalException;
 import com.scriptbasic.interfaces.*;

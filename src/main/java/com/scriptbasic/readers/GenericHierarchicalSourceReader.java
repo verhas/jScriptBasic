@@ -1,9 +1,5 @@
 package com.scriptbasic.readers;
 
-import com.scriptbasic.interfaces.HierarchicalSourceReader;
-import com.scriptbasic.api.SourceProvider;
-import com.scriptbasic.api.SourceReader;
-
 import java.util.Stack;
 
 public class GenericHierarchicalSourceReader implements HierarchicalSourceReader {

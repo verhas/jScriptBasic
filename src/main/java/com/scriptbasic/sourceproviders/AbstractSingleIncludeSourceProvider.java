@@ -1,7 +1,7 @@
 package com.scriptbasic.sourceproviders;
 
 import com.scriptbasic.interfaces.SingleIncludeChecker;
-import com.scriptbasic.api.SourceReader;
+import com.scriptbasic.readers.SourceReader;
 
 import java.io.IOException;
 

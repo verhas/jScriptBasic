@@ -1,11 +1,12 @@
-package com.scriptbasic.api;
+package com.scriptbasic.readers;
 
-import com.scriptbasic.api.SourceProvider;
 import com.scriptbasic.interfaces.SourceLocationBound;
+import com.scriptbasic.readers.GenericSourceReader;
+import com.scriptbasic.readers.SourceProvider;
 
 /**
  * Source code reader. This class is almost works as the usual
- * {@code Reader} and the implementation {@link com.scriptbasic.readers.GenericSourceReader} actually
+ * {@code Reader} and the implementation {@link GenericSourceReader} actually
  * wraps the standard {@code Reader} class. The extra functionality is
  * keeping track of the file name, the line number and the position to help
  * error reporting of lexical and syntax analyzers and to allow character push

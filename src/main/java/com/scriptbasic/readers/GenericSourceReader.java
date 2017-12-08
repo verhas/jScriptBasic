@@ -1,7 +1,5 @@
 package com.scriptbasic.readers;
 
-import com.scriptbasic.api.SourceProvider;
-import com.scriptbasic.api.SourceReader;
 import com.scriptbasic.utility.CharUtils;
 
 import java.io.IOException;
@@ -10,7 +8,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 public class GenericSourceReader implements SourceReader {
-    private final Reader sourceReader;
+    private final Reader reader;
     private final SourceProvider sourceProvider;
     private final String sourceFileName;
     private int lineNumber = 0;
@@ -18,9 +16,9 @@ public class GenericSourceReader implements SourceReader {
     private Integer lastChar = null;
     private Deque<Integer> charsAhead = new LinkedList<>();
 
-    public GenericSourceReader(final Reader sourceReader, final SourceProvider sourceProvider, final String sourceFileName) {
+    public GenericSourceReader(final Reader reader, final SourceProvider sourceProvider, final String sourceFileName) {
         this.sourceFileName = sourceFileName;
-        this.sourceReader = sourceReader;
+        this.reader = reader;
         this.sourceProvider = sourceProvider;
     }
 
@@ -66,7 +64,7 @@ public class GenericSourceReader implements SourceReader {
 
         try {
             do {
-                nextChar = this.sourceReader.read();
+                nextChar = this.reader.read();
             } while (isIgnored(nextChar));
             if (nextChar == -1) {
                 nextChar = null;
