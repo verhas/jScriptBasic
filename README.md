@@ -1,13 +1,38 @@
-jScriptBasic
-============
+# ScriptBasic for Java
+
 [![Build Status](https://travis-ci.org/verhas/jScriptBasic.svg)](https://travis-ci.org/verhas/jScriptBasic)
 
-ScriptBasic for Java (also jScriptBasic, jsb or sb4j). This implementation is a total rewrite of the ScriptBasic ideas in Java.
+ScriptBasic for Java is a BASIC interpreter that can be embedded into Java programs. To embed the
+interpreter into your application you need to use SB4J as a dependency
 
-sb4j is a BASIC interpreter written in Java. You can embed the interpreter into Java application so you can provide the domain
-experts a language to extend/modify the functionality of your application. The interpreter is a perfect fit, when you want to have
-a scripting language that is simple. If you use groovy, scala, clojure as an embedded scripting language the script creation task
-still may be a burden on developers of high cost. When this is BASIC even the "once-IT-guy" managers will be able and will dare to
-play with it lowering your support cost and increasing customer satisfaction.
+```
+  <dependency>
+    <groupId>com.scriptbasic</groupId>
+    <artifactId>jscriptbasic</artifactId>
+    <version>1.0.5</version>
+  </dependency>
+``` 
+
+and then use the JSR223 defined scripting interface or use the ScriptBasic native integration API.
+
+The simplest way is to
+
+```
+     ScriptBasic.getEngine().eval("print \"hello world\"");
+```
+
+get an execution engine and `eval()` the program source. There are other possibilities. You can
+specify the file where the source code is, a `java.io.Reader` to read the source code and
+there are even more advanced possibilities.
+
+The BASIC language contains all the usual BASIC features, subroutines, local and global variables,
+conditional statements, loops and so on. Your host program can directly call subroutines, read
+and write global variables, provide methods implemented in Java to be called from BASIC code.
+
+The interpreter can safely be integrated to applications as the BASIC programs can not access
+arbitrary objects and call Java methods at their will and there are other features that help
+controlling the scripts in the application. The language is a "no freak out" language, so you
+can put the programming possibility into the hands of users who would not ever touch Python, Groovy
+or some other programming language. 
 
 [Documentation](site/index.md)

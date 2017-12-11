@@ -206,7 +206,7 @@ public class TestEngine {
         engine.eval("sub applePie\nglobal a\na = \"hello world\"\nEndSub");
         String a = (String) engine.getVariable("a");
         assertNull(a);
-        engine.getSubroutine("applePie").call((Object[]) null);
+        engine.getSubroutine("applePie").call();
         a = (String) engine.getVariable("a");
         assertEquals("hello world", a);
         // END SNIPPET: subroutineCallWOArgumentsWORetval
@@ -280,7 +280,6 @@ public class TestEngine {
         engine.eval("sub applePie(b)\nglobal a\na = b\nreturn 6\nEndSub");
         String a = (String) engine.getVariable("a");
         assertNull(a);
-        @SuppressWarnings("deprecation")
         Long ret = (Long) engine.getSubroutine("applePie").call("hello world");
         a = (String) engine.getVariable("a");
         assertEquals("hello world", a);
