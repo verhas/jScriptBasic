@@ -18,11 +18,16 @@ import java.util.Optional;
  * @author Peter Verhas date Jul 13, 2012
  */
 public class TestingExecutor extends AbstractStringIOPojo {
-
+    private Context ctx;
     private Map<String, Object> map = null;
 
     public void setMap(Map<String, Object> map) {
         this.map = map;
+    }
+
+
+    public Context getCtx() {
+        return ctx;
     }
 
     public void execute(String resourceName) throws AnalysisException,
@@ -34,7 +39,7 @@ public class TestingExecutor extends AbstractStringIOPojo {
             InputStream is = Class.forName(frame.get().getClassName())
                     .getResourceAsStream(resourceName);
             final Reader r = new InputStreamReader(is);
-            final Context ctx = ContextBuilder.from(r);
+            ctx = ContextBuilder.from(r);
             ctx.interpreter.registerFunctions(FileHandlingFunctions.class);
             ctx.interpreter.setProgram(ctx.syntaxAnalyzer.analyze());
             StringWriter writer = new StringWriter();

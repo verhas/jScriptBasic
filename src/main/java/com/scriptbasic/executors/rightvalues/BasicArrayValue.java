@@ -10,7 +10,7 @@ import com.scriptbasic.spi.Interpreter;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class BasicArrayValue implements RightValue, BasicArray, BasicValue {
+public class BasicArrayValue implements RightValue, BasicArray, BasicValue<Object[]> {
     private static final Integer INCREMENT_GAP = 100;
     private Object[] array = new Object[INCREMENT_GAP];
 
@@ -119,5 +119,10 @@ public class BasicArrayValue implements RightValue, BasicArray, BasicValue {
         return "[" +
                 Arrays.stream(array).limit(maxIndex + 1).map(Object::toString).collect(Collectors.joining(","))
                 + "]";
+    }
+
+    @Override
+    public Object[] getValue() {
+        return Arrays.copyOf(array,maxIndex+1);
     }
 }

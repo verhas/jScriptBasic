@@ -11,7 +11,7 @@ to keep the language simple, easy to learn. The following commands are implement
 * `SUB`/`CALL`/`RETURN` [subroutine and call](./basic/sub.md) using formal arguments and local variables
 
 * `FOR`/`TO`/`STEP`/`NEXT` [loop](./basic/for.md), using integer or float loop variable.
-  Default step is 1. Checked at the head of the loop
+  Default step is 1. Checked at the start of the loop.
 
 * `WHILE`/`WEND` [loop](./basic/while.md)
 

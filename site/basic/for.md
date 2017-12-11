@@ -13,13 +13,12 @@ value used to increment  the loop variable is 1.
 
 When the loop starts the expressions are evaluated and the loop variable gets
 the value of the `start_expression`. At each iteration of the loop before
-the `commands` start the command `FOR` checks that the current `loop_variable`
-is still between the start and end values including the boundaries. To make this decision the
-the signum value of the `step_expression` is taken into account.
+the `commands` start it checks that the current `loop_variable`
+is still between the start and end values including the boundaries.
 
 In other words the loop variable value will run from the start till the end but if the start value
 is already larger than the end value and the step value is positive, or if the 
-start value is already smaller than the end value and thes tep value is negative at the
+start value is already smaller than the end value and the step value is negative at the
 start of the loop then the `commands` parts are not executed at all.
 
 Still in other words: the `FOR` loop checks the condition at the start. For example
@@ -83,11 +82,14 @@ are evaluated again before starting the loop.
 For loop "end" and "step" values are evaluated only once at the start of the execution of the loop.
 The calculated values are stored in objects that are associated with the actual command instance.
 When the same loop starts again these expressions are evaluated again and then the variables
-are overwritten. This can happen in case of recursive calls before the loop finishes. In this case the
+are overwritten. This is not a problem when a loop has already finished. However the loop
+may start again before it has finished when it is in a subroutine that has recursive call.
+In this case the
 the original for loop end and step values are overwritten and the new values used to finish the loop after
-the recursive call. This is eventually a structural bug in ScriptBasic for Java.
+the recursive call returned. This is eventually a structural bug in ScriptBasic for Java. Usual
+use of BASIC scriptlets should not use recursive subroutine call.
 
-The following code demonstartes this bug. The output of the ptogram is `12323`.
+The following code demonstrates this bug. The output of the program is `12323`.
 
 ```
 ' For loop end and step values are evaluated only once at the start of the execution of the loop.

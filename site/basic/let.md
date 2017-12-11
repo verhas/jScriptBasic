@@ -4,7 +4,18 @@ The most frequently used command in almost any programming language is the assig
 simple assignments of the form:
  
 ```
-[ LET ] variable = expression
+[ LET ] left_value = expression
 ```
 
- The keyword `LET` is optional. The variable on the left hand side can be a normal variable or an array element. 
+The keyword `LET` is optional.
+
+The `left_value` can be a
+
+* variable,
+
+* an element of an array,
+
+* a field of an object in case the variable starting the left value contains a Java object. In that
+  case the object can be accessed the same way as it would be accessed from Java.
+
+See also [how to create record values](record.md) in BASIC.

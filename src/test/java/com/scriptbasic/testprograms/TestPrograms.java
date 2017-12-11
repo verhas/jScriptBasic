@@ -5,6 +5,9 @@ import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.spi.BasicArray;
+import com.scriptbasic.spi.BasicValue;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -122,6 +125,28 @@ public class TestPrograms {
         codeTest("TestChomp.bas", "ttt");
         codeTest("TestConvert.bas", "0.9074467814501962");
         codeTest("TestFile.bas", "");
+    }
+
+    public static class TestAccessFields {
+        public String z;
+        public BasicArray h = BasicArray.create(new Object[0]);
+
+        public TestAccessFields() throws ScriptBasicException {
+        }
+    }
+
+    @Test
+    public void testJavaObjectFieldAccess() throws ScriptBasicException, ClassNotFoundException, AnalysisException {
+        TestingExecutor e = new TestingExecutor();
+        TestAccessFields t = new TestAccessFields();
+        Map<String, Object> variables = Map.of("T", t);
+        e.setMap(variables);
+        e.execute("JavaObjectFieldAccess.bas");
+        Assert.assertEquals("13",t.z);
+        Assert.assertEquals("wuff",((BasicValue)t.h.get(0)).getValue());
+        Assert.assertEquals("mopp",((BasicValue)t.h.get(1)).getValue());
+        Assert.assertEquals(17L,((BasicValue)t.h.get(2)).getValue());
+        e.assertOutput("");
     }
 
     @Test(expected = BasicSyntaxException.class)

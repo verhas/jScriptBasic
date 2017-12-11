@@ -2,7 +2,7 @@ package com.scriptbasic.spi;
 
 import com.scriptbasic.executors.rightvalues.*;
 
-public interface BasicValue {
+public interface BasicValue<T> {
     static RightValue create(Object object) {
         if (object instanceof Boolean) {
             return new BasicBooleanValue((Boolean) object);
@@ -30,5 +30,5 @@ public interface BasicValue {
         }
         return new BasicJavaObjectValue(object);
     }
-
+    T getValue();
 }

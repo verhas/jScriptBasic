@@ -4,9 +4,9 @@ import com.scriptbasic.executors.commands.*;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.BuildableProgram;
-import com.scriptbasic.spi.Command;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
+import com.scriptbasic.spi.Command;
 
 import java.util.Map;
 
@@ -64,6 +64,8 @@ public abstract class AbstractBasicProgramPostprocessing implements
     /**
      * Collect all the subroutines and build the subroutine map to ease the
      * location of subroutines based on name.
+     * <p>
+     * Check double defined subroutines.
      *
      * @throws BasicSyntaxException
      */
@@ -91,8 +93,7 @@ public abstract class AbstractBasicProgramPostprocessing implements
     private void skipDeclarations() {
         boolean loopIsInSub = false;
         int skipNr = 0; // only for logging
-        for (Command command = getFirstCommand(); command != null; command = command
-                .getNextCommand()) {
+        for (final Command command : getCommands()) {
             skipNr++;
             if (loopIsInSub) {
                 if (command instanceof CommandEndSub) {
@@ -111,13 +112,12 @@ public abstract class AbstractBasicProgramPostprocessing implements
     }
 
     private void checkLocalAndGlobalDeclarations() throws AnalysisException {
-        boolean loopIsInSub = false;
+        boolean inSub = false;
         boolean subHeadClosed = false;
-        for (Command command = getFirstCommand(); command != null; command = command
-                .getNextCommand()) {
-            if (loopIsInSub) {
+        for (final Command command : getCommands()) {
+            if (inSub) {
                 if (command instanceof CommandEndSub) {
-                    loopIsInSub = false;
+                    inSub = false;
                 } else {
                     if (command instanceof CommandSub) {
                         signalNestedSub();
@@ -142,7 +142,7 @@ public abstract class AbstractBasicProgramPostprocessing implements
                     signalGlobalLocal();
                 }
                 if (command instanceof CommandSub) {
-                    loopIsInSub = true;
+                    inSub = true;
                     subHeadClosed = false;
                 }
             }
