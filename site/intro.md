@@ -1,4 +1,4 @@
-#What is ScriptBasic for Java
+# What is ScriptBasic for Java
 
  ScriptBasic for Java is a scripting implementation of the classic [basic](./basic.md) language.
  Using this interpreter you can extend you application with BASIC scripting possibilities. There are many
