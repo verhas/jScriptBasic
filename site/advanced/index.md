@@ -8,3 +8,5 @@ different types of applications.
  * [ How to embed ScriptBasic for Java using the native API](./nativeapi.md)
  
  * [ How to extend ScriptBasic for Java](./extend.md) with Java methods
+
+ * [ How to provide source code for the interpreter](./sourceReading.md)

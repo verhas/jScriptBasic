@@ -17,5 +17,5 @@ public interface ExtensionInterfaceVersion {
      * If the required version is smaller then the interpreter may decide as
      * described in the javadoc {@link BasicFunction#requiredVersion()}.
      */
-    long EXTENSION_INTERFACE_VERSION = 2L;
+    long EXTENSION_INTERFACE_VERSION = 3L;
 }

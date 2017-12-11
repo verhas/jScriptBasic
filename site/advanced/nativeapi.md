@@ -233,7 +233,7 @@ this is the following:
 ```
 
  This sample code implements an anonymous class of the interface `SourceProvider` implementing
- both of the `get` methods. Note that these methods return a BASIC `Reader` and not
+ both of the `get` methods. Note that these methods return a BASIC `SourceReader` and not
  a `java.io.Reader`. The actual implementation contains a mini file system in itself containing
  two files: `include.bas` and `hello.bas` stored in a hash map. The method `get(String sourceName)`
  reads the one that is named and creates a `GenericReader` implemented in ScriptBasic for Java.
@@ -249,7 +249,7 @@ this is the following:
  and directories. If you have a good reason to use different naming convention for your script
  entities in your script store you are free.
  
-** Setting global variables
+## Setting variables
 
  Before executing the program you can set the values of certain global variables. These variables will be available
  for the script exactly as it was set by some BASIC code. To do so the following sample can be used:
@@ -264,15 +264,39 @@ this is the following:
         assertEquals("13hello world", sw.toString());
 ```
  
- To set the variable you should pass a Java `Object` to the method. Whenever you pass a primitive it
- will be autoboxed to an `Object` and ScriptBasic for Java will convert it to a BASIC object. The conversion is
- automatic. `Byte`, `Short` and `Integer` values are converted to `Long`. `Float` values are converted to
- `Double`. `Character` values are converted to `String`. If you happen to pass a `RightValue` to the
- method `setVariable()` then it will be stored without conversion. Any other objects will be wrapped into a
- new `RightValue` and will be accessible from the BASIC code as a Java Object: you can access fields `X.field` or
- you can call methods of the object `X.method()`.
- 
- After the code was executed you are able to query the values of the global variables:
+To set the variable you should pass a Java `Object` to the method. Whenever you pass a primitive it
+will be autoboxed to an `Object` and ScriptBasic for Java will convert it to a BASIC object. The conversion is
+automatic. `Byte`, `Short` and `Integer` values are converted to BASIC integer numerical values, which is essentially
+`Long`. `Float` values are converted to BASIC floating point numbers, which are `Double`.
+`Character` and `String` values are converted to BASIC strings, which are `String`. The BASIC code works embedding
+these `Long`, `Double` and `String` objects into `RightValue` objects which is the value holding object in BASIC.
+
+If you happen to pass a `RightValue`, which is the already converted value to the
+method `setVariable()` then it will be stored without conversion.
+
+Any other objects, which can not be converted to `RightValue` wrapped `Long`, `Double` or `String` will be wrapped into a
+new `RightValue` as a general Java object and will be accessible from the BASIC code as a Java Object:
+you can access fields `X.field` or you can call methods of the object `X.method()`, so be careful what you pass to the
+BASIC program.
+
+If you want to pass an object to the BASIC program but you do not want any BASIC program to
+poke it (access fields and call methods on it) then either
+
+1. make sure that the object's class implements the interface `NoAccess` (exported as the SPI of
+the BASIC interpreter) or
+1. if it is not possible because you have no access over the class (e.g. third party and you
+do not control the source) then you can put the object first into a `NoAccessProxy` object
+(also available in the PSI package) and pass that to the BASIC program. The class
+`NoAccessProxy` contains a public field `target` that you can set and read any time and it also
+implements the `NoAccess` interface so the BASIC program will not be able to access the field and
+through the field your object.
+
+However, generally it is better not ot pass any object to the BASIC program that it has
+nothing to do with. The above methodologies are there in case you want to pass an
+object to the BASIC program that it can pass on as argument to a subroutine call implemented
+in Java.
+
+After the code was executed you are able to query the values of the global variables:
  
 ```
         ScriptBasic engine = ScriptBasic.getEngine();
@@ -282,11 +306,11 @@ this is the following:
 ```
  
  In this way the BASIC object represented by the ScriptBasic for Java internal class `RightValue` is converted
- to a plain Java object. This plain java object can be `Long`, `Double`, `Character`, `String` or `Boolean`.
+ to a plain Java object. This plain java object can be `Long`, `Double`, `Boolean` or `String`.
 
  ScriptBasic for Java does not use `Byte`, `Short`, `Integer`, `Character` and `Float` values
  internally therefore a number that you may get as a return value of a subroutine (see that later) or as the value of a
- global variable can only be `Long` or `Double` and character variable can only be `String`.
+ global variable can only be `Long`, `Double`, `Boolean` and character variable can only be `String`.
  
  A BASIC object however can also contain arbitrary objects as well. In that case you will get the object
  itself without conversion. It may be an object you set before the execution of the code but it can also be
@@ -311,21 +335,22 @@ this is the following:
  The value returned by the method `engine.getVariablesIterator()` is an iterator that you can use in `for` loops
  or in any other Java way to iterate through the names of the global variables.
  
-** Loading code
+## Loading code
 
  If you want to load a BASIC program ready for execution, but do not want to execute yet, you can call the method `load()`.
  For every method `eval()` there is a method names `load()` handling the same type of arguments. The method `load()`
  only loads the code, performs all analysis that are needed to execute the code, but does not execute it. To execute the code
- you can call the method `execute()`. It is possible to call this method multiple times.
+ you can call the method `execute()`. It is possible to call this method multiple times and execute the same program
+ multiple times.
  
  Using the methods `load()` is also possible when you do not want to execute the main code of a BASIC script, you only
  want to call subroutines without the execution of the main code.
  
-** Calling a subroutine
+## Calling a subroutine from Java
 
- After the code was executed and returned you can call subroutines defined in the BASIC program. Note
+ After the code was loaded (or even executed) you can call subroutines defined in the BASIC program. Note
  that ScriptBasic for Java does not distinguish between functions and procedures. There is only `Sub`
- that may but need not return a value.
+ that may but does not need to return a value.
  
  To call a subroutine you have to know the name of the subroutine and you should call the method `call()`:
  
@@ -334,7 +359,7 @@ this is the following:
         engine.eval("sub applePie\nglobal a\na = \"hello world\"\nEndSub");
         String a = (String) engine.getVariable("a");
         assertNull(a);
-        engine.getSubroutine("applePie").call( (Object[]) null);
+        engine.getSubroutine("applePie").call();
         a = (String) engine.getVariable("a");
         assertEquals("hello world", a);
 ```
@@ -347,17 +372,18 @@ this is the following:
         engine.eval("sub applePie(b)\nglobal a\na = b\nreturn 6\nEndSub");
         String a = (String) engine.getVariable("a");
         assertNull(a);
-        @SuppressWarnings("deprecation")
-        Long ret = (Long) engine.getSubroutine("applePie").call( "hello world");
+        Long ret = (Long) engine.getSubroutine("applePie").call("hello world");
         a = (String) engine.getVariable("a");
         assertEquals("hello world", a);
         assertEquals((Long) 6L, ret);
 ```
  
- If the argument list is too long, you will get an exception. If the argument list is too short then the
- final arguments not matched by the passed values will be undefined. To get the number of arguments a subroutine
- expects you should call the method `getNumberOfArguments(String name)` with the subroutine name as argument.
- To get all the subroutines the BASIC program defines you should call the method `getSubroutineNames()`:
+The arguments to the method `call()` is a varag `Object[]` so you can pass values directly listed on the call or
+as an array. If you pass more arguments than what the subroutine is capable handling then an exception
+will be thrown. If the argument list is too short then the
+final arguments not matched by the passed values will be undefined. To get the number of arguments a subroutine
+expects you should call the method `getNumberOfArguments(String name)` with the subroutine name as argument.
+To get all the subroutines the BASIC program defines you should call the method `getSubroutineNames()`:
  
 ```
         ScriptBasic engine = ScriptBasic.getEngine();
@@ -371,48 +397,3 @@ this is the following:
         assertEquals(1, engine.getNumberOfArguments("applePie"));
         assertEquals(0, engine.getNumberOfArguments("anotherSubroutine"));
 ```
- 
-** Calling a subroutine object oriented way
-
- The API calling a subroutine described above is not really object oriented. It helps a lot to write short implementations
- but for those that are keen on programming in OO style there is another interface in the native ScriptBasic for Java API
- `Subroutine`. This interface represents a subroutine in a BASIC program and is tied to an `Engine`.
- To get an instance you have to call the `Engine` method `getSubroutine(String name)`. When you have the
- instance you can call `call(Object ... args)`, `getName()` and `getNumberOfArguments()` methods.
- 
-```
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("sub applePie\nglobal a\na = \"hello world\"\nEndSub");
-        String a = (String) engine.getVariable("a");
-        assertNull(a);
-        Subroutine applePie = engine.getSubroutine("applePie");
-        applePie.call((Object[]) null);
-        a = (String) engine.getVariable("a");
-        assertEquals("hello world", a);
-```
-  
-  This sample above is the object oriented version of the sample before. Also see the following
-  sample how to call a subroutine in OO way that returns some value:
- 
-```
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("sub applePie(b)\nglobal a\na = b\nreturn 6\nEndSub");
-        String a = (String) engine.getVariable("a");
-        assertNull(a);
-        Subroutine applePie = engine.getSubroutine("applePie");
-        Long ret = (Long) applePie.call("hello world");
-        a = (String) engine.getVariable("a");
-        assertEquals("hello world", a);
-        assertEquals((Long) 6L, ret);
-```
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
