@@ -21,6 +21,10 @@ public class TestingExecutor extends AbstractStringIOPojo {
     private Context ctx;
     private Map<String, Object> map = null;
 
+    public TestingExecutor(){
+      ctx = ContextBuilder.newContext();
+    }
+
     public void setMap(Map<String, Object> map) {
         this.map = map;
     }
@@ -39,7 +43,7 @@ public class TestingExecutor extends AbstractStringIOPojo {
             InputStream is = Class.forName(frame.get().getClassName())
                     .getResourceAsStream(resourceName);
             final Reader r = new InputStreamReader(is);
-            ctx = ContextBuilder.from(r);
+            ctx = ContextBuilder.from(ctx,r);
             ctx.interpreter.registerFunctions(FileHandlingFunctions.class);
             ctx.interpreter.setProgram(ctx.syntaxAnalyzer.analyze());
             StringWriter writer = new StringWriter();

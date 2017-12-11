@@ -2,16 +2,14 @@
 
 ScriptBasic provides an interface for functions implemented in Java and callable 
 from BASIC. The functions
-implemented in Java need not implement any Java interface. In this terminology the 
+implemented in Java do not need to implement any Java interface. In this terminology the
 "interface" ScriptBasic provides is not a Java
 interface. This term refers to the way ScriptBasic calls these methods.
 
-As ScriptBasic develops the way ScriptBasic handles these extension functions also develop and some new
+As ScriptBasic develops the way how ScriptBasic handles these extension functions also develops and some new
 features become available. If an extension relies on such an advanced feature
-it will not work with earlier
-versions of ScriptBasic that implements an earlier version of the interface.
-Therefore ScriptBasic introduces
-a simple `long` number that specifies the version of the interface.
+it will not work with earlier versions of ScriptBasic that implements an earlier version of the interface.
+Therefore ScriptBasic introduces a simple `long` number that specifies the version of the interface.
 
 This document describes the differences between the different interface versions.  
 
@@ -49,3 +47,7 @@ This document describes the differences between the different interface versions
 
 This is because this basic function would not work with versions of ScriptBasic prior to
 1.0.4
+
+* 3L
+
+  ScriptBasic can call methods that accept an `Interpreter` as first argument.

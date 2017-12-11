@@ -15,6 +15,20 @@ file. Their use may vary and should be looked up in the documentation of third p
 of this documentation provides guidelines that third parties should follow regarding the naming
 of their configuration keys.
 
+## Array size limit
+
+ScriptBasic can be configured with the key `arrayMaxIndex` to limit the maximum size of
+an array. For example the configuration line
+
+```
+arrayMaxIndex=100
+```
+
+will cause the interpreter to throw an exception when the BASIC program tries to
+index an array with an index number 101 or any larger number.
+
+There is no default limit for the size of an array.
+
 ## Interpreter Hooks Configuration
 
 Hook classes have to be configured. By default ScriptBasic for Java does not load, instantiate and

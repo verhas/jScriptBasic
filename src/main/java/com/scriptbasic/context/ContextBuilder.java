@@ -71,7 +71,7 @@ public class ContextBuilder {
         return from(null, reader);
     }
 
-    private static Context from(final Context existing, final Reader reader) throws AnalysisException {
+    public static Context from(final Context existing, final Reader reader) throws AnalysisException {
         final GenericSourceReader sourceReader = new GenericSourceReader(reader, null, null);
         final HierarchicalSourceReader hReader = new GenericHierarchicalSourceReader(sourceReader);
         return from(existing, hReader);
