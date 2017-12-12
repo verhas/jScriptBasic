@@ -4,7 +4,9 @@ A function `newRecord()` is implemented in ScriptBasic that returns a special Ja
 Java objects when passed to the BASIC program can be used from BASIC. A BASIC program can access
 the fields of the object or can call methods on the object using the dot notation that is
 known from Java. Access is only allowed if the Java code can access the field or can call the
-method.
+method. It means that only public fields of public classes
+can be accessed and the package containing the class should be open
+for the ScriptBasic module named `scriptbasic`. 
 
 In case of the object returned by the BASIC funtion `newRecord()` the object behaves
 magically. You can use any field name you want either to read and to write.
