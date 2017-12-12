@@ -1,10 +1,10 @@
 package com.scriptbasic.executors.operators;
 
-import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.spi.Interpreter;
+import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
+import com.scriptbasic.spi.Interpreter;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -22,7 +22,14 @@ public class TestJavaAccess {
     private static Logger log = LoggerFactory.getLogger();
 
 
-    private static void b(final String s, Object expected) throws AnalysisException, ScriptBasicException {
+    private static void executeInsecure(final String s, Object expected) throws AnalysisException, ScriptBasicException {
+        Interpreter interpreter = eval(s);
+        interpreter.getConfiguration().set("insecure", "true");
+        interpreter.execute();
+        assertValueOfVariable_A(interpreter, expected);
+    }
+
+    private static void executeSecure(final String s, Object expected) throws AnalysisException, ScriptBasicException {
         Interpreter interpreter = eval(s);
         interpreter.execute();
         assertValueOfVariable_A(interpreter, expected);
@@ -35,31 +42,56 @@ public class TestJavaAccess {
     }
 
     @Test
-    public void test1() throws Exception {
-        b(program(
+    public void canUseOverloadedMethodInsecureMode() throws Exception {
+        executeInsecure(program(
                 "",
                 "rem this is a command line",
                 "' this is another command line",
                 "use OverloadedMethods from com.scriptbasic.executors.operators.TestJavaAccess as q",
                 "method A from com.scriptbasic.executors.operators.TestJavaAccess.OverloadedMethods is (int) use as aint",
                 "a=q.aint(1)"), 1);
-        /*
-         * use "Math" from java.lang as m method "java.lang.Math.sin" is
-         * ("double") method "java.lang.Math.wait" is ("long","int")
-         */
-        b(program("use Math from java.lang as m",
+    }
+
+    @Test(expected = ScriptBasicException.class)
+    public void cannotUseOverloadedMethodSecureMode() throws Exception {
+        executeSecure(program(
+                "use OverloadedMethods from com.scriptbasic.executors.operators.TestJavaAccess as q"
+        ), null);
+    }
+
+    @Test(expected = ScriptBasicException.class)
+    public void cannotMethodOverloadedMethodSecureMode() throws Exception {
+        executeSecure(program(
+                "method A from com.scriptbasic.executors.operators.TestJavaAccess.OverloadedMethods is (int) use as aint"
+        ), null);
+    }
+
+    @Test
+    public void canUseMathSin() throws Exception {
+        executeInsecure(program("use Math from java.lang as m",
                 "method sin from java.lang.Math is (double) use as sinus",
                 "a=m.sinus(1.0)"), Math.sin(1.0));
-        b(program(
+    }
+
+    @Test
+    public void canUseMathSinDeclaredWithStrings() throws Exception {
+        executeInsecure(program(
                 "use \"Math\" from \"java\".lang as \"m\"",
                 "method sin from \"java.lang.Math\" is (\"double\") use as sinus",
                 "a=m.sinus(1.0)"), Math.sin(1.0));
-        b(program("\n", "use Math from java.lang as m",
+    }
+
+    @Test
+    public void canUseMathSinWithoutAlias() throws Exception {
+        executeInsecure(program("\n", "use Math from java.lang as m",
                 "method sin from java.lang.Math is (double)", "a=m.sin(1.0)"),
                 Math.sin(1.0));
 
-        b(program("use Double from java.lang", "a=Double.valueOf(\"1.0\")"), 1.0);
+    }
 
+    @Test
+    public void canUseDoubleValueOf() throws Exception {
+        executeInsecure(program("use Double from java.lang", "a=Double.valueOf(\"1.0\")"), 1.0);
     }
 
     public static class OverloadedMethods {

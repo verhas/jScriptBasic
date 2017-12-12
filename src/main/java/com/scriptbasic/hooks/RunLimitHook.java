@@ -25,7 +25,6 @@ public class RunLimitHook extends SimpleHook {
     private long timeLimitMillis;
     private boolean timeIsLimited;
     private long scriptStartTime;
-    private boolean allowMethodRegistering = true;
 
     private Optional<String> hookConfig(final String s) {
         return config.getConfigValue(configPrefix + s);
@@ -46,7 +45,6 @@ public class RunLimitHook extends SimpleHook {
         if (timeIsLimited) {
             this.timeLimitMillis = Long.valueOf(timeLimitMillis.get());
         }
-        allowMethodRegistering = hookConfig("allowJavaMethods").map(Boolean::valueOf).orElse(true);
     }
 
     @Override
@@ -56,11 +54,6 @@ public class RunLimitHook extends SimpleHook {
             if (currentSteps > stepLimit) {
                 throw new RuntimeException(
                         "The code exceeded the maximum number of steps");
-            }
-            if (!allowMethodRegistering
-                    && (command instanceof CommandMethod || command instanceof CommandUse)) {
-                throw new RuntimeException(
-                        "Registering Java methods is forbidden in the configuration");
             }
         }
         if (timeIsLimited

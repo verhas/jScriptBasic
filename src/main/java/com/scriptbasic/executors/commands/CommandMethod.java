@@ -1,9 +1,9 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.spi.Interpreter;
 
-public class CommandMethod extends AbstractCommand {
+public class CommandMethod extends AbstractInsecureCommand {
 
     private Class<?> klass = null;
     private String methodName = null;
@@ -11,7 +11,9 @@ public class CommandMethod extends AbstractCommand {
     private Class<?>[] argumentTypes = null;
 
     @Override
-    public void execute(final Interpreter interpreter) throws BasicRuntimeException {
+    public void execute(final Interpreter interpreter) throws ScriptBasicException {
+        assertInsecure(interpreter);
+        interpreter.getUseMap().put(alias, klass);
         interpreter.registerJavaMethod(alias, klass, methodName, argumentTypes);
     }
 

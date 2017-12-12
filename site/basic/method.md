@@ -103,5 +103,11 @@ class/package names, although it is recommended to use constant string literals.
 
 The USE and METHOD commands provide a possibility to call arbitrary class static methods 
 out of the BASIC code. This is usually not a safe practice. ScriptBasic for Java have to be configured
-to allow the execution of USE and METHOD.
- 
+to allow the execution of USE and METHOD. To do that the host application should have a
+
+```
+insecure=true
+```
+
+configuration line. Without this the execution of either the `USE` or the `METHOD` commands will throw
+an exception.

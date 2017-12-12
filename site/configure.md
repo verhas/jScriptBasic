@@ -29,6 +29,20 @@ index an array with an index number 101 or any larger number.
 
 There is no default limit for the size of an array.
 
+## Allowing call out to Java
+
+The BASIC programs `USE` and `METHOD` are used to declare Java methods to be available for the BASIC program.
+Since this way the control what the BASIC program executes is in the hand of the BASIC script and it can be easy to
+reach out and call arbitrary methods of any class that is on the command line this operation mode is insecure.
+
+To allow this operation mode the interpreter has to be configured to operate this way having a line in the configuration
+
+```
+insecure=true
+```
+
+The default mode is `insecure=false`.
+
 ## Interpreter Hooks Configuration
 
 Hook classes have to be configured. By default ScriptBasic for Java does not load, instantiate and
@@ -115,7 +129,19 @@ available on the classpath during compile and run time.
 Interpreter hook classes are encouraged to use configuration keys that use their fully qualified class name as configuration key
 prefix to avoid name collision. The authors of jScriptBasic are in a privileged position to use the short name of the interpreter
 hook class name without the `com.scriptbasic.hooks` package name.
-  
-   
-  
-   
+
+## Secure configuring
+
+The host application may decide to invoke the interpreter in a secure way, thus not configuring `incesure=true` and
+setting the appropriate value for `arrayMaxIndex`. It still may happen that the configuration file overrides these
+settings. To avoid that the host application can set these values explicitly just before the execution of the
+BASIC program:
+
+```
+            interpreter.getConfiguration().set("arrayMaxIndex","10");
+            interpreter.getConfiguration().set("insecure","false");
+            interpreter.execute();
+``` 
+
+This way the interpreter runs in secure mode and the maximum size of the arrays is 11 even if different values are
+in the configuration file.

@@ -58,6 +58,7 @@ public class TestingExecutor extends AbstractStringIOPojo {
                     ctx.interpreter.setVariable(key, map.get(key));
                 }
             }
+            ctx.configuration.set("insecure","true");
             ctx.interpreter.execute();
             setSStdout(writer.toString());
         } else {
