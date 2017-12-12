@@ -9,26 +9,26 @@ public class BasicLongValue extends AbstractNumericRightValue<Long> {
         setValue(i);
     }
 
-    public static Long asLong(final RightValue rv)
+    public static Long asLong(final RightValue rightValue)
             throws BasicRuntimeException {
-        if (rv.isBoolean()) {
-            return ((BasicBooleanValue) rv).getValue() ? 1L : 0L;
+        if (rightValue.isBoolean()) {
+            return ((BasicBooleanValue) rightValue).getValue() ? 1L : 0L;
         }
-        if (rv.isString()) {
-            final String s = ((BasicStringValue) rv).getValue();
+        if (rightValue.isString()) {
+            final String s = ((BasicStringValue) rightValue).getValue();
             if (s == null) {
                 return null;
             }
             return Long.parseLong(s);
         }
-        if (rv.isLong()) {
-            return ((BasicLongValue) rv).getValue();
+        if (rightValue.isLong()) {
+            return ((BasicLongValue) rightValue).getValue();
         }
-        if (rv.isDouble()) {
-            return ((BasicDoubleValue) rv).getValue().longValue();
+        if (rightValue.isDouble()) {
+            return ((BasicDoubleValue) rightValue).getValue().longValue();
         }
-        if (rv.isJavaObject()) {
-            final Object o = ((BasicJavaObjectValue) rv).getValue();
+        if (rightValue.isJavaObject()) {
+            final Object o = ((BasicJavaObjectValue) rightValue).getValue();
             if (o instanceof Long) {
                 return (Long) o;
             }
@@ -39,7 +39,7 @@ public class BasicLongValue extends AbstractNumericRightValue<Long> {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         try {
             return asLong(this).toString();
         } catch (BasicRuntimeException e) {

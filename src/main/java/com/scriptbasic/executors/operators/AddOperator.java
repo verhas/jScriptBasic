@@ -45,11 +45,18 @@ public class AddOperator extends AbstractBinaryFullCircuitHalfDoubleOperator {
         return new BasicLongValue(a + b);
     }
 
+    /**
+     * If any operand is a string then concatenate the strings
+     *
+     * @param leftOperand
+     * @param rightOperand
+     * @return the concatenated string
+     * @throws BasicRuntimeException
+     */
     @Override
     protected RightValue operateOnValues(final RightValue leftOperand,
                                          final RightValue rightOperand) throws BasicRuntimeException {
-        return new BasicStringValue(getString(leftOperand)
-                + getString(rightOperand));
+        return new BasicStringValue(getString(leftOperand) + getString(rightOperand));
     }
 
     @Override

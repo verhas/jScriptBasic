@@ -1,6 +1,5 @@
 package com.scriptbasic.syntax;
 
-import com.scriptbasic.exceptions.CommandFactoryException;
 import com.scriptbasic.interfaces.*;
 
 public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
@@ -28,28 +27,24 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
 
     @Override
     public BuildableProgram analyze() throws AnalysisException {
-        try {
-            final BuildableProgram buildableProgram = new BasicProgram();
-            lexicalElement = lexicalAnalyzer.peek();
-            while (lexicalElement != null) {
-                if (lexicalElement.isSymbol()) {
-                    lexicalAnalyzer.get();
-                    final String lexString = lexicalElement.getLexeme();
-                    if (lineToIgnore(lexString)) {
-                        consumeIgnoredLine(lexicalAnalyzer, lexString);
-                    } else {
-                        buildableProgram.addCommand(commandFactory.create(lexString));
-                    }
+        final BuildableProgram buildableProgram = new BasicProgram();
+        lexicalElement = lexicalAnalyzer.peek();
+        while (lexicalElement != null) {
+            if (lexicalElement.isSymbol()) {
+                lexicalAnalyzer.get();
+                final String lexString = lexicalElement.getLexeme();
+                if (lineToIgnore(lexString)) {
+                    consumeIgnoredLine(lexicalAnalyzer, lexString);
                 } else {
-                    buildableProgram.addCommand(commandFactory.create(null));
+                    buildableProgram.addCommand(commandFactory.create(lexString));
                 }
-                this.lexicalElement = lexicalAnalyzer.peek();
+            } else {
+                buildableProgram.addCommand(commandFactory.create(null));
             }
-            buildableProgram.postprocess();
-            return buildableProgram;
-        } catch (final CommandFactoryException e) {
-            throw new BasicSyntaxException(e.getMessage(), lexicalElement, e);
+            this.lexicalElement = lexicalAnalyzer.peek();
         }
+        buildableProgram.postprocess();
+        return buildableProgram;
     }
 
     private void consumeIgnoredLine(final LexicalAnalyzer lexicalAnalyzer, String lexString) throws AnalysisException {
