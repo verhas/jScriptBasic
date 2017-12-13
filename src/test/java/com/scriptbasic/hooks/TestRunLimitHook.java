@@ -41,6 +41,7 @@ public class TestRunLimitHook {
         assertTrue(scriptEngine instanceof com.scriptbasic.script.ScriptEngine);
         Configuration config = ((com.scriptbasic.script.ScriptEngine) scriptEngine).ctx.configuration;
         setConfig(config);
+        config.set("RunLimitHook.timeLimitMillis", "1000000000");
         try {
             scriptEngine.eval("while true\nwend\n");
             Assert.fail("infinite loop did not throw exception");
