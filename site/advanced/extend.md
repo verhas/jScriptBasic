@@ -1,30 +1,59 @@
 # How to extend ScriptBasic for Java with external Java Methods
 
- ScriptBasic for Java can call Java methods from the BASIC source code. To do so the BASIC program
- can use the `use` and `method` commands. This way the BASIC source code expresses its wish
- to use some Java code. Doing it the other way around the embedding Java application can register
- some methods that will be available to the BASIC program without `use` or `method` declarations.
+## METHOD and USE
 
- The general recommendation is that the embedding application should define the methods that are
- available for the interpreter and it should not be up to the BASIC code to reach out without control
- to the Java environment. There is one scenario when the use of the `USE ... METHOD` command is
- justified. When the hosting application does not need the high security, the BASIC programs are
- trusted to a higher level and the extra methods provided as a library for the BASIC programs are
- provided sepearately from the host application. In that case if the host application allows the
- use of the command `USE ... METHOD` the extra methods for the BASIC can be provided as
- JAR filed to be put on the class path or on the module path and some header files with the declaration
- of the callable methods.
- 
- To register a method into the BASIC runtime and thus make it available for the BASIC program to call,
- ScriptBasic for Java provides a method `registerExtension(Class<?> klass)` in the `ScriptBasic` interface. Using
- this method the embedding application can register static methods from a class. The embedding application has to
- issue a single call and it will register all the methods that are appropriately annotated in that class.
- 
- A method from a class is registered and becomes available for the BASIC program if it is annotated with the
- annotation `com.scriptbasic.api.BasicFunction` and if its classification is configured to allow the method to be
- used by the BASIC program. (About this a bit later.)
- 
- For example we can have the following class in an application:
+ScriptBasic for Java can call Java methods from the BASIC source code. To do so the BASIC program
+can use the `use` and `method` commands. This way the BASIC source code expresses its wish
+to use some Java code. Doing it the other way around the embedding Java application can register
+some methods that will be available to the BASIC program without `use` or `method` declarations.
+
+The general recommendation is that the embedding application should define the methods that are
+available for the interpreter and it should not be up to the BASIC code to reach out without control
+to the Java environment. There is one scenario when the use of the `USE ... METHOD` command is
+justified. When the hosting application does not need the high security, the BASIC programs are
+trusted to a higher level and the extra methods provided as a library for the BASIC programs are
+provided sepearately from the host application. In that case if the host application allows the
+use of the command `USE ... METHOD` the extra methods for the BASIC can be provided as
+JAR filed to be put on the class path or on the module path and some header files with the declaration
+of the callable methods.
+
+## Registering extension classes
+
+To register a method into the BASIC runtime and thus make it available for the BASIC program to call,
+ScriptBasic for Java provides a method `registerExtension(Class<?> klass)` in the `ScriptBasic` interface. Using
+this method the embedding application can register static methods from a class. The embedding application has to
+issue a single call and it will register all the methods that are appropriately annotated in that class.
+
+
+## Automatic Registration
+
+External modules can register extension classes automatically. ScriptBasic defines the interface
+`com.scriptbasic.spi.ClassSetProvider`. An extension module (either a real Java 9 module or only a JAR file)
+can implement this interface, and decrare the implementing class in the file
+`META-INF/services/com.scriptbasic.spi.ClassSetProvider`
+so that the Java ServiceLoader mechanism can find the class. The interface defines one method:
+
+```
+Set<Class<?>> provide();
+```
+
+The implementation should return the set of the classes that contains the static methods with the `BasicFunction`
+annotation. ScriptBasic will find all these classes and register them automatically if the JAR file is on the
+class path.
+
+Note that ScriptBasic module declaration does not `requires` any extension class containing JAR file
+therefore it is not a good solution to declare the implementation of the interface `ClassSetProvider`
+as `provides com.scriptbasic.spi.ClassSetProvider with ...` in the `module-info.java` because the
+service loader does not find the implementation in the modules that are not required by the module `scriptbasic`.
+
+
+## BasicFunction Annotation
+
+A method from a class is registered and becomes available for the BASIC program if it is annotated with the
+annotation `com.scriptbasic.api.BasicFunction` and if its classification is configured to allow the method to be
+used by the BASIC program. (About this a bit later.)
+
+For example we can have the following class in an application:
 
 ``` 
 public static class TestExtensionClass {
