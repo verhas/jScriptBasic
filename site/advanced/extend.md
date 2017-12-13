@@ -38,7 +38,16 @@ Set<Class<?>> provide();
 ```
 
 The implementation should return the set of the classes that contains the static methods with the `BasicFunction`
-annotation. ScriptBasic will find all these classes and register them automatically if the JAR file is on the
+annotation. The implementation of this method is usually nothing more than
+
+```
+@Override
+    public Set<Class<?>> provide() {
+        return Set.of(... list of the classes containing the extension methods ...);
+    }
+```
+
+a method returning a constant set. ScriptBasic will find all these classes and register them automatically if the JAR file is on the
 class path.
 
 Note that ScriptBasic module declaration does not `requires` any extension class containing JAR file
