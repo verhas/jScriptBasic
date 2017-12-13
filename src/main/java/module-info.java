@@ -8,4 +8,5 @@ module scriptbasic {
     exports com.scriptbasic.spi;
     exports com.scriptbasic.readers;
     exports com.scriptbasic.classification;
+    uses com.scriptbasic.spi.ClassSetProvider;
 }
