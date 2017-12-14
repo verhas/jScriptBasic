@@ -29,8 +29,14 @@ issue a single call and it will register all the methods that are appropriately 
 
 External modules can register extension classes automatically. ScriptBasic defines the interface
 `com.scriptbasic.spi.ClassSetProvider`. An extension module (either a real Java 9 module or only a JAR file)
-can implement this interface, and decrare the implementing class in the file
-`META-INF/services/com.scriptbasic.spi.ClassSetProvider`
+can implement this interface, and declare the implementing class in the file
+`META-INF/services/com.scriptbasic.spi.ClassSetProvider` in case the extension is a non-module JAR file or the
+`module-info.java` should declare the service using the
+
+```
+provides com.scriptbasic.spi.ClassSetProvider with actual.implementing.class.CallSetProvider;
+```
+
 so that the Java ServiceLoader mechanism can find the class. The interface defines one method:
 
 ```
@@ -50,10 +56,7 @@ annotation. The implementation of this method is usually nothing more than
 a method returning a constant set. ScriptBasic will find all these classes and register them automatically if the JAR file is on the
 class path.
 
-Note that ScriptBasic module declaration does not `requires` any extension class containing JAR file
-therefore it is not a good solution to declare the implementation of the interface `ClassSetProvider`
-as `provides com.scriptbasic.spi.ClassSetProvider with ...` in the `module-info.java` because the
-service loader does not find the implementation in the modules that are not required by the module `scriptbasic`.
+Note that the extension module should export the packages that contain extension classes.
 
 
 ## BasicFunction Annotation
