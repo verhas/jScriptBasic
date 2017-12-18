@@ -2,6 +2,7 @@ package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.executors.rightvalues.*;
 import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.spi.BasicValue;
 import com.scriptbasic.spi.RightValue;
 
 public abstract class AbstractCompareOperator extends
@@ -38,6 +39,12 @@ public abstract class AbstractCompareOperator extends
     @Override
     protected RightValue evaluateOn(final RightValue leftOperand,
                                     final RightValue rightOperand) throws BasicRuntimeException {
+        if( leftOperand == null && rightOperand == null ){
+            return BasicValue.TRUE;
+        }
+        if( leftOperand == null || rightOperand == null ){
+            return BasicValue.FALSE;
+        }
         if (leftOperand.isDouble()) {
             return new BasicBooleanValue(compareTo(
                     ((BasicDoubleValue) leftOperand), rightOperand));

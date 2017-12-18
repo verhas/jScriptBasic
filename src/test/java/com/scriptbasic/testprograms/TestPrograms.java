@@ -130,6 +130,11 @@ public class TestPrograms {
     }
 
     @Test
+    public void canCompareUndefValues() throws Exception {
+        codeTest("TestUndefCompare.bas", "OK");
+    }
+
+    @Test
     public void testStringFormat() throws Exception {
         codeTest("TestStringFormat.bas", "314");
     }
