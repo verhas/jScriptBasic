@@ -85,7 +85,15 @@ public class CommandAnalyzerDSL extends AbstractCommandAnalyzer {
       throw new BasicSyntaxException("there should be a function name after the keyword 'call' defining a sentenceó");
     }
     consumeEndOfLine();
-    dslLines.add(new DslLine(functionNameLexicalElement.getLexeme(), sentence.split("\\s+")));
+    final String[] syntaxElements = sentence.split("\\s+");
+    if( syntaxElements.length == 0 ){
+      throw new BasicSyntaxException("sentence can not be empty");
+    }
+    final String startElement = syntaxElements[0];
+    if( startElement.equals("'") || startElement.equalsIgnoreCase("rem")){
+      throw new BasicSyntaxException("sentence should not look like as a comment");
+    }
+    dslLines.add(new DslLine(functionNameLexicalElement.getLexeme(), syntaxElements));
   }
 
   private class DslLine {

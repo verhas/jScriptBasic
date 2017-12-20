@@ -131,7 +131,7 @@ public class TestPrograms {
 
   @Test
   public void canDefineAndUseDslSentences() throws Exception {
-    codeTest("TestDslLines.bas", "OK");
+    codeTest("TestDslLines.bas", "79OK");
   }
 
   @Test

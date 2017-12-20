@@ -102,7 +102,15 @@ public final class BasicCommandFactory implements CommandFactory {
     LOG.debug("Creating command starting with the keyword '{}'",
         lowerCaseCommandKeyword);
     if (classMap.containsKey(lowerCaseCommandKeyword)) {
-      return classMap.get(lowerCaseCommandKeyword).analyze();
+      try {
+        return classMap.get(lowerCaseCommandKeyword).analyze();
+      }catch (AnalysisException originalException){
+        try{
+          return dslAnalyzer.analyze();
+        }catch (AnalysisException ignored){
+          throw originalException;
+        }
+      }
     }
     return dslAnalyzer.analyze();
   }
