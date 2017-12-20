@@ -25,10 +25,10 @@ public class CommandAnalyzerDSL extends AbstractCommandAnalyzer {
   @Override
   public Command analyze() throws AnalysisException {
     ctx.lexicalAnalyzer.resetLine();
-    if( ctx.lexicalAnalyzer.get().isSymbol("sentence")){
+    if (ctx.lexicalAnalyzer.get().isSymbol("sentence")) {
       defineDSLRule();
       return null;
-    }else {
+    } else {
       for (final DslLine line : dslLines) {
         ctx.lexicalAnalyzer.resetLine();
         Command command = analyzeWith(line);
@@ -59,8 +59,7 @@ public class CommandAnalyzerDSL extends AbstractCommandAnalyzer {
         } catch (AnalysisException ignored) {
           return null;
         }
-        if ((!lexicalElement.isIdentifier() && !lexicalElement.isSymbol()) ||
-            !lexicalElement.getLexeme().equalsIgnoreCase(match)) {
+        if (!lexicalElement.getLexeme().equalsIgnoreCase(match)) {
           return null;
         }
       }
