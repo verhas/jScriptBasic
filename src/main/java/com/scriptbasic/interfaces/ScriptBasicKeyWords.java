@@ -9,7 +9,7 @@ public interface ScriptBasicKeyWords {
             "endif", "then", "while", "wend", "else", "elseif", "repeat",
             "until", "not", "false", "true", "and", "or", "div", "use", "from",
             "as", "to", "step", "method", "is", "rem", "sub", "endsub",
-            "return", "print", "global", "local", "call"};
+            "return", "print", "global", "local", "call", "sentence"};
     String[] BASIC_OPERATORS = new String[]{"<=", ">=", "<>"};
     int BASIC_OPERATOR_LEXEME_MAX_LENGTH = 2;
 }

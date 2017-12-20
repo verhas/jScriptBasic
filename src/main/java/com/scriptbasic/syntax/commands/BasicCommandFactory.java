@@ -19,11 +19,13 @@ public final class BasicCommandFactory implements CommandFactory {
   private static final Logger LOG = LoggerFactory
       .getLogger();
   private final Context ctx;
+  private final CommandAnalyzerDSL dslAnalyzer;
   private Map<String, CommandAnalyzer> classMap = new HashMap<>();
   private List<CommandAnalyzer> classList = new LinkedList<>();
 
   public BasicCommandFactory(final Context ctx) {
     this.ctx = ctx;
+    dslAnalyzer = new CommandAnalyzerDSL(ctx);
     registerCommandAnalyzer("while", new CommandAnalyzerWhile(ctx));
     registerCommandAnalyzer("wend", new CommandAnalyzerWend(ctx));
     registerCommandAnalyzer("if", new CommandAnalyzerIf(ctx));
@@ -42,9 +44,11 @@ public final class BasicCommandFactory implements CommandFactory {
     registerCommandAnalyzer("let", new CommandAnalyzerLet(ctx));
     registerCommandAnalyzer("for", new CommandAnalyzerFor(ctx));
     registerCommandAnalyzer("next", new CommandAnalyzerNext(ctx));
+    registerCommandAnalyzer("sentence", dslAnalyzer);
     //
     registerCommandAnalyzer(new CommandAnalyzerLet(ctx));
     registerCommandAnalyzer(new CommandAnalyzerCall(ctx));
+    registerCommandAnalyzer(dslAnalyzer);
   }
 
   /*
@@ -97,13 +101,10 @@ public final class BasicCommandFactory implements CommandFactory {
     final String lowerCaseCommandKeyword = commandKeyword.toLowerCase();
     LOG.debug("Creating command starting with the keyword '{}'",
         lowerCaseCommandKeyword);
-    if (!classMap.containsKey(lowerCaseCommandKeyword)) {
-      throw new KeywordNotImplementedException(commandKeyword);
+    if (classMap.containsKey(lowerCaseCommandKeyword)) {
+      return classMap.get(lowerCaseCommandKeyword).analyze();
     }
-
-    final CommandAnalyzer commandAnalyzer = classMap
-        .get(lowerCaseCommandKeyword);
-    return commandAnalyzer.analyze();
+    throw new KeywordNotImplementedException(commandKeyword);
   }
 
 }
