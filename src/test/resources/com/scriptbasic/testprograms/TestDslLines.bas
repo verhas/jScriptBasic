@@ -2,9 +2,11 @@ sentence "the $expression is the same as $expression" call myequals
 the 13+2 is the same as 15
 
 sentence "message $expression unless $expression is true" call assert
-
-
 message "we have a problem" unless 1=1 is true
+
+
+sentence "true that 1 $expression has 1 result" call nullsub
+true that 1 2*2 has 1 result
 
 sub myequals(a,b)
   if a = 15 and b = 15 then
@@ -14,3 +16,5 @@ sub myequals(a,b)
   endif
 endsub
 
+sub nullsub(a)
+endsub
