@@ -104,7 +104,7 @@ public final class BasicCommandFactory implements CommandFactory {
     if (classMap.containsKey(lowerCaseCommandKeyword)) {
       return classMap.get(lowerCaseCommandKeyword).analyze();
     }
-    throw new KeywordNotImplementedException(commandKeyword);
+    return dslAnalyzer.analyze();
   }
 
 }

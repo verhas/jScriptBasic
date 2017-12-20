@@ -23,6 +23,8 @@ to keep the language simple, easy to learn. The following commands are implement
 
 * `INCLUDE` / `IMPORT` [to include](basic/include.md) basic code into the program
 
+* 'SENTENCE' [to define DSL sentences](basic/sentence.md)
+
 The operators implemented in the language are
 
 * `-`, `+` and `not` unary operators.
