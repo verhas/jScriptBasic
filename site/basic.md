@@ -15,6 +15,8 @@ to keep the language simple, easy to learn. The following commands are implement
 
 * `WHILE`/`WEND` [loop](./basic/while.md)
 
+* `GOTO` [goto statement](./basic/goto.md)
+
 * `PRINT` command to [send output](./basic/print.md) to the standard output stream
 
 * `GLOBAL`/`LOCAL` [variable declaration](./basic/global.md)
