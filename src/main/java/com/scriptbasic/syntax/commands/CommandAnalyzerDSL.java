@@ -20,8 +20,6 @@ public class CommandAnalyzerDSL extends AbstractCommandAnalyzer {
     super(ctx);
   }
 
-  // sentence "assert that $expression is the same as $expression" call assert
-
   @Override
   public Command analyze() throws AnalysisException {
     ctx.lexicalAnalyzer.resetLine();
