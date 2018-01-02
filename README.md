@@ -40,7 +40,7 @@ specify the file where the source code is, a `java.io.Reader` to read the source
 there are even more advanced possibilities.
 
 The BASIC language contains all the usual BASIC features, subroutines, local and global variables,
-conditional statements, loops and so on. Your host program can directly call subroutines, read
+conditional statements, loops and so on. (No GOTO!) Your host program can directly call subroutines, read
 and write global variables, provide methods implemented in Java to be called from BASIC code.
 
 The interpreter can safely be integrated to applications as the BASIC programs can not access
