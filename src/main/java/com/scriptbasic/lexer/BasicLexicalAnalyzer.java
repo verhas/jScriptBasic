@@ -1,13 +1,13 @@
 package com.scriptbasic.lexer;
 
-import com.scriptbasic.readers.HierarchicalSourceReader;
-import com.scriptbasic.readers.SourceProvider;
-import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.exceptions.BasicLexicalException;
 import com.scriptbasic.interfaces.*;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
+import com.scriptbasic.readers.HierarchicalSourceReader;
+import com.scriptbasic.readers.SourceProvider;
+import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.utility.CharUtils;
 
 import java.io.IOException;
@@ -77,6 +77,12 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     public LexicalElement peek() throws AnalysisException {
         if (this.peekElement == null) {
             if (!elements.hasNext()) {
+                Integer ch = reader.get();
+                if (ch == null) {
+                    // do not read beyond the last line
+                    return null;
+                }
+                reader.unget(ch);
                 readTheNextLine();
                 resetLine();
             }
@@ -98,7 +104,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     }
 
     private void readTheNextLine() throws AnalysisException {
-        Boolean lineEndFound = false;
+        boolean lineEndFound = false;
         emptyLexicalElementQueue();
         Integer ch;
         for (ch = reader.get(); ch != null && !lineEndFound; ch = reader.get()) {
