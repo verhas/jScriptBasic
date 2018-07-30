@@ -98,6 +98,7 @@ public class TestJavaxInterface {
         Bindings b = new SimpleBindings();
         sef.setGlobalScopeBinding(b);
         Assert.assertEquals(sef.getGlobalScopeBinding(), b);
+        //noinspection ResultOfMethodCallIgnored
         sef.getEngineVersion();
         sef.getParameter(ScriptEngine.ENGINE);
         sef.getParameter(ScriptEngine.ENGINE_VERSION);

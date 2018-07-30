@@ -3,8 +3,8 @@ package com.scriptbasic.spi;
 import com.scriptbasic.executors.rightvalues.*;
 
 public interface BasicValue<T> {
-    public static final BasicBooleanValue TRUE = new BasicBooleanValue(true);
-    public static final BasicBooleanValue FALSE = new BasicBooleanValue(false);
+    BasicBooleanValue TRUE = new BasicBooleanValue(true);
+    BasicBooleanValue FALSE = new BasicBooleanValue(false);
     static RightValue create(Object object) {
         if (object instanceof Boolean) {
             return new BasicBooleanValue((Boolean) object);

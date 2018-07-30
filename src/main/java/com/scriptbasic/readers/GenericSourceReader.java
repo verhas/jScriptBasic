@@ -72,7 +72,7 @@ public class GenericSourceReader implements SourceReader {
         } catch (final IOException e) {
             return null;
         }
-        if (this.lastChar != null && CharUtils.isNewLine(this.lastChar)) {
+        if (CharUtils.isNewLine(this.lastChar)) {
             this.position = 0;
             this.lineNumber++;
         }

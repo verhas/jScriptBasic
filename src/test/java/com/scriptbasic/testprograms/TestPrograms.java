@@ -69,12 +69,12 @@ public class TestPrograms {
     codeTest("TestArrays.bas", "OK");
     try {
       codeTest("TestNegativeIndex.bas", null);
-      assertFalse(true);
+        fail();
     } catch (BasicRuntimeException e) {
     }
     try {
       codeTest("TestNonObjectFieldAccess.bas", null);
-      assertFalse(true);
+        fail();
     } catch (BasicRuntimeException e) {
     }
     codeTest("TestSub1.bas", "6");

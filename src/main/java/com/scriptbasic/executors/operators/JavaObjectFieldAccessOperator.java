@@ -157,7 +157,7 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
   @Override
   public RightValue evaluate(final Interpreter interpreter)
       throws ScriptBasicException {
-    RightValue result = null;
+    final RightValue result;
     final Expression rightOp = getRightOperand();
 
     if (rightOp instanceof VariableAccess) {

@@ -4,492 +4,234 @@ import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.api.ScriptBasic;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.api.Subroutine;
-import com.scriptbasic.readers.SourcePath;
-import com.scriptbasic.readers.SourceProvider;
-import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.readers.GenericHierarchicalSourceReader;
 import com.scriptbasic.readers.GenericSourceReader;
+import com.scriptbasic.readers.SourceProvider;
+import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.sourceproviders.BasicSourcePath;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.HashMap;
+import java.io.*;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestEngine {
+    private static final String NL = "\n";
 
-    @Test(expected = ScriptBasicException.class)
+    @Test
+    @DisplayName("engine throws exception when input is total garbage")
     public void throwsExceptionWhenInputIsTotalGarbage() throws ScriptBasicException {
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("ajdjkajkladsadsadjkls");
+        assertThrows(ScriptBasicException.class, () ->
+                ScriptBasic.engine().eval("ajdjkajkladsadsadjkls"));
     }
 
     @Test
-    public void testEvalString() throws Exception {
-        // START SNIPPET: helloWorldString
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("print \"hello world\"");
-        // END SNIPPET: helloWorldString
-    }
-
-    @Test
-    public void testEvalStringSW() throws Exception {
-        // START SNIPPET: helloWorldStringSW
-        ScriptBasic engine = ScriptBasic.getEngine();
-        StringWriter sw = new StringWriter(10);
-        engine.setOutput(sw);
-        engine.eval("print \"hello world\"");
-        sw.close();
-        assertEquals("hello world", sw.toString());
-        // END SNIPPET: helloWorldStringSW
-    }
-
-    @Test
-    public void testEvalReader() throws Exception {
-        // START SNIPPET: helloWorldReader
-        ScriptBasic engine = ScriptBasic.getEngine();
-        StringWriter sw = new StringWriter(10);
-        engine.setOutput(sw);
-        StringReader sr = new StringReader("print \"hello world\"");
-        engine.eval(sr);
-        sw.close();
-        assertEquals("hello world", sw.toString());
-        // END SNIPPET: helloWorldReader
-    }
-
-    @Test
-    public void testEvalFile() throws Exception {
-        // START SNIPPET: helloWorldFile
-        ScriptBasic engine = ScriptBasic.getEngine();
-        StringWriter sw = new StringWriter(10);
-        engine.setOutput(sw);
-        File file = new File(getClass().getResource("hello.bas").getFile());
-        engine.eval(file);
-        sw.close();
-        assertEquals("hello world", sw.toString());
-        // END SNIPPET: helloWorldFile
-    }
-
-    @Test
-    public void testEvalPath() throws Exception {
-        // START SNIPPET: helloWorldPath
-        ScriptBasic engine = ScriptBasic.getEngine();
-        StringWriter sw = new StringWriter(10);
-        engine.setOutput(sw);
-        String path = new File(getClass().getResource("hello.bas").getFile())
-                .getParent();
-        engine.eval("include.bas", path);
-        sw.close();
-        assertEquals("hello world", sw.toString());
-        // END SNIPPET: helloWorldPath
-    }
-
-    public void documentOnlyForTheSnippetNotCalledEver() throws Exception {
-        // START SNIPPET: helloWorldPathMultiple
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("include.bas", ".", "..", "/usr/include/scriptbasic");
-        // END SNIPPET: helloWorldPathMultiple
-    }
-
-    @Test
-    public void testEvalSourcePath() throws Exception {
-        // START SNIPPET: helloWorldSourcePath
-        ScriptBasic engine = ScriptBasic.getEngine();
-        StringWriter sw = new StringWriter(10);
-        engine.setOutput(sw);
-        String path = new File(getClass().getResource("hello.bas").getFile())
-                .getParent();
-        SourcePath sourcePath = new BasicSourcePath();
-        sourcePath.add(path);
-        engine.eval("include.bas", sourcePath);
-        sw.close();
-        assertEquals("hello world", sw.toString());
-        // END SNIPPET: helloWorldSourcePath
-    }
-
-    @Test
-    public void testEvalSourceProvider() throws Exception {
-        // START SNIPPET: helloWorldSourceProvider
-        ScriptBasic engine = ScriptBasic.getEngine();
-        StringWriter sw = new StringWriter(10);
-        engine.setOutput(sw);
-        SourceProvider provider = new SourceProvider() {
-            private Map<String, String> source = new HashMap<>();
-
-            {
-                source.put("hello.bas", "print \"hello world\"");
-                source.put("include.bas", "include \"hello.bas\"");
-            }
-
-            @Override
-            public SourceReader get(String sourceName, String referencingSource)
-                    throws IOException {
-                return get(sourceName);
-            }
-
-            @Override
-            public SourceReader get(String sourceName) throws IOException {
-                final SourceReader reader = new GenericSourceReader(new StringReader(source.get(sourceName)), this, sourceName);
-                return new GenericHierarchicalSourceReader(reader);
-            }
-        };
-        engine.eval("include.bas", provider);
-        sw.close();
-        assertEquals("hello world", sw.toString());
-        // END SNIPPET: helloWorldSourceProvider
-    }
-
-    @Test
+    @DisplayName("it is possible to set a global variable before execution")
     public void testSetGlobalVariable() throws Exception {
         // START SNIPPET: setGlobalVariable
-        ScriptBasic engine = ScriptBasic.getEngine();
-        StringWriter sw = new StringWriter(10);
-        engine.setOutput(sw);
-        engine.setVariable("a", 13);
-        engine.eval("print a + \"hello world\"");
-        sw.close();
-        assertEquals("13hello world", sw.toString());
+        final var output = Output.get();
+        try (output) {
+            ScriptBasic.engine().output(output).variable("a").is(13)
+                    .eval("print a + \"hello world\"");
+        }
+        output.is("13hello world");
         // END SNIPPET: setGlobalVariable
     }
 
     @Test
+    @DisplayName("it is possible to get a global variable after execution")
     public void testGetGlobalVariable() throws Exception {
         // START SNIPPET: getGlobalVariable
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("a = \"hello world\"");
-        String a = (String) engine.getVariable("a");
+        final var engine = ScriptBasic.engine().eval("a = \"hello world\"");
+        final var a = engine.variable(String.class, "a");
         assertEquals("hello world", a);
         // END SNIPPET: getGlobalVariable
     }
 
     @Test
+    @DisplayName("it is possible to get a global variable after execution")
+    public void testGetGlobalVariableFailingTypeConversion() throws Exception {
+        // START SNIPPET: getGlobalVariable
+        final var engine = ScriptBasic.engine().eval("a = \"hello world\"");
+        assertThrows(ScriptBasicException.class, () ->
+                engine.variable(Long.class, "a"));
+        // END SNIPPET: getGlobalVariable
+    }
+
+    @Test
+    @DisplayName("engine can list the names of the global variables after execution")
     public void testListGlobalVariable() throws Exception {
         // START SNIPPET: listGlobalVariable
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("a = \"hello world\"\nb=13");
-        String varnames = "";
-        for (String varname : engine.getVariablesIterator()) {
-            varnames += varname;
+        final var names = new StringBuilder();
+        for (String name :
+                ScriptBasic.engine().eval("a = \"hello world\"\nb=13")
+                        .variables()) {
+            names.append(name);
         }
-        Assert.assertTrue(varnames.indexOf('a') != -1);
-        Assert.assertTrue(varnames.indexOf('b') != -1);
-        assertEquals(2, varnames.length());
+        final var s = names.toString();
+        assertAll(
+                () -> assertTrue(s.contains("a")),
+                () -> assertTrue(s.contains("b")),
+                () -> assertEquals(2, s.length())
+        );
         // END SNIPPET: listGlobalVariable
     }
 
-    @SuppressWarnings("deprecation")
     @Test
-    public void testSubroutineCallWOArgumentsWORetvalLocalVarIsLocal()
+    @DisplayName("subroutine local variables are not available")
+    public void testSubroutineLocalVarIsLocal()
             throws Exception {
-        ScriptBasic engine = ScriptBasic.getEngine();
+        final var engine = ScriptBasic.engine();
         engine.eval("sub applePie\na = \"hello world\"\nEndSub");
-        String a = (String) engine.getVariable("a");
-        assertNull(a);
-        engine.getSubroutine("applePie").call((Object[]) null);
-        a = (String) engine.getVariable("a");
-        assertNull(a);
+        assertNull(engine.variable(String.class, "a"));
     }
 
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings("ConstantConditions")
     @Test
+    @DisplayName("subroutine local variables are not available even after subroutine was called")
+    public void testSubroutineCallWOArgumentsWORetvalLocalVarIsLocal()
+            throws Exception {
+        final var engine = ScriptBasic.engine();
+        engine.eval("sub applePie\na = \"hello world\"\nEndSub");
+        final var emptyArgumentList = (Object[]) null;
+        engine.subroutine(Void.class, "applePie").call(emptyArgumentList);
+        assertNull(engine.variable(String.class, "a"));
+    }
+
+    @Test
+    @DisplayName("no arg subroutine declared global variable is available after calling subroutine")
     public void testSubroutineCallWOArgumentsWORetval() throws Exception {
         // START SNIPPET: subroutineCallWOArgumentsWORetval
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("sub applePie\nglobal a\na = \"hello world\"\nEndSub");
-        String a = (String) engine.getVariable("a");
-        assertNull(a);
-        engine.getSubroutine("applePie").call();
-        a = (String) engine.getVariable("a");
-        assertEquals("hello world", a);
+        final var engine = ScriptBasic.engine()
+                .eval("sub applePie\nglobal a\na = \"hello world\"\nEndSub");
+        assertNull(engine.subroutine("applePie").call());
+        assertEquals("hello world", engine.variable(String.class, "a"));
         // END SNIPPET: subroutineCallWOArgumentsWORetval
     }
 
-    @SuppressWarnings("deprecation")
     @Test
-    public void testSubroutineCallWArgumentsWORetval() throws Exception {
-        // START SNIPPET: subroutineCallWArgumentsWORetval
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("sub applePie(b)\nglobal a\na = b\nEndSub");
-        String a = (String) engine.getVariable("a");
-        assertNull(a);
-        engine.getSubroutine("applePie").call("hello world");
-        a = (String) engine.getVariable("a");
-        assertEquals("hello world", a);
-        // END SNIPPET: subroutineCallWArgumentsWORetval
-    }
-
-    @Test
-    public void testSubroutineCallWOArgumentsWORetvalOO() throws Exception {
-        // START SNIPPET: subroutineCallWOArgumentsWORetvalOO
-        ScriptBasic engine = ScriptBasic.getEngine();
+    @DisplayName("no arg subroutine declared global variable is available before calling the subroutine")
+    public void testSubroutineCaxllWOArgumentsWORetval() throws Exception {
+        final var engine = ScriptBasic.engine();
         engine.eval("sub applePie\nglobal a\na = \"hello world\"\nEndSub");
-        String a = (String) engine.getVariable("a");
-        assertNull(a);
-        Subroutine applePie = engine.getSubroutine("applePie");
-        applePie.call((Object[]) null);
-        a = (String) engine.getVariable("a");
-        assertEquals("hello world", a);
-        // END SNIPPET: subroutineCallWOArgumentsWORetvalOO
+        assertNull(engine.variable(String.class, "a"));
     }
 
     @Test
-    public void testSubroutineCallWArgumentsWORetvalOO() throws Exception {
-        // START SNIPPET: subroutineCallWArgumentsWORetvalOO
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("sub applePie(b)\nglobal a\na = b\nEndSub");
-        String a = (String) engine.getVariable("a");
-        assertNull(a);
-        Subroutine applePie = engine.getSubroutine("applePie");
-        applePie.call("hello world");
-        a = (String) engine.getVariable("a");
-        assertEquals("hello world", a);
-        // END SNIPPET: subroutineCallWArgumentsWORetvalOO
-    }
-
-    @SuppressWarnings("deprecation")
-    @Test(expected = ScriptBasicException.class)
-    public void testSubroutineCallWArgumentsWRetval1() throws Exception {
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("sub applePie(b)\nglobal a\na = b\nreturn 6\nEndSub");
-        engine.getSubroutine("applePie").call("hello world", "mama");
-    }
-
-    @SuppressWarnings("deprecation")
-    @Test
-    public void testSubroutineCallWArgumentsWRetval2() throws Exception {
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("sub applePie(b,c)\nglobal a\na = c\nreturn 6\nEndSub");
-        String a = (String) engine.getVariable("a");
-        engine.getSubroutine("applePie").call("hello world");
-        a = (String) engine.getVariable("a");
-        assertNull(a);
+    @DisplayName("engine throws exception when code calls undefined subroutine")
+    public void throwsExceptionWhenSubroutineIsUndefined() {
+        final var engine = ScriptBasic.engine();
+        assertThrows(ScriptBasicException.class, () ->
+                engine.eval("call applePie"));
     }
 
     @Test
-    public void testSubroutineCallWArgumentsWRetval() throws Exception {
-        // START SNIPPET: subroutineCallWArgumentsWRetval
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("sub applePie(b)\nglobal a\na = b\nreturn 6\nEndSub");
-        String a = (String) engine.getVariable("a");
-        assertNull(a);
-        Long ret = (Long) engine.getSubroutine("applePie").call("hello world");
-        a = (String) engine.getVariable("a");
-        assertEquals("hello world", a);
-        assertEquals((Long) 6L, ret);
-        // END SNIPPET: subroutineCallWArgumentsWRetval
+    @DisplayName("engine throws exception when source file does not exist")
+    public void throwsExceptionWhenFileDoesNotExist() {
+        final var engine = ScriptBasic.engine();
+        assertThrows(ScriptBasicException.class, () ->
+                engine.eval(new File("this file is totally nonexistent")));
     }
 
     @Test
-    public void testSubroutineCallWArgumentsWRetvalOO() throws Exception {
-        // START SNIPPET: subroutineCallWArgumentsWRetvalOO
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("sub applePie(b)\nglobal a\na = b\nreturn 6\nEndSub");
-        String a = (String) engine.getVariable("a");
-        assertNull(a);
-        Subroutine applePie = engine.getSubroutine("applePie");
-        Long ret = (Long) applePie.call("hello world");
-        a = (String) engine.getVariable("a");
-        assertEquals("hello world", a);
-        assertEquals((Long) 6L, ret);
-        // END SNIPPET: subroutineCallWArgumentsWRetvalOO
-    }
+    @DisplayName("engine throws exception when then underlying source provider does")
+    public void throwsExceptionWhenSourceProviderDoes() {
+        assertThrows(ScriptBasicException.class, () ->
+                ScriptBasic.engine().eval("kakukk.bas", new SourceProvider() {
 
-    @SuppressWarnings("deprecation")
-    @Test
-    public void testSubroutineList() throws Exception {
-        // START SNIPPET: subroutineList
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("sub applePie(b)\nEndSub\nsub anotherSubroutine\nEndSub\n");
-        final AtomicInteger i = new AtomicInteger(0);
-        engine.getSubroutines().forEach((s) -> i.incrementAndGet());
-        assertEquals(2, i.get());
-        assertEquals(1, engine.getSubroutine("applePie").getNumberOfArguments());
-        assertEquals(0, engine.getSubroutine("anotherSubroutine").getNumberOfArguments());
-        // END SNIPPET: subroutineList
+                    @Override
+                    public SourceReader get(String sourceName, String referencingSource)
+                            throws IOException {
+                        throw new IOException();
+                    }
+
+                    @Override
+                    public SourceReader get(String sourceName) throws IOException {
+                        throw new IOException();
+                    }
+                }));
     }
 
     @Test
-    public void testSubroutineCallWArgumentsWRetval2007() throws Exception {
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("" +
-                "sub applePie(b,c)\n" +
-                "global a\n" +
-                "a = c\n" +
-                "return 6\n" +
-                "EndSub");
-        Subroutine sub = engine.getSubroutine("applePie");
-        sub.call("hello world");
-        final String a = (String) engine.getVariable("a");
-        assertNull(a);
-    }
-
-    @Test
-    public void testSubroutineCallWArgumentsWRetval007() throws Exception {
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.load("" +
-                "sub applePie(b)\n" +
-                "global a\n" +
-                "a = b\n" +
-                "return 6\n" +
-                "EndSub");
-        String a = (String) engine.getVariable("a");
-        assertNull(a);
-        Subroutine sub = engine.getSubroutine("applePie");
-        Long returnValue = (Long) sub.call("hello world");
-        a = (String) engine.getVariable("a");
-        assertEquals("hello world", a);
-        assertEquals((Long) 6L, returnValue);
-    }
-
-    @Test
-    public void testSubroutineList007() throws Exception {
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.load("sub applePie(b)\nEndSub\nsub anotherSubroutine\nEndSub\n");
-        int i = 0;
-        for (@SuppressWarnings("unused")
-                Subroutine sub : engine.getSubroutines()) {
-            i++;
-        }
-        assertEquals(2, i);
-        Subroutine applePie = engine.getSubroutine("applePie");
-        assertEquals(1, applePie.getNumberOfArguments());
-        Subroutine anotherSubroutine = engine
-                .getSubroutine("anotherSubroutine");
-        assertEquals(0, anotherSubroutine.getNumberOfArguments());
-    }
-
-    @Test
-    public void getsTheSubroutineByName() throws Exception {
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("sub applePie(b)\nEndSub\n");
-        Subroutine applePie = engine.getSubroutine("applePie");
-        assertEquals("applePie", applePie.getName());
-    }
-
-    @Test(expected = ScriptBasicException.class)
-    public void throwsExceptionWhenSubroutineIsUndefined() throws ScriptBasicException {
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("call applePie");
-    }
-
-    @Test(expected = ScriptBasicException.class)
-    public void throwsExceptionWhenFileDoesNotExist() throws ScriptBasicException {
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval(new File("this file is totally nonexistent"));
-    }
-
-    @Test(expected = ScriptBasicException.class)
-    public void throwsExceptionWhenSourceProviderDoes() throws ScriptBasicException {
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.eval("kakukk.bas", new SourceProvider() {
-
-            @Override
-            public SourceReader get(String sourceName, String referencingSource)
-                    throws IOException {
-                throw new IOException();
-            }
-
-            @Override
-            public SourceReader get(String sourceName) throws IOException {
-                throw new IOException();
-            }
-        });
-    }
-
-    @Test
+    @DisplayName("engine can load hello world string and it can execute it")
     public void testLoadString() throws Exception {
-        ScriptBasic engine = ScriptBasic.getEngine();
+        final var engine = ScriptBasic.engine();
         engine.load("print \"hello world\"");
         engine.execute();
     }
 
     @Test
+    @DisplayName("program from string creates output")
     public void testLoadStringSW() throws Exception {
-        ScriptBasic engine = ScriptBasic.getEngine();
-        StringWriter sw = new StringWriter(10);
-        engine.setOutput(sw);
-        engine.load("print \"hello world\"");
-        engine.execute();
-
-        sw.close();
-        assertEquals("hello world", sw.toString());
+        final var output = Output.get();
+        try (output) {
+            ScriptBasic.engine().output(output).load("print \"hello world\"").execute();
+        }
+        output.is("hello world");
     }
 
     @Test
+    @DisplayName("program from reader creates output")
     public void testLoadReader() throws Exception {
-        ScriptBasic engine = ScriptBasic.getEngine();
-        StringWriter sw = new StringWriter(10);
-        engine.setOutput(sw);
-        StringReader sr = new StringReader("print \"hello world\"");
-        engine.load(sr);
-        engine.execute();
-
-        sw.close();
-        assertEquals("hello world", sw.toString());
+        final var output = Output.get();
+        Reader reader = new StringReader("print \"hello world\"");
+        try (output) {
+            ScriptBasic.engine().output(output).load(reader).execute();
+        }
+        output.is("hello world");
     }
 
     @Test
+    @DisplayName("program from file creates output")
     public void testLoadFile() throws Exception {
-        ScriptBasic engine = ScriptBasic.getEngine();
-        StringWriter sw = new StringWriter(10);
-        engine.setOutput(sw);
-        File file = new File(getClass().getResource("hello.bas").getFile());
-        engine.load(file);
-        engine.execute();
-
-        sw.close();
-        assertEquals("hello world", sw.toString());
+        final var output = Output.get();
+        final var file = new File(getClass().getResource("hello.bas").getFile());
+        try (output) {
+            ScriptBasic.engine().output(output).load(file).execute();
+        }
+        output.is("hello world");
     }
 
     @Test
+    @DisplayName("pogram loaded with path creates output")
     public void testLoadPath() throws Exception {
-        ScriptBasic engine = ScriptBasic.getEngine();
-        StringWriter sw = new StringWriter(10);
-        engine.setOutput(sw);
-        String path = new File(getClass().getResource("hello.bas").getFile())
+        final var output = Output.get();
+        final var path = new File(
+                getClass().getResource("hello.bas").getFile())
                 .getParent();
-        engine.load("include.bas", path);
-        engine.execute();
-
-        sw.close();
-        assertEquals("hello world", sw.toString());
+        try (output) {
+            ScriptBasic.engine().output(output).load("include.bas", path).execute();
+        }
+        output.is("hello world");
     }
 
     @Test
+    @DisplayName("program loaded with SourcePath creates output")
     public void testLoadSourcePath() throws Exception {
-        ScriptBasic engine = ScriptBasic.getEngine();
-        StringWriter sw = new StringWriter(10);
-        engine.setOutput(sw);
-        String path = new File(getClass().getResource("hello.bas").getFile())
+        final var output = Output.get();
+        final var path = new File(
+                getClass().getResource("hello.bas").getFile())
                 .getParent();
-        SourcePath sourcePath = new BasicSourcePath();
+        final var sourcePath = new BasicSourcePath();
         sourcePath.add(path);
-        engine.load("include.bas", sourcePath);
-        engine.execute();
-        sw.close();
-        assertEquals("hello world", sw.toString());
+        try (output) {
+            ScriptBasic.engine().output(output).load("include.bas", sourcePath).execute();
+        }
+        output.is("hello world");
     }
 
     @Test
+    @DisplayName("program with SourceProvider creates output")
     public void testLoadSourceProvider() throws Exception {
-        ScriptBasic engine = ScriptBasic.getEngine();
-        StringWriter sw = new StringWriter(10);
-        engine.setOutput(sw);
-        SourceProvider provider = new SourceProvider() {
-            private Map<String, String> source = new HashMap<>();
-
-            {
-                source.put("hello.bas", "print \"hello world\"");
-                source.put("include.bas", "include \"hello.bas\"");
-            }
+        final var output = Output.get();
+        final var provider = new SourceProvider() {
+            private final Map<String, String> source = Map.of(
+                    "hello.bas", "print \"hello world\"",
+                    "include.bas", "include \"hello.bas\"");
 
             @Override
             public SourceReader get(String sourceName, String referencingSource)
@@ -499,53 +241,361 @@ public class TestEngine {
 
             @Override
             public SourceReader get(String sourceName) throws IOException {
-                final SourceReader reader = new GenericSourceReader(new StringReader(source.get(sourceName)), this, sourceName);
-                return new GenericHierarchicalSourceReader(reader);
+                return new GenericHierarchicalSourceReader(
+                        new GenericSourceReader(
+                                new StringReader(source.get(sourceName)),
+                                this,
+                                sourceName));
             }
         };
-        engine.load("include.bas", provider);
-        engine.execute();
-        sw.close();
-        assertEquals("hello world", sw.toString());
+        try (output) {
+            ScriptBasic.engine().output(output).load("include.bas", provider).execute();
+        }
+        output.is("hello world");
     }
 
     @Test
+    @DisplayName("program loaded once can be executed multiple times")
     public void testLoadStringSWMultipleExecute() throws Exception {
-        ScriptBasic engine = ScriptBasic.getEngine();
-        StringWriter sw = new StringWriter(22);
-        engine.setOutput(sw);
-        engine.load("print \"hello world\"");
-        engine.execute();
-        engine.execute();
-        sw.close();
-        assertEquals("hello worldhello world", sw.toString());
-    }
-
-    @Test(expected = ScriptBasicException.class)
-    public void testNoLoadStringSWMultipleExecute() throws Exception {
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.execute();
+        final var output = Output.get();
+        try (output) {
+            ScriptBasic.engine().output(output).load("print \"hello world\"")
+                    .execute()
+                    .execute();
+        }
+        output.is("hello worldhello world");
     }
 
     @Test
+    @DisplayName("empty engine should not be executed")
+    public void testNoLoadStringSWMultipleExecute() throws Exception {
+        assertThrows(ScriptBasicException.class, () ->
+                ScriptBasic.engine().execute());
+    }
+
+    @Test
+    @DisplayName("Java function can be registered and called from BASIC")
     public void testRegisterExtension() throws Exception {
         // START SNIPPET: testExtensionMethod
-        ScriptBasic engine = ScriptBasic.getEngine();
-        engine.load("Sub aPie\nreturn javaFunction()\nEndSub\n");
-        engine.registerExtension(TestExtensionClass.class);
-        engine.execute();
-        Long z = (Long) engine.getSubroutine("aPie").call();
+        final var engine = ScriptBasic
+                .engine()
+                .load("Sub aPie\n" +
+                        "return javaFunction()\n" +
+                        "EndSub\n")
+                .registerExtension(TestExtensionClass.class)
+                .execute();
+        final var z = engine.subroutine(Long.class, "aPie").call();
         assertEquals((Long) 55L, z);
         // END SNIPPET: testExtensionMethod
     }
 
-    // END SNIPPET: testExtensionClass
+    /**
+     * A simple helper class that asserts the collected string.
+     */
+    private static class Output extends StringWriter {
+        public static Output get() {
+            return new Output();
+        }
+
+        public void is(String result) {
+            assertEquals(result, this.toString());
+        }
+    }
 
     // START SNIPPET: testExtensionClass
     public static class TestExtensionClass {
         @BasicFunction(alias = "javaFunction", classification = java.lang.Long.class, requiredVersion = 1)
         public static Long fiftyFive() {
             return 55L;
+        }
+    }
+
+    @Nested
+    @DisplayName("engine can eval")
+    class EngineCanEval {
+
+        @Test
+        @DisplayName("a simple one liner hello world code")
+        public void testEvalString() throws Exception {
+            // START SNIPPET: helloWorldString
+            ScriptBasic.engine().eval("print \"hello world\"");
+            // END SNIPPET: helloWorldString
+        }
+
+        @Test
+        @DisplayName("a simple one liner hello world code")
+        public void testEvalStringSW() throws Exception {
+            // START SNIPPET: helloWorldStringSW
+            final var output = Output.get();
+            try (output) {
+                ScriptBasic.engine().output(output).eval("print \"hello world\"");
+            }
+            output.is("hello world");
+            // END SNIPPET: helloWorldStringSW
+        }
+
+        @Nested
+        @DisplayName("source coming from a")
+        class SourceComingFrom {
+
+            @Test
+            @DisplayName("StringReader")
+            public void testEvalReader() throws Exception {
+                // START SNIPPET: helloWorldReader
+                final var output = Output.get();
+                final var sr = new StringReader("print \"hello world\"");
+                try (output; sr) {
+                    ScriptBasic.engine().output(output).eval(sr);
+                }
+                output.is("hello world");
+                // END SNIPPET: helloWorldReader
+            }
+
+            @Test
+            @DisplayName("file")
+            public void testEvalFile() throws Exception {
+                // START SNIPPET: helloWorldFile
+                final var output = Output.get();
+                final var file = new File(getClass().getResource("hello.bas").getFile());
+                try (output) {
+                    ScriptBasic.engine().output(output).eval(file);
+                }
+                output.is("hello world");
+                // END SNIPPET: helloWorldFile
+            }
+
+            @Test
+            @DisplayName("file name and path")
+            public void testEvalPath() throws Exception {
+                // START SNIPPET: helloWorldPath
+                final var output = Output.get();
+                final var path = new File(getClass().getResource("hello.bas").getFile())
+                        .getParent();
+                try (output) {
+                    ScriptBasic.engine().output(output).eval("include.bas", path);
+                }
+                output.is("hello world");
+                // END SNIPPET: helloWorldPath
+            }
+
+            public void documentOnlyForTheSnippetNotCalledEver() throws Exception {
+                // START SNIPPET: helloWorldPathMultiple
+                ScriptBasic.engine()
+                        .eval("include.bas", ".", "..", "/usr/include/scriptbasic");
+                // END SNIPPET: helloWorldPathMultiple
+            }
+
+            @Test
+            @DisplayName("file name and SourcePath")
+            public void testEvalSourcePath() throws Exception {
+                // START SNIPPET: helloWorldSourcePath
+                final var output = Output.get();
+                final var path = new File(
+                        getClass().getResource("hello.bas").getFile())
+                        .getParent();
+                final var sourcePath = new BasicSourcePath();
+                sourcePath.add(path);
+                try (output) {
+                    final var engine = ScriptBasic.engine().output(output).eval("include.bas", sourcePath);
+                }
+                output.is("hello world");
+                // END SNIPPET: helloWorldSourcePath
+            }
+
+            @Test
+            @DisplayName("SourceProvider implementation")
+            public void testEvalSourceProvider() throws Exception {
+                // START SNIPPET: helloWorldSourceProvider
+                final var provider = new SourceProvider() {
+                    private final Map<String, String> source = Map.of(
+                            "hello.bas", "print \"hello world\"",
+                            "include.bas", "include \"hello.bas\"");
+
+                    @Override
+                    public SourceReader get(String sourceName, String referencingSource)
+                            throws IOException {
+                        return get(sourceName);
+                    }
+
+                    @Override
+                    public SourceReader get(String sourceName) throws IOException {
+                        final SourceReader reader = new GenericSourceReader(new StringReader(source.get(sourceName)), this, sourceName);
+                        return new GenericHierarchicalSourceReader(reader);
+                    }
+                };
+                final var output = Output.get();
+                try (output) {
+                    final var engine = ScriptBasic.engine().output(output).eval("include.bas", provider);
+                }
+                output.is("hello world");
+                // END SNIPPET: helloWorldSourceProvider
+            }
+        }
+    }
+    // END SNIPPER: testExtensionClass
+
+    @Nested
+    @DisplayName("declaring and calling a subroutine")
+    class SubroutineTests {
+
+        @Test
+        @DisplayName("with arguments can also define global variables")
+        public void testSubroutineCallWArgumentsWORetval() throws Exception {
+            // START SNIPPET: subroutineCallWArgumentsWORetval
+            final var engine = ScriptBasic.engine();
+            engine.eval("sub applePie(b)\nglobal a\na = b\nEndSub");
+            assertNull(engine.variable(String.class, "a"));
+            engine.subroutine(Void.class, "applePie").call("hello world");
+            assertEquals("hello world", engine.variable(String.class, "a"));
+            // END SNIPPET: subroutineCallWArgumentsWORetval
+        }
+
+        @Test
+        @DisplayName("without argument global variable is set to constant value")
+        public void testSubroutineCallWOArgumentsWORetvalOO() throws Exception {
+            // START SNIPPET: subroutineCallWOArgumentsWORetvalOO
+            final var engine = ScriptBasic.engine()
+                    .eval("sub applePie" + NL +
+                            "global a" + NL +
+                            "a = \"hello world\"" + NL +
+                            "EndSub");
+            assertNull(engine.variable(Void.class, "a"));
+            Subroutine applePie = engine.subroutine(String.class, "applePie");
+            applePie.call((Object[]) null);
+            assertEquals("hello world", engine.variable(String.class, "a"));
+            // END SNIPPET: subroutineCallWOArgumentsWORetvalOO
+        }
+
+        @Test
+        @DisplayName("with argument but no return value it sets the global variable")
+        public void testSubroutineCallWArgumentsWORetvalOO() throws Exception {
+            // START SNIPPET: subroutineCallWArgumentsWORetvalOO
+            final var engine = ScriptBasic.engine();
+            engine.eval("sub applePie(b)" + NL +
+                    "global a" + NL +
+                    "a = b" + NL +
+                    "EndSub");
+            assertGlobalVariableIsNotDefined(engine, "a");
+            engine.subroutine(Void.class, "applePie").call("hello world");
+            assertEquals("hello world", engine.variable(String.class, "a"));
+            // END SNIPPET: subroutineCallWArgumentsWORetvalOO
+        }
+
+        @Test
+        @DisplayName(" with too many arguments will throw exception")
+        public void testSubroutineCallWArgumentsWRetval1() throws Exception {
+            final var engine = ScriptBasic.engine();
+            engine.eval("sub applePie(b)" + NL +
+                    "global a" + NL +
+                    "a = b" + NL +
+                    "return 6" + NL +
+                    "EndSub");
+            assertThrows(ScriptBasicException.class, () ->
+                    engine.subroutine(Long.class, "applePie").call("hello world", "mama"));
+        }
+
+        @Test
+        @DisplayName("with too few arguments is okay, extra arguments are undefined")
+        public void testSubroutineCallWArgumentsWRetval2() throws Exception {
+            final var engine = ScriptBasic.engine();
+            engine.eval("sub applePie(b,c)\nglobal a\na = c\nreturn 6\nEndSub");
+            engine.subroutine(Long.class, "applePie").call("hello world");
+            assertNull(engine.variable(String.class, "a"));
+        }
+
+        @Test
+        @DisplayName("with argument and return value")
+        public void testSubroutineCallWArgumentsWRetval() throws Exception {
+            // START SNIPPET: subroutineCallWArgumentsWRetval
+            final var engine = ScriptBasic.engine();
+            engine.eval(
+                    "sub applePie(b)" + NL +
+                            "global a" + NL +
+                            "a = b" + NL +
+                            "return 6" + NL +
+                            "EndSub");
+            assertGlobalVariableIsNotDefined(engine, "a");
+            final var ret = engine.subroutine(Long.class, "applePie").call("hello world");
+            assertEquals("hello world", engine.variable(String.class, "a"));
+            assertEquals((Long) 6L, ret);
+            // END SNIPPET: subroutineCallWArgumentsWRetval
+        }
+
+        @Test
+        @DisplayName("with return value can set global variable after it was called")
+        public void testSubroutineCallWArgumentsWRetvalOO() throws Exception {
+            // START SNIPPET: subroutineCallWArgumentsWRetvalOO
+            final var engine = ScriptBasic.engine();
+            engine.eval("sub applePie(b)\nglobal a\na = b\nreturn 6\nEndSub");
+            assertGlobalVariableIsNotDefined(engine, "a");
+            final var applePie = engine.subroutine(Long.class, "applePie");
+            final var ret = applePie.call("hello world");
+            assertEquals("hello world", engine.variable(String.class, "a"));
+            assertEquals((Long) 6L, ret);
+            // END SNIPPET: subroutineCallWArgumentsWRetvalOO
+        }
+
+        @Test
+        @DisplayName("engine can list subroutines and return them by name even before execution")
+        public void testSubroutineList() throws Exception {
+            // START SNIPPET: subroutineList
+            final var engine = ScriptBasic.engine().eval(
+                    "sub applePie(b)" + NL +
+                            "EndSub" + NL +
+                            "sub anotherSubroutine" + NL +
+                            "EndSub\n");
+            final AtomicInteger numberOfSubroutines = new AtomicInteger(0);
+            engine.subroutines().forEach((s) -> numberOfSubroutines.incrementAndGet());
+            assertAll(
+                    () -> assertEquals(2, numberOfSubroutines.get()),
+                    () -> assertEquals(1, engine.subroutine(Void.class, "applePie").numberOfArguments()),
+                    () -> assertEquals(0, engine.subroutine(Void.class, "anotherSubroutine").numberOfArguments()));
+            // END SNIPPET: subroutineList
+        }
+
+        @Test
+        @DisplayName("results the return value but leaves global variable undefined if there is not enough argument")
+        public void testSubroutineCallWArgumentsWRetval2007() throws Exception {
+            final var engine = ScriptBasic.engine().eval(
+                    "sub applePie(b,c)" + NL +
+                            "global a" + NL +
+                            "a = c" + NL +
+                            "return 6" + NL +
+                            "EndSub");
+            final var sub = engine.subroutine(null, "applePie");
+            sub.call("hello world");
+            assertGlobalVariableIsNotDefined(engine, "a");
+        }
+
+        @Test
+        @DisplayName("results the return value and also sets global variable")
+        public void testSubroutineCallWArgumentsWRetval007() throws Exception {
+            final var engine = ScriptBasic.engine().load("" +
+                    "sub applePie(b)" + NL +
+                    "global a" + NL +
+                    "a = b" + NL +
+                    "return 6" + NL +
+                    "EndSub");
+            assertGlobalVariableIsNotDefined(engine, "a");
+            final var sub = engine.subroutine(Long.class, "applePie");
+            final var returnValue = sub.call("hello world");
+            assertAll(
+                    () -> assertEquals("hello world", engine.variable(String.class, "a")),
+                    () -> assertEquals((Long) 6L, returnValue));
+        }
+
+        private void assertGlobalVariableIsNotDefined(ScriptBasic engine, String name) throws ScriptBasicException {
+            assertNull(engine.variable(Object.class, "a"));
+        }
+
+        @Test
+        @DisplayName("can be accessed as object by its name")
+        public void getsTheSubroutineByName() throws Exception {
+            final var engine = ScriptBasic.engine().eval(
+                    "sub applePie(b)" + NL +
+                            "EndSub\n");
+            Subroutine applePie = engine.subroutine(Void.class, "applePie");
+            assertEquals("applePie", applePie.name());
         }
     }
 }

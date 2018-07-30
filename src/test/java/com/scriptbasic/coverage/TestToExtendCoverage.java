@@ -15,8 +15,10 @@ import org.junit.Test;
  * @author Peter Verhas
  * date Jun 8, 2012
  */
+@SuppressWarnings("ThrowableNotThrown")
 public class TestToExtendCoverage {
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     public void testCover() {
         BasicLexicalException bela = new BasicLexicalException();

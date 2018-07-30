@@ -9,6 +9,15 @@ public class BasicDoubleValue extends AbstractNumericRightValue<Double> {
         setValue(d);
     }
 
+    public static Double asDouble(final RightValue rv, final String errorMessageForNull)
+            throws BasicRuntimeException {
+        final Double value = asDouble(rv);
+        if( value == null ){
+            throw new BasicRuntimeException(errorMessageForNull);
+        }
+        return value;
+    }
+
     public static Double asDouble(final RightValue rv)
             throws BasicRuntimeException {
         if (rv.isBoolean()) {
@@ -43,9 +52,9 @@ public class BasicDoubleValue extends AbstractNumericRightValue<Double> {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         try {
-            return asDouble(this).toString();
+            return "" + asDouble(this);
         } catch (BasicRuntimeException e) {
             return super.toString();
         }

@@ -2,7 +2,6 @@ package com.scriptbasic.configuration;
 
 import com.scriptbasic.api.Configuration;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
-import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 

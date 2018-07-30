@@ -38,12 +38,11 @@ public class BasicRuntimeFunctionRegisterer {
         for (final Class<?> klass : basicRuntimeFunctionClasses) {
             interpreter.registerFunctions(klass);
         }
-        ServiceLoader.load(ClassSetProvider.class).forEach(provider -> {
-                    provider.provide().forEach(klass -> {
-                        LOG.info("Registering class {}", klass);
-                        interpreter.registerFunctions(klass);
-                    });
-                }
+        ServiceLoader.load(ClassSetProvider.class).forEach(provider ->
+                provider.provide().forEach(klass -> {
+                    LOG.info("Registering class {}", klass);
+                    interpreter.registerFunctions(klass);
+                })
         );
     }
 }

@@ -7,8 +7,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class TestFileSourceProvider {
 
@@ -34,6 +33,7 @@ public class TestFileSourceProvider {
                         chActual);
             }
         } finally {
+            //noinspection ResultOfMethodCallIgnored
             file.delete();
         }
     }
@@ -52,7 +52,7 @@ public class TestFileSourceProvider {
         fsp.setSourcePath(new BasicSourcePath());
         try {
             fsp.get(testFileName);
-            assertTrue("No exception was thrown", false);
+            fail("No exception was thrown");
         } catch (final IOException ioex) {
             // this is ok
         }

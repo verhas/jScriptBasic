@@ -8,6 +8,7 @@ import org.junit.Test;
  * @author Peter Verhas
  * date Jul 1, 2012
  */
+@SuppressWarnings("ThrowableNotThrown")
 public class ExceptionTest {
     @SuppressWarnings("serial")
     @Test

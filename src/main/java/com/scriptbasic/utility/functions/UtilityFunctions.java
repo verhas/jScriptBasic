@@ -14,6 +14,7 @@ import com.scriptbasic.utility.NoInstance;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Static methods in this class are registered in the interpreter when the
@@ -118,14 +119,14 @@ public class UtilityFunctions {
     @BasicFunction(classification = Utility.class)
     public static byte[] getStringBytes(final String s)
             throws UnsupportedEncodingException {
-        return s.getBytes("utf-8");
+        return s.getBytes(StandardCharsets.UTF_8);
     }
 
     @BasicFunction(classification = {Utility.class,
             com.scriptbasic.classification.String.class})
     public static String stringifyBuffer(final byte[] buffer)
             throws UnsupportedEncodingException {
-        return new String(buffer, "utf-8");
+        return new String(buffer, StandardCharsets.UTF_8);
     }
 
     @BasicFunction(classification = Utility.class, requiredVersion = 2L)

@@ -16,28 +16,28 @@ import static org.junit.Assert.assertEquals;
 public class TestInterpreterAwareMethodCall {
 
 
-  static ScriptBasic sb;
+    static ScriptBasic sb;
 
-  @BasicFunction(alias = "callMe", classification = Test.class)
-  public static void getFirstArgument(Interpreter interpreter, int one, long two) throws NoSuchFieldException, IllegalAccessException {
-    assertEquals(1, one);
-    assertEquals(2, two);
-    Field ctxF = Engine.class.getDeclaredField("ctx");
-    ctxF.setAccessible(true);
-    Context ctx = (Context) ctxF.get(sb);
-    assertEquals(ctx.interpreter, interpreter);
-  }
+    @BasicFunction(alias = "callMe", classification = Test.class)
+    public static void getFirstArgument(Interpreter interpreter, int one, long two) throws NoSuchFieldException, IllegalAccessException {
+        assertEquals(1, one);
+        assertEquals(2, two);
+        Field ctxF = Engine.class.getDeclaredField("ctx");
+        ctxF.setAccessible(true);
+        Context ctx = (Context) ctxF.get(sb);
+        assertEquals(ctx.interpreter, interpreter);
+    }
 
-  public static void myPrint(Interpreter interpreter, String s) throws ScriptBasicException {
-    ((PrintWriter) interpreter.getOutput()).println(s);
-  }
+    public static void myPrint(Interpreter interpreter, String s) throws ScriptBasicException {
+        ((PrintWriter) interpreter.getOutput()).println(s);
+    }
 
-  @Test
-  public void passesInterpreterAsFirstArgument() throws ScriptBasicException {
-    sb = ScriptBasic.getEngine();
-    sb.registerExtension(this.getClass());
-    sb.registerFunction("myPrint", TestInterpreterAwareMethodCall.class, "myPrint", String.class);
-    sb.setOutput(new PrintWriter(System.out));
-    sb.eval("callMe 1,2\nmyPrint \"TEXT\"");
-  }
+    @Test
+    public void passesInterpreterAsFirstArgument() throws ScriptBasicException {
+        sb = ScriptBasic.engine();
+        sb.registerExtension(this.getClass())
+                .function("myPrint").klass(TestInterpreterAwareMethodCall.class).arguments(String.class)
+                .output(new PrintWriter(System.out))
+                .eval("callMe 1,2\nmyPrint \"TEXT\"");
+    }
 }

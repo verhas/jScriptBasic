@@ -86,9 +86,7 @@ public class BasicArrayValue implements RightValue, BasicArray, BasicValue<Objec
   public final void setInterpreter(final Interpreter interpreter) {
     this.interpreter = interpreter;
     Optional<String> maxConfig = interpreter.getConfiguration().getConfigValue("arrayMaxIndex");
-    if (maxConfig.isPresent()) {
-      indexLimit = Integer.valueOf(maxConfig.get());
-    }
+    maxConfig.ifPresent(s -> indexLimit = Integer.valueOf(s));
   }
 
   private void assertArraySize(final Integer index) throws ScriptBasicException {

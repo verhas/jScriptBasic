@@ -10,9 +10,7 @@ import com.scriptbasic.interfaces.ExpressionList;
 
 import java.util.Iterator;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class ExpressionComparator {
 
@@ -32,6 +30,9 @@ public class ExpressionComparator {
         if (a == null && b == null) {
             return;
         }
+        if (a == null || b == null) {
+            fail();
+        }
         final Iterator<Expression> itea = a.iterator();
         final Iterator<Expression> iteb = b.iterator();
 
@@ -47,20 +48,19 @@ public class ExpressionComparator {
         if (a.getVariableName() == null && b.getVariableName() == null) {
             return;
         }
-        assertTrue(a.getVariableName() + "!=" + b.getVariableName(), a
-                .getVariableName().equals(b.getVariableName()));
+        assertEquals(a.getVariableName() + "!=" + b.getVariableName(), a
+                .getVariableName(), b.getVariableName());
         assertEqual(a.getExpressionList(), b.getExpressionList());
     }
 
     private static void assertEqual(final AbstractPrimitiveRightValue<?> a,
                                     final AbstractPrimitiveRightValue<?> b) {
-        assertTrue(a.getValue() + "!=" + b.getValue(),
-                a.getValue().equals(b.getValue()));
+        assertEquals(a.getValue() + "!=" + b.getValue(), a.getValue(), b.getValue());
     }
 
     private static void assertEqual(final AbstractIdentifieredExpression a,
                                     final AbstractIdentifieredExpression b) {
-        assertTrue(a.getVariableName().equals(b.getVariableName()));
+        assertEquals(a.getVariableName(), b.getVariableName());
     }
 
     public static void assertEqual(final Expression a, final Expression b) {
@@ -68,9 +68,11 @@ public class ExpressionComparator {
         if (a == null && b == null) {
             return;
         }
+        if (a == null || b == null) {
+            fail();
+        }
 
-        assertTrue(a.getClass() + "!=" + b.getClass(),
-                a.getClass().equals(b.getClass()));
+        assertEquals(a.getClass() + "!=" + b.getClass(), a.getClass(), b.getClass());
 
         if (a instanceof AbstractPrimitiveRightValue<?>) {
             assertEqual((AbstractPrimitiveRightValue<?>) a,

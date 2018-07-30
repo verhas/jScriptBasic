@@ -17,6 +17,14 @@ import java.io.IOException;
  * <p>
  * Source providers may provide readers reading the source from files,
  * database, svn and other locations.
+ * <p>
+ *
+ * NOTE: Although the source can come from different sources, the aim is to have a naming in the
+ * BASIC source code that hides the physical source of the code. Therefore the referencing source is
+ * also given as String and not abstracted to a class. The simplest and implemented case is to
+ * think it as the file name absolute or relative to the main source file. In case the source comes
+ * from some other type of source like DB then similar naming scheme should be implemented so that
+ * the programs are more or less portable.
  *
  * @author Peter Verhas
  */

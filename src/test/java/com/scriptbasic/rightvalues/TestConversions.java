@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 /**
  * @author Peter Verhas date Jul 13, 2012
  */
+@SuppressWarnings("ConstantConditions")
 public class TestConversions {
 
     @Test(expected = BasicRuntimeException.class)
@@ -155,7 +156,7 @@ public class TestConversions {
     @Test
     public void basicStringValueNullConvertsTobasicLongValueNull() throws Exception {
         final RightValue rv = new BasicStringValue(null);
-        assertEquals(null, BasicLongValue.asLong(rv));
+        assertNull(BasicLongValue.asLong(rv));
     }
 
     @Test
