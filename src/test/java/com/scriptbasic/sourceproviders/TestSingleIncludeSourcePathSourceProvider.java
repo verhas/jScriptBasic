@@ -11,6 +11,7 @@ public class TestSingleIncludeSourcePathSourceProvider {
     public void testFSPFileNotFound() throws IOException {
         final TestedSingleIncludeSourcePathSourceProvider tsispsp = new TestedSingleIncludeSourcePathSourceProvider();
         tsispsp.setSingleInclude(null);
+        //noinspection ResultOfMethodCallIgnored
         tsispsp.getSingleInclude();
         tsispsp.get("habakukk");
         tsispsp.get("habakukk", "kakukk");

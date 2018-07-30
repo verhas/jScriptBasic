@@ -33,7 +33,7 @@ public interface BasicArray {
      * @param object the new value for the array
      * @throws ScriptBasicException
      */
-    public void set(final Integer index, final Object object) throws ScriptBasicException;
+    void set(final Integer index, final Object object) throws ScriptBasicException;
 
     /**
      * Get the {@code index}-th element of the array. Note that this method does

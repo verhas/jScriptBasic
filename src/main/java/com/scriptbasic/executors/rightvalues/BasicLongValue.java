@@ -9,26 +9,35 @@ public class BasicLongValue extends AbstractNumericRightValue<Long> {
         setValue(i);
     }
 
-    public static Long asLong(final RightValue rightValue)
+    public static Long asLong(final RightValue rv, final String errorMessageForNull)
             throws BasicRuntimeException {
-        if (rightValue.isBoolean()) {
-            return ((BasicBooleanValue) rightValue).getValue() ? 1L : 0L;
+        final Long value = asLong(rv);
+        if (value == null) {
+            throw new BasicRuntimeException(errorMessageForNull);
         }
-        if (rightValue.isString()) {
-            final String s = ((BasicStringValue) rightValue).getValue();
+        return value;
+    }
+
+    public static Long asLong(final RightValue rv)
+            throws BasicRuntimeException {
+        if (rv.isBoolean()) {
+            return ((BasicBooleanValue) rv).getValue() ? 1L : 0L;
+        }
+        if (rv.isString()) {
+            final String s = ((BasicStringValue) rv).getValue();
             if (s == null) {
                 return null;
             }
             return Long.parseLong(s);
         }
-        if (rightValue.isLong()) {
-            return ((BasicLongValue) rightValue).getValue();
+        if (rv.isLong()) {
+            return ((BasicLongValue) rv).getValue();
         }
-        if (rightValue.isDouble()) {
-            return ((BasicDoubleValue) rightValue).getValue().longValue();
+        if (rv.isDouble()) {
+            return ((BasicDoubleValue) rv).getValue().longValue();
         }
-        if (rightValue.isJavaObject()) {
-            final Object o = ((BasicJavaObjectValue) rightValue).getValue();
+        if (rv.isJavaObject()) {
+            final Object o = ((BasicJavaObjectValue) rv).getValue();
             if (o instanceof Long) {
                 return (Long) o;
             }
@@ -41,7 +50,7 @@ public class BasicLongValue extends AbstractNumericRightValue<Long> {
     @Override
     public String toString() {
         try {
-            return asLong(this).toString();
+            return "" + asLong(this);
         } catch (BasicRuntimeException e) {
             return super.toString();
         }

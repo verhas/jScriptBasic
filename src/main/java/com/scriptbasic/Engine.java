@@ -20,6 +20,7 @@ import com.scriptbasic.utility.RightValueUtility;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Engine implements ScriptBasic {
 
@@ -97,9 +98,10 @@ public class Engine implements ScriptBasic {
     }
 
     @Override
-    public void execute() throws ScriptBasicException {
+    public ScriptBasic execute() throws ScriptBasicException {
         assertCtxInitialized();
         ctx.interpreter.execute();
+        return this;
     }
 
     private void assertCtxInitialized() throws ScriptBasicException {
@@ -109,45 +111,56 @@ public class Engine implements ScriptBasic {
     }
 
     @Override
-    public void load(final String sourceCode) throws ScriptBasicException {
+    public ScriptBasic load(final String sourceCode) throws ScriptBasicException {
         loadHelper(new StringReader(sourceCode));
+        return this;
     }
 
     @Override
-    public void eval(final String sourceCode) throws ScriptBasicException {
+    public ScriptBasic eval(final String sourceCode) throws ScriptBasicException {
         load(sourceCode);
         execute();
+        return this;
+
     }
 
     @Override
-    public void load(final Reader reader) throws ScriptBasicException {
+    public ScriptBasic load(final Reader reader) throws ScriptBasicException {
         loadHelper(reader);
+        return this;
+
     }
 
     @Override
-    public void eval(final Reader reader) throws ScriptBasicException {
+    public ScriptBasic eval(final Reader reader) throws ScriptBasicException {
         load(reader);
         execute();
+        return this;
+
     }
 
     @Override
-    public void load(final File sourceFile) throws ScriptBasicException {
+    public ScriptBasic load(final File sourceFile) throws ScriptBasicException {
         try {
             loadHelper(new FileReader(sourceFile),
                     sourceFile.getAbsolutePath());
         } catch (final FileNotFoundException e) {
             throw new ScriptBasicException(e);
         }
+        return this;
+
     }
 
     @Override
-    public void eval(final File sourceFile) throws ScriptBasicException {
+    public ScriptBasic eval(final File sourceFile) throws ScriptBasicException {
         load(sourceFile);
         execute();
+        return this;
+
     }
 
     @Override
-    public void load(final String sourceFileName, final String... path)
+    public ScriptBasic load(final String sourceFileName, final String... path)
             throws ScriptBasicException {
         final FileSourceProvider sourceProvider = new FileSourceProvider();
         final BasicSourcePath sourcePath = new BasicSourcePath();
@@ -156,41 +169,53 @@ public class Engine implements ScriptBasic {
         }
         sourceProvider.setSourcePath(sourcePath);
         loadHelper(sourceFileName, sourceProvider);
+        return this;
+
     }
 
     @Override
-    public void eval(final String sourceFileName, final String... path)
+    public ScriptBasic eval(final String sourceFileName, final String... path)
             throws ScriptBasicException {
         load(sourceFileName, path);
         execute();
+        return this;
+
     }
 
     @Override
-    public void load(final String sourceFileName, final SourcePath path)
+    public ScriptBasic load(final String sourceFileName, final SourcePath path)
             throws ScriptBasicException {
         final FileSourceProvider sourceProvider = new FileSourceProvider();
         sourceProvider.setSourcePath(path);
         loadHelper(sourceFileName, sourceProvider);
+        return this;
+
     }
 
     @Override
-    public void eval(final String sourceFileName, final SourcePath path)
+    public ScriptBasic eval(final String sourceFileName, final SourcePath path)
             throws ScriptBasicException {
         load(sourceFileName, path);
         execute();
+        return this;
+
     }
 
     @Override
-    public void load(final String sourceName, final SourceProvider provider)
+    public ScriptBasic load(final String sourceName, final SourceProvider provider)
             throws ScriptBasicException {
         loadHelper(sourceName, provider);
+        return this;
+
     }
 
     @Override
-    public void eval(final String sourceName, final SourceProvider provider)
+    public ScriptBasic eval(final String sourceName, final SourceProvider provider)
             throws ScriptBasicException {
         load(sourceName, provider);
         execute();
+        return this;
+
     }
 
     public void setVariable(final String name, final Object value)
@@ -200,14 +225,35 @@ public class Engine implements ScriptBasic {
                 RightValueUtility.createRightValue(value));
     }
 
+    @SuppressWarnings("removal")
     @Override
     public Object getVariable(final String name) throws ScriptBasicException {
-        assertCtxInitialized();
-        return ctx.interpreter.getVariable(name);
+        return variable(Object.class, name);
     }
 
     @Override
+    public <T> T variable(final Class<T> type, final String name) throws ScriptBasicException {
+        assertCtxInitialized();
+        final var result = ctx.interpreter.getVariable(name);
+        if (result == null || type.isAssignableFrom(result.getClass())) {
+            return (T) result;
+        }
+        throw new ScriptBasicException("Fetching the variable '"
+                + name
+                + "' casting to type "
+                + type.getName()
+                + " failed from "
+                + result.getClass().getName());
+    }
+
+    @SuppressWarnings("removal")
+    @Override
     public Iterable<String> getVariablesIterator() throws ScriptBasicException {
+        return variables();
+    }
+
+    @Override
+    public Iterable<String> variables() throws ScriptBasicException {
         assertCtxInitialized();
         return ctx.interpreter.getVariables().getGlobalMap().getVariableNameSet();
     }
@@ -219,12 +265,12 @@ public class Engine implements ScriptBasic {
     }
 
     @Override
-    public Iterable<Subroutine> getSubroutines() throws ScriptBasicException {
+    public Iterable<Subroutine> subroutines() throws ScriptBasicException {
         if (theMapHasToBeFilled) {
             assertCtxInitialized();
             for (final String s : ctx.interpreter.getProgram().getNamedCommandNames()) {
                 try {
-                    getSubroutine(s);
+                    subroutine(Object.class, s);
                 } catch (final ScriptBasicException e) {
                     SNAFU_SubroutineDoesNotExist(e);
                 }
@@ -258,14 +304,20 @@ public class Engine implements ScriptBasic {
     }
 
     @Override
-    public Subroutine getSubroutine(final String subroutineName)
+    public <R> Subroutine<R> subroutine(final String name)
             throws ScriptBasicException {
-        if (subroutines.containsKey(subroutineName)) {
-            return subroutines.get(subroutineName);
+        return subroutine(null, name);
+    }
+
+    @Override
+    public <R> Subroutine<R> subroutine(final Class<R> type, final String name)
+            throws ScriptBasicException {
+        if (subroutines.containsKey(name)) {
+            return subroutines.get(name);
         }
-        final CommandSub commandSub = getCommandSub(subroutineName);
-        final Subroutine sub = new Sub(commandSub.getSubName());
-        subroutines.put(subroutineName, sub);
+        final CommandSub commandSub = getCommandSub(name);
+        final Subroutine sub = new Sub(type, commandSub.getSubName());
+        subroutines.put(name, sub);
         return sub;
     }
 
@@ -278,16 +330,20 @@ public class Engine implements ScriptBasic {
     }
 
     @Override
-    public void registerExtension(final Class<?> klass)
+    public ScriptBasic registerExtension(final Class<?> klass)
             throws ScriptBasicException {
         ctx = ContextBuilder.from(ctx);
         ctx.interpreter.registerFunctions(klass);
+        return this;
+
     }
 
     @Override
-    public void registerHook(InterpreterHook hook) {
+    public ScriptBasic registerHook(InterpreterHook hook) {
         ctx = ContextBuilder.from(ctx);
         ctx.interpreter.registerHook(hook);
+        return this;
+
     }
 
     @Override
@@ -296,15 +352,17 @@ public class Engine implements ScriptBasic {
         return ctx.configuration;
     }
 
-    public class Sub implements Subroutine {
+    public class Sub<R> implements Subroutine<R> {
         private final String name;
+        private final Class<R> type;
 
-        Sub(final String n) {
+        Sub(final Class<R> t, final String n) {
             name = n;
+            type = Objects.requireNonNullElseGet(t, () -> (Class<R>) Object.class);
         }
 
         @Override
-        public int getNumberOfArguments() {
+        public int numberOfArguments() {
             try {
                 return Engine.this.getNumberOfArguments(name);
             } catch (final ScriptBasicException e) {
@@ -314,18 +372,33 @@ public class Engine implements ScriptBasic {
         }
 
         @Override
-        public String getName() {
+        public String name() {
             return name;
         }
 
         @Override
-        public Object call(final Object... args) throws ScriptBasicException {
+        public R call(final Object... args) throws ScriptBasicException {
             assertCtxInitialized();
-            return ctx.interpreter.call(name, args);
+            final var result = ctx.interpreter.call(name, args);
+            if (type == Void.class && result != null) {
+                throw new ScriptBasicException("Subroutine '"
+                        + name
+                        + "' expected to be Void but returns value of type "
+                        + type.getName());
+            }
+            if (result == null || type.isAssignableFrom(result.getClass())) {
+                return (R) result;
+            }
+            throw new ScriptBasicException("Fetching the return value of subroutine '"
+                    + name
+                    + "' casting to type "
+                    + type.getName()
+                    + " failed from "
+                    + result.getClass().getName());
         }
 
         @Override
-        public Object call() throws ScriptBasicException {
+        public R call() throws ScriptBasicException {
             return call((Object[]) null);
         }
     }

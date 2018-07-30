@@ -1,10 +1,10 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.spi.BasicArray;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.rightvalues.*;
 import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.spi.BasicArray;
 import com.scriptbasic.spi.RightValue;
 
 /**
@@ -40,16 +40,13 @@ public final class RightValueUtility {
     @SuppressWarnings("unchecked")
     public static Integer convert2Integer(final RightValue index)
             throws ScriptBasicException {
-        Integer result = 0;
         if (index.isNumeric()) {
-            result = ((AbstractNumericRightValue<Number>) index).getValue()
-                    .intValue();
+            return ((AbstractNumericRightValue<Number>) index).getValue().intValue();
         } else {
             throw new BasicRuntimeException(
                     index.toString()
                             + " is not a numeric value, can not be used to index and array");
         }
-        return result;
     }
 
     /**
@@ -65,7 +62,7 @@ public final class RightValueUtility {
      * @return the converted right value
      */
     public static RightValue createRightValue(final Object value) {
-        RightValue rightValue = null;
+        final RightValue rightValue;
         if (value instanceof RightValue) {
             rightValue = (RightValue) value;
         } else if (value instanceof Double) {

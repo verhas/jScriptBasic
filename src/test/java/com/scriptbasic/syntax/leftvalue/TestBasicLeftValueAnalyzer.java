@@ -20,7 +20,7 @@ import java.util.Iterator;
 import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
 import static com.scriptbasic.syntax.expression.ExpressionBuilder.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class TestBasicLeftValueAnalyzer {
 
@@ -60,9 +60,7 @@ public class TestBasicLeftValueAnalyzer {
                         ((ObjectFieldAccessLeftValueModifier) lvm)
                                 .getFieldName());
             } else {
-                assertTrue(
-                        "Unknown left value modifier class " + gvm.getClass(),
-                        false);
+                fail("Unknown left value modifier class " + gvm.getClass());
             }
         }
     }

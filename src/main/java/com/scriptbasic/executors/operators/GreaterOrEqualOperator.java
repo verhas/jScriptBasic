@@ -9,13 +9,13 @@ public class GreaterOrEqualOperator extends AbstractCompareOperator {
     @Override
     protected Boolean compareTo(final BasicDoubleValue f, final RightValue op)
             throws BasicRuntimeException {
-        return f.getValue() >= BasicDoubleValue.asDouble(op);
+        return f.getValue() >= BasicDoubleValue.asDouble(op,"Cannot float compare >= on undef value");
     }
 
     @Override
     protected Boolean compareTo(final BasicLongValue f, final RightValue op)
             throws BasicRuntimeException {
-        return f.getValue() >= BasicLongValue.asLong(op);
+        return f.getValue() >= BasicLongValue.asLong(op,"Cannot integer compare >= undef value");
     }
 
     @Override

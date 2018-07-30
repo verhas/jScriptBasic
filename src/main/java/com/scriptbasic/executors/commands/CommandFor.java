@@ -1,14 +1,14 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.spi.Interpreter;
-import com.scriptbasic.spi.LeftValue;
-import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
 import com.scriptbasic.executors.rightvalues.BasicLongValue;
-import com.scriptbasic.interfaces.*;
+import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.interfaces.Expression;
+import com.scriptbasic.spi.Interpreter;
+import com.scriptbasic.spi.LeftValue;
+import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.utility.NumberUtility;
 
 /**
@@ -94,7 +94,11 @@ public class CommandFor extends AbstractCommand {
                                   final Long step) throws ScriptBasicException {
         final Long loopEndValue = BasicLongValue.asLong(loopEnd);
         final RightValue rv = getLoopVariableAsRightValue(interpreter);
-        final Long newLoopValue = BasicLongValue.asLong(rv) + step;
+        final Long oldLoopValue = BasicLongValue.asLong(rv);
+        if (oldLoopValue == null) {
+            throw new ScriptBasicException("FOR loop variable became undef in the loop (integer)");
+        }
+        final Long newLoopValue = oldLoopValue + step;
         loopVariable.setValue(new BasicLongValue(newLoopValue), interpreter);
         setNextCommand(interpreter, step, newLoopValue, loopEndValue);
     }
@@ -103,7 +107,11 @@ public class CommandFor extends AbstractCommand {
                                   final Double step) throws ScriptBasicException {
         final Double loopEndValue = BasicDoubleValue.asDouble(loopEnd);
         final RightValue rv = getLoopVariableAsRightValue(interpreter);
-        final Double newLoopValue = BasicDoubleValue.asDouble(rv) + step;
+        final Double oldLoopValue = BasicDoubleValue.asDouble(rv);
+        if (oldLoopValue == null) {
+            throw new ScriptBasicException("FOR loop variable became undef in the loop (float)");
+        }
+        final Double newLoopValue = oldLoopValue + step;
         loopVariable.setValue(new BasicDoubleValue(newLoopValue), interpreter);
         setNextCommand(interpreter, step, newLoopValue, loopEndValue);
     }
@@ -168,7 +176,7 @@ public class CommandFor extends AbstractCommand {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * com.scriptbasic.executors.commands.AbstractCommand#execute(com.scriptbasic
      * .interfaces.Interpreter)

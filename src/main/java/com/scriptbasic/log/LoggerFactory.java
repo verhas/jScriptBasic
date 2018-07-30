@@ -30,6 +30,7 @@ public class LoggerFactory {
         return logger;
     }
 
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     public static synchronized Logger getBasicLogger() {
         final Class<?> klass =
                 StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE)

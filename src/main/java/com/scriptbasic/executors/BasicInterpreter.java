@@ -252,7 +252,7 @@ public final class BasicInterpreter implements Interpreter {
     /*
      * (non-Javadoc)
      *
-     * @see com.scriptbasic.interfaces.Interpreter#getVariable(java.lang.String)
+     * @see com.scriptbasic.interfaces.Interpreter#variable(java.lang.String)
      */
     @Override
     public Object getVariable(final String name) throws ScriptBasicException {

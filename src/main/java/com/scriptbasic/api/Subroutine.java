@@ -2,17 +2,17 @@ package com.scriptbasic.api;
 
 /**
  * Interface to manage a BASIC subroutine. An instance of this interface can be
- * acquired calling the method {@link ScriptBasic#getSubroutine(String)}. It is
+ * acquired calling the method {@link ScriptBasic#subroutine(String)}. It is
  * also possible to get all the subroutines calling the method {@link
- * ScriptBasic#getSubroutines()}.
+ * ScriptBasic#subroutines()}.
  *
  * @author Peter Verhas
  */
-public interface Subroutine {
+public interface Subroutine<R> {
     /**
      * @return the number of arguments the subroutine expects when invoked
      */
-    int getNumberOfArguments();
+    int numberOfArguments();
 
     /**
      * Get the name of the subroutine. Even though the instance of the interface
@@ -21,7 +21,7 @@ public interface Subroutine {
      *
      * @return the name of the subroutine
      */
-    String getName();
+    String name();
 
     /**
      * Call the subroutine.
@@ -31,7 +31,7 @@ public interface Subroutine {
      * @throws ScriptBasicException when an BASIC error happens during the execution of the
      *                              subroutine
      */
-    Object call(Object... args) throws ScriptBasicException;
+    R call(Object... args) throws ScriptBasicException;
 
     /**
      * Call a subroutine without any argument.
@@ -39,5 +39,5 @@ public interface Subroutine {
      * @return the return value of the subroutine
      * @throws ScriptBasicException
      */
-    Object call() throws ScriptBasicException;
+    R call() throws ScriptBasicException;
 }

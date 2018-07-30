@@ -3,7 +3,6 @@ package com.scriptbasic.executors.commands;
 import com.scriptbasic.spi.Interpreter;
 import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.executors.rightvalues.BasicStringValue;
 import com.scriptbasic.interfaces.*;
 
