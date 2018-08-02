@@ -2,7 +2,6 @@ package com.scriptbasic.syntax.commands;
 
 import com.scriptbasic.context.Context;
 import com.scriptbasic.exceptions.CommandFactoryException;
-import com.scriptbasic.exceptions.KeywordNotImplementedException;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.CommandAnalyzer;
 import com.scriptbasic.interfaces.CommandFactory;
@@ -10,109 +9,97 @@ import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 import com.scriptbasic.spi.Command;
 
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public final class BasicCommandFactory implements CommandFactory {
-  private static final Logger LOG = LoggerFactory
-      .getLogger();
-  private final Context ctx;
-  private final CommandAnalyzerDSL dslAnalyzer;
-  private Map<String, CommandAnalyzer> classMap = new HashMap<>();
-  private List<CommandAnalyzer> classList = new LinkedList<>();
+    private static final Logger LOG = LoggerFactory
+            .getLogger();
+    private final Context ctx;
+    private final CommandAnalyzerDSL dslAnalyzer;
+    private final Map<String, CommandAnalyzer> classMap;
+    private final List<CommandAnalyzer> classList;
 
-  public BasicCommandFactory(final Context ctx) {
-    this.ctx = ctx;
-    dslAnalyzer = new CommandAnalyzerDSL(ctx);
-    registerCommandAnalyzer("while", new CommandAnalyzerWhile(ctx));
-    registerCommandAnalyzer("wend", new CommandAnalyzerWend(ctx));
-    registerCommandAnalyzer("if", new CommandAnalyzerIf(ctx));
-    registerCommandAnalyzer("else", new CommandAnalyzerElse(ctx));
-    registerCommandAnalyzer("elseif", new CommandAnalyzerElseIf(ctx));
-    registerCommandAnalyzer("endif", new CommandAnalyzerEndIf(ctx));
-    registerCommandAnalyzer("use", new CommandAnalyzerUse(ctx));
-    registerCommandAnalyzer("method", new CommandAnalyzerMethod(ctx));
-    registerCommandAnalyzer("sub", new CommandAnalyzerSub(ctx));
-    registerCommandAnalyzer("endsub", new CommandAnalyzerEndSub(ctx));
-    registerCommandAnalyzer("return", new CommandAnalyzerReturn(ctx));
-    registerCommandAnalyzer("print", new CommandAnalyzerPrint(ctx));
-    registerCommandAnalyzer("local", new CommandAnalyzerLocal(ctx));
-    registerCommandAnalyzer("global", new CommandAnalyzerGlobal(ctx));
-    registerCommandAnalyzer("call", new CommandAnalyzerCall(ctx));
-    registerCommandAnalyzer("let", new CommandAnalyzerLet(ctx));
-    registerCommandAnalyzer("for", new CommandAnalyzerFor(ctx));
-    registerCommandAnalyzer("next", new CommandAnalyzerNext(ctx));
-    registerCommandAnalyzer("sentence", dslAnalyzer);
-    //
-    registerCommandAnalyzer(new CommandAnalyzerLet(ctx));
-    registerCommandAnalyzer(new CommandAnalyzerCall(ctx));
-    registerCommandAnalyzer(dslAnalyzer);
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see
-   * com.scriptbasic.interfaces.CommandFactory#registerCommandAnalyzer(java
-   * .lang.String, com.scriptbasic.interfaces.CommandAnalyzer)
-   */
-  @Override
-  public void registerCommandAnalyzer(final String keyword, final CommandAnalyzer analyzer) {
-    LOG.info("Registering command {} to {}", keyword, analyzer.getClass().getSimpleName());
-    classMap.put(keyword, analyzer);
-  }
-
-  private void registerCommandAnalyzer(final CommandAnalyzer analyzer) {
-    LOG.info("Registering analyzer {}", analyzer.getClass().getSimpleName());
-    classList.add(analyzer);
-  }
-
-  @Override
-  public Command create(final String commandKeyword) throws AnalysisException {
-    if (commandKeyword == null) {
-      return create();
-    } else {
-      return createFromStartingSymbol(commandKeyword);
+    /**
+     * This implementation of the interface (btw: the only one in ScriptBasic) creates a command
+     * from a list of symbols. First it checks if the first symbol of the command is a keyword and
+     * appears in the {@code classMap} as a key. If yes, for example the
+     *
+     * @param ctx the context of the interpreter
+     */
+    public BasicCommandFactory(final Context ctx) {
+        this.ctx = ctx;
+        dslAnalyzer = new CommandAnalyzerDSL(ctx);
+        classMap = Map.ofEntries(
+                Map.entry("while", new CommandAnalyzerWhile(ctx)),
+                Map.entry("wend", new CommandAnalyzerWend(ctx)),
+                Map.entry("if", new CommandAnalyzerIf(ctx)),
+                Map.entry("else", new CommandAnalyzerElse(ctx)),
+                Map.entry("elseif", new CommandAnalyzerElseIf(ctx)),
+                Map.entry("endif", new CommandAnalyzerEndIf(ctx)),
+                Map.entry("use", new CommandAnalyzerUse(ctx)),
+                Map.entry("method", new CommandAnalyzerMethod(ctx)),
+                Map.entry("sub", new CommandAnalyzerSub(ctx)),
+                Map.entry("endsub", new CommandAnalyzerEndSub(ctx)),
+                Map.entry("return", new CommandAnalyzerReturn(ctx)),
+                Map.entry("print", new CommandAnalyzerPrint(ctx)),
+                Map.entry("local", new CommandAnalyzerLocal(ctx)),
+                Map.entry("global", new CommandAnalyzerGlobal(ctx)),
+                Map.entry("call", new CommandAnalyzerCall(ctx)),
+                Map.entry("let", new CommandAnalyzerLet(ctx)),
+                Map.entry("for", new CommandAnalyzerFor(ctx)),
+                Map.entry("next", new CommandAnalyzerNext(ctx)),
+                Map.entry("sentence", dslAnalyzer));
+        classList = List.of(
+                new CommandAnalyzerLet(ctx),
+                new CommandAnalyzerCall(ctx),
+                dslAnalyzer);
     }
-  }
 
-  private Command create() throws AnalysisException {
-    for (final CommandAnalyzer commandAnalyzer : classList) {
-      try {
-        LOG.info("trying to analyze the line using {}", commandAnalyzer.getClass());
-        final Command command = commandAnalyzer.analyze();
-        if (command != null) {
-          return command;
+    @Override
+    public Command create(final String commandKeyword) throws AnalysisException {
+        if (commandKeyword == null) {
+            return create();
+        } else {
+            return createFromStartingSymbol(commandKeyword);
         }
-      } catch (final AnalysisException e) {
-        LOG.info("Tried but not analyze the line using "
-            + commandAnalyzer.getClass(), e);
-      }
-      ctx.lexicalAnalyzer.resetLine();
     }
-    LOG.info("None of the analyzers could analyze the line");
-    throw new CommandFactoryException("The line could not be analyzed");
-  }
 
-  private Command createFromStartingSymbol(final String commandKeyword)
-      throws AnalysisException {
-    final String lowerCaseCommandKeyword = commandKeyword.toLowerCase();
-    LOG.debug("Creating command starting with the keyword '{}'",
-        lowerCaseCommandKeyword);
-    if (classMap.containsKey(lowerCaseCommandKeyword)) {
-      try {
-        return classMap.get(lowerCaseCommandKeyword).analyze();
-      }catch (AnalysisException originalException){
-        try{
-          return dslAnalyzer.analyze();
-        }catch (AnalysisException ignored){
-          throw originalException;
+    private Command create() throws AnalysisException {
+        for (final CommandAnalyzer commandAnalyzer : classList) {
+            try {
+                LOG.info("trying to analyze the line using {}", commandAnalyzer.getClass());
+                final Command command = commandAnalyzer.analyze();
+                if (command != null) {
+                    return command;
+                }
+            } catch (final AnalysisException e) {
+                LOG.info("Tried but not analyze the line using "
+                        + commandAnalyzer.getClass(), e);
+            }
+            ctx.lexicalAnalyzer.resetLine();
         }
-      }
+        LOG.info("None of the analyzers could analyze the line");
+        throw new CommandFactoryException("The line could not be analyzed");
     }
-    return dslAnalyzer.analyze();
-  }
+
+    private Command createFromStartingSymbol(final String commandKeyword)
+            throws AnalysisException {
+        final String lowerCaseCommandKeyword = commandKeyword.toLowerCase();
+        LOG.debug("Creating command starting with the keyword '{}'",
+                lowerCaseCommandKeyword);
+        if (classMap.containsKey(lowerCaseCommandKeyword)) {
+            try {
+                return classMap.get(lowerCaseCommandKeyword).analyze();
+            } catch (AnalysisException originalException) {
+                try {
+                    return dslAnalyzer.analyze();
+                } catch (AnalysisException ignored) {
+                    throw originalException;
+                }
+            }
+        }
+        return dslAnalyzer.analyze();
+    }
 
 }
