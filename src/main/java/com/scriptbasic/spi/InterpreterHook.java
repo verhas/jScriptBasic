@@ -62,8 +62,6 @@ public interface InterpreterHook {
     default void init() {
     }
 
-    ;
-
     /**
      * When a hook is registered the registering process calls this method and
      * passes the next element in the hook chain. The hook object should
@@ -90,15 +88,11 @@ public interface InterpreterHook {
     default void beforeExecute(Command command) {
     }
 
-    ;
-
     /**
      * This method is called before the execution of the program starts.
      */
     default void beforeExecute() {
     }
-
-    ;
 
     /**
      * This method is called after the interpreter executed a command.
@@ -108,15 +102,11 @@ public interface InterpreterHook {
     default void afterExecute(Command command) {
     }
 
-    ;
-
     /**
      * This method is called after the execution of the whole program has finished.
      */
     default void afterExecute() {
     }
-
-    ;
 
     /**
      * This method is called before registering a java method into the
@@ -135,15 +125,11 @@ public interface InterpreterHook {
                                              String methodName, Class<?>[] argumentTypes) {
     }
 
-    ;
-
     /**
      * @param command
      */
     default void beforePush(Command command) {
     }
-
-    ;
 
     /**
      * @param command
@@ -151,23 +137,17 @@ public interface InterpreterHook {
     default void afterPush(Command command) {
     }
 
-    ;
-
     /**
      *
      */
     default void beforePop() {
     }
 
-    ;
-
     /**
      * @param command
      */
     default void afterPop(Command command) {
     }
-
-    ;
 
     /**
      * This method is called after a subroutine has set its return value. It is
@@ -182,8 +162,6 @@ public interface InterpreterHook {
     default void setReturnValue(RightValue returnValue) {
     }
 
-    ;
-
     /**
      * This method is called before the interpreter invokes a subroutine. At
      * this point the local variables are those of the subroutine to be called.
@@ -197,15 +175,11 @@ public interface InterpreterHook {
                                       RightValue[] argumentValues) {
     }
 
-    ;
-
     /**
      * @param method
      */
     default void beforeCallJavaFunction(Method method) {
     }
-
-    ;
 
     /**
      * This method is called when the interpreter was calling a Java static
@@ -220,8 +194,6 @@ public interface InterpreterHook {
         return result;
     }
 
-    ;
-
     /**
      * This hook is called when the interpreter accesses a variable.
      *
@@ -235,5 +207,4 @@ public interface InterpreterHook {
         return value;
     }
 
-    ;
 }

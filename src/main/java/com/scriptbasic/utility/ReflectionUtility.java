@@ -81,7 +81,7 @@ public class ReflectionUtility {
     }
 
     private static void assertNoAccess(String symbolicName, Object object) throws BasicRuntimeException {
-        if (object != null && object instanceof NoAccess) {
+        if ( object instanceof NoAccess) {
             final Object target = object instanceof NoAccessProxy ? ((NoAccessProxy) object).target : object;
             throw new BasicRuntimeException("It is not allowed to call  '" +
                     symbolicName +

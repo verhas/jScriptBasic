@@ -154,11 +154,11 @@ public class BasicMethodRegistry implements MethodRegistry {
     private Method method = null;
 
     public String toString() {
-      return new StringBuilder(klass + "." + methodName + "(")
-          .append(Arrays.stream(args)
-              .map(Class::getName)
-              .collect(Collectors.joining(",")))
-          .append(")").toString();
+      return klass + "." + methodName + "(" +
+              Arrays.stream(args)
+                      .map(Class::getName)
+                      .collect(Collectors.joining(",")) +
+              ")";
     }
   }
 

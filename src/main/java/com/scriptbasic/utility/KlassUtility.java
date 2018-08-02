@@ -22,9 +22,9 @@ public final class KlassUtility {
 
     /**
      * Set the field of a Java object. This method is called when a BASIC code has access to an object and
-     * assignes value to some of the fields of the Java object.
+     * assigns value to some of the fields of the Java object.
      * <p>
-     * TOPO: implement ScriptBasic magic bean setting mechanism as a first resort and if that does not work then
+     * TODO: implement ScriptBasic magic bean setting mechanism as a first resort and if that does not work then
      * setter and if there is no setter then direct field access.
      *
      * @param object
@@ -34,10 +34,15 @@ public final class KlassUtility {
      */
     public static void setField(final Object object, final String fieldName,
                                 final Object valueObject) throws BasicRuntimeException {
-        if (object != null && object instanceof NoAccess) {
-            throw new BasicRuntimeException("The filed '" +
+        if( object == null ){
+            throw new BasicRuntimeException("The field '" +
                     fieldName +
-                    "' is not allowed to be write in object of the type '" +
+                    "' is not allowed to be write in object undefined ");
+        }
+        if ( object instanceof NoAccess) {
+            throw new BasicRuntimeException("The field '" +
+                    fieldName +
+                    "' is not allowed to be written in object of the type '" +
                     object.getClass().getName());
         }
         final Class<?> klass = object.getClass();
@@ -92,8 +97,13 @@ public final class KlassUtility {
      */
     public static Object getField(final Object object, final String fieldName)
             throws BasicRuntimeException {
-        if (object != null && object instanceof NoAccess) {
-            throw new BasicRuntimeException("The filed '" +
+        if( object == null ){
+            throw new BasicRuntimeException("The field '" +
+                    fieldName +
+                    "' is not allowed to be read from object undefined.");
+        }
+        if ( object instanceof NoAccess) {
+            throw new BasicRuntimeException("The field '" +
                     fieldName +
                     "' is not allowed to be read in object of the type '" +
                     object.getClass().getName());
@@ -191,7 +201,7 @@ public final class KlassUtility {
      */
     public static Class<?> forNameEx(final String s)
             throws BasicSyntaxException {
-        Class<?> klass = null;
+       final Class<?> klass;
         switch (s) {
             case "byte":
                 klass = byte.class;

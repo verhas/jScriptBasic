@@ -81,7 +81,7 @@ public class Decimal extends AbstractElementAnalyzer {
      * @return {@code true} when there is a fractional part
      */
     private boolean processFraction(final StringBuilder fractionPart) {
-        boolean floatFormat = false;
+        final boolean floatFormat;
         final Integer ch = getReader().get();
         if (ch != null && Character.isDigit(ch)) {
             floatFormat = true;

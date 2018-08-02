@@ -1,10 +1,11 @@
 package com.scriptbasic.executors.leftvalues;
 
-import com.scriptbasic.api.*;
-import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.executors.rightvalues.BasicArrayValue;
 import com.scriptbasic.executors.rightvalues.BasicJavaObjectValue;
-import com.scriptbasic.interfaces.*;
+import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.interfaces.Expression;
+import com.scriptbasic.interfaces.VariableMap;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 import com.scriptbasic.spi.BasicArray;
@@ -125,7 +126,7 @@ public class BasicLeftValue implements LeftValue {
      * @param hasNext
      * @param rightValue
      * @param interpreter is used to evaluate the expression that stands between the {@code [} and {@code ]}
-     *                            characters. Note that this is not needed when a field access is evaluated.
+     *                    characters. Note that this is not needed when a field access is evaluated.
      * @return
      * @throws ScriptBasicException
      */
@@ -190,7 +191,7 @@ public class BasicLeftValue implements LeftValue {
     }
 
     public boolean hasModifiers() {
-        return modifiers != null && modifiers.size() > 0;
+        return modifiers.size() > 0;
     }
 
     public void addModifier(final LeftValueModifier modifier) {
@@ -201,7 +202,7 @@ public class BasicLeftValue implements LeftValue {
     public void setValue(final RightValue rightValue, final Interpreter interpreter)
             throws ScriptBasicException {
         final VariableMap variableMap = interpreter.getVariables();
-        if (modifiers == null || modifiers.isEmpty()) {
+        if (modifiers.isEmpty()) {
             LOG.debug("setting the variable '{}'", getIdentifier());
             variableMap.setVariable(getIdentifier(), rightValue);
         } else {
@@ -232,7 +233,7 @@ public class BasicLeftValue implements LeftValue {
      * {@code var[i] = xxx} type of assignments work fine even if the {@code var} was
      * not used before, because arrays are allocated automatically.
      *
-     * @param value               that is the current value of the
+     * @param value       that is the current value of the
      * @param interpreter used to allocate the new array
      * @return the value or a newly allocated array, which is also stored in the current left value left identifier
      * @throws ScriptBasicException

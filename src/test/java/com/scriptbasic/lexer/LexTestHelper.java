@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class LexTestHelper {
@@ -181,7 +182,7 @@ public class LexTestHelper {
     static LexicalAnalyzer createStringArrayReading(final String... sources)
             throws IOException {
         assertTrue("there has to be at least one file name and content", sources.length >= 2);
-        assertTrue("there should be a content for each 'file name'", sources.length % 2 == 0);
+        assertEquals("there should be a content for each 'file name'", 0, sources.length % 2);
         final StringSourceProvider provider = new StringSourceProvider();
         for (int i = 0; i < sources.length; i++) {
             provider.addSource(sources[i], sources[i + 1]);

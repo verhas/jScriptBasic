@@ -11,9 +11,12 @@ import com.scriptbasic.utility.SyntaxExceptionUtility;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class AuxTests {
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void testExceptions() {
         new CommandCanNotBeCreatedException("bla bla", null);
@@ -30,14 +33,14 @@ public class AuxTests {
         new BasicRuntimeException("", null);
         try {
             SyntaxExceptionUtility.throwSyntaxException("", null);
-            assertTrue("throwSyntaxException did not throw exception", false);
+            fail("throwSyntaxException did not throw exception");
         } catch (SyntaxException se) {
             // OK
         }
         try {
             SyntaxExceptionUtility.throwSyntaxException("",
                     new BasicLexicalElement());
-            assertTrue("throwSyntaxException did not throw exception", false);
+            fail("throwSyntaxException did not throw exception");
         } catch (SyntaxException se) {
             // OK
         }

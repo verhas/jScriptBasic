@@ -15,7 +15,7 @@ import static org.junit.Assert.fail;
 public class TestCastUtility {
     @Test
     public void test() throws Exception {
-        assertEquals((char) 'A', CastUtility.cast(65.3, Character.class));
+        assertEquals('A', CastUtility.cast(65.3, Character.class));
         assertEquals((byte) 13, CastUtility.cast(13.5, Byte.class));
         assertEquals((short) 13, CastUtility.cast(13.5, Short.class));
         assertEquals(13, CastUtility.cast(13.5, Integer.class));

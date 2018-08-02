@@ -25,6 +25,9 @@ public interface LexicalAnalyzer {
      * stream. Consecutive calls to {@code peek()} without calling {@link #get()}
      * will return the same lexical element. Calling {@link #get()} will return
      * the same lexical element as the last call to {@code peek()}.
+     *
+     * Just as {@link #get()} this method may also return {@code null} if there are no more
+     * elements.
      */
     LexicalElement peek() throws AnalysisException;
 

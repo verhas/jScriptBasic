@@ -75,12 +75,12 @@ public class TestVariableMaps {
             // can not set local variable since we are in global scope
             // will throw IllegalArgumentException
             blvm.setVariable("var1", new BasicLongValue(5L));
-            assertFalse(true);
+            fail();
         } catch (IllegalArgumentException iae) {
         }
         try {
             blvm.dropFrame();
-            assertFalse(true);
+            fail();
         } catch (EmptyStackException e) {
         }
     }
@@ -196,7 +196,7 @@ public class TestVariableMaps {
 
         try {
             POP();
-            assertFalse(true);
+            fail();
         } catch (EmptyStackException e) {
         }
     }

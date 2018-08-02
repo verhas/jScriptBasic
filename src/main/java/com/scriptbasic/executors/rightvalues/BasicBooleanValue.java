@@ -1,7 +1,6 @@
 package com.scriptbasic.executors.rightvalues;
 
 import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.spi.BasicValue;
 import com.scriptbasic.spi.RightValue;
 
 public final class BasicBooleanValue extends AbstractPrimitiveRightValue<Boolean> {
@@ -47,8 +46,9 @@ public final class BasicBooleanValue extends AbstractPrimitiveRightValue<Boolean
         }
         return convertedValue;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         try {
             return asBoolean(this).toString();
         } catch (BasicRuntimeException e) {

@@ -63,6 +63,7 @@ public class TestHierarchicalReader {
         }
     }
 
+    @SuppressWarnings("ToArrayCallWithZeroLengthArrayArgument")
     @Test
     public void testMultiInclude() throws AnalysisException, IOException {
         final ArrayList<LexicalElement> lexes = new ArrayList<>();

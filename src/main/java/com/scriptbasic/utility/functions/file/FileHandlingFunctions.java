@@ -76,8 +76,7 @@ public class FileHandlingFunctions {
         try {
             final BufferedReader br = new BufferedReader(new FileReader(fileName));
             result = new TextFileReader(br);
-        } catch (final FileNotFoundException fnfe) {
-            result = null;
+        } catch (final FileNotFoundException ignored) {
         }
         return result;
     }
@@ -87,8 +86,7 @@ public class FileHandlingFunctions {
         try {
             final InputStream is = new FileInputStream(fileName);
             result = new BinaryFileReader(is);
-        } catch (final FileNotFoundException fnfe) {
-            result = null;
+        } catch (final FileNotFoundException ignored) {
         }
         return result;
     }
@@ -100,8 +98,7 @@ public class FileHandlingFunctions {
             final BufferedWriter bw = new BufferedWriter(new FileWriter(fileName,
                     append));
             result = new TextFileWriter(bw);
-        } catch (final IOException ioe) {
-            result = null;
+        } catch (final IOException ignored) {
         }
         return result;
     }
@@ -113,8 +110,7 @@ public class FileHandlingFunctions {
             final BufferedOutputStream bw = new BufferedOutputStream(
                     new FileOutputStream(fileName, append));
             result = new BinaryFileWriter(bw);
-        } catch (final IOException ioe) {
-            result = null;
+        } catch (final IOException ignored) {
         }
         return result;
     }
@@ -225,6 +221,7 @@ public class FileHandlingFunctions {
 
     @BasicFunction(classification = com.scriptbasic.classification.File.class)
     public static void deleteFile(final String fileName) {
+        //noinspection ResultOfMethodCallIgnored
         new File(fileName).delete();
     }
 
@@ -335,7 +332,6 @@ public class FileHandlingFunctions {
     public static BasicArray listFiles(final String fileName)
             throws ScriptBasicException {
         final String[] files = new File(fileName).list();
-        final BasicArray result = BasicArray.create(files);
-        return result;
+        return BasicArray.create(files);
     }
 }

@@ -57,7 +57,7 @@ public abstract class AbstractNestedStructureHouseKeeper implements NestedStruct
         } else {
             stack.pop();
         }
-        return (T) (stackFrame == null ? null : stackFrame.getPushedElement());
+        return (T) stackFrame.getPushedElement();
     }
 
     protected static class Structure {

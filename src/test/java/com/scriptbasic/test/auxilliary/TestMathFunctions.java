@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import static com.scriptbasic.utility.functions.MathFunctions.*;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class TestMathFunctions {
     @Test
     public void testExMethods() throws ClassNotFoundException,

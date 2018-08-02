@@ -146,7 +146,7 @@ public class StringFunctions {
     static public String strreverse(final String s) {
         final StringBuilder sb = new StringBuilder(s.length());
         for (int i = s.length() - 1; i >= 0; i--) {
-            sb.append(s.substring(i, i + 1));
+            sb.append(s, i, i + 1);
         }
         return sb.toString();
     }

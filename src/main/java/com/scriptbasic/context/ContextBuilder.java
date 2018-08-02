@@ -22,6 +22,7 @@ import com.scriptbasic.syntax.leftvalue.BasicSimpleLeftValueListAnalyzer;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
+import java.util.Objects;
 
 public class ContextBuilder {
 
@@ -32,12 +33,7 @@ public class ContextBuilder {
     }
 
     public static Context from(final Context existingCtx) {
-        final Context ctx;
-        if (existingCtx != null) {
-            ctx = existingCtx;
-        } else {
-            ctx = new Context();
-        }
+        final Context ctx = Objects.requireNonNullElseGet(existingCtx, Context::new);
         if (ctx.interpreter == null) {
             ctx.interpreter = new BasicInterpreter(ctx);
         }
