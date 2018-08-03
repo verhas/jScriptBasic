@@ -1,6 +1,6 @@
 # ScriptBasic for Java
 
-[![Build Status](https://travis-ci.org/verhas/jScriptBasic.svg)](https://travis-ci.org/verhas/jScriptBasic)
+[![Build Status](https://travis-ci.org/verhas/jScriptBasic.svg?branch=master)](https://travis-ci.org/verhas/jScriptBasic)
 
 ScriptBasic for Java is a BASIC interpreter that can be embedded into Java programs. With SB4J you can
 script your application (or let the users to script) in good old BASIC. You can start in the JVM an
