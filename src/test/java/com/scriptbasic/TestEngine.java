@@ -3,7 +3,6 @@ package com.scriptbasic;
 import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.api.ScriptBasic;
 import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.api.Subroutine;
 import com.scriptbasic.readers.GenericHierarchicalSourceReader;
 import com.scriptbasic.readers.GenericSourceReader;
 import com.scriptbasic.readers.SourceProvider;
@@ -24,7 +23,7 @@ public class TestEngine {
 
     @Test
     @DisplayName("engine throws exception when input is total garbage")
-    public void throwsExceptionWhenInputIsTotalGarbage() throws ScriptBasicException {
+    public void throwsExceptionWhenInputIsTotalGarbage() {
         assertThrows(ScriptBasicException.class, () ->
                 ScriptBasic.engine().eval("ajdjkajkladsadsadjkls"));
     }
@@ -67,7 +66,7 @@ public class TestEngine {
     public void testListGlobalVariable() throws Exception {
         // START SNIPPET: listGlobalVariable
         final var names = new StringBuilder();
-        for (String name :
+        for (final String name :
                 ScriptBasic.engine().eval("a = \"hello world\"\nb=13")
                         .variables()) {
             names.append(name);
@@ -144,13 +143,13 @@ public class TestEngine {
                 ScriptBasic.engine().eval("kakukk.bas", new SourceProvider() {
 
                     @Override
-                    public SourceReader get(String sourceName, String referencingSource)
+                    public SourceReader get(final String sourceName, final String referencingSource)
                             throws IOException {
                         throw new IOException();
                     }
 
                     @Override
-                    public SourceReader get(String sourceName) throws IOException {
+                    public SourceReader get(final String sourceName) throws IOException {
                         throw new IOException();
                     }
                 }));
@@ -178,7 +177,7 @@ public class TestEngine {
     @DisplayName("program from reader creates output")
     public void testLoadReader() throws Exception {
         final var output = Output.get();
-        Reader reader = new StringReader("print \"hello world\"");
+        final var reader = new StringReader("print \"hello world\"");
         try (output) {
             ScriptBasic.engine().output(output).load(reader).execute();
         }
@@ -234,13 +233,13 @@ public class TestEngine {
                     "include.bas", "include \"hello.bas\"");
 
             @Override
-            public SourceReader get(String sourceName, String referencingSource)
+            public SourceReader get(final String sourceName, final String referencingSource)
                     throws IOException {
                 return get(sourceName);
             }
 
             @Override
-            public SourceReader get(String sourceName) throws IOException {
+            public SourceReader get(final String sourceName) {
                 return new GenericHierarchicalSourceReader(
                         new GenericSourceReader(
                                 new StringReader(source.get(sourceName)),
@@ -268,7 +267,7 @@ public class TestEngine {
 
     @Test
     @DisplayName("empty engine should not be executed")
-    public void testNoLoadStringSWMultipleExecute() throws Exception {
+    public void testNoLoadStringSWMultipleExecute() {
         assertThrows(ScriptBasicException.class, () ->
                 ScriptBasic.engine().execute());
     }
@@ -297,7 +296,7 @@ public class TestEngine {
             return new Output();
         }
 
-        public void is(String result) {
+        public void is(final String result) {
             assertEquals(result, this.toString());
         }
     }
@@ -412,14 +411,14 @@ public class TestEngine {
                             "include.bas", "include \"hello.bas\"");
 
                     @Override
-                    public SourceReader get(String sourceName, String referencingSource)
+                    public SourceReader get(final String sourceName, final String referencingSource)
                             throws IOException {
                         return get(sourceName);
                     }
 
                     @Override
-                    public SourceReader get(String sourceName) throws IOException {
-                        final SourceReader reader = new GenericSourceReader(new StringReader(source.get(sourceName)), this, sourceName);
+                    public SourceReader get(final String sourceName) {
+                        final var reader = new GenericSourceReader(new StringReader(source.get(sourceName)), this, sourceName);
                         return new GenericHierarchicalSourceReader(reader);
                     }
                 };
@@ -460,7 +459,7 @@ public class TestEngine {
                             "a = \"hello world\"" + NL +
                             "EndSub");
             assertNull(engine.variable(Void.class, "a"));
-            Subroutine applePie = engine.subroutine(String.class, "applePie");
+            final var applePie = engine.subroutine(String.class, "applePie");
             applePie.call((Object[]) null);
             assertEquals("hello world", engine.variable(String.class, "a"));
             // END SNIPPET: subroutineCallWOArgumentsWORetvalOO
@@ -544,7 +543,7 @@ public class TestEngine {
                             "EndSub" + NL +
                             "sub anotherSubroutine" + NL +
                             "EndSub\n");
-            final AtomicInteger numberOfSubroutines = new AtomicInteger(0);
+            final var numberOfSubroutines = new AtomicInteger(0);
             engine.subroutines().forEach((s) -> numberOfSubroutines.incrementAndGet());
             assertAll(
                     () -> assertEquals(2, numberOfSubroutines.get()),
@@ -584,7 +583,7 @@ public class TestEngine {
                     () -> assertEquals((Long) 6L, returnValue));
         }
 
-        private void assertGlobalVariableIsNotDefined(ScriptBasic engine, String name) throws ScriptBasicException {
+        private void assertGlobalVariableIsNotDefined(final ScriptBasic engine, final String name) throws ScriptBasicException {
             assertNull(engine.variable(Object.class, "a"));
         }
 
@@ -594,7 +593,7 @@ public class TestEngine {
             final var engine = ScriptBasic.engine().eval(
                     "sub applePie(b)" + NL +
                             "EndSub\n");
-            Subroutine applePie = engine.subroutine(Void.class, "applePie");
+            final var applePie = engine.subroutine(Void.class, "applePie");
             assertEquals("applePie", applePie.name());
         }
     }

@@ -9,7 +9,7 @@
     <fileSets>
         <fileSet>
             <directory>target/site</directory>
-            <outputDirectory></outputDirectory>
+            <outputDirectory/>
         </fileSet>
     </fileSets>
 </assembly>

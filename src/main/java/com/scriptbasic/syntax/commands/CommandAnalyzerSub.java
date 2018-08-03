@@ -1,7 +1,6 @@
 package com.scriptbasic.syntax.commands;
 
 import com.scriptbasic.spi.Command;
-import com.scriptbasic.spi.LeftValueList;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.interfaces.*;
@@ -13,11 +12,11 @@ public class CommandAnalyzerSub extends AbstractCommandAnalyzer {
 
     @Override
     public Command analyze() throws AnalysisException {
-        final CommandSub node = new CommandSub();
+        final var node = new CommandSub();
 
-        final LexicalElement lexicalElement = ctx.lexicalAnalyzer.get();
+        final var lexicalElement = ctx.lexicalAnalyzer.get();
         if (lexicalElement.isIdentifier()) {
-            final String subName = lexicalElement.getLexeme();
+            final var subName = lexicalElement.getLexeme();
             node.setSubName(subName);
         } else {
             throw new BasicSyntaxException(
@@ -29,7 +28,7 @@ public class CommandAnalyzerSub extends AbstractCommandAnalyzer {
                 node.setArguments(null);
                 ctx.lexicalAnalyzer.get();
             } else {
-                final LeftValueList arguments = analyzeSimpleLeftValueList();
+                final var arguments = analyzeSimpleLeftValueList();
                 node.setArguments(arguments);
                 assertKeyWord(")");
             }

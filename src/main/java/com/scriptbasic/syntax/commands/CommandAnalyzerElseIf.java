@@ -17,7 +17,7 @@ public class CommandAnalyzerElseIf extends AbstractCommandAnalyzerIfKind {
     }
 
     protected Command createNode(final Expression condition) throws AnalysisException {
-        final CommandElseIf node = new CommandElseIf();
+        final var node = new CommandElseIf();
         node.setCondition(condition);
         registerAndSwapNode(node);
         return node;

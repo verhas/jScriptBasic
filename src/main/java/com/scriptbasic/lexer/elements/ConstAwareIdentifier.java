@@ -13,7 +13,7 @@ public class ConstAwareIdentifier extends Identifier {
 
     @Override
     public LexicalElement read() throws LexicalException {
-        final BasicLexicalElement lexicalElement = (BasicLexicalElement) super
+        final var lexicalElement = (BasicLexicalElement) super
                 .read();
         if (lexicalElement != null) {
             Boolean value = null;

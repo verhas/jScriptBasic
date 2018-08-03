@@ -21,10 +21,9 @@ public class BasicSingleIncludeChecker implements SingleIncludeChecker {
      */
     @Override
     public void check(final String key) throws IOException {
-        if (this.keySet.contains(key)) {
+        if (!keySet.add(key)) {
             throw new IOException("File '" + key + "' was included twice");
         }
-        this.keySet.add(key);
     }
 
 }

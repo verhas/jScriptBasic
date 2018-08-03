@@ -21,7 +21,7 @@ public final class CharUtils {
     }
 
     public static String convert(final Integer ch) {
-        final StringBuilder sb = new StringBuilder(1);
+        final var sb = new StringBuilder(1);
         sb.appendCodePoint(ch);
         return sb.toString();
     }

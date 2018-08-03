@@ -9,7 +9,7 @@ import org.junit.Test;
  */
 public class TestLogger {
     @Test
-    public void loggerFormatFormatsVariableNumberOfArgumentsProperly() throws Exception {
+    public void loggerFormatFormatsVariableNumberOfArgumentsProperly() {
 
         Assert.assertEquals("a 123 b",
                 Logger.format("a {} b", new Object[]{123}));

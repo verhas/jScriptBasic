@@ -12,7 +12,6 @@ import com.scriptbasic.utility.ExpressionUtility;
 import com.scriptbasic.utility.ReflectionUtility;
 import com.scriptbasic.utility.RightValueUtility;
 
-import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 
@@ -46,16 +45,16 @@ public class FunctionCall extends AbstractIdentifieredExpressionListedExpression
 
     private RightValue callJavaFunction(final Interpreter interpreter)
             throws ScriptBasicException {
-        RightValue result = null;
-        final String functionName = getVariableName();
+        final RightValue result;
+        final var functionName = getVariableName();
         final List<RightValue> args = ExpressionUtility.evaluateExpressionList(
                 interpreter, getExpressionList());
-        final Method method = interpreter.getJavaMethod(null, functionName);
+        final var method = interpreter.getJavaMethod(null, functionName);
         if (method == null) {
             throw new BasicRuntimeException("There is no callable function '"
                     + functionName + "'");
         } else {
-            Object methodResult = null;
+            final Object methodResult;
             methodResult = ReflectionUtility.invoke(interpreter, functionName,
                     method, null, args);
             result = RightValueUtility.createRightValue(methodResult);
@@ -75,7 +74,7 @@ public class FunctionCall extends AbstractIdentifieredExpressionListedExpression
             throws ScriptBasicException {
 
         lookUpCommandSub(interpreter);
-        RightValue result = null;
+        final RightValue result;
         if (commandSub == null) {
             result = callJavaFunction(interpreter);
         } else {

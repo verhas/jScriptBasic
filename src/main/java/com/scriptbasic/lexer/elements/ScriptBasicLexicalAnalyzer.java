@@ -1,6 +1,5 @@
 package com.scriptbasic.lexer.elements;
 
-import com.scriptbasic.interfaces.KeywordRecognizer;
 import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.lexer.BasicKeywordRecognizer;
 import com.scriptbasic.lexer.BasicLexicalAnalyzer;
@@ -8,8 +7,8 @@ import com.scriptbasic.lexer.BasicLexicalAnalyzer;
 public final class ScriptBasicLexicalAnalyzer extends BasicLexicalAnalyzer {
     public ScriptBasicLexicalAnalyzer(final SourceReader reader) {
         super(reader);
-        final Identifier identifier = new ConstAwareIdentifier(reader);
-        final KeywordRecognizer keywordRecognizer = new BasicKeywordRecognizer();
+        final var identifier = new ConstAwareIdentifier(reader);
+        final var keywordRecognizer = new BasicKeywordRecognizer();
         identifier.setKeywordRecognizer(keywordRecognizer);
         registerElementAnalyzer(identifier);
         registerElementAnalyzer(new Decimal(reader));

@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public class BasicKeywordRecognizer implements KeywordRecognizer,
         ScriptBasicKeyWords {
-    private Set<String> keywords = new HashSet<>();
+    private final Set<String> keywords = new HashSet<>();
 
     public BasicKeywordRecognizer() {
         Collections.addAll(keywords, BASIC_KEYWORDS);

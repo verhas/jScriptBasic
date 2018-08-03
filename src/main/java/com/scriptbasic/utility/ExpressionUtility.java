@@ -38,9 +38,9 @@ public final class ExpressionUtility {
     public static RightValue callBasicFunction(final Interpreter interpreter,
                                                final RightValue[] argumentValues, final CommandSub commandSub,
                                                final String functionName) throws ScriptBasicException {
-        RightValue result = null;
+        final RightValue result;
         interpreter.push();
-        final LeftValueList arguments = commandSub.getArguments();
+        final var arguments = commandSub.getArguments();
         registerLocalVariablesWithValues(arguments, argumentValues, interpreter);
         interpreter.disableHook();
         interpreter.setReturnValue(null);
@@ -65,9 +65,9 @@ public final class ExpressionUtility {
             final Iterator<LeftValue> argumentIterator = arguments.iterator();
             for (final RightValue argumentValue : argumentValues) {
                 if (argumentIterator.hasNext()) {
-                    final LeftValue argument = argumentIterator.next();
+                    final var argument = argumentIterator.next();
                     if (argument instanceof BasicLeftValue) {
-                        final String name = ((BasicLeftValue) argument)
+                        final var name = ((BasicLeftValue) argument)
                                 .getIdentifier();
                         interpreter.getVariables().registerLocalVariable(name);
                         interpreter.setVariable(name, argumentValue);
@@ -89,7 +89,7 @@ public final class ExpressionUtility {
         // if the first parameter of the method is
         // com.scriptbasic.interfaces.interpreter then auto magically
         // pass that parameter to the method
-        final boolean interpreterAware = parameterTypes.length >= 1 && Interpreter.class.isAssignableFrom(parameterTypes[0]);
+        final var interpreterAware = parameterTypes.length >= 1 && Interpreter.class.isAssignableFrom(parameterTypes[0]);
         if (!parameterLengthMatch(parameterTypes, args, interpreterAware)) {
             throw new BasicRuntimeException(
                     "Different number of parameters calling the Java method '"
@@ -105,7 +105,7 @@ public final class ExpressionUtility {
         }
         if (args != null) {
             for (final RightValue arg : args) {
-                final Object object = CastUtility.cast(
+                final var object = CastUtility.cast(
                         RightValueUtility.getValueObject(arg),
                         parameterTypes[parameterIndex]);
                 result.add(object);
@@ -146,7 +146,7 @@ public final class ExpressionUtility {
             return ((VariableAccess) expression).getVariableName();
         }
         if (expression instanceof JavaObjectFieldAccessOperator) {
-            final JavaObjectFieldAccessOperator ofao = (JavaObjectFieldAccessOperator) expression;
+            final var ofao = (JavaObjectFieldAccessOperator) expression;
             return convertToString(ofao.getLeftOperand()) + "."
                     + convertToString(ofao.getRightOperand());
         }

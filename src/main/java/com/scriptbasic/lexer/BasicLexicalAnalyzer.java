@@ -6,7 +6,6 @@ import com.scriptbasic.interfaces.*;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 import com.scriptbasic.readers.HierarchicalSourceReader;
-import com.scriptbasic.readers.SourceProvider;
 import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.utility.CharUtils;
 
@@ -64,8 +63,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
 
     @Override
     public LexicalElement get() throws AnalysisException {
-        LexicalElement le = null;
-        le = peek();
+        final var le = peek();
         this.peekElement = null;
         return le;
     }
@@ -77,7 +75,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     public LexicalElement peek() throws AnalysisException {
         if (this.peekElement == null) {
             if (!elements.hasNext()) {
-                Integer ch = reader.get();
+                final var ch = reader.get();
                 if (ch == null) {
                     // do not read beyond the last line
                     return null;
@@ -114,7 +112,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
                 reader.unget(ch);
                 boolean analyzed = false;
                 for (final LexicalElementAnalyzer analyzer : analyzers) {
-                    final LexicalElement element = analyzer.read();
+                    final var element = analyzer.read();
                     if (element != null) {
                         analyzed = true;
                         LOG.debug("{} could analyze the characters", analyzer);
@@ -136,12 +134,12 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     private void processSourceInclude() throws AnalysisException {
         resetLine();
         if (!this.allElements.isEmpty()) {
-            final LexicalElement statement = elements.next();
+            final var statement = elements.next();
             if (isIncludeOrImport(statement)) {
-                final LexicalElement lexicalElement = elements.next();
+                final var lexicalElement = elements.next();
                 assertIncludeFileIsSpecifiedAsString(lexicalElement);
                 assertThereAreNoExtraCharactersAtTheEndOfTheLine();
-                final SourceProvider sourceProvider = reader.getSourceProvider();
+                final var sourceProvider = reader.getSourceProvider();
                 SourceReader childReader = null;
                 try {
                     childReader = sourceProvider.get(lexicalElement.stringValue(), reader.getFileName());
@@ -166,7 +164,7 @@ public class BasicLexicalAnalyzer implements LineOrientedLexicalAnalyzer {
     }
 
     private void assertThereAreNoExtraCharactersAtTheEndOfTheLine() throws BasicSyntaxException {
-        final LexicalElement newLine = elements.hasNext() ?
+        final var newLine = elements.hasNext() ?
                 elements.next() : null;
         if (newLine != null && !newLine.isLineTerminator()) {
             LOG.error("There are extra characters on the line after the include file name string");

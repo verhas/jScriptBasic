@@ -2,7 +2,6 @@ package com.scriptbasic.executors.commands;
 
 import com.scriptbasic.spi.Interpreter;
 import com.scriptbasic.spi.LeftValue;
-import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.*;
 
@@ -21,7 +20,7 @@ public class CommandLet extends AbstractCommand {
     @Override
     public void execute(final Interpreter interpreter) throws ScriptBasicException {
         try {
-            final RightValue rv = expression.evaluate(interpreter);
+            final var rv = expression.evaluate(interpreter);
             if (resultHasToBeStored()) {
                 leftValue.setValue(rv, interpreter);
             }

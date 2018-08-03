@@ -12,8 +12,8 @@ public class UnaryOperatorMinus extends AbstractUnaryOperator {
     @Override
     public RightValue evaluate(final Interpreter interpreter)
             throws ScriptBasicException {
-        final Expression operand = getOperand();
-        final RightValue rightValue = operand.evaluate(interpreter);
+        final var operand = getOperand();
+        final var rightValue = operand.evaluate(interpreter);
         RightValue result = null;
         if (!rightValue.isNumeric()) {
             throw new BasicRuntimeException(

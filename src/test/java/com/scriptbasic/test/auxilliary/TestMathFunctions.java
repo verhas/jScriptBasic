@@ -12,11 +12,11 @@ import static com.scriptbasic.utility.functions.MathFunctions.*;
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class TestMathFunctions {
     @Test
-    public void testExMethods() throws ClassNotFoundException,
-            InstantiationException, IllegalAccessException, ScriptBasicException, NoSuchMethodException, InvocationTargetException {
+    public void testExMethods() throws
+            ScriptBasicException {
 
-        double x = 0.0;
-        double y = 1.0;
+        final var x = 0.0;
+        final var y = 1.0;
 
         abs(13L);
         abs(-13L);
@@ -26,7 +26,7 @@ public class TestMathFunctions {
         try {
             abs(55);
             Assert.fail("MathFunctions.abs accepted int argument");
-        } catch (ScriptBasicException e) {
+        } catch (final ScriptBasicException e) {
 
         }
 

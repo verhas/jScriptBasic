@@ -4,7 +4,6 @@ import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
-import com.scriptbasic.spi.Interpreter;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -19,24 +18,24 @@ import static com.scriptbasic.executors.operators.SupportTest.eval;
  */
 
 public class TestJavaAccess {
-    private static Logger log = LoggerFactory.getLogger();
+    private static final Logger log = LoggerFactory.getLogger();
 
 
-    private static void executeInsecure(final String s, Object expected) throws AnalysisException, ScriptBasicException {
-        Interpreter interpreter = eval(s);
+    private static void executeInsecure(final String s, final Object expected) throws AnalysisException, ScriptBasicException {
+        final var interpreter = eval(s);
         interpreter.getConfiguration().set("insecure", "true");
         interpreter.execute();
         assertValueOfVariable_A(interpreter, expected);
     }
 
-    private static void executeSecure(final String s, Object expected) throws AnalysisException, ScriptBasicException {
-        Interpreter interpreter = eval(s);
+    private static void executeSecure(final String s, final Object expected) throws AnalysisException, ScriptBasicException {
+        final var interpreter = eval(s);
         interpreter.execute();
         assertValueOfVariable_A(interpreter, expected);
     }
 
-    private static String program(String... lines) {
-        final String code = Arrays.stream(lines).collect(Collectors.joining("\n"));
+    private static String program(final String... lines) {
+        final var code = String.join("\n", lines);
         log.debug(code);
         return code;
     }
@@ -95,17 +94,17 @@ public class TestJavaAccess {
     }
 
     public static class OverloadedMethods {
-        public static int A(long z) {
+        public static int A(final long z) {
             log.debug("A(Long) was invoked with value {}", z);
             return 1;
         }
 
-        public static int A(String z) {
+        public static int A(final String z) {
             log.debug("A(String) was invoked with value {}", z);
             return 1;
         }
 
-        public static int A(int z) {
+        public static int A(final int z) {
             log.debug("A(int) was invoked with value {}", z);
             return 1;
         }

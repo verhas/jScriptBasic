@@ -54,9 +54,9 @@ public class ReflectionUtility {
                     interpreter);
             javaCallResult = method.invoke(object, argArray);
             setTheInterpreterIfTheResultIsBasicArray(javaCallResult, interpreter);
-        } catch (InvocationTargetException e) {
+        } catch (final InvocationTargetException e) {
             throw exceptionFrom(e);
-        } catch (IllegalArgumentException | IllegalAccessException e) {
+        } catch (final IllegalArgumentException | IllegalAccessException e) {
             throw new BasicRuntimeException("Can not invoke method " + symbolicName, e);
         } catch (final Exception e) {
             throw new BasicRuntimeException("Invoking method '" + symbolicName + "' throws exception:", e);
@@ -72,7 +72,7 @@ public class ReflectionUtility {
      *
      * @throws ScriptBasicException always, never returns
      */
-    private static ScriptBasicException exceptionFrom(InvocationTargetException e) throws ScriptBasicException {
+    private static ScriptBasicException exceptionFrom(final InvocationTargetException e) {
         if( e.getTargetException() instanceof ScriptBasicException ){
             return (ScriptBasicException)e.getTargetException();
         }else{
@@ -80,9 +80,9 @@ public class ReflectionUtility {
         }
     }
 
-    private static void assertNoAccess(String symbolicName, Object object) throws BasicRuntimeException {
+    private static void assertNoAccess(final String symbolicName, final Object object) throws BasicRuntimeException {
         if ( object instanceof NoAccess) {
-            final Object target = object instanceof NoAccessProxy ? ((NoAccessProxy) object).target : object;
+            final var target = object instanceof NoAccessProxy ? ((NoAccessProxy) object).target : object;
             throw new BasicRuntimeException("It is not allowed to call  '" +
                     symbolicName +
                     "' on object of class '" +
@@ -90,7 +90,7 @@ public class ReflectionUtility {
         }
     }
 
-    private static void setTheInterpreterIfTheResultIsBasicArray(Object javaCallResult, Interpreter interpreter) {
+    private static void setTheInterpreterIfTheResultIsBasicArray(final Object javaCallResult, final Interpreter interpreter) {
         if (javaCallResult instanceof BasicArrayValue) {
             ((BasicArrayValue) javaCallResult).setInterpreter(interpreter);
         }

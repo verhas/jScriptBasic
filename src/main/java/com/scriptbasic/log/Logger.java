@@ -7,7 +7,7 @@ import java.lang.System.Logger.Level;
  * date Aug 7, 2012
  */
 public class Logger {
-    private java.lang.System.Logger javaLogger;
+    private final java.lang.System.Logger javaLogger;
 
     protected Logger(final java.lang.System.Logger javaLogger) {
         this.javaLogger = javaLogger;

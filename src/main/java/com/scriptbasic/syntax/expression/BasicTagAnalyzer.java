@@ -37,7 +37,7 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
         implements TagAnalyzer {
 
 
-    private static Map<String, Class<? extends AbstractUnaryOperator>> unaryOperatorMap = new HashMap<>();
+    private static final Map<String, Class<? extends AbstractUnaryOperator>> unaryOperatorMap = new HashMap<>();
 
     static {
         unaryOperatorMap.put("+", UnaryOperatorPlus.class);
@@ -60,7 +60,7 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
 
     private static AbstractPrimitiveRightValue<?> newLiteralConstant(
             final LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
-        final LexicalElement lexicalElement = LexUtility.get(lexicalAnalyzer);
+        final var lexicalElement = LexUtility.get(lexicalAnalyzer);
         if (lexicalElement.isDouble()) {
             return new BasicDoubleValue(lexicalElement.doubleValue());
         } else if (lexicalElement.isLong()) {
@@ -109,8 +109,8 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
 
     @Override
     public Expression analyze() throws AnalysisException {
-        final LexicalAnalyzer lexicalAnalyzer = ctx.lexicalAnalyzer;
-        final LexicalElement lexicalElement = LexUtility.peek(lexicalAnalyzer);
+        final var lexicalAnalyzer = ctx.lexicalAnalyzer;
+        final var lexicalElement = LexUtility.peek(lexicalAnalyzer);
         if (lexicalElement != null) {
             if (isUnaryOperator(lexicalElement)) {
                 return newUnaryOperator(lexicalAnalyzer);
@@ -129,9 +129,9 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
 
     private Expression newArrayOrVariableOrFunctionCall(
             final LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
-        final LexicalElement identifierElement = LexUtility
+        final var identifierElement = LexUtility
                 .get(lexicalAnalyzer);
-        final LexicalElement lexicalElement = LexUtility.peek(lexicalAnalyzer);
+        final var lexicalElement = LexUtility.peek(lexicalAnalyzer);
         if (isOpeningBracket(lexicalElement)) {
             return newArray(lexicalAnalyzer, identifierElement);
         } else if (isOpeningParenthese(lexicalElement)) {
@@ -143,7 +143,7 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
 
     private Expression newFunctionCall(final LexicalAnalyzer lexicalAnalyzer,
                                        final LexicalElement identifierElement) throws AnalysisException {
-        final FunctionCall functionCall = new FunctionCall();
+        final var functionCall = new FunctionCall();
         LexUtility.get(lexicalAnalyzer);
         functionCall.setVariableName(identifierElement.getLexeme());
         LexicalElement lexicalElement = LexUtility.peek(lexicalAnalyzer);
@@ -162,10 +162,10 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
     private Expression newArray(final LexicalAnalyzer lexicalAnalyzer,
                                 final LexicalElement identifierElement) throws AnalysisException {
         LexUtility.get(lexicalAnalyzer);
-        final ArrayElementAccess arrayElementAccess = new ArrayElementAccess();
+        final var arrayElementAccess = new ArrayElementAccess();
         arrayElementAccess.setVariableName(identifierElement.getLexeme());
         arrayElementAccess.setExpressionList(ctx.expressionListAnalyzer.analyze());
-        final LexicalElement lexicalElement = LexUtility.peek(lexicalAnalyzer);
+        final var lexicalElement = LexUtility.peek(lexicalAnalyzer);
         if (isClosingBracket(lexicalElement)) {
             LexUtility.get(lexicalAnalyzer);
             return arrayElementAccess;
@@ -178,8 +178,8 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
     private Expression newSubExpression(final LexicalAnalyzer lexicalAnalyzer)
             throws AnalysisException {
         LexUtility.get(lexicalAnalyzer);
-        final Expression expression = ctx.expressionAnalyzer.analyze();
-        final LexicalElement lexicalElement = LexUtility.peek(lexicalAnalyzer);
+        final var expression = ctx.expressionAnalyzer.analyze();
+        final var lexicalElement = LexUtility.peek(lexicalAnalyzer);
         if (!isClosingParenthese(lexicalElement)) {
             throw new BasicSyntaxException("There is no matching closing ')' for an opening '('");
         }
@@ -189,7 +189,7 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
 
     private AbstractUnaryOperator newUnaryOperator(
             final LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
-        final LexicalElement lexicalElement = LexUtility.get(lexicalAnalyzer);
+        final var lexicalElement = LexUtility.get(lexicalAnalyzer);
         final AbstractUnaryOperator operator;
         try {
             operator = unaryOperatorMap.get(lexicalElement.getLexeme())

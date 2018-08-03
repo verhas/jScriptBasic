@@ -17,7 +17,7 @@ public class CommandAnalyzerFor extends AbstractCommandAnalyzer {
 
     @Override
     public Command analyze() throws AnalysisException {
-        final CommandFor node = new CommandFor();
+        final var node = new CommandFor();
         node.setLoopVariable(analyzeSimpleLeftValue());
         assertKeyWord("=");
         node.setLoopStartValue(analyzeExpression());

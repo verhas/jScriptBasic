@@ -8,14 +8,12 @@ public class IntegerDivideOperator extends
         AbstractBinaryFullCircuitHalfDoubleOperator {
 
     @Override
-    protected RightValue operateOnDoubleDouble(final Double a, final Double b)
-            throws BasicRuntimeException {
+    protected RightValue operateOnDoubleDouble(final Double a, final Double b) {
         return new BasicLongValue(Double.valueOf(a / b).longValue());
     }
 
     @Override
-    protected RightValue operateOnLongLong(final Long a, final Long b)
-            throws BasicRuntimeException {
+    protected RightValue operateOnLongLong(final Long a, final Long b) {
         return new BasicLongValue(a / b);
     }
 

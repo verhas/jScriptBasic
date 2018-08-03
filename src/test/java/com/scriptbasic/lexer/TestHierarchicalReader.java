@@ -68,7 +68,7 @@ public class TestHierarchicalReader {
     public void testMultiInclude() throws AnalysisException, IOException {
         final ArrayList<LexicalElement> lexes = new ArrayList<>();
         final ArrayList<String> files = new ArrayList<>();
-        final int level = 20;
+        final var level = 20;
         addX(lexes, files, level);
         assertLexicals(
                 createStringArrayReading(files.toArray(new String[files.size()])), lexes.toArray(new LexicalElement[lexes.size()])

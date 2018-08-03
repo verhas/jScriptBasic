@@ -11,7 +11,7 @@ public class BasicStringValue extends AbstractPrimitiveRightValue<String> {
     @SuppressWarnings("unchecked")
     public static String asString(final RightValue rv)            throws BasicRuntimeException {
         try {
-            String resultString = null;
+            final String resultString;
             if (rv == null
                     || ((AbstractPrimitiveRightValue<Object>) rv).getValue() == null) {
                 resultString = "undef";
@@ -32,7 +32,7 @@ public class BasicStringValue extends AbstractPrimitiveRightValue<String> {
     public String toString(){
         try {
             return asString(this);
-        } catch (BasicRuntimeException e) {
+        } catch (final BasicRuntimeException e) {
             return super.toString();
         }
     }

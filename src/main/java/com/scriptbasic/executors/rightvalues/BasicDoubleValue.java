@@ -11,7 +11,7 @@ public class BasicDoubleValue extends AbstractNumericRightValue<Double> {
 
     public static Double asDouble(final RightValue rv, final String errorMessageForNull)
             throws BasicRuntimeException {
-        final Double value = asDouble(rv);
+        final var value = asDouble(rv);
         if( value == null ){
             throw new BasicRuntimeException(errorMessageForNull);
         }
@@ -24,14 +24,14 @@ public class BasicDoubleValue extends AbstractNumericRightValue<Double> {
             return ((BasicBooleanValue) rv).getValue() ? 1.0 : 0.0;
         }
         if (rv.isString()) {
-            final String s = ((BasicStringValue) rv).getValue();
+            final var s = ((BasicStringValue) rv).getValue();
             if (s == null) {
                 return null;
             }
             return Double.parseDouble(s);
         }
         if (rv.isLong()) {
-            final Long l = ((BasicLongValue) rv).getValue();
+            final var l = ((BasicLongValue) rv).getValue();
             if (l == null) {
                 return null;
             }
@@ -41,7 +41,7 @@ public class BasicDoubleValue extends AbstractNumericRightValue<Double> {
             return ((BasicDoubleValue) rv).getValue();
         }
         if (rv.isJavaObject()) {
-            final Object o = ((BasicJavaObjectValue) rv).getValue();
+            final var o = ((BasicJavaObjectValue) rv).getValue();
             if (o instanceof Double) {
                 return (Double) o;
             }
@@ -55,7 +55,7 @@ public class BasicDoubleValue extends AbstractNumericRightValue<Double> {
     public String toString() {
         try {
             return "" + asDouble(this);
-        } catch (BasicRuntimeException e) {
+        } catch (final BasicRuntimeException e) {
             return super.toString();
         }
     }

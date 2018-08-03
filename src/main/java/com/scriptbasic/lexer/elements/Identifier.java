@@ -5,7 +5,6 @@ import com.scriptbasic.interfaces.KeywordRecognizer;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
-import com.scriptbasic.lexer.BasicLexicalElement;
 
 public class Identifier extends AbstractElementAnalyzer {
 
@@ -24,16 +23,16 @@ public class Identifier extends AbstractElementAnalyzer {
     public LexicalElement read() throws LexicalException {
         Integer ch = getReader().get();
         if (Character.isUnicodeIdentifierStart(ch)) {
-            final StringBuilder identifier = new StringBuilder(
+            final var identifier = new StringBuilder(
                     IDENTIFIER_STRINGBUILDER_INITIAL_CAPACITY);
             while (ch != null && Character.isUnicodeIdentifierPart(ch)) {
                 identifier.appendCodePoint(ch);
                 ch = getReader().get();
             }
             getReader().unget(ch);
-            final String s = identifier.toString();
+            final var s = identifier.toString();
 
-            final BasicLexicalElement le = BasicLexialElementFactory
+            final var le = BasicLexialElementFactory
                     .create(getReader(),
                             this.keywordRecognizer.isRecognized(s) ? LexicalElement.TYPE_SYMBOL
                                     : LexicalElement.TYPE_IDENTIFIER);

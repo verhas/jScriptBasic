@@ -32,8 +32,8 @@ public abstract class AbstractExpressionAnalyzer extends
         return ctx.lexicalAnalyzer.peek();
     }
 
-    private LexicalElement consumeTheOperatorLexeme() throws AnalysisException {
-        return ctx.lexicalAnalyzer.get();
+    private void consumeTheOperatorLexeme() throws AnalysisException {
+        ctx.lexicalAnalyzer.get();
     }
 
     private boolean isOperatorWithPriority(final LexicalElement le,
@@ -61,11 +61,11 @@ public abstract class AbstractExpressionAnalyzer extends
         Expression leftOperand = analyze(priority - 1);
         try {
             for (; ; ) {
-                final LexicalElement le = peekAtOperatorLexeme();
+                final var le = peekAtOperatorLexeme();
                 if (isOperatorWithPriority(le, priority)) {
                     consumeTheOperatorLexeme();
-                    final Expression rightOperand = analyze(priority - 1);
-                    final AbstractBinaryOperator operator = getOperator(le, priority);
+                    final var rightOperand = analyze(priority - 1);
+                    final var operator = getOperator(le, priority);
                     operator.setLeftOperand(leftOperand);
                     operator.setRightOperand(rightOperand);
                     leftOperand = operator;
@@ -88,9 +88,9 @@ public abstract class AbstractExpressionAnalyzer extends
      * expression not higher than {@code priority}. Operators in sub expressions
      * enclosed between parentheses can however be of any priority.
      *
-     * @param priority
-     * @return
-     * @throws AnalysisException
+     * @param priority the maximum priority of operators in the expression
+     * @return the expression that was analyzed
+     * @throws AnalysisException when the expression has syntax error
      */
     private Expression analyze(final Integer priority) throws AnalysisException {
         if (priority == 0) {

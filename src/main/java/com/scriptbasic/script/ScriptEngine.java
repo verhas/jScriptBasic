@@ -67,7 +67,7 @@ public class ScriptEngine extends AbstractScriptEngine {
             ctx.interpreter.execute();
             unmergeBindings(ctx.interpreter, context.getBindings(ScriptContext.ENGINE_SCOPE));
             unmergeBindings(ctx.interpreter, context.getBindings(ScriptContext.GLOBAL_SCOPE));
-        } catch (ScriptBasicException | AnalysisException e) {
+        } catch (final ScriptBasicException | AnalysisException e) {
             throw new ScriptException(e);
         }
         return null;

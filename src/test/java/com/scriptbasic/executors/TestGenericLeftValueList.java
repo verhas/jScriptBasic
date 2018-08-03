@@ -10,7 +10,7 @@ import org.junit.Test;
 public class TestGenericLeftValueList {
     @Test
     public void test() {
-        GenericLeftValueList glvl = new GenericLeftValueList();
+        final var glvl = new GenericLeftValueList();
         glvl.iterator();
     }
 }

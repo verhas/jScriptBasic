@@ -14,7 +14,7 @@ public class TestBasicProgramAnalyzer {
 
     private static Context compile(final String s)
             throws AnalysisException {
-        Context ctx = ContextBuilder.from(createStringReading(s));
+        final var ctx = ContextBuilder.from(createStringReading(s));
         ctx.interpreter.setProgram(ctx.syntaxAnalyzer.analyze());
         return ctx;
     }
@@ -27,24 +27,24 @@ public class TestBasicProgramAnalyzer {
     }
 
     public void testOneStepProgramExcute() throws Exception {
-        Context ctx = compile("a=1");
+        final var ctx = compile("a=1");
         ctx.interpreter.execute();
-        Object o = ctx.interpreter.getVariable("a");
+        final var o = ctx.interpreter.getVariable("a");
         assertTrue(o instanceof Long);
-        long l = (Long) o;
+        final long l = (Long) o;
         assertEquals(l, 1L);
     }
 
     public void test2StepsProgramExcute() throws Exception {
-        Context ctx = compile("a=1\nb=1+1");
+        final var ctx = compile("a=1\nb=1+1");
         ctx.interpreter.execute();
-        Object o1 = ctx.interpreter.getVariable("a");
+        final var o1 = ctx.interpreter.getVariable("a");
         assertTrue(o1 instanceof Long);
-        long l1 = (Long) o1;
+        final long l1 = (Long) o1;
         assertEquals(l1, 1L);
-        Object o2 = ctx.interpreter.getVariable("b");
+        final var o2 = ctx.interpreter.getVariable("b");
         assertTrue(o2 instanceof Long);
-        long l2 = (Long) o2;
+        final long l2 = (Long) o2;
         assertEquals(l2, 2L);
     }
 

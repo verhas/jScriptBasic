@@ -10,7 +10,7 @@ public abstract class AbstractCompareOperator extends
 
     protected static int compareJavaObjectTo(final BasicJavaObjectValue f,
                                              final RightValue op) throws BasicRuntimeException {
-        final Object o = BasicJavaObjectValue.asObject(op);
+        final var o = BasicJavaObjectValue.asObject(op);
         if (f.getValue() instanceof Comparable<?> && o instanceof Comparable<?>) {
             @SuppressWarnings("unchecked") final Comparable<Comparable<?>> a = (Comparable<Comparable<?>>) f
                     .getValue();
@@ -34,7 +34,7 @@ public abstract class AbstractCompareOperator extends
             throws BasicRuntimeException;
 
     protected abstract Boolean compareTo(BasicBooleanValue s, RightValue op)
-            throws BasicRuntimeException;
+            ;
 
     @Override
     protected RightValue evaluateOn(final RightValue leftOperand,

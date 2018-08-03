@@ -3,7 +3,6 @@ package com.scriptbasic.utility;
 import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.api.Configuration;
 import com.scriptbasic.spi.Interpreter;
 import com.scriptbasic.interfaces.ExtensionInterfaceVersion;
 import com.scriptbasic.log.Logger;
@@ -16,7 +15,7 @@ import java.lang.reflect.Modifier;
  * @author Peter Verhas date Jul 22, 2012
  */
 public class MethodRegisterUtility implements ExtensionInterfaceVersion {
-    private static Logger LOG = LoggerFactory.getLogger();
+    private static final Logger LOG = LoggerFactory.getLogger();
 
     private MethodRegisterUtility() {
         NoInstance.isPossible();
@@ -34,7 +33,7 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
     public static void registerFunctions(final Class<?> klass,
                                          final Interpreter interpreter) throws BasicRuntimeException {
 
-        final FunctionLoadParameters method = new FunctionLoadParameters();
+        final var method = new FunctionLoadParameters();
 
         for (final Method methodObj : klass.getMethods()) {
             method.initParameters(methodObj, klass);
@@ -86,14 +85,14 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
             throw new BasicInterpreterInternalError("Some of the extension functions do not have classifications."+
             " Since this is Java code, it is an internal error of the host application.");
         }
-        final Configuration config = interpreter.getConfiguration();
+        final var config = interpreter.getConfiguration();
         Integer allowLevel = 0;
         for (final Class<?> classification : classifications) {
-            final String name = classification.getName();
-            final String allowKey = "allow(" + name + ")";
-            final String denyKey = "deny(" + name + ")";
-            final String allowValue = config.getConfigValue(allowKey).orElse(null);
-            final String denyValue = config.getConfigValue(denyKey).orElse(null);
+            final var name = classification.getName();
+            final var allowKey = "allow(" + name + ")";
+            final var denyKey = "deny(" + name + ")";
+            final var allowValue = config.getConfigValue(allowKey).orElse(null);
+            final var denyValue = config.getConfigValue(denyKey).orElse(null);
             allowLevel += gIV(allowValue) - gIV(denyValue);
         }
         return allowLevel >= 0;
@@ -146,7 +145,7 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
         }
 
         boolean versionIsCompatible() {
-            final long requiredVersion = annotation.requiredVersion();
+            final var requiredVersion = annotation.requiredVersion();
             if (annotation.requiredVersion() > EXTENSION_INTERFACE_VERSION) {
                 LOG.error(
                         "The method {} can not be registered, because it requires the interface version {} and the implemented version is {}.",

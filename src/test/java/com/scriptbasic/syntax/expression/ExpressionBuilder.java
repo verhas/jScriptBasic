@@ -12,7 +12,7 @@ public class ExpressionBuilder {
     public static Expression binaryOp(
             final Class<? extends AbstractBinaryOperator> klass,
             final Expression a, final Expression b) throws Exception {
-        final AbstractBinaryOperator op = klass.getDeclaredConstructor().newInstance();
+        final var op = klass.getDeclaredConstructor().newInstance();
         op.setLeftOperand(a);
         op.setRightOperand(b);
         return op;
@@ -31,7 +31,7 @@ public class ExpressionBuilder {
     public static Expression unaryOp(
             final Class<? extends AbstractUnaryOperator> klass,
             final Expression a) throws Exception {
-        final AbstractUnaryOperator op = klass.getDeclaredConstructor().newInstance();
+        final var op = klass.getDeclaredConstructor().newInstance();
         op.setOperand(a);
         return op;
     }
@@ -58,7 +58,7 @@ public class ExpressionBuilder {
             final AbstractIdentifieredExpressionListedExpression foa,
             final String name, final Expression[] indices) {
         foa.setVariableName(name);
-        final GenericExpressionList expressionList = indices == null ? null
+        final var expressionList = indices == null ? null
                 : new GenericExpressionList();
         if (indices != null) {
             for (final Expression e : indices) {
@@ -79,9 +79,9 @@ public class ExpressionBuilder {
         return funOrArray(new ArrayElementAccess(), name, indices);
     }
 
-    public static ExpressionList LIST(Expression... expressions) {
-        final GenericExpressionList expressionList = new GenericExpressionList();
-        for (Expression expression : expressions) {
+    public static ExpressionList LIST(final Expression... expressions) {
+        final var expressionList = new GenericExpressionList();
+        for (final Expression expression : expressions) {
             expressionList.add(expression);
         }
         return expressionList;
@@ -118,7 +118,7 @@ public class ExpressionBuilder {
     }
 
     public static Expression OBJECT_FIELD(final Expression a, final Expression b) {
-        final JavaObjectFieldAccessOperator ofa = new JavaObjectFieldAccessOperator();
+        final var ofa = new JavaObjectFieldAccessOperator();
         ofa.setLeftOperand(a);
         ofa.setRightOperand(b);
         return ofa;

@@ -4,7 +4,6 @@ import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandWhile;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.spi.Command;
-import com.scriptbasic.interfaces.Expression;
 
 public class CommandAnalyzerWhile extends AbstractCommandAnalyzer {
 
@@ -14,8 +13,8 @@ public class CommandAnalyzerWhile extends AbstractCommandAnalyzer {
 
     @Override
     public Command analyze() throws AnalysisException {
-        final CommandWhile node = new CommandWhile();
-        final Expression condition = analyzeExpression();
+        final var node = new CommandWhile();
+        final var condition = analyzeExpression();
         consumeEndOfLine();
         node.setCondition(condition);
         pushNode(node);

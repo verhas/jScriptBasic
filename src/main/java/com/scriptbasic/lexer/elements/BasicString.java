@@ -57,7 +57,7 @@ public class BasicString extends AbstractElementAnalyzer {
     @Override
     public LexicalElement read() throws LexicalException {
         BasicLexicalElement lexicalElement = null;
-        final Integer character = getReader().get();
+        final var character = getReader().get();
         if (character != null && character.equals((int) '"')) {
             if (isTripleQuote()) {
                 lexicalElement = readMultiLineString();
@@ -71,9 +71,9 @@ public class BasicString extends AbstractElementAnalyzer {
     }
 
     private boolean isTripleQuote() {
-        final Integer second = getReader().get();
-        final Integer third = getReader().get();
-        final boolean itIs = ((Integer) (int) '"').equals(second)
+        final var second = getReader().get();
+        final var third = getReader().get();
+        final var itIs = ((Integer) (int) '"').equals(second)
                 && ((Integer) (int) '"').equals(third);
         if (!itIs) {
             getReader().unget(third);
@@ -108,11 +108,11 @@ public class BasicString extends AbstractElementAnalyzer {
     private BasicLexicalElement readString(final int stringBufferInitialSize,
                                            final boolean multiLine) throws UnterminatedStringException {
 
-        final StringBuilder string = new StringBuilder(stringBufferInitialSize);
-        final StringBuilder lexeme = new StringBuilder(stringBufferInitialSize);
+        final var string = new StringBuilder(stringBufferInitialSize);
+        final var lexeme = new StringBuilder(stringBufferInitialSize);
         appendSeparator(lexeme, multiLine);
 
-        final BasicLexicalElement lexicalElement = BasicLexialElementFactory
+        final var lexicalElement = BasicLexialElementFactory
                 .create(getReader(), LexicalElement.TYPE_STRING);
 
         Integer character = getReader().get();

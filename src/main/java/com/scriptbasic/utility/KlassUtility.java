@@ -51,13 +51,13 @@ public final class KlassUtility {
             magicBean.set(fieldName, valueObject);
         } else {
             try {
-                final Field field = getField(klass, fieldName);
-                final Method setter = getSetter(field);
+                final var field = getField(klass, fieldName);
+                final var setter = getSetter(field);
                 if (setter != null) {
                     setter.invoke(object, valueObject);
                 } else {
                     final Class<?> fieldClass = field.getType();
-                    final Object typeConvertedValueObject = CastUtility.cast(valueObject, fieldClass);
+                    final var typeConvertedValueObject = CastUtility.cast(valueObject, fieldClass);
                     field.set(object, typeConvertedValueObject);
                 }
             } catch (final Exception e) {
@@ -115,8 +115,8 @@ public final class KlassUtility {
         } else {
             final Object result;
             try {
-                final Field field = getField(klass, fieldName);
-                final Method getter = getGetter(field);
+                final var field = getField(klass, fieldName);
+                final var getter = getGetter(field);
                 if (getter != null) {
                     result = getter.invoke(object);
                 } else {
@@ -159,7 +159,7 @@ public final class KlassUtility {
      */
     public static Class<?> forName(final String s)
             throws ClassNotFoundException {
-        final StringBuilder className = new StringBuilder(s);
+        final var className = new StringBuilder(s);
         Class<?> klass = null;
         ClassNotFoundException firstCaughtException = null;
         while (klass == null) {
@@ -167,7 +167,7 @@ public final class KlassUtility {
                 klass = Class.forName(className.toString());
             } catch (final ClassNotFoundException ex) {
                 firstCaughtException = Optional.ofNullable(firstCaughtException).orElse(ex);
-                final int lastDotPosition = className.lastIndexOf(".");
+                final var lastDotPosition = className.lastIndexOf(".");
                 if (lastDotPosition == -1) {
                     throw firstCaughtException;
                 }
@@ -239,8 +239,8 @@ public final class KlassUtility {
     }
 
     private static Method getSetter(final Field field) {
-        final String fieldName = field.getName();
-        final StringBuilder sb = new StringBuilder(SETTER_PREFIX).append(fieldName);
+        final var fieldName = field.getName();
+        final var sb = new StringBuilder(SETTER_PREFIX).append(fieldName);
         sb.setCharAt(SETTER_PREFIX_LEN, Character.toUpperCase(sb.charAt(SETTER_PREFIX_LEN)));
         try {
             return field.getDeclaringClass().getMethod(sb.toString(), field.getType());
@@ -250,7 +250,7 @@ public final class KlassUtility {
     }
 
     private static Method getGetter(final Field field) {
-        final Method getGetter = getterPrefixed(field, "get");
+        final var getGetter = getterPrefixed(field, "get");
         final Method isGetter;
         if (Boolean.class.isAssignableFrom(field.getType()) ||
                 boolean.class.isAssignableFrom(field.getType())) {
@@ -268,9 +268,9 @@ public final class KlassUtility {
     }
 
     private static Method getterPrefixed(final Field field, final String prefix) {
-        final String fieldName = field.getName();
-        final int prefixLength = prefix.length();
-        final StringBuilder sb = new StringBuilder(prefix).append(fieldName);
+        final var fieldName = field.getName();
+        final var prefixLength = prefix.length();
+        final var sb = new StringBuilder(prefix).append(fieldName);
         sb.setCharAt(prefixLength, Character.toUpperCase(sb.charAt(prefixLength)));
         try {
             return field.getDeclaringClass().getMethod(sb.toString());

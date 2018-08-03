@@ -11,7 +11,7 @@ public class BasicLongValue extends AbstractNumericRightValue<Long> {
 
     public static Long asLong(final RightValue rv, final String errorMessageForNull)
             throws BasicRuntimeException {
-        final Long value = asLong(rv);
+        final var value = asLong(rv);
         if (value == null) {
             throw new BasicRuntimeException(errorMessageForNull);
         }
@@ -24,7 +24,7 @@ public class BasicLongValue extends AbstractNumericRightValue<Long> {
             return ((BasicBooleanValue) rv).getValue() ? 1L : 0L;
         }
         if (rv.isString()) {
-            final String s = ((BasicStringValue) rv).getValue();
+            final var s = ((BasicStringValue) rv).getValue();
             if (s == null) {
                 return null;
             }
@@ -37,7 +37,7 @@ public class BasicLongValue extends AbstractNumericRightValue<Long> {
             return ((BasicDoubleValue) rv).getValue().longValue();
         }
         if (rv.isJavaObject()) {
-            final Object o = ((BasicJavaObjectValue) rv).getValue();
+            final var o = ((BasicJavaObjectValue) rv).getValue();
             if (o instanceof Long) {
                 return (Long) o;
             }
@@ -51,7 +51,7 @@ public class BasicLongValue extends AbstractNumericRightValue<Long> {
     public String toString() {
         try {
             return "" + asLong(this);
-        } catch (BasicRuntimeException e) {
+        } catch (final BasicRuntimeException e) {
             return super.toString();
         }
     }

@@ -25,8 +25,8 @@ public class BasicSimpleLeftValueAnalyzer implements LeftValueAnalyzer,
 
     @Override
     public LeftValue analyze() throws AnalysisException {
-        BasicLeftValue leftValue = null;
-        final LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
+        final BasicLeftValue leftValue;
+        final var lexicalElement = ctx.lexicalAnalyzer.peek();
         if (lexicalElement != null && lexicalElement.isIdentifier()) {
             ctx.lexicalAnalyzer.get();
             leftValue = new BasicLeftValue();

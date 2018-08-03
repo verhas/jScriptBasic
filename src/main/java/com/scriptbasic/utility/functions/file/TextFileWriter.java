@@ -3,8 +3,8 @@ package com.scriptbasic.utility.functions.file;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-public class TextFileWriter implements FileHandler {
-    private BufferedWriter writer;
+public class TextFileWriter implements FileHandler, AutoCloseable {
+    private final BufferedWriter writer;
 
     public TextFileWriter(final BufferedWriter bw) {
         writer = bw;

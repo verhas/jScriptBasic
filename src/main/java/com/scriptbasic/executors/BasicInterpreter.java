@@ -154,7 +154,7 @@ public final class BasicInterpreter implements Interpreter {
 
     @Override
     public CommandSub getSubroutine(final String name) {
-        final Command command = program.getNamedCommand(name);
+        final var command = program.getNamedCommand(name);
         if (command instanceof CommandSub) {
             return (CommandSub) command;
         }
@@ -190,8 +190,8 @@ public final class BasicInterpreter implements Interpreter {
             if (hook != null) {
                 hook.init();
             }
-            deferredFunctionsRegistrations.stream().forEach(this::registerFunctions);
-            deferredJavaMethodRegistrations.stream().forEach(this::registerJavaMethod);
+            deferredFunctionsRegistrations.forEach(this::registerFunctions);
+            deferredJavaMethodRegistrations.forEach(this::registerJavaMethod);
             BasicRuntimeFunctionRegisterer.registerBasicRuntimeFunctions(this);
         }
     }
@@ -204,7 +204,7 @@ public final class BasicInterpreter implements Interpreter {
     @Override
     public void execute() throws ScriptBasicException {
         preExecuteTask();
-        final Command command = program.getStartCommand();
+        final var command = program.getStartCommand();
         hook.beforeExecute();
         execute(command);
         hook.afterExecute();
@@ -220,7 +220,7 @@ public final class BasicInterpreter implements Interpreter {
     @Override
     public void execute(final Command startCommand) throws ScriptBasicException {
         preExecuteTask();
-        Command command = startCommand;
+        var command = startCommand;
         while (command != null) {
             nextCommand = command.getNextCommand();
             currentCommand = command;
@@ -245,7 +245,7 @@ public final class BasicInterpreter implements Interpreter {
     @Override
     public void setVariable(final String name, final Object value)
             throws ScriptBasicException {
-        final RightValue rightValue = RightValueUtility.createRightValue(value);
+        final var rightValue = RightValueUtility.createRightValue(value);
         getVariables().setVariable(name, rightValue);
     }
 
@@ -269,7 +269,7 @@ public final class BasicInterpreter implements Interpreter {
     public Object call(final String functionName, final Object[] arguments)
             throws ScriptBasicException {
         preExecuteTask();
-        final CommandSub commandSub = getSubroutine(functionName);
+        final var commandSub = getSubroutine(functionName);
         if (commandSub == null) {
             throw new BasicRuntimeException("There is no such subroutine '"
                     + functionName + "'");
@@ -369,7 +369,7 @@ public final class BasicInterpreter implements Interpreter {
     private void registerJavaMethod(final DeferredJavaMethodRegistration registration) {
         try {
             registerJavaMethod(registration.alias, registration.klass, registration.methodName, registration.argumentTypes);
-        } catch (BasicRuntimeException e) {
+        } catch (final BasicRuntimeException e) {
             throw new BasicInterpreterInternalError(
                     "Registering method " +
                             registration.klass.getName() + "." + registration.methodName +
@@ -421,7 +421,7 @@ public final class BasicInterpreter implements Interpreter {
         }
         getVariables().dropFrame();
         nextCommand = nextCommandStack.pop();
-        final Command command = commandStack.pop();
+        final var command = commandStack.pop();
         if (hook != null) {
             hook.afterPop(command);
         }
@@ -469,12 +469,12 @@ public final class BasicInterpreter implements Interpreter {
         String methodName;
         Class<?>[] argumentTypes;
 
-        static DeferredJavaMethodRegistration of(String alias,
-                                                 Class<?> klass,
-                                                 String methodName,
-                                                 Class<?>[] argumentTypes
+        static DeferredJavaMethodRegistration of(final String alias,
+                                                 final Class<?> klass,
+                                                 final String methodName,
+                                                 final Class<?>[] argumentTypes
         ) {
-            DeferredJavaMethodRegistration it = new DeferredJavaMethodRegistration();
+            final var it = new DeferredJavaMethodRegistration();
             it.alias = alias;
             it.klass = klass;
             it.methodName = methodName;

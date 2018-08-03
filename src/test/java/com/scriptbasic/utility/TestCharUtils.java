@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 public class TestCharUtils {
 
     @Test
-    public void newLineIsOnlyNewLineAndNothingElse() throws IOException {
+    public void newLineIsOnlyNewLineAndNothingElse() {
         assertTrue(CharUtils.isNewLine((int) '\n'));
         for (int i = 0; i < 10; i++) {
             assertFalse(CharUtils.isNewLine(i));

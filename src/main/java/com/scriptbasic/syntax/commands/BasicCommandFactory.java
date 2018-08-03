@@ -69,7 +69,7 @@ public final class BasicCommandFactory implements CommandFactory {
         for (final CommandAnalyzer commandAnalyzer : classList) {
             try {
                 LOG.info("trying to analyze the line using {}", commandAnalyzer.getClass());
-                final Command command = commandAnalyzer.analyze();
+                final var command = commandAnalyzer.analyze();
                 if (command != null) {
                     return command;
                 }
@@ -85,16 +85,16 @@ public final class BasicCommandFactory implements CommandFactory {
 
     private Command createFromStartingSymbol(final String commandKeyword)
             throws AnalysisException {
-        final String lowerCaseCommandKeyword = commandKeyword.toLowerCase();
+        final var lowerCaseCommandKeyword = commandKeyword.toLowerCase();
         LOG.debug("Creating command starting with the keyword '{}'",
                 lowerCaseCommandKeyword);
         if (classMap.containsKey(lowerCaseCommandKeyword)) {
             try {
                 return classMap.get(lowerCaseCommandKeyword).analyze();
-            } catch (AnalysisException originalException) {
+            } catch (final AnalysisException originalException) {
                 try {
                     return dslAnalyzer.analyze();
-                } catch (AnalysisException ignored) {
+                } catch (final AnalysisException ignored) {
                     throw originalException;
                 }
             }

@@ -92,7 +92,7 @@ public interface ScriptBasic {
     @Deprecated(forRemoval = false)
     void setInput(Reader input);
 
-    default ScriptBasic input(Reader input) {
+    default ScriptBasic input(final Reader input) {
         //noinspection deprecation
         setInput(input);
         return this;
@@ -115,7 +115,7 @@ public interface ScriptBasic {
     @Deprecated(forRemoval = false)
     void setOutput(Writer output);
 
-    default ScriptBasic output(Writer output) {
+    default ScriptBasic output(final Writer output) {
         //noinspection deprecation
         setOutput(output);
         return this;
@@ -138,7 +138,7 @@ public interface ScriptBasic {
     @Deprecated(forRemoval = false)
     void setErrorOutput(Writer error);
 
-    default ScriptBasic error(Writer error) {
+    default ScriptBasic error(final Writer error) {
         //noinspection deprecation
         setErrorOutput(error);
         return this;
@@ -294,7 +294,7 @@ public interface ScriptBasic {
      * @param name
      * @return
      */
-    default VariableBuilder variable(String name) {
+    default VariableBuilder variable(final String name) {
         return new VariableBuilder(name, this);
     }
 
@@ -402,7 +402,7 @@ public interface ScriptBasic {
      * @param klass the class to parse.
      * @throws ScriptBasicException
      */
-    ScriptBasic registerExtension(Class<?> klass) throws ScriptBasicException;
+    ScriptBasic registerExtension(Class<?> klass);
 
     /**
      * Register an interpreter hook class.
@@ -420,12 +420,12 @@ public interface ScriptBasic {
         final private String name;
         final private ScriptBasic scriptBasic;
 
-        private VariableBuilder(String name, ScriptBasic scriptBasic) {
+        private VariableBuilder(final String name, final ScriptBasic scriptBasic) {
             this.name = name;
             this.scriptBasic = scriptBasic;
         }
 
-        public ScriptBasic is(Object value) throws ScriptBasicException {
+        public ScriptBasic is(final Object value) throws ScriptBasicException {
             //noinspection deprecation
             scriptBasic.setVariable(name, value);
             return scriptBasic;
@@ -438,7 +438,7 @@ public interface ScriptBasic {
         private final ScriptBasic scriptBasic;
         private String alias;
 
-        private FunctionBuilder(String methodName, ScriptBasic scriptBasic) {
+        private FunctionBuilder(final String methodName, final ScriptBasic scriptBasic) {
             this.methodName = methodName;
             this.alias = methodName;
             this.scriptBasic = scriptBasic;
@@ -452,7 +452,7 @@ public interface ScriptBasic {
         public class FunctionBuilder2 {
             private final Class<?> klass;
 
-            public FunctionBuilder2(Class<?> klass) {
+            public FunctionBuilder2(final Class<?> klass) {
                 this.klass = klass;
             }
 
@@ -461,7 +461,7 @@ public interface ScriptBasic {
                 return this;
             }
 
-            public ScriptBasic arguments(Class<?>... argumentTypes) throws ScriptBasicException {
+            public ScriptBasic arguments(final Class<?>... argumentTypes) throws ScriptBasicException {
                 scriptBasic.registerFunction(alias, klass, methodName, argumentTypes);
                 return scriptBasic;
             }

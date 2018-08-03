@@ -1,7 +1,6 @@
 package com.scriptbasic.syntax;
 
 import com.scriptbasic.interfaces.*;
-import com.scriptbasic.spi.Command;
 
 public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
   private final LexicalAnalyzer lexicalAnalyzer;
@@ -28,22 +27,22 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
 
   @Override
   public BuildableProgram analyze() throws AnalysisException {
-    final BuildableProgram buildableProgram = new BasicProgram();
+    final var buildableProgram = new BasicProgram();
     lexicalElement = lexicalAnalyzer.peek();
     while (lexicalElement != null) {
       if (lexicalElement.isSymbol()) {
         lexicalAnalyzer.get();
-        final String lexString = lexicalElement.getLexeme();
+        final var lexString = lexicalElement.getLexeme();
         if (lineToIgnore(lexString)) {
           consumeIgnoredLine(lexicalAnalyzer, lexString);
         } else {
-          final Command newCommand = commandFactory.create(lexString);
+          final var newCommand = commandFactory.create(lexString);
           if (newCommand != null) {
             buildableProgram.addCommand(newCommand);
           }
         }
       } else {
-        final Command newCommand = commandFactory.create(null);
+        final var newCommand = commandFactory.create(null);
         if (newCommand != null) {
           buildableProgram.addCommand(newCommand);
         }
@@ -56,7 +55,7 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
 
   private void consumeIgnoredLine(final LexicalAnalyzer lexicalAnalyzer, String lexString) throws AnalysisException {
     while (!lexString.equals("\n")) {
-      final LexicalElement le = lexicalAnalyzer.get();
+      final var le = lexicalAnalyzer.get();
       if (le == null) {
         break;
       } else {

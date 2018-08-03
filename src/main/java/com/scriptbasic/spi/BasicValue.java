@@ -5,7 +5,7 @@ import com.scriptbasic.executors.rightvalues.*;
 public interface BasicValue<T> {
     BasicBooleanValue TRUE = new BasicBooleanValue(true);
     BasicBooleanValue FALSE = new BasicBooleanValue(false);
-    static RightValue create(Object object) {
+    static RightValue create(final Object object) {
         if (object instanceof Boolean) {
             return new BasicBooleanValue((Boolean) object);
         }

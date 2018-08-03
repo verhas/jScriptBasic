@@ -7,7 +7,7 @@ import java.io.IOException;
 public class TestLexicalException {
 
 
-    public void test() throws IOException {
+    public void test() {
         class TestedLexicalException extends LexicalException {
 
             private static final long serialVersionUID = 1L;

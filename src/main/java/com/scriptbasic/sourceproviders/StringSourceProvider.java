@@ -42,7 +42,7 @@ public class StringSourceProvider extends
             throw new IOException("The source '" + sourceName
                     + "' was not set.");
         }
-        final SourceReader reader = new GenericSourceReader(new StringReader(this.sourceMap.get(sourceName)), this, sourceName);
+        final var reader = new GenericSourceReader(new StringReader(this.sourceMap.get(sourceName)), this, sourceName);
         return new GenericHierarchicalSourceReader(reader);
     }
 }

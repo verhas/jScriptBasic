@@ -213,7 +213,7 @@ public class ScriptBasicEngineFactory implements javax.script.ScriptEngineFactor
         for (final String line : statements) {
             len += 1 + line.length();
         }
-        final StringBuilder sb = new StringBuilder(len);
+        final var sb = new StringBuilder(len);
         for (final String line : statements) {
             sb.append(line).append("\n");
         }

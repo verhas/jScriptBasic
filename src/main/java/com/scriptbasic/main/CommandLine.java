@@ -20,21 +20,21 @@ public class CommandLine {
                             + "[-cp classpath for extensions] -jar jscriptbasic-x.y.z basicprogram.sb");
             System.exit(1);
         }
-        final String basicProgramFileName = args[0];
+        final var basicProgramFileName = args[0];
 
         // START SNIPPET: x
-        final PrintWriter output = new PrintWriter(System.out);
-        final PrintWriter error = new PrintWriter(System.err);
+        final var output = new PrintWriter(System.out);
+        final var error = new PrintWriter(System.err);
         try {
-            final InputStreamReader input = new InputStreamReader(System.in);
-            final Context ctx = ContextBuilder.from(new FileReader(basicProgramFileName), input, output, error);
+            final var input = new InputStreamReader(System.in);
+            final var ctx = ContextBuilder.from(new FileReader(basicProgramFileName), input, output, error);
             ctx.interpreter.registerFunctions(FileHandlingFunctions.class);
             registerSystemPropertyDefinedClasses(ctx);
             ctx.interpreter.setProgram(ctx.syntaxAnalyzer.analyze());
             ctx.configuration.set("insecure","true");
             ctx.interpreter.execute();
         } catch (final Exception exception) {
-            final Throwable cause = Optional.ofNullable(exception.getCause()).orElse(exception);
+            final var cause = Optional.ofNullable(exception.getCause()).orElse(exception);
             if (cause.getMessage() != null) {
                 System.err.println("ERROR: " + cause.getMessage());
             } else {
@@ -48,7 +48,7 @@ public class CommandLine {
     }
 
     private static void registerSystemPropertyDefinedClasses(final Context ctx) throws ClassNotFoundException {
-        final String classes = System.getProperty("sb4j.extensionclasses");
+        final var classes = System.getProperty("sb4j.extensionclasses");
         if (classes != null && classes.length() > 0) {
             final String[] classNames = classes.split(",");
             for (final String className : classNames) {

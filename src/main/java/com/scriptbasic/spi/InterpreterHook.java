@@ -85,7 +85,7 @@ public interface InterpreterHook {
      *
      * @param command the command object to be executed
      */
-    default void beforeExecute(Command command) {
+    default void beforeExecute(final Command command) {
     }
 
     /**
@@ -99,7 +99,7 @@ public interface InterpreterHook {
      *
      * @param command the command just executed.
      */
-    default void afterExecute(Command command) {
+    default void afterExecute(final Command command) {
     }
 
     /**
@@ -121,20 +121,20 @@ public interface InterpreterHook {
      *                      that will be available to the BASIC programs to be called
      *                      through the name {@code alias}.
      */
-    default void beforeRegisteringJavaMethod(String alias, Class<?> klass,
-                                             String methodName, Class<?>[] argumentTypes) {
+    default void beforeRegisteringJavaMethod(final String alias, final Class<?> klass,
+                                             final String methodName, final Class<?>[] argumentTypes) {
     }
 
     /**
      * @param command
      */
-    default void beforePush(Command command) {
+    default void beforePush(final Command command) {
     }
 
     /**
      * @param command
      */
-    default void afterPush(Command command) {
+    default void afterPush(final Command command) {
     }
 
     /**
@@ -146,7 +146,7 @@ public interface InterpreterHook {
     /**
      * @param command
      */
-    default void afterPop(Command command) {
+    default void afterPop(final Command command) {
     }
 
     /**
@@ -159,7 +159,7 @@ public interface InterpreterHook {
      * @param returnValue
      * @see Interpreter#disableHook()
      */
-    default void setReturnValue(RightValue returnValue) {
+    default void setReturnValue(final RightValue returnValue) {
     }
 
     /**
@@ -171,14 +171,14 @@ public interface InterpreterHook {
      * @param argumentValues the argument evaluated values that were assigned to the local
      *                       variable table to the arguments
      */
-    default void beforeSubroutineCall(String subroutineName, LeftValueList arguments,
-                                      RightValue[] argumentValues) {
+    default void beforeSubroutineCall(final String subroutineName, final LeftValueList arguments,
+                                      final RightValue[] argumentValues) {
     }
 
     /**
      * @param method
      */
-    default void beforeCallJavaFunction(Method method) {
+    default void beforeCallJavaFunction(final Method method) {
     }
 
     /**
@@ -190,7 +190,7 @@ public interface InterpreterHook {
      * @return the modified result or just the same object if the hook does not
      * want to modify the result
      */
-    default Object afterCallJavaFunction(Method method, Object result) {
+    default Object afterCallJavaFunction(final Method method, final Object result) {
         return result;
     }
 
@@ -203,7 +203,7 @@ public interface InterpreterHook {
      * alter the value used. Returning a modified value will not,
      * however alterthe value of the variable itself.
      */
-    default RightValue variableRead(String variableName, RightValue value) {
+    default RightValue variableRead(final String variableName, final RightValue value) {
         return value;
     }
 

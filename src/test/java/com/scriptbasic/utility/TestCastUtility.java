@@ -47,7 +47,7 @@ public class TestCastUtility {
         try {
             NoInstance.isPossible();
             fail();
-        } catch (BasicInterpreterInternalError e) {
+        } catch (final BasicInterpreterInternalError e) {
         }
 
         KlassUtility.forNameEx("byte");
@@ -61,12 +61,12 @@ public class TestCastUtility {
         try {
             KlassUtility.forNameEx("beef.dead.beef");
             fail();
-        } catch (BasicSyntaxException e) {
+        } catch (final BasicSyntaxException e) {
         }
         try {
             KlassUtility.forName("beef.dead.beef");
             fail();
-        } catch (ClassNotFoundException e) {
+        } catch (final ClassNotFoundException e) {
         }
     }
 }

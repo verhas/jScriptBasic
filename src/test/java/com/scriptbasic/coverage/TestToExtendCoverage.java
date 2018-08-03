@@ -21,7 +21,7 @@ public class TestToExtendCoverage {
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     public void testCover() {
-        BasicLexicalException bela = new BasicLexicalException();
+        final var bela = new BasicLexicalException();
         bela.getFileName();
         bela.getLineNumber();
         bela.getPosition();

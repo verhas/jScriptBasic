@@ -117,15 +117,13 @@ public class UtilityFunctions {
     }
 
     @BasicFunction(classification = Utility.class)
-    public static byte[] getStringBytes(final String s)
-            throws UnsupportedEncodingException {
+    public static byte[] getStringBytes(final String s) {
         return s.getBytes(StandardCharsets.UTF_8);
     }
 
     @BasicFunction(classification = {Utility.class,
             com.scriptbasic.classification.String.class})
-    public static String stringifyBuffer(final byte[] buffer)
-            throws UnsupportedEncodingException {
+    public static String stringifyBuffer(final byte[] buffer) {
         return new String(buffer, StandardCharsets.UTF_8);
     }
 
@@ -134,10 +132,10 @@ public class UtilityFunctions {
         if (arg == null) {
             return null;
         } else if (arg instanceof BasicArray) {
-            final BasicArray array = (BasicArray) arg;
+            final var array = (BasicArray) arg;
             return array.getLength();
         } else if (arg instanceof String) {
-            final String string = (String) arg;
+            final var string = (String) arg;
             return (long) string.length();
         } else if (arg.getClass().isArray()) {
             return (long) Array.getLength(arg);

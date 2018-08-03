@@ -13,7 +13,7 @@ public class CommandAnalyzerElse extends AbstractCommandAnalyzerIfElseKind {
 
     @Override
     public Command analyze() throws AnalysisException {
-        final CommandElse node = new CommandElse();
+        final var node = new CommandElse();
         consumeEndOfLine();
         registerAndSwapNode(node);
         return node;

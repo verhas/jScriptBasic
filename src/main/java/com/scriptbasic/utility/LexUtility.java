@@ -35,7 +35,7 @@ public final class LexUtility {
 
     public static boolean isLexeme(final LexicalAnalyzer analyzer, final String lexeme)
             throws AnalysisException {
-        final LexicalElement lexicalElement = analyzer.peek();
+        final var lexicalElement = analyzer.peek();
         if (lexicalElement != null && lexicalElement.isSymbol()
                 && lexeme.equalsIgnoreCase(lexicalElement.getLexeme())) {
             analyzer.get();

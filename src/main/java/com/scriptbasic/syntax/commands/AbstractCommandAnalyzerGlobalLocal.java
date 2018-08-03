@@ -4,7 +4,6 @@ import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.AbstractCommandLeftValueListed;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.spi.Command;
-import com.scriptbasic.spi.LeftValueList;
 
 /**
  * @author Peter Verhas
@@ -25,8 +24,8 @@ public abstract class AbstractCommandAnalyzerGlobalLocal extends AbstractCommand
      */
     @Override
     public Command analyze() throws AnalysisException {
-        final AbstractCommandLeftValueListed node = newNode();
-        final LeftValueList list = analyzeSimpleLeftValueList();
+        final var node = newNode();
+        final var list = analyzeSimpleLeftValueList();
         node.setLeftValueList(list);
         consumeEndOfLine();
         return node;

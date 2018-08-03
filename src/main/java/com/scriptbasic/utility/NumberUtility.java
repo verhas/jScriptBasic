@@ -62,8 +62,8 @@ public class NumberUtility {
         assertPreconditions(a, b);
         final int retval;
         if (a instanceof Double) {
-            final Double aA = (Double) a;
-            final Double bB = (Double) b;
+            final var aA = (Double) a;
+            final var bB = (Double) b;
             if (aA > bB) {
                 retval = 1;
             } else if (aA.equals(bB)) {
@@ -72,8 +72,8 @@ public class NumberUtility {
                 retval = -1;
             }
         } else {
-            final Long aA = (Long) a;
-            final Long bB = (Long) b;
+            final var aA = (Long) a;
+            final var bB = (Long) b;
             if (aA > bB) {
                 retval = 1;
             } else if (aA.equals(bB)) {

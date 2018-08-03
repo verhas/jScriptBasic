@@ -70,9 +70,8 @@ public class Engine implements ScriptBasic {
     }
 
     private void loadHelper(final String fileName, final SourceProvider sourceProvider) throws ScriptBasicException {
-        final SourceReader sourceReader;
         try {
-            sourceReader = sourceProvider.get(fileName);
+            final var sourceReader = sourceProvider.get(fileName);
             loadHelper(sourceReader);
         } catch (final IOException e) {
             throw new ScriptBasicException(e);
@@ -162,8 +161,8 @@ public class Engine implements ScriptBasic {
     @Override
     public ScriptBasic load(final String sourceFileName, final String... path)
             throws ScriptBasicException {
-        final FileSourceProvider sourceProvider = new FileSourceProvider();
-        final BasicSourcePath sourcePath = new BasicSourcePath();
+        final var sourceProvider = new FileSourceProvider();
+        final var sourcePath = new BasicSourcePath();
         for (final String p : path) {
             sourcePath.add(p);
         }
@@ -185,7 +184,7 @@ public class Engine implements ScriptBasic {
     @Override
     public ScriptBasic load(final String sourceFileName, final SourcePath path)
             throws ScriptBasicException {
-        final FileSourceProvider sourceProvider = new FileSourceProvider();
+        final var sourceProvider = new FileSourceProvider();
         sourceProvider.setSourcePath(path);
         loadHelper(sourceFileName, sourceProvider);
         return this;
@@ -283,7 +282,7 @@ public class Engine implements ScriptBasic {
     private CommandSub getCommandSub(final String subroutineName)
             throws ScriptBasicException {
         assertCtxInitialized();
-        final CommandSub commandSub = ctx.interpreter.getSubroutine(subroutineName);
+        final var commandSub = ctx.interpreter.getSubroutine(subroutineName);
         if (commandSub == null) {
             throw new ScriptBasicException("Sobroutine '" + subroutineName
                     + "' is not defined in the program");
@@ -293,7 +292,7 @@ public class Engine implements ScriptBasic {
 
     private int getNumberOfArguments(final String subroutineName)
             throws ScriptBasicException {
-        final CommandSub commandSub = getCommandSub(subroutineName);
+        final var commandSub = getCommandSub(subroutineName);
         final int size;
         if (commandSub.getArguments() != null) {
             size = commandSub.getArguments().size();
@@ -315,8 +314,8 @@ public class Engine implements ScriptBasic {
         if (subroutines.containsKey(name)) {
             return subroutines.get(name);
         }
-        final CommandSub commandSub = getCommandSub(name);
-        final Subroutine sub = new Sub(type, commandSub.getSubName());
+        final var commandSub = getCommandSub(name);
+        final var sub = new Sub(type, commandSub.getSubName());
         subroutines.put(name, sub);
         return sub;
     }
@@ -330,8 +329,7 @@ public class Engine implements ScriptBasic {
     }
 
     @Override
-    public ScriptBasic registerExtension(final Class<?> klass)
-            throws ScriptBasicException {
+    public ScriptBasic registerExtension(final Class<?> klass) {
         ctx = ContextBuilder.from(ctx);
         ctx.interpreter.registerFunctions(klass);
         return this;
@@ -339,7 +337,7 @@ public class Engine implements ScriptBasic {
     }
 
     @Override
-    public ScriptBasic registerHook(InterpreterHook hook) {
+    public ScriptBasic registerHook(final InterpreterHook hook) {
         ctx = ContextBuilder.from(ctx);
         ctx.interpreter.registerHook(hook);
         return this;

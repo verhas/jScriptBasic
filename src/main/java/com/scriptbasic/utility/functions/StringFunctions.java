@@ -110,7 +110,7 @@ public class StringFunctions {
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
     static public String space(final int len) {
-        final StringBuilder sb = new StringBuilder(len);
+        final var sb = new StringBuilder(len);
         for (int i = 0; i < len; i++) {
             sb.append(" ");
         }
@@ -129,7 +129,7 @@ public class StringFunctions {
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
     static public String string(final int len, String s) {
         s = s.substring(0, 1);
-        final StringBuilder sb = new StringBuilder(len);
+        final var sb = new StringBuilder(len);
         for (int i = 0; i < len; i++) {
             sb.append(s);
         }
@@ -144,7 +144,7 @@ public class StringFunctions {
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
     static public String strreverse(final String s) {
-        final StringBuilder sb = new StringBuilder(s.length());
+        final var sb = new StringBuilder(s.length());
         for (int i = s.length() - 1; i >= 0; i--) {
             sb.append(s, i, i + 1);
         }

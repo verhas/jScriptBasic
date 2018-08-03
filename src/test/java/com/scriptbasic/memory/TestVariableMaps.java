@@ -21,12 +21,12 @@ import static org.junit.Assert.*;
  */
 public class TestVariableMaps {
 
-    private static Logger log = LoggerFactory.getLogger();
+    private static final Logger log = LoggerFactory.getLogger();
     MixedBasicVariableMap mixedMap = null;
 
     @Test
     public void testBasicLocalVariableMap() throws ScriptBasicException {
-        BasicLocalVariableMap blvm = new BasicLocalVariableMap();
+        final var blvm = new BasicLocalVariableMap();
 
         // global scope
         assertNull(blvm.getVariableValue("noVariablesAre"));
@@ -76,32 +76,32 @@ public class TestVariableMaps {
             // will throw IllegalArgumentException
             blvm.setVariable("var1", new BasicLongValue(5L));
             fail();
-        } catch (IllegalArgumentException iae) {
+        } catch (final IllegalArgumentException iae) {
         }
         try {
             blvm.dropFrame();
             fail();
-        } catch (EmptyStackException e) {
+        } catch (final EmptyStackException e) {
         }
     }
 
-    private void VE(String name) throws ScriptBasicException {
+    private void VE(final String name) throws ScriptBasicException {
         assertTrue(mixedMap.variableExists(name));
     }
 
-    private void VNE(String name) throws ScriptBasicException {
+    private void VNE(final String name) throws ScriptBasicException {
         assertFalse(mixedMap.variableExists(name));
     }
 
-    private void VD(String name) throws ScriptBasicException {
+    private void VD(final String name) throws ScriptBasicException {
         assertTrue(mixedMap.variableDefined(name));
     }
 
-    private void VND(String name) throws ScriptBasicException {
+    private void VND(final String name) throws ScriptBasicException {
         assertFalse(mixedMap.variableDefined(name));
     }
 
-    private void LET(String name, Object v) throws ScriptBasicException {
+    private void LET(final String name, final Object v) throws ScriptBasicException {
         if (v == null) {
             mixedMap.setVariable(name, null);
         } else if (v instanceof RightValue) {
@@ -126,15 +126,15 @@ public class TestVariableMaps {
         mixedMap.dropFrame();
     }
 
-    private void RLV(String name) throws ScriptBasicException {
+    private void RLV(final String name) throws ScriptBasicException {
         mixedMap.registerLocalVariable(name);
     }
 
-    private void RGV(String name) throws ScriptBasicException {
+    private void RGV(final String name) throws ScriptBasicException {
         mixedMap.registerGlobalVariable(name);
     }
 
-    private Object VALUE(String name) throws ScriptBasicException {
+    private Object VALUE(final String name) throws ScriptBasicException {
         return ((AbstractPrimitiveRightValue<?>) mixedMap.getVariableValue(name))
                 .getValue();
     }
@@ -145,7 +145,7 @@ public class TestVariableMaps {
         try {
             RLV("algo");
             fail();
-        } catch (IllegalArgumentException iae) {
+        } catch (final IllegalArgumentException iae) {
         }
         RGV("alga");
 
@@ -169,7 +169,7 @@ public class TestVariableMaps {
         try {
             RLV("olga");
             fail();
-        } catch (BasicRuntimeException bre) {
+        } catch (final BasicRuntimeException bre) {
 
         }
         RLV("var2");
@@ -197,7 +197,7 @@ public class TestVariableMaps {
         try {
             POP();
             fail();
-        } catch (EmptyStackException e) {
+        } catch (final EmptyStackException e) {
         }
     }
 
@@ -221,7 +221,7 @@ public class TestVariableMaps {
         try {
             LET("VAR1", 2);
             fail();
-        } catch (BasicRuntimeException bre) {
+        } catch (final BasicRuntimeException bre) {
             log.debug("this exception has to be thrown " + bre);
         }
         assertEquals(1L, VALUE("var1"));
@@ -244,7 +244,7 @@ public class TestVariableMaps {
         try {
             LET("VAR1", 2);
             fail();
-        } catch (BasicRuntimeException bre) {
+        } catch (final BasicRuntimeException bre) {
             log.debug("this exception has to be thrown " + bre);
         }
         assertEquals(1L, VALUE("var1"));
@@ -260,7 +260,7 @@ public class TestVariableMaps {
         try {
             LET("VAR1", 2);
             fail();
-        } catch (BasicRuntimeException bre) {
+        } catch (final BasicRuntimeException bre) {
             log.debug("this exception has to be thrown " + bre);
         }
         assertEquals(1L, VALUE("var1"));
@@ -275,7 +275,7 @@ public class TestVariableMaps {
         try {
             LET("var1", 1);
             fail();
-        } catch (BasicRuntimeException bre) {
+        } catch (final BasicRuntimeException bre) {
             log.debug("this exception has to be thrown " + bre);
         }
         RGV("var1");
@@ -283,13 +283,13 @@ public class TestVariableMaps {
         try {
             LET("VAR1", 2);
             fail();
-        } catch (BasicRuntimeException bre) {
+        } catch (final BasicRuntimeException bre) {
             log.debug("this exception has to be thrown " + bre);
         }
         try {
             RGV("VAR1");
             fail();
-        } catch (BasicRuntimeException bre) {
+        } catch (final BasicRuntimeException bre) {
             log.debug("this exception has to be thrown " + bre);
         }
         assertEquals(1L, VALUE("var1"));

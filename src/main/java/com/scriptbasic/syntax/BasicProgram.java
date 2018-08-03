@@ -10,7 +10,7 @@ public final class BasicProgram extends AbstractBasicProgramPostprocessing {
 
     private final List<Command> commands = new ArrayList<>();
     private AbstractCommand lastCommand = null;
-    private Map<String, CommandSub> subroutineMap = new HashMap<>();
+    private final Map<String, CommandSub> subroutineMap = new HashMap<>();
 
     @Override
     public void reset() {

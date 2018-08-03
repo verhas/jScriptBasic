@@ -22,10 +22,10 @@ public class FileSourceProvider extends SingleIncludeSourcePathNonRelativeSource
     @Override
     public SourceReader getSource(final String sourceName) throws IOException {
         for (final String path : getSourcePath()) {
-            final String sourceFileName = path + PATH_SEPARATOR + sourceName;
-            final File sourceFile = new File(sourceFileName);
+            final var sourceFileName = path + PATH_SEPARATOR + sourceName;
+            final var sourceFile = new File(sourceFileName);
             if (sourceFile.exists()) {
-                final SourceReader reader = new GenericSourceReader(new FileReader(sourceFile), this, sourceFileName);
+                final var reader = new GenericSourceReader(new FileReader(sourceFile), this, sourceFileName);
                 return new GenericHierarchicalSourceReader(reader);
             }
         }

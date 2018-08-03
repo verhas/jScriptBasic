@@ -3,7 +3,6 @@ package com.scriptbasic.javax.script;
 import com.scriptbasic.api.Version;
 import com.scriptbasic.script.ScriptBasicEngineFactory;
 import com.scriptbasic.configuration.BasicConfiguration;
-import com.scriptbasic.api.Configuration;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -23,8 +22,8 @@ import static org.junit.Assert.*;
 public class TestJavaxInterface {
 
     @Test
-    public void testCoverConfiguration() throws Exception {
-        Properties configProperties = new Properties();
+    public void testCoverConfiguration() {
+        final var configProperties = new Properties();
         configProperties.put("extension.0", "b0");
         configProperties.put("extension.1", "b1");
         configProperties.put("extension.2", "b2");
@@ -42,26 +41,26 @@ public class TestJavaxInterface {
         configProperties.put("version", "666");
         configProperties.put("language", "esperanto");
         configProperties.put("languageVersion", "ancient");
-        Configuration config = new BasicConfiguration();
+        final var config = new BasicConfiguration();
         config.setConfigProperties(configProperties);
-        ScriptEngineFactory factory = new ScriptBasicEngineFactory(config);
+        final var factory = new ScriptBasicEngineFactory(config);
         assertEquals("esperanto", factory.getLanguageName());
         assertEquals("ancient", factory.getLanguageVersion());
         assertEquals(2, factory.getNames().size());
         assertEquals(6, factory.getMimeTypes().size());
         assertEquals(5, factory.getExtensions().size());
-        ScriptEngine se = factory.getScriptEngine();
+        final var se = factory.getScriptEngine();
         assertNotNull(se);
         assertTrue(se instanceof com.scriptbasic.script.ScriptEngine);
     }
 
 
     @Test
-    public void testRun1() throws ScriptException, IOException {
-        ScriptEngineManager manager = new ScriptEngineManager();
-        List<ScriptEngineFactory> factories = manager.getEngineFactories();
+    public void testRun1() throws ScriptException {
+        final var manager = new ScriptEngineManager();
+        final List<ScriptEngineFactory> factories = manager.getEngineFactories();
         boolean sbWasFound = false;
-        for (ScriptEngineFactory factory : factories) {
+        for (final ScriptEngineFactory factory : factories) {
             if (factory.getEngineName() != null
                     && factory.getEngineName().equals(Version.engineName)) {
                 sbWasFound = true;
@@ -76,26 +75,26 @@ public class TestJavaxInterface {
         }
         assertTrue(sbWasFound);
 
-        ScriptEngine se = manager.getEngineByExtension("sb");
+        final var se = manager.getEngineByExtension("sb");
         assertNotNull(se);
         assertTrue(se instanceof com.scriptbasic.script.ScriptEngine);
         se.eval("print \"first script\"");
-        ScriptContext context = se.getContext();
-        Bindings bindings = context.getBindings(ScriptContext.ENGINE_SCOPE);
+        final var context = se.getContext();
+        final var bindings = context.getBindings(ScriptContext.ENGINE_SCOPE);
         bindings.put("B", 13);
         bindings.put("A", null);
-        StringWriter writer = new StringWriter();
+        final var writer = new StringWriter();
         context.setWriter(writer);
         se.eval("A = B\nprint \"hiha\"", context);
-        Long z = (Long) bindings.get("A");
+        final var z = (Long) bindings.get("A");
         assertEquals(Long.valueOf(13), z);
         assertEquals("hiha", writer.toString());
     }
 
     @Test
     public void testQueries() {
-        ScriptBasicEngineFactory sef = new ScriptBasicEngineFactory();
-        Bindings b = new SimpleBindings();
+        final var sef = new ScriptBasicEngineFactory();
+        final var b = new SimpleBindings();
         sef.setGlobalScopeBinding(b);
         Assert.assertEquals(sef.getGlobalScopeBinding(), b);
         //noinspection ResultOfMethodCallIgnored

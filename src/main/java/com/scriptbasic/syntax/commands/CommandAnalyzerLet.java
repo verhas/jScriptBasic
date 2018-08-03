@@ -15,7 +15,7 @@ public class CommandAnalyzerLet extends AbstractCommandAnalyzer {
 
     @Override
     public Command analyze() throws AnalysisException {
-        final CommandLet commandLet = new CommandLet();
+        final var commandLet = new CommandLet();
         LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
         if (lexicalElement != null && lexicalElement.isSymbol(getName())) {
             ctx.lexicalAnalyzer.get();

@@ -1,7 +1,6 @@
 package com.scriptbasic.syntax;
 
 import com.scriptbasic.exceptions.LexicalException;
-import com.scriptbasic.exceptions.SyntaxException;
 import com.scriptbasic.interfaces.*;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
@@ -34,7 +33,7 @@ public abstract class AbstractNestedStructureHouseKeeper implements NestedStruct
 
     @Override
     public void push(final Class<?> klass, final NestedStructure element) {
-        final Structure stackFrame = new Structure();
+        final var stackFrame = new Structure();
         stackFrame.setElementType(klass);
         stackFrame.setPushedElement(element);
         stack.push(stackFrame);
@@ -44,10 +43,10 @@ public abstract class AbstractNestedStructureHouseKeeper implements NestedStruct
     @Override
     public <T extends NestedStructure> T pop(final Class<T> expectedClass)
             throws AnalysisException {
-        final Structure stackFrame = stack.isEmpty() ? MATCH_NOTHING : stack.peek();
+        final var stackFrame = stack.isEmpty() ? MATCH_NOTHING : stack.peek();
         if (!stackFrame.match(expectedClass)) {
             stackIsHealthy = false;
-            final SyntaxException se = new BasicSyntaxException("Bad nested structures");
+            final var se = new BasicSyntaxException("Bad nested structures");
             try {
                 se.setLocation(analyzer.peek());
             } catch (final LexicalException e) {

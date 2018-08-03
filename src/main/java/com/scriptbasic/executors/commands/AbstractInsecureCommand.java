@@ -13,7 +13,7 @@ public abstract class AbstractInsecureCommand extends AbstractCommand {
     protected void assertInsecure(final Interpreter interpreter) throws ScriptBasicException {
         if (!configured) {
             configured = true;
-            Optional<String> useAllowed = interpreter.getConfiguration().getConfigValue(CONFIG_KEY_INSECURE);
+            final Optional<String> useAllowed = interpreter.getConfiguration().getConfigValue(CONFIG_KEY_INSECURE);
             if (useAllowed.isPresent() && useAllowed.get().equals("true")) {
                 allowed = true;
             }

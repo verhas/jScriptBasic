@@ -12,7 +12,6 @@ import com.scriptbasic.sourceproviders.StringSourceProvider;
 import org.junit.Assert;
 
 import java.io.IOException;
-import java.io.Reader;
 import java.io.StringReader;
 
 import static org.junit.Assert.assertEquals;
@@ -36,12 +35,12 @@ public class LexTestHelper {
     }
 
     static MockLexicalElements LONG(final String s) {
-        final Long l = Long.parseLong(s);
+        final var l = Long.parseLong(s);
         return new MockLexicalElements(s, l);
     }
 
     static MockLexicalElements DOUBLE(final String s) {
-        final Double d = Double.parseDouble(s);
+        final var d = Double.parseDouble(s);
         return new MockLexicalElements(s, d);
     }
 
@@ -68,7 +67,7 @@ public class LexTestHelper {
     }
 
     static MockLexicalElements SSTRING(final String s) {
-        final String lexeme = sstring2Lexeme(s);
+        final var lexeme = sstring2Lexeme(s);
         return SSTRING(s, lexeme);
     }
 
@@ -77,7 +76,7 @@ public class LexTestHelper {
     }
 
     static MockLexicalElements MSTRING(final String s) {
-        final String lexeme = string2Lexeme(s);
+        final var lexeme = string2Lexeme(s);
         return MSTRING(s, lexeme);
     }
 
@@ -113,7 +112,7 @@ public class LexTestHelper {
      */
     static void assertLexicals(final LexicalAnalyzer lexicalAnalyzer, final LexicalElement... expectedElements) throws AnalysisException {
         for (final LexicalElement lexicalElement : expectedElements) {
-            final LexicalElement element = lexicalAnalyzer.get();
+            final var element = lexicalAnalyzer.get();
             LOG.info(element.toString());
             thereAreEnoughElements(lexicalElement, element);
             elementsAreOfTheSameType(lexicalElement, element);
@@ -122,7 +121,7 @@ public class LexTestHelper {
         }
     }
 
-    private static void elementsHaveTheSameValue(LexicalElement lexicalElement, LexicalElement lexicalElementFromAnalyzer) {
+    private static void elementsHaveTheSameValue(final LexicalElement lexicalElement, final LexicalElement lexicalElementFromAnalyzer) {
         switch (lexicalElement.getType()) {
             case LexicalElement.TYPE_DOUBLE:
                 Assert.assertEquals("different double values",
@@ -142,24 +141,24 @@ public class LexTestHelper {
         }
     }
 
-    private static void elementsHaveTheSameString(LexicalElement lexicalElement, LexicalElement lexicalElementFromAnalyzer) {
+    private static void elementsHaveTheSameString(final LexicalElement lexicalElement, final LexicalElement lexicalElementFromAnalyzer) {
         Assert.assertEquals("different lexemes " + lexicalElement.getLexeme() + " vs "
                 + lexicalElementFromAnalyzer.getLexeme(), lexicalElement.getLexeme(), lexicalElementFromAnalyzer.getLexeme());
     }
 
-    private static void elementsAreOfTheSameType(LexicalElement lexicalElement, LexicalElement lexicalElementFromAnalyzer) {
+    private static void elementsAreOfTheSameType(final LexicalElement lexicalElement, final LexicalElement lexicalElementFromAnalyzer) {
         Assert.assertEquals("different types of lexemes " + lexicalElement.getLexeme()
                 + " vs " + lexicalElementFromAnalyzer.getLexeme(), lexicalElement.getType(), lexicalElementFromAnalyzer.getType());
     }
 
-    private static void thereAreEnoughElements(LexicalElement lexicalElement, LexicalElement lexicalElementFromAnalyzer) {
+    private static void thereAreEnoughElements(final LexicalElement lexicalElement, final LexicalElement lexicalElementFromAnalyzer) {
         Assert.assertNotNull(
                 "there are not enough lexical elements, expecting "
                         + lexicalElement.getLexeme(), lexicalElementFromAnalyzer);
     }
 
     public static SourceReader createStringReading(final String s) {
-        final Reader r = new StringReader(s);
+        final var r = new StringReader(s);
         return new GenericSourceReader(r, null, null);
     }
 
@@ -183,7 +182,7 @@ public class LexTestHelper {
             throws IOException {
         assertTrue("there has to be at least one file name and content", sources.length >= 2);
         assertEquals("there should be a content for each 'file name'", 0, sources.length % 2);
-        final StringSourceProvider provider = new StringSourceProvider();
+        final var provider = new StringSourceProvider();
         for (int i = 0; i < sources.length; i++) {
             provider.addSource(sources[i], sources[i + 1]);
             i++;

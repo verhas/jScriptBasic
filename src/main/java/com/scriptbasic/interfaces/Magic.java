@@ -9,11 +9,11 @@ package com.scriptbasic.interfaces;
 public interface Magic {
 
     interface Getter {
-        Object get(String fieldName) throws BasicRuntimeException;
+        Object get(String fieldName);
     }
 
     interface Setter {
-        void set(String fieldName, Object value) throws BasicRuntimeException;
+        void set(String fieldName, Object value);
     }
 
     interface Bean extends Getter, Setter {

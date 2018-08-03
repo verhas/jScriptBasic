@@ -50,7 +50,7 @@ public class FileHandlingFunctions {
 
     private static String getABMode(final StringBuilder sb, final String... a) {
         String result = null;
-        final String mode = firstChar(sb);
+        final var mode = firstChar(sb);
         for (final String m : a) {
             if (m.equals(mode)) {
                 chomp(sb);
@@ -74,7 +74,7 @@ public class FileHandlingFunctions {
     private static FileHandler openTextFileForRead(final String fileName) {
         FileHandler result = null;
         try {
-            final BufferedReader br = new BufferedReader(new FileReader(fileName));
+            final var br = new BufferedReader(new FileReader(fileName));
             result = new TextFileReader(br);
         } catch (final FileNotFoundException ignored) {
         }
@@ -84,7 +84,7 @@ public class FileHandlingFunctions {
     private static FileHandler openBinaryFileForRead(final String fileName) {
         FileHandler result = null;
         try {
-            final InputStream is = new FileInputStream(fileName);
+            final var is = new FileInputStream(fileName);
             result = new BinaryFileReader(is);
         } catch (final FileNotFoundException ignored) {
         }
@@ -95,7 +95,7 @@ public class FileHandlingFunctions {
                                                     final boolean append) {
         FileHandler result = null;
         try {
-            final BufferedWriter bw = new BufferedWriter(new FileWriter(fileName,
+            final var bw = new BufferedWriter(new FileWriter(fileName,
                     append));
             result = new TextFileWriter(bw);
         } catch (final IOException ignored) {
@@ -107,7 +107,7 @@ public class FileHandlingFunctions {
                                                       final boolean append) {
         FileHandler result = null;
         try {
-            final BufferedOutputStream bw = new BufferedOutputStream(
+            final var bw = new BufferedOutputStream(
                     new FileOutputStream(fileName, append));
             result = new BinaryFileWriter(bw);
         } catch (final IOException ignored) {
@@ -116,7 +116,7 @@ public class FileHandlingFunctions {
     }
 
     private static FileHandler openFileForRead(final String fileName, final boolean binary) {
-        FileHandler result = null;
+        final FileHandler result;
         if (binary) {
             result = openBinaryFileForRead(fileName);
         } else {
@@ -127,7 +127,7 @@ public class FileHandlingFunctions {
 
     private static FileHandler openFileForWrite(final String fileName,
                                                 final boolean append, final boolean binary) {
-        FileHandler result = null;
+        final FileHandler result;
         if (binary) {
             result = openBinaryFileForWrite(fileName, append);
         } else {
@@ -146,11 +146,11 @@ public class FileHandlingFunctions {
      */
     @BasicFunction(classification = com.scriptbasic.classification.File.class)
     public static FileHandler open(final String fileName, final String mode) {
-        FileHandler result = null;
-        final StringBuilder sb = new StringBuilder(mode);
-        final String rwMode = fetchReadWriteMode(sb);
-        final boolean append = rwMode.equals("a");
-        final boolean binary = fetchTextBinaryMode(sb).equals("b");
+        final FileHandler result;
+        final var sb = new StringBuilder(mode);
+        final var rwMode = fetchReadWriteMode(sb);
+        final var append = rwMode.equals("a");
+        final var binary = fetchTextBinaryMode(sb).equals("b");
         if (rwMode.equals("r")) {
             result = openFileForRead(fileName, binary);
         } else {
@@ -163,7 +163,7 @@ public class FileHandlingFunctions {
     public static String readLine(final FileHandler fh) throws BasicRuntimeException,
             IOException {
         if (fh instanceof TextFileReader) {
-            final TextFileReader tfr = (TextFileReader) fh;
+            final var tfr = (TextFileReader) fh;
             return tfr.readLine();
         } else {
             throw new BasicRuntimeException(
@@ -175,7 +175,7 @@ public class FileHandlingFunctions {
     public static byte[] read(final FileHandler fh, final int len)
             throws BasicRuntimeException, IOException {
         if (fh instanceof BinaryFileReader) {
-            final BinaryFileReader bfr = (BinaryFileReader) fh;
+            final var bfr = (BinaryFileReader) fh;
             return bfr.read(len);
         } else {
             throw new BasicRuntimeException(
@@ -187,7 +187,7 @@ public class FileHandlingFunctions {
     public static void printf(final FileHandler fh, final String line)
             throws BasicRuntimeException, IOException {
         if (fh instanceof TextFileWriter) {
-            final TextFileWriter tfw = (TextFileWriter) fh;
+            final var tfw = (TextFileWriter) fh;
             tfw.print(line);
         } else {
             throw new BasicRuntimeException(
@@ -206,7 +206,7 @@ public class FileHandlingFunctions {
     public static void write(final FileHandler fh, final byte[] buffer)
             throws BasicRuntimeException, IOException {
         if (fh instanceof BinaryFileWriter) {
-            final BinaryFileWriter bfw = (BinaryFileWriter) fh;
+            final var bfw = (BinaryFileWriter) fh;
             bfw.write(buffer);
         } else {
             throw new BasicRuntimeException(

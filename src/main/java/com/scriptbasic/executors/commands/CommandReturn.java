@@ -3,7 +3,6 @@ package com.scriptbasic.executors.commands;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.spi.Interpreter;
-import com.scriptbasic.spi.RightValue;
 
 public class CommandReturn extends AbstractCommand {
     private Expression returnExpression;
@@ -25,7 +24,7 @@ public class CommandReturn extends AbstractCommand {
     @Override
     public void execute(final Interpreter interpreter)
             throws ScriptBasicException {
-        final RightValue returnValue = returnExpression == null ? null
+        final var returnValue = returnExpression == null ? null
                 : returnExpression.evaluate(interpreter);
         interpreter.setReturnValue(returnValue);
         interpreter.setNextCommand(null);

@@ -11,7 +11,7 @@ import static com.scriptbasic.lexer.LexTestHelper.*;
 
 public class TestBasicLexicalAnalyzer {
 
-    private LexicalAnalyzer from(String s) {
+    private LexicalAnalyzer from(final String s) {
         return new ScriptBasicLexicalAnalyzer(createStringReading(s));
     }
 
@@ -19,11 +19,11 @@ public class TestBasicLexicalAnalyzer {
         assertLexicals(new ScriptBasicLexicalAnalyzer(createStringReading(s)), SYMBOL(s));
     }
 
-    private SourceReader createVStringReading(String s, boolean multiline) {
+    private SourceReader createVStringReading(final String s, final boolean multiline) {
         return LexTestHelper.createVStringReading(s, multiline);
     }
 
-    private SourceReader createStringReading(String s) {
+    private SourceReader createStringReading(final String s) {
         return LexTestHelper.createStringReading(s);
     }
 

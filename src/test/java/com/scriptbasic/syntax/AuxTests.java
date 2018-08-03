@@ -10,7 +10,6 @@ import com.scriptbasic.lexer.BasicLexicalElement;
 import com.scriptbasic.utility.SyntaxExceptionUtility;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -21,7 +20,7 @@ public class AuxTests {
     public void testExceptions() {
         new CommandCanNotBeCreatedException("bla bla", null);
         new KeywordNotImplementedException("hukk");
-        final SyntaxException c = new BasicSyntaxException("hull",
+        final var c = new BasicSyntaxException("hull",
                 (Throwable) null);
         c.setLocation(new BasicLexicalElement());
         c.getFileName();
@@ -34,14 +33,14 @@ public class AuxTests {
         try {
             SyntaxExceptionUtility.throwSyntaxException("", null);
             fail("throwSyntaxException did not throw exception");
-        } catch (SyntaxException se) {
+        } catch (final SyntaxException se) {
             // OK
         }
         try {
             SyntaxExceptionUtility.throwSyntaxException("",
                     new BasicLexicalElement());
             fail("throwSyntaxException did not throw exception");
-        } catch (SyntaxException se) {
+        } catch (final SyntaxException se) {
             // OK
         }
     }

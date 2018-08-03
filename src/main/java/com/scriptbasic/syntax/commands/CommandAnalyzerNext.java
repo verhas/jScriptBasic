@@ -1,7 +1,6 @@
 package com.scriptbasic.syntax.commands;
 
 import com.scriptbasic.spi.Command;
-import com.scriptbasic.spi.LeftValue;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandFor;
 import com.scriptbasic.executors.commands.CommandNext;
@@ -19,14 +18,14 @@ public class CommandAnalyzerNext extends AbstractCommandAnalyzer {
 
     @Override
     public Command analyze() throws AnalysisException {
-        final CommandNext node = new CommandNext();
-        final LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
-        final CommandFor commandFor = ctx.nestedStructureHouseKeeper.pop(CommandFor.class);
+        final var node = new CommandNext();
+        final var lexicalElement = ctx.lexicalAnalyzer.peek();
+        final var commandFor = ctx.nestedStructureHouseKeeper.pop(CommandFor.class);
         commandFor.setLoopEndNode(node);
         node.setLoopStartNode(commandFor);
         if (lexicalElement != null && !lexicalElement.isLineTerminator()) {
-            final LeftValue loopVariableB = analyzeSimpleLeftValue();
-            final LeftValue loopVariableA = commandFor.getLoopVariable();
+            final var loopVariableB = analyzeSimpleLeftValue();
+            final var loopVariableA = commandFor.getLoopVariable();
             if (!equal(loopVariableA, loopVariableB)) {
                 throw new BasicSyntaxException(
                         "The variable following the command "

@@ -98,19 +98,19 @@ public class BasicLeftValue implements LeftValue {
                                                       final boolean hasNext,
                                                       final RightValue rightValue)
             throws ScriptBasicException {
-        final String fieldName = modifier.getFieldName();
+        final var fieldName = modifier.getFieldName();
         if (!(variable instanceof BasicJavaObjectValue)) {
             throw new BasicRuntimeException(variable
                     + " is not an object, can not access its field '"
                     + fieldName + "'");
         }
-        final BasicJavaObjectValue bjov = (BasicJavaObjectValue) variable;
-        final Object object = bjov.getValue();
+        final var bjov = (BasicJavaObjectValue) variable;
+        final var object = bjov.getValue();
         if (hasNext) {
-            final Object fieldObject = KlassUtility.getField(object, fieldName);
+            final var fieldObject = KlassUtility.getField(object, fieldName);
             return RightValueUtility.createRightValue(fieldObject);
         } else {
-            final Object valueObject = RightValueUtility.getValueObject(rightValue);
+            final var valueObject = RightValueUtility.getValueObject(rightValue);
             KlassUtility.setField(object, fieldName, valueObject);
             return null;
         }
@@ -139,8 +139,8 @@ public class BasicLeftValue implements LeftValue {
         final Iterator<Expression> expressionIterator = modifier.getIndexList()
                 .iterator();
         while (expressionIterator.hasNext()) {
-            final Expression expression = expressionIterator.next();
-            final RightValue index = expression.evaluate(interpreter);
+            final var expression = expressionIterator.next();
+            final var index = expression.evaluate(interpreter);
 
             if (variable instanceof BasicArray) {
 
@@ -164,7 +164,7 @@ public class BasicLeftValue implements LeftValue {
             throws ScriptBasicException {
         if (hasNext) {
             final RightValue arrayElement;
-            final Object object = variable.get(index);
+            final var object = variable.get(index);
             if (object instanceof RightValue) {
                 arrayElement = (RightValue) object;
             } else {
@@ -212,7 +212,7 @@ public class BasicLeftValue implements LeftValue {
         }
     }
 
-    private void handleAllAccessModifier(RightValue rightValue, Interpreter interpreter,
+    private void handleAllAccessModifier(final RightValue rightValue, final Interpreter interpreter,
                                          RightValue variableCurrentValue) throws ScriptBasicException {
         final Iterator<LeftValueModifier> modifierIterator = modifiers.iterator();
         do {

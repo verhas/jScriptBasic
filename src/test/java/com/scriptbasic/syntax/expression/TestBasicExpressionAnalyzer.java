@@ -1,12 +1,10 @@
 package com.scriptbasic.syntax.expression;
 
-import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.exceptions.SyntaxException;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.Expression;
-import com.scriptbasic.interfaces.ExpressionAnalyzer;
 import com.scriptbasic.utility.LexUtility;
 import org.junit.Test;
 
@@ -20,9 +18,9 @@ public class TestBasicExpressionAnalyzer {
     private static final Expression[] nullExpression = null;
 
     private static Expression compile(final String s) throws AnalysisException {
-        Context ctx = ContextBuilder.from(createStringReading(s));
-        final ExpressionAnalyzer bea = ctx.expressionAnalyzer;
-        final Expression e = bea.analyze();
+        final var ctx = ContextBuilder.from(createStringReading(s));
+        final var bea = ctx.expressionAnalyzer;
+        final var e = bea.analyze();
         if (LexUtility.peek(ctx.lexicalAnalyzer) != null) {
             throw new BasicSyntaxException(
                     "There are extra lexemes after the expression: "

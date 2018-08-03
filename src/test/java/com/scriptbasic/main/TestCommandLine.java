@@ -11,13 +11,13 @@ public class TestCommandLine {
 
     @Test
     public void testNoArgs() throws Exception {
-        SecurityManager oldSm = System.getSecurityManager();
-        SystemExitIsNotAllowedSecurityManager sm = new SystemExitIsNotAllowedSecurityManager();
+        final var oldSm = System.getSecurityManager();
+        final var sm = new SystemExitIsNotAllowedSecurityManager();
         System.setSecurityManager(sm);
         try {
             main(new String[0]);
             fail();
-        } catch (RuntimeException rte) {
+        } catch (final RuntimeException rte) {
         } finally {
             System.setSecurityManager(oldSm);
         }
@@ -34,7 +34,7 @@ public class TestCommandLine {
     }
 
     @Test
-    public void testNoExtension() throws Exception {
+    public void testNoExtension() {
 //		main(new String[] { "1" });
     }
 
@@ -47,11 +47,11 @@ public class TestCommandLine {
     public static class SystemExitIsNotAllowedSecurityManager extends SecurityManager {
 
         @Override
-        public void checkPermission(Permission perm) {
+        public void checkPermission(final Permission perm) {
         }
 
         @Override
-        public void checkExit(int status) {
+        public void checkExit(final int status) {
             throw new SecurityException();
         }
     }

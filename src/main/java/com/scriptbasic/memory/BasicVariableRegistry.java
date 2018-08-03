@@ -12,7 +12,7 @@ import java.util.Map;
  */
 class BasicVariableRegistry extends BasicVariableMap {
     private final Map<String, VariableType> registrationMap = new HashMap<>();
-    private BasicVariableMap that;
+    private final BasicVariableMap that;
 
     BasicVariableRegistry(final BasicVariableMap that) {
         super(that);
@@ -35,7 +35,7 @@ class BasicVariableRegistry extends BasicVariableMap {
     private void assertNoOverregistration(final String variableName, final VariableType type)
             throws ScriptBasicException {
         that.assertCorrectCasing(variableName);
-        final String convertedVariableName = converted(variableName);
+        final var convertedVariableName = converted(variableName);
         if (registrationMap.containsKey(convertedVariableName)
                 && registrationMap.get(convertedVariableName) != type) {
             throw new BasicRuntimeException("Variable '" + variableName
@@ -45,27 +45,27 @@ class BasicVariableRegistry extends BasicVariableMap {
 
     void registerLocal(final String variableName) throws ScriptBasicException {
         assertNoOverregistration(variableName, VariableType.KNOWN_LOCAL);
-        final String convertedVariableName = converted(variableName);
+        final var convertedVariableName = converted(variableName);
         that.registerVariableCasing(variableName);
         registrationMap.put(convertedVariableName, VariableType.KNOWN_LOCAL);
     }
 
     void registerGlobal(final String variableName) throws ScriptBasicException {
         assertNoOverregistration(variableName, VariableType.KNOWN_GLOBAL);
-        final String convertedVariableName = converted(variableName);
+        final var convertedVariableName = converted(variableName);
         that.registerVariableCasing(variableName);
         registrationMap.put(convertedVariableName, VariableType.KNOWN_GLOBAL);
     }
 
     boolean isGlobal(final String variableName) throws ScriptBasicException {
         that.assertCorrectCasing(variableName);
-        final String convertedVariableName = converted(variableName);
+        final var convertedVariableName = converted(variableName);
         return registrationMap.get(convertedVariableName) == VariableType.KNOWN_GLOBAL;
     }
 
     boolean isLocal(final String variableName) throws ScriptBasicException {
         that.assertCorrectCasing(variableName);
-        final String convertedVariableName = converted(variableName);
+        final var convertedVariableName = converted(variableName);
         return registrationMap.get(convertedVariableName) == VariableType.KNOWN_LOCAL;
     }
 

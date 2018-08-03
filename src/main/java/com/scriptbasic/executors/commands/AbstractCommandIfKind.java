@@ -4,7 +4,6 @@ import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.spi.Interpreter;
-import com.scriptbasic.spi.RightValue;
 
 /**
  * @author Peter Verhas
@@ -24,7 +23,7 @@ public abstract class AbstractCommandIfKind extends AbstractCommandIfElseKind {
 
     protected Boolean theConditionIsTrue(final Interpreter interpreter)
             throws ScriptBasicException {
-        final RightValue conditionRightValue = getCondition().evaluate(interpreter);
+        final var conditionRightValue = getCondition().evaluate(interpreter);
         return BasicBooleanValue.asBoolean(conditionRightValue);
     }
 }

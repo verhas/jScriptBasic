@@ -14,7 +14,7 @@ public class GenericSourceReader implements SourceReader {
     private int lineNumber = 0;
     private int position = 0;
     private Integer lastChar = null;
-    private Deque<Integer> charsAhead = new LinkedList<>();
+    private final Deque<Integer> charsAhead = new LinkedList<>();
 
     public GenericSourceReader(final Reader reader, final SourceProvider sourceProvider, final String sourceFileName) {
         this.sourceFileName = sourceFileName;

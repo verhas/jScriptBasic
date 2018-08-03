@@ -19,10 +19,10 @@ public class ArrayElementAccess extends
         value = interpreter.getHook().variableRead(getVariableName(), value);
         for (final Expression expression : getExpressionList()) {
             if (value instanceof BasicArray) {
-                final BasicArray arrayVar = (BasicArray) value;
-                final Integer index = RightValueUtility.convert2Integer(expression
+                final var arrayVar = (BasicArray) value;
+                final var index = RightValueUtility.convert2Integer(expression
                         .evaluate(interpreter));
-                final Object object = arrayVar.get(index);
+                final var object = arrayVar.get(index);
                 if (object instanceof RightValue) {
                     value = (RightValue) object;
                 } else {

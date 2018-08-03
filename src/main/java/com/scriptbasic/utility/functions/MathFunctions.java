@@ -18,7 +18,7 @@ import com.scriptbasic.utility.NoInstance;
  *
  * @author Peter Verhas
  */
-@SuppressWarnings("SameReturnValue")
+@SuppressWarnings({"SameReturnValue", "UnusedReturnValue"})
 public class MathFunctions {
 
     private MathFunctions() {

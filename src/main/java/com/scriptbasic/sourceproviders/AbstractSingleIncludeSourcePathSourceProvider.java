@@ -37,7 +37,7 @@ public abstract class AbstractSingleIncludeSourcePathSourceProvider extends
      * This method allows configuration of these source providers in a DI
      * container.
      *
-     * @param singleInclude
+     * @param singleInclude to be injected by the container if there is any
      */
     public void setSingleInclude(final SingleIncludeChecker singleInclude) {
         this.singleInclude = singleInclude;

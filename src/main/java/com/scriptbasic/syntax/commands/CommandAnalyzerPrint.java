@@ -4,7 +4,6 @@ import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandPrint;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.spi.Command;
-import com.scriptbasic.interfaces.ExpressionList;
 
 /**
  * @author Peter Verhas
@@ -22,8 +21,8 @@ public class CommandAnalyzerPrint extends AbstractCommandAnalyzer {
          */
     @Override
     public Command analyze() throws AnalysisException {
-        final CommandPrint node = new CommandPrint();
-        final ExpressionList expressionList = analyzeExpressionList();
+        final var node = new CommandPrint();
+        final var expressionList = analyzeExpressionList();
         node.setExpressionList(expressionList);
         consumeEndOfLine();
         return node;

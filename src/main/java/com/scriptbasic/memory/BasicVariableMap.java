@@ -108,7 +108,7 @@ class BasicVariableMap implements VariableMap {
      */
     void assertCorrectCasing(final String variableName) throws ScriptBasicException {
         if (variableNamesAreStrictCased) {
-            final String convertedName = converted(variableName);
+            final var convertedName = converted(variableName);
             if (variableMap.containsKey(convertedName)
                     && !variableNameSet.contains(variableName)) {
                 throw new BasicRuntimeException("Variable '" + variableName

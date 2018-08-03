@@ -5,7 +5,6 @@ import com.scriptbasic.executors.commands.CommandMethod;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.spi.Command;
 import com.scriptbasic.interfaces.Expression;
-import com.scriptbasic.interfaces.ExpressionList;
 import com.scriptbasic.utility.ExpressionUtility;
 import com.scriptbasic.utility.KlassUtility;
 import com.scriptbasic.utility.LexUtility;
@@ -29,11 +28,11 @@ public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
          */
     @Override
     public Command analyze() throws AnalysisException {
-        final String methodName = ExpressionUtility
+        final var methodName = ExpressionUtility
                 .convertToString(analyzeExpression());
         LexUtility.checkLexeme(ctx.lexicalAnalyzer, "from",
                 "Keyword 'FROM' is missing in command 'METHOD'");
-        final String className = ExpressionUtility
+        final var className = ExpressionUtility
                 .convertToString(analyzeExpression());
 
         LexUtility.checkLexeme(ctx.lexicalAnalyzer, "is",
@@ -41,10 +40,10 @@ public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
         LexUtility.checkLexeme(ctx.lexicalAnalyzer, "(",
                 "'(' is missing in command 'METHOD' after the keyword 'IS'");
 
-        final ExpressionList argExpressions = ctx.expressionListAnalyzer.analyze();
+        final var argExpressions = ctx.expressionListAnalyzer.analyze();
         LexUtility.checkLexeme(ctx.lexicalAnalyzer, ")",
                 "')' is missing in command 'METHOD'");
-        String alias = null;
+        final String alias;
         if (LexUtility.isLexeme(ctx.lexicalAnalyzer, "use")) {
             LexUtility.checkLexeme(ctx.lexicalAnalyzer, "as",
                     "Keyword 'AS' is missung after 'USE in command 'METHOD'");
@@ -54,10 +53,10 @@ public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
         }
         final ArrayList<Class<?>> argClasses = new ArrayList<>();
         for (final Expression expression : argExpressions) {
-            final String argClassName = ExpressionUtility.convertToString(expression);
+            final var argClassName = ExpressionUtility.convertToString(expression);
             argClasses.add(KlassUtility.forNameEx(argClassName));
         }
-        final CommandMethod node = new CommandMethod();
+        final var node = new CommandMethod();
         node.setArgumentTypes(argClasses.toArray(new Class<?>[0]));
         node.setKlass(KlassUtility.forNameEx(className));
         node.setMethodName(methodName);

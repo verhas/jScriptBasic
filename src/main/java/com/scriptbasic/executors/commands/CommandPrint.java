@@ -1,13 +1,11 @@
 package com.scriptbasic.executors.commands;
 
 import com.scriptbasic.spi.Interpreter;
-import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.executors.rightvalues.BasicStringValue;
 import com.scriptbasic.interfaces.*;
 
 import java.io.IOException;
-import java.io.Writer;
 
 public class CommandPrint extends AbstractCommandExpressionListed {
 
@@ -15,9 +13,9 @@ public class CommandPrint extends AbstractCommandExpressionListed {
     public void execute(final Interpreter interpreter)
             throws ScriptBasicException {
         for (final Expression expression : getExpressionList()) {
-            final RightValue rightValue = expression.evaluate(interpreter);
+            final var rightValue = expression.evaluate(interpreter);
             try {
-                final Writer writer = interpreter.getOutput();
+                final var writer = interpreter.getOutput();
                 if (writer != null) {
                     writer.write(BasicStringValue.asString(rightValue));
                 }

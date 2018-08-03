@@ -8,7 +8,7 @@ public abstract class AbstractBinaryFullCircuitNumericOperator<T extends Number>
         extends AbstractBinaryFullCircuitOperator {
 
     protected abstract RightValue operateOnDoubleDouble(Double a, Double b)
-            throws BasicRuntimeException;
+            ;
 
     protected abstract RightValue operateOnDoubleLong(Double a, Long b)
             throws BasicRuntimeException;
@@ -33,7 +33,7 @@ public abstract class AbstractBinaryFullCircuitNumericOperator<T extends Number>
                                           final RightValue rightOperand) throws BasicRuntimeException {
         final Number a;
         final Number b;
-        RightValue result = null;
+        final RightValue result;
         if (leftOperand == null || rightOperand == null) {
             throw new BasicRuntimeException(
                     "Can not execute the operation on undefined value.");

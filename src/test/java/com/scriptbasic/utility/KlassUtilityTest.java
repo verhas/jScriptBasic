@@ -12,11 +12,11 @@ public class KlassUtilityTest {
         class TestObject implements Magic.Getter {
 
             @Override
-            public String get(String name) {
+            public String get(final String name) {
                 return name;
             }
         }
-        TestObject testObject = new TestObject();
+        final var testObject = new TestObject();
         Assert.assertEquals("obj", KlassUtility.getField(testObject, "obj"));
     }
 
@@ -27,13 +27,13 @@ public class KlassUtilityTest {
             String name;
 
             @Override
-            public void set(String name, Object value) {
+            public void set(final String name, final Object value) {
                 this.name = name;
                 this.value = value;
             }
         }
-        TestObject testObject = new TestObject();
-        Object objToSet = new Object();
+        final var testObject = new TestObject();
+        final var objToSet = new Object();
         KlassUtility.setField(testObject, "obj", objToSet);
         Assert.assertSame(objToSet, testObject.value);
         Assert.assertEquals("obj", testObject.name);
@@ -44,12 +44,12 @@ public class KlassUtilityTest {
         class TestObject {
             private Object obj;
 
-            public void setObj(Object obj) {
+            public void setObj(final Object obj) {
                 this.obj = obj;
             }
         }
-        TestObject testObject = new TestObject();
-        Object objToSet = new Object();
+        final var testObject = new TestObject();
+        final var objToSet = new Object();
         KlassUtility.setField(testObject, "obj", objToSet);
         Assert.assertSame(objToSet, testObject.obj);
     }
@@ -59,8 +59,8 @@ public class KlassUtilityTest {
         class TestObject {
             Object obj;
         }
-        TestObject testObject = new TestObject();
-        Object objToSet = new Object();
+        final var testObject = new TestObject();
+        final var objToSet = new Object();
         KlassUtility.setField(testObject, "obj", objToSet);
         Assert.assertSame(objToSet, testObject.obj);
     }
@@ -70,78 +70,78 @@ public class KlassUtilityTest {
         class TestObject {
             private Object obj;
         }
-        TestObject testObject = new TestObject();
-        Object objToSet = new Object();
+        final var testObject = new TestObject();
+        final var objToSet = new Object();
         KlassUtility.setField(testObject, "obj", objToSet);
     }
 
     @Test
     public void canGetFieldUsingGetter() throws BasicRuntimeException {
-        final Object objToSet = new Object();
+        final var objToSet = new Object();
         class TestObject {
-            private Object obj = objToSet;
+            private final Object obj = objToSet;
 
             public Object getObj() {
                 return obj;
             }
         }
-        TestObject testObject = new TestObject();
+        final var testObject = new TestObject();
         Assert.assertSame(objToSet, KlassUtility.getField(testObject, "obj"));
     }
 
     @Test
     public void canGetFieldDirect() throws BasicRuntimeException {
-        final Object objToSet = new Object();
+        final var objToSet = new Object();
         class TestObject {
             Object obj = objToSet;
         }
-        TestObject testObject = new TestObject();
+        final var testObject = new TestObject();
         Assert.assertSame(objToSet, KlassUtility.getField(testObject, "obj"));
     }
 
     @Test(expected = BasicRuntimeException.class)
     public void doesNotGetPrivateField() throws BasicRuntimeException {
-        final Object objToSet = new Object();
+        final var objToSet = new Object();
         class TestObject {
             private Object obj = objToSet;
         }
-        TestObject testObject = new TestObject();
+        final var testObject = new TestObject();
         Assert.assertSame(objToSet, KlassUtility.getField(testObject, "obj"));
     }
 
     @Test
     public void canGetFieldUsingIsGetter_boolean() throws BasicRuntimeException {
-        final boolean objToSet = true;
+        final var objToSet = true;
         class TestObject {
-            private boolean obj = objToSet;
+            private final boolean obj = objToSet;
 
             public boolean isObj() {
                 return obj;
             }
         }
-        TestObject testObject = new TestObject();
+        final var testObject = new TestObject();
         Assert.assertEquals(objToSet, KlassUtility.getField(testObject, "obj"));
     }
 
     @Test
     public void canGetFieldUsingIsGetter_Boolean() throws BasicRuntimeException {
-        final boolean objToSet = true;
+        final var objToSet = true;
         class TestObject {
-            private Boolean obj = objToSet;
+            private final Boolean obj = objToSet;
 
             public boolean isObj() {
                 return obj;
             }
         }
-        TestObject testObject = new TestObject();
+        final var testObject = new TestObject();
         Assert.assertEquals(objToSet, KlassUtility.getField(testObject, "obj"));
     }
 
     @Test
     public void canGetFieldUsingIsGetter_boolean_ignoresGetXXX() throws BasicRuntimeException {
-        final boolean objToSet = true;
+        final var objToSet = true;
         class TestObject {
-            private boolean obj = objToSet;
+            private final boolean obj = objToSet;
 
             public boolean getObj() {
                 return obj;
@@ -151,15 +151,15 @@ public class KlassUtilityTest {
                 return obj;
             }
         }
-        TestObject testObject = new TestObject();
+        final var testObject = new TestObject();
         Assert.assertEquals(objToSet, KlassUtility.getField(testObject, "obj"));
     }
 
     @Test
     public void canGetFieldUsingIsGetter_Boolean_ignoresGetXXX() throws BasicRuntimeException {
-        final boolean objToSet = true;
+        final var objToSet = true;
         class TestObject {
-            private Boolean obj = objToSet;
+            private final Boolean obj = objToSet;
 
             public boolean getObj() {
                 return obj;
@@ -169,7 +169,7 @@ public class KlassUtilityTest {
                 return obj;
             }
         }
-        TestObject testObject = new TestObject();
+        final var testObject = new TestObject();
         Assert.assertEquals(objToSet, KlassUtility.getField(testObject, "obj"));
     }
 }

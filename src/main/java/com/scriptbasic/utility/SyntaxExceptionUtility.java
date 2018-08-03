@@ -12,7 +12,7 @@ public final class SyntaxExceptionUtility {
 
     public static void throwSyntaxException(final String s, final LexicalElement le)
             throws SyntaxException {
-        final SyntaxException se = new BasicSyntaxException(s);
+        final var se = new BasicSyntaxException(s);
         if (le != null) {
             se.setLocation(le);
         }

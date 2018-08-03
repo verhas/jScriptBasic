@@ -18,7 +18,7 @@ public class MultiCharacter extends AbstractElementAnalyzer implements ScriptBas
                            final int totalCharsToReadAhead) {
         int charsToReadAhead = totalCharsToReadAhead;
         while (charsToReadAhead > 0) {
-            final Integer ch = getReader().get();
+            final var ch = getReader().get();
             if (ch == null || Character.isWhitespace(ch)) {
                 getReader().unget(ch);
                 break;
@@ -40,11 +40,11 @@ public class MultiCharacter extends AbstractElementAnalyzer implements ScriptBas
     }
 
     @Override
-    public LexicalElement read() throws LexicalException {
+    public LexicalElement read() {
         BasicLexicalElement le = null;
-        final StringBuilder sb = new StringBuilder(BASIC_OPERATOR_LEXEME_MAX_LENGTH);
+        final var sb = new StringBuilder(BASIC_OPERATOR_LEXEME_MAX_LENGTH);
         readAhead(sb, BASIC_OPERATOR_LEXEME_MAX_LENGTH);
-        final String s = sb.toString();
+        final var s = sb.toString();
         for (final String operator : BASIC_OPERATORS) {
             if (s.startsWith(operator)) {
                 pushBack(sb, s.length() - operator.length());

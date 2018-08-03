@@ -8,8 +8,8 @@ public interface BasicArray {
     static BasicArray create() {
         return new BasicArrayValue();
     }
-    static BasicArray create(Object[] array) throws ScriptBasicException {
-        BasicArray basicArray = new BasicArrayValue();
+    static BasicArray create(final Object[] array) throws ScriptBasicException {
+        final var basicArray = new BasicArrayValue();
         basicArray.setArray(array);
         return basicArray;
     }

@@ -3,7 +3,6 @@ package com.scriptbasic.executors.operators;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.spi.Interpreter;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 import org.junit.Test;
@@ -20,28 +19,28 @@ import static org.junit.Assert.fail;
  */
 
 public class TestOperators {
-    private static Logger log = LoggerFactory.getLogger();
+    private static final Logger log = LoggerFactory.getLogger();
 
 
-    private static void a(final String s, Object expected)
+    private static void a(final String s, final Object expected)
             throws AnalysisException, ScriptBasicException {
-        Interpreter eInterpreter = eval(s);
+        final var eInterpreter = eval(s);
         eInterpreter.execute();
         assertValueOfVariable_A(eInterpreter, expected);
     }
 
-    private static void b(final String s, Object bVal, Object expected)
+    private static void b(final String s, final Object bVal, final Object expected)
             throws AnalysisException, ScriptBasicException {
-        Interpreter eInterpreter = eval(s);
+        final var eInterpreter = eval(s);
         eInterpreter.setVariable("b", bVal);
         eInterpreter.execute();
         assertValueOfVariable_A(eInterpreter, expected);
 
     }
 
-    private static void c(final String s, Object bVal, Object cVal,
-                          Object expected) throws AnalysisException, ScriptBasicException {
-        Interpreter eInterpreter = eval(s);
+    private static void c(final String s, final Object bVal, final Object cVal,
+                          final Object expected) throws AnalysisException, ScriptBasicException {
+        final var eInterpreter = eval(s);
         eInterpreter.setVariable("b", bVal);
         eInterpreter.setVariable("c", cVal);
         eInterpreter.execute();
@@ -153,7 +152,7 @@ public class TestOperators {
 
         try {
             a("a= \"13.2\" * 2.0", 26.4);
-        } catch (BasicRuntimeException bre) {
+        } catch (final BasicRuntimeException bre) {
         }
 
         a("a= 1 + true", "1true");
@@ -183,7 +182,7 @@ public class TestOperators {
         try {
             a("a= -\"13\"", 0);
             fail();
-        } catch (BasicRuntimeException bre) {
+        } catch (final BasicRuntimeException bre) {
 
         }
         new PowerOperator().operatorName();
@@ -202,9 +201,8 @@ public class TestOperators {
 
     @Test
     public void testObjectSet() throws AnalysisException,
-            ScriptBasicException, NoSuchMethodException, SecurityException,
-            IllegalAccessException, IllegalArgumentException,
-            InvocationTargetException {
+            ScriptBasicException, SecurityException,
+            IllegalArgumentException {
         b("b.www=55\na=b.www", new qqq(), 55);
         b("b.ccc.www=55\na=b.getQwww()", new qqq(), 55);
     }
@@ -213,7 +211,7 @@ public class TestOperators {
     public void testArraySetGet() throws Exception {
         b("c[13]=55\na=c[13]", null, 55);
         b("c[13,14]=66\n\na=c[13,14]", null, 66);
-        qq b = new qq();
+        final var b = new qq();
         b.arr[3] = 777;
         b("a=b.arr[3]", b, 777);
         b("z[12]=b", b, null);
@@ -221,9 +219,8 @@ public class TestOperators {
 
     @Test
     public void testObjectAccess() throws AnalysisException,
-            ScriptBasicException, NoSuchMethodException, SecurityException,
-            IllegalAccessException, IllegalArgumentException,
-            InvocationTargetException {
+            ScriptBasicException, SecurityException,
+            IllegalArgumentException {
         // b("program string", preset value for variable 'b', expected value of
         // 'a' after execution)
         b("a=b", 23L, 23);
@@ -237,12 +234,12 @@ public class TestOperators {
         class ttt implements Comparable<ttt> {
             private int t;
 
-            ttt(int t) {
+            ttt(final int t) {
                 this.t = t;
             }
 
             @Override
-            public int compareTo(ttt o) {
+            public int compareTo(final ttt o) {
                 return Integer.compare(t, o.t);
             }
 
@@ -250,17 +247,17 @@ public class TestOperators {
         try {
             b("a= b = b", new zzz(), true);
             fail();
-        } catch (BasicRuntimeException bre) {
+        } catch (final BasicRuntimeException bre) {
         }
         try {
             b("a= b <> b", new zzz(), true);
             fail();
-        } catch (BasicRuntimeException bre) {
+        } catch (final BasicRuntimeException bre) {
         }
         try {
             b("a= b < b", new zzz(), false);
             fail();
-        } catch (BasicRuntimeException bre) {
+        } catch (final BasicRuntimeException bre) {
         }
         c("a= b < c", new ttt(1), new ttt(2), true);
         c("a= b > c", new ttt(1), new ttt(2), false);
@@ -283,8 +280,8 @@ public class TestOperators {
         b("a=b.ccc.www", new qqq(), 13);
 
         b("a=b.zpq()", new zp(), 14);
-        zp ZP = new zp();
-        qqq Q = ZP.getQ();
+        final var ZP = new zp();
+        final var Q = ZP.getQ();
 
         b("a=b.oneArg(13)", ZP, Q);
     }
@@ -292,7 +289,7 @@ public class TestOperators {
     public static class qqq {
         public Integer www = 13;
         public Float fff = (float) 13.0;
-        public qq ccc = new qq();
+        public final qq ccc = new qq();
 
         public Integer getQwww() {
             return ccc.www;
@@ -302,7 +299,7 @@ public class TestOperators {
     public static class qq {
         public Integer www = 13;
         public Float fff = (float) 13.0;
-        public Integer arr[] = new Integer[4];
+        public final Integer[] arr = new Integer[4];
     }
 
     public static class zp {
@@ -317,7 +314,7 @@ public class TestOperators {
             return 14;
         }
 
-        public qqq oneArg(Long z) {
+        public qqq oneArg(final Long z) {
             log.debug("oneArg was called: {}", z);
             return Q;
         }

@@ -14,9 +14,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CommandAnalyzerDSL extends AbstractCommandAnalyzer {
-    private List<DslLine> dslLines = new LinkedList<>();
+    private final List<DslLine> dslLines = new LinkedList<>();
 
-    protected CommandAnalyzerDSL(Context ctx) {
+    protected CommandAnalyzerDSL(final Context ctx) {
         super(ctx);
     }
 
@@ -25,14 +25,14 @@ public class CommandAnalyzerDSL extends AbstractCommandAnalyzer {
     @Override
     public Command analyze() throws AnalysisException {
         ctx.lexicalAnalyzer.resetLine();
-        var lexeme = ctx.lexicalAnalyzer.get();
+        final var lexeme = ctx.lexicalAnalyzer.get();
         if (lexeme != null && lexeme.isSymbol("sentence")) {
             defineDSLRule();
             return null;
         } else {
             for (final DslLine line : dslLines) {
                 ctx.lexicalAnalyzer.resetLine();
-                Command command = analyzeWith(line);
+                final var command = analyzeWith(line);
                 if (command != null) {
                     return command;
                 }
@@ -41,15 +41,15 @@ public class CommandAnalyzerDSL extends AbstractCommandAnalyzer {
         }
     }
 
-    private Command analyzeWith(DslLine line) {
-        final GenericExpressionList expressionList = new GenericExpressionList();
-        for (String match : line.syntaxElements) {
+    private Command analyzeWith(final DslLine line) {
+        final var expressionList = new GenericExpressionList();
+        for (final String match : line.syntaxElements) {
 
             if (match.equalsIgnoreCase("$expression")) {
                 final Expression expression;
                 try {
                     expression = analyzeExpression();
-                } catch (AnalysisException ignored) {
+                } catch (final AnalysisException ignored) {
                     return null;
                 }
                 expressionList.add(expression);
@@ -57,7 +57,7 @@ public class CommandAnalyzerDSL extends AbstractCommandAnalyzer {
                 final LexicalElement lexicalElement;
                 try {
                     lexicalElement = ctx.lexicalAnalyzer.get();
-                } catch (AnalysisException ignored) {
+                } catch (final AnalysisException ignored) {
                     return null;
                 }
                 if (!lexicalElement.getLexeme().equalsIgnoreCase(match)) {
@@ -65,23 +65,23 @@ public class CommandAnalyzerDSL extends AbstractCommandAnalyzer {
                 }
             }
         }
-        final FunctionCall functionCall = new FunctionCall();
+        final var functionCall = new FunctionCall();
         functionCall.setVariableName(line.methodName);
         functionCall.setExpressionList(expressionList);
         return new CommandCall(functionCall);
     }
 
     private void defineDSLRule() throws AnalysisException {
-        final LexicalElement actualSentence = ctx.lexicalAnalyzer.get();
+        final var actualSentence = ctx.lexicalAnalyzer.get();
         if (!actualSentence.isString()) {
             throw new BasicSyntaxException("There should be a string after the keyword 'sentence'");
         }
-        final String sentence = actualSentence.stringValue();
-        final LexicalElement callsKW = ctx.lexicalAnalyzer.get();
+        final var sentence = actualSentence.stringValue();
+        final var callsKW = ctx.lexicalAnalyzer.get();
         if (!callsKW.isSymbol("call")) {
             throw new BasicSyntaxException("missing keyword 'call' after string in command 'sentence'");
         }
-        final LexicalElement functionNameLexicalElement = ctx.lexicalAnalyzer.get();
+        final var functionNameLexicalElement = ctx.lexicalAnalyzer.get();
         if (!functionNameLexicalElement.isIdentifier()) {
             throw new BasicSyntaxException("there should be a function name after the keyword 'call' defining a sentenceó");
         }
@@ -90,7 +90,7 @@ public class CommandAnalyzerDSL extends AbstractCommandAnalyzer {
         if (syntaxElements.length == 0) {
             throw new BasicSyntaxException("sentence can not be empty");
         }
-        final String startElement = syntaxElements[0];
+        final var startElement = syntaxElements[0];
         if (startElement.equals("'") || startElement.equalsIgnoreCase("rem")) {
             throw new BasicSyntaxException("sentence should not look like as a comment");
         }
@@ -101,7 +101,7 @@ public class CommandAnalyzerDSL extends AbstractCommandAnalyzer {
         final String methodName;
         final String[] syntaxElements;
 
-        private DslLine(String methodName, String[] syntaxElements) {
+        private DslLine(final String methodName, final String[] syntaxElements) {
             this.methodName = methodName;
             this.syntaxElements = syntaxElements;
         }

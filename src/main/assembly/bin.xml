@@ -19,7 +19,7 @@
     <fileSets>
         <fileSet>
             <directory>target</directory>
-            <outputDirectory></outputDirectory>
+            <outputDirectory/>
             <includes>
                 <include>*.jar</include>
             </includes>

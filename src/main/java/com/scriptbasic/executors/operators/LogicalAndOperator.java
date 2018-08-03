@@ -12,7 +12,7 @@ public class LogicalAndOperator extends AbstractShortCircuitBinaryOperator {
     protected RightValue evaluateOn(final Interpreter interpreter,
                                     final RightValue leftOperand, final Expression rightOperand)
             throws ScriptBasicException {
-        final BasicBooleanValue bbv = new BasicBooleanValue(false);
+        final var bbv = new BasicBooleanValue(false);
         if (BasicBooleanValue.asBoolean(leftOperand)) {
             return new BasicBooleanValue(BasicBooleanValue.asBoolean(rightOperand
                     .evaluate(interpreter)));

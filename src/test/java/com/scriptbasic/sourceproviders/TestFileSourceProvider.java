@@ -1,6 +1,5 @@
 package com.scriptbasic.sourceproviders;
 
-import com.scriptbasic.readers.SourceReader;
 import org.junit.Test;
 
 import java.io.File;
@@ -18,14 +17,14 @@ public class TestFileSourceProvider {
 
     @Test
     public void testFSP() throws IOException {
-        final File file = createTemporaryTestFile();
+        final var file = createTemporaryTestFile();
         try {
             // get the test file
-            final FileSourceProvider fsp = new FileSourceProvider();
+            final var fsp = new FileSourceProvider();
             fsp.setSourcePath(new BasicSourcePath());
             fsp.getSourcePath().add(tempDir + ps + "abrakadabra");
             fsp.getSourcePath().add(tempDir);
-            final SourceReader r = fsp.get(testFileName);
+            final var r = fsp.get(testFileName);
             for (int i = 0; i < testStringToFile.length(); i++) {
                 final Integer chExpected = (int) testStringToFile.charAt(i);
                 final Integer chActual = r.get();
@@ -39,16 +38,16 @@ public class TestFileSourceProvider {
     }
 
     private File createTemporaryTestFile() throws IOException {
-        final File file = new File(tempDir + ps + testFileName);
-        final FileWriter fw = new FileWriter(file);
-        fw.write(testStringToFile);
-        fw.close();
+        final var file = new File(tempDir + ps + testFileName);
+        try(final var fw = new FileWriter(file)) {
+            fw.write(testStringToFile);
+        }
         return file;
     }
 
     @Test
     public void testFSPFileNotFound() {
-        final FileSourceProvider fsp = new FileSourceProvider();
+        final var fsp = new FileSourceProvider();
         fsp.setSourcePath(new BasicSourcePath());
         try {
             fsp.get(testFileName);

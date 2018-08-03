@@ -16,8 +16,8 @@ public class CommandAnalyzerIf extends AbstractCommandAnalyzerIfKind {
         super(ctx);
     }
 
-    protected Command createNode(final Expression condition) throws AnalysisException {
-        final CommandIf node = new CommandIf();
+    protected Command createNode(final Expression condition) {
+        final var node = new CommandIf();
         node.setCondition(condition);
         pushNode(node);
         return node;

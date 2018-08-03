@@ -21,7 +21,7 @@ public final class BasicLexialElementFactory {
      * @return a new and initialized lexical element object
      */
     public static BasicLexicalElement create(final SourceReader reader) {
-        final BasicLexicalElement lexicalElement = new BasicLexicalElement();
+        final var lexicalElement = new BasicLexicalElement();
         lexicalElement.setFileName(reader.getFileName());
         lexicalElement.setLineNumber(reader.getLineNumber());
         lexicalElement.setPosition(reader.getPosition());
@@ -29,7 +29,7 @@ public final class BasicLexialElementFactory {
     }
 
     public static BasicLexicalElement create(final SourceReader reader, final int type) {
-        final BasicLexicalElement lexicalElement = create(reader);
+        final var lexicalElement = create(reader);
         lexicalElement.setType(type);
         return lexicalElement;
     }

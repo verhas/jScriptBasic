@@ -4,7 +4,6 @@ import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
-import com.scriptbasic.lexer.BasicLexicalElement;
 import com.scriptbasic.utility.CharUtils;
 
 public class OneCharacter extends AbstractElementAnalyzer {
@@ -14,10 +13,10 @@ public class OneCharacter extends AbstractElementAnalyzer {
     }
 
     @Override
-    public LexicalElement read() throws LexicalException {
-        final Integer ch = getReader().get();
+    public LexicalElement read() {
+        final var ch = getReader().get();
         if (ch != null) {
-            final BasicLexicalElement le = BasicLexialElementFactory.create(
+            final var le = BasicLexialElementFactory.create(
                     getReader(), LexicalElement.TYPE_SYMBOL);
             le.setLexeme(CharUtils.convert(ch));
             le.setType(LexicalElement.TYPE_SYMBOL);

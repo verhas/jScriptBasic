@@ -58,7 +58,7 @@ public class BasicArrayValue implements RightValue, BasicArray, BasicValue<Objec
     maxIndex = array.length - 1;
   }
 
-  private Object[] objectArrayOf(Object[] array) {
+  private Object[] objectArrayOf(final Object[] array) {
     final Object[] objectArray;
     if (array.getClass() == Object[].class) {
       objectArray = array;
@@ -85,7 +85,7 @@ public class BasicArrayValue implements RightValue, BasicArray, BasicValue<Objec
    */
   public final void setInterpreter(final Interpreter interpreter) {
     this.interpreter = interpreter;
-    Optional<String> maxConfig = interpreter.getConfiguration().getConfigValue("arrayMaxIndex");
+    final Optional<String> maxConfig = interpreter.getConfiguration().getConfigValue("arrayMaxIndex");
     maxConfig.ifPresent(s -> indexLimit = Integer.valueOf(s));
   }
 

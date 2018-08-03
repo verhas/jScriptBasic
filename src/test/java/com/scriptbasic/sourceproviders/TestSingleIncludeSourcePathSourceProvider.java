@@ -9,7 +9,7 @@ public class TestSingleIncludeSourcePathSourceProvider {
 
     @Test
     public void testFSPFileNotFound() throws IOException {
-        final TestedSingleIncludeSourcePathSourceProvider tsispsp = new TestedSingleIncludeSourcePathSourceProvider();
+        final var tsispsp = new TestedSingleIncludeSourcePathSourceProvider();
         tsispsp.setSingleInclude(null);
         //noinspection ResultOfMethodCallIgnored
         tsispsp.getSingleInclude();
@@ -23,13 +23,13 @@ public class TestSingleIncludeSourcePathSourceProvider {
             AbstractSingleIncludeSourcePathSourceProvider {
 
         @Override
-        protected SourceReader getSource(final String sourceName) throws IOException {
+        protected SourceReader getSource(final String sourceName) {
             return null;
         }
 
         @Override
         protected SourceReader getSource(final String sourceName,
-                                         final String referencingSource) throws IOException {
+                                         final String referencingSource) {
             return null;
         }
 

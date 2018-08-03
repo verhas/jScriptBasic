@@ -4,8 +4,6 @@ import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandReturn;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.spi.Command;
-import com.scriptbasic.interfaces.Expression;
-import com.scriptbasic.interfaces.LexicalElement;
 
 /**
  * @author Peter Verhas
@@ -23,10 +21,10 @@ public class CommandAnalyzerReturn extends AbstractCommandAnalyzer {
          */
     @Override
     public Command analyze() throws AnalysisException {
-        final CommandReturn node = new CommandReturn();
-        final LexicalElement le = ctx.lexicalAnalyzer.peek();
+        final var node = new CommandReturn();
+        final var le = ctx.lexicalAnalyzer.peek();
         if (le != null && !le.isLineTerminator()) {
-            final Expression returnExpression = analyzeExpression();
+            final var returnExpression = analyzeExpression();
             node.setReturnExpression(returnExpression);
         } else {
             node.setReturnExpression(null);

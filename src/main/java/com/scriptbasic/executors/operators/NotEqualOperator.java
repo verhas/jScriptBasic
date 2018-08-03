@@ -31,10 +31,9 @@ public class NotEqualOperator extends AbstractCompareOperator {
     }
 
     @Override
-    protected Boolean compareTo(final BasicBooleanValue f, final RightValue op)
-            throws BasicRuntimeException {
-        final int a = f.getValue() ? 1 : 0;
-        final int b = BasicBooleanValue.asBoolean(op) ? 1 : 0;
+    protected Boolean compareTo(final BasicBooleanValue f, final RightValue op) {
+        final var a = f.getValue() ? 1 : 0;
+        final var b = BasicBooleanValue.asBoolean(op) ? 1 : 0;
         return a != b;
     }
 

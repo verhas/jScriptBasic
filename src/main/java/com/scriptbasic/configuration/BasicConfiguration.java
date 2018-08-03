@@ -46,11 +46,11 @@ public class BasicConfiguration implements Configuration {
     @Override
     public Optional<String> getConfigValue(final String key) {
         String configValue = null;
-        final String envKey = "sb4j." + key;
+        final var envKey = "sb4j." + key;
         if (configProperties != null && configProperties.containsKey(key)) {
             configValue = configProperties.getProperty(key);
         }
-        String sysValue = null;
+        String sysValue;
         if ((sysValue = System.getenv(envKey)) != null) {
             configValue = sysValue;
         }
@@ -82,12 +82,12 @@ public class BasicConfiguration implements Configuration {
      */
     @Override
     public void loadDefaultConfiguration() {
-        final String systemPropertyDefinedConfiguration = System
+        final var systemPropertyDefinedConfiguration = System
                 .getProperty("sb4j.configuration");
-        final String configurationFileName = systemPropertyDefinedConfiguration == null ? "sb4j.properties"
+        final var configurationFileName = systemPropertyDefinedConfiguration == null ? "sb4j.properties"
                 : systemPropertyDefinedConfiguration;
         LOG.info("Reading configuration from file {}",configurationFileName);
-        final InputStream is = this.getClass().getClassLoader()
+        final var is = this.getClass().getClassLoader()
                 .getResourceAsStream(configurationFileName);
         if (null == is) {
             LOG.info("Configuration file does not exist.");
@@ -105,7 +105,7 @@ public class BasicConfiguration implements Configuration {
      */
     @Override
     public void loadConfiguration(final InputStream is) {
-        final Properties configProperties = new Properties();
+        final var configProperties = new Properties();
         try {
             configProperties.load(is);
             setConfigProperties(configProperties);
@@ -121,7 +121,7 @@ public class BasicConfiguration implements Configuration {
     }
     @Override
     public void set(final String command) {
-        int index = command.indexOf("=");
+        final var index = command.indexOf("=");
         if( index == -1 ){
             throw new BasicInterpreterInternalError("Configuration command '"+command+"' is invalid.");
         }

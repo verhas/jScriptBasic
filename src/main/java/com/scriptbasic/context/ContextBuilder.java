@@ -3,8 +3,6 @@ package com.scriptbasic.context;
 import com.scriptbasic.configuration.BasicConfiguration;
 import com.scriptbasic.executors.BasicInterpreter;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.CommandFactory;
-import com.scriptbasic.readers.HierarchicalSourceReader;
 import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.lexer.elements.ScriptBasicLexicalAnalyzer;
 import com.scriptbasic.readers.GenericHierarchicalSourceReader;
@@ -27,13 +25,13 @@ import java.util.Objects;
 public class ContextBuilder {
 
     public static Context newContext() {
-        final Context ctx = new Context();
+        final var ctx = new Context();
         ctx.interpreter = new BasicInterpreter(ctx);
         return ctx;
     }
 
     public static Context from(final Context existingCtx) {
-        final Context ctx = Objects.requireNonNullElseGet(existingCtx, Context::new);
+        final var ctx = Objects.requireNonNullElseGet(existingCtx, Context::new);
         if (ctx.interpreter == null) {
             ctx.interpreter = new BasicInterpreter(ctx);
         }
@@ -48,7 +46,7 @@ public class ContextBuilder {
     }
 
     public static Context from(final Context existing, final Reader reader, final Reader input, final Writer output, final Writer error) throws AnalysisException {
-        final Context ctx = from(existing, reader);
+        final var ctx = from(existing, reader);
         ctx.interpreter.setInput(input);
         ctx.interpreter.setOutput(output);
         ctx.interpreter.setErrorOutput(error);
@@ -68,8 +66,8 @@ public class ContextBuilder {
     }
 
     public static Context from(final Context existing, final Reader reader) throws AnalysisException {
-        final GenericSourceReader sourceReader = new GenericSourceReader(reader, null, null);
-        final HierarchicalSourceReader hReader = new GenericHierarchicalSourceReader(sourceReader);
+        final var sourceReader = new GenericSourceReader(reader, null, null);
+        final var hReader = new GenericHierarchicalSourceReader(sourceReader);
         return from(existing, hReader);
     }
 
@@ -78,7 +76,7 @@ public class ContextBuilder {
     }
 
     public static Context from(final Context existing, final SourceReader sourceReader, final Reader input, final Writer output, final Writer error) throws AnalysisException {
-        final Context ctx = from(existing, sourceReader);
+        final var ctx = from(existing, sourceReader);
         ctx.interpreter.setInput(input);
         ctx.interpreter.setOutput(output);
         ctx.interpreter.setErrorOutput(error);
@@ -89,8 +87,8 @@ public class ContextBuilder {
         return from(null, reader);
     }
 
-    private static Context from(final Context existing, final SourceReader reader) throws AnalysisException {
-        final Context ctx = from(existing);
+    private static Context from(final Context existing, final SourceReader reader) {
+        final var ctx = from(existing);
         createReusableComponents(ctx);
         createReaderDependentComponents(reader, ctx);
         return ctx;
@@ -99,7 +97,7 @@ public class ContextBuilder {
     private static void createReaderDependentComponents(final SourceReader reader, final Context ctx) {
         ctx.lexicalAnalyzer = new ScriptBasicLexicalAnalyzer(reader);
         ctx.nestedStructureHouseKeeper = new GenericNestedStructureHouseKeeper(ctx.lexicalAnalyzer);
-        final CommandFactory commandFactory = new BasicCommandFactory(ctx);
+        final var commandFactory = new BasicCommandFactory(ctx);
         ctx.syntaxAnalyzer = new BasicSyntaxAnalyzer(ctx.lexicalAnalyzer, commandFactory);
     }
 

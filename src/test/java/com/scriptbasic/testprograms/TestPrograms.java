@@ -1,7 +1,6 @@
 package com.scriptbasic.testprograms;
 
 import com.scriptbasic.TestingExecutor;
-import com.scriptbasic.api.Configuration;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.configuration.BasicConfiguration;
 import com.scriptbasic.exceptions.CommandFactoryException;
@@ -16,7 +15,6 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 /**
@@ -24,44 +22,42 @@ import static org.junit.Assert.fail;
  */
 public class TestPrograms {
 
-  private static void codeTest(String fileName, Map<String, Object> map,
-                               String expectedOutput) throws Exception {
-    TestingExecutor e = new TestingExecutor();
+  private static void codeTest(final String fileName, final Map<String, Object> map,
+                               final String expectedOutput) throws Exception {
+    final var e = new TestingExecutor();
     e.setMap(map);
     e.execute(fileName);
     e.assertOutput(expectedOutput);
   }
 
-  private static void codeTest(String fileName, String expectedOutput)
+  private static void codeTest(final String fileName, final String expectedOutput)
       throws Exception {
     codeTest(fileName, null, expectedOutput);
   }
 
-  private static void testSyntaxFail(String fileName) throws Exception {
+  private static void testSyntaxFail(final String fileName) throws Exception {
     try {
       codeTest(fileName, null);
       fail();
-    } catch (AnalysisException e) {
-      @SuppressWarnings("unused")
-      Exception ex = e;
+    } catch (final AnalysisException e) {
+      @SuppressWarnings("unused") final Exception ex = e;
       // OK
     }
   }
 
-  private static void testRuntimeFail(String fileName) throws Exception {
+  private static void testRuntimeFail(final String fileName) throws Exception {
     try {
       codeTest(fileName, null);
       fail();
-    } catch (ScriptBasicException e) {
-      @SuppressWarnings("unused")
-      Exception ex = e;
+    } catch (final ScriptBasicException e) {
+      @SuppressWarnings("unused") final Exception ex = e;
       // OK
     }
   }
 
   @Test
   public void testPrograms() throws Exception {
-    Map<String, Object> map;
+    final Map<String, Object> map;
     codeTest("TestEmpty.bas", "");
     codeTest("TestPrintHello.bas", "hello");
     codeTest("TestIf.bas", "111");
@@ -70,12 +66,12 @@ public class TestPrograms {
     try {
       codeTest("TestNegativeIndex.bas", null);
         fail();
-    } catch (BasicRuntimeException e) {
+    } catch (final BasicRuntimeException e) {
     }
     try {
       codeTest("TestNonObjectFieldAccess.bas", null);
         fail();
-    } catch (BasicRuntimeException e) {
+    } catch (final BasicRuntimeException e) {
     }
     codeTest("TestSub1.bas", "6");
     codeTest("TestSub2.bas", "21");
@@ -151,9 +147,9 @@ public class TestPrograms {
 
   @Test
   public void testJavaObjectFieldAccess() throws ScriptBasicException, ClassNotFoundException, AnalysisException {
-    TestingExecutor e = new TestingExecutor();
-    TestAccessFields t = new TestAccessFields();
-    Map<String, Object> variables = Map.of("T", t);
+    final var e = new TestingExecutor();
+    final var t = new TestAccessFields();
+    final Map<String, Object> variables = Map.of("T", t);
     e.setMap(variables);
     e.execute("JavaObjectFieldAccess.bas");
     Assert.assertEquals("13", t.z);
@@ -165,8 +161,8 @@ public class TestPrograms {
 
   @Test(expected = BasicRuntimeException.class)
   public void tooLargeArrayCannotBeCreated() throws ScriptBasicException, ClassNotFoundException, AnalysisException {
-    TestingExecutor e = new TestingExecutor();
-    Configuration configuration = new BasicConfiguration();
+    final var e = new TestingExecutor();
+    final var configuration = new BasicConfiguration();
     e.getCtx().configuration = configuration;
     configuration.set("arrayMaxIndex", "100");
     e.execute("AllocateTooLargeArray.bas");
@@ -225,7 +221,7 @@ public class TestPrograms {
 
   public static class TestAccessFields {
     public String z;
-    public BasicArray h = BasicArray.create(new Object[0]);
+    public final BasicArray h = BasicArray.create(new Object[0]);
 
     public TestAccessFields() throws ScriptBasicException {
     }
@@ -236,7 +232,7 @@ public class TestPrograms {
       return 3;
     }
 
-    public long callMe(Long s) {
+    public long callMe(final Long s) {
       return 2 * s;
     }
   }

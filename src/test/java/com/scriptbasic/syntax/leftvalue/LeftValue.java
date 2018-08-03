@@ -7,27 +7,27 @@ import com.scriptbasic.executors.leftvalues.ObjectFieldAccessLeftValueModifier;
 import com.scriptbasic.interfaces.Expression;
 
 public class LeftValue {
-    private BasicLeftValue lv = new BasicLeftValue();
+    private final BasicLeftValue lv = new BasicLeftValue();
 
-    private LeftValue(String id) {
+    private LeftValue(final String id) {
         lv.setIdentifier(id);
     }
 
-    public static LeftValue of(String id) {
+    public static LeftValue of(final String id) {
         return new LeftValue(id);
     }
 
-    public LeftValue field(String id) {
-        ObjectFieldAccessLeftValueModifier modifier = new ObjectFieldAccessLeftValueModifier();
+    public LeftValue field(final String id) {
+        final var modifier = new ObjectFieldAccessLeftValueModifier();
         modifier.setFieldName(id);
         lv.addModifier(modifier);
         return this;
     }
 
-    public LeftValue array(Expression... indexArray) {
-        ArrayElementAccessLeftValueModifier modifier = new ArrayElementAccessLeftValueModifier();
-        GenericExpressionList expressionList = new GenericExpressionList();
-        for (Expression e : indexArray) {
+    public LeftValue array(final Expression... indexArray) {
+        final var modifier = new ArrayElementAccessLeftValueModifier();
+        final var expressionList = new GenericExpressionList();
+        for (final Expression e : indexArray) {
             expressionList.add(e);
         }
         modifier.setIndexList(expressionList);

@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TestGenericNestedStructureHouseKeeper {
     private final LexicalAnalyzer lexicalAnalyzer = new NullLexicalAnalyzer();
-    private NestedStructure dummy = new NestedStructure() {
+    private final NestedStructure dummy = new NestedStructure() {
     };
 
     private NestedStructureHouseKeeper newSut() {
@@ -16,31 +16,31 @@ public class TestGenericNestedStructureHouseKeeper {
 
     @Test
     public void canPushAStructureOnTheStack() {
-        NestedStructureHouseKeeper sut = newSut();
+        final var sut = newSut();
         sut.push(dummy);
     }
 
     @Test
     public void popsBackTheSameObjectThatWasPushed() throws AnalysisException {
-        NestedStructureHouseKeeper sut = newSut();
+        final var sut = newSut();
         sut.push(dummy);
-        NestedStructure result = sut.pop(dummy.getClass());
+        final var result = sut.pop(dummy.getClass());
         assertEquals(dummy, result);
     }
 
     @Test
     public void popsBackTheSameObjectThatWasPushedByOtherClass() throws AnalysisException {
-        NestedStructureHouseKeeper sut = newSut();
-        NestedStructure other = new NestedStructure() {
+        final var sut = newSut();
+        final var other = new NestedStructure() {
         };
         sut.push(other.getClass(), dummy);
-        NestedStructure result = sut.pop(other.getClass());
+        final NestedStructure result = sut.pop(other.getClass());
         assertEquals(dummy, result);
     }
 
     @Test(expected = BasicSyntaxException.class)
     public void throwsExceptionIfExpectingDifferentClass() throws AnalysisException {
-        NestedStructureHouseKeeper sut = newSut();
+        final var sut = newSut();
         sut.push(dummy);
         sut.pop(new NestedStructure() {
         }.getClass());
@@ -48,8 +48,8 @@ public class TestGenericNestedStructureHouseKeeper {
 
     @Test(expected = BasicSyntaxException.class)
     public void throwsExceptionIfExpectingDifferentOtherClass() throws AnalysisException {
-        NestedStructureHouseKeeper sut = newSut();
-        NestedStructure other = new NestedStructure() {
+        final var sut = newSut();
+        final var other = new NestedStructure() {
         };
         sut.push(other.getClass(), dummy);
         sut.pop(new NestedStructure() {

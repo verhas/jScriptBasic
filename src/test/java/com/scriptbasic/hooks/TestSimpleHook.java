@@ -1,11 +1,9 @@
 package com.scriptbasic.hooks;
 
 import com.scriptbasic.spi.SimpleHook;
-import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.executors.BasicInterpreter;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.spi.Interpreter;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -16,21 +14,21 @@ public class TestSimpleHook {
     @Test
     public void testExMethods() throws IllegalAccessException,
             IllegalArgumentException, InvocationTargetException, AnalysisException {
-        Method[] methods = SimpleHook.class.getDeclaredMethods();
-        SimpleHook simpleHook = new SimpleHook() {
+        final Method[] methods = SimpleHook.class.getDeclaredMethods();
+        final var simpleHook = new SimpleHook() {
         };
-        Context ctx = ContextBuilder.from("");
-        Interpreter interpreter = new BasicInterpreter(ctx);
+        final var ctx = ContextBuilder.from("");
+        final var interpreter = new BasicInterpreter(ctx);
         simpleHook.setInterpreter(interpreter);
-        NullHook nullHook = new NullHook();
+        final var nullHook = new NullHook();
         simpleHook.setNext(nullHook);
         simpleHook.init();
-        for (Method method : methods) {
-            String name = method.getName();
+        for (final Method method : methods) {
+            final var name = method.getName();
             if (!name.equals("setNext") && !name.equals("setInterpreter")) {
                 method.setAccessible(true);
-                int paramsNum = method.getParameterTypes().length;
-                Object[] obj = new Object[paramsNum];
+                final var paramsNum = method.getParameterTypes().length;
+                final Object[] obj = new Object[paramsNum];
                 method.invoke(simpleHook, obj);
             }
         }

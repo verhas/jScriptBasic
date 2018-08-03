@@ -8,7 +8,6 @@ import com.scriptbasic.executors.rightvalues.FunctionCall;
 import com.scriptbasic.executors.rightvalues.VariableAccess;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.Expression;
-import com.scriptbasic.interfaces.ExpressionList;
 import com.scriptbasic.spi.Interpreter;
 import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.utility.ExpressionUtility;
@@ -56,24 +55,24 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
 
   private Object fetchFieldObject(final Interpreter interpreter)
       throws ScriptBasicException {
-    final Object object = getLeftOperandObject(interpreter);
-    final AbstractIdentifieredExpression rightOp = (AbstractIdentifieredExpression) getRightOperand();
-    final String fieldName = rightOp.getVariableName();
+    final var object = getLeftOperandObject(interpreter);
+    final var rightOp = (AbstractIdentifieredExpression) getRightOperand();
+    final var fieldName = rightOp.getVariableName();
     return KlassUtility.getField(object, fieldName);
   }
 
   private RightValue fetchField(final Interpreter interpreter)
       throws ScriptBasicException {
-    final Object fieldObject = fetchFieldObject(interpreter);
+    final var fieldObject = fetchFieldObject(interpreter);
     return RightValueUtility.createRightValue(fieldObject);
   }
 
   private RightValue callMethod(final Interpreter interpreter,
                                 final Object object, final Class<?> klass)
       throws ScriptBasicException {
-    final FunctionCall rightOp = (FunctionCall) getRightOperand();
-    final String methodName = rightOp.getVariableName();
-    final ExpressionList expressionList = rightOp.getExpressionList();
+    final var rightOp = (FunctionCall) getRightOperand();
+    final var methodName = rightOp.getVariableName();
+    final var expressionList = rightOp.getExpressionList();
     final List<RightValue> args = ExpressionUtility.evaluateExpressionList(
         interpreter, expressionList);
     final Class<?> calculatedKlass = klass == null ? object.getClass()
@@ -116,9 +115,9 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
     final List<Method> methods = Arrays.stream(klass.getMethods()).filter(method -> method.getName().equals(methodName))
         .filter(method -> method.getParameterTypes().length >= argClasses.length)
         .filter(method ->
-            !IntStream.range(0, method.getParameterTypes().length - 1)
-                .anyMatch(i -> i < argClasses.length ? !method.getParameterTypes()[i].isAssignableFrom(argClasses[i])
-                    : method.getParameterTypes()[i].isPrimitive())
+                IntStream.range(0, method.getParameterTypes().length - 1)
+                    .noneMatch(i -> i < argClasses.length ? !method.getParameterTypes()[i].isAssignableFrom(argClasses[i])
+                        : method.getParameterTypes()[i].isPrimitive())
         ).collect(Collectors.toList());
     if (methods.size() > 1) {
       return klass.getMethod(methodName, argClasses);
@@ -132,7 +131,7 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
   @SuppressWarnings("unchecked")
   private Object getLeftOperandObject(final Interpreter interpreter)
       throws ScriptBasicException {
-    final RightValue leftOp = getLeftOperand().evaluate(interpreter);
+    final var leftOp = getLeftOperand().evaluate(interpreter);
     if (!(leftOp instanceof AbstractPrimitiveRightValue<?>)) {
       throw new BasicRuntimeException("Can not get field access from "
           + (leftOp == null ? "null" : leftOp.getClass())
@@ -145,7 +144,7 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
   private Class<?> getStaticClass(final Interpreter interpreter) {
     Class<?> result = null;
     if (getLeftOperand() instanceof VariableAccess) {
-      final String classAsName = ((VariableAccess) getLeftOperand())
+      final var classAsName = ((VariableAccess) getLeftOperand())
           .getVariableName();
       if (interpreter.getUseMap().containsKey(classAsName)) {
         result = interpreter.getUseMap().get(classAsName);
@@ -158,7 +157,7 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
   public RightValue evaluate(final Interpreter interpreter)
       throws ScriptBasicException {
     final RightValue result;
-    final Expression rightOp = getRightOperand();
+    final var rightOp = getRightOperand();
 
     if (rightOp instanceof VariableAccess) {
 
@@ -177,7 +176,7 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
       for (final Expression expression : ((ArrayElementAccess) rightOp)
           .getExpressionList()) {
         if (variable instanceof Object[]) {
-          final Integer index = RightValueUtility
+          final var index = RightValueUtility
               .convert2Integer(expression.evaluate(interpreter));
           variable = getArrayElement((Object[]) variable, index);
         } else {

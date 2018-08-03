@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 
 public class BasicMethodRegistry implements MethodRegistry {
 
-  private Map<String, RegistryItem> registry = new HashMap<>();
-  private Map<String, RegistryItem> globalRegistry = new HashMap<>();
+  private final Map<String, RegistryItem> registry = new HashMap<>();
+  private final Map<String, RegistryItem> globalRegistry = new HashMap<>();
 
   private static String formKey(final String alias, final Class<?> klass) {
     return alias + "#" + klass.getName().replaceAll("\\$", ".");
@@ -29,15 +29,14 @@ public class BasicMethodRegistry implements MethodRegistry {
    * java.lang.String)
    */
   @Override
-  public Method getJavaMethod(final Class<?> klass, final String alias)
-      throws ScriptBasicException {
+  public Method getJavaMethod(final Class<?> klass, final String alias) {
     final Method method;
-    final RegistryItem item = getRegistryItem(klass, alias);
+    final var item = getRegistryItem(klass, alias);
     if (item == null) {
       method = null;
     } else {
       if (item.method == null) {
-        Class<?>[] args = new Class[item.args.length + 1];
+        final Class<?>[] args = new Class[item.args.length + 1];
         args[0] = Interpreter.class;
         System.arraycopy(item.args, 0, args, 1, item.args.length);
         method = Optional.ofNullable(getMethod(item.klass, item.methodName, args))
@@ -49,7 +48,7 @@ public class BasicMethodRegistry implements MethodRegistry {
     return method;
   }
 
-  private RegistryItem getRegistryItem(Class<?> klass, String alias) {
+  private RegistryItem getRegistryItem(final Class<?> klass, final String alias) {
     final RegistryItem item;
 
     if (klass == null) {
@@ -60,11 +59,11 @@ public class BasicMethodRegistry implements MethodRegistry {
     return item;
   }
 
-  private Method getMethod(Class klass, String methodName, Class<?>[] args) {
+  private Method getMethod(final Class klass, final String methodName, final Class<?>[] args) {
     Method method;
     try {
       method = klass.getMethod(methodName, args);
-    } catch (NoSuchMethodException e) {
+    } catch (final NoSuchMethodException e) {
       method = null;
     }
     return method;
@@ -139,7 +138,7 @@ public class BasicMethodRegistry implements MethodRegistry {
   public void registerJavaMethod(final String alias, final Class<?> klass,
                                  final String methodName, final Class<?>[] argumentTypes)
       throws BasicRuntimeException {
-    final RegistryItem item = new RegistryItem();
+    final var item = new RegistryItem();
     item.methodName = methodName;
     item.klass = klass;
     item.args = argumentTypes.clone();
@@ -151,7 +150,7 @@ public class BasicMethodRegistry implements MethodRegistry {
     private String methodName;
     private Class<?> klass;
     private Class<?>[] args;
-    private Method method = null;
+    private final Method method = null;
 
     public String toString() {
       return klass + "." + methodName + "(" +

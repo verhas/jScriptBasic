@@ -81,7 +81,7 @@ public interface MethodRegistry {
      *                            the method is private)
      */
     Method getJavaMethod(Class<?> klass, String alias)
-            throws ScriptBasicException;
+    ;
 
     /**
      * Register a java method.

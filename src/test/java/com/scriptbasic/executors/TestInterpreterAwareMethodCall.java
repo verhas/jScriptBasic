@@ -9,7 +9,6 @@ import com.scriptbasic.spi.Interpreter;
 import org.junit.Test;
 
 import java.io.PrintWriter;
-import java.lang.reflect.Field;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,16 +18,16 @@ public class TestInterpreterAwareMethodCall {
     static ScriptBasic sb;
 
     @BasicFunction(alias = "callMe", classification = Test.class)
-    public static void getFirstArgument(Interpreter interpreter, int one, long two) throws NoSuchFieldException, IllegalAccessException {
+    public static void getFirstArgument(final Interpreter interpreter, final int one, final long two) throws NoSuchFieldException, IllegalAccessException {
         assertEquals(1, one);
         assertEquals(2, two);
-        Field ctxF = Engine.class.getDeclaredField("ctx");
+        final var ctxF = Engine.class.getDeclaredField("ctx");
         ctxF.setAccessible(true);
-        Context ctx = (Context) ctxF.get(sb);
+        final var ctx = (Context) ctxF.get(sb);
         assertEquals(ctx.interpreter, interpreter);
     }
 
-    public static void myPrint(Interpreter interpreter, String s) throws ScriptBasicException {
+    public static void myPrint(final Interpreter interpreter, final String s) {
         ((PrintWriter) interpreter.getOutput()).println(s);
     }
 

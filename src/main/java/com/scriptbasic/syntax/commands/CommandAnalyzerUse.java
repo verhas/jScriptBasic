@@ -26,11 +26,11 @@ public class CommandAnalyzerUse extends AbstractCommandAnalyzer {
          */
     @Override
     public Command analyze() throws AnalysisException {
-        final String className = ExpressionUtility
+        final var className = ExpressionUtility
                 .convertToString(analyzeExpression());
         LexUtility.checkLexeme(ctx.lexicalAnalyzer, "from",
                 "Keyword 'FROM' is missing in command 'USE'");
-        final String packageName = ExpressionUtility
+        final var packageName = ExpressionUtility
                 .convertToString(analyzeExpression());
         final String aliasName;
         if (LexUtility.isLexeme(ctx.lexicalAnalyzer, "as")) {
@@ -43,7 +43,7 @@ public class CommandAnalyzerUse extends AbstractCommandAnalyzer {
             throw new BasicSyntaxException(
                     "class name and alias name should not contain dot in command USE");
         }
-        final String fullClassName = packageName + "." + className;
+        final var fullClassName = packageName + "." + className;
         final Class<?> klass;
         try {
             klass = KlassUtility.forNameEx(fullClassName);

@@ -48,7 +48,7 @@ public class CommandFor extends AbstractCommand {
 
     private void startLoopWithLong(final Interpreter interpreter)
             throws ScriptBasicException {
-        final Long start = BasicLongValue.asLong(loopStart);
+        final var start = BasicLongValue.asLong(loopStart);
         loopVariable.setValue(new BasicLongValue(start), interpreter);
         setNextCommand(interpreter, BasicLongValue.asLong(loopStep), start,
                 BasicLongValue.asLong(loopEnd));
@@ -56,7 +56,7 @@ public class CommandFor extends AbstractCommand {
 
     private void startLoopWithDouble(final Interpreter interpreter)
             throws ScriptBasicException {
-        final Double start = BasicDoubleValue.asDouble(loopStart);
+        final var start = BasicDoubleValue.asDouble(loopStart);
         loopVariable.setValue(new BasicDoubleValue(start), interpreter);
         setNextCommand(interpreter, BasicDoubleValue.asDouble(loopStep), start,
                 BasicDoubleValue.asDouble(loopEnd));
@@ -92,26 +92,26 @@ public class CommandFor extends AbstractCommand {
 
     private void stepLoopVariable(final Interpreter interpreter,
                                   final Long step) throws ScriptBasicException {
-        final Long loopEndValue = BasicLongValue.asLong(loopEnd);
-        final RightValue rv = getLoopVariableAsRightValue(interpreter);
-        final Long oldLoopValue = BasicLongValue.asLong(rv);
+        final var loopEndValue = BasicLongValue.asLong(loopEnd);
+        final var rv = getLoopVariableAsRightValue(interpreter);
+        final var oldLoopValue = BasicLongValue.asLong(rv);
         if (oldLoopValue == null) {
             throw new ScriptBasicException("FOR loop variable became undef in the loop (integer)");
         }
-        final Long newLoopValue = oldLoopValue + step;
+        final var newLoopValue = oldLoopValue + step;
         loopVariable.setValue(new BasicLongValue(newLoopValue), interpreter);
         setNextCommand(interpreter, step, newLoopValue, loopEndValue);
     }
 
     private void stepLoopVariable(final Interpreter interpreter,
                                   final Double step) throws ScriptBasicException {
-        final Double loopEndValue = BasicDoubleValue.asDouble(loopEnd);
-        final RightValue rv = getLoopVariableAsRightValue(interpreter);
-        final Double oldLoopValue = BasicDoubleValue.asDouble(rv);
+        final var loopEndValue = BasicDoubleValue.asDouble(loopEnd);
+        final var rv = getLoopVariableAsRightValue(interpreter);
+        final var oldLoopValue = BasicDoubleValue.asDouble(rv);
         if (oldLoopValue == null) {
             throw new ScriptBasicException("FOR loop variable became undef in the loop (float)");
         }
-        final Double newLoopValue = oldLoopValue + step;
+        final var newLoopValue = oldLoopValue + step;
         loopVariable.setValue(new BasicDoubleValue(newLoopValue), interpreter);
         setNextCommand(interpreter, step, newLoopValue, loopEndValue);
     }
@@ -137,15 +137,15 @@ public class CommandFor extends AbstractCommand {
     void noStepLoopVariable(final Interpreter interpreter)
             throws ScriptBasicException {
         if (loopStep instanceof BasicLongValue) {
-            final Long step = BasicLongValue.asLong(loopStep);
-            final Long loopEndValue = BasicLongValue.asLong(loopEnd);
-            final Long newLoopValue = BasicLongValue
+            final var step = BasicLongValue.asLong(loopStep);
+            final var loopEndValue = BasicLongValue.asLong(loopEnd);
+            final var newLoopValue = BasicLongValue
                     .asLong(getLoopVariableAsRightValue(interpreter));
             setNextCommand(interpreter, step, newLoopValue, loopEndValue);
         } else if (loopStep instanceof BasicDoubleValue) {
-            final Double step = BasicDoubleValue.asDouble(loopStep);
-            final Double loopEndValue = BasicDoubleValue.asDouble(loopEnd);
-            final Double newLoopValue = BasicDoubleValue
+            final var step = BasicDoubleValue.asDouble(loopStep);
+            final var loopEndValue = BasicDoubleValue.asDouble(loopEnd);
+            final var newLoopValue = BasicDoubleValue
                     .asDouble(getLoopVariableAsRightValue(interpreter));
             setNextCommand(interpreter, step, newLoopValue, loopEndValue);
         } else {

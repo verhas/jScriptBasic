@@ -17,8 +17,8 @@ public class BasicLocalVariableMap extends BasicVariableMap implements
 
     private BasicVariableMap actualMap = null;
     private BasicVariableRegistry actualRegistry = null;
-    private Stack<BasicVariableMap> localMapStack = new Stack<>();
-    private Stack<BasicVariableRegistry> localRegistryStack = new Stack<>();
+    private final Stack<BasicVariableMap> localMapStack = new Stack<>();
+    private final Stack<BasicVariableRegistry> localRegistryStack = new Stack<>();
 
     @Override
     public RightValue getVariableValue(final String variableName)

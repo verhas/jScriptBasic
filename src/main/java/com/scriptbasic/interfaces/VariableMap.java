@@ -31,7 +31,7 @@ public interface VariableMap {
      * is not defined or does not exists.
      */
     RightValue getVariableValue(final String variableName)
-            throws ScriptBasicException, ScriptBasicException;
+            throws ScriptBasicException;
 
     /**
      * Checks that a variable exists in this map.

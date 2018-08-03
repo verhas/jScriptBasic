@@ -16,6 +16,7 @@ import java.lang.reflect.Method;
  * @author Peter Verhas
  * date Aug 3, 2012
  */
+@SuppressWarnings("EmptyMethod")
 public abstract class SimpleHook implements InterpreterHook {
 
     private InterpreterHook next;

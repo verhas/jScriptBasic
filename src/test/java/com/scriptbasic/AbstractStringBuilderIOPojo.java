@@ -19,7 +19,7 @@ public abstract class AbstractStringBuilderIOPojo {
     /**
      * @param stdin the stdin to set
      */
-    public void setStdin(StringBuilder stdin) {
+    public void setStdin(final StringBuilder stdin) {
         this.stdin = stdin;
     }
 
@@ -33,7 +33,7 @@ public abstract class AbstractStringBuilderIOPojo {
     /**
      * @param stdout the stdout to set
      */
-    public void setStdout(StringBuilder stdout) {
+    public void setStdout(final StringBuilder stdout) {
         this.stdout = stdout;
     }
 
@@ -47,7 +47,7 @@ public abstract class AbstractStringBuilderIOPojo {
     /**
      * @param stderr the stderr to set
      */
-    public void setStderr(StringBuilder stderr) {
+    public void setStderr(final StringBuilder stderr) {
         this.stderr = stderr;
     }
 

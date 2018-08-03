@@ -1,6 +1,5 @@
 package com.scriptbasic.syntax.leftvalue;
 
-import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.exceptions.SyntaxException;
 import com.scriptbasic.executors.leftvalues.ArrayElementAccessLeftValueModifier;
@@ -9,7 +8,6 @@ import com.scriptbasic.executors.leftvalues.LeftValueModifier;
 import com.scriptbasic.executors.leftvalues.ObjectFieldAccessLeftValueModifier;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
-import com.scriptbasic.interfaces.LeftValueAnalyzer;
 import com.scriptbasic.syntax.expression.ExpressionComparator;
 import com.scriptbasic.utility.LexUtility;
 import org.junit.Assert;
@@ -27,9 +25,9 @@ public class TestBasicLeftValueAnalyzer {
 
     private static BasicLeftValue compile(final String s)
             throws AnalysisException {
-        Context ctx = ContextBuilder.from(createStringReading(s));
-        final LeftValueAnalyzer leftValueAnalyzer = ctx.leftValueAnalyzer;
-        final BasicLeftValue e = (BasicLeftValue) leftValueAnalyzer.analyze();
+        final var ctx = ContextBuilder.from(createStringReading(s));
+        final var leftValueAnalyzer = ctx.leftValueAnalyzer;
+        final var e = (BasicLeftValue) leftValueAnalyzer.analyze();
         if (LexUtility.peek(ctx.lexicalAnalyzer) != null) {
             throw new BasicSyntaxException(
                     "There are extra lexemes after the expression: "
@@ -38,13 +36,13 @@ public class TestBasicLeftValueAnalyzer {
         return e;
     }
 
-    private static void compare(BasicLeftValue gv, BasicLeftValue lv) {
+    private static void compare(final BasicLeftValue gv, final BasicLeftValue lv) {
         assertEquals(gv.getIdentifier(), lv.getIdentifier());
-        Iterator<LeftValueModifier> gvms = gv.getModifiers().iterator();
-        Iterator<LeftValueModifier> lvms = lv.getModifiers().iterator();
+        final Iterator<LeftValueModifier> gvms = gv.getModifiers().iterator();
+        final Iterator<LeftValueModifier> lvms = lv.getModifiers().iterator();
         while (gvms.hasNext() && lvms.hasNext()) {
-            LeftValueModifier gvm = gvms.next();
-            LeftValueModifier lvm = lvms.next();
+            final var gvm = gvms.next();
+            final var lvm = lvms.next();
             assertEquals(gvm.getClass(), lvm.getClass());
             if (gvm instanceof ArrayElementAccessLeftValueModifier) {
                 ExpressionComparator.assertEqual(
@@ -65,18 +63,18 @@ public class TestBasicLeftValueAnalyzer {
         }
     }
 
-    private static void extressionHasSyntaxError(String s)
+    private static void extressionHasSyntaxError(final String s)
             throws AnalysisException {
         try {
             compile(s);
             Assert.fail("Syntax exception was not trown for '" + s + "'");
-        } catch (SyntaxException e) {
+        } catch (final SyntaxException e) {
         }
 
     }
 
-    private static void expressionCompilesTo(String expression, BasicLeftValue gv) throws AnalysisException {
-        BasicLeftValue lv = compile(expression);
+    private static void expressionCompilesTo(final String expression, final BasicLeftValue gv) throws AnalysisException {
+        final var lv = compile(expression);
         compare(gv, lv);
     }
 

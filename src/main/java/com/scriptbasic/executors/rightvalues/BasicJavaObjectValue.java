@@ -19,7 +19,7 @@ public class BasicJavaObjectValue extends AbstractPrimitiveRightValue<Object> {
     public String toString(){
         try {
             return asObject(this).toString();
-        } catch (BasicRuntimeException e) {
+        } catch (final BasicRuntimeException e) {
             return super.toString();
         }
     }

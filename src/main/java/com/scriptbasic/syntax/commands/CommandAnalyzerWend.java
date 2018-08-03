@@ -14,9 +14,9 @@ public class CommandAnalyzerWend extends AbstractCommandAnalyzer {
 
     @Override
     public Command analyze() throws AnalysisException {
-        final CommandWend node = new CommandWend();
+        final var node = new CommandWend();
         consumeEndOfLine();
-        final CommandWhile commandWhile = ctx.nestedStructureHouseKeeper.pop(CommandWhile.class);
+        final var commandWhile = ctx.nestedStructureHouseKeeper.pop(CommandWhile.class);
         node.setCommandWhile(commandWhile);
         commandWhile.setWendNode(node);
         return node;

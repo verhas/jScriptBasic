@@ -1,6 +1,5 @@
 package com.scriptbasic.executors.operators;
 
-import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.api.ScriptBasicException;
@@ -12,7 +11,7 @@ class SupportTest {
 
     static Interpreter eval(final String s)
             throws AnalysisException {
-        Context ctx = ContextBuilder.from(s);
+        final var ctx = ContextBuilder.from(s);
         ctx.interpreter.setProgram(ctx.syntaxAnalyzer.analyze());
         return ctx.interpreter;
     }
@@ -24,9 +23,9 @@ class SupportTest {
      * @param expected    the expected value of the variable 'a'
      * @throws ScriptBasicException
      */
-    static void assertValueOfVariable_A(Interpreter interpreter, Object expected)
+    static void assertValueOfVariable_A(final Interpreter interpreter, Object expected)
             throws ScriptBasicException {
-        Object actual = interpreter.getVariable("a");
+        final var actual = interpreter.getVariable("a");
         if (expected instanceof Integer) {
             expected = ((Integer) expected).longValue();
         }

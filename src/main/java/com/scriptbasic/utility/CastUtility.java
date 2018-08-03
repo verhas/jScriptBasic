@@ -61,13 +61,13 @@ public final class CastUtility {
         final Class<?> primitive, objectClass;
         final Function<Object, Object> converter;
 
-        private P(Class<?> primitive, Class<?> objectClass, Function<Object, Object> converter) {
+        private P(final Class<?> primitive, final Class<?> objectClass, final Function<Object, Object> converter) {
             this.primitive = primitive;
             this.objectClass = objectClass;
             this.converter = converter;
         }
 
-        static P of(Class<?> primitive, Class<?> objectClass, Function<Object, Object> converter) {
+        static P of(final Class<?> primitive, final Class<?> objectClass, final Function<Object, Object> converter) {
             return new P(primitive, objectClass, converter);
         }
     }

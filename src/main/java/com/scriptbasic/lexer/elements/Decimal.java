@@ -4,7 +4,6 @@ import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
 import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
-import com.scriptbasic.lexer.BasicLexicalElement;
 
 public class Decimal extends AbstractElementAnalyzer {
 
@@ -35,14 +34,14 @@ public class Decimal extends AbstractElementAnalyzer {
      * @return the lexical element containing the long or double value
      */
     @Override
-    public LexicalElement read() throws LexicalException {
+    public LexicalElement read() {
 
         Integer ch = getReader().get();
         getReader().unget(ch);
         if (ch != null && Character.isDigit(ch)) {
-            final BasicLexicalElement le = BasicLexialElementFactory
+            final var le = BasicLexialElementFactory
                     .create(getReader());
-            final StringBuilder digits = new StringBuilder(
+            final var digits = new StringBuilder(
                     DECIMAL_NUMBER_STRINGBUILDER_INITIAL_CAPACITY);
             processDigits(digits);
             ch = getReader().get();
@@ -53,7 +52,7 @@ public class Decimal extends AbstractElementAnalyzer {
                 getReader().unget(ch);
                 floatFormat = processExponent(digits);
             }
-            final String s = digits.toString();
+            final var s = digits.toString();
             le.setLexeme(s);
             if (floatFormat) {
                 le.setType(LexicalElement.TYPE_DOUBLE);
@@ -82,7 +81,7 @@ public class Decimal extends AbstractElementAnalyzer {
      */
     private boolean processFraction(final StringBuilder fractionPart) {
         final boolean floatFormat;
-        final Integer ch = getReader().get();
+        final var ch = getReader().get();
         if (ch != null && Character.isDigit(ch)) {
             floatFormat = true;
             fractionPart.appendCodePoint('.');
@@ -110,7 +109,7 @@ public class Decimal extends AbstractElementAnalyzer {
             final StringBuilder exponentCharacters, final Integer signChar,
             final Integer expChar) {
 
-        final Integer ch = getReader().get();
+        final var ch = getReader().get();
         if (ch != null && Character.isDigit(ch)) {
             exponentCharacters.appendCodePoint(expChar);
             exponentCharacters.appendCodePoint(signChar);
@@ -139,7 +138,7 @@ public class Decimal extends AbstractElementAnalyzer {
      */
     private void processExponenChars(final StringBuilder exponentCharacters,
                                      final Integer expChar) {
-        final Integer ch = getReader().get();
+        final var ch = getReader().get();
         if (ch != null && (ch.equals((int) '-') || ch.equals((int) '+'))) {
             processSignedExponenChars(exponentCharacters, ch, expChar);
         } else {// if there is no + or -
@@ -165,7 +164,7 @@ public class Decimal extends AbstractElementAnalyzer {
      */
     private boolean processExponent(final StringBuilder exponentCharacters) {
         boolean thereWasExponentPart = true;
-        final Integer ch = getReader().get();
+        final var ch = getReader().get();
         if (ch != null && (ch.equals((int) 'e') || ch.equals((int) 'E'))) {
             processExponenChars(exponentCharacters, ch);
         } else {

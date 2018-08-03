@@ -30,8 +30,8 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
     private static LeftValueModifier analyzeFieldAccess(
             final LexicalAnalyzer lexicalAnalyzer) throws AnalysisException {
         lexicalAnalyzer.get();
-        final ObjectFieldAccessLeftValueModifier lvm = new ObjectFieldAccessLeftValueModifier();
-        final LexicalElement lexicalElement = lexicalAnalyzer.peek();
+        final var lvm = new ObjectFieldAccessLeftValueModifier();
+        final var lexicalElement = lexicalAnalyzer.peek();
         if (lexicalElement != null && lexicalElement.isIdentifier()) {
             lexicalAnalyzer.get();
             lvm.setFieldName(lexicalElement.getLexeme());
@@ -59,11 +59,11 @@ public abstract class AbstractLeftValueAnalyzer implements LeftValueAnalyzer {
     private LeftValueModifier analyzeArrayAccess(final LexicalAnalyzer lexicalAnalyzer)
             throws AnalysisException {
         lexicalAnalyzer.get();
-        final ArrayElementAccessLeftValueModifier lvm = new ArrayElementAccessLeftValueModifier();
+        final var lvm = new ArrayElementAccessLeftValueModifier();
 
-        final ExpressionList indexList = ctx.expressionListAnalyzer.analyze();
+        final var indexList = ctx.expressionListAnalyzer.analyze();
         lvm.setIndexList(indexList);
-        final LexicalElement lexicalElement = lexicalAnalyzer.peek();
+        final var lexicalElement = lexicalAnalyzer.peek();
         if (lexicalElement != null && lexicalElement.isSymbol("]")) {
             lexicalAnalyzer.get();
             return lvm;

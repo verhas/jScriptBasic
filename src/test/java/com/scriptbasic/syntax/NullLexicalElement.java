@@ -74,7 +74,7 @@ public class NullLexicalElement implements LexicalElement {
     }
 
     @Override
-    public Boolean isSymbol(String lexeme) {
+    public Boolean isSymbol(final String lexeme) {
         return null;
     }
 

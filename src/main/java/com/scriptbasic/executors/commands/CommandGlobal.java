@@ -12,7 +12,7 @@ public class CommandGlobal extends AbstractCommandLeftValueListed {
             throws ScriptBasicException {
         for (final LeftValue variable : getLeftValueList()) {
             // TODO instance check and that the modifier list is null
-            final String variableName = ((BasicLeftValue) variable).getIdentifier();
+            final var variableName = ((BasicLeftValue) variable).getIdentifier();
             interpreter.getVariables().registerGlobalVariable(variableName);
         }
     }

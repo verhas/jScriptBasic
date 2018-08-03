@@ -31,8 +31,8 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
             return true;
         }
         if (a instanceof BasicLeftValue && b instanceof BasicLeftValue) {
-            final BasicLeftValue aBasic = (BasicLeftValue) a;
-            final BasicLeftValue bBasic = (BasicLeftValue) b;
+            final var aBasic = (BasicLeftValue) a;
+            final var bBasic = (BasicLeftValue) b;
             if (aBasic.hasModifiers() || bBasic.hasModifiers()) {
                 return false;
             }
@@ -79,7 +79,7 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
      */
     protected void assertKeyWord(final String keyword) throws AnalysisException {
         if (!isKeyWord(keyword)) {
-            final LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
+            final var lexicalElement = ctx.lexicalAnalyzer.peek();
             throw new BasicSyntaxException("There is no '" + keyword
                     + "' after the '" + getName() + "'", lexicalElement, null);
         } else {
@@ -88,7 +88,7 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
     }
 
     protected boolean isKeyWord(final String keyword) throws AnalysisException {
-        final LexicalElement lexicalElement = ctx.lexicalAnalyzer.peek();
+        final var lexicalElement = ctx.lexicalAnalyzer.peek();
         return lexicalElement != null && lexicalElement.isSymbol(keyword);
     }
 
@@ -102,7 +102,7 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
      * @throws AnalysisException when there are extra character on the actual line
      */
     protected void consumeEndOfLine() throws AnalysisException {
-        final LexicalElement le = ctx.lexicalAnalyzer.get();
+        final var le = ctx.lexicalAnalyzer.get();
         if (le != null && !le.isLineTerminator()) {
             SyntaxExceptionUtility.throwSyntaxException(
                     "There are extra characters following the expression after the '"

@@ -28,7 +28,7 @@ public abstract class AbstractCommandAnalyzerIfKind extends
     }
 
     protected Expression analizeLine() throws AnalysisException {
-        final Expression condition = analyzeExpression();
+        final var condition = analyzeExpression();
         assertKeyWord("THEN");
         consumeEndOfLine();
         return condition;

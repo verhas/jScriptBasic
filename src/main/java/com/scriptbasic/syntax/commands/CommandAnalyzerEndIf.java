@@ -13,7 +13,7 @@ public class CommandAnalyzerEndIf extends AbstractCommandAnalyzerIfElseKind {
 
     @Override
     public Command analyze() throws AnalysisException {
-        final CommandEndIf node = new CommandEndIf();
+        final var node = new CommandEndIf();
         consumeEndOfLine();
         registerAndPopNode(node);
         return node;
