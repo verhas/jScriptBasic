@@ -1,5 +1,5 @@
 language: java
-install: mvn -X -Dgpg.skip clean install
+install: mvn -X clean install
 jdk:
  - oraclejdk10
 
