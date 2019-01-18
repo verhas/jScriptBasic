@@ -71,13 +71,6 @@
             </plugin>
         </plugins>
     </build>
-    <distributionManagement>
-        <site>
-            <id>gitHub</id>
-            <name>gitHub</name>
-            <url>git:git@github.com/verhas/jScriptBasic</url>
-        </site>
-    </distributionManagement>
     <dependencies>
         <dependency>
             <groupId>org.mockito</groupId>

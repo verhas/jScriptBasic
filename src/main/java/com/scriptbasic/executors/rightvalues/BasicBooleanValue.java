@@ -10,19 +10,21 @@ public final class BasicBooleanValue extends AbstractPrimitiveRightValue<Boolean
 
     private static Boolean convertNumeric(
             final AbstractNumericRightValue<Number> originalValue) {
-        Boolean convertedValue = null;
+        final Boolean convertedValue;
         if (originalValue.isLong()) {
             final var l = (Long) originalValue.getValue();
             convertedValue = l != null && l != 0;
         } else if (originalValue.isDouble()) {
             final var d = (Double) originalValue.getValue();
             convertedValue = d != null && d != 0;
+        } else {
+            convertedValue = null;
         }
         return convertedValue;
     }
 
     public static Boolean asBoolean(final RightValue originalValue) {
-        Boolean convertedValue = null;
+        final Boolean convertedValue;
 
         if (originalValue == null) {
             convertedValue = Boolean.FALSE;
@@ -41,12 +43,14 @@ public final class BasicBooleanValue extends AbstractPrimitiveRightValue<Boolean
                 // TODO elaborate the conversion with other object classes
                 convertedValue = o != null;
             }
+        } else {
+            convertedValue = null;
         }
         return convertedValue;
     }
 
     @Override
     public String toString() {
-            return asBoolean(this).toString();
+        return asBoolean(this).toString();
     }
 }
