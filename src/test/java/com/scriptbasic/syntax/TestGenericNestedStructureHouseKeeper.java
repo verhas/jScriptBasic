@@ -40,7 +40,7 @@ public class TestGenericNestedStructureHouseKeeper {
     }
 
     @Test()
-    public void throwsExceptionIfExpectingDifferentClass() throws AnalysisException {
+    public void throwsExceptionIfExpectingDifferentClass() {
         final var sut = newSut();
         sut.push(dummy);
         Assertions.assertThrows(BasicSyntaxException.class, () ->
@@ -49,7 +49,7 @@ public class TestGenericNestedStructureHouseKeeper {
     }
 
     @Test()
-    public void throwsExceptionIfExpectingDifferentOtherClass() throws AnalysisException {
+    public void throwsExceptionIfExpectingDifferentOtherClass() {
         final var sut = newSut();
         final var other = new NestedStructure() {
         };

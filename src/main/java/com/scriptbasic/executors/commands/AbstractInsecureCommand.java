@@ -18,7 +18,7 @@ public abstract class AbstractInsecureCommand extends AbstractCommand {
                 allowed = true;
             }
         }
-        if( ! allowed ){
+        if (!allowed) {
             throw new ScriptBasicException("Insecure mode is not configured");
         }
     }

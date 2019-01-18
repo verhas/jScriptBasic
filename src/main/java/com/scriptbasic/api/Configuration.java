@@ -73,7 +73,7 @@ public interface Configuration {
      * using the notation {@code key}'.n' where 'n' starts with zero and should
      * increment by one continuously.
      *
-     * @param key
+     * @param key parameter
      * @return the list of configured strings
      */
     List<String> getConfigValueList(final String key);
@@ -95,7 +95,8 @@ public interface Configuration {
     /**
      * Set the property value in the configuration. This method is available for host application to
      * configure the interpreter programmatically.
-     * @param name configuration property name
+     *
+     * @param name  configuration property name
      * @param value configuration property value
      */
     void set(final String name, final String value);
@@ -103,12 +104,12 @@ public interface Configuration {
     /**
      * Set the property value in the configuration. This method is available for host application to
      * configure the interpreter programmatically.
+     *
      * @param command the name and the value separated by '='
      */
     void set(final String command);
 
     /**
-     *
      * @return the properties object that stores the configuration
      */
     Properties getConfigProperties();

@@ -26,7 +26,7 @@ public class CommandNext extends AbstractCommand {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * com.scriptbasic.executors.commands.AbstractCommand#execute(com.scriptbasic
      * .interfaces.Interpreter)

@@ -1,8 +1,8 @@
 package com.scriptbasic.lexer.elements;
 
-import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.lexer.BasicKeywordRecognizer;
 import com.scriptbasic.lexer.BasicLexicalAnalyzer;
+import com.scriptbasic.readers.SourceReader;
 
 public final class ScriptBasicLexicalAnalyzer extends BasicLexicalAnalyzer {
     public ScriptBasicLexicalAnalyzer(final SourceReader reader) {

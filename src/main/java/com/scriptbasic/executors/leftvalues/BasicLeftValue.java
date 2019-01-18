@@ -62,7 +62,7 @@ public class BasicLeftValue implements LeftValue {
      * @param hasNext    {@code true} if this is not the last modifier
      * @param rightValue the value to store when this is the last modifier
      * @return the next variable or {@code null} if the value was stored
-     * @throws ScriptBasicException
+     * @throws ScriptBasicException in case of exception
      */
     private static RightValue handleAccessModifier(RightValue variable,
                                                    final LeftValueModifier modifier,
@@ -86,12 +86,12 @@ public class BasicLeftValue implements LeftValue {
      * Handle variable access modifier in case when the modifier is object field
      * access. {@link #handleAccessModifier(RightValue, LeftValueModifier, boolean, RightValue, Interpreter)}.
      *
-     * @param variable
-     * @param modifier
-     * @param hasNext
-     * @param rightValue
-     * @return
-     * @throws BasicRuntimeException
+     * @param variable   parameter
+     * @param modifier   parameter
+     * @param hasNext    parameter
+     * @param rightValue parameter
+     * @return return value
+     * @throws BasicRuntimeException in case of exception
      */
     private static RightValue handleObjectFieldAccess(final RightValue variable,
                                                       final ObjectFieldAccessLeftValueModifier modifier,
@@ -121,14 +121,14 @@ public class BasicLeftValue implements LeftValue {
      * element access. {@link #handleAccessModifier(RightValue, LeftValueModifier, boolean,
      * RightValue, Interpreter)}.
      *
-     * @param variable
-     * @param modifier
-     * @param hasNext
-     * @param rightValue
+     * @param variable    parameter
+     * @param modifier    parameter
+     * @param hasNext     parameter
+     * @param rightValue  parameter
      * @param interpreter is used to evaluate the expression that stands between the {@code [} and {@code ]}
      *                    characters. Note that this is not needed when a field access is evaluated.
-     * @return
-     * @throws ScriptBasicException
+     * @return return value
+     * @throws ScriptBasicException in case of exception
      */
     private static RightValue handleArrayElementAccess(RightValue variable,
                                                        final ArrayElementAccessLeftValueModifier modifier,
@@ -236,7 +236,7 @@ public class BasicLeftValue implements LeftValue {
      * @param value       that is the current value of the
      * @param interpreter used to allocate the new array
      * @return the value or a newly allocated array, which is also stored in the current left value left identifier
-     * @throws ScriptBasicException
+     * @throws ScriptBasicException in case of exception
      */
     private RightValue emptyArrayIfUnderOrElseSelf(final RightValue value,
                                                    final Interpreter interpreter)

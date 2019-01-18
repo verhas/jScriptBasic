@@ -149,7 +149,7 @@ public class TestBasicLexicalAnalyzer {
     }
 
     @Test()
-    public void unterminatedStringThrowsException() throws AnalysisException {
+    public void unterminatedStringThrowsException() {
         Assertions.assertThrows(UnterminatedStringException.class, () ->
                 assertLexicals(new ScriptBasicLexicalAnalyzer(
                         createStringReading("\"")), SSTRING("justAnything, should not check it, if it does it fails the test")

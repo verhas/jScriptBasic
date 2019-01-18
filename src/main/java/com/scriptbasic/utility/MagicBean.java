@@ -1,6 +1,5 @@
 package com.scriptbasic.utility;
 
-import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.Magic;
 
 import java.util.HashMap;

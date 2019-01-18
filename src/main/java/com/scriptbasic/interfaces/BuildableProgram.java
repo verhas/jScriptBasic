@@ -26,7 +26,7 @@ public interface BuildableProgram extends Program {
     /**
      * Add a new command to the list of commands.
      *
-     * @param command
+     * @param command parameter
      */
     void addCommand(Command command);
 

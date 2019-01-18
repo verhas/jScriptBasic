@@ -27,19 +27,19 @@ public final class KlassUtility {
      * TODO: implement ScriptBasic magic bean setting mechanism as a first resort and if that does not work then
      * setter and if there is no setter then direct field access.
      *
-     * @param object
-     * @param fieldName
-     * @param valueObject
-     * @throws BasicRuntimeException
+     * @param object      parameter
+     * @param fieldName   parameter
+     * @param valueObject parameter
+     * @throws BasicRuntimeException in case of exception
      */
     public static void setField(final Object object, final String fieldName,
                                 final Object valueObject) throws BasicRuntimeException {
-        if( object == null ){
+        if (object == null) {
             throw new BasicRuntimeException("The field '" +
                     fieldName +
                     "' is not allowed to be write in object undefined ");
         }
-        if ( object instanceof NoAccess) {
+        if (object instanceof NoAccess) {
             throw new BasicRuntimeException("The field '" +
                     fieldName +
                     "' is not allowed to be written in object of the type '" +
@@ -90,19 +90,19 @@ public final class KlassUtility {
      * INVENT_INTERFACE_NAME. The names should include the word BASIC, or better
      * SCRIPTBASIC. Perhaps ScriptBasicMagicBean or something.
      *
-     * @param object
-     * @param fieldName
-     * @return
-     * @throws BasicRuntimeException
+     * @param object    parameter
+     * @param fieldName parameter
+     * @return return value
+     * @throws BasicRuntimeException in case of exception
      */
     public static Object getField(final Object object, final String fieldName)
             throws BasicRuntimeException {
-        if( object == null ){
+        if (object == null) {
             throw new BasicRuntimeException("The field '" +
                     fieldName +
                     "' is not allowed to be read from object undefined.");
         }
-        if ( object instanceof NoAccess) {
+        if (object instanceof NoAccess) {
             throw new BasicRuntimeException("The field '" +
                     fieldName +
                     "' is not allowed to be read in object of the type '" +
@@ -135,7 +135,6 @@ public final class KlassUtility {
      * Returns a class based on its name just like the method
      * {@link java.lang.Class#forName(String)}. The search for the class is
      * extended. For example if this method is called
-     * <p>
      * <pre>
      * Class&lt;?&gt; klass = KlassUtility.forName(&quot;a.b.c.d&quot;);
      * </pre>
@@ -180,7 +179,6 @@ public final class KlassUtility {
     /**
      * Returns a class based on its name just like the method
      * {@link java.lang.Class#forName(String)}. If the name of the class is
-     * <p>
      * <pre>
      * byte
      * short
@@ -195,13 +193,13 @@ public final class KlassUtility {
      * then the method will return the primitive class named. Otherwise it calls
      * {@link #forName(String)} to load the class.
      *
-     * @param s
-     * @return
-     * @throws BasicSyntaxException
+     * @param s parameter
+     * @return return value
+     * @throws BasicSyntaxException in case of exception
      */
     public static Class<?> forNameEx(final String s)
             throws BasicSyntaxException {
-       final Class<?> klass;
+        final Class<?> klass;
         switch (s) {
             case "byte":
                 klass = byte.class;

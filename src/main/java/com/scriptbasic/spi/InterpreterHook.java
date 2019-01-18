@@ -76,7 +76,7 @@ public interface InterpreterHook {
      * During registration the interpreter calls this method to make the
      * interpreter accessible for the hook objects.
      *
-     * @param interpreter
+     * @param interpreter parameter
      */
     void setInterpreter(Interpreter interpreter);
 
@@ -126,13 +126,13 @@ public interface InterpreterHook {
     }
 
     /**
-     * @param command
+     * @param command parameter
      */
     default void beforePush(final Command command) {
     }
 
     /**
-     * @param command
+     * @param command parameter
      */
     default void afterPush(final Command command) {
     }
@@ -144,7 +144,7 @@ public interface InterpreterHook {
     }
 
     /**
-     * @param command
+     * @param command parameter
      */
     default void afterPop(final Command command) {
     }
@@ -156,7 +156,7 @@ public interface InterpreterHook {
      * Interpreter#disableHook()} and {@link
      * Interpreter#enableHook()}.
      *
-     * @param returnValue
+     * @param returnValue parameter
      * @see Interpreter#disableHook()
      */
     default void setReturnValue(final RightValue returnValue) {
@@ -176,7 +176,7 @@ public interface InterpreterHook {
     }
 
     /**
-     * @param method
+     * @param method parameter
      */
     default void beforeCallJavaFunction(final Method method) {
     }

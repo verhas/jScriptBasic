@@ -1,13 +1,12 @@
 package com.scriptbasic.javax.script;
 
 import com.scriptbasic.api.Version;
-import com.scriptbasic.script.ScriptBasicEngineFactory;
 import com.scriptbasic.configuration.BasicConfiguration;
+import com.scriptbasic.script.ScriptBasicEngineFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javax.script.*;
-import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.Properties;

@@ -2,8 +2,8 @@ package com.scriptbasic.lexer.elements;
 
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.lexer.BasicLexicalElement;
+import com.scriptbasic.readers.SourceReader;
 
 public class ConstAwareIdentifier extends Identifier {
 

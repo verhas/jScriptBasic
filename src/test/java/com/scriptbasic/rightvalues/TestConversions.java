@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestConversions {
 
     @Test()
-    public void rightValueUtilityThrowsExceptionConvertingArbitraryStringToNumber() throws Exception {
+    public void rightValueUtilityThrowsExceptionConvertingArbitraryStringToNumber() {
         final RightValue rv;
         rv = RightValueUtility.createRightValue("apple");
         Assertions.assertThrows(BasicRuntimeException.class, () ->
@@ -60,7 +60,7 @@ public class TestConversions {
     }
 
     @Test()
-    public void arbitraryStringBasicBooleanValueConversionToBasicJavaObjectValueThrowsException() throws Exception {
+    public void arbitraryStringBasicBooleanValueConversionToBasicJavaObjectValueThrowsException() {
         final var rv = new BasicStringValue("apple");
         Assertions.assertThrows(BasicRuntimeException.class, () ->
                 BasicJavaObjectValue.asObject(rv));
@@ -103,7 +103,7 @@ public class TestConversions {
     }
 
     @Test()
-    public void arbitraryObjectConversionThrowsExceptionConvertingToDouble() throws Exception {
+    public void arbitraryObjectConversionThrowsExceptionConvertingToDouble() {
         final var rv = new BasicJavaObjectValue(new Object());
         Assertions.assertThrows(BasicRuntimeException.class, () ->
                 BasicDoubleValue.asDouble(rv));
@@ -134,7 +134,7 @@ public class TestConversions {
     }
 
     @Test()
-    public void basicArrayValueNullConvertingToStringThrowsException() throws Exception {
+    public void basicArrayValueNullConvertingToStringThrowsException() {
         final var rv = new BasicArrayValue();
         Assertions.assertThrows(BasicRuntimeException.class, () ->
                 BasicStringValue.asString(rv));
@@ -177,7 +177,7 @@ public class TestConversions {
     }
 
     @Test()
-    public void basicArrayValueNullConvertingToLongThrowsException() throws Exception {
+    public void basicArrayValueNullConvertingToLongThrowsException() {
         final var rv = new BasicArrayValue();
         Assertions.assertThrows(BasicRuntimeException.class, () ->
                 BasicLongValue.asLong(rv));

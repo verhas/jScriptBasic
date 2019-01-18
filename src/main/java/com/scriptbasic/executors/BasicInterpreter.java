@@ -1,11 +1,15 @@
 package com.scriptbasic.executors;
 
-import com.scriptbasic.api.*;
+import com.scriptbasic.api.Configuration;
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.hooks.NullHook;
-import com.scriptbasic.interfaces.*;
+import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.interfaces.BuildableProgram;
+import com.scriptbasic.interfaces.HierarchicalVariableMap;
+import com.scriptbasic.interfaces.MethodRegistry;
 import com.scriptbasic.memory.MixedBasicVariableMap;
 import com.scriptbasic.spi.Command;
 import com.scriptbasic.spi.Interpreter;
@@ -48,7 +52,7 @@ public final class BasicInterpreter implements Interpreter {
      * Create a new interpreter using the context. Also register the null hook, so that other hooks should not
      * worry about the 'next hook' value, it is guaranteed to be not null.
      *
-     * @param ctx
+     * @param ctx parameter
      */
     public BasicInterpreter(final Context ctx) {
         this.ctx = ctx;
@@ -341,8 +345,7 @@ public final class BasicInterpreter implements Interpreter {
      * .Class, java.lang.String)
      */
     @Override
-    public Method getJavaMethod(final Class<?> klass, final String methodName)
-            throws ScriptBasicException {
+    public Method getJavaMethod(final Class<?> klass, final String methodName) {
         return basicMethodRegistry.getJavaMethod(klass, methodName);
     }
 

@@ -1,7 +1,7 @@
 package com.scriptbasic.executors.commands;
 
-import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
 import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.spi.Interpreter;
 

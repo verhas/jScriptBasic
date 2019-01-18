@@ -1,8 +1,8 @@
 package com.scriptbasic.hooks;
 
-import com.scriptbasic.spi.SimpleHook;
-import com.scriptbasic.spi.Command;
 import com.scriptbasic.api.Configuration;
+import com.scriptbasic.spi.Command;
+import com.scriptbasic.spi.SimpleHook;
 
 import java.util.Optional;
 

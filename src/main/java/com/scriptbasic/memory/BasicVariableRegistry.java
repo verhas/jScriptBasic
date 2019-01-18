@@ -1,7 +1,7 @@
 package com.scriptbasic.memory;
 
-import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,12 +25,12 @@ class BasicVariableRegistry extends BasicVariableMap {
      * local and global but if ever a variable was registered to be local then
      * it has to remain that and the same holds for global.
      *
-     * @param variableName
+     * @param variableName parameter
      * @param type         either KNOWN_LOCAL or KNOWN_GLOBAL. The type that we intend
      *                     the variable to be registered. So it should be KNOWN_LOCAL
      *                     when the caller wants to register a variable as local.
      * @throws ScriptBasicException when the variable was already registered with a different
-     *                            type
+     *                              type
      */
     private void assertNoOverregistration(final String variableName, final VariableType type)
             throws ScriptBasicException {

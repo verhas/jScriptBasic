@@ -1,8 +1,6 @@
 package com.scriptbasic.readers;
 
 import com.scriptbasic.interfaces.SourceLocationBound;
-import com.scriptbasic.readers.GenericSourceReader;
-import com.scriptbasic.readers.SourceProvider;
 
 /**
  * Source code reader. This class is almost works as the usual
@@ -41,7 +39,7 @@ public interface SourceReader extends SourceLocationBound {
     /**
      * Get the next character from the input stream.
      *
-     * @return
+     * @return return value
      */
     Integer get();
 

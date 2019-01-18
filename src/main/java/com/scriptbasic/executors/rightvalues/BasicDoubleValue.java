@@ -12,7 +12,7 @@ public class BasicDoubleValue extends AbstractNumericRightValue<Double> {
     public static Double asDouble(final RightValue rv, final String errorMessageForNull)
             throws BasicRuntimeException {
         final var value = asDouble(rv);
-        if( value == null ){
+        if (value == null) {
             throw new BasicRuntimeException(errorMessageForNull);
         }
         return value;

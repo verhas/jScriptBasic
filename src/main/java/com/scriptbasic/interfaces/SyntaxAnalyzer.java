@@ -12,8 +12,8 @@ public interface SyntaxAnalyzer {
     /**
      * Perform the syntax analysis.
      *
-     * @return
-     * @throws AnalysisException
+     * @return return value
+     * @throws AnalysisException in case of exception
      */
     BuildableProgram analyze() throws AnalysisException;
 

@@ -63,7 +63,7 @@ public abstract class SimpleHook implements InterpreterHook {
     }
 
     /**
-     * @param command
+     * @param command parameter
      */
     public void beforeExecuteEx(final Command command) {
     }
@@ -77,7 +77,7 @@ public abstract class SimpleHook implements InterpreterHook {
     }
 
     /**
-     * @param command
+     * @param command parameter
      */
     public void afterExecuteEx(final Command command) {
     }
@@ -106,10 +106,10 @@ public abstract class SimpleHook implements InterpreterHook {
     }
 
     /**
-     * @param alias
-     * @param klass
-     * @param methodName
-     * @param argumentTypes
+     * @param alias         parameter
+     * @param klass         parameter
+     * @param methodName    parameter
+     * @param argumentTypes parameter
      */
     public void beforeRegisteringJavaMethodEx(final String alias,
                                               final Class<?> klass, final String methodName,
@@ -125,7 +125,7 @@ public abstract class SimpleHook implements InterpreterHook {
     }
 
     /**
-     * @param command
+     * @param command parameter
      */
     public void beforePushEx(final Command command) {
     }
@@ -139,7 +139,7 @@ public abstract class SimpleHook implements InterpreterHook {
     }
 
     /**
-     * @param command
+     * @param command parameter
      */
     public void afterPushEx(final Command command) {
     }
@@ -167,7 +167,7 @@ public abstract class SimpleHook implements InterpreterHook {
     }
 
     /**
-     * @param command
+     * @param command parameter
      */
     public void afterPopEx(final Command command) {
     }
@@ -181,7 +181,7 @@ public abstract class SimpleHook implements InterpreterHook {
     }
 
     /**
-     * @param returnValue
+     * @param returnValue parameter
      */
     public void setReturnValueEx(final RightValue returnValue) {
     }
@@ -196,9 +196,9 @@ public abstract class SimpleHook implements InterpreterHook {
     }
 
     /**
-     * @param subroutineName
-     * @param arguments
-     * @param argumentValues
+     * @param subroutineName parameter
+     * @param arguments      parameter
+     * @param argumentValues parameter
      */
     public void beforeSubroutineCallEx(final String subroutineName,
                                        final LeftValueList arguments, final RightValue[] argumentValues) {
@@ -213,7 +213,7 @@ public abstract class SimpleHook implements InterpreterHook {
     }
 
     /**
-     * @param method
+     * @param method parameter
      */
     public void beforeCallJavaFunctionEx(final Method method) {
     }
@@ -228,7 +228,9 @@ public abstract class SimpleHook implements InterpreterHook {
     }
 
     /**
-     * @param method
+     * @param method parameter
+     * @param result the original result returned by the Java
+     * @return the result object unmodified
      */
     public Object afterCallJavaFunctionEx(final Method method,
                                           final Object result) {
@@ -246,9 +248,9 @@ public abstract class SimpleHook implements InterpreterHook {
     }
 
     /**
-     * @param variableName
-     * @param value
-     * @return
+     * @param variableName parameter
+     * @param value        parameter
+     * @return return value
      */
 
     public RightValue variableReadEx(final String variableName,

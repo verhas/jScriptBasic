@@ -1,7 +1,6 @@
 package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.executors.rightvalues.BasicLongValue;
-import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.spi.RightValue;
 
 public class IntegerDivideOperator extends

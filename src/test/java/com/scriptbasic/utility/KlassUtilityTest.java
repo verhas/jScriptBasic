@@ -66,7 +66,7 @@ public class KlassUtilityTest {
     }
 
     @Test()
-    public void doesNotSetPrivateFields() throws BasicRuntimeException {
+    public void doesNotSetPrivateFields() {
         class TestObject {
             private Object obj;
         }
@@ -101,7 +101,7 @@ public class KlassUtilityTest {
     }
 
     @Test()
-    public void doesNotGetPrivateField() throws BasicRuntimeException {
+    public void doesNotGetPrivateField() {
         final var objToSet = new Object();
         class TestObject {
             private Object obj = objToSet;

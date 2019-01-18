@@ -15,12 +15,12 @@ public class CommandAnalyzerGlobal extends AbstractCommandAnalyzerGlobalLocal {
     }
 
     /*
-         * (non-Javadoc)
-         *
-         * @see
-         * com.scriptbasic.syntax.commandanalyzers.AbstractCommandAnalyzerGlobalLocal
-         * #newNode()
-         */
+     * (non-Javadoc)
+     *
+     * @see
+     * com.scriptbasic.syntax.commandanalyzers.AbstractCommandAnalyzerGlobalLocal
+     * #newNode()
+     */
     @Override
     protected AbstractCommandLeftValueListed newNode() {
         return new CommandGlobal();

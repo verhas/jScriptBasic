@@ -1,9 +1,10 @@
 package com.scriptbasic.executors.commands;
 
+import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.interfaces.Executor;
+import com.scriptbasic.interfaces.NestedStructure;
 import com.scriptbasic.spi.Command;
 import com.scriptbasic.spi.Interpreter;
-import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.interfaces.*;
 
 public abstract class AbstractCommand implements Executor, Command,
         NestedStructure {
@@ -23,7 +24,7 @@ public abstract class AbstractCommand implements Executor, Command,
      * Get the next command that has to be executed unless some condition alters
      * this, like in case of If, While and similar.
      *
-     * @return
+     * @return return value
      */
     @Override
     public Command getNextCommand() {

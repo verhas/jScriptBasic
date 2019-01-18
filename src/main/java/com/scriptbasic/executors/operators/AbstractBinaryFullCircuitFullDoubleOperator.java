@@ -1,14 +1,12 @@
 package com.scriptbasic.executors.operators;
 
-import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.spi.RightValue;
 
 public abstract class AbstractBinaryFullCircuitFullDoubleOperator extends
         AbstractBinaryFullCircuitHalfDoubleOperator {
 
     @Override
-    protected final RightValue operateOnLongLong(final Long a, final Long b)
-            throws BasicRuntimeException {
+    protected final RightValue operateOnLongLong(final Long a, final Long b) {
         return operateOnDoubleDouble(a.doubleValue(), b.doubleValue());
     }
 

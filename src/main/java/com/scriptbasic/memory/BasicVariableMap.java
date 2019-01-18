@@ -1,9 +1,9 @@
 package com.scriptbasic.memory;
 
-import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.spi.RightValue;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.VariableMap;
+import com.scriptbasic.spi.RightValue;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -81,8 +81,8 @@ class BasicVariableMap implements VariableMap {
      * some aspects as the same variable name. The generic approach is simply
      * upper casing.
      *
-     * @param name
-     * @return
+     * @param name parameter
+     * @return return value
      */
     protected String converted(final String name) {
         return variableNamesAreCaseSensitive ? name : name.toUpperCase();
@@ -103,8 +103,8 @@ class BasicVariableMap implements VariableMap {
      * other checks stop the interpreter registering the variable and therefore
      * using it the way it is here.
      *
-     * @param variableName
-     * @throws ScriptBasicException
+     * @param variableName parameter
+     * @throws ScriptBasicException in case of exception
      */
     void assertCorrectCasing(final String variableName) throws ScriptBasicException {
         if (variableNamesAreStrictCased) {
@@ -121,7 +121,7 @@ class BasicVariableMap implements VariableMap {
      * Register the variable with the given casing. (with the given form related
      * to upper and lower case letters)
      *
-     * @param name
+     * @param name parameter
      */
     void registerVariableCasing(final String name) {
         variableNameSet.add(name);
@@ -129,7 +129,7 @@ class BasicVariableMap implements VariableMap {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * com.scriptbasic.interfaces.VariableMap#getVariableValue(java.lang.String)
      */
@@ -142,7 +142,7 @@ class BasicVariableMap implements VariableMap {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * com.scriptbasic.interfaces.VariableMap#variableExists(java.lang.String)
      */
@@ -155,7 +155,7 @@ class BasicVariableMap implements VariableMap {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * com.scriptbasic.interfaces.VariableMap#variableDefined(java.lang.String)
      */
@@ -168,7 +168,7 @@ class BasicVariableMap implements VariableMap {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.scriptbasic.interfaces.VariableMap#setVariable(java.lang.String,
      * com.scriptbasic.interfaces.RightValue)
      */

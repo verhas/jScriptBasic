@@ -2,8 +2,8 @@ package com.scriptbasic.syntax.commands;
 
 import com.scriptbasic.context.Context;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.spi.Command;
 import com.scriptbasic.interfaces.Expression;
+import com.scriptbasic.spi.Command;
 
 /**
  * @author Peter Verhas
@@ -19,7 +19,7 @@ public abstract class AbstractCommandAnalyzerIfKind extends
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.scriptbasic.interfaces.Analyzer#analyze()
      */
     @Override

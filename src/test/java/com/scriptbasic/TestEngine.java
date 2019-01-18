@@ -12,7 +12,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -233,8 +236,7 @@ public class TestEngine {
                     "include.bas", "include \"hello.bas\"");
 
             @Override
-            public SourceReader get(final String sourceName, final String referencingSource)
-                    throws IOException {
+            public SourceReader get(final String sourceName, final String referencingSource) {
                 return get(sourceName);
             }
 
@@ -411,8 +413,7 @@ public class TestEngine {
                             "include.bas", "include \"hello.bas\"");
 
                     @Override
-                    public SourceReader get(final String sourceName, final String referencingSource)
-                            throws IOException {
+                    public SourceReader get(final String sourceName, final String referencingSource) {
                         return get(sourceName);
                     }
 

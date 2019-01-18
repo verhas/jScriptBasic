@@ -8,6 +8,7 @@ public interface BasicArray {
     static BasicArray create() {
         return new BasicArrayValue();
     }
+
     static BasicArray create(final Object[] array) throws ScriptBasicException {
         final var basicArray = new BasicArrayValue();
         basicArray.setArray(array);
@@ -22,16 +23,16 @@ public interface BasicArray {
      * {@link #set(Integer, Object)}.
      *
      * @param array the array
-     * @throws NullPointerException when the array is null
+     * @throws ScriptBasicException when the array is null
      */
     void setArray(final Object[] array) throws ScriptBasicException;
 
     /**
      * Set the index-th element of the array
      *
-     * @param index
+     * @param index  parameter
      * @param object the new value for the array
-     * @throws ScriptBasicException
+     * @throws ScriptBasicException in case of exception
      */
     void set(final Integer index, final Object object) throws ScriptBasicException;
 
@@ -41,9 +42,9 @@ public interface BasicArray {
      * method from an extension method be prepared to convert the value to
      * ordinary Java object yourself.
      *
-     * @param index
+     * @param index parameter
      * @return the array element.
-     * @throws ScriptBasicException
+     * @throws ScriptBasicException in case of exception
      */
     Object get(final Integer index) throws ScriptBasicException;
 

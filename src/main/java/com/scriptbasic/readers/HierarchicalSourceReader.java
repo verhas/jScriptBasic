@@ -7,8 +7,6 @@ package com.scriptbasic.readers;
  * <p>
  * To give the hierarchical reader to a Lexical Analyzer is done usually
  * following the pattern:
- * <p>
- * <p>
  * <pre>
  * SourceReader reader = someSourceProvider.get(&quot;some source name&quot;);
  *

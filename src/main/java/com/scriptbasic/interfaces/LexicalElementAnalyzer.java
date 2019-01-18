@@ -25,7 +25,7 @@ public interface LexicalElementAnalyzer {
      * then the method throws the exception.
      *
      * @return the created lexeme or {@code null}
-     * @throws AnalysisException
+     * @throws AnalysisException in case of exception
      */
     LexicalElement read() throws AnalysisException;
 }

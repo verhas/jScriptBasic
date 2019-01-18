@@ -1,11 +1,11 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.spi.Command;
-import com.scriptbasic.spi.LeftValue;
-import com.scriptbasic.spi.LeftValueList;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.interfaces.*;
+import com.scriptbasic.spi.Command;
+import com.scriptbasic.spi.LeftValue;
+import com.scriptbasic.spi.LeftValueList;
 import com.scriptbasic.syntax.AbstractAnalyzer;
 import com.scriptbasic.utility.SyntaxExceptionUtility;
 

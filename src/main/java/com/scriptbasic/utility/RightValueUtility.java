@@ -33,10 +33,6 @@ public final class RightValueUtility {
         return object;
     }
 
-    /**
-     * @param index
-     * @return
-     */
     @SuppressWarnings("unchecked")
     public static Integer convert2Integer(final RightValue index)
             throws ScriptBasicException {

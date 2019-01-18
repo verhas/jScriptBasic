@@ -1,8 +1,8 @@
 package com.scriptbasic.utility.functions;
 
 import com.scriptbasic.api.BasicFunction;
-import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.utility.NoInstance;
 
 public class ErrorFunctions {
@@ -27,7 +27,6 @@ public class ErrorFunctions {
      * This can be used in the BASIC program to test preconditions and stop the
      * execution of the BASIC program if the condition fails. For example you
      * can write
-     * <p>
      * <pre>
      * assert("test that the parameter starts with the required prefix", startsWith(s,prefix))
      * </pre>
@@ -36,9 +35,9 @@ public class ErrorFunctions {
      * contained in the variable {@code prefix} then the execution of the BASIC
      * program goes on, otherwise the function causes BASIC runtime error.
      *
-     * @param s
-     * @param b
-     * @throws ScriptBasicException
+     * @param s parameter
+     * @param b parameter
+     * @throws ScriptBasicException in case of exception
      */
     @BasicFunction(classification = com.scriptbasic.classification.Utility.class, alias = "assert")
     static public void asserT(final String s, final Boolean b) throws ScriptBasicException {

@@ -39,10 +39,10 @@ public abstract class AbstractCompareOperator extends
     @Override
     protected RightValue evaluateOn(final RightValue leftOperand,
                                     final RightValue rightOperand) throws BasicRuntimeException {
-        if( leftOperand == null && rightOperand == null ){
+        if (leftOperand == null && rightOperand == null) {
             return BasicValue.TRUE;
         }
-        if( leftOperand == null || rightOperand == null ){
+        if (leftOperand == null || rightOperand == null) {
             return BasicValue.FALSE;
         }
         if (leftOperand.isDouble()) {

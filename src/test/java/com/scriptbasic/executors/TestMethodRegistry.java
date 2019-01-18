@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * @author Peter Verhas
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestMethodRegistry {
 
     @Test
-    public void returnsNullForNonRegisteredMethod() throws ScriptBasicException {
+    public void returnsNullForNonRegisteredMethod() {
         final var mr = new BasicMethodRegistry();
         assertNull(mr.getJavaMethod(Object.class, "alias"));
     }

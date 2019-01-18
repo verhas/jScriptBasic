@@ -16,7 +16,7 @@ public interface ConfigurationBuilder {
     /**
      * Get the built configuration
      *
-     * @return
+     * @return return value
      */
     Configuration getConfiguration();
 

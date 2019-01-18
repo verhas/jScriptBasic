@@ -17,6 +17,7 @@ public class BasicConfiguration implements Configuration {
     private static final Logger LOG = LoggerFactory.getLogger();
     private final Map<String, List<String>> lists = new HashMap<>();
     private Properties configProperties;
+
     public BasicConfiguration() {
         try {
             loadDefaultConfiguration();
@@ -26,7 +27,7 @@ public class BasicConfiguration implements Configuration {
     }
 
 
-    public Properties getConfigProperties(){
+    public Properties getConfigProperties() {
         return configProperties;
     }
 
@@ -86,20 +87,20 @@ public class BasicConfiguration implements Configuration {
                 .getProperty("sb4j.configuration");
         final var configurationFileName = systemPropertyDefinedConfiguration == null ? "sb4j.properties"
                 : systemPropertyDefinedConfiguration;
-        LOG.info("Reading configuration from file {}",configurationFileName);
+        LOG.info("Reading configuration from file {}", configurationFileName);
         final var is = this.getClass().getClassLoader()
                 .getResourceAsStream(configurationFileName);
         if (null == is) {
             LOG.info("Configuration file does not exist.");
             setConfigProperties(new Properties());
-        }else{
+        } else {
             loadConfiguration(is);
         }
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.scriptbasic.interfaces.Configuration#loadConfiguration(java.io.
      * InputStream)
      */
@@ -119,12 +120,13 @@ public class BasicConfiguration implements Configuration {
     public void set(final String name, final String value) {
         configProperties.put(name, value);
     }
+
     @Override
     public void set(final String command) {
         final var index = command.indexOf("=");
-        if( index == -1 ){
-            throw new BasicInterpreterInternalError("Configuration command '"+command+"' is invalid.");
+        if (index == -1) {
+            throw new BasicInterpreterInternalError("Configuration command '" + command + "' is invalid.");
         }
-        configProperties.put(command.substring(0,index), command.substring(index+1));
+        configProperties.put(command.substring(0, index), command.substring(index + 1));
     }
 }

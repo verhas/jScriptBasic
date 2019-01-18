@@ -1,7 +1,5 @@
 package com.scriptbasic.interfaces;
 
-import com.scriptbasic.api.ScriptBasicException;
-
 import java.lang.reflect.Method;
 
 /**
@@ -76,12 +74,8 @@ public interface MethodRegistry {
      *              signature.
      * @return the located method that match the name and the signature what was
      * registered.
-     * @throws ScriptBasicException if the method can not be accessed, e.g. there is no such
-     *                            method or accessing the method violates java security (e.g.
-     *                            the method is private)
      */
-    Method getJavaMethod(Class<?> klass, String alias)
-    ;
+    Method getJavaMethod(Class<?> klass, String alias);
 
     /**
      * Register a java method.

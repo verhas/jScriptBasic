@@ -1,10 +1,11 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.spi.Command;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandFor;
 import com.scriptbasic.executors.commands.CommandNext;
-import com.scriptbasic.interfaces.*;
+import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
+import com.scriptbasic.spi.Command;
 
 /**
  * @author Peter Verhas

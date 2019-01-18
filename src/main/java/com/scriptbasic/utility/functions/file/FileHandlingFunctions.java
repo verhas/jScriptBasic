@@ -1,9 +1,9 @@
 package com.scriptbasic.utility.functions.file;
 
-import com.scriptbasic.spi.BasicArray;
 import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.spi.BasicArray;
 import com.scriptbasic.utility.NoInstance;
 
 import java.io.*;
@@ -26,7 +26,7 @@ public class FileHandlingFunctions {
     /**
      * Return the first character as a string.
      *
-     * @param sb
+     * @param sb parameter
      * @return the first character as string
      */
     private static String firstChar(final StringBuilder sb) {
@@ -40,7 +40,7 @@ public class FileHandlingFunctions {
     /**
      * Cut off the first character from the string.
      *
-     * @param sb
+     * @param sb parameter
      */
     private static void chomp(final StringBuilder sb) {
         if (sb.length() > 0) {
@@ -142,7 +142,7 @@ public class FileHandlingFunctions {
      *
      * @param fileName the name of the file to be opened.
      * @param mode     the mode how to open the file
-     * @return
+     * @return return value
      */
     @BasicFunction(classification = com.scriptbasic.classification.File.class)
     public static FileHandler open(final String fileName, final String mode) {

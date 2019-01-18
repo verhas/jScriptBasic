@@ -54,9 +54,9 @@ public final class ExpressionUtility {
     }
 
     /**
-     * @param arguments
-     * @param argumentValues
-     * @throws ScriptBasicException
+     * @param arguments      parameter
+     * @param argumentValues parameter
+     * @throws ScriptBasicException in case of exception
      */
     private static void registerLocalVariablesWithValues(
             final LeftValueList arguments, final RightValue[] argumentValues,
@@ -136,7 +136,7 @@ public final class ExpressionUtility {
     /**
      * Convert an expression of the form 'a.b.c.d' into a String.
      *
-     * @param expression
+     * @param expression parameter
      * @return the string containing the dots and the identifiers
      * @throws AnalysisException when the expression does not match the format
      */

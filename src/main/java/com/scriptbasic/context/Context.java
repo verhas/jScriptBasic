@@ -1,8 +1,8 @@
 package com.scriptbasic.context;
 
 import com.scriptbasic.api.Configuration;
-import com.scriptbasic.spi.Interpreter;
 import com.scriptbasic.interfaces.*;
+import com.scriptbasic.spi.Interpreter;
 
 public class Context {
     public Configuration configuration;

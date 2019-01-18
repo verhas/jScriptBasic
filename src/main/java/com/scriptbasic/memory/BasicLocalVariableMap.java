@@ -51,7 +51,7 @@ public class BasicLocalVariableMap extends BasicVariableMap implements
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.scriptbasic.interfaces.LocalVariableMap#newFrame()
      */
     @Override
@@ -64,7 +64,7 @@ public class BasicLocalVariableMap extends BasicVariableMap implements
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.scriptbasic.interfaces.LocalVariableMap#dropFrame()
      */
     @Override
@@ -77,7 +77,7 @@ public class BasicLocalVariableMap extends BasicVariableMap implements
      * Returns true if the current scope is global, there no no any local stack
      * frame open.
      *
-     * @return
+     * @return return value
      */
     public boolean currentScopeIsGlobal() {
         return localMapStack.isEmpty();
@@ -85,7 +85,7 @@ public class BasicLocalVariableMap extends BasicVariableMap implements
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.scriptbasic.interfaces.LocalVariableMap#registerGlobalVariable
      */
     @Override

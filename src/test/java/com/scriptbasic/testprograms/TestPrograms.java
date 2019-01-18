@@ -158,7 +158,7 @@ public class TestPrograms {
     }
 
     @Test()
-    public void tooLargeArrayCannotBeCreated() throws ScriptBasicException, ClassNotFoundException, AnalysisException {
+    public void tooLargeArrayCannotBeCreated() {
         final var e = new TestingExecutor();
         final var configuration = new BasicConfiguration();
         e.getCtx().configuration = configuration;
@@ -168,25 +168,25 @@ public class TestPrograms {
     }
 
     @Test()
-    public void syntaxErrorWhenThereIsNoClosingParentheseAfterFunctionCall() throws Exception {
+    public void syntaxErrorWhenThereIsNoClosingParentheseAfterFunctionCall() {
         Assertions.assertThrows(BasicRuntimeException.class, () ->
                 codeTest("NoClosingParenAfterFunctionCall.bas", ""));
     }
 
     @Test()
-    public void syntaxErrorWhenNoClosingParenInExpression() throws Exception {
+    public void syntaxErrorWhenNoClosingParenInExpression() {
         Assertions.assertThrows(BasicRuntimeException.class, () ->
                 codeTest("NoClosingParenInExpression.bas", ""));
     }
 
     @Test()
-    public void syntaxErrorWhenNoClosingBracketAccessingArrayElement() throws Exception {
+    public void syntaxErrorWhenNoClosingBracketAccessingArrayElement() {
         Assertions.assertThrows(BasicRuntimeException.class, () ->
                 codeTest("NoClosingBracketAccessingArrayElement.bas", ""));
     }
 
     @Test()
-    public void syntaxErrorWhenSubroutineIsDefinedMoreThanOnce() throws Exception {
+    public void syntaxErrorWhenSubroutineIsDefinedMoreThanOnce() {
         Assertions.assertThrows(BasicRuntimeException.class, () ->
                 codeTest("SubroutineDoubleDefined.bas", ""));
     }
@@ -210,7 +210,7 @@ public class TestPrograms {
      * <p>
      * Note that some may be missing in case the logging is configured not to emit debug messages
      *
-     * @throws Exception
+     * @throws Exception in case of exception
      */
     @Test
     public void testLogging() throws Exception {

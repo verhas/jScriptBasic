@@ -1,6 +1,5 @@
 package com.scriptbasic.syntax.leftvalue;
 
-import com.scriptbasic.spi.LeftValue;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.leftvalues.ArrayElementAccessLeftValueModifier;
@@ -8,10 +7,10 @@ import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.executors.leftvalues.LeftValueModifier;
 import com.scriptbasic.executors.leftvalues.ObjectFieldAccessLeftValueModifier;
 import com.scriptbasic.interfaces.*;
+import com.scriptbasic.spi.LeftValue;
 
 /**
  * Left value is defined as
- * <p>
  * <pre>
  * LEFTVALUE ::= identifier modifier*
  * modifier  ::= '[' expression_list '] | '.' id

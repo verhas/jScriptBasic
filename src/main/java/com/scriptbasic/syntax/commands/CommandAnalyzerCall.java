@@ -1,12 +1,15 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.spi.Command;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandCall;
 import com.scriptbasic.executors.commands.CommandLet;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
 import com.scriptbasic.executors.rightvalues.FunctionCall;
-import com.scriptbasic.interfaces.*;
+import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
+import com.scriptbasic.interfaces.LexicalAnalyzer;
+import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.spi.Command;
 
 public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
 
@@ -74,7 +77,7 @@ public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
      * execution does not get here. The syntax analyzer invokes CommandAnalyzerCall only when the line starts
      * as a function call.
      *
-     * @throws AnalysisException
+     * @throws AnalysisException in case of exception
      */
     private void skipTheOptionalCallKeyword() throws AnalysisException {
         final var lexicalElement = ctx.lexicalAnalyzer.peek();

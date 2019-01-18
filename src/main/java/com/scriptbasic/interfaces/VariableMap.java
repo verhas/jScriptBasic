@@ -1,7 +1,7 @@
 package com.scriptbasic.interfaces;
 
-import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.spi.RightValue;
 
 import java.util.Set;
 
@@ -26,9 +26,10 @@ public interface VariableMap {
     /**
      * Get the value of a variable.
      *
-     * @param variableName
+     * @param variableName parameter
      * @return the right value the variable has or {@code null} if the variable
      * is not defined or does not exists.
+     * @throws ScriptBasicException in case there is an exception
      */
     RightValue getVariableValue(final String variableName)
             throws ScriptBasicException;
@@ -36,10 +37,11 @@ public interface VariableMap {
     /**
      * Checks that a variable exists in this map.
      *
-     * @param variableName
+     * @param variableName parameter
      * @return {@code true} if the variable exists, even if the variable has
      * undefined value. {@code false} if the variable does not exist in
      * this map.
+     * @throws ScriptBasicException in case there is an exception
      */
     Boolean variableExists(final String variableName) throws ScriptBasicException;
 
@@ -47,8 +49,9 @@ public interface VariableMap {
      * Checks that a variable exists and has a defined value in this map.
      * Undefined value is represented by {@code null}.
      *
-     * @param variableName
+     * @param variableName parameter
      * @return {@code true} if the variable exists and has a defined value.
+     * @throws ScriptBasicException in case there is an exception
      */
     Boolean variableDefined(final String variableName)
             throws ScriptBasicException;
@@ -61,8 +64,9 @@ public interface VariableMap {
      * You can set a variable to undefined passing {@code null} to this method
      * as {@code rightValue}.
      *
-     * @param variableName
+     * @param variableName parameter
      * @param rightValue   the new value of the variable
+     * @throws ScriptBasicException in case there is an exception
      */
     void setVariable(final String variableName, RightValue rightValue)
             throws ScriptBasicException;
@@ -71,7 +75,7 @@ public interface VariableMap {
      * Get the set of the variables stored in the variable map so that the
      * caller can iterate through the variables.
      *
-     * @return
+     * @return return value
      */
     Set<String> getVariableNameSet();
 }

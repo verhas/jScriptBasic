@@ -19,7 +19,7 @@ public abstract class AbstractCommandAnalyzerGlobalLocal extends AbstractCommand
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.scriptbasic.interfaces.Analyzer#analyze()
      */
     @Override

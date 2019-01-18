@@ -1,18 +1,19 @@
 package com.scriptbasic.memory;
 
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
 import com.scriptbasic.executors.rightvalues.BasicLongValue;
 import com.scriptbasic.executors.rightvalues.BasicStringValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
-import static org.junit.jupiter.api.Assertions.*;
+import com.scriptbasic.spi.RightValue;
 import org.junit.jupiter.api.Test;
 
 import java.util.EmptyStackException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**

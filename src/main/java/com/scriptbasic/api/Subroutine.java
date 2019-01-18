@@ -37,7 +37,7 @@ public interface Subroutine<R> {
      * Call a subroutine without any argument.
      *
      * @return the return value of the subroutine
-     * @throws ScriptBasicException
+     * @throws ScriptBasicException in case of exception
      */
     R call() throws ScriptBasicException;
 }

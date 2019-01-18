@@ -20,7 +20,7 @@ public abstract class AbstractCommandIfElseKind extends AbstractCommand {
      * executed if the condition of the ELSEIF is true or the code has to be
      * executed after the ELSE.
      *
-     * @param interpreter
+     * @param interpreter parameter
      */
     static void indicateConditionalJump(
             final Interpreter interpreter) {
@@ -41,7 +41,7 @@ public abstract class AbstractCommandIfElseKind extends AbstractCommand {
      * already true and the ELSEIF should not be executed but jump even if the
      * condition is true and the control got there jumping.
      *
-     * @param interpreter
+     * @param interpreter parameter
      */
     static void indicateConditionDone(final Interpreter interpreter) {
         interpreter.getMap().put(CONDITIONDONE_KEY, Boolean.TRUE);

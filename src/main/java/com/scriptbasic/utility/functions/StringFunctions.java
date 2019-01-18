@@ -76,10 +76,10 @@ public class StringFunctions {
      * Return a substring from the string that starts at the position
      * {@code start} and has a length of {@code len}.
      *
-     * @param s
-     * @param start
-     * @param len
-     * @return
+     * @param s     parameter
+     * @param start parameter
+     * @param len   parameter
+     * @return return value
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
@@ -91,9 +91,9 @@ public class StringFunctions {
      * Return {@code len} number of characters from the right (the end) of the
      * string.
      *
-     * @param s
-     * @param len
-     * @return
+     * @param s   parameter
+     * @param len parameter
+     * @return return value
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
@@ -104,8 +104,8 @@ public class StringFunctions {
     /**
      * Return a string that is {@code len} number of space characters.
      *
-     * @param len
-     * @return
+     * @param len parameter
+     * @return return value
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
@@ -122,9 +122,9 @@ public class StringFunctions {
      * the string {@code s} contains more than one characters then only the
      * first character is repeated.
      *
-     * @param len
-     * @param s
-     * @return
+     * @param len parameter
+     * @param s   parameter
+     * @return return value
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
     static public String string(final int len, String s) {
@@ -139,8 +139,8 @@ public class StringFunctions {
     /**
      * Return a string with the characters reversed.
      *
-     * @param s
-     * @return
+     * @param s parameter
+     * @return return value
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
     static public String strreverse(final String s) {
@@ -154,8 +154,8 @@ public class StringFunctions {
     /**
      * Return a string upper cased.
      *
-     * @param s
-     * @return
+     * @param s parameter
+     * @return return value
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
     static public String ucase(final String s) {
@@ -165,8 +165,8 @@ public class StringFunctions {
     /**
      * Return a string lower cased.
      *
-     * @param s
-     * @return
+     * @param s parameter
+     * @return return value
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
     static public String lcase(final String s) {
@@ -181,9 +181,9 @@ public class StringFunctions {
     /**
      * Implements the functionality of the method {@code s1.indexOf(s2)}
      *
-     * @param s1
-     * @param s2
-     * @return
+     * @param s1 parameter
+     * @param s2 parameter
+     * @return return value
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
     static public Long index(final String s1, final String s2) {
@@ -193,9 +193,9 @@ public class StringFunctions {
     /**
      * Implements the functionality of the method {@code s1.lastIndexOf(s2)}
      *
-     * @param s1
-     * @param s2
-     * @return
+     * @param s1 parameter
+     * @param s2 parameter
+     * @return return value
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
     static public Long lastIndex(final String s1, final String s2) {
@@ -205,10 +205,10 @@ public class StringFunctions {
     /**
      * Implements the functionality of the method {@code s1.indexOf(s2,i)}
      *
-     * @param s1
-     * @param s2
-     * @param i
-     * @return
+     * @param s1 parameter
+     * @param s2 parameter
+     * @param i  parameter
+     * @return return value
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
     static public Long indexAfter(final String s1, final String s2, final int i) {
@@ -218,10 +218,10 @@ public class StringFunctions {
     /**
      * Implements the functionality of the method {@code s1.lastIndexOf(s2,i)}
      *
-     * @param s1
-     * @param s2
-     * @param i
-     * @return
+     * @param s1 parameter
+     * @param s2 parameter
+     * @param i  parameter
+     * @return return value
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
     static public Long lastIndexAfter(final String s1, final String s2, final int i) {
@@ -232,9 +232,9 @@ public class StringFunctions {
      * Returns a one character string that contains the character that is at the
      * position {@code i} in the string {@code s1}.
      *
-     * @param s1
-     * @param i
-     * @return
+     * @param s1 parameter
+     * @param i  parameter
+     * @return return value
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
     static public String charAt(final String s1, final int i) {
@@ -254,7 +254,7 @@ public class StringFunctions {
     }
 
     /**
-     * @param s1
+     * @param s1 parameter
      * @return the length of the string
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})

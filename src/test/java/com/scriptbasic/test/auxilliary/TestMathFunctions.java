@@ -5,8 +5,6 @@ import com.scriptbasic.utility.functions.UtilityFunctions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.InvocationTargetException;
-
 import static com.scriptbasic.utility.functions.MathFunctions.*;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")

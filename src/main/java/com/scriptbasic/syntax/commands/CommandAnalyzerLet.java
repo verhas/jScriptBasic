@@ -4,8 +4,8 @@ import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandLet;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
-import com.scriptbasic.spi.Command;
 import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.spi.Command;
 
 public class CommandAnalyzerLet extends AbstractCommandAnalyzer {
 

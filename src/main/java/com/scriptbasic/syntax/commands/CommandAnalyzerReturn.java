@@ -15,10 +15,10 @@ public class CommandAnalyzerReturn extends AbstractCommandAnalyzer {
     }
 
     /*
-         * (non-Javadoc)
-         *
-         * @see com.scriptbasic.interfaces.Analyzer#analyze()
-         */
+     * (non-Javadoc)
+     *
+     * @see com.scriptbasic.interfaces.Analyzer#analyze()
+     */
     @Override
     public Command analyze() throws AnalysisException {
         final var node = new CommandReturn();

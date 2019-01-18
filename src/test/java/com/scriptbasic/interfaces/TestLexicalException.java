@@ -2,8 +2,6 @@ package com.scriptbasic.interfaces;
 
 import com.scriptbasic.exceptions.LexicalException;
 
-import java.io.IOException;
-
 public class TestLexicalException {
 
 
@@ -36,7 +34,9 @@ public class TestLexicalException {
             }
         }
 
+        //noinspection ThrowableNotThrown
         new TestedLexicalException();
+        //noinspection ThrowableNotThrown
         new TestedLexicalException(new Exception());
 
     }

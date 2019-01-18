@@ -3,13 +3,14 @@ package com.scriptbasic.utility;
 import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.spi.Interpreter;
 import com.scriptbasic.interfaces.ExtensionInterfaceVersion;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
+import com.scriptbasic.spi.Interpreter;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author Peter Verhas date Jul 22, 2012
@@ -81,21 +82,21 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
      */
     private static boolean classificationsAllowRegistering(
             final Interpreter interpreter, final Class<?>[] classifications) {
-        if( classifications == null ){
-            throw new BasicInterpreterInternalError("Some of the extension functions do not have classifications."+
-            " Since this is Java code, it is an internal error of the host application.");
+        if (classifications == null) {
+            throw new BasicInterpreterInternalError("Some of the extension functions do not have classifications." +
+                    " Since this is Java code, it is an internal error of the host application.");
         }
         final var config = interpreter.getConfiguration();
-        Integer allowLevel = 0;
+        final var allowLevel = new AtomicInteger(0);
         for (final Class<?> classification : classifications) {
             final var name = classification.getName();
             final var allowKey = "allow(" + name + ")";
             final var denyKey = "deny(" + name + ")";
             final var allowValue = config.getConfigValue(allowKey).orElse(null);
             final var denyValue = config.getConfigValue(denyKey).orElse(null);
-            allowLevel += gIV(allowValue) - gIV(denyValue);
+            allowLevel.addAndGet(gIV(allowValue) - gIV(denyValue));
         }
-        return allowLevel >= 0;
+        return allowLevel.get() >= 0;
     }
 
     private static Integer gIV(final String s) {

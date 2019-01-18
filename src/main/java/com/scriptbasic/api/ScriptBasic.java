@@ -19,7 +19,6 @@ import java.io.Writer;
  * sources that are included by the script, set and get global variables and
  * call subroutines.
  * <p>
- * <p>
  * Deprecated methods are replaced by fluent api methods that return "this". The deprecated
  * method are not for removal. They are not to be used by callers but they are to be implemented
  * by implementing classes. These methods are invoked from the fluent API method default implementations
@@ -58,10 +57,9 @@ public interface ScriptBasic {
      *           .arguments(String.class);
      * </pre>
      * <p>
-     * <p>
      * In the fluent API this method call should be followed/chained by calls to {@link FunctionBuilder#klass(Class)},
      * optionally by {@link FunctionBuilder.FunctionBuilder2#alias(String)} and finally the chain must be closed with
-     * {@link FunctionBuilder.FunctionBuilder2#arguments(Class[])}. The method {@link #function(String)} as well as
+     * {@link FunctionBuilder.FunctionBuilder2#arguments(Class[])}. The method {@code #function(String)} as well as
      * {@link FunctionBuilder#klass(Class)},and {@link FunctionBuilder.FunctionBuilder2#alias(String)} return a
      * {@link FunctionBuilder} instance used only for the method chaining and the last call in the chain
      * {@link FunctionBuilder.FunctionBuilder2#arguments(Class[])} returns to the top level {@link ScriptBasic} object.
@@ -79,7 +77,7 @@ public interface ScriptBasic {
      * Get the reader from where the BASIC program reads the standard input
      * characters.
      *
-     * @return
+     * @return return value
      */
     Reader getInput();
 
@@ -87,9 +85,9 @@ public interface ScriptBasic {
      * Set the reader from where the BASIC program reads the standard input
      * characters.
      *
-     * @param input
+     * @param input the input to set
      */
-    @Deprecated(forRemoval = false)
+    @Deprecated()
     void setInput(Reader input);
 
     default ScriptBasic input(final Reader input) {
@@ -102,7 +100,7 @@ public interface ScriptBasic {
      * Get the output writer used to write the standard output of the BASIC
      * program.
      *
-     * @return
+     * @return the output
      */
     Writer getOutput();
 
@@ -110,9 +108,9 @@ public interface ScriptBasic {
      * Set the output writer used to write the standard output of the BASIC
      * program.
      *
-     * @param output
+     * @param output parameter
      */
-    @Deprecated(forRemoval = false)
+    @Deprecated()
     void setOutput(Writer output);
 
     default ScriptBasic output(final Writer output) {
@@ -125,7 +123,7 @@ public interface ScriptBasic {
      * Get the output writer used to write the error output of the BASIC
      * program.
      *
-     * @return
+     * @return the error output writer
      */
     Writer getErrorOutput();
 
@@ -133,9 +131,9 @@ public interface ScriptBasic {
      * Set the output writer used to write the error output of the BASIC
      * program.
      *
-     * @param error
+     * @param error the error output
      */
-    @Deprecated(forRemoval = false)
+    @Deprecated()
     void setErrorOutput(Writer error);
 
     default ScriptBasic error(final Writer error) {
@@ -148,7 +146,8 @@ public interface ScriptBasic {
      * Load a string as a BASIC program.
      *
      * @param sourceCode contains the source code as string
-     * @throws ScriptBasicException
+     * @return this
+     * @throws ScriptBasicException when the code cannot be loaded
      */
     ScriptBasic load(String sourceCode) throws ScriptBasicException;
 
@@ -157,7 +156,8 @@ public interface ScriptBasic {
      * a BASIC program. This method does not execute the code.
      *
      * @param reader the reader to supply the BASIC program characters.
-     * @throws ScriptBasicException
+     * @return this
+     * @throws ScriptBasicException when the code cannot be loaded
      */
     ScriptBasic load(Reader reader) throws ScriptBasicException;
 
@@ -167,7 +167,8 @@ public interface ScriptBasic {
      *
      * @param sourceFile the file handler pointing to the file that the interpreter
      *                   will read to get the source code.
-     * @throws ScriptBasicException
+     * @return this
+     * @throws ScriptBasicException in case of exception
      */
     ScriptBasic load(File sourceFile) throws ScriptBasicException;
 
@@ -179,9 +180,10 @@ public interface ScriptBasic {
      * @param sourceFileName the file that contains the script
      * @param path           the array of path elements that are searched for included
      *                       files
+     * @return this
+     * @throws ScriptBasicException in case of exception
      */
-    ScriptBasic load(String sourceFileName, String... path)
-            throws ScriptBasicException;
+    ScriptBasic load(String sourceFileName, String... path) throws ScriptBasicException;
 
     /**
      * Read the content of the file and execute it. If there is any other script
@@ -190,7 +192,8 @@ public interface ScriptBasic {
      *
      * @param sourceFileName the file that contains the script
      * @param path           the path where included files are located
-     * @throws ScriptBasicException
+     * @return this
+     * @throws ScriptBasicException in case of exception
      */
     ScriptBasic load(String sourceFileName, SourcePath path)
             throws ScriptBasicException;
@@ -203,7 +206,8 @@ public interface ScriptBasic {
      * @param sourceName the name of the source file where the source is. The syntax of
      *                   the name depends on the provider.
      * @param provider   the source provider that helps the reader to read the content
-     * @throws ScriptBasicException
+     * @return this
+     * @throws ScriptBasicException in case of exception
      */
     ScriptBasic load(String sourceName, SourceProvider provider)
             throws ScriptBasicException;
@@ -212,7 +216,8 @@ public interface ScriptBasic {
      * Evaluate a string as a BASIC program.
      *
      * @param sourceCode contains the source code as string
-     * @throws ScriptBasicException
+     * @return this
+     * @throws ScriptBasicException in case of exception
      */
     ScriptBasic eval(String sourceCode) throws ScriptBasicException;
 
@@ -221,7 +226,8 @@ public interface ScriptBasic {
      * a BASIC program.
      *
      * @param reader the reader to supply the BASIC program characters.
-     * @throws ScriptBasicException
+     * @return this
+     * @throws ScriptBasicException in case of exception
      */
     ScriptBasic eval(Reader reader) throws ScriptBasicException;
 
@@ -231,7 +237,8 @@ public interface ScriptBasic {
      *
      * @param sourceFile the file handler pointing to the file that the interpreter
      *                   will read to get the source code.
-     * @throws ScriptBasicException
+     * @return this
+     * @throws ScriptBasicException in case of exception
      */
     ScriptBasic eval(File sourceFile) throws ScriptBasicException;
 
@@ -242,6 +249,8 @@ public interface ScriptBasic {
      * @param sourceFileName the file that contains the script
      * @param path           the array of path elements that are searched for included
      *                       files
+     * @return this
+     * @throws ScriptBasicException in case of exception
      */
     ScriptBasic eval(String sourceFileName, String... path)
             throws ScriptBasicException;
@@ -252,7 +261,8 @@ public interface ScriptBasic {
      *
      * @param sourceFileName the file that contains the script
      * @param path           the path where included files are located
-     * @throws ScriptBasicException
+     * @return this
+     * @throws ScriptBasicException in case of exception
      */
     ScriptBasic eval(String sourceFileName, SourcePath path)
             throws ScriptBasicException;
@@ -264,7 +274,8 @@ public interface ScriptBasic {
      * @param sourceName the name of the source file where the source is. The syntax of
      *                   the name depends on the provider.
      * @param provider   the source provider that helps the reader to read the content
-     * @throws ScriptBasicException
+     * @return this
+     * @throws ScriptBasicException in case of exception
      */
     ScriptBasic eval(String sourceName, SourceProvider provider)
             throws ScriptBasicException;
@@ -272,7 +283,8 @@ public interface ScriptBasic {
     /**
      * Execute a previously loaded code.
      *
-     * @throws ScriptBasicException
+     * @return this
+     * @throws ScriptBasicException in case of exception
      */
     ScriptBasic execute() throws ScriptBasicException;
 
@@ -282,17 +294,17 @@ public interface ScriptBasic {
      * @param name  of the variable as it is used in the BASIC program
      * @param value the value of the variable. The value is converted
      *              automatically to be a BASIC value.
-     * @throws ScriptBasicException
+     * @throws ScriptBasicException in case of exception
      * @deprecated use {@link #variable(String)}, not for removal.
      */
-    @Deprecated(forRemoval = false)
+    @Deprecated()
     void setVariable(String name, Object value) throws ScriptBasicException;
 
     /**
      * define a
      *
-     * @param name
-     * @return
+     * @param name parameter
+     * @return return value
      */
     default VariableBuilder variable(final String name) {
         return new VariableBuilder(name, this);
@@ -306,7 +318,7 @@ public interface ScriptBasic {
      * need to deal with ScriptBasic internal classes. If the variable
      * contains an integer then this method will return a {@code Long},
      * if it is a string then it will be a {@code String} and so on.
-     * @throws ScriptBasicException
+     * @throws ScriptBasicException in case of exception
      * @deprecated use the version that has a second argument specifying the required type.
      * Migration can be done in two steps: 1.) add an {@code Object.class} second argument and keep
      * the cast, 2.) use it properly.
@@ -323,6 +335,7 @@ public interface ScriptBasic {
      *             ScriptBasicException. This method will not magically convert between
      *             Java types, even though it will convert from BASIC types to Java types
      *             (see below). This parameter is used only to cast the result.
+     * @param type is the type class
      * @param name of the variable
      * @return the value of the variable converted to Java. Thus there is no
      * need to deal with ScriptBasic internal classes. If the variable
@@ -338,7 +351,7 @@ public interface ScriptBasic {
      * Same as {@link #variables()}.
      *
      * @return same as
-     * @throws ScriptBasicException
+     * @throws ScriptBasicException in case of exception
      */
     @Deprecated(forRemoval = true)
     Iterable<String> getVariablesIterator() throws ScriptBasicException;
@@ -348,6 +361,7 @@ public interface ScriptBasic {
      *
      * @return the iterator to fetch the names of the global variables one by
      * one.
+     * @throws ScriptBasicException in case of exception
      */
     Iterable<String> variables() throws ScriptBasicException;
 
@@ -362,8 +376,9 @@ public interface ScriptBasic {
      *             object was created with {@code Void.class} argument.
      * @param name the name of the subroutine for which the object is to be
      *             fetched.
+     * @param <T>  the type
      * @return the subroutine object.
-     * @throws ScriptBasicException
+     * @throws ScriptBasicException in case of exception
      */
     <T> Subroutine<T> subroutine(Class<T> type, String name) throws ScriptBasicException;
 
@@ -374,7 +389,7 @@ public interface ScriptBasic {
      * @param name the name of the subroutine
      * @param <T>  defaults to {@code Object.class}
      * @return the subroutine object
-     * @throws ScriptBasicException
+     * @throws ScriptBasicException in case of exception
      */
     <T> Subroutine<T> subroutine(String name) throws ScriptBasicException;
 
@@ -382,6 +397,7 @@ public interface ScriptBasic {
      * Get all the subroutine objects in an iterator.
      *
      * @return an iterator that can be used to access all subroutine objects.
+     * @throws ScriptBasicException in case of exception
      */
     Iterable<Subroutine> subroutines() throws ScriptBasicException;
 
@@ -400,7 +416,7 @@ public interface ScriptBasic {
      * {@code public} and their packages exported to the BASIC interpreter.
      *
      * @param klass the class to parse.
-     * @throws ScriptBasicException
+     * @return this
      */
     ScriptBasic registerExtension(Class<?> klass);
 
@@ -408,6 +424,7 @@ public interface ScriptBasic {
      * Register an interpreter hook class.
      *
      * @param hook the hook instance to register
+     * @return this
      */
     ScriptBasic registerHook(InterpreterHook hook);
 

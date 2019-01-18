@@ -8,9 +8,6 @@ import com.scriptbasic.log.LoggerFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 import static com.scriptbasic.executors.operators.SupportTest.assertValueOfVariable_A;
 import static com.scriptbasic.executors.operators.SupportTest.eval;
 
@@ -54,19 +51,19 @@ public class TestJavaAccess {
     }
 
     @Test()
-    public void cannotUseOverloadedMethodSecureMode() throws Exception {
+    public void cannotUseOverloadedMethodSecureMode() {
         Assertions.assertThrows(BasicRuntimeException.class, () ->
-        executeSecure(program(
-                "use OverloadedMethods from com.scriptbasic.executors.operators.TestJavaAccess as q"
-        ), null));
+                executeSecure(program(
+                        "use OverloadedMethods from com.scriptbasic.executors.operators.TestJavaAccess as q"
+                ), null));
     }
 
     @Test()
-    public void cannotMethodOverloadedMethodSecureMode() throws Exception {
+    public void cannotMethodOverloadedMethodSecureMode() {
         Assertions.assertThrows(BasicRuntimeException.class, () ->
-        executeSecure(program(
-                "method A from com.scriptbasic.executors.operators.TestJavaAccess.OverloadedMethods is (int) use as aint"
-        ), null));
+                executeSecure(program(
+                        "method A from com.scriptbasic.executors.operators.TestJavaAccess.OverloadedMethods is (int) use as aint"
+                ), null));
     }
 
     @Test

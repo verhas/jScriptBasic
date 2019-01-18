@@ -25,7 +25,7 @@ public interface LexicalElement extends SourceLocationBound {
     /**
      * Get the type of the lexical element.
      *
-     * @return
+     * @return return value
      */
     int getType();
 
@@ -34,7 +34,7 @@ public interface LexicalElement extends SourceLocationBound {
      * only when the lexical element is a string literal. Otherwise the
      * implementation will throw IllegalArgumentException();
      *
-     * @return
+     * @return return value
      */
     String stringValue();
 
@@ -43,8 +43,8 @@ public interface LexicalElement extends SourceLocationBound {
      * the type of the symbol is long. Otherwise the implementation will throw
      * IllegalArgumentException();
      *
-     * @return
-     * @throws IllegalArgumentException
+     * @return return value
+     * @throws IllegalArgumentException in case of exception
      */
     Long longValue();
 

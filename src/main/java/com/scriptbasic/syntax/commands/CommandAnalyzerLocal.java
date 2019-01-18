@@ -16,7 +16,7 @@ public class CommandAnalyzerLocal extends AbstractCommandAnalyzerGlobalLocal {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * com.scriptbasic.syntax.commandanalyzers.AbstractCommandAnalyzerGlobalLocal
      * #newNode()

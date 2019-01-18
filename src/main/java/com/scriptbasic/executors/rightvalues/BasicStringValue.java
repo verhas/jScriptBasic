@@ -9,7 +9,7 @@ public class BasicStringValue extends AbstractPrimitiveRightValue<String> {
     }
 
     @SuppressWarnings("unchecked")
-    public static String asString(final RightValue rv)            throws BasicRuntimeException {
+    public static String asString(final RightValue rv) throws BasicRuntimeException {
         try {
             final String resultString;
             if (rv == null
@@ -29,7 +29,7 @@ public class BasicStringValue extends AbstractPrimitiveRightValue<String> {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         try {
             return asString(this);
         } catch (final BasicRuntimeException e) {

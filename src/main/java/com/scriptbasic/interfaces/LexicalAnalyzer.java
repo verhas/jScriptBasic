@@ -16,7 +16,8 @@ public interface LexicalAnalyzer {
      * Get the next lexical element from the input stream. If there are no more
      * lexical elements then return {@code null}
      *
-     * @return
+     * @return return the next lexical element
+     * @throws AnalysisException in case there is an exception
      */
     LexicalElement get() throws AnalysisException;
 
@@ -25,9 +26,12 @@ public interface LexicalAnalyzer {
      * stream. Consecutive calls to {@code peek()} without calling {@link #get()}
      * will return the same lexical element. Calling {@link #get()} will return
      * the same lexical element as the last call to {@code peek()}.
-     *
+     * <p>
      * Just as {@link #get()} this method may also return {@code null} if there are no more
      * elements.
+     *
+     * @return the next lexical element
+     * @throws AnalysisException in case of exception
      */
     LexicalElement peek() throws AnalysisException;
 
@@ -35,7 +39,7 @@ public interface LexicalAnalyzer {
      * Register a lexical element analyzer. The lexical element analyzers are
      * consulted in the order they are registered to match a lexeme.
      *
-     * @param lea
+     * @param lea parameter
      */
     void registerElementAnalyzer(LexicalElementAnalyzer lea);
 }

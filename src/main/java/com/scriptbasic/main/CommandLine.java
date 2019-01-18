@@ -31,7 +31,7 @@ public class CommandLine {
             ctx.interpreter.registerFunctions(FileHandlingFunctions.class);
             registerSystemPropertyDefinedClasses(ctx);
             ctx.interpreter.setProgram(ctx.syntaxAnalyzer.analyze());
-            ctx.configuration.set("insecure","true");
+            ctx.configuration.set("insecure", "true");
             ctx.interpreter.execute();
         } catch (final Exception exception) {
             final var cause = Optional.ofNullable(exception.getCause()).orElse(exception);

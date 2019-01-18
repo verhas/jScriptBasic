@@ -1,9 +1,9 @@
 package com.scriptbasic.hooks;
 
-import com.scriptbasic.spi.SimpleHook;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.executors.BasicInterpreter;
 import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.spi.SimpleHook;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;

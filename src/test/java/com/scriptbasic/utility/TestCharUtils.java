@@ -17,6 +17,7 @@ public class TestCharUtils {
         for (int i = 15; i < 500; i++) {
             assertFalse(CharUtils.isNewLine(i));
         }
+        //noinspection ConstantConditions
         assertFalse(CharUtils.isNewLine(null));
         assertTrue(CharUtils.isNewLine((int) Character.LINE_SEPARATOR));
         assertTrue(CharUtils.isNewLine((int) Character.PARAGRAPH_SEPARATOR));

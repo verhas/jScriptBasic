@@ -1,13 +1,15 @@
 package com.scriptbasic.syntax.leftvalue;
 
-import com.scriptbasic.spi.LeftValue;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.leftvalues.BasicLeftValue;
-import com.scriptbasic.interfaces.*;
+import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
+import com.scriptbasic.interfaces.LeftValueAnalyzer;
+import com.scriptbasic.interfaces.SimpleLeftValueAnalyzer;
+import com.scriptbasic.spi.LeftValue;
 
 /**
  * Simple Left value is defined as
- * <p>
  * <pre>
  * SIMPLE LEFTVALUE ::= identifier
  * </pre>

@@ -3,8 +3,8 @@ package com.scriptbasic.lexer.elements;
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.KeywordRecognizer;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
+import com.scriptbasic.readers.SourceReader;
 
 public class Identifier extends AbstractElementAnalyzer {
 

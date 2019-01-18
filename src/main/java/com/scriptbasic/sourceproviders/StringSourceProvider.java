@@ -1,8 +1,8 @@
 package com.scriptbasic.sourceproviders;
 
-import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.readers.GenericHierarchicalSourceReader;
 import com.scriptbasic.readers.GenericSourceReader;
+import com.scriptbasic.readers.SourceReader;
 
 import java.io.IOException;
 import java.io.StringReader;

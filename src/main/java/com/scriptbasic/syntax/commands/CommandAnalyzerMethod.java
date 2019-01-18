@@ -3,8 +3,8 @@ package com.scriptbasic.syntax.commands;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandMethod;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.spi.Command;
 import com.scriptbasic.interfaces.Expression;
+import com.scriptbasic.spi.Command;
 import com.scriptbasic.utility.ExpressionUtility;
 import com.scriptbasic.utility.KlassUtility;
 import com.scriptbasic.utility.LexUtility;
@@ -22,10 +22,10 @@ public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
     }
 
     /*
-         * (non-Javadoc)
-         *
-         * @see com.scriptbasic.interfaces.Analyzer#analyze()
-         */
+     * (non-Javadoc)
+     *
+     * @see com.scriptbasic.interfaces.Analyzer#analyze()
+     */
     @Override
     public Command analyze() throws AnalysisException {
         final var methodName = ExpressionUtility

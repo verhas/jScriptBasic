@@ -38,8 +38,8 @@ public interface LocalVariableMap extends VariableMap {
      * This method can be used to declare that a variable is used in the local
      * environment referring to the global variable.
      *
-     * @param variableName
-     * @throws ScriptBasicException
+     * @param variableName parameter
+     * @throws ScriptBasicException in case of exception
      */
     void registerGlobalVariable(String variableName) throws ScriptBasicException;
 
@@ -48,8 +48,8 @@ public interface LocalVariableMap extends VariableMap {
      * information see the documentation of the method {@link
      * #registerGlobalVariable(String)}
      *
-     * @param variableName
-     * @throws ScriptBasicException
+     * @param variableName parameter
+     * @throws ScriptBasicException in case of exception
      */
     void registerLocalVariable(String variableName) throws ScriptBasicException;
 }

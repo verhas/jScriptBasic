@@ -43,7 +43,8 @@ public interface NestedStructureHouseKeeper {
      * sole reason of further syntax analysis is to discover as many syntax
      * error as possible following the first one.
      *
-     * @param <T> expected type of the element
+     * @param <T>           expected type of the element
+     * @param expectedClass the expected class of the element
      * @return the top element
      * @throws AnalysisException when the top element of the stack is not the type that we
      *                           expect

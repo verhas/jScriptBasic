@@ -67,7 +67,7 @@ public abstract class AbstractBasicProgramPostprocessing implements
      * <p>
      * Check double defined subroutines.
      *
-     * @throws BasicSyntaxException
+     * @throws BasicSyntaxException in case of exception
      */
     private void collectSubroutines() throws BasicSyntaxException {
         for (Command command = getFirstCommand(); command != null; command = command
@@ -153,7 +153,7 @@ public abstract class AbstractBasicProgramPostprocessing implements
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.scriptbasic.interfaces.BuildableProgram#postprocess()
      */
     @Override

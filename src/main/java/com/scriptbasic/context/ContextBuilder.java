@@ -3,10 +3,10 @@ package com.scriptbasic.context;
 import com.scriptbasic.configuration.BasicConfiguration;
 import com.scriptbasic.executors.BasicInterpreter;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.lexer.elements.ScriptBasicLexicalAnalyzer;
 import com.scriptbasic.readers.GenericHierarchicalSourceReader;
 import com.scriptbasic.readers.GenericSourceReader;
+import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.syntax.BasicSyntaxAnalyzer;
 import com.scriptbasic.syntax.GenericNestedStructureHouseKeeper;
 import com.scriptbasic.syntax.commands.BasicCommandFactory;
@@ -41,11 +41,11 @@ public class ContextBuilder {
         return ctx;
     }
 
-    public static Context from(final Reader reader, final Reader input, final Writer output, final Writer error) throws AnalysisException {
+    public static Context from(final Reader reader, final Reader input, final Writer output, final Writer error) {
         return from(null, reader, input, output, error);
     }
 
-    public static Context from(final Context existing, final Reader reader, final Reader input, final Writer output, final Writer error) throws AnalysisException {
+    public static Context from(final Context existing, final Reader reader, final Reader input, final Writer output, final Writer error) {
         final var ctx = from(existing, reader);
         ctx.interpreter.setInput(input);
         ctx.interpreter.setOutput(output);
@@ -57,15 +57,15 @@ public class ContextBuilder {
         return from(null, string);
     }
 
-    private static Context from(final Context existing, final String string) throws AnalysisException {
+    private static Context from(final Context existing, final String string) {
         return from(existing, new StringReader(string));
     }
 
-    public static Context from(final Reader reader) throws AnalysisException {
+    public static Context from(final Reader reader) {
         return from(null, reader);
     }
 
-    public static Context from(final Context existing, final Reader reader) throws AnalysisException {
+    public static Context from(final Context existing, final Reader reader) {
         final var sourceReader = new GenericSourceReader(reader, null, null);
         final var hReader = new GenericHierarchicalSourceReader(sourceReader);
         return from(existing, hReader);
@@ -75,7 +75,7 @@ public class ContextBuilder {
         return from(null, sourceReader, input, output, error);
     }
 
-    public static Context from(final Context existing, final SourceReader sourceReader, final Reader input, final Writer output, final Writer error) throws AnalysisException {
+    public static Context from(final Context existing, final SourceReader sourceReader, final Reader input, final Writer output, final Writer error) {
         final var ctx = from(existing, sourceReader);
         ctx.interpreter.setInput(input);
         ctx.interpreter.setOutput(output);
@@ -83,7 +83,7 @@ public class ContextBuilder {
         return ctx;
     }
 
-    public static Context from(final SourceReader reader) throws AnalysisException {
+    public static Context from(final SourceReader reader) {
         return from(null, reader);
     }
 

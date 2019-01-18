@@ -1,7 +1,7 @@
 package com.scriptbasic.sourceproviders;
 
-import com.scriptbasic.readers.SourcePath;
 import com.scriptbasic.interfaces.SourcePathProvider;
+import com.scriptbasic.readers.SourcePath;
 import com.scriptbasic.readers.SourceProvider;
 
 /**

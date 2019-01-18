@@ -15,7 +15,7 @@ public class GenericHierarchicalSourceReader implements HierarchicalSourceReader
      * Include a new reader into the chain and start to use that child reader so
      * long as long exhausts.
      *
-     * @param reader
+     * @param reader parameter
      */
     @Override
     public void include(final SourceReader reader) {

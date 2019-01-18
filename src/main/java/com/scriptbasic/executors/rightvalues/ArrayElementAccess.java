@@ -1,11 +1,12 @@
 package com.scriptbasic.executors.rightvalues;
 
+import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.executors.AbstractIdentifieredExpressionListedExpression;
+import com.scriptbasic.interfaces.Expression;
+import com.scriptbasic.interfaces.VariableMap;
 import com.scriptbasic.spi.BasicArray;
 import com.scriptbasic.spi.Interpreter;
 import com.scriptbasic.spi.RightValue;
-import com.scriptbasic.api.ScriptBasicException;
-import com.scriptbasic.executors.AbstractIdentifieredExpressionListedExpression;
-import com.scriptbasic.interfaces.*;
 import com.scriptbasic.utility.RightValueUtility;
 
 public class ArrayElementAccess extends

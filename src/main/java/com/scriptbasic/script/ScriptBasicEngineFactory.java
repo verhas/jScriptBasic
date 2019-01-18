@@ -1,8 +1,8 @@
 package com.scriptbasic.script;
 
+import com.scriptbasic.api.Configuration;
 import com.scriptbasic.api.Version;
 import com.scriptbasic.configuration.BasicConfiguration;
-import com.scriptbasic.api.Configuration;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 
@@ -38,6 +38,8 @@ public class ScriptBasicEngineFactory implements javax.script.ScriptEngineFactor
     /**
      * The constructor reads the configuration and fills the constants that are
      * requested by the {@link javax.script.ScriptEngineManager}.
+     *
+     * @param config configuration for the engine
      */
     public ScriptBasicEngineFactory(final Configuration config) {
         this.config = config;

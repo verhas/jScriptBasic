@@ -1,10 +1,10 @@
 package com.scriptbasic.executors.rightvalues;
 
-import com.scriptbasic.executors.AbstractIdentifieredExpression;
 import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.executors.AbstractIdentifieredExpression;
+import com.scriptbasic.interfaces.VariableMap;
 import com.scriptbasic.spi.Interpreter;
 import com.scriptbasic.spi.RightValue;
-import com.scriptbasic.interfaces.VariableMap;
 
 public class VariableAccess extends AbstractIdentifieredExpression {
 

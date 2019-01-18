@@ -23,6 +23,8 @@ public @interface BasicFunction {
     /**
      * The alias name of the function to be used in the BASIC program. If this
      * is not defined then the name of the method will be used.
+     *
+     * @return value
      */
     String alias() default "";
 
@@ -69,6 +71,8 @@ public @interface BasicFunction {
      * <p>
      * The actual value of the actual version is defined as a constant:
      * {@link ExtensionInterfaceVersion#EXTENSION_INTERFACE_VERSION}.
+     *
+     * @return value
      */
     long requiredVersion() default 1;
 
@@ -76,6 +80,8 @@ public @interface BasicFunction {
      * The different methods can be classified and the configuration of the
      * actual interpreter registers or denies the registration of certain methods
      * based on the classification.
+     *
+     * @return value
      */
     Class<?>[] classification() default BasicFunction.class;
 
@@ -85,12 +91,16 @@ public @interface BasicFunction {
      * annotations. Using this annotation parameter you can specify an
      * alternative class where the method you want to register instead of the
      * annotated one is.
+     *
+     * @return value
      */
     Class<?> substituteClass() default BasicFunction.class;
 
     /**
      * Using this parameter you can specify an alternative method instead of the
      * annotated one. See the documentation of {@link #substituteClass()}.
+     *
+     * @return value
      */
     String substituteMethod() default "";
 }

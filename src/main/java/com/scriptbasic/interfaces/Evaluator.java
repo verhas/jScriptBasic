@@ -1,8 +1,8 @@
 package com.scriptbasic.interfaces;
 
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.spi.Interpreter;
 import com.scriptbasic.spi.RightValue;
-import com.scriptbasic.api.ScriptBasicException;
 
 /**
  * Evaluator evaluates something (probably an {@code Expression} and result a

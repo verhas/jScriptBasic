@@ -1,9 +1,10 @@
 package com.scriptbasic.syntax.commands;
 
-import com.scriptbasic.spi.Command;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandSub;
-import com.scriptbasic.interfaces.*;
+import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
+import com.scriptbasic.spi.Command;
 
 public class CommandAnalyzerSub extends AbstractCommandAnalyzer {
     public CommandAnalyzerSub(final Context ctx) {

@@ -3,9 +3,9 @@ package com.scriptbasic.lexer.elements;
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.exceptions.UnterminatedStringException;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.lexer.BasicLexialElementFactory;
 import com.scriptbasic.lexer.BasicLexicalElement;
+import com.scriptbasic.readers.SourceReader;
 
 public class BasicString extends AbstractElementAnalyzer {
 
@@ -101,9 +101,9 @@ public class BasicString extends AbstractElementAnalyzer {
     /**
      * Read a string and put it into a lexical element
      *
-     * @param stringBufferInitialSize
-     * @param multiLine
-     * @return
+     * @param stringBufferInitialSize parameter
+     * @param multiLine               parameter
+     * @return return value
      */
     private BasicLexicalElement readString(final int stringBufferInitialSize,
                                            final boolean multiLine) throws UnterminatedStringException {

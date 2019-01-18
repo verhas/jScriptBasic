@@ -18,7 +18,6 @@ import java.io.IOException;
  * Source providers may provide readers reading the source from files,
  * database, svn and other locations.
  * <p>
- *
  * NOTE: Although the source can come from different sources, the aim is to have a naming in the
  * BASIC source code that hides the physical source of the code. Therefore the referencing source is
  * also given as String and not abstracted to a class. The simplest and implemented case is to
@@ -35,6 +34,7 @@ public interface SourceProvider {
      *
      * @param sourceName the name of the source
      * @return reader reading the source file.
+     * @throws IOException in case of exception
      */
     SourceReader get(String sourceName) throws IOException;
 
@@ -44,7 +44,8 @@ public interface SourceProvider {
      *
      * @param sourceName        the name of the source to get the reader to.
      * @param referencingSource the name of the source that is referencing the source to read.
-     * @return
+     * @return return value
+     * @throws IOException in case of exception
      */
     SourceReader get(String sourceName, String referencingSource) throws IOException;
 }

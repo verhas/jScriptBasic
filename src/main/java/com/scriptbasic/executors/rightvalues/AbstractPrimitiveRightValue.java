@@ -1,8 +1,7 @@
 package com.scriptbasic.executors.rightvalues;
 
-import com.scriptbasic.spi.BasicValue;
-import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.Expression;
+import com.scriptbasic.spi.BasicValue;
 import com.scriptbasic.spi.Interpreter;
 import com.scriptbasic.spi.RightValue;
 

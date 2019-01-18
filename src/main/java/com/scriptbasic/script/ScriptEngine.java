@@ -1,9 +1,9 @@
 package com.scriptbasic.script;
 
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.spi.Interpreter;
 
 import javax.script.*;

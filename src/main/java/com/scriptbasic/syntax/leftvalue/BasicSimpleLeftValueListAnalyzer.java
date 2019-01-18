@@ -1,10 +1,12 @@
 package com.scriptbasic.syntax.leftvalue;
 
-import com.scriptbasic.spi.LeftValue;
-import com.scriptbasic.spi.LeftValueList;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.GenericLeftValueList;
-import com.scriptbasic.interfaces.*;
+import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.SimpleLeftValueAnalyzer;
+import com.scriptbasic.interfaces.SimpleLeftValueListAnalyzer;
+import com.scriptbasic.spi.LeftValue;
+import com.scriptbasic.spi.LeftValueList;
 import com.scriptbasic.syntax.AbstractGenericListAnalyzer;
 
 public final class BasicSimpleLeftValueListAnalyzer
