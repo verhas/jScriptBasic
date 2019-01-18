@@ -1,6 +1,6 @@
 language: java
 install: mvn clean install
 jdk:
- - oraclejdk10
+ - openjdk11
 
 sudo: false # faster builds
