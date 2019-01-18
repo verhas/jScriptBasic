@@ -5,7 +5,7 @@ import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.spi.Interpreter;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SupportTest {
 

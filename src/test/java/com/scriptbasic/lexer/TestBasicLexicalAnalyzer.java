@@ -3,9 +3,10 @@ package com.scriptbasic.lexer;
 import com.scriptbasic.exceptions.UnterminatedStringException;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
-import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.lexer.elements.ScriptBasicLexicalAnalyzer;
-import org.junit.Test;
+import com.scriptbasic.readers.SourceReader;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import static com.scriptbasic.lexer.LexTestHelper.*;
 
@@ -147,11 +148,12 @@ public class TestBasicLexicalAnalyzer {
         assertLexicals(from("13\n"), LONG("13"), SYMBOL("\n"));
     }
 
-    @Test(expected = UnterminatedStringException.class)
+    @Test()
     public void unterminatedStringThrowsException() throws AnalysisException {
-        assertLexicals(new ScriptBasicLexicalAnalyzer(
-                createStringReading("\"")), SSTRING("justAnything, should not check it, if it does it fails the test")
-        );
+        Assertions.assertThrows(UnterminatedStringException.class, () ->
+                assertLexicals(new ScriptBasicLexicalAnalyzer(
+                        createStringReading("\"")), SSTRING("justAnything, should not check it, if it does it fails the test")
+                ));
     }
 
     @Test

@@ -3,19 +3,19 @@ package com.scriptbasic.lexer;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
 import com.scriptbasic.interfaces.LexicalElement;
-import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.lexer.elements.ScriptBasicLexicalAnalyzer;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 import com.scriptbasic.readers.GenericSourceReader;
+import com.scriptbasic.readers.SourceReader;
 import com.scriptbasic.sourceproviders.StringSourceProvider;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.IOException;
 import java.io.StringReader;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LexTestHelper {
     static final StringBuilder apo = new StringBuilder("\"");
@@ -124,16 +124,16 @@ public class LexTestHelper {
     private static void elementsHaveTheSameValue(final LexicalElement lexicalElement, final LexicalElement lexicalElementFromAnalyzer) {
         switch (lexicalElement.getType()) {
             case LexicalElement.TYPE_DOUBLE:
-                Assert.assertEquals("different double values",
-                        lexicalElement.doubleValue(), lexicalElementFromAnalyzer.doubleValue());
+                Assertions.assertEquals(lexicalElement.doubleValue(), lexicalElementFromAnalyzer.doubleValue(),
+                        "different double values");
                 break;
             case LexicalElement.TYPE_LONG:
-                Assert.assertEquals("different long values", lexicalElement.longValue(),
-                        lexicalElementFromAnalyzer.longValue());
+                Assertions.assertEquals(lexicalElement.longValue(), lexicalElementFromAnalyzer.longValue(),
+                        "different long values");
                 break;
             case LexicalElement.TYPE_STRING:
-                Assert.assertEquals("different string values",
-                        lexicalElement.stringValue(), lexicalElementFromAnalyzer.stringValue());
+                Assertions.assertEquals(lexicalElement.stringValue(), lexicalElementFromAnalyzer.stringValue(),
+                        "different string values");
                 break;
             case LexicalElement.TYPE_SYMBOL:
             case LexicalElement.TYPE_IDENTIFIER:
@@ -142,19 +142,20 @@ public class LexTestHelper {
     }
 
     private static void elementsHaveTheSameString(final LexicalElement lexicalElement, final LexicalElement lexicalElementFromAnalyzer) {
-        Assert.assertEquals("different lexemes " + lexicalElement.getLexeme() + " vs "
-                + lexicalElementFromAnalyzer.getLexeme(), lexicalElement.getLexeme(), lexicalElementFromAnalyzer.getLexeme());
+        Assertions.assertEquals(lexicalElement.getLexeme(), lexicalElementFromAnalyzer.getLexeme(),
+                "different lexemes '" + lexicalElement.getLexeme() + "' vs '"
+                        + lexicalElementFromAnalyzer.getLexeme() + "'");
     }
 
     private static void elementsAreOfTheSameType(final LexicalElement lexicalElement, final LexicalElement lexicalElementFromAnalyzer) {
-        Assert.assertEquals("different types of lexemes " + lexicalElement.getLexeme()
-                + " vs " + lexicalElementFromAnalyzer.getLexeme(), lexicalElement.getType(), lexicalElementFromAnalyzer.getType());
+        Assertions.assertEquals(lexicalElement.getType(), lexicalElementFromAnalyzer.getType(),
+                "different types of lexemes " + lexicalElement.getLexeme()
+                        + " vs " + lexicalElementFromAnalyzer.getLexeme());
     }
 
     private static void thereAreEnoughElements(final LexicalElement lexicalElement, final LexicalElement lexicalElementFromAnalyzer) {
-        Assert.assertNotNull(
-                "there are not enough lexical elements, expecting "
-                        + lexicalElement.getLexeme(), lexicalElementFromAnalyzer);
+        Assertions.assertNotNull(lexicalElementFromAnalyzer,
+                "there are not enough lexical elements, expecting " + lexicalElement.getLexeme());
     }
 
     public static SourceReader createStringReading(final String s) {
@@ -180,8 +181,8 @@ public class LexTestHelper {
 
     static LexicalAnalyzer createStringArrayReading(final String... sources)
             throws IOException {
-        assertTrue("there has to be at least one file name and content", sources.length >= 2);
-        assertEquals("there should be a content for each 'file name'", 0, sources.length % 2);
+        assertTrue(sources.length >= 2, "there has to be at least one file name and content");
+        assertEquals(0, sources.length % 2, "there should be a content for each 'file name'");
         final var provider = new StringSourceProvider();
         for (int i = 0; i < sources.length; i++) {
             provider.addSource(sources[i], sources[i + 1]);

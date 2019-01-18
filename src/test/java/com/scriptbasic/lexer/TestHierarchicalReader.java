@@ -1,15 +1,17 @@
 package com.scriptbasic.lexer;
 
 import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.LexicalElement;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.scriptbasic.lexer.LexTestHelper.*;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestHierarchicalReader {
 
@@ -21,26 +23,27 @@ public class TestHierarchicalReader {
                 SYMBOL("<"), SYMBOL("\n"), SSTRING("string"));
     }
 
-    @Test(expected = BasicSyntaxException.class)
+    @Test()
     public void testExtraCharsAfterInclude() throws AnalysisException,
             IOException {
+        Assertions.assertThrows(BasicSyntaxException.class, () ->
         assertLexicals(
                 createStringArrayReading(
                         "main",
                         "identifier\ninclude \"sub1\" bla bla \n\"string\"",
                         "sub1", "<\n"),
                 ID("identifier"), SYMBOL("\n"),
-                SYMBOL("<"), SYMBOL("\n"), SSTRING("string"));
+                SYMBOL("<"), SYMBOL("\n"), SSTRING("string")));
     }
 
-    @Test(expected = AnalysisException.class)
+    @Test()
     public void testFileNotFound() throws AnalysisException, IOException {
+        Assertions.assertThrows(AnalysisException.class, () ->
         assertLexicals(createStringArrayReading(
                 "main", "identifier\ninclude \"nonexistent\"\n\"string\"",
                 "sub1", "<<<\n"), ID("identifier"),
                 SYMBOL("\n"), SYMBOL("<<<"), SYMBOL("\n"),
-                SSTRING("string"));
-        fail("Code should not get here");
+                SSTRING("string")));
     }
 
     private void addX(final ArrayList<LexicalElement> lexes,
@@ -75,9 +78,10 @@ public class TestHierarchicalReader {
         );
     }
 
-    @Test(expected = AnalysisException.class)
+    @Test()
     public void testCircularReference() throws AnalysisException, IOException {
+        Assertions.assertThrows(AnalysisException.class, () ->
         assertLexicals(createStringArrayReading("foo", "include \"bar\"", "bar", "include \"foo\""),
-                ID(""));
+                ID("")));
     }
 }

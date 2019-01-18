@@ -10,15 +10,15 @@ import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.syntax.expression.ExpressionComparator;
 import com.scriptbasic.utility.LexUtility;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 
 import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
 import static com.scriptbasic.syntax.expression.ExpressionBuilder.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestBasicLeftValueAnalyzer {
 
@@ -67,7 +67,7 @@ public class TestBasicLeftValueAnalyzer {
             throws AnalysisException {
         try {
             compile(s);
-            Assert.fail("Syntax exception was not trown for '" + s + "'");
+            Assertions.fail("Syntax exception was not trown for '" + s + "'");
         } catch (final SyntaxException e) {
         }
 

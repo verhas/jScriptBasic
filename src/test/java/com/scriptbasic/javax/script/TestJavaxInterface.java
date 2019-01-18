@@ -3,8 +3,8 @@ package com.scriptbasic.javax.script;
 import com.scriptbasic.api.Version;
 import com.scriptbasic.script.ScriptBasicEngineFactory;
 import com.scriptbasic.configuration.BasicConfiguration;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.script.*;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.io.StringWriter;
 import java.util.List;
 import java.util.Properties;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Peter Verhas
@@ -96,7 +96,7 @@ public class TestJavaxInterface {
         final var sef = new ScriptBasicEngineFactory();
         final var b = new SimpleBindings();
         sef.setGlobalScopeBinding(b);
-        Assert.assertEquals(sef.getGlobalScopeBinding(), b);
+        Assertions.assertEquals(sef.getGlobalScopeBinding(), b);
         //noinspection ResultOfMethodCallIgnored
         sef.getEngineVersion();
         sef.getParameter(ScriptEngine.ENGINE);
@@ -105,7 +105,7 @@ public class TestJavaxInterface {
         sef.getParameter(ScriptEngine.LANGUAGE);
         sef.getParameter(ScriptEngine.LANGUAGE_VERSION);
         sef.getParameter("THREADING");
-        Assert.assertNull(sef.getParameter("abrakadabra"));
+        Assertions.assertNull(sef.getParameter("abrakadabra"));
         sef.getMethodCallSyntax(null, "method", "a", "b", "c");
         sef.getMethodCallSyntax(null, "method");
         sef.getOutputStatement("hello word");

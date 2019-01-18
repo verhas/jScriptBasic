@@ -1,11 +1,11 @@
 package com.scriptbasic.main;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.security.Permission;
 
 import static com.scriptbasic.main.CommandLine.main;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestCommandLine {
 

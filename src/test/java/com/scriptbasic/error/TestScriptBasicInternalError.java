@@ -1,7 +1,7 @@
 package com.scriptbasic.error;
 
 import com.scriptbasic.errors.BasicInterpreterInternalError;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TestScriptBasicInternalError {
     @Test

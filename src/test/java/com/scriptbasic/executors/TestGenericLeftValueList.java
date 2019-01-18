@@ -1,6 +1,6 @@
 package com.scriptbasic.executors;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Peter Verhas

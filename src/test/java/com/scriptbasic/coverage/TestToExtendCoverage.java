@@ -1,7 +1,7 @@
 package com.scriptbasic.coverage;
 
 import com.scriptbasic.exceptions.BasicLexicalException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
 /**

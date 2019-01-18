@@ -1,7 +1,7 @@
 package com.scriptbasic.exceptions;
 
 import com.scriptbasic.lexer.BasicLexicalElement;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Peter Verhas

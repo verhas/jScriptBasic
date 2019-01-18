@@ -2,9 +2,11 @@ package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -51,18 +53,20 @@ public class TestJavaAccess {
                 "a=q.aint(1)"), 1);
     }
 
-    @Test(expected = ScriptBasicException.class)
+    @Test()
     public void cannotUseOverloadedMethodSecureMode() throws Exception {
+        Assertions.assertThrows(BasicRuntimeException.class, () ->
         executeSecure(program(
                 "use OverloadedMethods from com.scriptbasic.executors.operators.TestJavaAccess as q"
-        ), null);
+        ), null));
     }
 
-    @Test(expected = ScriptBasicException.class)
+    @Test()
     public void cannotMethodOverloadedMethodSecureMode() throws Exception {
+        Assertions.assertThrows(BasicRuntimeException.class, () ->
         executeSecure(program(
                 "method A from com.scriptbasic.executors.operators.TestJavaAccess.OverloadedMethods is (int) use as aint"
-        ), null);
+        ), null));
     }
 
     @Test

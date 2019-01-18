@@ -1,17 +1,15 @@
 package com.scriptbasic.executors.operators;
 
+import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
-import org.junit.Test;
-
-import java.lang.reflect.InvocationTargetException;
+import org.junit.jupiter.api.Test;
 
 import static com.scriptbasic.executors.operators.SupportTest.assertValueOfVariable_A;
 import static com.scriptbasic.executors.operators.SupportTest.eval;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * @author Peter Verhas
@@ -20,7 +18,6 @@ import static org.junit.Assert.fail;
 
 public class TestOperators {
     private static final Logger log = LoggerFactory.getLogger();
-
 
     private static void a(final String s, final Object expected)
             throws AnalysisException, ScriptBasicException {
@@ -287,9 +284,9 @@ public class TestOperators {
     }
 
     public static class qqq {
+        public final qq ccc = new qq();
         public Integer www = 13;
         public Float fff = (float) 13.0;
-        public final qq ccc = new qq();
 
         public Integer getQwww() {
             return ccc.www;
@@ -297,9 +294,9 @@ public class TestOperators {
     }
 
     public static class qq {
+        public final Integer[] arr = new Integer[4];
         public Integer www = 13;
         public Float fff = (float) 13.0;
-        public final Integer[] arr = new Integer[4];
     }
 
     public static class zp {

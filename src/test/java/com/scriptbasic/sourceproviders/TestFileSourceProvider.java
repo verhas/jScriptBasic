@@ -1,12 +1,13 @@
 package com.scriptbasic.sourceproviders;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestFileSourceProvider {
 
@@ -28,8 +29,7 @@ public class TestFileSourceProvider {
             for (int i = 0; i < testStringToFile.length(); i++) {
                 final Integer chExpected = (int) testStringToFile.charAt(i);
                 final Integer chActual = r.get();
-                assertEquals("different characters at position " + i, chExpected,
-                        chActual);
+                assertEquals(chExpected, chActual, "different characters at position " + i);
             }
         } finally {
             //noinspection ResultOfMethodCallIgnored
@@ -39,7 +39,7 @@ public class TestFileSourceProvider {
 
     private File createTemporaryTestFile() throws IOException {
         final var file = new File(tempDir + ps + testFileName);
-        try(final var fw = new FileWriter(file)) {
+        try (final var fw = new FileWriter(file)) {
             fw.write(testStringToFile);
         }
         return file;

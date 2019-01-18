@@ -2,8 +2,8 @@ package com.scriptbasic.utility;
 
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.Magic;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class KlassUtilityTest {
 
@@ -17,7 +17,7 @@ public class KlassUtilityTest {
             }
         }
         final var testObject = new TestObject();
-        Assert.assertEquals("obj", KlassUtility.getField(testObject, "obj"));
+        Assertions.assertEquals("obj", KlassUtility.getField(testObject, "obj"));
     }
 
     @Test
@@ -35,8 +35,8 @@ public class KlassUtilityTest {
         final var testObject = new TestObject();
         final var objToSet = new Object();
         KlassUtility.setField(testObject, "obj", objToSet);
-        Assert.assertSame(objToSet, testObject.value);
-        Assert.assertEquals("obj", testObject.name);
+        Assertions.assertSame(objToSet, testObject.value);
+        Assertions.assertEquals("obj", testObject.name);
     }
 
     @Test
@@ -51,7 +51,7 @@ public class KlassUtilityTest {
         final var testObject = new TestObject();
         final var objToSet = new Object();
         KlassUtility.setField(testObject, "obj", objToSet);
-        Assert.assertSame(objToSet, testObject.obj);
+        Assertions.assertSame(objToSet, testObject.obj);
     }
 
     @Test
@@ -62,17 +62,18 @@ public class KlassUtilityTest {
         final var testObject = new TestObject();
         final var objToSet = new Object();
         KlassUtility.setField(testObject, "obj", objToSet);
-        Assert.assertSame(objToSet, testObject.obj);
+        Assertions.assertSame(objToSet, testObject.obj);
     }
 
-    @Test(expected = BasicRuntimeException.class)
+    @Test()
     public void doesNotSetPrivateFields() throws BasicRuntimeException {
         class TestObject {
             private Object obj;
         }
         final var testObject = new TestObject();
         final var objToSet = new Object();
-        KlassUtility.setField(testObject, "obj", objToSet);
+        Assertions.assertThrows(BasicRuntimeException.class, () ->
+                KlassUtility.setField(testObject, "obj", objToSet));
     }
 
     @Test
@@ -86,7 +87,7 @@ public class KlassUtilityTest {
             }
         }
         final var testObject = new TestObject();
-        Assert.assertSame(objToSet, KlassUtility.getField(testObject, "obj"));
+        Assertions.assertSame(objToSet, KlassUtility.getField(testObject, "obj"));
     }
 
     @Test
@@ -96,17 +97,18 @@ public class KlassUtilityTest {
             Object obj = objToSet;
         }
         final var testObject = new TestObject();
-        Assert.assertSame(objToSet, KlassUtility.getField(testObject, "obj"));
+        Assertions.assertSame(objToSet, KlassUtility.getField(testObject, "obj"));
     }
 
-    @Test(expected = BasicRuntimeException.class)
+    @Test()
     public void doesNotGetPrivateField() throws BasicRuntimeException {
         final var objToSet = new Object();
         class TestObject {
             private Object obj = objToSet;
         }
         final var testObject = new TestObject();
-        Assert.assertSame(objToSet, KlassUtility.getField(testObject, "obj"));
+        Assertions.assertThrows(BasicRuntimeException.class, () ->
+                Assertions.assertSame(objToSet, KlassUtility.getField(testObject, "obj")));
     }
 
     @Test
@@ -120,7 +122,7 @@ public class KlassUtilityTest {
             }
         }
         final var testObject = new TestObject();
-        Assert.assertEquals(objToSet, KlassUtility.getField(testObject, "obj"));
+        Assertions.assertEquals(objToSet, KlassUtility.getField(testObject, "obj"));
     }
 
     @Test
@@ -134,7 +136,7 @@ public class KlassUtilityTest {
             }
         }
         final var testObject = new TestObject();
-        Assert.assertEquals(objToSet, KlassUtility.getField(testObject, "obj"));
+        Assertions.assertEquals(objToSet, KlassUtility.getField(testObject, "obj"));
     }
 
     @Test
@@ -152,7 +154,7 @@ public class KlassUtilityTest {
             }
         }
         final var testObject = new TestObject();
-        Assert.assertEquals(objToSet, KlassUtility.getField(testObject, "obj"));
+        Assertions.assertEquals(objToSet, KlassUtility.getField(testObject, "obj"));
     }
 
     @Test
@@ -170,6 +172,6 @@ public class KlassUtilityTest {
             }
         }
         final var testObject = new TestObject();
-        Assert.assertEquals(objToSet, KlassUtility.getField(testObject, "obj"));
+        Assertions.assertEquals(objToSet, KlassUtility.getField(testObject, "obj"));
     }
 }

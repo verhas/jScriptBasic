@@ -1,9 +1,10 @@
 package com.scriptbasic.syntax;
 
 import com.scriptbasic.interfaces.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGenericNestedStructureHouseKeeper {
     private final LexicalAnalyzer lexicalAnalyzer = new NullLexicalAnalyzer();
@@ -38,21 +39,23 @@ public class TestGenericNestedStructureHouseKeeper {
         assertEquals(dummy, result);
     }
 
-    @Test(expected = BasicSyntaxException.class)
+    @Test()
     public void throwsExceptionIfExpectingDifferentClass() throws AnalysisException {
         final var sut = newSut();
         sut.push(dummy);
-        sut.pop(new NestedStructure() {
-        }.getClass());
+        Assertions.assertThrows(BasicSyntaxException.class, () ->
+                sut.pop(new NestedStructure() {
+                }.getClass()));
     }
 
-    @Test(expected = BasicSyntaxException.class)
+    @Test()
     public void throwsExceptionIfExpectingDifferentOtherClass() throws AnalysisException {
         final var sut = newSut();
         final var other = new NestedStructure() {
         };
         sut.push(other.getClass(), dummy);
-        sut.pop(new NestedStructure() {
-        }.getClass());
+        Assertions.assertThrows(BasicSyntaxException.class, () ->
+                sut.pop(new NestedStructure() {
+                }.getClass()));
     }
 }

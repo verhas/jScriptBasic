@@ -10,7 +10,7 @@ import com.scriptbasic.interfaces.ExpressionList;
 
 import java.util.Iterator;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ExpressionComparator {
 
@@ -48,14 +48,14 @@ public class ExpressionComparator {
         if (a.getVariableName() == null && b.getVariableName() == null) {
             return;
         }
-        assertEquals(a.getVariableName() + "!=" + b.getVariableName(), a
-                .getVariableName(), b.getVariableName());
+        assertEquals(a.getVariableName(), b.getVariableName(),
+                a.getVariableName() + "!=" + b.getVariableName());
         assertEqual(a.getExpressionList(), b.getExpressionList());
     }
 
     private static void assertEqual(final AbstractPrimitiveRightValue<?> a,
                                     final AbstractPrimitiveRightValue<?> b) {
-        assertEquals(a.getValue() + "!=" + b.getValue(), a.getValue(), b.getValue());
+        assertEquals(a.getValue(), b.getValue(), a.getValue() + "!=" + b.getValue());
     }
 
     private static void assertEqual(final AbstractIdentifieredExpression a,
@@ -72,7 +72,7 @@ public class ExpressionComparator {
             fail();
         }
 
-        assertEquals(a.getClass() + "!=" + b.getClass(), a.getClass(), b.getClass());
+        assertEquals(a.getClass(), b.getClass(), a.getClass() + "!=" + b.getClass());
 
         if (a instanceof AbstractPrimitiveRightValue<?>) {
             assertEqual((AbstractPrimitiveRightValue<?>) a,

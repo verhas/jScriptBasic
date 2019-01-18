@@ -1,14 +1,12 @@
 package com.scriptbasic.hooks;
 
 import com.scriptbasic.api.Configuration;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.script.ScriptEngineManager;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Peter Verhas
@@ -23,14 +21,6 @@ public class TestRunLimitHook {
         config.set("RunLimitHook.timeLimitMillis", "100");
     }
 
-    @After
-    public void tearDown() {
-
-    }
-
-    @Before
-    public void setUp() {
-    }
 
     @Test
     public void testLimitHookSteps() throws Exception {
@@ -43,7 +33,7 @@ public class TestRunLimitHook {
         config.set("RunLimitHook.timeLimitMillis", "1000000000");
         try {
             scriptEngine.eval("while true\nwend\n");
-            Assert.fail("infinite loop did not throw exception");
+            Assertions.fail("infinite loop did not throw exception");
         } catch (final RuntimeException e) {
             assertEquals("The code exceeded the maximum number of steps", e.getMessage());
         }
@@ -60,7 +50,7 @@ public class TestRunLimitHook {
         config.set("RunLimitHook.stepLimit=100000000");
         try {
             scriptEngine.eval("while true\nwend\n");
-            Assert.fail("infinite loop did not throw exception");
+            Assertions.fail("infinite loop did not throw exception");
         } catch (final RuntimeException e) {
             assertEquals("The code exceeded the maximum allowed time", e.getMessage());
         }

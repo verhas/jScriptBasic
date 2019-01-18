@@ -4,7 +4,7 @@ import com.scriptbasic.spi.SimpleHook;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.executors.BasicInterpreter;
 import com.scriptbasic.interfaces.AnalysisException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

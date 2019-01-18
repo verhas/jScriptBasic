@@ -6,12 +6,11 @@ import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.utility.LexUtility;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static com.scriptbasic.lexer.LexTestHelper.createStringReading;
 import static com.scriptbasic.syntax.expression.ExpressionBuilder.*;
-import static org.junit.Assert.fail;
-
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestBasicExpressionAnalyzer {
 

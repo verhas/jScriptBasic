@@ -8,9 +8,9 @@ import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.lexer.BasicLexicalElement;
 import com.scriptbasic.utility.SyntaxExceptionUtility;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class AuxTests {

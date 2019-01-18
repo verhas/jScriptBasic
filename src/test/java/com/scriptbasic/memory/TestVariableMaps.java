@@ -9,11 +9,11 @@ import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 import java.util.EmptyStackException;
 
-import static org.junit.Assert.*;
 
 /**
  * @author Peter Verhas
@@ -42,7 +42,7 @@ public class TestVariableMaps {
         assertFalse(blvm.variableDefined("var2"));
         assertEquals(5.5,
                 (Double) ((AbstractPrimitiveRightValue<?>) blvm
-                        .getVariableValue("var1")).getValue(), 0.0);
+                        .getVariableValue("var1")).getValue(), 0.1);
         blvm.setVariable("var3", null);
         assertTrue(blvm.variableExists("var3"));
         assertFalse(blvm.variableDefined("var3"));
@@ -65,7 +65,7 @@ public class TestVariableMaps {
         assertFalse(blvm.variableDefined("var2"));
         assertEquals(5.5,
                 (Double) ((AbstractPrimitiveRightValue<?>) blvm
-                        .getVariableValue("var1")).getValue(), 0.0);
+                        .getVariableValue("var1")).getValue(), 0.1);
         assertTrue(blvm.variableExists("var3"));
         assertFalse(blvm.variableDefined("var3"));
         blvm.dropFrame();
@@ -154,7 +154,7 @@ public class TestVariableMaps {
         VD("var1");
         VNE("var2");
         VND("var2");
-        assertEquals(5.5, (Double) VALUE("var1"), 0.0);
+        assertEquals(5.5, (Double) VALUE("var1"), 0.1);
         LET("var3", null);
         VE("var3");
         VND("var3");
@@ -188,7 +188,7 @@ public class TestVariableMaps {
         VD("var1");
         VNE("var2");
         VND("var2");
-        assertEquals(5.5, (Double) VALUE("var1"), 0.0);
+        assertEquals(5.5, (Double) VALUE("var1"), 0.1);
         VE("var3");
         VND("var3");
         // var4 was declared global

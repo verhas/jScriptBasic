@@ -1,7 +1,7 @@
 package com.scriptbasic.testprograms;
 
 import com.scriptbasic.TestingExecutor;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TestFunctions {
     private static void codeTest(final String fileName)

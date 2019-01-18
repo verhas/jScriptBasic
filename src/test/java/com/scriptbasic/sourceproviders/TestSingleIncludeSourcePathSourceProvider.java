@@ -1,7 +1,7 @@
 package com.scriptbasic.sourceproviders;
 
 import com.scriptbasic.readers.SourceReader;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 

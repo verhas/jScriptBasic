@@ -1,7 +1,7 @@
 package com.scriptbasic.log;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Peter Verhas
@@ -11,22 +11,22 @@ public class TestLogger {
     @Test
     public void loggerFormatFormatsVariableNumberOfArgumentsProperly() {
 
-        Assert.assertEquals("a 123 b",
+        Assertions.assertEquals("a 123 b",
                 Logger.format("a {} b", new Object[]{123}));
 
-        Assert.assertEquals("a  b",
+        Assertions.assertEquals("a  b",
                 Logger.format("a {} b", new Object[]{""}));
 
-        Assert.assertEquals("a aaa b",
+        Assertions.assertEquals("a aaa b",
                 Logger.format("a {} b", new Object[]{"aaa"}));
 
-        Assert.assertEquals("a aaabbb b",
+        Assertions.assertEquals("a aaabbb b",
                 Logger.format("a {}{} b", new Object[]{"aaa", "bbb"}));
 
-        Assert.assertEquals("123",
+        Assertions.assertEquals("123",
                 Logger.format("{}", new Object[]{123}));
 
-        Assert.assertEquals("oaka",
+        Assertions.assertEquals("oaka",
                 Logger.format("oaka", null));
     }
 }

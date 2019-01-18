@@ -4,9 +4,10 @@ import com.scriptbasic.executors.rightvalues.*;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.utility.RightValueUtility;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Peter Verhas date Jul 13, 2012
@@ -14,11 +15,12 @@ import static org.junit.Assert.*;
 @SuppressWarnings("ConstantConditions")
 public class TestConversions {
 
-    @Test(expected = BasicRuntimeException.class)
+    @Test()
     public void rightValueUtilityThrowsExceptionConvertingArbitraryStringToNumber() throws Exception {
         final RightValue rv;
         rv = RightValueUtility.createRightValue("apple");
-        RightValueUtility.convert2Integer(rv);
+        Assertions.assertThrows(BasicRuntimeException.class, () ->
+                RightValueUtility.convert2Integer(rv));
     }
 
     @Test
@@ -57,10 +59,11 @@ public class TestConversions {
         assertFalse(rv.isArray());
     }
 
-    @Test(expected = BasicRuntimeException.class)
+    @Test()
     public void arbitraryStringBasicBooleanValueConversionToBasicJavaObjectValueThrowsException() throws Exception {
         final var rv = new BasicStringValue("apple");
-        BasicJavaObjectValue.asObject(rv);
+        Assertions.assertThrows(BasicRuntimeException.class, () ->
+                BasicJavaObjectValue.asObject(rv));
     }
 
     @Test
@@ -99,10 +102,11 @@ public class TestConversions {
         assertEquals(0.0, BasicDoubleValue.asDouble(rv), 0.00001);
     }
 
-    @Test(expected = BasicRuntimeException.class)
+    @Test()
     public void arbitraryObjectConversionThrowsExceptionConvertingToDouble() throws Exception {
         final var rv = new BasicJavaObjectValue(new Object());
-        BasicDoubleValue.asDouble(rv);
+        Assertions.assertThrows(BasicRuntimeException.class, () ->
+                BasicDoubleValue.asDouble(rv));
     }
 
     @Test
@@ -129,10 +133,11 @@ public class TestConversions {
         assertEquals("apple", BasicStringValue.asString(rv));
     }
 
-    @Test(expected = BasicRuntimeException.class)
+    @Test()
     public void basicArrayValueNullConvertingToStringThrowsException() throws Exception {
         final var rv = new BasicArrayValue();
-        BasicStringValue.asString(rv);
+        Assertions.assertThrows(BasicRuntimeException.class, () ->
+                BasicStringValue.asString(rv));
     }
 
     @Test
@@ -171,9 +176,10 @@ public class TestConversions {
         assertEquals(Long.valueOf(1300L), BasicLongValue.asLong(rv));
     }
 
-    @Test(expected = BasicRuntimeException.class)
+    @Test()
     public void basicArrayValueNullConvertingToLongThrowsException() throws Exception {
         final var rv = new BasicArrayValue();
-        BasicLongValue.asLong(rv);
+        Assertions.assertThrows(BasicRuntimeException.class, () ->
+                BasicLongValue.asLong(rv));
     }
 }

@@ -5,7 +5,7 @@ import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.utility.functions.file.FileHandlingFunctions;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.InputStreamReader;
 import java.io.StringReader;
@@ -67,7 +67,7 @@ public class TestingExecutor extends AbstractStringIOPojo {
     }
 
     public void assertOutput(final String s) {
-        Assert.assertEquals(s, getSStdout());
+        Assertions.assertEquals(s, getSStdout());
     }
 
 }

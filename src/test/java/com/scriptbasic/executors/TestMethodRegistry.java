@@ -1,11 +1,11 @@
 package com.scriptbasic.executors;
 
 import com.scriptbasic.api.ScriptBasicException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Peter Verhas
