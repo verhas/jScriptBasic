@@ -335,6 +335,18 @@ public class TestEngine {
             // END SNIPPET: helloWorldStringSW
         }
 
+        @Test
+        @DisplayName("multiple statement on one line")
+        public void testEvalStringMP() throws Exception {
+            // START SNIPPET: helloWorldStringSW
+            final var output = Output.get();
+            try (output) {
+                ScriptBasic.engine().output(output).eval("a=\"hello world\" : print a");
+            }
+            output.is("hello world");
+            // END SNIPPET: helloWorldStringSW
+        }
+
         @Nested
         @DisplayName("source coming from a")
         class SourceComingFrom {

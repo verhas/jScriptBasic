@@ -10,7 +10,9 @@ public final class CharUtils {
     public static boolean isNewLine(final Integer ch) {
         if (ch != null) {
             return ch == Character.LINE_SEPARATOR
-                    || ch == Character.PARAGRAPH_SEPARATOR || ch == '\n';
+                    || ch == Character.PARAGRAPH_SEPARATOR 
+                    || ch == '\n'
+                    || ch == ':';
         } else {
             return false;
         }

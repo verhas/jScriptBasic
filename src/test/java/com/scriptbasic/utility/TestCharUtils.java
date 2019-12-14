@@ -11,10 +11,14 @@ public class TestCharUtils {
     @Test
     public void newLineIsOnlyNewLineAndNothingElse() {
         assertTrue(CharUtils.isNewLine((int) '\n'));
+        assertTrue(CharUtils.isNewLine((int) ':'));
         for (int i = 0; i < 10; i++) {
             assertFalse(CharUtils.isNewLine(i));
         }
-        for (int i = 15; i < 500; i++) {
+        for (int i = 15; i < 58; i++) {
+            assertFalse(CharUtils.isNewLine(i));
+        }
+        for (int i = 59; i < 500; i++) {
             assertFalse(CharUtils.isNewLine(i));
         }
         //noinspection ConstantConditions
