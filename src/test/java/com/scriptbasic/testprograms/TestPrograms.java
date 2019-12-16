@@ -3,8 +3,10 @@ package com.scriptbasic.testprograms;
 import com.scriptbasic.TestingExecutor;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.configuration.BasicConfiguration;
+import com.scriptbasic.exceptions.CommandFactoryException;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.spi.BasicArray;
 import com.scriptbasic.spi.BasicValue;
 import org.junit.jupiter.api.Assertions;
@@ -171,25 +173,25 @@ public class TestPrograms {
 
     @Test()
     public void syntaxErrorWhenThereIsNoClosingParentheseAfterFunctionCall() {
-        Assertions.assertThrows(BasicRuntimeException.class, () ->
+        Assertions.assertThrows(CommandFactoryException.class, () ->
                 codeTest("NoClosingParenAfterFunctionCall.bas", ""));
     }
 
     @Test()
     public void syntaxErrorWhenNoClosingParenInExpression() {
-        Assertions.assertThrows(BasicRuntimeException.class, () ->
+        Assertions.assertThrows(CommandFactoryException.class, () ->
                 codeTest("NoClosingParenInExpression.bas", ""));
     }
 
     @Test()
     public void syntaxErrorWhenNoClosingBracketAccessingArrayElement() {
-        Assertions.assertThrows(BasicRuntimeException.class, () ->
+        Assertions.assertThrows(CommandFactoryException.class, () ->
                 codeTest("NoClosingBracketAccessingArrayElement.bas", ""));
     }
 
     @Test()
     public void syntaxErrorWhenSubroutineIsDefinedMoreThanOnce() {
-        Assertions.assertThrows(BasicRuntimeException.class, () ->
+        Assertions.assertThrows(BasicSyntaxException.class, () ->
                 codeTest("SubroutineDoubleDefined.bas", ""));
     }
 
