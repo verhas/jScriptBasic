@@ -4,6 +4,7 @@ import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandUse;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
+import com.scriptbasic.interfaces.ScriptBasicKeyWords;
 import com.scriptbasic.spi.Command;
 import com.scriptbasic.utility.ExpressionUtility;
 import com.scriptbasic.utility.KlassUtility;
@@ -28,12 +29,12 @@ public class CommandAnalyzerUse extends AbstractCommandAnalyzer {
     public Command analyze() throws AnalysisException {
         final var className = ExpressionUtility
                 .convertToString(analyzeExpression());
-        LexUtility.checkLexeme(ctx.lexicalAnalyzer, "from",
+        LexUtility.checkLexeme(ctx.lexicalAnalyzer, ScriptBasicKeyWords.KEYWORD_FROM,
                 "Keyword 'FROM' is missing in command 'USE'");
         final var packageName = ExpressionUtility
                 .convertToString(analyzeExpression());
         final String aliasName;
-        if (LexUtility.isLexeme(ctx.lexicalAnalyzer, "as")) {
+        if (LexUtility.isLexeme(ctx.lexicalAnalyzer, ScriptBasicKeyWords.KEYWORD_AS)) {
             aliasName = ExpressionUtility.convertToString(analyzeExpression());
         } else {
             aliasName = className;

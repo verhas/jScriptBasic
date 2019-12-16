@@ -5,6 +5,7 @@ import com.scriptbasic.exceptions.CommandFactoryException;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.CommandAnalyzer;
 import com.scriptbasic.interfaces.CommandFactory;
+import com.scriptbasic.interfaces.ScriptBasicKeyWords;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 import com.scriptbasic.spi.Command;
@@ -31,25 +32,25 @@ public final class BasicCommandFactory implements CommandFactory {
         this.ctx = ctx;
         dslAnalyzer = new CommandAnalyzerDSL(ctx);
         classMap = Map.ofEntries(
-                Map.entry("while", new CommandAnalyzerWhile(ctx)),
-                Map.entry("wend", new CommandAnalyzerWend(ctx)),
-                Map.entry("if", new CommandAnalyzerIf(ctx)),
-                Map.entry("else", new CommandAnalyzerElse(ctx)),
-                Map.entry("elseif", new CommandAnalyzerElseIf(ctx)),
-                Map.entry("endif", new CommandAnalyzerEndIf(ctx)),
-                Map.entry("use", new CommandAnalyzerUse(ctx)),
-                Map.entry("method", new CommandAnalyzerMethod(ctx)),
-                Map.entry("sub", new CommandAnalyzerSub(ctx)),
-                Map.entry("endsub", new CommandAnalyzerEndSub(ctx)),
-                Map.entry("return", new CommandAnalyzerReturn(ctx)),
-                Map.entry("print", new CommandAnalyzerPrint(ctx)),
-                Map.entry("local", new CommandAnalyzerLocal(ctx)),
-                Map.entry("global", new CommandAnalyzerGlobal(ctx)),
-                Map.entry("call", new CommandAnalyzerCall(ctx)),
-                Map.entry("let", new CommandAnalyzerLet(ctx)),
-                Map.entry("for", new CommandAnalyzerFor(ctx)),
-                Map.entry("next", new CommandAnalyzerNext(ctx)),
-                Map.entry("sentence", dslAnalyzer));
+                Map.entry(ScriptBasicKeyWords.KEYWORD_WHILE, new CommandAnalyzerWhile(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_WEND, new CommandAnalyzerWend(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_IF, new CommandAnalyzerIf(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_ELSE, new CommandAnalyzerElse(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_ELSEIF, new CommandAnalyzerElseIf(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_ENDIF, new CommandAnalyzerEndIf(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_USE, new CommandAnalyzerUse(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_METHOD, new CommandAnalyzerMethod(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_SUB, new CommandAnalyzerSub(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_ENDSUB, new CommandAnalyzerEndSub(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_RETURN, new CommandAnalyzerReturn(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_PRINT, new CommandAnalyzerPrint(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_LOCAL, new CommandAnalyzerLocal(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_GLOBAL, new CommandAnalyzerGlobal(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_CALL, new CommandAnalyzerCall(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_LET, new CommandAnalyzerLet(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_FOR, new CommandAnalyzerFor(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_NEXT, new CommandAnalyzerNext(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_SENTENCE, dslAnalyzer));
         classList = List.of(
                 new CommandAnalyzerLet(ctx),
                 new CommandAnalyzerCall(ctx),

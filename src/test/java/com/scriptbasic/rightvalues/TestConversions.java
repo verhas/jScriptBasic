@@ -2,6 +2,7 @@ package com.scriptbasic.rightvalues;
 
 import com.scriptbasic.executors.rightvalues.*;
 import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.interfaces.ScriptBasicKeyWords;
 import com.scriptbasic.spi.RightValue;
 import com.scriptbasic.utility.RightValueUtility;
 import org.junit.jupiter.api.Assertions;
@@ -118,13 +119,13 @@ public class TestConversions {
     @Test
     public void basicBooleanTrueConvertsToStringLiteral_true() throws Exception {
         final var rv = new BasicBooleanValue(true);
-        assertEquals("true", BasicStringValue.asString(rv));
+        assertEquals(ScriptBasicKeyWords.KEYWORD_TRUE, BasicStringValue.asString(rv));
     }
 
     @Test
     public void basicBooleanFalseConvertsToStringLiteral_false() throws Exception {
         final var rv = new BasicBooleanValue(false);
-        assertEquals("false", BasicStringValue.asString(rv));
+        assertEquals(ScriptBasicKeyWords.KEYWORD_FALSE, BasicStringValue.asString(rv));
     }
 
     @Test

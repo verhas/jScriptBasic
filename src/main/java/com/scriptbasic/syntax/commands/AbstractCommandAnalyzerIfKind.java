@@ -3,6 +3,7 @@ package com.scriptbasic.syntax.commands;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Expression;
+import com.scriptbasic.interfaces.ScriptBasicKeyWords;
 import com.scriptbasic.spi.Command;
 
 /**
@@ -29,7 +30,7 @@ public abstract class AbstractCommandAnalyzerIfKind extends
 
     protected Expression analizeLine() throws AnalysisException {
         final var condition = analyzeExpression();
-        assertKeyWord("THEN");
+        assertKeyWord(ScriptBasicKeyWords.KEYWORD_THEN);
         consumeEndOfLine();
         return condition;
     }

@@ -42,7 +42,7 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
     static {
         unaryOperatorMap.put("+", UnaryOperatorPlus.class);
         unaryOperatorMap.put("-", UnaryOperatorMinus.class);
-        unaryOperatorMap.put("not", UnaryOperatorNot.class);
+        unaryOperatorMap.put(ScriptBasicKeyWords.KEYWORD_NOT, UnaryOperatorNot.class);
     }
 
     private final Context ctx;

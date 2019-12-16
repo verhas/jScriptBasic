@@ -2,10 +2,12 @@ package com.scriptbasic.syntax.expression;
 
 import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.operators.*;
+import com.scriptbasic.interfaces.ScriptBasicKeyWords;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 
 public final class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
 
@@ -23,7 +25,7 @@ public final class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
                 "*", MultiplyOperator.class,
                 "/", DivideOperator.class,
                 "%", ModuloOperator.class,
-                "div", IntegerDivideOperator.class));
+                ScriptBasicKeyWords.KEYWORD_DIV, IntegerDivideOperator.class));
         BASIC_OPERATOR_MAPS.add(Map.of(
                 "+", AddOperator.class, // numeric and also concatenation of strings
                 "-", MinusOperator.class));
@@ -35,8 +37,8 @@ public final class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
                 "<=", LessOrEqualOperator.class,
                 "<>", NotEqualOperator.class));
         BASIC_OPERATOR_MAPS.add(Map.of(
-                "and", LogicalAndOperator.class,
-                "or", LogicalOrOperator.class));
+                ScriptBasicKeyWords.KEYWORD_AND, LogicalAndOperator.class,
+                ScriptBasicKeyWords.KEYWORD_OR, LogicalOrOperator.class));
         // XOR is not implemented in jScriptBasic by design
     }
 

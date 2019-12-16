@@ -14,7 +14,7 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
 
     private static boolean lineToIgnore(final String lexString) {
         return lexString.equals("\n") || lexString.equals("'")
-                || lexString.equalsIgnoreCase("REM");
+                || lexString.equalsIgnoreCase(ScriptBasicKeyWords.KEYWORD_REM);
     }
 
     public LexicalElement getLexicalElement() {
