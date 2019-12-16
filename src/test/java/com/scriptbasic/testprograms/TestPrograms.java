@@ -59,6 +59,8 @@ public class TestPrograms {
         codeTest("TestEmpty.bas", "");
         codeTest("TestPrintHello.bas", "hello");
         codeTest("TestIf.bas", "111");
+        codeTest("TestSelect.bas", "111111");
+        codeTest("TestSelect2.bas", "2468");
         codeTest("TestBooleanConversions.bas", "111111");
         codeTest("TestArrays.bas", "OK");
         try {

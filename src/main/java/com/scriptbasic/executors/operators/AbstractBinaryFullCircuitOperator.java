@@ -15,14 +15,22 @@ import com.scriptbasic.spi.RightValue;
  */
 public abstract class AbstractBinaryFullCircuitOperator extends
         AbstractBinaryOperator {
+	
+	protected RightValue getLeftEvaluatedOperand(final Interpreter interpreter) throws ScriptBasicException {
+		return getLeftOperand().evaluate(interpreter);
+	}
 
-    protected abstract RightValue evaluateOn(RightValue leftOperand,
+	protected RightValue getRightEvaluatedOperand(final Interpreter interpreter) throws ScriptBasicException {
+		return getRightOperand().evaluate(interpreter);
+	}
+
+	protected abstract RightValue evaluateOn(RightValue leftOperand,
                                              RightValue rightOperand) throws ScriptBasicException;
 
     @Override
     public final RightValue evaluate(final Interpreter interpreter) throws ScriptBasicException {
-        return evaluateOn(getLeftOperand().evaluate(interpreter), getRightOperand()
-                .evaluate(interpreter));
+        return evaluateOn(getLeftEvaluatedOperand(interpreter), 
+        		getRightEvaluatedOperand(interpreter));
     }
 
 }

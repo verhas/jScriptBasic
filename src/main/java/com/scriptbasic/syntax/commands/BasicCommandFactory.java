@@ -5,6 +5,7 @@ import com.scriptbasic.exceptions.CommandFactoryException;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.CommandAnalyzer;
 import com.scriptbasic.interfaces.CommandFactory;
+import com.scriptbasic.interfaces.ScriptBasicKeyWords;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
 import com.scriptbasic.spi.Command;
@@ -49,6 +50,9 @@ public final class BasicCommandFactory implements CommandFactory {
                 Map.entry("let", new CommandAnalyzerLet(ctx)),
                 Map.entry("for", new CommandAnalyzerFor(ctx)),
                 Map.entry("next", new CommandAnalyzerNext(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_SELECT, new CommandAnalyzerSelect(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_END, new CommandAnalyzerEnd(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_CASE, new CommandAnalyzerCase(ctx)),
                 Map.entry("sentence", dslAnalyzer));
         classList = List.of(
                 new CommandAnalyzerLet(ctx),

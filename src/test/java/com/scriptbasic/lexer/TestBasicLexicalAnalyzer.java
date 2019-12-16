@@ -3,6 +3,7 @@ package com.scriptbasic.lexer;
 import com.scriptbasic.exceptions.UnterminatedStringException;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.LexicalAnalyzer;
+import com.scriptbasic.interfaces.ScriptBasicKeyWords;
 import com.scriptbasic.lexer.elements.ScriptBasicLexicalAnalyzer;
 import com.scriptbasic.readers.SourceReader;
 import org.junit.jupiter.api.Assertions;
@@ -31,7 +32,7 @@ public class TestBasicLexicalAnalyzer {
     @Test
     public void keywordsAreRecognizedAsSymbols() throws AnalysisException {
         keywordtest("for");
-        keywordtest("end");
+        keywordtest(ScriptBasicKeyWords.KEYWORD_END);
         keywordtest("next");
         keywordtest("let");
         keywordtest("if");
@@ -41,6 +42,7 @@ public class TestBasicLexicalAnalyzer {
         keywordtest("elseif");
         keywordtest("repeat");
         keywordtest("until");
+        keywordtest(ScriptBasicKeyWords.KEYWORD_SELECT);
     }
 
     @Test

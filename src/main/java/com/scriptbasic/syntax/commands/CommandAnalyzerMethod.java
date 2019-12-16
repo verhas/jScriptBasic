@@ -4,6 +4,7 @@ import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandMethod;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Expression;
+import com.scriptbasic.interfaces.ScriptBasicKeyWords;
 import com.scriptbasic.spi.Command;
 import com.scriptbasic.utility.ExpressionUtility;
 import com.scriptbasic.utility.KlassUtility;
@@ -35,7 +36,7 @@ public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
         final var className = ExpressionUtility
                 .convertToString(analyzeExpression());
 
-        LexUtility.checkLexeme(ctx.lexicalAnalyzer, "is",
+        LexUtility.checkLexeme(ctx.lexicalAnalyzer, ScriptBasicKeyWords.KEYWORD_IS,
                 "Keyword 'IS' is missing in command 'METHOD'");
         LexUtility.checkLexeme(ctx.lexicalAnalyzer, "(",
                 "'(' is missing in command 'METHOD' after the keyword 'IS'");
