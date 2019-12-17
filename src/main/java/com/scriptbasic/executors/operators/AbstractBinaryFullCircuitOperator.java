@@ -20,9 +20,9 @@ public abstract class AbstractBinaryFullCircuitOperator extends
      * Function used to evaluate left operand.
      * Override this function if custom evaluation is needed.
      * 
-     * @param interpreter 
-     * @return Return evaluated operand
-     * @throws ScriptBasicException
+     * @param interpreter current interpreter
+     * @return evaluated operand
+     * @throws ScriptBasicException when the evaluation of the operand cannot be performed w/o error
      */
     protected RightValue getLeftOperandEvaluated(final Interpreter interpreter) throws ScriptBasicException {
         return getLeftOperand().evaluate(interpreter);
@@ -32,9 +32,9 @@ public abstract class AbstractBinaryFullCircuitOperator extends
      * Function used to evaluate right operand.
      * Override this function if custom evaluation is needed.
      * 
-     * @param interpreter 
-     * @return Return evaluated operand
-     * @throws ScriptBasicException
+     * @param interpreter current interpreter
+     * @return evaluated operand
+     * @throws ScriptBasicException  when the evaluation of the operand cannot be performed w/o error
      */
     protected RightValue getRightOperandEvaluated(final Interpreter interpreter) throws ScriptBasicException {
         return getRightOperand().evaluate(interpreter);
