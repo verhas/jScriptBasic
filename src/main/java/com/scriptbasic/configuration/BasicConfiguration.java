@@ -87,11 +87,11 @@ public class BasicConfiguration implements Configuration {
                 .getProperty("sb4j.configuration");
         final var configurationFileName = systemPropertyDefinedConfiguration == null ? "sb4j.properties"
                 : systemPropertyDefinedConfiguration;
-        LOG.info("Reading configuration from file {}", configurationFileName);
+        LOG.debug("Reading configuration from file {}", configurationFileName);
         final var is = this.getClass().getClassLoader()
                 .getResourceAsStream(configurationFileName);
         if (null == is) {
-            LOG.info("Configuration file does not exist.");
+            LOG.debug("Configuration file does not exist.");
             setConfigProperties(new Properties());
         } else {
             loadConfiguration(is);

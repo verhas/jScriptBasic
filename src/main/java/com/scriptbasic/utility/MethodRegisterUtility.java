@@ -54,8 +54,8 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
 
                 method.setClassification();
 
-                LOG.info("Registering {}, {} , {}, {}", method.alias,
-                        method.methodName, method.klass, method.classifications);
+                LOG.debug("Registering {}, {} , {}, {}", method.alias,
+                    method.methodName, method.klass, method.classifications);
                 method.register(interpreter);
             }
         }
@@ -161,9 +161,7 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
                 if (classificationsAllowRegistering(interpreter, classifications)) {
                     interpreter.registerJavaMethod(alias, klass, methodName, parameterTypes);
                 } else {
-                    LOG.info(
-                            "Classification prevents the registration of the method {}",
-                            methodName);
+                    LOG.info("Classification prevents the registration of the method {}", methodName);
                 }
             }
         }

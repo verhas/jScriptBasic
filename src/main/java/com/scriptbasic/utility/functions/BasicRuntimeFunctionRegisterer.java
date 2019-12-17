@@ -40,7 +40,7 @@ public class BasicRuntimeFunctionRegisterer {
         }
         ServiceLoader.load(ClassSetProvider.class).forEach(provider ->
                 provider.provide().forEach(klass -> {
-                    LOG.info("Registering class {}", klass);
+                    LOG.debug("Registering class {}", klass);
                     interpreter.registerFunctions(klass);
                 })
         );

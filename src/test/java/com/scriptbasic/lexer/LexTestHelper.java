@@ -113,7 +113,6 @@ public class LexTestHelper {
     static void assertLexicals(final LexicalAnalyzer lexicalAnalyzer, final LexicalElement... expectedElements) throws AnalysisException {
         for (final LexicalElement lexicalElement : expectedElements) {
             final var element = lexicalAnalyzer.get();
-            LOG.info(element.toString());
             thereAreEnoughElements(lexicalElement, element);
             elementsAreOfTheSameType(lexicalElement, element);
             elementsHaveTheSameString(lexicalElement, element);

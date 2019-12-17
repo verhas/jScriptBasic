@@ -104,7 +104,7 @@ public abstract class AbstractBasicProgramPostprocessing implements
                     loopIsInSub = true;
                 } else {
                     startCommand = command;
-                    LOG.info("basic program starts on the line #" + skipNr);
+                    LOG.debug("basic program starts on the line #" + skipNr);
                     break;
                 }
             }

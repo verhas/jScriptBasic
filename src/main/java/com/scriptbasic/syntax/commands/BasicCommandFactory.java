@@ -68,18 +68,18 @@ public final class BasicCommandFactory implements CommandFactory {
     private Command create() throws AnalysisException {
         for (final CommandAnalyzer commandAnalyzer : classList) {
             try {
-                LOG.info("trying to analyze the line using {}", commandAnalyzer.getClass());
+                LOG.debug("trying to analyze the line using {}", commandAnalyzer.getClass());
                 final var command = commandAnalyzer.analyze();
                 if (command != null) {
                     return command;
                 }
             } catch (final AnalysisException e) {
-                LOG.info("Tried but not analyze the line using "
+                LOG.debug("Tried but not analyze the line using "
                         + commandAnalyzer.getClass(), e);
             }
             ctx.lexicalAnalyzer.resetLine();
         }
-        LOG.info("None of the analyzers could analyze the line");
+        LOG.debug("None of the analyzers could analyze the line");
         throw new CommandFactoryException("The line could not be analyzed");
     }
 
