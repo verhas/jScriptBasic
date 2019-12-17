@@ -52,7 +52,7 @@ public class TestJavaAccess {
 
     @Test()
     public void cannotUseOverloadedMethodSecureMode() {
-        Assertions.assertThrows(BasicRuntimeException.class, () ->
+        Assertions.assertThrows(ScriptBasicException.class, () ->
                 executeSecure(program(
                         "use OverloadedMethods from com.scriptbasic.executors.operators.TestJavaAccess as q"
                 ), null));
@@ -60,7 +60,7 @@ public class TestJavaAccess {
 
     @Test()
     public void cannotMethodOverloadedMethodSecureMode() {
-        Assertions.assertThrows(BasicRuntimeException.class, () ->
+        Assertions.assertThrows(ScriptBasicException.class, () ->
                 executeSecure(program(
                         "method A from com.scriptbasic.executors.operators.TestJavaAccess.OverloadedMethods is (int) use as aint"
                 ), null));
