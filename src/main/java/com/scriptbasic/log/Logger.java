@@ -35,7 +35,7 @@ public class Logger {
     }
 
     public void debug(final String s, final Object... args) {
-        javaLogger.log(Level.DEBUG, format(s, args));
+        //javaLogger.log(Level.DEBUG, format(s, args));
     }
 
     public void info(final String s, final Object... args) {
