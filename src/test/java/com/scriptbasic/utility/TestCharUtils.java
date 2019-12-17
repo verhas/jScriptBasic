@@ -11,10 +11,15 @@ public class TestCharUtils {
     @Test
     public void newLineIsOnlyNewLineAndNothingElse() {
         assertTrue(CharUtils.isNewLine((int) '\n'));
+        assertTrue(CharUtils.isNewLine((int) ':'));
         for (int i = 0; i < 10; i++) {
             assertFalse(CharUtils.isNewLine(i));
         }
-        for (int i = 15; i < 500; i++) {
+        final int semicolon = (int) ':';
+        for (int i = 15; i < semicolon; i++) {
+            assertFalse(CharUtils.isNewLine(i));
+        }
+        for (int i = semicolon+1; i < 500; i++) {
             assertFalse(CharUtils.isNewLine(i));
         }
         //noinspection ConstantConditions
