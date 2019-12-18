@@ -20,22 +20,22 @@ public final class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
         BASIC_OPERATOR_MAPS.add(Map.of(
                 ".", JavaObjectFieldAccessOperator.class));
         BASIC_OPERATOR_MAPS.add(Map.of(
-                "^", PowerOperator.class));
+                ScriptBasicKeyWords.OPERATOR_POWER, PowerOperator.class));
         BASIC_OPERATOR_MAPS.add(Map.of(
-                "*", MultiplyOperator.class,
-                "/", DivideOperator.class,
-                "%", ModuloOperator.class,
+                ScriptBasicKeyWords.OPERATOR_MULTIPLY, MultiplyOperator.class,
+                ScriptBasicKeyWords.OPERATOR_DIVIDE, DivideOperator.class,
+                ScriptBasicKeyWords.OPERATOR_MODULO, ModuloOperator.class,
                 ScriptBasicKeyWords.KEYWORD_DIV, IntegerDivideOperator.class));
         BASIC_OPERATOR_MAPS.add(Map.of(
-                "+", AddOperator.class, // numeric and also concatenation of strings
-                "-", MinusOperator.class));
+                ScriptBasicKeyWords.OPERATOR_PLUS, AddOperator.class, // numeric and also concatenation of strings
+                ScriptBasicKeyWords.OPERATOR_MINUS, MinusOperator.class));
         BASIC_OPERATOR_MAPS.add(Map.of(
-                "=", EqualsOperator.class,
-                "<", LessThanOperator.class,
-                ">", GreaterThanOperator.class,
-                ">=", GreaterOrEqualOperator.class,
-                "<=", LessOrEqualOperator.class,
-                "<>", NotEqualOperator.class));
+                ScriptBasicKeyWords.OPERATOR_EQUALS, EqualsOperator.class,
+                ScriptBasicKeyWords.OPERATOR_LESS, LessThanOperator.class,
+                ScriptBasicKeyWords.OPERATOR_GREATER, GreaterThanOperator.class,
+                ScriptBasicKeyWords.OPERATOR_GREATER_OR_EQUAL, GreaterOrEqualOperator.class,
+                ScriptBasicKeyWords.OPERATOR_LESS_OR_EQUAL, LessOrEqualOperator.class,
+                ScriptBasicKeyWords.OPERATOR_NOT_EQUALS, NotEqualOperator.class));
         BASIC_OPERATOR_MAPS.add(Map.of(
                 ScriptBasicKeyWords.KEYWORD_AND, LogicalAndOperator.class,
                 ScriptBasicKeyWords.KEYWORD_OR, LogicalOrOperator.class));

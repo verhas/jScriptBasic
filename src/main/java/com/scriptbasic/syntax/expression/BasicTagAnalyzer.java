@@ -40,8 +40,8 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
     private static final Map<String, Class<? extends AbstractUnaryOperator>> unaryOperatorMap = new HashMap<>();
 
     static {
-        unaryOperatorMap.put("+", UnaryOperatorPlus.class);
-        unaryOperatorMap.put("-", UnaryOperatorMinus.class);
+        unaryOperatorMap.put(ScriptBasicKeyWords.OPERATOR_PLUS, UnaryOperatorPlus.class);
+        unaryOperatorMap.put(ScriptBasicKeyWords.OPERATOR_MINUS, UnaryOperatorMinus.class);
         unaryOperatorMap.put(ScriptBasicKeyWords.KEYWORD_NOT, UnaryOperatorNot.class);
     }
 

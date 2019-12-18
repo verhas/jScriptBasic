@@ -40,6 +40,19 @@ public interface ScriptBasicKeyWords {
     String KEYWORD_USE = "use";
     String KEYWORD_WEND = "wend";
     String KEYWORD_WHILE = "while";
+    
+    String OPERATOR_PLUS = "+";
+    String OPERATOR_MINUS = "-";
+    String OPERATOR_EQUALS = "=";
+    String OPERATOR_LESS = "<";
+    String OPERATOR_GREATER = ">";
+    String OPERATOR_GREATER_OR_EQUAL = ">=";
+    String OPERATOR_LESS_OR_EQUAL = "<=";
+    String OPERATOR_NOT_EQUALS = "<>";
+    String OPERATOR_MULTIPLY = "*";
+    String OPERATOR_DIVIDE = "/";
+    String OPERATOR_MODULO = "%";
+    String OPERATOR_POWER = "^";
 
     /** 
      * Collection of all keywords, used by BasicKeywordRecognizer
@@ -63,6 +76,6 @@ public interface ScriptBasicKeyWords {
             KEYWORD_RETURN, KEYWORD_PRINT, 
             KEYWORD_CALL, 
             KEYWORD_SENTENCE};
-    String[] BASIC_OPERATORS = new String[]{"<=", ">=", "<>"};
-    int BASIC_OPERATOR_LEXEME_MAX_LENGTH = 2;
+    String[] BASIC_OPERATORS = new String[]{OPERATOR_LESS_OR_EQUAL, OPERATOR_GREATER_OR_EQUAL, OPERATOR_NOT_EQUALS };
+    int BASIC_OPERATOR_LEXEME_MAX_LENGTH = 2;    
 }
