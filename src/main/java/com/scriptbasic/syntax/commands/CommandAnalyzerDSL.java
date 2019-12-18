@@ -8,6 +8,7 @@ import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.BasicSyntaxException;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.interfaces.ScriptBasicKeyWords;
 import com.scriptbasic.spi.Command;
 
 import java.util.LinkedList;
@@ -26,7 +27,7 @@ public class CommandAnalyzerDSL extends AbstractCommandAnalyzer {
     public Command analyze() throws AnalysisException {
         ctx.lexicalAnalyzer.resetLine();
         final var lexeme = ctx.lexicalAnalyzer.get();
-        if (lexeme != null && lexeme.isSymbol("sentence")) {
+        if (lexeme != null && lexeme.isSymbol(ScriptBasicKeyWords.KEYWORD_SENTENCE)) {
             defineDSLRule();
             return null;
         } else {
@@ -78,7 +79,7 @@ public class CommandAnalyzerDSL extends AbstractCommandAnalyzer {
         }
         final var sentence = actualSentence.stringValue();
         final var callsKW = ctx.lexicalAnalyzer.get();
-        if (!callsKW.isSymbol("call")) {
+        if (!callsKW.isSymbol(ScriptBasicKeyWords.KEYWORD_CALL)) {
             throw new BasicSyntaxException("missing keyword 'call' after string in command 'sentence'");
         }
         final var functionNameLexicalElement = ctx.lexicalAnalyzer.get();
@@ -91,7 +92,7 @@ public class CommandAnalyzerDSL extends AbstractCommandAnalyzer {
             throw new BasicSyntaxException("sentence can not be empty");
         }
         final var startElement = syntaxElements[0];
-        if (startElement.equals("'") || startElement.equalsIgnoreCase("rem")) {
+        if (startElement.equals("'") || startElement.equalsIgnoreCase(ScriptBasicKeyWords.KEYWORD_REM)) {
             throw new BasicSyntaxException("sentence should not look like as a comment");
         }
         dslLines.add(new DslLine(functionNameLexicalElement.getLexeme(), syntaxElements));

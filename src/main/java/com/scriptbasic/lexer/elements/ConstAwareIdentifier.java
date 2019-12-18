@@ -2,6 +2,7 @@ package com.scriptbasic.lexer.elements;
 
 import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.LexicalElement;
+import com.scriptbasic.interfaces.ScriptBasicKeyWords;
 import com.scriptbasic.lexer.BasicLexicalElement;
 import com.scriptbasic.readers.SourceReader;
 
@@ -17,9 +18,9 @@ public class ConstAwareIdentifier extends Identifier {
                 .read();
         if (lexicalElement != null) {
             Boolean value = null;
-            if ("true".equalsIgnoreCase(lexicalElement.getLexeme())) {
+            if (ScriptBasicKeyWords.KEYWORD_TRUE.equalsIgnoreCase(lexicalElement.getLexeme())) {
                 value = true;
-            } else if ("false".equalsIgnoreCase(lexicalElement.getLexeme())) {
+            } else if (ScriptBasicKeyWords.KEYWORD_FALSE.equalsIgnoreCase(lexicalElement.getLexeme())) {
                 value = false;
             }
             if (value != null) {

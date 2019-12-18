@@ -4,6 +4,7 @@ import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandMethod;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.interfaces.Expression;
+import com.scriptbasic.interfaces.ScriptBasicKeyWords;
 import com.scriptbasic.spi.Command;
 import com.scriptbasic.utility.ExpressionUtility;
 import com.scriptbasic.utility.KlassUtility;
@@ -30,12 +31,12 @@ public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
     public Command analyze() throws AnalysisException {
         final var methodName = ExpressionUtility
                 .convertToString(analyzeExpression());
-        LexUtility.checkLexeme(ctx.lexicalAnalyzer, "from",
+        LexUtility.checkLexeme(ctx.lexicalAnalyzer, ScriptBasicKeyWords.KEYWORD_FROM,
                 "Keyword 'FROM' is missing in command 'METHOD'");
         final var className = ExpressionUtility
                 .convertToString(analyzeExpression());
 
-        LexUtility.checkLexeme(ctx.lexicalAnalyzer, "is",
+        LexUtility.checkLexeme(ctx.lexicalAnalyzer, ScriptBasicKeyWords.KEYWORD_IS,
                 "Keyword 'IS' is missing in command 'METHOD'");
         LexUtility.checkLexeme(ctx.lexicalAnalyzer, "(",
                 "'(' is missing in command 'METHOD' after the keyword 'IS'");
@@ -44,8 +45,8 @@ public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
         LexUtility.checkLexeme(ctx.lexicalAnalyzer, ")",
                 "')' is missing in command 'METHOD'");
         final String alias;
-        if (LexUtility.isLexeme(ctx.lexicalAnalyzer, "use")) {
-            LexUtility.checkLexeme(ctx.lexicalAnalyzer, "as",
+        if (LexUtility.isLexeme(ctx.lexicalAnalyzer, ScriptBasicKeyWords.KEYWORD_USE)) {
+            LexUtility.checkLexeme(ctx.lexicalAnalyzer, ScriptBasicKeyWords.KEYWORD_AS,
                     "Keyword 'AS' is missung after 'USE in command 'METHOD'");
             alias = ExpressionUtility.convertToString(analyzeExpression());
         } else {

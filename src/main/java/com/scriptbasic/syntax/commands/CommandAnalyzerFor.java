@@ -3,6 +3,7 @@ package com.scriptbasic.syntax.commands;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandFor;
 import com.scriptbasic.interfaces.AnalysisException;
+import com.scriptbasic.interfaces.ScriptBasicKeyWords;
 import com.scriptbasic.spi.Command;
 
 /**
@@ -21,9 +22,9 @@ public class CommandAnalyzerFor extends AbstractCommandAnalyzer {
         node.setLoopVariable(analyzeSimpleLeftValue());
         assertKeyWord("=");
         node.setLoopStartValue(analyzeExpression());
-        assertKeyWord("to");
+        assertKeyWord(ScriptBasicKeyWords.KEYWORD_TO);
         node.setLoopEndValue(analyzeExpression());
-        if (isKeyWord("step")) {
+        if (isKeyWord(ScriptBasicKeyWords.KEYWORD_STEP)) {
             ctx.lexicalAnalyzer.get();
             node.setLoopStepValue(analyzeExpression());
         } else {
