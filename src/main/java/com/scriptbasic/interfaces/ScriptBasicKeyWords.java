@@ -8,16 +8,17 @@ public interface ScriptBasicKeyWords {
     String KEYWORD_AND = "and";
     String KEYWORD_AS = "as";
     String KEYWORD_CALL = "call";
+    String KEYWORD_CASE = "case";
     String KEYWORD_DIV = "div";
     String KEYWORD_ELSE = "else";
     String KEYWORD_ELSEIF = "elseif";
-    String KEYWORD_ENDIF = "endif";
     String KEYWORD_END = "end";
+    String KEYWORD_ENDIF = "endif";
     String KEYWORD_ENDSUB = "endsub";
     String KEYWORD_FALSE = "false";
     String KEYWORD_FOR = "for";
     String KEYWORD_FROM = "from";
-    String KEYWORD_GLOBAL = "global";     
+    String KEYWORD_GLOBAL = "global";
     String KEYWORD_IF = "if";
     String KEYWORD_IS = "is";
     String KEYWORD_LET = "let";
@@ -30,6 +31,7 @@ public interface ScriptBasicKeyWords {
     String KEYWORD_REM = "rem";
     String KEYWORD_REPEAT = "repeat";
     String KEYWORD_RETURN = "return";
+    String KEYWORD_SELECT = "select";
     String KEYWORD_SENTENCE = "sentence";
     String KEYWORD_STEP = "step";
     String KEYWORD_SUB = "sub";
@@ -74,8 +76,9 @@ public interface ScriptBasicKeyWords {
             KEYWORD_REM, 
             KEYWORD_SUB, KEYWORD_ENDSUB,
             KEYWORD_RETURN, KEYWORD_PRINT, 
-            KEYWORD_CALL, 
+            KEYWORD_CALL,
+            KEYWORD_CASE, KEYWORD_SELECT,
             KEYWORD_SENTENCE};
     String[] BASIC_OPERATORS = new String[]{OPERATOR_LESS_OR_EQUAL, OPERATOR_GREATER_OR_EQUAL, OPERATOR_NOT_EQUALS };
-    int BASIC_OPERATOR_LEXEME_MAX_LENGTH = 2;    
+    int BASIC_OPERATOR_LEXEME_MAX_LENGTH = 2;
 }

@@ -61,6 +61,12 @@ public class TestPrograms {
         codeTest("TestEmpty.bas", "");
         codeTest("TestPrintHello.bas", "hello");
         codeTest("TestIf.bas", "111");
+        codeTest("TestSelect1.bas", "111111");
+        codeTest("TestSelect2.bas", "2468");
+        codeTest("TestSelect3.bas", "0 1 1 2 3 5 8");
+        testSyntaxFail("TestSelectBadSyntax1.bas");
+        testSyntaxFail("TestSelectBadSyntax2.bas");
+        testSyntaxFail("TestSelectBadSyntax3.bas");
         codeTest("TestBooleanConversions.bas", "111111");
         codeTest("TestArrays.bas", "OK");
         try {

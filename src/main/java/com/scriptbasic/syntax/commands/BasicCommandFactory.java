@@ -50,6 +50,9 @@ public final class BasicCommandFactory implements CommandFactory {
                 Map.entry(ScriptBasicKeyWords.KEYWORD_LET, new CommandAnalyzerLet(ctx)),
                 Map.entry(ScriptBasicKeyWords.KEYWORD_FOR, new CommandAnalyzerFor(ctx)),
                 Map.entry(ScriptBasicKeyWords.KEYWORD_NEXT, new CommandAnalyzerNext(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_SELECT, new CommandAnalyzerSelect(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_END, new CommandAnalyzerEnd(ctx)),
+                Map.entry(ScriptBasicKeyWords.KEYWORD_CASE, new CommandAnalyzerCase(ctx)),
                 Map.entry(ScriptBasicKeyWords.KEYWORD_SENTENCE, dslAnalyzer));
         classList = List.of(
                 new CommandAnalyzerLet(ctx),
