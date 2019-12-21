@@ -53,6 +53,7 @@ public interface ScriptBasicKeyWords {
     String OPERATOR_DIVIDE = "/";
     String OPERATOR_MODULO = "%";
     String OPERATOR_POWER = "^";
+    String OPERATOR_AMPERSAND = "&";
 
     /** 
      * Collection of all keywords, used by BasicKeywordRecognizer
