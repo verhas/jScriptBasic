@@ -23,19 +23,19 @@ To embed the interpreter into your application you need to use SB4J as a depende
   <dependency>
     <groupId>com.scriptbasic</groupId>
     <artifactId>jscriptbasic</artifactId>
-    <version>1.0.5</version>
+    <version>2.0.0</version>
   </dependency>
 ``` 
 
-and then use the JSR223 defined scripting interface or use the ScriptBasic native integration API.
+and then use the JSR223 defined scripting interface or use the ScriptBasic specific integration API.
 
-The simplest way is to
+The simplest way is to use the line
 
 ```
      ScriptBasic.getEngine().eval("PRINT \"hello world\"");
 ```
 
-get an execution engine and `eval()` the program source. There are other possibilities. You can
+to get an execution engine and `eval()` the program source. There are other possibilities. You can
 specify the file where the source code is, a `java.io.Reader` to read the source code and
 there are even more advanced possibilities.
 
@@ -47,6 +47,6 @@ The interpreter can safely be integrated to applications as the BASIC programs c
 arbitrary objects and call Java methods at their will and there are other features that help
 controlling the scripts in the application. The language is a "no freak out" language, so you
 can put the programming possibility into the hands of users who would not ever touch Python, Groovy
-or some other programming language. 
+or some other programming language but are happily craft their code in BASIC.
 
 [Documentation](https://github.com/verhas/jScriptBasic/wiki/index)
