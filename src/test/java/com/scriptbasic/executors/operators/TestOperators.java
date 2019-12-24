@@ -175,6 +175,11 @@ public class TestOperators {
         a("a=1 div 1", 1);
         a("a= 1 div 3", 0);
         a("a=1.0 div 3.0", 0);
+        
+        a("a= \"x\"&\"y\" = \"xy\"", true);
+        a("a= \"x\"& 1 = \"x1\"", true);
+        a("a= 1 & 2 = \"12\"", true);
+        a("a= 1 & x = \"1\"", true);
 
         try {
             a("a= -\"13\"", 0);

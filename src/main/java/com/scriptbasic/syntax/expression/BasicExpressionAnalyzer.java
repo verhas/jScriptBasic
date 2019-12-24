@@ -28,7 +28,8 @@ public final class BasicExpressionAnalyzer extends AbstractExpressionAnalyzer {
                 ScriptBasicKeyWords.KEYWORD_DIV, IntegerDivideOperator.class));
         BASIC_OPERATOR_MAPS.add(Map.of(
                 ScriptBasicKeyWords.OPERATOR_PLUS, AddOperator.class, // numeric and also concatenation of strings
-                ScriptBasicKeyWords.OPERATOR_MINUS, MinusOperator.class));
+                ScriptBasicKeyWords.OPERATOR_MINUS, MinusOperator.class,
+                ScriptBasicKeyWords.OPERATOR_AMPERSAND, AmpersandOperator.class));
         BASIC_OPERATOR_MAPS.add(Map.of(
                 ScriptBasicKeyWords.OPERATOR_EQUALS, EqualsOperator.class,
                 ScriptBasicKeyWords.OPERATOR_LESS, LessThanOperator.class,
