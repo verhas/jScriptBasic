@@ -128,12 +128,8 @@ public class StringFunctions {
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
     static public String string(final int len, String s) {
-        s = s.substring(0, 1);
-        final var sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++) {
-            sb.append(s);
-        }
-        return sb.toString();
+        return s.substring(0, 1).repeat(len);
+
     }
 
     /**

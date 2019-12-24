@@ -9,5 +9,5 @@ endif
 
 bb = byteBuffer(50)
 if length(bb) <> 50 then
- print "error bytebuffer length does not work, it is" + length(bb)
+ print "error byteBuffer length does not work, it is " + length(bb)
 endif

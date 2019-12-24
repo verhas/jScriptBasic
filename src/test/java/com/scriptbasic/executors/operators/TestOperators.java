@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 
 public class TestOperators {
-    private static final Logger log = LoggerFactory.getLogger();
+        private static final Logger log = LoggerFactory.getLogger();
 
     private static void a(final String s, final Object expected)
             throws AnalysisException, ScriptBasicException {
