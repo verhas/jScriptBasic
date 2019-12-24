@@ -2,8 +2,6 @@ language: java
 install: mvn install -Dmaven.javadoc.skip=true
 dist: xenial
 jdk:
- - openjdk11
- - openjdk12
  - openjdk13
 
 sudo: false # faster builds
