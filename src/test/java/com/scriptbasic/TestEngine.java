@@ -280,9 +280,10 @@ public class TestEngine {
         // START SNIPPET: testExtensionMethod
         final var engine = ScriptBasic
                 .engine()
-                .load("Sub aPie\n" +
-                        "return javaFunction()\n" +
-                        "EndSub\n")
+                .load("""
+                        Sub aPie
+                        return javaFunction()
+                        EndSub""")
                 .registerExtension(TestExtensionClass.class)
                 .execute();
         final var z = engine.subroutine(Long.class, "aPie").call();
