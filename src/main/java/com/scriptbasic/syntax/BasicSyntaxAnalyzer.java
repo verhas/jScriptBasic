@@ -5,14 +5,17 @@ import com.scriptbasic.interfaces.*;
 public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
     private final LexicalAnalyzer lexicalAnalyzer;
     private final CommandFactory commandFactory;
-    private LexicalElement lexicalElement;
+    private final NestedStructureHouseKeeper nestedStructureHouseKeeper;
+    private LexicalElement lexicalElement;    
 
-    public BasicSyntaxAnalyzer(final LexicalAnalyzer lexicalAnalyzer, final CommandFactory commandFactory) {
+    public BasicSyntaxAnalyzer(final LexicalAnalyzer lexicalAnalyzer, final CommandFactory commandFactory, 
+                               final NestedStructureHouseKeeper nestedStructureHouseKeeper) {
         this.lexicalAnalyzer = lexicalAnalyzer;
         this.commandFactory = commandFactory;
+        this.nestedStructureHouseKeeper = nestedStructureHouseKeeper;
     }
 
-    private static boolean lineToIgnore(final String lexString) {
+    public static boolean lineToIgnore(final String lexString) {
         return lexString.equals("\n") || lexString.equals("'")
                 || lexString.equalsIgnoreCase(ScriptBasicKeyWords.KEYWORD_REM);
     }
@@ -49,11 +52,12 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
             }
             this.lexicalElement = lexicalAnalyzer.peek();
         }
+        nestedStructureHouseKeeper.checkFinalState();
         buildableProgram.postprocess();
         return buildableProgram;
     }
 
-    private void consumeIgnoredLine(final LexicalAnalyzer lexicalAnalyzer, String lexString) throws AnalysisException {
+    public static void consumeIgnoredLine(final LexicalAnalyzer lexicalAnalyzer, String lexString) throws AnalysisException {
         while (!lexString.equals("\n")) {
             final var le = lexicalAnalyzer.get();
             if (le == null) {

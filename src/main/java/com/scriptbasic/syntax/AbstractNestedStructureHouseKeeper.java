@@ -83,4 +83,11 @@ public abstract class AbstractNestedStructureHouseKeeper implements NestedStruct
             return expectedClass.isAssignableFrom(getElementType());
         }
     }
+    
+    @Override
+    public void checkFinalState() throws AnalysisException {
+        if (stack.size() > 0) {
+            throw new BasicSyntaxException("There is at least one opened block on the stack. Block is not properly closed.");
+        }
+    }
 }
