@@ -23,7 +23,7 @@ public class CommandAnalyzerSelect
             ctx.lexicalAnalyzer.get();
         // read expression till end of line
         final var expression = analyzeExpression();
-        consumeEndOfLine();
+        consumeEndOfStatement();
 
         final var node = new CommandSelect();
         node.setExpression(expression);

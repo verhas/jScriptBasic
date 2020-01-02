@@ -29,7 +29,7 @@ public class CommandAnalyzerReturn extends AbstractCommandAnalyzer {
         } else {
             node.setReturnExpression(null);
         }
-        consumeEndOfLine();
+        consumeEndOfStatement();
         return node;
     }
 

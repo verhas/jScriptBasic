@@ -31,7 +31,7 @@ public abstract class AbstractCommandAnalyzerIfKind extends
     protected Expression analizeLine() throws AnalysisException {
         final var condition = analyzeExpression();
         assertKeyWord(ScriptBasicKeyWords.KEYWORD_THEN);
-        consumeEndOfLine();
+        consumeEndOfStatement();
         return condition;
     }
 

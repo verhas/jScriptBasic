@@ -27,7 +27,7 @@ public abstract class AbstractCommandAnalyzerGlobalLocal extends AbstractCommand
         final var node = newNode();
         final var list = analyzeSimpleLeftValueList();
         node.setLeftValueList(list);
-        consumeEndOfLine();
+        consumeEndOfStatement();
         return node;
     }
 

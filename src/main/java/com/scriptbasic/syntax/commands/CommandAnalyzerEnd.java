@@ -25,7 +25,7 @@ public class CommandAnalyzerEnd extends AbstractCommandAnalyzer {
             throw new BasicSyntaxException(
                     "Select has to be terminated with End Select statement");        	
         }
-        consumeEndOfLine();
+        consumeEndOfStatement();
         
         var lastSelectPart = ctx.nestedStructureHouseKeeper.pop(AbstractCommandSelectPart.class);
 

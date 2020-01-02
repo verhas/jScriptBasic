@@ -97,22 +97,23 @@ public class TestBasicLexicalAnalyzer {
 
     @Test
     public void newLineIsAnalyzedAs_surprise_surprise_newLine() throws AnalysisException {
-        assertLexicals(from("\n"), SYMBOL("\n")
-        );
+        assertLexicals(from("\n"), SYMBOL("\n"));
+    }
+
+    @Test
+    public void colonIsAnalyzedAs_statementSeparator() throws AnalysisException {
+        assertLexicals(from(":"), SYMBOL(":"));
     }
 
     @Test
     public void integerNumbersAreAnalyzedNicely() throws AnalysisException {
-        assertLexicals(from("12"), LONG("12")
-        );
+        assertLexicals(from("12"), LONG("12"));
     }
 
     @Test
     public void floatingNumbersAreAnalyzedNicely() throws AnalysisException {
-        assertLexicals(from("13e3"), DOUBLE("13e3")
-        );
-        assertLexicals(from("13.8"), DOUBLE("13.8")
-        );
+        assertLexicals(from("13e3"), DOUBLE("13e3"));
+        assertLexicals(from("13.8"), DOUBLE("13.8"));
         assertLexicals(from("13.8e2"), DOUBLE("13.8e2"));
         assertLexicals(from("13.8e+2"), DOUBLE("13.8e+2"));
         assertLexicals(from("13.8e-2"), DOUBLE("13.8e-2"));

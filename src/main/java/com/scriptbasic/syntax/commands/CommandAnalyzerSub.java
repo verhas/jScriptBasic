@@ -37,7 +37,7 @@ public class CommandAnalyzerSub extends AbstractCommandAnalyzer {
             node.setArguments(null);
         }
         pushNode(node);
-        consumeEndOfLine();
+        consumeEndOfStatement();
         return node;
     }
 }

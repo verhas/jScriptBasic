@@ -24,7 +24,7 @@ public class CommandAnalyzerPrint extends AbstractCommandAnalyzer {
         final var node = new CommandPrint();
         final var expressionList = analyzeExpressionList();
         node.setExpressionList(expressionList);
-        consumeEndOfLine();
+        consumeEndOfStatement();
         return node;
     }
 

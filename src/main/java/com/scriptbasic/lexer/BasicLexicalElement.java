@@ -179,4 +179,10 @@ public class BasicLexicalElement extends AbstractLexicalElement {
                 && CharUtils.isNewLine(getLexeme().codePointAt(0));
     }
 
+    @Override
+    public Boolean isStatementSeparator() {
+        return getType() == TYPE_SYMBOL && getLexeme().length() == 1
+                && getLexeme().codePointAt(0)==':';
+    }
+
 }

@@ -27,7 +27,7 @@ public class CommandAnalyzerLet extends AbstractCommandAnalyzer {
                     lexicalElement, null);
         }
         commandLet.setExpression(ctx.expressionAnalyzer.analyze());
-        consumeEndOfLine();
+        consumeEndOfStatement();
         return commandLet;
     }
 
