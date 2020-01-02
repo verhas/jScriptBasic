@@ -45,4 +45,15 @@ case is "1": print "1"
 case is "2": print "2"
 end select
 
+' Test comments inside select case
+select case v
+rem comment before first case
+case "0": print "0"
+rem comment between case
+case "1": print "1"
+case "2": print "2"
+rem comment before end select
+end select
+rem comment after end select
+
 print "1"

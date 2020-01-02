@@ -98,7 +98,8 @@ public class ContextBuilder {
         ctx.lexicalAnalyzer = new ScriptBasicLexicalAnalyzer(reader);
         ctx.nestedStructureHouseKeeper = new GenericNestedStructureHouseKeeper(ctx.lexicalAnalyzer);
         final var commandFactory = new BasicCommandFactory(ctx);
-        ctx.syntaxAnalyzer = new BasicSyntaxAnalyzer(ctx.lexicalAnalyzer, commandFactory);
+        ctx.syntaxAnalyzer = new BasicSyntaxAnalyzer(ctx.lexicalAnalyzer, commandFactory,
+                                                     ctx.nestedStructureHouseKeeper);
     }
 
     private static void createReusableComponents(final Context ctx) {

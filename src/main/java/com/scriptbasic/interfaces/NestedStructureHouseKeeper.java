@@ -51,4 +51,14 @@ public interface NestedStructureHouseKeeper {
      */
     <T extends NestedStructure> T pop(Class<T> expectedClass)
             throws AnalysisException;
+
+    /**
+     * Check final state of nested structures.
+     * 
+     * Check if there are no opened nested structures
+     * or any other pending blocks.
+     * 
+     * @throws AnalysisException when there are some elements on the stack
+     */
+    void checkFinalState() throws AnalysisException;
 }

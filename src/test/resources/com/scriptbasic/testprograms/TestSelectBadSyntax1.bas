@@ -5,3 +5,4 @@
 
 select case v
 if true then print "1"
+end select
