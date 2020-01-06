@@ -7,7 +7,6 @@ import com.scriptbasic.spi.Command;
 import com.scriptbasic.spi.LeftValue;
 import com.scriptbasic.spi.LeftValueList;
 import com.scriptbasic.syntax.AbstractAnalyzer;
-import com.scriptbasic.utility.SyntaxExceptionUtility;
 
 public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
         implements CommandAnalyzer {
@@ -101,11 +100,6 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
      * @throws AnalysisException when there are extra character on the actual line
      */
     protected void consumeEndOfStatement() throws AnalysisException {
-        final var le = ctx.lexicalAnalyzer.get();
-        if (le != null && !(le.isLineTerminator() || le.isStatementSeparator())) {
-            SyntaxExceptionUtility.throwSyntaxException(
-                    "There are extra characters following the expression after the '"
-                            + getName() + "' keyword", le);
-        }
+        ctx.nestedStructureHouseKeeper.consumeEndOfStatement();
     }
 }

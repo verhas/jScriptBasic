@@ -25,7 +25,7 @@ public class TestCommandLine {
 
     @Test
     public void testProgram() throws Exception {
-        main(new String[]{"src/test/resources/com/scriptbasic/testprograms/TestIf.bas"});
+        main(new String[]{"src/test/resources/com/scriptbasic/testprograms/TestIf1.bas"});
     }
 
     @Test

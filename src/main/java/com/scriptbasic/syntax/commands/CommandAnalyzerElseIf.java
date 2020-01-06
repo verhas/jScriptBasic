@@ -3,7 +3,6 @@ package com.scriptbasic.syntax.commands;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.executors.commands.CommandElseIf;
 import com.scriptbasic.interfaces.AnalysisException;
-import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.spi.Command;
 
 /**
@@ -16,10 +15,15 @@ public class CommandAnalyzerElseIf extends AbstractCommandAnalyzerIfKind {
         super(ctx);
     }
 
-    protected Command createNode(final Expression condition) throws AnalysisException {
+    @Override
+    public Command analyze() throws AnalysisException {
+
+        final var condition = analyzeCondition();
+        
         final var node = new CommandElseIf();
         node.setCondition(condition);
         registerAndSwapNode(node);
+        consumeEndOfStatement();
         return node;
     }
 

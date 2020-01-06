@@ -60,7 +60,14 @@ public class TestPrograms {
         final Map<String, Object> map;
         codeTest("TestEmpty.bas", "");
         codeTest("TestPrintHello.bas", "hello");
-        codeTest("TestIf.bas", "111");
+        codeTest("TestIf1.bas", "111");
+        codeTest("TestIf2.bas", "12568");
+        codeTest("TestIf3.bas", "12456");
+        codeTest("TestIf4.bas", "135910");
+        testSyntaxFail("TestIncorrectIf1.bas");
+        testSyntaxFail("TestIncorrectIf2.bas");
+        testSyntaxFail("TestIncorrectIf3.bas");
+        testSyntaxFail("TestIncorrectIf4.bas");
         codeTest("TestSelect1.bas", "1111111");
         codeTest("TestSelect2.bas", "2468");
         codeTest("TestSelect3.bas", "0 1 1 2 3 5 8");
