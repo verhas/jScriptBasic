@@ -182,7 +182,7 @@ public class BasicLexicalElement extends AbstractLexicalElement {
     @Override
     public Boolean isStatementSeparator() {
         return getType() == TYPE_SYMBOL && getLexeme().length() == 1
-                && getLexeme().codePointAt(0)==':';
+                && getLexeme().codePointAt(0) == ':';
     }
 
 }
