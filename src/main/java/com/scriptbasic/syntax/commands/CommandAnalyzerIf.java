@@ -40,22 +40,24 @@ public class CommandAnalyzerIf extends AbstractCommandAnalyzerIfKind {
                 state = InlineProcessorState.EXPECTING_ELSE_CLAUSE;
                 return EndOfStatementResult.CONSUMED;
             }
+            
             final var nextElement = ctx.lexicalAnalyzer.peek();
-            
-            // handle multiple statements separated with colon
-            if(nextElement!=null && nextElement.getLexeme().equals(":")) {
-                ctx.lexicalAnalyzer.get();
-                return EndOfStatementResult.CONSUMED;
-            }
-            
-            if (!nextElement.isLineTerminator() && !nextElement.getLexeme().equals("'")
-                    && state == InlineProcessorState.EXPECTING_THEN_CLAUSE) {
-                // only else statement is allowed
-                if(nextElement.isSymbol(ScriptBasicKeyWords.KEYWORD_ELSE)) {
-                    state = InlineProcessorState.EXPECTING_ELSE;
+            if(nextElement!=null) {
+                // handle multiple statements separated with colon
+                if(nextElement.getLexeme().equals(":")) {
+                    ctx.lexicalAnalyzer.get();
                     return EndOfStatementResult.CONSUMED;
-                }                
-                throw new BasicSyntaxException("Unexpexted element: "+nextElement.getLexeme());
+                }
+            
+                if (!nextElement.isLineTerminator() && !nextElement.getLexeme().equals("'")
+                        && state == InlineProcessorState.EXPECTING_THEN_CLAUSE) {
+                    // only else statement is allowed
+                    if (nextElement.isSymbol(ScriptBasicKeyWords.KEYWORD_ELSE)) {
+                        state = InlineProcessorState.EXPECTING_ELSE;
+                        return EndOfStatementResult.CONSUMED;
+                    }
+                    throw new BasicSyntaxException("Unexpexted element: " + nextElement.getLexeme());
+                }
             }
             
             state = InlineProcessorState.CLAUSE_DEFINED;
