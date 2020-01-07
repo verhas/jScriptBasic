@@ -73,6 +73,20 @@ public class StringFunctions {
     }
 
     /**
+     * Return {@code len} number of characters from the left (the beginning) of the
+     * string.
+     *
+     * @param s   parameter
+     * @param len parameter
+     * @return return value
+     */
+    @BasicFunction(classification = {com.scriptbasic.classification.String.class,
+            com.scriptbasic.classification.Utility.class})
+    static public String left(final String s, final int len) {
+        return s.length() > len ? s.substring(0, len) : s;
+    }
+    
+    /**
      * Return a substring from the string that starts at the position
      * {@code start} and has a length of {@code len}.
      *
