@@ -10,6 +10,24 @@ package com.scriptbasic.interfaces;
  * date June 8, 2012
  */
 public interface NestedStructureHouseKeeper {
+    
+    static public enum EndOfStatementResult {
+        /**
+         * End of statement was consumed. Other processors should not be called.
+         */
+        CONSUMED,
+        
+        /**
+         * End of statement was processed. Other processors should be notified.
+         */
+        PROCESSED
+    }
+
+    static public interface EndOfStatementProcessor {
+        
+        EndOfStatementResult consumeEndOfStatement() throws AnalysisException;
+        
+    }
 
     /**
      * Push a nested structure object on the housekeeping stack.
@@ -61,4 +79,18 @@ public interface NestedStructureHouseKeeper {
      * @throws AnalysisException when there are some elements on the stack
      */
     void checkFinalState() throws AnalysisException;
+
+    /**
+     * Checks that there are no extra characters when the line analyzer 
+     * expects it has finished analyzing the statement. If there are
+     * some extra characters on the line then throws syntax error exception.
+     * Otherwise it simply steps the lexical analyzer iterator over the symbol.
+     *
+     * @throws AnalysisException when there are extra character on the actual line
+     */
+    void consumeEndOfStatement() throws AnalysisException;
+
+    void pushEndOfStatementProcessor(EndOfStatementProcessor endOfStatementProcessor);
+
+    EndOfStatementProcessor popEndOfStatementProcessor();
 }

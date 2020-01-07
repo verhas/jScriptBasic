@@ -21,9 +21,11 @@ public abstract class AbstractCommandAnalyzerIfElseKind extends
         pushNode(node);
     }
 
-    protected void registerAndPopNode(final AbstractCommandIfElseKind node)
+    protected AbstractCommandIfElseKind registerAndPopNode(final AbstractCommandIfElseKind node)
             throws AnalysisException {
-        ctx.nestedStructureHouseKeeper.pop(AbstractCommandIfElseKind.class).setNext(node);
+        var command = ctx.nestedStructureHouseKeeper.pop(AbstractCommandIfElseKind.class);
+        command.setNext(node);
+        return command;
     }
 
 }

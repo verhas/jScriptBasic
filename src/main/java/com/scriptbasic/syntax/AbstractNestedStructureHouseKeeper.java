@@ -4,7 +4,10 @@ import com.scriptbasic.exceptions.LexicalException;
 import com.scriptbasic.interfaces.*;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
+import com.scriptbasic.utility.SyntaxExceptionUtility;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public abstract class AbstractNestedStructureHouseKeeper implements NestedStructureHouseKeeper {
@@ -17,6 +20,7 @@ public abstract class AbstractNestedStructureHouseKeeper implements NestedStruct
     private final Stack<Structure> stack = new Stack<>();
     private final LexicalAnalyzer analyzer;
     private boolean stackIsHealthy = true;
+    private final Stack<EndOfStatementProcessor> endOfStatementProcessors = new Stack<>();
 
     protected AbstractNestedStructureHouseKeeper(final LexicalAnalyzer analyzer) {
         this.analyzer = analyzer;
@@ -89,5 +93,47 @@ public abstract class AbstractNestedStructureHouseKeeper implements NestedStruct
         if (stack.size() > 0) {
             throw new BasicSyntaxException("There is at least one opened block on the stack. Block is not properly closed.");
         }
+        if (endOfStatementProcessors.size() > 0) {
+            throw new BasicSyntaxException("There is at least one unfinished statement.");
+        }
+    }
+    
+    @Override
+    public void consumeEndOfStatement() throws AnalysisException {
+ 
+        final var numOfProcessors = endOfStatementProcessors.size();
+        if(numOfProcessors>0) {
+            // Copy processors and revert order
+            // Note: Processors might be unregistered while iterating them
+            List<EndOfStatementProcessor> processors = new ArrayList<>(numOfProcessors);
+            final var iter = endOfStatementProcessors.listIterator(endOfStatementProcessors.size());
+            while(iter.hasPrevious()) {
+                processors.add(iter.previous());
+            }
+            // Run processors
+            for(final var processor: processors) {
+                final var result = processor.consumeEndOfStatement();
+                if(result==EndOfStatementResult.CONSUMED) {
+                    return;
+                }
+            }
+        }
+        
+        final var le = analyzer.get();
+        if (le != null && !(le.isLineTerminator() || le.isStatementSeparator())) {
+            SyntaxExceptionUtility.throwSyntaxException(
+                    "There are extra characters following the expression.", le);
+        }
+    }
+    
+    @Override
+    public void pushEndOfStatementProcessor(EndOfStatementProcessor endOfStatementProcessor)
+    {
+        endOfStatementProcessors.push(endOfStatementProcessor);
+    }
+    
+    @Override
+    public EndOfStatementProcessor popEndOfStatementProcessor() {
+        return endOfStatementProcessors.pop();
     }
 }

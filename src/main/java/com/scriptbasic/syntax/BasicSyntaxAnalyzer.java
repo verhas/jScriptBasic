@@ -1,12 +1,17 @@
 package com.scriptbasic.syntax;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.scriptbasic.interfaces.*;
+import com.scriptbasic.spi.Command;
 
 public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
     private final LexicalAnalyzer lexicalAnalyzer;
     private final CommandFactory commandFactory;
     private final NestedStructureHouseKeeper nestedStructureHouseKeeper;
-    private LexicalElement lexicalElement;    
+    private LexicalElement lexicalElement;
+    private List<Command> additionalCommands;
 
     public BasicSyntaxAnalyzer(final LexicalAnalyzer lexicalAnalyzer, final CommandFactory commandFactory, 
                                final NestedStructureHouseKeeper nestedStructureHouseKeeper) {
@@ -50,11 +55,23 @@ public final class BasicSyntaxAnalyzer implements SyntaxAnalyzer {
                     buildableProgram.addCommand(newCommand);
                 }
             }
+            if(additionalCommands!=null) {
+                additionalCommands.forEach(buildableProgram::addCommand);
+                additionalCommands = null;
+            }
             this.lexicalElement = lexicalAnalyzer.peek();
         }
         nestedStructureHouseKeeper.checkFinalState();
         buildableProgram.postprocess();
         return buildableProgram;
+    }
+    
+    @Override
+    public void addCommand(final Command command) {
+        if(additionalCommands==null) {
+            additionalCommands = new ArrayList<>();
+        }
+        additionalCommands.add(command);
     }
 
     public static void consumeIgnoredLine(final LexicalAnalyzer lexicalAnalyzer, String lexString) throws AnalysisException {
