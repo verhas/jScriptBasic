@@ -68,6 +68,7 @@ public class TestPrograms {
         testSyntaxFail("TestSelectBadSyntax2.bas");
         testSyntaxFail("TestSelectBadSyntax3.bas");
         testSyntaxFail("TestSelectBadSyntax4.bas");
+        codeTest("TestSingleLine.bas", "12345678910");
         codeTest("TestBooleanConversions.bas", "111111");
         codeTest("TestArrays.bas", "OK");
         try {

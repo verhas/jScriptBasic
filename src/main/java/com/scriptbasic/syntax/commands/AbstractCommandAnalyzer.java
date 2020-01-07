@@ -93,17 +93,16 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
     }
 
     /**
-     * Checks that there are no extra characters on a program line when the line
-     * analyzer thinks that it has finished analyzing the line. If there are
+     * Checks that there are no extra characters when the line analyzer 
+     * expects it has finished analyzing the statement. If there are
      * some extra characters on the line then throws syntax error exception.
-     * Otherwise it simply steps the lexical analyzer iterator over the EOL
-     * symbol.
+     * Otherwise it simply steps the lexical analyzer iterator over the symbol.
      *
      * @throws AnalysisException when there are extra character on the actual line
      */
-    protected void consumeEndOfLine() throws AnalysisException {
+    protected void consumeEndOfStatement() throws AnalysisException {
         final var le = ctx.lexicalAnalyzer.get();
-        if (le != null && !le.isLineTerminator()) {
+        if (le != null && !(le.isLineTerminator() || le.isStatementSeparator())) {
             SyntaxExceptionUtility.throwSyntaxException(
                     "There are extra characters following the expression after the '"
                             + getName() + "' keyword", le);

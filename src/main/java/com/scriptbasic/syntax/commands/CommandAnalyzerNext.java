@@ -35,7 +35,7 @@ public class CommandAnalyzerNext extends AbstractCommandAnalyzer {
                         lexicalElement);
             }
         }
-        consumeEndOfLine();
+        consumeEndOfStatement();
         return node;
     }
 }

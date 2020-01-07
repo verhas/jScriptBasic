@@ -86,7 +86,7 @@ public class CommandAnalyzerDSL extends AbstractCommandAnalyzer {
         if (!functionNameLexicalElement.isIdentifier()) {
             throw new BasicSyntaxException("there should be a function name after the keyword 'call' defining a sentenceó");
         }
-        consumeEndOfLine();
+        consumeEndOfStatement();
         final String[] syntaxElements = sentence.split("\\s+");
         if (syntaxElements.length == 0) {
             throw new BasicSyntaxException("sentence can not be empty");

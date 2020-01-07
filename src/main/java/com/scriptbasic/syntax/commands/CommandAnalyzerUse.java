@@ -39,7 +39,7 @@ public class CommandAnalyzerUse extends AbstractCommandAnalyzer {
         } else {
             aliasName = className;
         }
-        consumeEndOfLine();
+        consumeEndOfStatement();
         if (className.indexOf('.') != -1 || aliasName.indexOf('.') != -1) {
             throw new BasicSyntaxException(
                     "class name and alias name should not contain dot in command USE");

@@ -31,7 +31,7 @@ public class CommandAnalyzerFor extends AbstractCommandAnalyzer {
             node.setLoopStepValue(null);
         }
         pushNode(node);
-        consumeEndOfLine();
+        consumeEndOfStatement();
         return node;
     }
 

@@ -27,7 +27,7 @@ public class CommandAnalyzerCase
         } else {
             analyzeCaseConditions(node);
         }
-        consumeEndOfLine();
+        consumeEndOfStatement();
 
         var lastSelectPart = ctx.nestedStructureHouseKeeper.pop(AbstractCommandSelectPart.class);
         CommandSelect commandSelect = null;

@@ -15,7 +15,7 @@ public class CommandAnalyzerEndSub extends AbstractCommandAnalyzer {
     @Override
     public Command analyze() throws AnalysisException {
         final var node = new CommandEndSub();
-        consumeEndOfLine();
+        consumeEndOfStatement();
         final var commandSub = ctx.nestedStructureHouseKeeper.pop(CommandSub.class);
         commandSub.setCommandEndSub(node);
         return node;

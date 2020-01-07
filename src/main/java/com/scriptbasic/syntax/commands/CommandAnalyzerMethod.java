@@ -62,7 +62,7 @@ public class CommandAnalyzerMethod extends AbstractCommandAnalyzer {
         node.setKlass(KlassUtility.forNameEx(className));
         node.setMethodName(methodName);
         node.setAlias(alias);
-        consumeEndOfLine();
+        consumeEndOfStatement();
 
         return node;
     }

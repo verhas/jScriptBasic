@@ -26,7 +26,7 @@ public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
             ctx.lexicalAnalyzer.resetLine();
             final var commandLet = new CommandLet();
             commandLet.setExpression(ctx.expressionAnalyzer.analyze());
-            consumeEndOfLine();
+            consumeEndOfStatement();
             return commandLet;
         } else {
             final var functionName = lv.getIdentifier();
@@ -47,7 +47,7 @@ public class CommandAnalyzerCall extends AbstractCommandAnalyzer {
             if (needClosingParenthesis) {
                 consumeClosingParenthesis(ctx.lexicalAnalyzer);
             }
-            consumeEndOfLine();
+            consumeEndOfStatement();
             return new CommandCall(functionCall);
         }
     }

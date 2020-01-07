@@ -79,5 +79,12 @@ public interface LexicalElement extends SourceLocationBound {
      */
     Boolean isSymbol(String lexeme);
 
+    /**
+     * Return true if the lexical element is colon 
+     * 
+     * @return true if the lexical element is colon
+     */
+    Boolean isStatementSeparator();
+
     Boolean isLineTerminator();
 }

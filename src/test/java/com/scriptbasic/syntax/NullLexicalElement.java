@@ -97,4 +97,9 @@ public class NullLexicalElement implements LexicalElement {
     public int getPosition() {
         return 0;
     }
+
+    @Override
+    public Boolean isStatementSeparator() {
+        return null;
+    }
 }

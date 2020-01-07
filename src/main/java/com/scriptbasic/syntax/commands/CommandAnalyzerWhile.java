@@ -15,7 +15,7 @@ public class CommandAnalyzerWhile extends AbstractCommandAnalyzer {
     public Command analyze() throws AnalysisException {
         final var node = new CommandWhile();
         final var condition = analyzeExpression();
-        consumeEndOfLine();
+        consumeEndOfStatement();
         node.setCondition(condition);
         pushNode(node);
         return node;
