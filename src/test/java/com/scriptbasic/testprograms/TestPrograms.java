@@ -162,7 +162,7 @@ public class TestPrograms {
 
     @Test
     public void testStringFunctions() throws Exception {
-        codeTest("TestStringFunctions.bas", "0189");
+        codeTest("TestStringFunctions.bas", "0189123");
     }
     
     @Test
