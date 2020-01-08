@@ -64,6 +64,7 @@ public class TestPrograms {
         codeTest("TestIf2.bas", "12568");
         codeTest("TestIf3.bas", "12456");
         codeTest("TestIf4.bas", "135910");
+        codeTest("TestIf5.bas", "1");
         testSyntaxFail("TestIncorrectIf1.bas");
         testSyntaxFail("TestIncorrectIf2.bas");
         testSyntaxFail("TestIncorrectIf3.bas");
