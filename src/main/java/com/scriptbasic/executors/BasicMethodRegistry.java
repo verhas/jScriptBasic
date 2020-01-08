@@ -135,12 +135,13 @@ public class BasicMethodRegistry implements MethodRegistry {
     public void registerJavaMethod(final String alias, final Class<?> klass,
                                    final String methodName, final Class<?>[] argumentTypes)
             throws BasicRuntimeException {
+        final var aliasLowerCase = alias.toLowerCase();
         final var item = new RegistryItem();
         item.methodName = methodName;
         item.klass = klass;
         item.args = argumentTypes.clone();
-        registry.put(formKey(alias, klass), item);
-        registerGlobal(alias, item);
+        registry.put(formKey(aliasLowerCase, klass), item);
+        registerGlobal(aliasLowerCase, item);
     }
 
     private static class RegistryItem {

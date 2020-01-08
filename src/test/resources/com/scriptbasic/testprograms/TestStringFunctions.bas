@@ -1,4 +1,4 @@
 v = "0123456789"
 PRINT left(v,2)
-PRINT right(v,2)
-PRINT mid(v,2,3)
+PRINT RIGHT(v,2)
+PRINT Mid(v,2,3)
