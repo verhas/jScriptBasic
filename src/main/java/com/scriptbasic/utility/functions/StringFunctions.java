@@ -1,6 +1,7 @@
 package com.scriptbasic.utility.functions;
 
 import com.scriptbasic.api.BasicFunction;
+import com.scriptbasic.interfaces.BasicRuntimeException;
 
 /**
  * <p>
@@ -73,6 +74,20 @@ public class StringFunctions {
     }
 
     /**
+     * Return {@code len} number of characters from the left (the beginning) of the
+     * string.
+     *
+     * @param s   parameter
+     * @param len parameter
+     * @return return value
+     */
+    @BasicFunction(classification = {com.scriptbasic.classification.String.class,
+            com.scriptbasic.classification.Utility.class})
+    static public String left(final String s, final int len) {
+        return s.length() > len ? s.substring(0, len) : s;
+    }
+    
+    /**
      * Return a substring from the string that starts at the position
      * {@code start} and has a length of {@code len}.
      *
@@ -80,11 +95,15 @@ public class StringFunctions {
      * @param start parameter
      * @param len   parameter
      * @return return value
+     * @throws BasicRuntimeException incorrect parameter
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
-    static public String mid(final String s, final int start, final int len) {
-        return s.substring(start, start + len);
+    static public String mid(final String s, final int start, final int len) throws BasicRuntimeException {
+        if (start < 1) {
+            throw new BasicRuntimeException("Incorrect value in parameter start: " + start);
+        }
+        return s.substring(start - 1, start - 1 + len);
     }
 
     /**
