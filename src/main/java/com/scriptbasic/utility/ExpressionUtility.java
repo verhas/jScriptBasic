@@ -154,6 +154,6 @@ public final class ExpressionUtility {
             return ((BasicStringValue) expression).getValue();
         }
         throw new BasicSyntaxException(
-                "class, package or symbol name are not vaid in command USE");
+                "class, package or symbol name are not valid in command USE or METHOD");
     }
 }
