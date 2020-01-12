@@ -95,6 +95,7 @@ public class TestPrograms {
         codeTest("TestSub4.bas", "123\n123\n123\n123\n");
         codeTest("TestSub5.bas", "1111");
         codeTest("TestWhile1.bas", "89");
+        codeTest("MethodCaseInsensitive.bas", "variable g: 0.8");
 
         testSyntaxFail("ErrorTestSub1.bas");
         testSyntaxFail("NestedSub.bas");
