@@ -46,7 +46,7 @@ public class FunctionCall extends AbstractIdentifieredExpressionListedExpression
     private RightValue callJavaFunction(final Interpreter interpreter)
             throws ScriptBasicException {
         final RightValue result;
-        final var functionName = getVariableName();
+        final var functionName = getVariableName().toLowerCase();
         final List<RightValue> args = ExpressionUtility.evaluateExpressionList(
                 interpreter, getExpressionList());
         final var method = interpreter.getJavaMethod(null, functionName);
