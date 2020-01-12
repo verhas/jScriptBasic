@@ -31,7 +31,7 @@ public class TestPrograms {
     }
 
     private static void codeTest(final String fileName, final String expectedOutput)
-            throws Exception {
+        throws Exception {
         codeTest(fileName, null, expectedOutput);
     }
 
@@ -98,6 +98,7 @@ public class TestPrograms {
         codeTest("MethodCaseInsensitive.bas", "variable g: 0.8");
 
         testSyntaxFail("ErrorTestSub1.bas");
+        testRuntimeFail("ClassMethodsAreCaseSensitive.bas");
         testSyntaxFail("NestedSub.bas");
         testSyntaxFail("DisplacedGlobal.bas");
         testSyntaxFail("DisplacedLocal.bas");
@@ -115,10 +116,10 @@ public class TestPrograms {
         codeTest("TestForLoop1.bas", "123456789");
         codeTest("TestForLoop2.bas", "123456789");
         codeTest("TestForLoop3.bas",
-                "1.01.52.02.53.03.54.04.55.05.56.06.57.07.58.08.59.09.5");
+            "1.01.52.02.53.03.54.04.55.05.56.06.57.07.58.08.59.09.5");
         codeTest("TestForLoop4.bas", "987654321");
         codeTest("TestForLoop5.bas",
-                "9.08.58.07.57.06.56.05.55.04.54.03.53.02.52.01.51.0");
+            "9.08.58.07.57.06.56.05.55.04.54.03.53.02.52.01.51.0");
         codeTest("TestForLoop6.bas", "");
         codeTest("TestForLoop7.bas", "");
         codeTest("TestForLoop8.bas", "22");
@@ -127,7 +128,7 @@ public class TestPrograms {
         codeTest("TestRuntimeFunction.bas", "1.01.5707963267948966");
         codeTest("TestNullFunction.bas", "undefundef");
         codeTest("TestMethodCall.bas",
-                "" + Math.sin(1.0) + "\n" + Math.sin(1.0));
+            "" + Math.sin(1.0) + "\n" + Math.sin(1.0));
         map = new HashMap<>();
         map.put("testClass", new TestClass());
         codeTest("TestObjectMethodCall.bas", map, "310");
@@ -166,7 +167,7 @@ public class TestPrograms {
     public void testStringFunctions() throws Exception {
         codeTest("TestStringFunctions.bas", "0189123");
     }
-    
+
     @Test
     public void testJavaObjectFieldAccess() throws ScriptBasicException, ClassNotFoundException, AnalysisException {
         final var e = new TestingExecutor();
@@ -188,31 +189,31 @@ public class TestPrograms {
         e.getCtx().configuration = configuration;
         configuration.set("arrayMaxIndex", "100");
         Assertions.assertThrows(BasicRuntimeException.class, () ->
-                e.execute("AllocateTooLargeArray.bas"));
+            e.execute("AllocateTooLargeArray.bas"));
     }
 
     @Test()
     public void syntaxErrorWhenThereIsNoClosingParentheseAfterFunctionCall() {
         Assertions.assertThrows(CommandFactoryException.class, () ->
-                codeTest("NoClosingParenAfterFunctionCall.bas", ""));
+            codeTest("NoClosingParenAfterFunctionCall.bas", ""));
     }
 
     @Test()
     public void syntaxErrorWhenNoClosingParenInExpression() {
         Assertions.assertThrows(CommandFactoryException.class, () ->
-                codeTest("NoClosingParenInExpression.bas", ""));
+            codeTest("NoClosingParenInExpression.bas", ""));
     }
 
     @Test()
     public void syntaxErrorWhenNoClosingBracketAccessingArrayElement() {
         Assertions.assertThrows(CommandFactoryException.class, () ->
-                codeTest("NoClosingBracketAccessingArrayElement.bas", ""));
+            codeTest("NoClosingBracketAccessingArrayElement.bas", ""));
     }
 
     @Test()
     public void syntaxErrorWhenSubroutineIsDefinedMoreThanOnce() {
         Assertions.assertThrows(BasicSyntaxException.class, () ->
-                codeTest("SubroutineDoubleDefined.bas", ""));
+            codeTest("SubroutineDoubleDefined.bas", ""));
     }
 
     @Test
