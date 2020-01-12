@@ -98,7 +98,7 @@ public class CommandAnalyzerDSL extends AbstractCommandAnalyzer {
         dslLines.add(new DslLine(functionNameLexicalElement.getLexeme(), syntaxElements));
     }
 
-    private class DslLine {
+    private static class DslLine {
         final String methodName;
         final String[] syntaxElements;
 

@@ -259,10 +259,7 @@ public final class KlassUtility {
         if (isGetter != null) {
             return isGetter;
         }
-        if (getGetter != null) {
-            return getGetter;
-        }
-        return null;
+        return getGetter;
     }
 
     private static Method getterPrefixed(final Field field, final String prefix) {

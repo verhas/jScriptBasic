@@ -47,7 +47,7 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
                     + " < 0 as array index");
         }
         if (index >= array.length) {
-            throw new BasicRuntimeException("Cann not use index" + index
+            throw new BasicRuntimeException("Cannot use index" + index
                     + " > max index" + (array.length - 1) + " ");
         }
         return array[index];

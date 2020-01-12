@@ -30,7 +30,7 @@ public class CommandAnalyzerCase
         consumeEndOfStatement();
 
         var lastSelectPart = ctx.nestedStructureHouseKeeper.pop(AbstractCommandSelectPart.class);
-        CommandSelect commandSelect = null;
+        final CommandSelect commandSelect;
         if (lastSelectPart instanceof CommandCase) {
             // pop real select
             commandSelect = ctx.nestedStructureHouseKeeper.pop(CommandSelect.class);
@@ -67,12 +67,12 @@ public class CommandAnalyzerCase
 
                     commandCase.addCaseFromToCondition(caseCondition, caseCondition2);
                 } else {
-                    // has to be equal condition					
+                    // has to be equal condition
                     commandCase.addCaseEqualCondition(caseCondition);
                 }
             }
 
-            // consume expression separator			
+            // consume expression separator
             elem = ctx.lexicalAnalyzer.peek();
             if (elem.isSymbol(",")) {
                 ctx.lexicalAnalyzer.get();

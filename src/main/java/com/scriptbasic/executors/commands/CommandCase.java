@@ -83,11 +83,11 @@ public class CommandCase extends AbstractCommandSelectPart {
 	/**
 	 * List of case conditions to be evaluated
 	 */
-	private List<CaseCondition> expressionList = new ArrayList<>();
+	private final List<CaseCondition> expressionList = new ArrayList<>();
 	private CommandEndSelect commandEndSelect;
 
 	@Override
-	public void execute(Interpreter interpreter) throws ScriptBasicException {
+	public void execute(Interpreter interpreter) {
 
 		// Check if other case already applied
 		Boolean caseApplied = (Boolean) interpreter.getMap().get(CommandSelect.CASE_APPLIED);

@@ -23,7 +23,7 @@ public class CommandAnalyzerIf extends AbstractCommandAnalyzerIfKind {
         EXPECTING_ELSE,
         EXPECTING_ELSE_CLAUSE,
         CLAUSE_DEFINED
-    };
+    }
     
     /**
      * Processor for inline 'if' statement

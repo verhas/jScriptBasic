@@ -21,7 +21,7 @@ public class CommandSelect extends AbstractCommandSelectPart {
 	/**
 	 * List of possible cases
 	 */
-	private List<CommandCase> cases = new ArrayList<>();
+	private final List<CommandCase> cases = new ArrayList<>();
 
 	public void setExpression(final Expression expression) {
 		this.expression = expression;		

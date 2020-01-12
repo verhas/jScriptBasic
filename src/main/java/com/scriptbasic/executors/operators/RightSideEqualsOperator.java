@@ -17,7 +17,7 @@ public class RightSideEqualsOperator
 	}
 
 	@Override
-	protected RightValue getLeftOperandEvaluated(final Interpreter interpreter) throws ScriptBasicException {
+	protected RightValue getLeftOperandEvaluated(final Interpreter interpreter) {
 		return this.leftOperandEvaluated;
 	}
 

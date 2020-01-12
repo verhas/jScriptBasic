@@ -11,13 +11,13 @@ public abstract class AbstractBinaryFullCircuitNumericOperator<T extends Number>
             ;
 
     protected abstract RightValue operateOnDoubleLong(Double a, Long b)
-            throws BasicRuntimeException;
+        ;
 
     protected abstract RightValue operateOnLongDouble(Long a, Double b)
-            throws BasicRuntimeException;
+        ;
 
     protected abstract RightValue operateOnLongLong(Long a, Long b)
-            throws BasicRuntimeException;
+        ;
 
     protected RightValue operateOnValues(final RightValue leftOperand,
                                          final RightValue rightOperand) throws BasicRuntimeException {

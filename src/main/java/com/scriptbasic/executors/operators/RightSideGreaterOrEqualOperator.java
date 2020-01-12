@@ -9,14 +9,14 @@ public class RightSideGreaterOrEqualOperator extends GreaterOrEqualOperator {
     /**
      * Evaluated left operand
      */    
-	private RightValue leftOperandEvaluated;
+	private final RightValue leftOperandEvaluated;
 
 	public RightSideGreaterOrEqualOperator(final RightValue leftOperandEvaluated) {
 		this.leftOperandEvaluated = leftOperandEvaluated;
 	}
 
 	@Override
-	protected RightValue getLeftOperandEvaluated(final Interpreter interpreter) throws ScriptBasicException {
+	protected RightValue getLeftOperandEvaluated(final Interpreter interpreter) {
 		return this.leftOperandEvaluated;
 	}
 }

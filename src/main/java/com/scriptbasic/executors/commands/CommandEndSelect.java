@@ -8,7 +8,7 @@ public class CommandEndSelect
 {
 
 	@Override
-	public void execute(Interpreter interpreter) throws ScriptBasicException {
+	public void execute(Interpreter interpreter) {
 		// do nothing		
 	}
 

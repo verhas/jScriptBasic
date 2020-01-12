@@ -33,7 +33,7 @@ public class BasicMethodRegistry implements MethodRegistry {
         final var item = getRegistryItem(klass, alias);
         if (item == null) {
             method = null;
-        } else {//TODO check why ntelliJ analysis says that this is always null
+        } else {//TODO check why IntelliJ analysis says that this is always null
             if (item.method == null) {
                 final Class<?>[] args = new Class[item.args.length + 1];
                 args[0] = Interpreter.class;

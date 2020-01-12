@@ -11,7 +11,7 @@ package com.scriptbasic.interfaces;
  */
 public interface NestedStructureHouseKeeper {
     
-    static public enum EndOfStatementResult {
+    enum EndOfStatementResult {
         /**
          * End of statement was consumed. Other processors should not be called.
          */
@@ -23,7 +23,7 @@ public interface NestedStructureHouseKeeper {
         PROCESSED
     }
 
-    static public interface EndOfStatementProcessor {
+    interface EndOfStatementProcessor {
         
         EndOfStatementResult consumeEndOfStatement() throws AnalysisException;
         

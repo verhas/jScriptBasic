@@ -30,7 +30,7 @@ public class CommandAnalyzerEnd extends AbstractCommandAnalyzer {
         var lastSelectPart = ctx.nestedStructureHouseKeeper.pop(AbstractCommandSelectPart.class);
 
         
-        CommandSelect commandSelect = null;                 
+        final CommandSelect commandSelect;
         if(lastSelectPart instanceof CommandCase) {
         	// pop real select
         	commandSelect = ctx.nestedStructureHouseKeeper.pop(CommandSelect.class);

@@ -33,7 +33,7 @@ public @interface BasicFunction {
      * properly function.
      * <p>
      * The different versions of ScriptBasic may provide different
-     * functionalities for the methods registered as functions. When a method
+     * functionality for the methods registered as functions. When a method
      * needs a specific interface version the interpreter may alter its
      * behavior.
      * <p>

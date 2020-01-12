@@ -8,6 +8,8 @@ import com.scriptbasic.spi.LeftValue;
 import com.scriptbasic.spi.LeftValueList;
 import com.scriptbasic.syntax.AbstractAnalyzer;
 
+import java.util.Objects;
+
 public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
         implements CommandAnalyzer {
     protected final Context ctx;
@@ -26,7 +28,7 @@ public abstract class AbstractCommandAnalyzer extends AbstractAnalyzer<Command>
      * has modifiers (array access or field access)
      */
     protected static boolean equal(final LeftValue a, final LeftValue b) {
-        if (a == b || (a != null && a.equals(b))) {
+        if (Objects.equals(a, b)) {
             return true;
         }
         if (a instanceof BasicLeftValue && b instanceof BasicLeftValue) {

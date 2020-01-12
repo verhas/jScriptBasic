@@ -57,6 +57,7 @@ public class UtilityFunctions {
      *
      * @return the undef value
      */
+    @SuppressWarnings("SameReturnValue")
     @BasicFunction(classification = Constant.class)
     static public Object undef() {
         return null;
@@ -107,7 +108,7 @@ public class UtilityFunctions {
         if (v < 0 || v > 255) {
             throw new BasicRuntimeException("Byte value is out of range.");
         }
-        if (i >= 0 || i < buffer.length) {
+        if ( 0 <= i && i < buffer.length) {
             buffer[i.intValue()] = (byte) v.intValue();
         } else {
             throw new BasicRuntimeException(

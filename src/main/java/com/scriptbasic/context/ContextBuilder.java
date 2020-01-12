@@ -53,7 +53,7 @@ public class ContextBuilder {
         return ctx;
     }
 
-    public static Context from(final String string) throws AnalysisException {
+    public static Context from(final String string) {
         return from(null, string);
     }
 
@@ -71,7 +71,7 @@ public class ContextBuilder {
         return from(existing, hReader);
     }
 
-    public static Context from(final SourceReader sourceReader, final Reader input, final Writer output, final Writer error) throws AnalysisException {
+    public static Context from(final SourceReader sourceReader, final Reader input, final Writer output, final Writer error) {
         return from(null, sourceReader, input, output, error);
     }
 

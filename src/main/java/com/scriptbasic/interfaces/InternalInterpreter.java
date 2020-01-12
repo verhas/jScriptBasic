@@ -114,9 +114,8 @@ public interface InternalInterpreter {
      * @param klass      parameter
      * @param methodName parameter
      * @return return value
-     * @throws ScriptBasicException in case of exception
      */
     Method getJavaMethod(Class<?> klass, String methodName)
-            throws ScriptBasicException;
+    ;
 
 }

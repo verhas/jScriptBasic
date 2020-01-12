@@ -87,11 +87,9 @@ public interface ScriptBasic {
      *
      * @param input the input to set
      */
-    @Deprecated()
     void setInput(Reader input);
 
     default ScriptBasic input(final Reader input) {
-        //noinspection deprecation
         setInput(input);
         return this;
     }
@@ -110,11 +108,9 @@ public interface ScriptBasic {
      *
      * @param output parameter
      */
-    @Deprecated()
     void setOutput(Writer output);
 
     default ScriptBasic output(final Writer output) {
-        //noinspection deprecation
         setOutput(output);
         return this;
     }
@@ -133,11 +129,9 @@ public interface ScriptBasic {
      *
      * @param error the error output
      */
-    @Deprecated()
     void setErrorOutput(Writer error);
 
     default ScriptBasic error(final Writer error) {
-        //noinspection deprecation
         setErrorOutput(error);
         return this;
     }
@@ -443,7 +437,6 @@ public interface ScriptBasic {
         }
 
         public ScriptBasic is(final Object value) throws ScriptBasicException {
-            //noinspection deprecation
             scriptBasic.setVariable(name, value);
             return scriptBasic;
         }
