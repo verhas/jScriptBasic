@@ -83,81 +83,41 @@ public class ScriptBasicEngineFactory implements javax.script.ScriptEngineFactor
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.script.ScriptEngineFactory#getEngineName()
-     */
     @Override
     public String getEngineName() {
         return engineName;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.script.ScriptEngineFactory#getEngineVersion()
-     */
     @Override
     public String getEngineVersion() {
         return version;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.script.ScriptEngineFactory#getExtensions()
-     */
     @Override
     public List<String> getExtensions() {
         return extensions;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.script.ScriptEngineFactory#getMimeTypes()
-     */
     @Override
     public List<String> getMimeTypes() {
         return mimeTypes;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.script.ScriptEngineFactory#getNames()
-     */
     @Override
     public List<String> getNames() {
         return names;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.script.ScriptEngineFactory#getLanguageName()
-     */
     @Override
     public String getLanguageName() {
         return language;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.script.ScriptEngineFactory#getLanguageVersion()
-     */
     @Override
     public String getLanguageVersion() {
         return languageVersion;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.script.ScriptEngineFactory#getParameter(java.lang.String)
-     */
     @Override
     public Object getParameter(final String key) {
         if (key.equals(ScriptEngine.ENGINE))
@@ -175,13 +135,6 @@ public class ScriptBasicEngineFactory implements javax.script.ScriptEngineFactor
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * javax.script.ScriptEngineFactory#getMethodCallSyntax(java.lang.String,
-     * java.lang.String, java.lang.String[])
-     */
     @Override
     public String getMethodCallSyntax(final String obj, final String m, final String... args) {
         String sep = "";
@@ -193,22 +146,11 @@ public class ScriptBasicEngineFactory implements javax.script.ScriptEngineFactor
         return String.format("%s.%s(%s)", obj, m, argsS);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * javax.script.ScriptEngineFactory#getOutputStatement(java.lang.String)
-     */
     @Override
     public String getOutputStatement(final String toDisplay) {
         return String.format("print \"%s\"", toDisplay);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.script.ScriptEngineFactory#getProgram(java.lang.String[])
-     */
     @Override
     public String getProgram(final String... statements) {
         int len = 0;
@@ -222,11 +164,6 @@ public class ScriptBasicEngineFactory implements javax.script.ScriptEngineFactor
         return sb.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.script.ScriptEngineFactory#getScriptEngine()
-     */
     @Override
     public ScriptEngine getScriptEngine() {
         return new com.scriptbasic.script.ScriptEngine(this);
