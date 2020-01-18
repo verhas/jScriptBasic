@@ -7,6 +7,12 @@
     <version>2.1.0</version>
     <packaging>jar</packaging>
 
+    <scm>
+        <connection>scm:git:git://github.com/verhas/jScriptBasic.git</connection>
+        <developerConnection>scm:git:ssh://github.com/verhas/jScriptBasic.git</developerConnection>
+        <url>https:/github.com/verhas/jScriptBasic/tree/master</url>
+    </scm>
+
     <name>ScriptBasic for Java</name>
     <url>http://www.scriptbasic.com</url>
     <organization>
