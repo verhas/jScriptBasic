@@ -15,10 +15,6 @@
 
     <name>ScriptBasic for Java</name>
     <url>http://www.scriptbasic.com</url>
-    <organization>
-        <name>Verhas and Verhas Software Craftsmen</name>
-        <url>http://www.verhas.com</url>
-    </organization>
     <description>ScriptBasic for Java is an implementation of ScriptBasic for the Java technology, language and users.
     </description>
     <licenses>
