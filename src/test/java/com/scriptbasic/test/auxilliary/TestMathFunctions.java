@@ -87,7 +87,7 @@ public class TestMathFunctions {
 
         pow(x, y);
 
-        round(x);
+        round(x, 0);
 
         tan(x);
 

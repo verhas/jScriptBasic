@@ -1,5 +1,9 @@
 package com.scriptbasic.utility.functions;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+
 import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.interfaces.BasicRuntimeException;
@@ -216,9 +220,30 @@ public class MathFunctions {
         return 0.0;
     }
 
-    @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
-    static public double round(final double x) {
-        return 0.0;
+    /**
+     * Returns a number rounded to a specified number of decimal places.
+     * 
+     * This function returns something commonly referred to as bankers rounding. 
+     * So be careful before using this function. Same behavior has 'round' in VBA.
+     * 
+     * @param value Numeric value being rounded
+     * @param numdecimalplaces Number indicating how many places to the right of the decimal 
+     *        are included in the rounding.
+     * @return rounded value
+     */
+    @BasicFunction(classification = com.scriptbasic.classification.Math.class)
+    static public Object round(final double value, Integer numdecimalplaces) {
+        
+        BigDecimal bd = BigDecimal.valueOf(value);
+        
+        if(numdecimalplaces==null||numdecimalplaces==0) {
+            BigDecimal result = bd.setScale(0, RoundingMode.HALF_EVEN);
+            return result.intValue();
+        } else {
+            MathContext mc = new MathContext(numdecimalplaces, RoundingMode.HALF_EVEN);
+            BigDecimal result = bd.round(mc);
+            return result.doubleValue();
+        }
     }
 
     @BasicFunction(substituteClass = java.lang.Math.class, classification = com.scriptbasic.classification.Math.class)
