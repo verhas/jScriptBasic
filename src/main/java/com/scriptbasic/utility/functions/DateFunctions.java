@@ -14,7 +14,7 @@ public class DateFunctions {
         /**
          * Function for parsing date 
          * 
-         * @param String representing date
+         * @param src String representing date
          * @return Parsed date
          * @throws ScriptBasicException Exception if failed to parse date
          */
@@ -115,8 +115,8 @@ public class DateFunctions {
      * @param year number between 100 and 9999
      * @param month the month-of-year to represent, from 1 (January) to 12 (December)
      * @param dayOfMonth the day-of-month to represent, from 1 to 31
-     * @return
-     * @throws ScriptBasicException
+     * @return date object
+     * @throws ScriptBasicException error when parameter is out of range
      */
     @BasicFunction(classification = {com.scriptbasic.classification.Date.class,
             com.scriptbasic.classification.Utility.class})
