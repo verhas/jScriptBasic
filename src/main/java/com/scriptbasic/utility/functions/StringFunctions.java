@@ -57,8 +57,11 @@ public class StringFunctions {
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
-    static public String ltrim(final String s) {
-        return s.replaceAll("^\\s*", "");
+    static public String ltrim(final Object s) {
+        if(s==null) {
+            return null;
+        }
+        return s.toString().replaceAll("^\\s*", "");
     }
 
     /**
@@ -69,21 +72,28 @@ public class StringFunctions {
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
-    static public String rtrim(final String s) {
-        return s.replaceAll("\\s*$", "");
+    static public String rtrim(final Object s) {
+        if(s==null) {
+            return null;
+        }
+        return s.toString().replaceAll("\\s*$", "");
     }
 
     /**
      * Return {@code len} number of characters from the left (the beginning) of the
      * string.
      *
-     * @param s   parameter
+     * @param o   parameter
      * @param len parameter
      * @return return value
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
-    static public String left(final String s, final int len) {
+    static public String left(final Object o, final int len) {
+        if(o==null) {
+            return null;
+        }
+        String s = o.toString();
         return s.length() > len ? s.substring(0, len) : s;
     }
     
@@ -91,7 +101,7 @@ public class StringFunctions {
      * Return a substring from the string that starts at the position
      * {@code start} and has a length of {@code len}.
      *
-     * @param s     parameter
+     * @param o     parameter
      * @param start parameter
      * @param len   parameter
      * @return return value
@@ -99,10 +109,14 @@ public class StringFunctions {
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
-    static public String mid(final String s, final int start, final int len) throws BasicRuntimeException {
+    static public String mid(final Object o, final int start, final int len) throws BasicRuntimeException {
         if (start < 1) {
             throw new BasicRuntimeException("Incorrect value in parameter start: " + start);
         }
+        if(o==null) {
+            return null;
+        }
+        String s = o.toString();
         return s.substring(start - 1, start - 1 + len);
     }
 
@@ -110,13 +124,17 @@ public class StringFunctions {
      * Return {@code len} number of characters from the right (the end) of the
      * string.
      *
-     * @param s   parameter
+     * @param o   parameter
      * @param len parameter
      * @return return value
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
-    static public String right(final String s, final int len) {
+    static public String right(final Object o, final int len) {
+        if(o==null) {
+            return null;
+        }
+        String s = o.toString();
         return s.length() > len ? s.substring(s.length() - len) : s;
     }
 
@@ -185,8 +203,11 @@ public class StringFunctions {
     }
 
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public String trim(final String s) {
-        return s.trim();
+    static public String trim(final Object s) {
+        if(s==null) {
+            return null;
+        }
+        return s.toString().trim();
     }
 
     /**
