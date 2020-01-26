@@ -1,6 +1,5 @@
 package com.scriptbasic.executors.operators;
 
-import com.scriptbasic.executors.rightvalues.AbstractJavaObjectWithOperators;
 import com.scriptbasic.executors.rightvalues.AbstractNumericRightValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.spi.RightValue;
@@ -22,15 +21,6 @@ public abstract class AbstractBinaryFullCircuitNumericOperator<T extends Number>
 
     protected RightValue operateOnValues(final RightValue leftOperand,
                                          final RightValue rightOperand) throws BasicRuntimeException {
-        if(leftOperand instanceof AbstractJavaObjectWithOperators) {
-            AbstractJavaObjectWithOperators javaObjWithOp = (AbstractJavaObjectWithOperators)leftOperand;
-            return javaObjWithOp.evaluateBinaryOperatorFromLeft(this, rightOperand);
-        }
-        if(rightOperand instanceof AbstractJavaObjectWithOperators) {
-            AbstractJavaObjectWithOperators javaObjWithOp = (AbstractJavaObjectWithOperators)leftOperand;
-            return javaObjWithOp.evaluateBinaryOperatorFromRight(this, leftOperand);
-        }
-        
         throw new BasicRuntimeException(operatorName()
                 + " operator applied to non numeric argument");
     }

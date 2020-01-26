@@ -31,7 +31,7 @@ public class DateFunctions {
      * 
      * Due to compatibility with MS VBA
      */
-    static final LocalDate DATE_ZERO = LocalDate.of(1899, 12, 30);
+    static public final LocalDate DATE_ZERO = LocalDate.of(1899, 12, 30);
     
     static public void setDateParser(final DateParser parser) {
         dateParser = parser;

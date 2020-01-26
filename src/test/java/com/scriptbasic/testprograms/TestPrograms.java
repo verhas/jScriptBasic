@@ -170,7 +170,7 @@ public class TestPrograms {
 
     @Test
     public void testDateFunctions() throws Exception {
-        codeTest("TestDateFunctions.bas", "123456789abcdef");
+        codeTest("TestDateFunctions.bas", "DONE");
     }
 
     @Test

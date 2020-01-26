@@ -54,10 +54,6 @@ public class AddOperator extends AbstractBinaryFullCircuitHalfDoubleOperator {
     @Override
     protected RightValue operateOnValues(final RightValue leftOperand,
                                          final RightValue rightOperand) throws BasicRuntimeException {
-        if (leftOperand instanceof AbstractJavaObjectWithOperators ||
-                rightOperand instanceof AbstractJavaObjectWithOperators) {
-            return super.operateOnValues(leftOperand, rightOperand);
-        }
         return new BasicStringValue(getString(leftOperand) + getString(rightOperand));
     }
 
