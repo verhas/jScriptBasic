@@ -104,7 +104,7 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
 
     private static boolean isUnaryOperator(final LexicalElement lexicalElement) {
         return lexicalElement.isSymbol()
-                && unaryOperatorMap.containsKey(lexicalElement.getLexeme());
+                && unaryOperatorMap.containsKey(lexicalElement.getLexeme().toLowerCase());
     }
 
     @Override
@@ -192,7 +192,7 @@ public final class BasicTagAnalyzer extends AbstractAnalyzer<Expression>
         final var lexicalElement = LexUtility.get(lexicalAnalyzer);
         final AbstractUnaryOperator operator;
         try {
-            operator = unaryOperatorMap.get(lexicalElement.getLexeme())
+            operator = unaryOperatorMap.get(lexicalElement.getLexeme().toLowerCase())
                     .getDeclaredConstructor().newInstance();
         } catch (final Exception e) {
             throw new BasicSyntaxException(e);

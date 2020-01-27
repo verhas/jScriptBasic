@@ -70,7 +70,10 @@ public class TestOperators {
         a("a=+3-3", 0);
         a("a=+3.2+-2", 1.2);
         a("a=-3.4", -3.4);
+        a("a= False", false);
+        a("a= True", true);
         a("a= not a", true);
+        a("a= Not a", true);
         a("a= not false", true);
         a("a= not true", false);
         a("a= 3 < 2", false);
@@ -142,7 +145,9 @@ public class TestOperators {
         a("a= \"apple\" > \"apale\"", true);
 
         a("a= \"x\" and \"\"", false);
+        a("a= \"x\" And \"\"", false);
         a("a= \"x\" or \"\"", true);
+        a("a= \"x\" Or \"\"", true);
         a("a= \"x\" and \"z\"", true);
         a("a= \"x\" or \"z\"", true);
         a("a= 13.2 or false", true);
