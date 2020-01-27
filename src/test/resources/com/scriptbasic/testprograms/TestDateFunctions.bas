@@ -31,4 +31,8 @@ assert("gt", ds2>ds3 )
 assert("date_with_num", ds>0)
 assert("date_with_num2", ds<(200*365))
 
+assert("isdate_date", isdate(ds))
+assert("isdate_date2", not isdate(""))
+assert("isdate_date3", isdate(date() ) )
+
 print "DONE"

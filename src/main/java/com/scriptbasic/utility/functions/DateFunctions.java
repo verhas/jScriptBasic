@@ -1,6 +1,7 @@
 package com.scriptbasic.utility.functions;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.api.ScriptBasicException;
@@ -21,10 +22,26 @@ public class DateFunctions {
         LocalDate parseDate(String src) throws ScriptBasicException;
     }
     
+    public interface DateFormatter {
+
+        /**
+         * Function to format date 
+         * 
+         * @param localDate date to format
+         * @return String representing date
+         */
+        String formatDate(LocalDate localDate);
+    }
+
     /**
      * Date parser to be used by date specific functions
      */
-    static DateParser dateParser = DateFunctions::parseDate;
+    static DateParser dateParser = DateFunctions::isoDateParser;
+    
+    /**
+     * Date formatter to be used by date specific functions
+     */
+    static DateFormatter dateFormatter = DateFunctions::isoDateFormatter;
     
     /**
      * Date zero is 30.12.1899
@@ -41,6 +58,14 @@ public class DateFunctions {
         return dateParser;
     }
     
+    static public void setDateFormatter(final DateFormatter formatter) {
+        dateFormatter = formatter;
+    }
+    
+    static public DateFormatter getDateFormatter() {
+        return dateFormatter;
+    }
+    
     private static LocalDate getLocalDate(Object operand) throws ScriptBasicException {
         if(operand instanceof Long) {
             Long l = (Long)operand;
@@ -55,6 +80,12 @@ public class DateFunctions {
         } else {
             throw new BasicRuntimeException("Unsupported operand");
         }
+    }
+    
+    @BasicFunction(classification = {com.scriptbasic.classification.Date.class,
+            com.scriptbasic.classification.Utility.class})
+    static public LocalDate date() {
+        return LocalDate.now();
     }
 
     /**
@@ -133,10 +164,41 @@ public class DateFunctions {
     /**
      * Basic implementation of date parser
      * 
+     * Obtains an instance of LocalDate from a text string such as 2007-12-03. 
+     * 
      * @param src date to be parsed
      * @return date
      */
-    private static LocalDate parseDate(String src) {
+    public static LocalDate isoDateParser(String src) {
         return LocalDate.parse(src);
+    }
+    
+    
+    /**
+     * Obtains an instance of LocalDate from a text string such as 2007-12-03. 
+     * 
+     * @param localDate date to format
+     * @return formatted date
+     */
+    public static String isoDateFormatter(LocalDate localDate) {
+        return localDate.format(DateTimeFormatter.ISO_DATE);
+    }
+
+    @BasicFunction(classification = {com.scriptbasic.classification.Date.class,
+            com.scriptbasic.classification.Utility.class})
+    static public boolean isDate(Object o) {
+        if(o instanceof LocalDate) {
+            return true;
+        }
+        if(o instanceof String) {
+            try {
+                String s = (String)o;
+                dateParser.parseDate(s);
+                return true;
+            } catch(Exception e) {
+                
+            }
+        }
+        return false;
     }
 }

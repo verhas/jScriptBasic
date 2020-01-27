@@ -3,6 +3,7 @@ package com.scriptbasic.executors.rightvalues;
 import java.time.LocalDate;
 
 import com.scriptbasic.utility.functions.DateFunctions;
+import com.scriptbasic.utility.functions.DateFunctions.DateFormatter;
 
 public class BasicDateValue extends BasicLongValue {
     
@@ -14,5 +15,12 @@ public class BasicDateValue extends BasicLongValue {
     
     public LocalDate getLocalDate() {
         return LocalDate.ofEpochDay(this.getValue()+DATE_ZERO_TO_EPOCH_DAYS);
+    }
+
+    @Override
+    public String toString() {
+        DateFormatter dateFormatter = DateFunctions.getDateFormatter();
+        LocalDate localDate = getLocalDate();
+        return dateFormatter.formatDate(localDate);
     }
 }
