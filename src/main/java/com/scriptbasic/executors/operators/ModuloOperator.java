@@ -31,4 +31,9 @@ public class ModuloOperator extends
     protected String operatorName() {
         return "Modulo";
     }
+
+    @Override
+    protected RightValue operateOnDate(Long a, Long b) {
+        return operateOnLongLong(a, b);
+    }
 }

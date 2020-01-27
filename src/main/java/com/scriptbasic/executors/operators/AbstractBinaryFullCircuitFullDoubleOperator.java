@@ -10,4 +10,9 @@ public abstract class AbstractBinaryFullCircuitFullDoubleOperator extends
         return operateOnDoubleDouble(a.doubleValue(), b.doubleValue());
     }
 
+
+    @Override
+    protected RightValue operateOnDate(Long a, Long b) {
+        return operateOnLongLong(a, b);
+    }
 }

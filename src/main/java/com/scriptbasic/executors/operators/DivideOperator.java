@@ -25,4 +25,9 @@ public class DivideOperator extends AbstractBinaryFullCircuitHalfDoubleOperator 
         return "Divide";
     }
 
+    @Override
+    protected RightValue operateOnDate(Long a, Long b) {
+        return operateOnLongLong(a, b);
+    }
+
 }

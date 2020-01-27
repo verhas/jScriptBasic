@@ -5,7 +5,7 @@ import com.scriptbasic.interfaces.Value;
 
 public interface RightValue extends Value {
     default Boolean isNumeric() {
-        return isLong() || isDouble();
+        return isLong() || isDouble() || isDate();
     }
 
     default Boolean isLong() {
@@ -26,6 +26,10 @@ public interface RightValue extends Value {
 
     default Boolean isArray() {
         return this instanceof BasicArrayValue;
+    }
+
+    default Boolean isDate() {
+        return this instanceof BasicDateValue;
     }
 
     default Boolean isJavaObject() {

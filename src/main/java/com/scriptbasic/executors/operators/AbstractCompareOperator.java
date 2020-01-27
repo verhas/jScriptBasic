@@ -35,6 +35,9 @@ public abstract class AbstractCompareOperator extends
 
     protected abstract Boolean compareTo(BasicBooleanValue s, RightValue op)
             ;
+    
+    protected abstract Boolean compareTo(BasicDateValue basicDateValue, RightValue op) 
+            throws BasicRuntimeException;
 
     @Override
     protected RightValue evaluateOn(final RightValue leftOperand,
@@ -52,6 +55,10 @@ public abstract class AbstractCompareOperator extends
         if (leftOperand.isLong()) {
             return new BasicBooleanValue(compareTo(
                     ((BasicLongValue) leftOperand), rightOperand));
+        }
+        if (leftOperand.isDate()) {
+            return new BasicBooleanValue(compareTo(
+                    ((BasicDateValue) leftOperand), rightOperand));            
         }
         if (leftOperand.isBoolean()) {
             return new BasicBooleanValue(compareTo(

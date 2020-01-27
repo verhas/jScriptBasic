@@ -160,6 +160,31 @@ public class DateFunctions {
         
         return new BasicDateValue(localDate);
     }
+    
+    /**
+     * Returns a Variant (Long) specifying the number of time intervals between two specified dates.
+     * 
+     * @param interval Interval of time used to calculate the difference between date1 and date2.
+     * @param date1 Date used for calculation
+     * @param date2 Date used for calculation
+     * @return  number of time intervals between two specified dates
+     * @throws ScriptBasicException when unsupported type of interval
+     */
+    @BasicFunction(classification = {com.scriptbasic.classification.Date.class,
+            com.scriptbasic.classification.Utility.class})
+    static public long datediff(String interval, LocalDate date1, LocalDate date2) throws ScriptBasicException {
+        switch(interval.toLowerCase()) {
+        case "d":
+            return date2.toEpochDay()-date1.toEpochDay();
+        case "m":
+            return (date2.getYear()*12+date2.getMonthValue())-
+                    (date1.getYear()*12+date1.getMonthValue());
+        case "yyyy":
+            return date2.getYear()-date1.getYear();
+        default:
+            throw new ScriptBasicException("Unsupported interval type: "+interval);
+        }
+    }
 
     /**
      * Basic implementation of date parser

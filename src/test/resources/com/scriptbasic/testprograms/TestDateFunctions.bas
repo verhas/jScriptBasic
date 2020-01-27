@@ -1,3 +1,9 @@
+d="2020-02-24"
+ds=DateSerial(year(d),month(d),day(d))
+ds2=DateSerial(year(d),month(d),day(d))+1
+ds3=ds2-1
+assert("eq", ds=ds3 )
+
 ' Test functions with numeric parameter
 assert("year_num", year(0)=1899)
 assert("moth_num", month(0)=12)
@@ -31,8 +37,13 @@ assert("gt", ds2>ds3 )
 assert("date_with_num", ds>0)
 assert("date_with_num2", ds<(200*365))
 
+' Test isdate
 assert("isdate_date", isdate(ds))
 assert("isdate_date2", not isdate(""))
 assert("isdate_date3", isdate(date() ) )
+
+' Test datediff
+assert("datediff", datediff("d", ds, ds2)=1)
+assert("datediff", datediff("d", ds2, ds)=-1)
 
 print "DONE"
