@@ -3,7 +3,7 @@ package com.scriptbasic.executors.rightvalues;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.spi.RightValue;
 
-public class BasicDoubleValue extends AbstractNumericRightValue<Double> {
+public class BasicDoubleValue extends AbstractNumericRightValue<Double, Double> {
 
     public BasicDoubleValue(final Double d) {
         setValue(d);
@@ -58,5 +58,10 @@ public class BasicDoubleValue extends AbstractNumericRightValue<Double> {
         } catch (final BasicRuntimeException e) {
             return super.toString();
         }
+    }
+
+    @Override
+    public Double getNumericValue() {
+        return getValue();
     }
 }

@@ -21,7 +21,7 @@ public class GreaterThanOperator extends AbstractCompareOperator {
     @Override
     protected Boolean compareTo(BasicDateValue basicDateValue, RightValue op) 
             throws BasicRuntimeException {
-        return basicDateValue.getValue() > BasicLongValue.asLong(op, "Cannot date compare > undef value");
+        return basicDateValue.getNumericValue() > BasicLongValue.asLong(op, "Cannot date compare > undef value");
     }
 
     @Override

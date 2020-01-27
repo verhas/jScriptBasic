@@ -22,8 +22,6 @@ public final class RightValueUtility {
         final Object object;
         if (arg == null) {
             object = null;
-        } else if (arg instanceof BasicDateValue) {
-            object = ((BasicDateValue)arg).getLocalDate();
         } else if (arg instanceof AbstractPrimitiveRightValue<?>) {
             object = ((AbstractPrimitiveRightValue<Object>) arg).getValue();
         } else if (arg instanceof BasicArray) {
@@ -41,7 +39,7 @@ public final class RightValueUtility {
     public static Integer convert2Integer(final RightValue index)
             throws ScriptBasicException {
         if (index.isNumeric()) {
-            return ((AbstractNumericRightValue<Number>) index).getValue().intValue();
+            return ((AbstractNumericRightValue<Number, Object>) index).getNumericValue().intValue();
         } else {
             throw new BasicRuntimeException(
                     index.toString()

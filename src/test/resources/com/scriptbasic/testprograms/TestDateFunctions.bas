@@ -1,4 +1,3 @@
-
 ' Test functions with numeric parameter
 assert("year_num", year(0)=1899)
 assert("moth_num", month(0)=12)
