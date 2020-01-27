@@ -1,8 +1,3 @@
-d="2020-02-24"
-ds=DateSerial(year(d),month(d),day(d))
-ds2=DateSerial(year(d),month(d),day(d))+1
-ds3=ds2-1
-assert("eq", ds=ds3 )
 
 ' Test functions with numeric parameter
 assert("year_num", year(0)=1899)
