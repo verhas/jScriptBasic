@@ -9,6 +9,9 @@ assert("ltrim", ltrim(v)="1234 ")
 assert("trim", trim(v)="1234")
 assert("rtrim", rtrim(v)=" 1234")
 
+' Test null values
+assert("trim_with_null", IsNull(trim(xxx)))
+
 ' Test left, mid, right functions
 v = 1234
 assert("left_with_num", left(v,2)="12")

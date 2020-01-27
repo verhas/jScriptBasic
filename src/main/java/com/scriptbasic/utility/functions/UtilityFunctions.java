@@ -86,6 +86,15 @@ public class UtilityFunctions {
     }
 
     /**
+     * @param s is some value or object
+     * @return true if the parameter is null
+     */
+    @BasicFunction(classification = Utility.class)
+    static public Boolean isNull(final Object s) {
+        return s == null;
+    }
+
+    /**
      * Create a new byte buffer of length {@code len}.
      *
      * @param len the length of the buffer allocated.
