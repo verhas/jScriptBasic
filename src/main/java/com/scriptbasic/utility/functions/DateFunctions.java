@@ -2,6 +2,7 @@ package com.scriptbasic.utility.functions;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.api.ScriptBasicException;
@@ -17,9 +18,9 @@ public class DateFunctions {
          * 
          * @param src String representing date
          * @return Parsed date
-         * @throws ScriptBasicException Exception if failed to parse date
+         * @throws BasicRuntimeException Exception if failed to parse date
          */
-        LocalDate parseDate(String src) throws ScriptBasicException;
+        LocalDate parseDate(String src) throws BasicRuntimeException;
     }
     
     public interface DateFormatter {
@@ -65,23 +66,36 @@ public class DateFunctions {
     static public DateFormatter getDateFormatter() {
         return dateFormatter;
     }
-    
-    private static LocalDate getLocalDate(Object operand) throws ScriptBasicException {
-        if(operand instanceof Long) {
-            Long l = (Long)operand;
-            return DATE_ZERO.plusDays(l);
-        } else
-        if(operand instanceof String) {
-            String src = (String)operand;
-            return dateParser.parseDate(src);                            
-        } else
-        if(operand instanceof LocalDate) {
-            return (LocalDate)operand;
-        } else {
-            throw new BasicRuntimeException("Unsupported operand");
+
+    /**
+     * Conversion function to date
+     * 
+     * @param o
+     *            date compatible object
+     * @return date
+     * @throws BasicRuntimeException
+     *             failed to convert to date
+     */
+    @BasicFunction(classification = { com.scriptbasic.classification.Date.class,
+            com.scriptbasic.classification.Utility.class })
+    static public LocalDate cdate(Object o) throws BasicRuntimeException {
+        if (o == null) {
+            throw new BasicRuntimeException("Invalid argument NULL");
         }
+        if (o instanceof LocalDate) {
+            return (LocalDate) o;
+        }
+        if (o instanceof String) {
+            String s = (String) o;
+            return dateParser.parseDate(s);
+        }
+        if (o instanceof Long) {
+            Long l = (Long) o;
+            return DATE_ZERO.plusDays(l);
+        }
+        throw new BasicRuntimeException("Conversion to date failed: " + o.toString());
     }
-    
+
     @BasicFunction(classification = {com.scriptbasic.classification.Date.class,
             com.scriptbasic.classification.Utility.class})
     static public LocalDate date() {
@@ -100,7 +114,7 @@ public class DateFunctions {
         if(operand==null) {
             return null;
         }
-        LocalDate localDate = getLocalDate(operand);
+        LocalDate localDate = cdate(operand);
         return localDate.getYear();
     }
 
@@ -118,7 +132,7 @@ public class DateFunctions {
         if(operand==null) {
             return null;
         }
-        LocalDate localDate = getLocalDate(operand);
+        LocalDate localDate = cdate(operand);
         return localDate.getMonthValue();
     }
 
@@ -136,7 +150,7 @@ public class DateFunctions {
         if(operand==null) {
             return null;
         }
-        LocalDate localDate = getLocalDate(operand);
+        LocalDate localDate = cdate(operand);
         return localDate.getDayOfMonth();
     }
 
@@ -193,9 +207,14 @@ public class DateFunctions {
      * 
      * @param src date to be parsed
      * @return date
+     * @throws BasicRuntimeException Exception if failed to parse date
      */
-    public static LocalDate isoDateParser(String src) {
-        return LocalDate.parse(src);
+    public static LocalDate isoDateParser(String src) throws BasicRuntimeException {
+        try {
+            return LocalDate.parse(src);
+        } catch (DateTimeParseException e) {
+            throw new BasicRuntimeException("Failed to parse: " + src, e);
+        }
     }
     
     
@@ -212,17 +231,13 @@ public class DateFunctions {
     @BasicFunction(classification = {com.scriptbasic.classification.Date.class,
             com.scriptbasic.classification.Utility.class})
     static public boolean isDate(Object o) {
-        if(o instanceof LocalDate) {
-            return true;
+        if (o == null) {
+            return false;
         }
-        if(o instanceof String) {
-            try {
-                String s = (String)o;
-                dateParser.parseDate(s);
-                return true;
-            } catch(Exception e) {
-                
-            }
+        try {
+            cdate(o);
+            return true;
+        } catch (Exception e) {
         }
         return false;
     }
