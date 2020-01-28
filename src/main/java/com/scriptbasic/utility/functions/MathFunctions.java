@@ -25,6 +25,11 @@ import com.scriptbasic.utility.NoInstance;
 @SuppressWarnings({"SameReturnValue", "UnusedReturnValue"})
 public class MathFunctions {
 
+    /**
+     * Rounding mode used by round function
+     */
+    static public RoundingMode roundingMode = RoundingMode.HALF_EVEN;
+
     private MathFunctions() {
         NoInstance.isPossible();
     }
@@ -232,17 +237,15 @@ public class MathFunctions {
      * @return rounded value
      */
     @BasicFunction(classification = com.scriptbasic.classification.Math.class)
-    static public Object round(final double value, Integer numdecimalplaces) {
+    static public Number round(final double value, Integer numdecimalplaces) {
         
-        BigDecimal bd = BigDecimal.valueOf(value);
-        
-        if(numdecimalplaces==null||numdecimalplaces==0) {
-            BigDecimal result = bd.setScale(0, RoundingMode.HALF_EVEN);
-            return result.intValue();
+        final BigDecimal bd = BigDecimal.valueOf(value);
+
+        if (numdecimalplaces == null || numdecimalplaces == 0) {
+            return bd.setScale(0, roundingMode).intValue();
         } else {
-            MathContext mc = new MathContext(numdecimalplaces, RoundingMode.HALF_EVEN);
-            BigDecimal result = bd.round(mc);
-            return result.doubleValue();
+            final MathContext mc = new MathContext(numdecimalplaces, roundingMode);
+            return bd.round(mc).doubleValue();
         }
     }
 
