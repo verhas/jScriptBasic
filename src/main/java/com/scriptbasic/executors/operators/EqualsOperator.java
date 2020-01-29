@@ -34,5 +34,11 @@ public class EqualsOperator extends AbstractCompareOperator {
     protected Boolean compareTo(final BasicBooleanValue f, final RightValue op) {
         return f.getValue().equals(BasicBooleanValue.asBoolean(op));
     }
+    
+    @Override
+    protected Boolean compareTo(BasicDateValue basicDateValue, RightValue op) 
+            throws BasicRuntimeException {
+        return basicDateValue.getNumericValue().equals(BasicLongValue.asLong(op));
+    }
 
 }

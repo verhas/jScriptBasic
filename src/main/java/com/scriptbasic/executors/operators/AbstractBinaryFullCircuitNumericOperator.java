@@ -18,6 +18,8 @@ public abstract class AbstractBinaryFullCircuitNumericOperator<T extends Number>
 
     protected abstract RightValue operateOnLongLong(Long a, Long b)
         ;
+    
+    protected abstract RightValue operateOnDate(Long a, Long b);
 
     protected RightValue operateOnValues(final RightValue leftOperand,
                                          final RightValue rightOperand) throws BasicRuntimeException {
@@ -39,17 +41,30 @@ public abstract class AbstractBinaryFullCircuitNumericOperator<T extends Number>
                     "Can not execute the operation on undefined value.");
         }
         if (leftOperand.isNumeric() && rightOperand.isNumeric()) {
-            a = ((AbstractNumericRightValue<Number>) leftOperand).getValue();
-            b = ((AbstractNumericRightValue<Number>) rightOperand).getValue();
+            a = ((AbstractNumericRightValue<Number, Object>) leftOperand).getNumericValue();
+            b = ((AbstractNumericRightValue<Number, Object>) rightOperand).getNumericValue();
             if (leftOperand.isDouble()) {
                 if (rightOperand.isDouble()) {
                     result = operateOnDoubleDouble((Double) a, (Double) b);
+                } else if(rightOperand.isDate()) {
+                    throw new BasicRuntimeException(
+                            "Can not execute the operation on double value.");                    
                 } else {
                     result = operateOnDoubleLong((Double) a, (Long) b);
+                }
+            } else if (leftOperand.isDate()) {
+                if(rightOperand.isLong()) {
+                    result = operateOnDate((Long) a, (Long) b);
+                } else {
+                    throw new BasicRuntimeException(
+                            "Can not execute the operation on double value.");                    
                 }
             } else {
                 if (rightOperand.isDouble()) {
                     result = operateOnLongDouble((Long) a, (Double) b);
+                } else
+                if (rightOperand.isDate()) {
+                    result = operateOnDate((Long) a, (Long) b);
                 } else {
                     result = operateOnLongLong((Long) a, (Long) b);
                 }

@@ -22,4 +22,9 @@ public class MultiplyOperator extends
         return "Multiply";
     }
 
+    @Override
+    protected RightValue operateOnDate(Long a, Long b) {
+        return operateOnLongLong(a, b);
+    }
+
 }

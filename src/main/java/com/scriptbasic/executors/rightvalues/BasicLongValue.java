@@ -3,7 +3,7 @@ package com.scriptbasic.executors.rightvalues;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.spi.RightValue;
 
-public class BasicLongValue extends AbstractNumericRightValue<Long> {
+public class BasicLongValue extends AbstractNumericRightValue<Long, Long> {
 
     public BasicLongValue(final Long i) {
         setValue(i);
@@ -33,6 +33,9 @@ public class BasicLongValue extends AbstractNumericRightValue<Long> {
         if (rv.isLong()) {
             return ((BasicLongValue) rv).getValue();
         }
+        if (rv.isDate()) {
+            return ((BasicDateValue) rv).getNumericValue();
+        }
         if (rv.isDouble()) {
             return ((BasicDoubleValue) rv).getValue().longValue();
         }
@@ -54,5 +57,10 @@ public class BasicLongValue extends AbstractNumericRightValue<Long> {
         } catch (final BasicRuntimeException e) {
             return super.toString();
         }
+    }
+
+    @Override
+    public Long getNumericValue() {
+        return getValue();
     }
 }

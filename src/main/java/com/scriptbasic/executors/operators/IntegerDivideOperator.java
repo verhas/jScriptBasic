@@ -21,4 +21,9 @@ public class IntegerDivideOperator extends
         return "IntegerDivide";
     }
 
+    @Override
+    protected RightValue operateOnDate(Long a, Long b) {
+        return operateOnLongLong(a, b);
+    }
+
 }

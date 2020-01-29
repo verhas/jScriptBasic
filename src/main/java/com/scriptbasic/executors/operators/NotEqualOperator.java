@@ -19,6 +19,12 @@ public class NotEqualOperator extends AbstractCompareOperator {
     }
 
     @Override
+    protected Boolean compareTo(BasicDateValue basicDateValue, RightValue op) 
+            throws BasicRuntimeException {
+        return !basicDateValue.getNumericValue().equals(BasicLongValue.asLong(op));
+    }
+    
+    @Override
     protected Boolean compareTo(final BasicStringValue f, final RightValue op)
             throws BasicRuntimeException {
         return f.getValue().compareTo(BasicStringValue.asString(op)) != 0;
