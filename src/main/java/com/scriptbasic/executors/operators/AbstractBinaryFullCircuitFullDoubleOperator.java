@@ -3,7 +3,7 @@ package com.scriptbasic.executors.operators;
 import com.scriptbasic.spi.RightValue;
 
 public abstract class AbstractBinaryFullCircuitFullDoubleOperator extends
-        AbstractBinaryFullCircuitHalfDoubleOperator  {
+        AbstractBinaryFullCircuitHalfDoubleOperator {
 
     @Override
     protected final RightValue operateOnLongLong(final Long a, final Long b) {
