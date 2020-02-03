@@ -109,8 +109,18 @@ public class TestOperators {
         a("a= 3.0 >= 2.0", true);
         a("a= 3.0 <> 2.0", true);
         a("a= 3.0 = 2.0", false);
-        // c("a= 3.0 <> 3", false);
+
+        // Comparison between different types
+        a("a= 3.0 <> 3", false);
         a("a= 3.0 = 3", true);
+        a("a= \"3.0\" = 3", true);
+        a("a= \"3\" = 3", true);
+        a("a= 3 = \"3\"", true);
+        a("a= 3.0 = \"3\"", true);
+        a("a= 3 <> \"a\"", true);
+        a("a= 3.0 <> \"a\"", true);
+        a("a= true = \"a\"", false);
+
         a("a= \"x\" <> \"x\"", false);
         a("a= \"x\" <> \"y\"", true);
         a("a= \"x\" < \"y\"", true);
