@@ -31,25 +31,25 @@ public class TestConversions {
     }
 
     @Test
-    public void nullBasicBooleanValueConvertsToFalse() {
+    public void nullBasicBooleanValueConvertsToFalse() throws BasicRuntimeException {
         final var rv = new BasicJavaObjectValue(null);
         assertFalse(BasicBooleanValue.asBoolean(rv));
     }
 
     @Test
-    public void trueBasicBooleanValueConvertsToTrue() {
+    public void trueBasicBooleanValueConvertsToTrue() throws BasicRuntimeException {
         final var rv = new BasicJavaObjectValue(Boolean.TRUE);
         assertTrue(BasicBooleanValue.asBoolean(rv));
     }
 
     @Test
-    public void nonZeroIntegerBasicBooleanValueConvertsToTrue() {
+    public void nonZeroIntegerBasicBooleanValueConvertsToTrue() throws BasicRuntimeException {
         final var rv = new BasicJavaObjectValue(6000);
         assertTrue(BasicBooleanValue.asBoolean(rv));
     }
 
     @Test
-    public void emtyStringBasicBooleanValueConvertsToFalse() {
+    public void emtyStringBasicBooleanValueConvertsToFalse() throws BasicRuntimeException {
         final var rv = new BasicStringValue("");
         assertFalse(BasicBooleanValue.asBoolean(rv));
     }

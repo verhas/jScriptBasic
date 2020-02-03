@@ -8,33 +8,20 @@ import com.scriptbasic.spi.RightValue;
 public abstract class AbstractCompareOperator extends
         AbstractBinaryFullCircuitOperator {
 
-    protected static int compareJavaObjectTo(final BasicJavaObjectValue f,
-                                             final RightValue op) throws BasicRuntimeException {
-        final var o = BasicJavaObjectValue.asObject(op);
-        if (f.getValue() instanceof Comparable<?> && o instanceof Comparable<?>) {
-            @SuppressWarnings("unchecked") final Comparable<Comparable<?>> a = (Comparable<Comparable<?>>) f
-                    .getValue();
-            final Comparable<?> b = (Comparable<?>) o;
-            return a.compareTo(b);
-        }
-        throw new BasicRuntimeException(
-                "Can not compare the java objects, at least one of them is not comparable");
+    /**
+     * Get final decision from comparison result.
+     * 
+     * @param comparisonResult
+     *            Result from function compareTo
+     * @return final decision
+     */
+    abstract protected boolean decide(final int comparisonResult);
+
+    protected <T> Boolean compareTo(Comparable<T> l, T r)
+            throws BasicRuntimeException {
+        final int comparisonResult = l.compareTo(r);
+        return decide(comparisonResult);
     }
-
-    protected abstract Boolean compareTo(BasicDoubleValue d, RightValue op)
-            throws BasicRuntimeException;
-
-    protected abstract Boolean compareTo(BasicLongValue l, RightValue op)
-            throws BasicRuntimeException;
-
-    protected abstract Boolean compareTo(BasicStringValue s, RightValue op)
-            throws BasicRuntimeException;
-
-    protected abstract Boolean compareTo(BasicJavaObjectValue s, RightValue op)
-            throws BasicRuntimeException;
-
-    protected abstract Boolean compareTo(BasicBooleanValue s, RightValue op)
-            ;
 
     @Override
     protected RightValue evaluateOn(final RightValue leftOperand,
@@ -45,26 +32,43 @@ public abstract class AbstractCompareOperator extends
         if (leftOperand == null || rightOperand == null) {
             return BasicValue.FALSE;
         }
-        if (leftOperand.isDouble()) {
-            return new BasicBooleanValue(compareTo(
-                    ((BasicDoubleValue) leftOperand), rightOperand));
+        if (leftOperand.isLong() || rightOperand.isLong()) {
+            final Long leftValue = getAsLong(leftOperand);
+            final Long rightValue = getAsLong(rightOperand);
+            if (leftValue != null && rightValue != null)
+                return new BasicBooleanValue(compareTo(leftValue, rightValue));
         }
-        if (leftOperand.isLong()) {
-            return new BasicBooleanValue(compareTo(
-                    ((BasicLongValue) leftOperand), rightOperand));
+        if (leftOperand.isLong() || rightOperand.isLong() || leftOperand.isDouble() || rightOperand.isDouble()) {
+            final Double leftValue = getAsDouble(leftOperand);
+            final Double rightValue = getAsDouble(rightOperand);
+            if (leftValue != null && rightValue != null)
+                return new BasicBooleanValue(compareTo(leftValue, rightValue));
         }
-        if (leftOperand.isBoolean()) {
-            return new BasicBooleanValue(compareTo(
-                    ((BasicBooleanValue) leftOperand), rightOperand));
+        if (leftOperand.isBoolean() && rightOperand.isBoolean()) {
+            final Boolean leftValue = getAsBoolean(leftOperand);
+            final Boolean rightValue = getAsBoolean(rightOperand);
+            if (leftValue != null && rightValue != null)
+                return new BasicBooleanValue(compareTo(leftValue, rightValue));
         }
-        if (leftOperand.isString()) {
-            return new BasicBooleanValue(compareTo(
-                    ((BasicStringValue) leftOperand), rightOperand));
+        if (leftOperand.isString() || rightOperand.isString()) {
+            final String leftValue = getAsString(leftOperand);
+            final String rightValue = getAsString(rightOperand);
+            if (leftValue != null && rightValue != null)
+                return new BasicBooleanValue(compareTo(leftValue, rightValue));
         }
-        if (leftOperand.isJavaObject()) {
-            return new BasicBooleanValue(compareTo(
-                    ((BasicJavaObjectValue) leftOperand), rightOperand));
+        if (leftOperand.isJavaObject() || rightOperand.isJavaObject()) {
+            final Object leftValue = getAsObject(leftOperand);
+            final Object rightValue = getAsObject(rightOperand);
+            if (leftValue != null && rightValue != null) {
+                if (leftValue instanceof Comparable<?> && rightValue instanceof Comparable<?>) {
+                    @SuppressWarnings("unchecked")
+                    final Comparable<Comparable<?>> a = (Comparable<Comparable<?>>) leftValue;
+                    final Comparable<?> b = (Comparable<?>) rightValue;
+                    return new BasicBooleanValue(compareTo(a, b));
+                }
+            }
         }
-        return null;
+        throw new BasicRuntimeException("Type mismatch, left operand: " + leftOperand +
+                ", right operand: " + rightOperand);
     }
 }
