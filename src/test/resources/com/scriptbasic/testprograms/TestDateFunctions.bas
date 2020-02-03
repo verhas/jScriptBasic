@@ -43,6 +43,13 @@ assert("gt", ds2>ds3 )
 assert("date_with_num", ds>0)
 assert("date_with_num2", ds<(200*365))
 
+' Test dateadd
+assert("dateadd", dateadd("d", 1, ds)=ds2)
+assert("dateadd", dateadd("d", -1, ds2)=ds)
+assert("dateadd", dateadd("ww", 1, ds)=CDate("2020-03-02"))
+assert("dateadd", dateadd("m", 2, ds)=CDate("2020-04-24"))
+assert("dateadd", dateadd("yyyy", 3, ds)=CDate("2023-02-24"))
+
 ' Test datediff
 assert("datediff", datediff("d", ds, ds2)=1)
 assert("datediff", datediff("d", ds2, ds)=-1)
