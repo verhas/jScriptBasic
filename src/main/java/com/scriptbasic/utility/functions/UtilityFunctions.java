@@ -4,6 +4,8 @@ import com.scriptbasic.api.BasicFunction;
 import com.scriptbasic.classification.Constant;
 import com.scriptbasic.classification.System;
 import com.scriptbasic.classification.Utility;
+import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
+import com.scriptbasic.executors.rightvalues.BasicLongValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
@@ -11,6 +13,7 @@ import com.scriptbasic.spi.BasicArray;
 import com.scriptbasic.spi.Interpreter;
 import com.scriptbasic.utility.MagicBean;
 import com.scriptbasic.utility.NoInstance;
+import com.scriptbasic.utility.RightValueUtility;
 
 import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
@@ -143,4 +146,19 @@ public class UtilityFunctions {
         return null;
     }
 
+    @BasicFunction(classification = Utility.class)
+    public static Double cdbl(final Object arg) throws BasicRuntimeException {
+        if (arg == null) {
+            throw new BasicRuntimeException("NULL cannot be converted to double");
+        }
+        return BasicDoubleValue.asDouble(RightValueUtility.createRightValue(arg));
+    }
+
+    @BasicFunction(classification = Utility.class)
+    static public Long clng(final Object arg) throws BasicRuntimeException {
+        if (arg == null) {
+            throw new BasicRuntimeException("NULL cannot be converted to long");
+        }
+        return BasicLongValue.asLong(RightValueUtility.createRightValue(arg));
+    }
 }
