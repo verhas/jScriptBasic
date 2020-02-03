@@ -52,6 +52,9 @@ public class BasicDoubleValue extends AbstractNumericRightValue<Double, Double> 
             // TODO elaborate the conversion with other object classes, like
             // Long, String...
         }
+        if (rv == BasicEmptyValue.EMPTY_VALUE) {
+            return 0.0;
+        }
         throw new BasicRuntimeException("Can not convert value to double");
     }
 

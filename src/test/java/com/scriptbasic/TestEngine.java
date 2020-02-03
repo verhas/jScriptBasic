@@ -21,6 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -514,7 +515,7 @@ public class TestEngine {
             final var engine = ScriptBasic.engine();
             engine.eval("sub applePie(b,c)\nglobal a\na = c\nreturn 6\nEndSub");
             engine.subroutine(Long.class, "applePie").call("hello world");
-            assertNull(engine.variable(String.class, "a"));
+            assertNotNull(engine.variable(Object.class, "a"));
         }
 
         @Test
@@ -578,7 +579,7 @@ public class TestEngine {
                     "EndSub");
             final var sub = engine.subroutine(null, "applePie");
             sub.call("hello world");
-            assertGlobalVariableIsNotDefined(engine, "a");
+            assertNotNull(engine.variable(Object.class, "a"));
         }
 
         @Test
@@ -599,7 +600,7 @@ public class TestEngine {
         }
 
         private void assertGlobalVariableIsNotDefined(final ScriptBasic engine, final String name) throws ScriptBasicException {
-            assertNull(engine.variable(Object.class, "a"));
+            assertNull(engine.variable(Object.class, name));
         }
 
         @Test

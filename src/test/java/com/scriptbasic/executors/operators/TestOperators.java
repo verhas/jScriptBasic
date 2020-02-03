@@ -121,6 +121,18 @@ public class TestOperators {
         a("a= 3.0 <> \"a\"", true);
         a("a= true = \"a\"", false);
 
+        // Comparison with uninitialized/empty variable
+        a("a= b = \"\"", true);
+        a("a= b = 0", true);
+        a("a= b = \"x\"", false);
+        a("a= b = 1", false);
+        a("a= b = c", true);
+        a("a= b <> c", false);
+        a("a= b < c", false);
+        a("a= b > c", false);
+        a("a= b <= c", true);
+        a("a= b >= c", true);
+
         a("a= \"x\" <> \"x\"", false);
         a("a= \"x\" <> \"y\"", true);
         a("a= \"x\" < \"y\"", true);

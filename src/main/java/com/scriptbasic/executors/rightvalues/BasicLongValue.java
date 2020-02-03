@@ -48,6 +48,9 @@ public class BasicLongValue extends AbstractNumericRightValue<Long, Long> {
             // TODO elaborate the conversion with other object classes, like
             // Double, String...
         }
+        if (rv == BasicEmptyValue.EMPTY_VALUE) {
+            return 0L;
+        }
         throw new BasicRuntimeException("Can not convert value to long");
     }
 

@@ -91,7 +91,7 @@ public class TestPrograms {
         }
         codeTest("TestSub1.bas", "6");
         codeTest("TestSub2.bas", "21");
-        codeTest("TestSub3.bas", "21undef");
+        codeTest("TestSub3.bas", "21");
         codeTest("TestSub4.bas", "123\n123\n123\n123\n");
         codeTest("TestSub5.bas", "1111");
         codeTest("TestWhile1.bas", "89");
@@ -126,7 +126,7 @@ public class TestPrograms {
         codeTest("TestForLoop9.bas", "111213212223313233");
         codeTest("TestForLoop10.bas", "12323");
         codeTest("TestRuntimeFunction.bas", "1.01.5707963267948966");
-        codeTest("TestNullFunction.bas", "undefundef");
+        codeTest("TestNullFunction.bas", "undef");
         codeTest("TestMethodCall.bas",
             "" + Math.sin(1.0) + "\n" + Math.sin(1.0));
         map = new HashMap<>();
@@ -135,7 +135,7 @@ public class TestPrograms {
 
         testRuntimeFail("TestBadArray1.bas");
         codeTest("TestBadArray2.bas", "");
-        codeTest("TestBadArray3.bas", "");
+        testRuntimeFail("TestBadArray3.bas");
         codeTest("BubbleSort.bas", "-1\n0\n2\n3\n7\n58\n99\n");
         codeTest("TestAbs.bas", "131355.377.7");
         codeTest("TestChomp.bas", "ttt");
