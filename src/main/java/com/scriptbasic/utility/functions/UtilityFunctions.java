@@ -149,7 +149,7 @@ public class UtilityFunctions {
     @BasicFunction(classification = Utility.class)
     public static Double cdbl(final Object arg) throws BasicRuntimeException {
         if (arg == null) {
-            throw new BasicRuntimeException("NULL cannot be converted to double");
+            throw new BasicRuntimeException("undef cannot be converted to double");
         }
         return BasicDoubleValue.asDouble(RightValueUtility.createRightValue(arg));
     }
@@ -157,7 +157,7 @@ public class UtilityFunctions {
     @BasicFunction(classification = Utility.class)
     static public Long clng(final Object arg) throws BasicRuntimeException {
         if (arg == null) {
-            throw new BasicRuntimeException("NULL cannot be converted to long");
+            throw new BasicRuntimeException("undef cannot be converted to long");
         }
         return BasicLongValue.asLong(RightValueUtility.createRightValue(arg));
     }
