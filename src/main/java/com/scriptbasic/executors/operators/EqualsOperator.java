@@ -1,38 +1,36 @@
 package com.scriptbasic.executors.operators;
 
-import com.scriptbasic.executors.rightvalues.*;
 import com.scriptbasic.interfaces.BasicRuntimeException;
-import com.scriptbasic.spi.RightValue;
 
 public class EqualsOperator extends AbstractCompareOperator {
 
     @Override
-    protected Boolean compareTo(final BasicDoubleValue f, final RightValue op)
+    protected Boolean compareTo(final double l, final double r)
             throws BasicRuntimeException {
-        return f.getValue().equals(BasicDoubleValue.asDouble(op));
+        return l == r;
     }
 
     @Override
-    protected Boolean compareTo(final BasicLongValue f, final RightValue op)
+    protected Boolean compareTo(final long l, final long r)
             throws BasicRuntimeException {
-        return f.getValue().equals(BasicLongValue.asLong(op));
+        return l == r;
     }
 
     @Override
-    protected Boolean compareTo(final BasicStringValue f, final RightValue op)
+    protected Boolean compareTo(final String l, final String r)
             throws BasicRuntimeException {
-        return f.getValue().equals(BasicStringValue.asString(op));
+        return l.equals(r);
     }
 
     @Override
-    protected Boolean compareTo(final BasicJavaObjectValue f,
-                                final RightValue op) throws BasicRuntimeException {
-        return compareJavaObjectTo(f, op) == 0;
+    protected Boolean compareTo(final Object l, final Object r)
+            throws BasicRuntimeException {
+        return compareJavaObjectTo(l, r) == 0;
     }
 
     @Override
-    protected Boolean compareTo(final BasicBooleanValue f, final RightValue op) {
-        return f.getValue().equals(BasicBooleanValue.asBoolean(op));
+    protected Boolean compareTo(final boolean l, final boolean r) {
+        return l == r;
     }
 
 }
