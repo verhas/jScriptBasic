@@ -32,13 +32,14 @@ public abstract class AbstractCompareOperator extends
         if (leftOperand == null || rightOperand == null) {
             return BasicValue.FALSE;
         }
-        if (leftOperand.isLong() || rightOperand.isLong()) {
+        if (leftOperand.isLong() || rightOperand.isLong() || leftOperand.isDate() || rightOperand.isDate()) {
             final Long leftValue = getAsLong(leftOperand);
             final Long rightValue = getAsLong(rightOperand);
             if (leftValue != null && rightValue != null)
                 return new BasicBooleanValue(compareTo(leftValue, rightValue));
         }
-        if (leftOperand.isLong() || rightOperand.isLong() || leftOperand.isDouble() || rightOperand.isDouble()) {
+        if (leftOperand.isLong() || rightOperand.isLong() || leftOperand.isDate() || rightOperand.isDate()
+                || leftOperand.isDouble() || rightOperand.isDouble()) {
             final Double leftValue = getAsDouble(leftOperand);
             final Double rightValue = getAsDouble(rightOperand);
             if (leftValue != null && rightValue != null)

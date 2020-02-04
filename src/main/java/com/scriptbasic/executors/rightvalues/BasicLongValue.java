@@ -37,6 +37,9 @@ public class BasicLongValue extends AbstractNumericRightValue<Long, Long> {
         if (rv.isLong()) {
             return ((BasicLongValue) rv).getValue();
         }
+        if (rv.isDate()) {
+            return ((BasicDateValue) rv).getNumericValue();
+        }
         if (rv.isDouble()) {
             return ((BasicDoubleValue) rv).getValue().longValue();
         }

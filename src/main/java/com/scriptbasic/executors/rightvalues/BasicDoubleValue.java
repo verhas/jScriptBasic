@@ -41,6 +41,9 @@ public class BasicDoubleValue extends AbstractNumericRightValue<Double, Double> 
             }
             return l.doubleValue();
         }
+        if (rv.isDate()) {
+            return ((BasicDateValue) rv).getNumericValue().doubleValue();
+        }
         if (rv.isDouble()) {
             return ((BasicDoubleValue) rv).getValue();
         }

@@ -1,5 +1,7 @@
 package com.scriptbasic.utility;
 
+import java.time.LocalDate;
+
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
 import com.scriptbasic.executors.rightvalues.*;
@@ -73,6 +75,8 @@ public final class RightValueUtility {
             rightValue = new BasicLongValue(((Short) value).longValue());
         } else if (value instanceof Byte) {
             rightValue = new BasicLongValue(((Byte) value).longValue());
+        } else if (value instanceof LocalDate) {
+            rightValue = new BasicDateValue((LocalDate) value);
         } else if (value instanceof String) {
             rightValue = new BasicStringValue((String) value);
         } else if (value instanceof Character) {
