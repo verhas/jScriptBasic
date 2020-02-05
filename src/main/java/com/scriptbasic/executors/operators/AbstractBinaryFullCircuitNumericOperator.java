@@ -39,8 +39,8 @@ public abstract class AbstractBinaryFullCircuitNumericOperator<T extends Number>
                     "Can not execute the operation on undefined value.");
         }
         if (leftOperand.isNumeric() && rightOperand.isNumeric()) {
-            a = ((AbstractNumericRightValue<Number>) leftOperand).getValue();
-            b = ((AbstractNumericRightValue<Number>) rightOperand).getValue();
+            a = ((AbstractNumericRightValue<Number, Object>) leftOperand).getNumericValue();
+            b = ((AbstractNumericRightValue<Number, Object>) rightOperand).getNumericValue();
             if (leftOperand.isDouble()) {
                 if (rightOperand.isDouble()) {
                     result = operateOnDoubleDouble((Double) a, (Double) b);

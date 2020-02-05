@@ -37,7 +37,7 @@ public final class RightValueUtility {
     public static Integer convert2Integer(final RightValue index)
             throws ScriptBasicException {
         if (index.isNumeric()) {
-            return ((AbstractNumericRightValue<Number>) index).getValue().intValue();
+            return ((AbstractNumericRightValue<Number, Object>) index).getNumericValue().intValue();
         } else {
             throw new BasicRuntimeException(
                     index.toString()
