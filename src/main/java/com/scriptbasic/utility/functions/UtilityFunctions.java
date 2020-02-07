@@ -176,7 +176,7 @@ public class UtilityFunctions {
     @BasicFunction(classification = Utility.class)
     static public String chr(final Object charcode) throws BasicRuntimeException {
         if (charcode == null) {
-            throw new BasicRuntimeException("undef cannot be converted character");
+            throw new BasicRuntimeException("undef cannot be converted to character");
         }
         final Long code = BasicLongValue.asLong(RightValueUtility.createRightValue(charcode));
         try {
@@ -193,6 +193,8 @@ public class UtilityFunctions {
      * @param arg
      *            string argument
      * @return character code corresponding to the first letter
+     * @throws BasicRuntimeException
+     *             fail on empty input
      */
     @BasicFunction(classification = Utility.class)
     static public Integer asc(final Object arg) throws BasicRuntimeException {
