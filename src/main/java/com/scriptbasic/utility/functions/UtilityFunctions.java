@@ -6,6 +6,7 @@ import com.scriptbasic.classification.System;
 import com.scriptbasic.classification.Utility;
 import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
 import com.scriptbasic.executors.rightvalues.BasicLongValue;
+import com.scriptbasic.executors.rightvalues.BasicStringValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.log.Logger;
 import com.scriptbasic.log.LoggerFactory;
@@ -160,5 +161,48 @@ public class UtilityFunctions {
             throw new BasicRuntimeException("undef cannot be converted to long");
         }
         return BasicLongValue.asLong(RightValueUtility.createRightValue(arg));
+    }
+
+    /**
+     * Returns a String containing the character associated with the specified
+     * character code.
+     * 
+     * @param charcode
+     *            argument is a Long that identifies a character
+     * @return character
+     * @throws BasicRuntimeException
+     *             fail if incorrect character code
+     */
+    @BasicFunction(classification = Utility.class)
+    static public String chr(final Object charcode) throws BasicRuntimeException {
+        if (charcode == null) {
+            throw new BasicRuntimeException("undef cannot be converted character");
+        }
+        final Long code = BasicLongValue.asLong(RightValueUtility.createRightValue(charcode));
+        try {
+            return Character.toString(code.intValue());
+        } catch (IllegalArgumentException e) {
+            throw new BasicRuntimeException("Invalid character code: " + code);
+        }
+    }
+
+    /**
+     * Returns an Integer representing the character code corresponding
+     * to the first letter in a string.
+     * 
+     * @param arg
+     *            string argument
+     * @return character code corresponding to the first letter
+     */
+    @BasicFunction(classification = Utility.class)
+    static public Integer asc(final Object arg) throws BasicRuntimeException {
+        if (arg == null) {
+            throw new BasicRuntimeException("undef cannot be converted to code");
+        }
+        final String str = BasicStringValue.asString(RightValueUtility.createRightValue(arg));
+        if (str == null || str.length() == 0) {
+            throw new BasicRuntimeException("empty string cannot be converted to code");
+        }
+        return Integer.valueOf(str.charAt(0));
     }
 }
