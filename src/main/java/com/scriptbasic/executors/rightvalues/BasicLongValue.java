@@ -28,7 +28,11 @@ public class BasicLongValue extends AbstractNumericRightValue<Long, Long> {
             if (s == null) {
                 return null;
             }
-            return Long.parseLong(s);
+            try {
+                return Long.parseLong(s);
+            } catch (NumberFormatException e) {
+                throw new BasicRuntimeException("Can not convert value to long", e);
+            }
         }
         if (rv.isLong()) {
             return ((BasicLongValue) rv).getValue();

@@ -28,7 +28,11 @@ public class BasicDoubleValue extends AbstractNumericRightValue<Double, Double> 
             if (s == null) {
                 return null;
             }
-            return Double.parseDouble(s);
+            try {
+                return Double.parseDouble(s);
+            } catch (NumberFormatException e) {
+                throw new BasicRuntimeException("Can not convert value to double", e);
+            }
         }
         if (rv.isLong()) {
             final var l = ((BasicLongValue) rv).getValue();
