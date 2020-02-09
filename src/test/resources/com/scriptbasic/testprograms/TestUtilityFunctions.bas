@@ -9,4 +9,13 @@ assert("clng_1", clng(2)=2)
 assert("clng_2", clng("2")=2)
 assert("clng_3", clng(true)=1)
 
+' test function chr
+assert("chr_1", chr(65)="A")
+assert("chr_2", chr("65")="A")
+
+' test function asc
+assert("asc_1", asc("A")=65)
+assert("asc_2", asc(2)=50)
+assert("asc_3", asc("ABCD")=65)
+
 print "DONE"
