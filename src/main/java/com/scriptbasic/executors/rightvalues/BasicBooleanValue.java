@@ -9,7 +9,7 @@ public final class BasicBooleanValue extends AbstractPrimitiveRightValue<Boolean
     }
 
     private static Boolean convertNumeric(
-            final AbstractNumericRightValue<Number> originalValue) {
+            final AbstractNumericRightValue<Number, Object> originalValue) {
         final Boolean convertedValue;
         if (originalValue.isLong()) {
             final var l = (Long) originalValue.getValue();
