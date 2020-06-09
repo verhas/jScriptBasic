@@ -79,7 +79,7 @@ public class StringFunctions {
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
     static public String ltrim(final Object o) throws BasicRuntimeException {
-        if(o==null) {
+        if (o == null) {
             return null;
         }
         final String s = cstr(o);

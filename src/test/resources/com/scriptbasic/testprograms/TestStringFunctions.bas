@@ -10,9 +10,9 @@ assert("trim", trim(v)="1234")
 assert("rtrim", rtrim(v)=" 1234")
 
 ' Test null values
-assert("ltrim_with_null", IsNull(ltrim(xxx)))
-assert("trim_with_null", IsNull(trim(xxx)))
-assert("rtrim_with_null", IsNull(rtrim(xxx)))
+assert("ltrim_with_null", IsNull(ltrim(undefined_var)))
+assert("trim_with_null", IsNull(trim(undefined_var)))
+assert("rtrim_with_null", IsNull(rtrim(undefined_var)))
 
 ' Test left, mid, right functions
 v = 1234
