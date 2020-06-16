@@ -1,7 +1,9 @@
 package com.scriptbasic.utility.functions;
 
 import com.scriptbasic.api.BasicFunction;
+import com.scriptbasic.executors.rightvalues.BasicStringValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
+import com.scriptbasic.utility.RightValueUtility;
 
 /**
  * <p>
@@ -50,26 +52,54 @@ public class StringFunctions {
     }
 
     /**
-     * Trim the white spaces from the start of the string.
-     *
-     * @param s the string to trim.
-     * @return the trimmed string
+     * Returns string for the argument.
+     * @param o argument to be converted
+     * @return string value
+     * @throws BasicRuntimeException failed to convert to string
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
-    static public String ltrim(final String s) {
+    static public String cstr(final Object o) throws BasicRuntimeException {
+        if (o == null) {
+            throw new BasicRuntimeException("Null cannot be converted to string");
+        }
+        if (o instanceof String) {
+            return (String) o;
+        }
+        return BasicStringValue.asString(RightValueUtility.createRightValue(o));
+    }
+
+    /**
+     * Trim the white spaces from the start of the string.
+     *
+     * @param o the string to trim.
+     * @return the trimmed string
+     * @throws BasicRuntimeException if cannot convert to string
+     */
+    @BasicFunction(classification = {com.scriptbasic.classification.String.class,
+            com.scriptbasic.classification.Utility.class})
+    static public String ltrim(final Object o) throws BasicRuntimeException {
+        if (o == null) {
+            return null;
+        }
+        final String s = cstr(o);
         return s.replaceAll("^\\s*", "");
     }
 
     /**
      * Trim the white spaces from the end of the string.
      *
-     * @param s the string to trim
+     * @param o the string to trim
      * @return the trimmed string
+     * @throws BasicRuntimeException if cannot convert to string
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
-    static public String rtrim(final String s) {
+    static public String rtrim(final Object o) throws BasicRuntimeException {
+        if (o == null) {
+            return null;
+        }
+        final String s = cstr(o);
         return s.replaceAll("\\s*$", "");
     }
 
@@ -77,13 +107,18 @@ public class StringFunctions {
      * Return {@code len} number of characters from the left (the beginning) of the
      * string.
      *
-     * @param s   parameter
+     * @param o   parameter
      * @param len parameter
      * @return return value
+     * @throws BasicRuntimeException if cannot convert to string
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
-    static public String left(final String s, final int len) {
+    static public String left(final Object o, final int len) throws BasicRuntimeException {
+        if (o == null) {
+            return null;
+        }
+        final String s = cstr(o);
         return s.length() > len ? s.substring(0, len) : s;
     }
     
@@ -91,7 +126,7 @@ public class StringFunctions {
      * Return a substring from the string that starts at the position
      * {@code start} and has a length of {@code len}.
      *
-     * @param s     parameter
+     * @param o     parameter
      * @param start parameter
      * @param len   parameter
      * @return return value
@@ -99,10 +134,14 @@ public class StringFunctions {
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
-    static public String mid(final String s, final int start, final int len) throws BasicRuntimeException {
+    static public String mid(final Object o, final int start, final int len) throws BasicRuntimeException {
         if (start < 1) {
             throw new BasicRuntimeException("Incorrect value in parameter start: " + start);
         }
+        if (o == null) {
+            return null;
+        }
+        final String s = cstr(o);
         return s.substring(start - 1, start - 1 + len);
     }
 
@@ -110,13 +149,18 @@ public class StringFunctions {
      * Return {@code len} number of characters from the right (the end) of the
      * string.
      *
-     * @param s   parameter
+     * @param o   parameter
      * @param len parameter
      * @return return value
+     * @throws BasicRuntimeException if cannot convert to string
      */
     @BasicFunction(classification = {com.scriptbasic.classification.String.class,
             com.scriptbasic.classification.Utility.class})
-    static public String right(final String s, final int len) {
+    static public String right(final Object o, final int len) throws BasicRuntimeException {
+        if (o == null) {
+            return null;
+        }
+        final String s = cstr(o);
         return s.length() > len ? s.substring(s.length() - len) : s;
     }
 
@@ -185,7 +229,11 @@ public class StringFunctions {
     }
 
     @BasicFunction(classification = {com.scriptbasic.classification.String.class})
-    static public String trim(final String s) {
+    static public String trim(final Object o) throws BasicRuntimeException {
+        if (o == null) {
+            return null;
+        }
+        final String s = cstr(o);
         return s.trim();
     }
 
