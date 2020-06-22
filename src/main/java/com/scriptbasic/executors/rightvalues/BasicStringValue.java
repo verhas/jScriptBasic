@@ -12,6 +12,9 @@ public class BasicStringValue extends AbstractPrimitiveRightValue<String> {
     public static String asString(final RightValue rv) throws BasicRuntimeException {
         try {
             final String resultString;
+            if (rv == BasicEmptyValue.EMPTY_VALUE) {
+                return "";
+            }
             if (rv == null
                     || ((AbstractPrimitiveRightValue<Object>) rv).getValue() == null) {
                 resultString = "undef";

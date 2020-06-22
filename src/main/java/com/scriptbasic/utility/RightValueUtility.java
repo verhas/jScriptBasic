@@ -80,6 +80,8 @@ public final class RightValueUtility {
                     new char[]{(Character) value}));
         } else if (value instanceof Boolean) {
             rightValue = new BasicBooleanValue((Boolean) value);
+        } else if (value == EmptyValue.EMPTY_VALUE) {
+            rightValue = BasicEmptyValue.EMPTY_VALUE;
         } else {
             rightValue = new BasicJavaObjectValue(value);
         }

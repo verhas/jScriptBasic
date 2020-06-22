@@ -13,6 +13,9 @@ public class VariableAccess extends AbstractIdentifieredExpression {
             throws ScriptBasicException {
         final VariableMap variableMap = interpreter.getVariables();
         RightValue value = variableMap.getVariableValue(getVariableName());
+        if (value == null) {
+            value = BasicEmptyValue.EMPTY_VALUE;
+        }
         value = interpreter.getHook().variableRead(getVariableName(), value);
         return value;
     }

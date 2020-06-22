@@ -27,7 +27,7 @@ public final class BasicBooleanValue extends AbstractPrimitiveRightValue<Boolean
     public static Boolean asBoolean(final RightValue originalValue) throws BasicRuntimeException {
         final Boolean convertedValue;
 
-        if (originalValue == null) {
+        if (originalValue == null || originalValue == BasicEmptyValue.EMPTY_VALUE) {
             convertedValue = Boolean.FALSE;
         } else if (originalValue instanceof AbstractNumericRightValue) {
             convertedValue = convertNumeric((AbstractNumericRightValue) originalValue);
