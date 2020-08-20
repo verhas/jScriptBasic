@@ -6,9 +6,15 @@ import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.interfaces.AnalysisException;
 import com.scriptbasic.spi.Interpreter;
 
-import javax.script.*;
+import javax.script.AbstractScriptEngine;
+import javax.script.Bindings;
+import javax.script.ScriptContext;
+import javax.script.ScriptException;
+import javax.script.SimpleBindings;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
 
 /**
  * @author Peter Verhas
@@ -67,10 +73,10 @@ public class ScriptEngine extends AbstractScriptEngine {
             ctx.interpreter.execute();
             unmergeBindings(ctx.interpreter, context.getBindings(ScriptContext.ENGINE_SCOPE));
             unmergeBindings(ctx.interpreter, context.getBindings(ScriptContext.GLOBAL_SCOPE));
+            return context.getWriter().toString();
         } catch (final ScriptBasicException | AnalysisException e) {
             throw new ScriptException(e);
         }
-        return null;
     }
 
     /*
