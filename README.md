@@ -52,4 +52,4 @@ controlling the scripts in the application. The language is a "no freak out" lan
 can put the programming possibility into the hands of users who would not ever touch Python, Groovy
 or some other programming language but are happily craft their code in BASIC.
 
-[Documentation](https://github.com/verhas/jScriptBasic/wiki/index)
+[Documentation](http://verhas.github.io/jScriptBasic/)
