@@ -18,7 +18,7 @@ public class CommandLine {
             System.err
                     .println("usage: java [-Dsb4j.extensionclasses=comma separated list of extension classes] "
                             + "[-cp classpath for extensions] -jar jscriptbasic-x.y.z basicprogram.sb");
-            System.exit(1);
+            return;
         }
         final var basicProgramFileName = args[0];
 
