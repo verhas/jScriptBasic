@@ -20,7 +20,7 @@ import java.io.Writer;
  * call subroutines.
  * <p>
  * Deprecated methods are replaced by fluent api methods that return "this". The deprecated
- * method are not for removal. They are not to be used by callers but they are to be implemented
+ * method are not for removal. They are not to be used by callers, but they are to be implemented
  * by implementing classes. These methods are invoked from the fluent API method default implementations
  * in this interface. That way the builder pattern like fluent api does not need to be implemented by
  * each class that implements the interface.
