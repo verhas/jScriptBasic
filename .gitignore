@@ -13,3 +13,4 @@ doc/
 target/
 reports/
 .idea/
+.asciidoctor

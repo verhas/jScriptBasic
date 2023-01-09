@@ -1,26 +1,21 @@
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+    <name>ScriptBasic for Java</name>
     <groupId>com.scriptbasic</groupId>
     <artifactId>jscriptbasic</artifactId>
-    <version>2.1.1</version>
-    <packaging>jar</packaging>
-
+    <version>2.1.2-SNAPSHOT</version>
     <scm>
         <connection>scm:git:git://github.com/verhas/jScriptBasic.git</connection>
         <developerConnection>scm:git:ssh://github.com/verhas/jScriptBasic.git</developerConnection>
         <url>https:/github.com/verhas/jScriptBasic/tree/master</url>
     </scm>
-
-    <name>ScriptBasic for Java</name>
-    <url>http://www.scriptbasic.com</url>
-    <description>ScriptBasic for Java is an implementation of ScriptBasic for the Java technology, language and users.
-    </description>
+    <url>https:/github.com/verhas/jScriptBasic/tree/master</url>
+    <description>ScriptBasic for Java is an implementation of ScriptBasic for the Java technology, language and users.</description>
     <licenses>
         <license>
             <name>The Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
     <developers>
@@ -39,11 +34,22 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -54,8 +60,33 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.4.0</version>
+                <configuration>
+                    <detectOfflineLinks>false</detectOfflineLinks>
+                    <doclint>none</doclint>
+                    <doclet>javax0.jamal.doclet.JamalDoclet</doclet>
+                    <docletArtifact>
+                        <groupId>com.javax0.jamal</groupId>
+                        <artifactId>jamal-doclet</artifactId>
+                        <version>1.12.4</version>
+                    </docletArtifact>
+                    <additionalOptions>
+                        <additionalOption>--source-root</additionalOption>
+                        <additionalOption>${project.build.sourceDirectory}</additionalOption>
+                    </additionalOptions>
+                    <taglets>
+                        <taglet>
+                            <tagletClass>javax0.jamal.doclet.JamalTaglet</tagletClass>
+                            <tagletArtifact>
+                                <groupId>com.javax0.jamal</groupId>
+                                <artifactId>jamal-doclet</artifactId>
+                                <version>1.12.4</version>
+                            </tagletArtifact>
+                        </taglet>
+                    </taglets>
+                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -66,41 +97,62 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.9.0</version>
                 <configuration>
-                    <release>11</release>
+                    <source>17</source>
+                    <target>17</target>
+                    <release>17</release>
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Main-Class>com.scriptbasic.main.CommandLine</Main-Class>
-                        </manifestEntries>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M4</version>
+                <version>3.0.0-M5</version>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.13</version>
+                <extensions>true</extensions>
                 <configuration>
-                    <argLine>--enable-preview</argLine>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
         </plugins>
     </build>
     <dependencies>
         <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>4.8.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.javax0.jamal</groupId>
+            <artifactId>jamal-all</artifactId>
+            <version>1.12.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>5.5.2</version>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.9.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.9.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
