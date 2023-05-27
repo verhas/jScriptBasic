@@ -1,10 +1,12 @@
 package com.scriptbasic.executors.operators;
 
+import com.scriptbasic.context.CompilerContext;
 import com.scriptbasic.executors.rightvalues.*;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.spi.RightValue;
 
 public class AddOperator extends AbstractBinaryFullCircuitHalfDoubleOperator {
+
 
     private static String myToString(final Object o) {
         if (o == null)
@@ -62,4 +64,8 @@ public class AddOperator extends AbstractBinaryFullCircuitHalfDoubleOperator {
         return "Plus";
     }
 
+    @Override
+    protected String operatorToJava(final CompilerContext cc) {
+        return "+";
+    }
 }

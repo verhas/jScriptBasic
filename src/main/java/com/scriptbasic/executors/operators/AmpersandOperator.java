@@ -1,6 +1,7 @@
 package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.context.CompilerContext;
 import com.scriptbasic.executors.rightvalues.BasicStringValue;
 import com.scriptbasic.spi.RightValue;
 
@@ -24,6 +25,11 @@ public class AmpersandOperator extends AbstractBinaryFullCircuitOperator {
         addOperand(sb, rightOperand);
 
         return new BasicStringValue(sb.toString());
+    }
+
+    @Override
+    protected String operatorToJava(final CompilerContext cc) {
+        return "+";
     }
 
     static private void addOperand(StringBuilder stringBuilder, RightValue operand) throws ScriptBasicException {

@@ -1,6 +1,7 @@
 package com.scriptbasic.executors.rightvalues;
 
 import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.context.CompilerContext;
 import com.scriptbasic.executors.AbstractIdentifieredExpressionListedExpression;
 import com.scriptbasic.interfaces.Expression;
 import com.scriptbasic.interfaces.VariableMap;
@@ -19,8 +20,7 @@ public class ArrayElementAccess extends
         RightValue value = variableMap.getVariableValue(getVariableName());
         value = interpreter.getHook().variableRead(getVariableName(), value);
         for (final Expression expression : getExpressionList()) {
-            if (value instanceof BasicArray) {
-                final var arrayVar = (BasicArray) value;
+            if (value instanceof final BasicArray arrayVar) {
                 final var index = RightValueUtility.convert2Integer(expression
                         .evaluate(interpreter));
                 final var object = arrayVar.get(index);
@@ -35,4 +35,18 @@ public class ArrayElementAccess extends
         return value;
     }
 
+    @Override
+    public String toJava(CompilerContext cc) {
+        final var sb = new StringBuilder();
+        final var name = getVariableName();
+
+        sb.append("((BasicArrayValue)interpreter.getVariables().getVariableValue(\"%s\"))".formatted(name));
+
+        for (final Expression expression : getExpressionList()) {
+            sb.append(".get(");
+            sb.append(expression.toJava(cc));
+            sb.append(")");
+        }
+        return sb.toString();
+    }
 }

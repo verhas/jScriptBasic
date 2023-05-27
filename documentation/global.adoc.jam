@@ -1,0 +1,36 @@
+{%@import sbdoc.jim%} = `LOCAL` and `GLOBAL`
+
+Variables in ScriptBasic for Java need not be declared.
+They are created automatically when the program execution sees a variable.
+When a variable is used in a subroutine, however it can be either a local or a global variable.
+The interpreter can not derive the intention of the programmer and for this reason there are two commands `LOCAL` and `GLOBAL` that can be used to declare variables.
+
+Inside a subroutine all variables are local unless defined global.
+
+A variable can be declared to be global inside a subroutine or in the main program code. `LOCAL`
+and `GLOBAL` declarations can be used in subroutines only before the first executable command.
+In the main program you can use `GLOBAL` anywhere.
+
+Lets have a look at the following program:
+
+{%BASIC global1%}
+
+The output of the program is
+
+{%OUTPUT global1%}
+
+Only the variable `gVar2` was modified to hold the string `"local"` in the subroutine, because that is the only variable declared to be global.
+All other variables including the argument is local.
+
+== Practice
+
+Treating all variables local unless declared global is a safe practice.
+This prevents a subroutine to accidentally overwrite the value of a global variable.
+
+Even though it is not required to declare every variable, it is a good practice to declare variables either to be global and local.
+ScriptBasic for Java has an internal feature that makes it possible to programmatically configure the interpreter to alter the behavior above.
+It can be forced to treat any non-declared variable global inside subroutines.
+
+The other possible programmatic configuration is to treat any non-declared variable an error.
+To make the interpreter usable this way the `global` keyword should be used in the main program code.
+You should declare any local variable as `local` inside a subroutine when the interpreter runs in such configuration.

@@ -1,6 +1,12 @@
 package com.scriptbasic.executors.operators;
 
+import com.scriptbasic.context.CompilerContext;
+
 public class GreaterThanOperator extends AbstractCompareOperator {
+    @Override
+    protected String operatorToJava(final CompilerContext cc) {
+        return ">";
+    }
 
     @Override
     protected boolean decide(int comparisonResult) {

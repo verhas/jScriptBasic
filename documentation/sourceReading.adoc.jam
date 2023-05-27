@@ -1,0 +1,156 @@
+{%@import sbdoc.jim%} = Providing source to the interpreter
+
+The engine has very different API calls to execute source code.
+The simplest is the `eval(String)` method that directly evaluates the string as a BASIC program.
+Applications, however, need more complex ways, especially when we have BASIC programs contain some `include` statements.
+
+If you look at the interface `ScriptBasic` in the API it defines a set of overloaded `load()` methods.
+They all load some code from different sources making the interpreter ready to invoke the `execute()` method.
+
+== Simple source provision
+
+The simplest versions of source code provisioning are
+
+----
+void load(String sourceCode)
+void load(Reader reader)
+void load(File sourceFile)
+----
+
+These are very simple and straightforward ways to give the code to the interpreter.
+The first one just uses the argument as a string to load the BASIC code.
+The second gets the code from a `java.io.Reader`.
+The last one gets the code from a `java.io.File`.
+
+If you don't want BASIC programs to include other BASIC program code fragments, and you have the BASIC programs in a location that is not available as `File` then the simplest way is to implement a `java.io.Reader` that reads the code from where it is, database, network etc.
+If you need `include` in your code, and the code is not in the file system then you cannot use any of these simple API calls.
+In that case read on.
+
+== Source with path
+
+There is a situation when you embed the interpreter in an environment where
+
+* the source code comes from files, but
+* they should not just include BASIC code just from any other location.
+
+This requirement usually comes from security considerations.
+You can define a set of directories to which the interpreter is restricted to.
+It will include files only from these directories.
+
+To provide a defined set of directories you should use the API call:
+
+[source,java]
+----
+void load(String sourceFileName, SourcePath path)
+----
+
+This method also gets a file name, but it also needs a `SourcePath`.
+
+The `SourcePath` interface is defined in the API package of ScriptBasic.
+It is hardly more than a `Iterable<String>`.
+
+NOTE: If you look at the interface it also has a `void add(String path)` method to add a new string to the path.
+
+The interpreter will search the directories defined in the source path to find the file and whenever an `INCLUDE`
+statement is processed the source path will be consulted again.
+
+If you do not want to implement the interface `SourcePath` you can use the convenience method
+
+[source,java]
+----
+void load(String sourceFileName, String... path)
+----
+
+It accepts the elements of the source path as a `String[]` array.
+
+== Source from anywhere
+
+Most of the applications can be created using the API above.
+Most of the BASIC code is on the disk usually.
+But not always.
+It is possible to create a host application embedding ScriptBasic that fetches the BASIC program code from just somewhere else.
+
+Let's assume that an implementation allows files names starting with different prefix, as:
+
+* `http://` to read BASIC source from the web
+
+* `res:` to read from Java resource files
+
+* `db:` to read from a database.
+
+ScriptBasic provides a general API to implement two (or three) interfaces that can result in such behaviour.
+The interfaces are , `SourceProvider`, `SourceReader`, and `HierarchicalSourceReader`.
+
+* `SourceProvider` is responsible to provide a `SourceReader` object for a source name to read.
+The implementation supporting only file based sources returns always the same reader.
+An implementation that simultaneously supports different source locations may return different readers based on the name of the file.
+Looking at the example above, the provider may return three different readers for the `http://`, `res:`, and `db:` prefixed names.
+
+* `SourceReader` reads the source from the source.
+
+* `HierarchicalSourceReader` can handle different sources and different providers.
+A simple pre-cooked implementation is available in the class `GenericHierarchicalSourceReader`.
+
+
+It is not a must that the host has to have the BASIC code in files.
+
+To do it, the host application has to implement two simple interfaces and use the method:
+
+[source,java]
+----
+void load(String sourceName, SourceProvider provider)
+----
+
+This method gets the source code from a `SourceProvider`.
+It is in the API package of the interpreter, and it defines two methods:
+
+[source,java]
+----
+SourceReader get(String sourceName)
+SourceReader get(String sourceName, String referencingSource)
+----
+
+Both of these methods should be implemented by the host application.
+The source readers they return has to be the implementation of the interface `SourceReader` or `HierarchicalSourceReader`.
+The latter is needed when the code has to handle `INCLUDE`.
+
+The host application should also implement this interface reading the actual content.
+There are three methods in the `SourceReader` interface
+
+[source,java]
+----
+Integer get();
+void unget(Integer character);
+SourceProvider getSourceProvider();
+----
+
+* `get()` provides the next available character from the BASIC source code for the lexical analysis and it should return `null` when there are no more characters.
+
+* `unget(Integer)` should accept a character that was read by the lexical analyzer, but it could not work with.
+Netx time the method `get()` should return this character again.
+A few times the interpreter reads ahead a few characters and then `unget` them, but never more than a BASIC program line.
+
+* `getSourceProvider()` returns the `SourceProvider` used to look for other, included files.
+This is usually the same as the one returning the `SourceReader` itself.
+
+To support the inclusion of other files the source reader implementation should implement the `HierarchicalSourceReader` interface.
+This inteface extends the `SourceReader` and adds an extra method
+
+[source,java]
+----
+void include(SourceReader reader);
+----
+
+The implementation of this method sets aside the current source and starts to return characters delegating the `get()` calls to the new source reader.
+When the underlying reader exhausted it continues with the previous source provider.
+If you decided that you want to write a hierarchical source provider consult the source code of the class `GenericHierarchicalSourceReader`. You can also implement a non-hierarchical source reader and use the available `GenericHierarchicalSourceReader`.
+
+With the `SourceProvider` and `SourceReader` implementation the host application has full control over
+
+* the source code location, and
+
+* also over the access control of it.
+
+Some `SourceProvider` may behave differently for different users, different BASIC programs that include others or just based on anything.
+
+This way the host program can embed the interpreter in a simple, and fast way in case there are no special needs and the same time there is no limit where to fetch the source code.

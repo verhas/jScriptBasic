@@ -83,27 +83,20 @@ public class MethodRegisterUtility implements ExtensionInterfaceVersion {
     private static boolean classificationsAllowRegistering(
             final Interpreter interpreter, final Class<?>[] classifications) {
         if (classifications == null) {
-            throw new BasicInterpreterInternalError("Some of the extension functions do not have classifications." +
-                    " Since this is Java code, it is an internal error of the host application.");
+            throw new BasicInterpreterInternalError("Some of the extension functions do not have classifications.\n" +
+                    "Since this is Java code, it is an internal error of the host application.");
         }
         final var config = interpreter.getConfiguration();
         final var allowLevel = new AtomicInteger(0);
         for (final Class<?> classification : classifications) {
             final var name = classification.getName();
-            final var allowKey = "allow(" + name + ")";
-            final var denyKey = "deny(" + name + ")";
-            final var allowValue = config.getConfigValue(allowKey).orElse(null);
-            final var denyValue = config.getConfigValue(denyKey).orElse(null);
-            allowLevel.addAndGet(gIV(allowValue) - gIV(denyValue));
+            allowLevel.addAndGet(config.getConfigValue("allow(" + name + ")").map(Integer::parseInt).orElse(0) -
+                    config.getConfigValue("deny(" + name + ")").map(Integer::parseInt).orElse(0));
         }
         return allowLevel.get() >= 0;
     }
 
-    private static Integer gIV(final String s) {
-        return s == null ? 0 : Integer.valueOf(s);
-    }
-
-    static class FunctionLoadParameters {
+    private static class FunctionLoadParameters {
         Class<?> klass;
         String methodName;
         String alias;

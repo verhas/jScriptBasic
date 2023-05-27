@@ -1,0 +1,19 @@
+{@snip:collect from="../src/test/resources/documentation"}
+{@define BASIC($X)=
+[source,text]
+----
+{@include [verbatim] ../src/test/resources/documentation/$X.bas}
+----
+}
+{@define OUTPUT($X)=
+[source,text]
+----
+{@include [verbatim] ../src/test/resources/documentation/$X.out}
+----
+}
+{@define ERROR($X)=
+[source,text]
+----
+{@include [verbatim] ../src/test/resources/documentation/$X.err}
+----
+}

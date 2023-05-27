@@ -1,5 +1,6 @@
 package com.scriptbasic.interfaces;
 
+import com.scriptbasic.context.CompilerContext;
 import com.scriptbasic.spi.Command;
 
 /**
@@ -9,7 +10,7 @@ import com.scriptbasic.spi.Command;
  * @author Peter Verhas
  * date June 15, 2012
  */
-public interface BuildableProgram extends Program {
+public interface BuildableProgram extends Program, Compiler {
 
     /**
      * Calling this method will remove all previously built code from the
@@ -49,4 +50,5 @@ public interface BuildableProgram extends Program {
      * @throws AnalysisException when the postprocessing discovers syntax errors
      */
     void postprocess() throws AnalysisException;
+
 }

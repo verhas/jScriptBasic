@@ -1,0 +1,25 @@
+{%@import sbdoc.jim%}
+= `IF` command
+
+The `IF` command makes it possible to execute some commands conditionally.
+The format of the command is:
+
+----
+IF condition THEN
+ commands
+[ ELSEIF condition THEN
+  commands
+]*
+[ ELSE 
+ commands ]  
+ENDIF
+----
+
+The `ELSEIF` part is optional.
+There can be any number of `ELSEIF` branches in an `IF` command.
+Similarly, the `ELSE` part is also optional but evidently, there can only be one `ELSE` part.
+
+Note that the keyword `ELSEIF` is a single keyword, and it is syntactically incorrect to write `ELSE IF` in two words.
+
+The `condition` can be any expression that evaluates to a boolean value.
+There is no automatic conversion from non-boolean values to boolean value.

@@ -1,0 +1,83 @@
+{%@import sbdoc.jim%} = `FOR` loop
+
+ScriptBasic for Java supports the classical `FOR` loop.
+The syntax of this looping construct is
+
+----
+FOR loop_variable = start_expression TO end_expression [ STEP step_expression ]
+  commands
+NEXT [ loop_variable ]  
+----
+
+The optional `STEP step_expression` may be missing.
+In that case the step value used to increment the loop variable is 1.
+
+When the loop starts the expressions are evaluated and the loop variable gets the value of the `start_expression`.
+At each iteration of the loop before the `commands` start it checks that the current `loop_variable`
+is still between the start and end values including the boundaries.
+
+In other words the loop variable value will run from the start till the end but if the start value is already larger than the end value and the step value is positive, or if the start value is already smaller than the end value and the step value is negative at the start of the loop then the `commands` parts are not executed at all.
+
+Still in other words: the `FOR` loop checks the condition at the start.
+For example
+
+{%BASIC empty_for%}
+
+does not print out any number.
+The `for` loop identifies that the loop variable is out of the looping range even before starting looping.
+
+The expressions can be integer or floating point type numbers.
+
+Then end of the loop is denoted with the command `NEXT`.
+When this command is reached the execution goes to the start of the loop, the loop variable is stepped by the step value and the execution of the loop body is started again unless the loop is ended.
+The command keyword `NEXT` is followed by the loop variable, but it is optional.
+You can just write
+
+{%BASIC next_wo_variable%}
+
+to print the numbers from 1 to 10. However, if you present the variable following the keyword
+`NEXT` it has to be the same as the one used in the command `FOR`.
+
+The loop variable is not protected inside the loop.
+You can modify the loop variable even though it is a bad practice.
+The loop
+
+{%BASIC modified_loop_variable%}
+
+will print out only the number 1 and after that it will exit the loop:
+
+{%OUTPUT modified_loop_variable%}
+
+The start, end and step values are only calculated once when the loop starts.
+Let's have a look at the following program:
+
+{%BASIC for_22_catch%}
+
+This program will print 22:
+
+{%OUTPUT for_22_catch%}
+
+The loop will start from 1 and go till 22.
+This end value is not modified by the fact that the variables `endV` and `startV` are modified during the execution of the loop.
+If the loop is started again then the start, end and step expressions are evaluated again before starting the loop.
+
+== Recursive calls and `FOR` bug
+
+For loop "end" and "step" values are evaluated only once at the start of the execution of the loop.
+The calculated values are stored in objects associated with the actual command instance.
+When the same loop starts again these expressions are evaluated and then the variables are overwritten.
+This is not a problem when a loop has already finished.
+
+However, the loop may start again before it has finished when it is in a subroutine called recursively.
+In this case, the original for loop end and step values are overwritten and the new values used to finish the loop after the recursive call returned.
+This is eventually a structural deficiency in ScriptBasic for Java.
+Usual use of BASIC scriptlets should not use recursive subroutine call.
+
+The following code demonstrates this bug.
+
+{%BASIC for_bug_demo%}
+
+The output of the program is
+
+{%OUTPUT for_bug_demo%}
+

@@ -1,0 +1,65 @@
+= The BASIC language interpreted by ScriptBasic for Java
+
+The language implemented byScriptBasic for Java is a simple BASIC language. There are only a very few commands implemented to keep the language simple, easy to learn. Each command starts on a new line, and after version 2.0.1 you can also use the `:` character to put multiple commands on a single line.
+
+The following commands are implemented:
+
+* link:let.adoc.jam[Variable assignment], `LET` and expression with operators
+
+* `IF`/`THEN`/`ELSEIF`/`ELSE`/`ENDIF` link:if.adoc.jam[conditional commands]
+
+* `SUB`/`CALL`/`RETURN` link:sub[subroutine and call] using formal arguments and local variables
+
+* `FOR`/`TO`/`STEP`/`NEXT` link:for.adoc.jam[loop], using integer or float loop variable.
+ The default step is 1. Checked at the start of the loop.
+
+* `WHILE`/`WEND` link:while[loop]
+
+* `GOTO` link:goto[goto statement]
+
+* `PRINT` command to link:print[send output] to the standard output stream
+
+* `GLOBAL`/`LOCAL` link:global.adoc.jam[variable declaration]
+
+* `USE`/`METHOD` link:method.adoc.jam[declaration] to use Java methods and objects from the BASIC code
+
+* `INCLUDE` / `IMPORT` link:include.adoc.jam[to include] basic code into the program
+
+* `SENTENCE` link:sentence.adoc.jam[to define DSL sentences]
+
+The operators implemented in the language are
+
+* `-`, `+` and `not` unary operators.
+
+* `.` (dot) to access Java object fields (1)
+
+* `^` power operator (2)
+
+* `*` multiply (3)
+
+* `/` division (floating point) (3)
+
+* `%` modulo calculation (3)
+
+* `div` integer divide (3)
+
+* `+` binary add operator, works on integer values, float values and concatenates strings (4)
+
+* `-` binary minus (4)
+
+* `=` equality,`&lt;` 'less than', `&gt;`'greater than', `&gt;=`
+ 'greater or equal', `&lt;=` 'less or equal', `&lt;&gt;`'not equal' operators that compares values (5)
+
+* `and` logical (short circuit) and operator (6)
+
+* `or` logical (short circuit) or operator (6)
+
+The operators have the usual precedences, as listed at the end of the lines above. You can use `(` and `)` parentheses to
+change the order of the evaluation of the operations. You can also use the parenthesis to call declared Java methods and to call
+BASIC defined subroutines.
+
+link:arrays[Arrays] can be accessed using the `[` and `]` brackets. Multidimensional array indices are separated by `,` comma. There is
+no array of arrays.
+
+link:file.adoc.jam[File handling] is available via an extension class. This extension class is not loaded by default. The
+embedding application should register this extension class. The command-line version does register this class.

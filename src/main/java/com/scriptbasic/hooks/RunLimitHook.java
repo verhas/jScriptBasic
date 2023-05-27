@@ -17,11 +17,9 @@ public class RunLimitHook extends SimpleHook {
 
     final private static String configPrefix = "RunLimitHook.";
     private Configuration config;
-    private int stepLimit;
-    private boolean stepIsLimited;
+    private Integer stepLimit;
     private int currentSteps;
-    private long timeLimitMillis;
-    private boolean timeIsLimited;
+    private Long timeLimitMillis;
     private long scriptStartTime;
 
     private Optional<String> hookConfig(final String s) {
@@ -33,29 +31,18 @@ public class RunLimitHook extends SimpleHook {
         config = getInterpreter().getConfiguration();
         currentSteps = 0;
         scriptStartTime = System.currentTimeMillis();
-        final Optional<String> stepLimit = hookConfig("stepLimit");
-        stepIsLimited = stepLimit.isPresent();
-        if (stepIsLimited) {
-            this.stepLimit = Integer.valueOf(stepLimit.get());
-        }
-        final Optional<String> timeLimitMillis = hookConfig("timeLimitMillis");
-        timeIsLimited = timeLimitMillis.isPresent();
-        if (timeIsLimited) {
-            this.timeLimitMillis = Long.valueOf(timeLimitMillis.get());
-        }
+        stepLimit = hookConfig("stepLimit").map(Integer::parseInt).orElse(null);
+        timeLimitMillis = hookConfig("timeLimitMillis").map(Long::parseLong).orElse(null);
     }
 
     @Override
     public void beforeExecuteEx(final Command command) {
-        if (stepIsLimited) {
-            currentSteps++;
-            if (currentSteps > stepLimit) {
-                throw new RuntimeException(
-                        "The code exceeded the maximum number of steps");
-            }
+        if (stepLimit != null && currentSteps > stepLimit) {
+            throw new RuntimeException("The code exceeded the maximum number of steps");
         }
-        if (timeIsLimited
-                && (System.currentTimeMillis() - scriptStartTime) > timeLimitMillis) {
+        currentSteps++;
+
+        if (timeLimitMillis != null && (System.currentTimeMillis() - scriptStartTime) > timeLimitMillis) {
             throw new RuntimeException(
                     "The code exceeded the maximum allowed time");
         }

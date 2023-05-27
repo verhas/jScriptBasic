@@ -1,5 +1,7 @@
 package com.scriptbasic.executors.rightvalues;
 
+import com.scriptbasic.context.CompilerContext;
+
 public class BasicEmptyValue extends AbstractNumericRightValue<Long, EmptyValue> {
 
     public static final BasicEmptyValue EMPTY_VALUE = new BasicEmptyValue();

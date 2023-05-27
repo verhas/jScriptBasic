@@ -1,6 +1,7 @@
 package com.scriptbasic.api;
 
 import com.scriptbasic.Engine;
+import com.scriptbasic.interfaces.Compiler;
 import com.scriptbasic.readers.SourcePath;
 import com.scriptbasic.readers.SourceProvider;
 import com.scriptbasic.spi.InterpreterHook;
@@ -27,7 +28,7 @@ import java.io.Writer;
  *
  * @author Peter Verhas
  */
-public interface ScriptBasic {
+public interface ScriptBasic extends Compiler {
 
     Class<FileHandlingFunctions> fileHandlingFunctionsClass = FileHandlingFunctions.class;
 

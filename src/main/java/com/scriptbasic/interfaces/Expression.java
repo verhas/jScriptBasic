@@ -6,6 +6,6 @@ package com.scriptbasic.interfaces;
  *
  * @author Peter Verhas
  */
-public interface Expression extends Evaluator, AnalysisResult {
+public interface Expression extends Compiler, Evaluator, AnalysisResult {
 
 }

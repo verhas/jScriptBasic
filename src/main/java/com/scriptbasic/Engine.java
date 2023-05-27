@@ -4,6 +4,7 @@ import com.scriptbasic.api.Configuration;
 import com.scriptbasic.api.ScriptBasic;
 import com.scriptbasic.api.ScriptBasicException;
 import com.scriptbasic.api.Subroutine;
+import com.scriptbasic.context.CompilerContext;
 import com.scriptbasic.context.Context;
 import com.scriptbasic.context.ContextBuilder;
 import com.scriptbasic.errors.BasicInterpreterInternalError;
@@ -17,7 +18,13 @@ import com.scriptbasic.sourceproviders.FileSourceProvider;
 import com.scriptbasic.spi.InterpreterHook;
 import com.scriptbasic.utility.RightValueUtility;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -33,7 +40,6 @@ public class Engine implements ScriptBasic {
 
     public Engine() {
     }
-
 
     @Override
     public Reader getInput() {
@@ -101,6 +107,13 @@ public class Engine implements ScriptBasic {
         assertCtxInitialized();
         ctx.interpreter.execute();
         return this;
+    }
+
+
+    @Override
+    public String toJava(CompilerContext cc) {
+        cc.setInterpreter(ctx.interpreter);
+        return ctx.interpreter.getProgram().toJava(cc);
     }
 
     private void assertCtxInitialized() throws ScriptBasicException {

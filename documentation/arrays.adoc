@@ -1,0 +1,85 @@
+
+= ScriptBasic for Java Arrays
+
+The language implemented by ScriptBasic for Java can handle arrays.
+The arrays are allocated on the fly and are indexed from zero up to their limits.
+If you try to index an array above the actual limit the array is automatically extended.
+
+The following program creates an array and sorts it with the simplest possible bubble sort:
+
+
+[source,basic]
+----
+a[0] = 3
+a[1] = 2
+a[2] = 7
+a[3] = -1
+a[4] = 58
+a[5] = 0
+a[6] = 99
+
+for i=0 to length(a)-1
+for j=0 to length(a)-1
+ if a[i] < a[j] then
+   x = a[i]
+   a[i] = a[j]
+   a[j] = x
+ endif
+next j
+next i
+
+for i=0 to length(a)-1
+  print a[i],"\n"
+next i
+----
+
+
+The output of the program is
+
+
+[source,text]
+----
+-1
+0
+2
+3
+7
+58
+99
+
+----
+
+
+The length of an array can be retrieved using the function `length()`.
+
+
+[source,basic]
+----
+a[2] = 7
+a[3] = -1
+a[4] = 58
+a[5] = 0
+a[6] = 99
+
+print length(a)
+----
+
+
+This program will print out
+
+
+[source,text]
+----
+7
+----
+
+
+Note that arrays are indexed from zero up.
+Although in the program above we did not assign any value to the elements 0 and 1, they are allocated.
+This means that the index values that hold meaningful values are from `0` to `length(array)-1`.
+
+When you use an index that is larger than `length(array)-1` the array will automatically be extended with undefined members.
+It is very easy to allocate really great amount of memory in ScriptBasic for Java using some large index values when setting or reading array elements.
+
+To prevent the creation of too large arrays ScriptBasic can be configured with the configuration key `arrayMaxIndex` to limit the maximum size an array can be indexed with.
+If an index is larger than the configured limit the BASIC interpreter will throw an exception.

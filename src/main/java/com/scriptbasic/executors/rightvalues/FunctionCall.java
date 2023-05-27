@@ -1,6 +1,7 @@
 package com.scriptbasic.executors.rightvalues;
 
 import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.context.CompilerContext;
 import com.scriptbasic.executors.AbstractIdentifieredExpressionListedExpression;
 import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.interfaces.BasicRuntimeException;
@@ -43,6 +44,21 @@ public class FunctionCall extends AbstractIdentifieredExpressionListedExpression
                 commandSub, getVariableName());
     }
 
+    private String toJavaBasicFunction(CompilerContext cc) {
+        final var code = fragment();
+        final var functionName = getVariableName().toLowerCase();
+        final var method = cc.getInterpreter().getJavaMethod(null, functionName);
+        code.add(method.getDeclaringClass().getName()+"."+method.getName());
+        code.add("(");
+        var sep = "";
+        for( final var expression : getExpressionList()){
+            code.add(sep + expression.toJava(cc));
+            sep = ",";
+        }
+        code.add(")");
+        return code.close();
+    }
+
     private RightValue callJavaFunction(final Interpreter interpreter)
             throws ScriptBasicException {
         final RightValue result;
@@ -68,6 +84,33 @@ public class FunctionCall extends AbstractIdentifieredExpressionListedExpression
             commandSub = interpreter.getSubroutine(getVariableName());
         }
     }
+
+    @Override
+    public String toJava(CompilerContext cc){
+        if( commandSub == null ){
+            return toJavaJavaFunction(cc);
+        }else{
+            return toJavaBasicFunction(cc);
+
+        }
+    }
+
+    private String toJavaJavaFunction(CompilerContext cc) {
+        final var code = fragment();
+        final var functionName = getVariableName().toLowerCase();
+        final var method = cc.getInterpreter().getJavaMethod(null, functionName);
+        code.add(method.getDeclaringClass().getName()+"."+method.getName());
+        code.add("(");
+        var sep = "";
+        for( final var expression : getExpressionList()){
+            code.add(sep + expression.toJava(cc));
+            sep = ",";
+        }
+        code.add(")");
+        return code.close();
+    }
+
+
 
     @Override
     public RightValue evaluate(final Interpreter interpreter)

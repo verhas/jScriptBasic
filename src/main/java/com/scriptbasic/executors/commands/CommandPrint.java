@@ -1,6 +1,7 @@
 package com.scriptbasic.executors.commands;
 
 import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.context.CompilerContext;
 import com.scriptbasic.executors.rightvalues.BasicStringValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.interfaces.Expression;
@@ -9,6 +10,24 @@ import com.scriptbasic.spi.Interpreter;
 import java.io.IOException;
 
 public class CommandPrint extends AbstractCommandExpressionListed {
+
+    @Override
+    public String toJava(CompilerContext cc){
+        final var sb = new StringBuilder();
+        sb.append("""
+                System.out.print(
+                """);
+        var sp = "" ;
+        for (final Expression expression : getExpressionList()) {
+            sb.append(sp).append(expression.toJava(cc));
+            sp = ",";
+        }
+        sb.append("""
+                );
+                _pc++;
+                """);
+        return sb.toString();
+    }
 
     @Override
     public void execute(final Interpreter interpreter)

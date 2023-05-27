@@ -1,10 +1,15 @@
 package com.scriptbasic.syntax;
 
+import com.scriptbasic.context.CompilerContext;
 import com.scriptbasic.executors.commands.AbstractCommand;
 import com.scriptbasic.executors.commands.CommandSub;
 import com.scriptbasic.spi.Command;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public final class BasicProgram extends AbstractBasicProgramPostprocessing {
 
@@ -54,6 +59,52 @@ public final class BasicProgram extends AbstractBasicProgramPostprocessing {
     @Override
     public Command getNamedCommand(final String name) {
         return subroutineMap.get(name);
+    }
+
+    @Override
+    public String toJava(CompilerContext cc) {
+        int i = 0;
+        for (final var command : commands) {
+            cc.nr.put(command, i);
+            i++;
+        }
+
+        final var sb = new StringBuilder();
+        sb.append("""
+                package com.scriptbasic.compiled.my;
+                import com.scriptbasic.api.ScriptBasicException;
+                import com.scriptbasic.executors.rightvalues.BasicArrayValue;
+                import com.scriptbasic.spi.Interpreter;
+                        
+                public class BasicCode {
+                        
+                public void run() throws ScriptBasicException {
+                    run(%d); // the program counter
+                    }
+                    
+                public void run(int _pc) throws ScriptBasicException {        
+                    
+                    while(true){
+                    switch( _pc ){
+                """.formatted(cc.nr.get(getFirstCommand()))
+        );
+        i = 0;
+        for (final var command : commands) {
+            sb.append("""
+                    case %d:                                        
+                    """.formatted(i));
+            sb.append(command.toJava(cc));
+            sb.append("""
+                        break;
+                    """);
+            i++;
+        }
+
+        sb.append("""
+                default: return;
+                }}}}
+                """);
+        return sb.toString();
     }
 
 }

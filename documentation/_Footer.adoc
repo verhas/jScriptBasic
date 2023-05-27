@@ -1,0 +1,3 @@
+image:https://travis-ci.org/verhas/jScriptBasic.svg[Build Status,link=https://travis-ci.org/verhas/jScriptBasic]
+
+link:./home.html[home](https://github.com/verhas/jScriptBasic/wiki) link:./language.html[language](basic) link:./embed.html[embed](advanced) link:./src.html[src](https://github.com/verhas/jScriptBasic)

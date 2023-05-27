@@ -1,7 +1,9 @@
 package com.scriptbasic.spi;
 
 import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.context.CompilerContext;
 import com.scriptbasic.interfaces.AnalysisResult;
+import com.scriptbasic.interfaces.Compiler;
 import com.scriptbasic.interfaces.Executor;
 
 /**
@@ -26,8 +28,9 @@ import com.scriptbasic.interfaces.Executor;
  * @author Peter Verhas
  * date June 15, 2012
  */
-public interface Command extends AnalysisResult, Executor {
+public interface Command extends AnalysisResult, Executor, Compiler {
     Command getNextCommand();
 
     void checkedExecute(Interpreter interpreter) throws ScriptBasicException;
+
 }

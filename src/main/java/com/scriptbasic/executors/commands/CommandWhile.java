@@ -1,6 +1,7 @@
 package com.scriptbasic.executors.commands;
 
 import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.context.CompilerContext;
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.executors.rightvalues.BasicBooleanValue;
 import com.scriptbasic.interfaces.BasicRuntimeException;
@@ -30,6 +31,22 @@ public class CommandWhile extends AbstractCommand {
 
     private void jumpAfterTheWendCommand(final Interpreter interpreter) {
         interpreter.setNextCommand(getWendNode().getNextCommand());
+    }
+
+    @Override
+    public String toJava(CompilerContext cc) {
+        final var sb = new StringBuilder();
+        sb.append("if(").append(getCondition().toJava(cc)).append("){\n");
+        sb.append("  _pc++;\n");
+        sb.append("  } else {\n");
+        final var commandAfterWend = getWendNode().getNextCommand();
+        if (commandAfterWend == null) {
+            sb.append("return;\n");
+        } else {
+            sb.append("_pc=%d;\n".formatted(cc.nr.get(commandAfterWend)));
+        }
+        sb.append("}");
+        return sb.toString();
     }
 
     @Override

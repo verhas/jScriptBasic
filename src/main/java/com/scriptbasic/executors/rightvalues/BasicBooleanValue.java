@@ -1,5 +1,6 @@
 package com.scriptbasic.executors.rightvalues;
 
+import com.scriptbasic.context.CompilerContext;
 import com.scriptbasic.interfaces.BasicRuntimeException;
 import com.scriptbasic.spi.RightValue;
 

@@ -1,6 +1,7 @@
 package com.scriptbasic.executors.operators;
 
 import com.scriptbasic.api.ScriptBasicException;
+import com.scriptbasic.context.CompilerContext;
 import com.scriptbasic.executors.AbstractIdentifieredExpression;
 import com.scriptbasic.executors.rightvalues.AbstractPrimitiveRightValue;
 import com.scriptbasic.executors.rightvalues.ArrayElementAccess;
@@ -190,5 +191,10 @@ public class JavaObjectFieldAccessOperator extends AbstractBinaryOperator {
                     "Field access operator is not implemented to handle variable field.");
         }
         return result;
+    }
+
+    @Override
+    protected String operatorToJava(final CompilerContext cc) {
+        return ".";
     }
 }

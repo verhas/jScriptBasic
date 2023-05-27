@@ -1,10 +1,15 @@
 package com.scriptbasic.executors.operators;
 
+import com.scriptbasic.context.CompilerContext;
 import com.scriptbasic.executors.rightvalues.BasicDoubleValue;
 import com.scriptbasic.executors.rightvalues.BasicLongValue;
 import com.scriptbasic.spi.RightValue;
 
 public class DivideOperator extends AbstractBinaryFullCircuitHalfDoubleOperator {
+    @Override
+    protected String operatorToJava(final CompilerContext cc) {
+        return "/";
+    }
 
     @Override
     protected RightValue operateOnDoubleDouble(final Double a, final Double b) {
