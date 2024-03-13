@@ -18,10 +18,10 @@ public class BasicStringValue extends AbstractPrimitiveRightValue<String> {
             if (rv == null
                     || ((AbstractPrimitiveRightValue<Object>) rv).getValue() == null) {
                 resultString = "undef";
-            } else if (rv.isString() || rv.isNumeric() || rv.isBoolean()
-                    || rv.isJavaObject()) {
-                resultString = ((AbstractPrimitiveRightValue<Object>) rv)
-                        .getValue().toString();
+            } else if (rv.isString()) {
+                resultString = ((BasicStringValue) rv).getValue();
+            } else if (rv.isNumeric() || rv.isBoolean() || rv.isJavaObject()) {
+                resultString = ((AbstractPrimitiveRightValue<Object>) rv).toString();
             } else {
                 throw new BasicRuntimeException("Can not convert value to string");
             }

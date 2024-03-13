@@ -62,4 +62,9 @@ public class AddOperator extends AbstractBinaryFullCircuitHalfDoubleOperator {
         return "Plus";
     }
 
+    @Override
+    protected RightValue operateOnDate(Long a, Long b) {
+        return BasicDateValue.fromLong(a+b);
+    }
+
 }

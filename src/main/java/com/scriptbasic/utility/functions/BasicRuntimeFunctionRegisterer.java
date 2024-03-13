@@ -19,7 +19,8 @@ public class BasicRuntimeFunctionRegisterer {
     private static final Logger LOG = LoggerFactory.getLogger();
     private static final Set<Class<?>> basicRuntimeFunctionClasses = Set.of(
             ErrorFunctions.class, StringFunctions.class,
-            UtilityFunctions.class, MathFunctions.class);
+            UtilityFunctions.class, MathFunctions.class,
+            DateFunctions.class);
 
     private BasicRuntimeFunctionRegisterer() {
         NoInstance.isPossible();

@@ -174,6 +174,11 @@ public class TestPrograms {
     }
 
     @Test
+    public void testDateFunctions() throws Exception {
+        codeTest("TestDateFunctions.bas", "DONE");
+    }
+
+    @Test
     public void testJavaObjectFieldAccess() throws ScriptBasicException, ClassNotFoundException, AnalysisException {
         final var e = new TestingExecutor();
         final var t = new TestAccessFields();
